@@ -27,6 +27,42 @@
 
   <body id="page-top">
 
+    <!-- script for the poster slider -->
+    <script>
+      var slideIndex = 1;
+      showSlides(slideIndex);
+
+      // Next/previous controls
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+
+      // Thumbnail image controls
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " active";
+      } 
+
+    </script>
+
+
+
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
@@ -217,6 +253,12 @@
       </div>
     </section>
 
+
+
+
+
+
+
     <!-- Poster -->
     <section class="bg-light" id="poster">
       <div class="container">
@@ -226,25 +268,70 @@
             <h3 class="section-subheading text-muted">buy the poster maaaaaateeeeee</h3>
           </div>
         </div>
-        <p style="text-align:center;"><img src="img/poster/poster.png" alt="From data to viz" style="width:60%;height:60%;""></p>
+        
+
+        <!-- Slideshow container -->
+        <div class="slideshow-container">
+
+          <!-- Full-width images with number and caption text -->
+          <div class="mySlides fade">
+            <img src="img/poster/poster.png" style="width:60%;height:60%;">
+            <div class="text">Caption Text</div>
+          </div>
+
+          <div class="mySlides fade">
+            <img src="img/poster/poster.png" style="width:60%;height:60%;">
+            <div class="text">Caption Two</div>
+          </div>
+
+          <div class="mySlides fade">
+            <img src="img/poster/poster.png" style="width:60%;height:60%;">
+            <div class="text">Caption Three</div>
+          </div>
+
+          <!-- Next and previous buttons -->
+          <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+          <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+        </div> 
+
+
+        <!--  <p style="text-align:center;"><img src="img/poster/poster.png" alt="From data to viz" style="width:60%;height:60%;"></p> -->
       </div>
     </section>
+
+
+
+
+
+
+
+
+
 
     <!-- Team -->
     <section  id="team">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
+            <h2 class="section-heading text-uppercase">Who are we?</h2>
             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
           </div>
         </div>
         <div class="row">
-          <div class="col-sm-4">
+          <div class="col-sm-1"></div>
+          <div class="col-sm-5">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/1.jpg" alt="">
-              <h4>Kay Garland</h4>
-              <p class="text-muted">Lead Designer</p>
+              <img class="mx-auto rounded-circle" src="img/team/YanHoltz.jpg" alt="">
+              <h4>Yan Holtz</h4>
+              <p class="text-muted">Data scientist</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -264,11 +351,11 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-4">
+          <div class="col-sm-5">
             <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/2.jpg" alt="">
-              <h4>Larry Parker</h4>
-              <p class="text-muted">Lead Marketer</p>
+              <img class="mx-auto rounded-circle" src="img/team/ConorHealy.jpg" alt="">
+              <h4>Conor Healy</h4>
+              <p class="text-muted">Designer</p>
               <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
                   <a href="#">
@@ -288,30 +375,7 @@
               </ul>
             </div>
           </div>
-          <div class="col-sm-4">
-            <div class="team-member">
-              <img class="mx-auto rounded-circle" src="img/team/3.jpg" alt="">
-              <h4>Diana Pertersen</h4>
-              <p class="text-muted">Lead Developer</p>
-              <ul class="list-inline social-buttons">
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="#">
-                    <i class="fa fa-linkedin"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <div class="col-sm-1"></div>
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto text-center">
