@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<!-- Load d3.js  -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+
+
+
+
+<!-- My javascript functions  -->
+<script>
+
+//A function to make the background black
+function makeblack(){ 
+	d3.select('body')
+		.transition()
+		.style('background-color', 'grey') 
+		.duration(1750)
+		.delay(1000)
+}
+
+//A function to move the pie chart logo
+function movepie(){ 
+	d3.select("#pielogo")
+		.transition()
+		.style('fill', 'red') 
+		.attr("cx", 412)
+		.duration(1750)
+		.delay(10)
+}
+
+//A function to move the pie chart logo back
+function movepie2(){ 
+	d3.select("#pielogo")
+		.transition()
+		.style('fill', 'black') 
+		.attr("cx", 528)
+		.duration(1750)
+		.delay(10)
+}
+
+var circleData = [
+   { "cx": 20, "cy": 20, "radius": 20, "color" : "green" },
+   { "cx": 70, "cy": 70, "radius": 20, "color" : "purple" }];
+
+var rectangleData = [
+   { "rx": 110, "ry": 110, "height": 30, "width": 30, "color" : "blue" },
+   { "rx": 160, "ry": 160, "height": 30, "width": 30, "color" : "red" }];
+ 
+d3.select("body").append("svg")
+                       .append("circle")          
+                       .attr("cx", 10)
+                        .attr("cy", 10)
+                        .attr("r", 10)
+                        .style("fill", 'blue')
+                        .transition()
+                        .style("fill", 'red')    
+                        .duration(1750)  
+                        .transition()
+                        .attr("transform", "translate(80,0)");  
+
+
+var svgContainer = d3.select("body").append("svg")
+                                    .attr("width",200)
+                                     .attr("height",200);
+
+var circleGroup = svgContainer.append("g");          
+
+var circles = circleGroup.selectAll("circle")
+                          .data(circleData)
+                          .enter()
+                          .append("circle");
+var circleAttributes = circles
+                       .attr("cx", function (d) { return d.cx; })
+                       .attr("cy", function (d) { return d.cy; })
+                       .attr("r", function (d) { return d.radius; })
+                       .style("fill", function (d) { return d.color; });
+
+var circleGroup = svgContainer.append("g")
+                               .attr("transform", "translate(80,0)");                       
+
+
+</script>
+
+
+
+
+
+
+
+<style>
+
+#donutlogo:hover {
+  fill: #ace63c; 
+  stroke: pink;
+  stroke-width: 5
+}
+
+#donutfull {
+	stroke: green;
+  	stroke-width: 5
+}
+</style>
+
+
+
+
+
+
+
+
+<!-- test svg link -->
+<code><a xlink:href= "http://example.com/link/" xlink:title="The link opens an example page in a new tab/window" '''xlink:show="new"'''>
+  <text x="10" y="25" >An example link.</text>
+</a></code>
+
+
+
+<!-- My HTML  -->
+<h2>What Can JavaScript Do?</h2>
+
+
+
+
+<!-- My svg image -->
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="CatAndNumTree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+	 y="0px" width="595.28px" height="1133.858px" viewBox="0 0 595.28 1133.858" enable-background="new 0 0 595.28 1133.858"
+	 xml:space="preserve">
+<g>
+
+	<g>
+		<circle id='donutlogo' fill="#666666" cx="528.102" cy="755.252" r="32.598"/>
+		<g id='donutfull'>
+			<path fill="#F79298" d="M556.447,805.252c0,15.656-12.688,28.346-28.346,28.346c-15.656,0-28.346-12.689-28.346-28.346
+				c0-1,0.047-1.99,0.156-2.969l11.742,1.238c-0.059,0.572-0.09,1.146-0.09,1.73c0,9.129,7.406,16.537,16.537,16.537
+				c9.137,0,16.537-7.408,16.537-16.537c0-2.355-0.496-4.598-1.385-6.627l10.824-4.736
+				C555.604,797.365,556.447,801.213,556.447,805.252z"/>
+			<path fill="#F4646D" d="M536.639,778.213l-3.559,11.264c-1.568-0.498-3.244-0.764-4.979-0.764
+				c-8.547,0-15.584,6.484-16.449,14.809l-11.744-1.238c1.484-14.26,13.541-25.379,28.193-25.379
+				C531.076,776.904,533.945,777.363,536.639,778.213z"/>
+			<path fill="#FDE8EB" d="M544.637,805.252c0,9.135-7.402,16.539-16.535,16.539s-16.537-7.404-16.537-16.539
+				c0-0.584,0.029-1.158,0.088-1.73c0.865-8.324,7.902-14.809,16.449-14.809c1.734,0,3.41,0.266,4.979,0.764
+				c4.566,1.441,8.277,4.807,10.172,9.148C544.139,800.654,544.637,802.896,544.637,805.252z"/>
+			<path fill="#F22D32" d="M554.076,793.889l-10.824,4.736c-1.895-4.342-5.605-7.707-10.172-9.148l3.559-11.264
+				C544.463,780.682,550.818,786.453,554.076,793.889z"/>
+		</g>
+	</g>
+
+
+
+	<g id='totallogo' >
+		<circle id='pielogo' fill="#666666" cx="528.102" cy="1069.277" r="32.598"/>
+		<g>
+			<path fill="#FAC5C9" d="M945.387,1091.742c-4.783,3.691-10.777,5.882-17.183,5.881c-9.133,0-17.248-4.316-22.432-11.016
+				l22.432-17.328L545.387,1091.742z"/>
+			<path fill="#F79298" d="M556.449,1069.279c0,6.809-2.402,13.064-6.406,17.947l-21.939-17.947l-14.377-24.439
+				c4.217-2.482,9.129-3.91,14.377-3.91C543.758,1040.93,556.449,1053.621,556.449,1069.279z"/>
+			<path fill="#F22D32" d="M528.104,1069.279l-22.432,17.328c-3.709-4.791-5.916-10.805-5.916-17.328
+				c0-10.41,5.611-19.508,13.971-24.439L528.104,1069.279z"/>
+			<path fill="#F4646D" d="M550.043,1087.227c-1.377,1.676-2.934,3.195-4.656,4.516l-17.283-22.463L550.043,1087.227z"/>
+		</g>
+	</g>
+
+</g>
+</svg>
+
+
+<!-- My buttons to do stuff -->
+<button onclick=makeblack()>Turn on the light</button>
+<button onclick=movepie()>Move Pie chart logo</button>
+<button onclick=movepie2()>Pie back</button>
+
+
+<script>
+	
+// Take the pie chart logo and move it higher
+d3.select("#totallogo")
+	.transition()
+	.style('fill', 'blue') 
+	.attr("transform", "translate(0,-100)")
+	.duration(2750)
+
+// Do something on click
+d3.select("#totallogo")
+	.on('click', function(d, i) {
+	  	d3.select(this)
+	    	.transition()
+	    	.attr("transform", "translate(0,-100)");
+	})
+
+
+</script>
+
+</body>
+</html>
+
+
