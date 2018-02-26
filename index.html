@@ -5,10 +5,10 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="A datavisualization tool that leads you from your data to the graphic you need." content="">
+    <meta name="Yan Holtz & Conor Healy" content="">
 
-    <title>Agency - Start Bootstrap Theme</title>
+    <title>Data to Viz</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -27,10 +27,13 @@
 
   <body id="page-top">
 
+
+
+
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Start Bootstrap</a>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">from Data to Viz</a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
           Menu
           <i class="fa fa-bars"></i>
@@ -38,13 +41,13 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Services</a>
+              <a class="nav-link js-scroll-trigger" href="#services">Explore</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#portfolio">Portfolio</a>
+              <a class="nav-link js-scroll-trigger" href="#portfolio">All</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#about">About</a>
+              <a class="nav-link js-scroll-trigger" href="#about">Poster</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#team">Team</a>
@@ -62,46 +65,65 @@
       <div class="container">
         <div class="intro-text">
           <div class="intro-lead-in">Welcome To Our Studio!</div>
-          <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
+          <div class="intro-heading text-uppercase">from Data to Viz</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
         </div>
       </div>
     </header>
+
+
 
     <!-- Services -->
     <section id="services">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Services</h2>
-            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+            <h3 class="section-subheading text-muted">How does your data look like?</h3>
           </div>
         </div>
         <div class="row text-center">
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
+          
+          <div class="col-md-2 offset-md-1">
+            <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-shopping-cart fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">E-Commerce</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <h4 class="service-heading">Numeric</h4>
           </div>
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
+          
+          <div class="col-md-2">
+            <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">Responsive Design</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <h4 class="service-heading">Categoric</h4>
           </div>
-          <div class="col-md-4">
-            <span class="fa-stack fa-4x">
+          
+          <div class="col-md-2">
+            <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
+              <i class="fa fa-certificate fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">Web Security</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+            <button class="astext" onMouseOver=show_NumFact()>Num & Cat</button>
           </div>
+        
+          
+          <div class="col-md-2">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">Geographical</h4>
+          </div>
+
+          <div class="col-md-2">
+            <span class="fa-stack fa-3x">
+              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+              <i class="fa fa-tree fa-stack-1x fa-inverse"></i>
+            </span>
+            <h4 class="service-heading">Hierarchical</h4>
+          </div>
+
         </div>
       </div>
     </section>
@@ -110,48 +132,62 @@
 
 
     <!-- Tree Style-->
-<style>
+    <style>
 
-#CatAndNumTree{
-  display: inline;
-}
+    .graphtypelogo:hover{
+      stroke-width: 3;
+      stroke: white;
+      color: blue
+    }
 
+    #NumCat{
+      color: red;
+    }
 
-.graphtypelogo:hover{
-  stroke: grey;
-  stroke-width: 15;
-}
+    .astext {
+    background:none;
+    border:none;
+    font-weight: 900;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
 
-
-</style>
+    </style>
 
 
 
 
     <!-- Tree Javascript-->
-<script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
-<script>
-function show_NumFact(){ 
-  d3.select('#CatAndNumTree')
-    .transition()
-    .style("opacity", 1) 
-    .duration(1000)
-    .delay(000)
-}
-function hide_NumFact(){ 
-  d3.select('#CatAndNumTree')
-    .transition()
-    .style("opacity", .01)
-    .duration(1000)
-    .delay(000)
-}
-</script>
+    <script>
+    function show_NumFact(){ 
+      d3.select('#CatAndNumTree')
+        .transition()
+        .style("opacity", 1) 
+        .duration(1000)
+        .delay(000)
+    }
+    function hide_NumFact(){ 
+      d3.select('#CatAndNumTree')
+        .transition()
+        .style("opacity", .01)
+        .duration(1000)
+        .delay(000)
+    }
+
+      d3.select('#NumCat')
+            .transition()
+            .duration(1750)
+            .style("color", "steelblue")
 
 
-<!-- button -->
-<button onMouseOver=show_NumFact()>Num and factor show</button>
-<button onMouseOver=hide_NumFact()>Num and factor hide</button>
+
+    </script>
+
+
+    <!-- button -->
+    <button onMouseOver=show_NumFact()>Num and factor show</button>
+    <button onMouseOver=hide_NumFact()>Num and factor hide</button>
 
 
             
@@ -165,6 +201,8 @@ function hide_NumFact(){
 <svg version="1.1" id="CatAndNumTree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
    y="0px" width="595.28px" height="1133.858px" >
 <g>
+
+
   <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="161.428,277.174 
     129.514,295.6 129.514,630.773   "/>
   <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="294.291,277.175 
@@ -173,7 +211,10 @@ function hide_NumFact(){
     <line fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="395.238" y1="442.723" x2="395.238" y2="721.969"/>
   
     <line fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" x1="528.102" y1="442.723" x2="528.102" y2="1064.078"/>
-  <g>
+ 
+
+
+  <g class="graphtypelogo">
     <circle fill="#666666" cx="528.102" cy="981.27" r="32.598"/>
     <g>
       <path fill="#FAC5C9" d="M528.102,952.922c-15.656,0-28.346,12.691-28.346,28.348s12.689,28.346,28.346,28.346
@@ -220,26 +261,26 @@ function hide_NumFact(){
     </g>
   </g>
   <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-  <g>
-    <circle class="graphtypelogo" fill="#666666" cx="528.102" cy="805.252" r="36.598"/>
-    <g>
-      <path fill="#F79298" d="M556.447,805.252c0,15.656-12.688,28.346-28.346,28.346c-15.656,0-28.346-12.689-28.346-28.346
-        c0-1,0.047-1.99,0.156-2.969l11.742,1.238c-0.059,0.572-0.09,1.146-0.09,1.73c0,9.129,7.406,16.537,16.537,16.537
-        c9.137,0,16.537-7.408,16.537-16.537c0-2.355-0.496-4.598-1.385-6.627l10.824-4.736
-        C555.604,797.365,556.447,801.213,556.447,805.252z"/>
-      <path fill="#F4646D" d="M536.639,778.213l-3.559,11.264c-1.568-0.498-3.244-0.764-4.979-0.764
-        c-8.547,0-15.584,6.484-16.449,14.809l-11.744-1.238c1.484-14.26,13.541-25.379,28.193-25.379
-        C531.076,776.904,533.945,777.363,536.639,778.213z"/>
-      <path fill="#FDE8EB" d="M544.637,805.252c0,9.135-7.402,16.539-16.535,16.539s-16.537-7.404-16.537-16.539
-        c0-0.584,0.029-1.158,0.088-1.73c0.865-8.324,7.902-14.809,16.449-14.809c1.734,0,3.41,0.266,4.979,0.764
-        c4.566,1.441,8.277,4.807,10.172,9.148C544.139,800.654,544.637,802.896,544.637,805.252z"/>
-      <path fill="#F22D32" d="M554.076,793.889l-10.824,4.736c-1.895-4.342-5.605-7.707-10.172-9.148l3.559-11.264
-        C544.463,780.682,550.818,786.453,554.076,793.889z"/>
+    <g class="graphtypelogo">
+      <circle  fill="#666666" cx="528.102" cy="805.252" r="32.598"/>
+      <g>
+        <path fill="#F79298" d="M556.447,805.252c0,15.656-12.688,28.346-28.346,28.346c-15.656,0-28.346-12.689-28.346-28.346
+          c0-1,0.047-1.99,0.156-2.969l11.742,1.238c-0.059,0.572-0.09,1.146-0.09,1.73c0,9.129,7.406,16.537,16.537,16.537
+          c9.137,0,16.537-7.408,16.537-16.537c0-2.355-0.496-4.598-1.385-6.627l10.824-4.736
+          C555.604,797.365,556.447,801.213,556.447,805.252z"/>
+        <path fill="#F4646D" d="M536.639,778.213l-3.559,11.264c-1.568-0.498-3.244-0.764-4.979-0.764
+          c-8.547,0-15.584,6.484-16.449,14.809l-11.744-1.238c1.484-14.26,13.541-25.379,28.193-25.379
+          C531.076,776.904,533.945,777.363,536.639,778.213z"/>
+        <path fill="#FDE8EB" d="M544.637,805.252c0,9.135-7.402,16.539-16.535,16.539s-16.537-7.404-16.537-16.539
+          c0-0.584,0.029-1.158,0.088-1.73c0.865-8.324,7.902-14.809,16.449-14.809c1.734,0,3.41,0.266,4.979,0.764
+          c4.566,1.441,8.277,4.807,10.172,9.148C544.139,800.654,544.637,802.896,544.637,805.252z"/>
+        <path fill="#F22D32" d="M554.076,793.889l-10.824,4.736c-1.895-4.342-5.605-7.707-10.172-9.148l3.559-11.264
+          C544.463,780.682,550.818,786.453,554.076,793.889z"/>
+      </g>
     </g>
-  </g>
-</a>
-  <g>
-    <circle class="graphtypelogo" fill="#666666" cx="528.102" cy="629.236" r="32.598"/>
+  </a>
+  <g class="graphtypelogo">
+    <circle fill="#666666" cx="528.102" cy="629.236" r="32.598"/>
     <g>
       <path fill="#E4F3C6" d="M528.102,600.889c-15.656,0-28.346,12.691-28.346,28.346c0,15.656,12.689,28.348,28.346,28.348
         c15.654,0,28.346-12.691,28.346-28.348C556.447,613.58,543.756,600.889,528.102,600.889"/>
@@ -257,8 +298,8 @@ function hide_NumFact(){
         <rect x="529.518" y="610.336" fill="none" stroke="#9BCB47" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="7.086" height="30.713"/>
     </g>
   </g>
-  <g>
-    <circle class="graphtypelogo" fill="#666666" cx="528.102" cy="717.244" r="32.598"/>
+  <g class="graphtypelogo">
+    <circle  fill="#666666" cx="528.102" cy="717.244" r="32.598"/>
     <g>
       <path fill="#E4F3C6" d="M528.104,688.896c-15.654,0-28.348,12.691-28.348,28.348c0,15.654,12.693,28.346,28.348,28.346
         c15.656,0,28.344-12.691,28.344-28.346C556.447,701.588,543.76,688.896,528.104,688.896"/>
@@ -345,7 +386,7 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <circle fill="#666666" cx="528.102" cy="1069.277" r="32.598"/>
     <g>
       <path fill="#FAC5C9" d="M545.387,1091.742c-4.783,3.691-10.777,5.881-17.283,5.881c-9.133,0-17.248-4.316-22.432-11.016
@@ -357,7 +398,7 @@ function hide_NumFact(){
       <path fill="#F4646D" d="M550.043,1087.227c-1.377,1.676-2.934,3.195-4.656,4.516l-17.283-22.463L550.043,1087.227z"/>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <circle fill="#666666" cx="528.102" cy="893.262" r="32.598"/>
     <g>
       <path fill="#F9ABAD" d="M556.449,893.26c0,15.656-12.689,28.348-28.348,28.348c-15.652,0-28.346-12.691-28.346-28.348
@@ -394,7 +435,7 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M162.112,541.229c0,18.006-14.597,32.598-32.597,32.598c-18.004,0-32.6-14.592-32.6-32.598
       c0-18.004,14.596-32.6,32.6-32.6C147.516,508.629,162.112,523.225,162.112,541.229z"/>
     <g>
@@ -441,7 +482,7 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M162.112,629.236c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
       c0-18.002,14.598-32.6,32.6-32.6C147.515,596.637,162.112,611.234,162.112,629.236z"/>
     <g>
@@ -467,7 +508,7 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <circle fill="#666666" cx="262.376" cy="541.229" r="32.598"/>
     <g>
       <path fill="#FCD0D3" d="M290.724,541.227c0,15.658-12.69,28.348-28.346,28.348c-15.658,0-28.348-12.689-28.348-28.348
@@ -485,7 +526,7 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M294.974,629.236c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
       c0-18.002,14.598-32.598,32.6-32.598C280.376,596.639,294.974,611.234,294.974,629.236z"/>
     <g>
@@ -515,7 +556,7 @@ function hide_NumFact(){
         <rect x="263.788" y="610.34" fill="none" stroke="#FFFFFF" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="7.09" height="30.709"/>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M427.838,717.244c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
       c0-18,14.598-32.598,32.6-32.598C413.24,684.646,427.838,699.244,427.838,717.244z"/>
     <g>
@@ -545,7 +586,7 @@ function hide_NumFact(){
         <rect x="390.514" y="707.793" fill="none" stroke="#9BCB47" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" width="18.9" height="18.9"/>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M427.838,629.236c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
       c0-18.002,14.598-32.598,32.6-32.598C413.24,596.639,427.838,611.234,427.838,629.236z"/>
     <g>
@@ -559,7 +600,7 @@ function hide_NumFact(){
         c0,2.359,7.088,0,7.088,2.359c0,2.367-4.725,0-4.725,7.09C399.965,650.496,395.24,648.135,395.24,652.857z"/>
     </g>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <path fill="#666666" d="M427.838,541.229c0,18.006-14.598,32.596-32.598,32.596c-18.002,0-32.6-14.59-32.6-32.596
       c0-18,14.598-32.598,32.6-32.598C413.24,508.631,427.838,523.229,427.838,541.229z"/>
     <g>
@@ -637,17 +678,21 @@ function hide_NumFact(){
       </g>
     </g>
   </g>
-  <g>
+
+
+
+
+  <g >
     <polygon fill="#666666" points="277.062,61.856 328.807,31.983 380.551,61.856 380.551,121.606 328.807,151.481 277.062,121.606 
           "/>
     <text transform="matrix(1 0 0 1 292.5557 81.876)"><tspan x="0" y="0" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">CATEGORICAL</tspan><tspan x="32.255" y="12.96" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">&amp;</tspan><tspan x="11.496" y="25.92" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">NUMERIC</tspan></text>
   </g>
-  <g>
+  <g >
     <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
       360.721,382.937 395.238,363.009 429.756,382.937 429.756,422.795 395.238,442.723 360.721,422.795     "/>
     <text transform="matrix(1 0 0 1 376.6523 400.0522)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">SEVERAL</tspan><tspan x="-10.287" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">OBS / GROUP</tspan></text>
   </g>
-  <g>
+  <g >
     <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
       427.152,237.316 461.67,217.389 496.188,237.316 496.188,277.174 461.67,297.102 427.152,277.174     "/>
     <text transform="matrix(1 0 0 1 452.0928 243.6309)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">ONE</tspan><tspan x="-11.052" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">NUMERIC</tspan><tspan x="-4.5" y="21.6" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">&amp; ONE</tspan><tspan x="-7.608" y="32.4" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">FACTOR</tspan></text>
@@ -662,6 +707,10 @@ function hide_NumFact(){
       161.428,237.316 195.944,217.389 230.461,237.316 230.461,277.174 195.944,297.102 161.428,277.174     "/>
     <text transform="matrix(1 0 0 1 185.6006 243.6318)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">TWO</tspan><tspan x="-10.285" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">NUMERIC</tspan><tspan x="-3.733" y="21.6" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">&amp; ONE</tspan><tspan x="-6.843" y="32.4" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">FACTOR</tspan></text>
   </g>
+
+
+
+
   <g>
     <text transform="matrix(1 0 0 1 448.4668 631.873)" font-family="'OpenSans'" font-size="9">BAR PLOT</text>
     <text transform="matrix(1 0 0 1 448.0625 719.8799)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">CIRCULAR</tspan><tspan x="0.404" y="10.8" font-family="'OpenSans'" font-size="9">BAR PLOT</tspan></text>
@@ -678,7 +727,7 @@ function hide_NumFact(){
     <text transform="matrix(1 0 0 1 318.2412 543.8643)" font-family="'OpenSans'" font-size="9">JOY PLOT</text>
     <text transform="matrix(1 0 0 1 314.6602 719.8809)" font-family="'OpenSans'" font-size="9">BOX PLOT</text>
   </g>
-  <g>
+  <g class="graphtypelogo">
     <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
       493.584,382.937 528.102,363.009 562.619,382.937 562.619,422.795 528.102,442.723 493.584,422.795     "/>
     <text transform="matrix(1 0 0 1 518.5225 400.0532)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">ONE</tspan><tspan x="-19.296" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">OBS / GROUP</tspan></text>
