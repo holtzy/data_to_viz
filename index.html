@@ -64,12 +64,18 @@
     <header class="masthead">
       <div class="container">
         <div class="intro-text">
-          <div class="intro-lead-in">A decision tree for data anlysis</div>
+          <div class="intro-lead-in">A decision tree for data analysis</div>
           <div class="intro-heading text-uppercase">from Data to Viz</div>
           <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
         </div>
       </div>
     </header>
+
+
+
+
+
+
 
 
 
@@ -83,7 +89,7 @@
         </div>
         <div class="row text-center">
           
-          <div class="col-md-2 offset-md-1">
+          <div id="numericHead" class="col-md-2 offset-md-1 treeHead" onMouseOver="showTree('catnum'); highlightHead('numericHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
@@ -91,7 +97,7 @@
             <h4 class="service-heading">Numeric</h4>
           </div>
           
-          <div class="col-md-2">
+          <div id="categoricHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('categoricHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
@@ -99,16 +105,15 @@
             <h4 class="service-heading">Categoric</h4>
           </div>
           
-          <div class="col-md-2">
+          <div id="numcatHead" class="col-md-2 treeHead" onMouseOver="showTree('catnum'); highlightHead('numcatHead');">
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-certificate fa-stack-1x fa-inverse"></i>
             </span>
-            <button class="astext" onMouseOver=show_NumFact()>Num & Cat</button>
+            <h4 class="service-heading">Num & Cat</h4>
           </div>
-        
-          
-          <div class="col-md-2">
+              
+          <div id="geographicalHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('geographicalHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
@@ -116,42 +121,32 @@
             <h4 class="service-heading">Geographical</h4>
           </div>
 
-          <div class="col-md-2">
+          <div id="relationnalHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('relationnalHead');"  >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-tree fa-stack-1x fa-inverse"></i>
             </span>
-            <h4 class="service-heading">Hierarchical</h4>
+            <h4 class="service-heading">Relationnal</h4>
           </div>
 
         </div>
       </div>
-    </section>
 
 
 
+<style>
 
-    <!-- Tree Style-->
-    <style>
+.treeHead {
+  border-style: solid; 
+  border-color: rgba(0, 0, 0, 0);
+}
 
-    .graphtypelogo:hover{
-      stroke-width: 3;
-      stroke: white;
-      color: blue
-    }
+.tree {
+  opacity: 0;
+}
 
-    #NumCat{
-      color: red;
-    }
+</style>
 
-    .astext {
-    background:none;
-    border:none;
-    font-weight: 900;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-
-    </style>
 
 
 
@@ -175,19 +170,66 @@
         .delay(000)
     }
 
-      d3.select('#NumCat')
-            .transition()
-            .duration(1750)
-            .style("color", "steelblue")
+
+
+
+    function highlightHead(id){     
+
+      console.log(id)
+      
+      // Hide all the heads, except the selected one.
+      var x, i;
+      x = document.getElementsByClassName("treeHead");
+      console.log(x)
+      for (i = 0; i < x.length; i++) {
+        console.log(i)
+        if (id!=x[i].id){
+          console.log(x[i].id)
+          d3.select("#" + x[i].id)
+                  .transition()
+                  .duration(750)
+                  .style("border-color", "rgba(0, 0, 0, 0)")
+        }
+      }
+      
+      //Show the selected border
+      d3.select("#" + id)
+           .transition()
+           .duration(750)
+           .style("border-color", "rgba(0, 0, 0, 1)")
+    }
+
+
+
+
+    function showTree(id){     
+      
+      // Hide all the tree AND set its opacity to 0. except for the selected one.
+      var x, i;
+      x = document.getElementsByClassName("tree");
+      for (i = 0; i < x.length; i++) {
+        if (id!=x[i].id){
+          d3.select("#" + x[i].id).style("opacity", 0)
+          document.getElementById(x[i].id).style.display = 'none';   
+        }
+      }
+      
+      //Show the selected tree
+      document.getElementById(id).style.display = 'block';
+
+      //Change its opacity
+      d3.select("#" + id)
+        .transition()
+        .style("opacity", 1)
+        .duration(1000)
+        .delay(000)
+
+    }
+
 
 
 
     </script>
-
-
-    <!-- button -->
-    <button onMouseOver=show_NumFact()>Num and factor show</button>
-    <button onMouseOver=hide_NumFact()>Num and factor hide</button>
 
 
             
@@ -197,7 +239,7 @@
 
 
 <!-- Categorical And Numerical -->
-<div style="text-align:center;">
+<div id="catnum" class="tree" style="text-align:center;">
 <svg version="1.1" id="CatAndNumTree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
    y="0px" width="595.28px" height="1133.858px" >
 <g>
@@ -260,6 +302,12 @@
       </g>
     </g>
   </g>
+
+
+
+
+
+
   <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
     <g class="graphtypelogo">
       <circle  fill="#666666" cx="528.102" cy="805.252" r="32.598"/>
@@ -279,6 +327,11 @@
       </g>
     </g>
   </a>
+
+
+
+
+
   <g class="graphtypelogo">
     <circle fill="#666666" cx="528.102" cy="629.236" r="32.598"/>
     <g>
@@ -750,8 +803,8 @@
 
 
 
-<!-- Categorical And Numerical -->
-<div style="text-align:center;">
+<!-- Relationnal -->
+<div id="relationnal" class="tree" style="text-align:center;">
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
@@ -1920,11 +1973,18 @@
 </svg>
 </div>  
 
+    </section>
 
 
 
 
+<script>
 
+//Do not show these trees at the beginning.
+document.getElementById('catnum').style.display = 'none';
+document.getElementById('relationnal').style.display = 'none';
+
+</script>
 
 
 

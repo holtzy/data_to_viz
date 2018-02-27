@@ -797,8 +797,31 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 
+/* ------------------------------------------------------------------------------------------------------------------- */
 
 
+
+    /*Tree Style*/
+
+    .graphtypelogo:hover{
+      stroke-width: 3;
+      stroke: white;
+      color: blue
+    }
+
+    #NumCat{
+      color: red;
+    }
+
+    .astext {
+    background:none;
+    border:none;
+    font-weight: 900;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+
+/* ------------------------------------------------------------------------------------------------------------------- */
 
 
 
