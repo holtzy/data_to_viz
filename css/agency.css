@@ -8,15 +8,15 @@ p {
 }
 
 a {
-  color: #fed136;
+  color: #69b3a2;
 }
 
 a:hover {
-  color: #fec503;
+  color: #251667;
 }
 
 .text-primary {
-  color: #fed136 !important;
+  color: #69b3a2 !important;
 }
 
 h1,
@@ -43,7 +43,7 @@ section h3.section-subheading {
   font-size: 16px;
   font-weight: 400;
   font-style: italic;
-  margin-bottom: 75px;
+  margin-bottom: 45px;
   text-transform: none;
   font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -54,9 +54,13 @@ section h3.section-subheading {
   }
 }
 
+
+
+
+/* ---------- Button ----------------- */
 .btn {
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
+  font-weight: 500;
 }
 
 .btn-xl {
@@ -65,13 +69,15 @@ section h3.section-subheading {
 }
 
 .btn-primary {
-  background-color: #fed136;
-  border-color: #fed136;
+  background-color: transparent;
+  border-color: #69b3a2;
+  color: #69b3a2;
+  border-width: medium;
 }
 
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #fec810 !important;
-  border-color: #fec810 !important;
+  background-color: #69b3a2 !important;
+  border-color: #69b3a2 !important;
   color: white;
 }
 
@@ -79,13 +85,39 @@ section h3.section-subheading {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }
 
+
+.btn-secondary {
+  background-color: transparent;
+  border-color: #69b3a2;
+  color: #69b3a2;
+  border-width: small;
+}
+
+.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+  background-color: #69b3a2 !important;
+  border-color: #69b3a2 !important;
+  color: white;
+}
+
+.btn-secondary:active, .btn-secondary:focus {
+  background-color: #69b3a2 !important;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active {
+  background-color: #69b3a2 !important;
+  border-color: #69b3a2 !important;
+  color: white;
+}
+
+
+
 ::-moz-selection {
-  background: #fed136;
+  background: #69b3a2;
   text-shadow: none;
 }
 
 ::selection {
-  background: #fed136;
+  background: #69b3a2;
   text-shadow: none;
 }
 
@@ -112,15 +144,20 @@ img::-moz-selection {
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+
+/* Color of 'from data to viz' on the top left */
 #mainNav .navbar-brand {
-  color: #fed136;
+  color: #69b3a2;
   font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
 }
 
 #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: #fec503;
+  color: #251667;
 }
 
+
+
+/* Color of the TEXT of the menu top right*/
 #mainNav .navbar-nav .nav-item .nav-link {
   font-size: 90%;
   font-weight: 400;
@@ -128,11 +165,16 @@ img::-moz-selection {
   letter-spacing: 1px;
   color: black;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #fed136;
+  color: #69b3a2;
+  background-color: white;
+  border-bottom: 5px solid #69b3a2;
 }
+
+
 
 @media (min-width: 992px) {
   #mainNav {
@@ -141,7 +183,6 @@ img::-moz-selection {
     -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
     -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
-    border: none;
     background-color: transparent;
   }
   #mainNav .navbar-brand {
@@ -156,15 +197,15 @@ img::-moz-selection {
   #mainNav.navbar-shrink {
     padding-top: 0;
     padding-bottom: 0;
-    background-color: #212529;
+    background-color: white;
   }
+
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
     padding: 12px 0;
   }
 }
 
-/* Changed to put some hover on the background image*/
 .masthead {
   text-align: center;
   color: black;
@@ -172,23 +213,17 @@ img::-moz-selection {
   overflow: hidden;
 }
 
-.masthead:before {
-    content: ' ';
-    display: block;
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: .3;
-    background-image: url("../img/overview_RGG.png");
+.parallax {
+    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+    background-image: url("../img/overview_RGG_faded.png");
+
+    /* Set a specific height */
+    min-height: 100px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
     background-repeat: no-repeat;
-    background-attachment: scroll;
-    background-position: center center;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
     background-size: cover;
 }
 
@@ -217,7 +252,7 @@ header.masthead .intro-text .intro-heading {
 
 @media (min-width: 768px) {
   header.masthead .intro-text {
-    padding-top: 300px;
+    padding-top: 200px;
     padding-bottom: 200px;
   }
   header.masthead .intro-text .intro-lead-in {
@@ -803,11 +838,19 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
     /*Tree Style*/
 
-    .graphtypelogo:hover{
+    .graphtypelogo:hover {
       stroke-width: 3;
       stroke: white;
       color: blue
     }
+
+
+    .graphtypelogo {
+      stroke-width: 3;
+      stroke: white;
+      color: blue
+      opacity: 0.5
+    }    
 
     #NumCat{
       color: red;
