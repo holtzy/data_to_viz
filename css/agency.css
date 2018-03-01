@@ -854,17 +854,12 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     /*Tree Style*/
 
     .graphtypelogo:hover {
-      stroke-width: 3;
-      stroke: white;
-      color: blue
+      opacity: 0.5;
     }
 
 
     .graphtypelogo {
-      stroke-width: 3;
-      stroke: white;
-      color: blue
-      opacity: 0.5
+      opacity: 1
     }    
 
 
