@@ -356,6 +356,13 @@ header.masthead .intro-text .intro-heading {
   }
 }
 
+
+
+
+
+
+
+
 .portfolio-modal {
   padding-right: 0px !important;
 }
@@ -366,12 +373,12 @@ header.masthead .intro-text .intro-heading {
 }
 
 .portfolio-modal .modal-content {
-  padding: 100px 0;
+  padding: 10px 0;
   text-align: center;
 }
 
 .portfolio-modal .modal-content h2 {
-  font-size: 3em;
+  font-size: 2em;
   margin-bottom: 15px;
 }
 
@@ -437,6 +444,14 @@ header.masthead .intro-text .intro-heading {
   transform: rotate(90deg);
   background-color: #212529;
 }
+
+
+
+
+
+
+
+
 
 .timeline {
   position: relative;
@@ -852,6 +867,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
       opacity: 0.5
     }    
 
+
     #NumCat{
       color: red;
     }
@@ -865,6 +881,44 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 /* ------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* Customize the gallery of the portfolio section
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+.captionPortfolio {
+  font-size: 12px;
+  padding: 8px;
+  margin: 0px;
+  text-align: center;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+    display: none; /* Hide all elements by default */
+}
+
+    /* The "show" class is added to the filtered elements */
+.show {
+  display: block;
+}
+</style>
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+
+
+
+
+
 
 
 

@@ -970,19 +970,10 @@ document.getElementById('relationnal').style.display = 'none';
 
 
 
+
+
+
     <!-- Portfolio Grid -->
-
-    <style>
-    /* Create three equal columns that floats next to each other */
-    .column {
-        display: none; /* Hide all elements by default */
-    }
-    /* The "show" class is added to the filtered elements */
-    .show {
-      display: block;
-    }
-    </style>
-
 
     <section class="bg-light" id="portfolio">
       <div class="container">
@@ -991,10 +982,10 @@ document.getElementById('relationnal').style.display = 'none';
             <h2 class="section-heading text-uppercase">A world of possibility</h2>
             <h3 class="section-subheading text-muted">Here is an overview of all the graphic types presented in this website.</h3>
             <div id="myBtnContainer">
-              <button class="btn btn-secondary" onclick="filterSelection('all')"> Show all</button>
-              <button class="btn btn-secondary" onclick="filterSelection('nature')"> Nature</button>
-              <button class="btn btn-secondary" onclick="filterSelection('cars')"> Cars</button>
-              <button class="btn btn-secondary" onclick="filterSelection('people')"> People</button>
+              <button class="btn btn-secondary" onclick="filterSelection('all')">Show all</button>
+              <button class="btn btn-secondary" onclick="filterSelection('correlation')">Correlation</button>
+              <button class="btn btn-secondary" onclick="filterSelection('ranking')">Ranking</button>
+              <button class="btn btn-secondary" onclick="filterSelection('partofawhole')">Part of a whole</button>
             </div>
             <br>
           </div>
@@ -1002,56 +993,200 @@ document.getElementById('relationnal').style.display = 'none';
         <br><br>
         <div class="row">
 
-          <div class="col-md-2 col-sm-4 portfolio-item column nature" >
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact bigdata" >
+            <a class="portfolio-link" data-toggle="modal" href="#violin">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/section/Bundle150.png" alt="">
+              <img class="img-fluid" src="img/section/Violin150.png" alt="">
             </a>
-            <div class="captionPortfolio">Hier. Edge Bundle</div>
+            <div class="captionPortfolio">Violin</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column nature">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+          <div class="col-md-2 col-sm-4 portfolio-item column distribution numonly bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#density">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/section/Cartogram150.png" alt="">
+              <img class="img-fluid" src="img/section/Density150.png" alt="">
             </a>
-            <div class="captionPortfolio">Cartogram</div>
+            <div class="captionPortfolio">Density</div>
           </div>
 
 
-          <div class="col-md-2 col-sm-4 portfolio-item column nature">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#histogram">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/section/Chord150.png" alt="">
+              <img class="img-fluid" src="img/section/Histogram150.png" alt="">
             </a>
-            <div class="captionPortfolio">Chord diagram</div>
+            <div class="captionPortfolio">Histogram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column cars">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#boxplot">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/section/Circular150.png" alt="">
+              <img class="img-fluid" src="img/section/Box1150.png" alt="">
             </a>
-            <div class="captionPortfolio">Circular charts</div>
+            <div class="captionPortfolio">Boxplot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column cars">
+          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#ridgeline">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Joyplot150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Ridgeline</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#scatter">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/ScatterPlot150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Scatter</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#heatmap">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Heatmap150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Heatmap</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#correlogram">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Correlogram150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Correlogram</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#bubble">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/BubblePlot150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Bubble</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly time smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#connectedscatter">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/ScatterConnected150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Connected scatter</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#density2d">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/2dDensity150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Density 2d</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#barplot">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Bar150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Barplot</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#spider">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Spider150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Spider / Radar</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#wordcloud">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Wordcloud150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Wordcloud</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+            <a class="portfolio-link" data-toggle="modal" href="#parallel">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Parallel1150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Parallel</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#lollipop">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Lollipop150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Lollipop</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#circularbarplot">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -1060,111 +1195,31 @@ document.getElementById('relationnal').style.display = 'none';
               </div>
               <img class="img-fluid" src="img/section/CircularBarplot150.png" alt="">
             </a>
-            <div class="captionPortfolio">Circular barplot</div>
+            <div class="captionPortfolio">Circular Barplot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column cars">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
+          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#treemap">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
                 </div>
               </div>
-              <img class="img-fluid" src="img/section/CircularPacking150.png" alt="">
+              <img class="img-fluid" src="img/section/Tree150.png" alt="">
             </a>
-            <div class="captionPortfolio">Circle packing</div>
+            <div class="captionPortfolio">Treemap</div>
           </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item column cars">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/CircularBarplot150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Circular barplot</div>
-          </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/Chord150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Chord diagram</div>
-          </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/Cartogram150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Cartogram</div>
-          </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/Bundle150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Hier. Edge Bundle</div>
-          </div>
-
-
-          <div class="col-md-2 col-sm-4 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/CircularPacking150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Circle packing</div>
-          </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item">
-            <a class="portfolio-link" data-toggle="modal" href="#portfolioModal2">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-2x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/Cartogram150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Cartogram</div>
-          </div>
-
 
         </div>
       </div>
     </section>
 
-<style>
-.captionPortfolio {
-  font-size: 12px;
-  padding: 8px;
-  margin: 0px;
-  text-align: center;
-}
-</style>
-
 
 
 <script>
+// --------------------------------------------------------------------------------------------------------------------------------- //
+// A script to select charts based on their tag //
+// --------------------------------------------------------------------------------------------------------------------------------- //
 filterSelection("all")
 function filterSelection(c) {
   var x, i;
@@ -1197,7 +1252,6 @@ function w3RemoveClass(element, name) {
   element.className = arr1.join(" ");
 }
 
-
 // Add active class to the current button (highlight it)
 var btnContainer = document.getElementById("myBtnContainer");
 var btns = btnContainer.getElementsByClassName("btn");
@@ -1208,6 +1262,7 @@ for (var i = 0; i < btns.length; i++) {
     this.className += " active";
   });
 }
+// --------------------------------------------------------------------------------------------------------------------------------- //
 </script>
 
 
@@ -1445,7 +1500,714 @@ for (var i = 0; i < btns.length; i++) {
     </style>
 
 
-    <!-- Circular barplot -->
+    <!-- Violin -->
+    <div class="portfolio-modal modal fade" id="violin" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Violin150.png" alt="">
+
+                  <h2 class="text-uppercase">Violin</h2>
+                  <p class="item-intro text-muted">An alternative to boxplot that allows to compare the distribution of several groups.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Density -->
+    <div class="portfolio-modal modal fade" id="density" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Density150.png" alt="">
+
+                  <h2 class="text-uppercase">Density</h2>
+                  <p class="item-intro text-muted">Show the density of a numeric variable</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Histogram -->
+    <div class="portfolio-modal modal fade" id="histogram" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Histogram150.png" alt="">
+
+                  <h2 class="text-uppercase">Histogram</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Boxplot -->
+    <div class="portfolio-modal modal fade" id="boxplot" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Box1150.png" alt="">
+
+                  <h2 class="text-uppercase">Boxplot</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+        <!-- Ridgeline-->
+    <div class="portfolio-modal modal fade" id="ridgeline" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Joyplot150.png" alt="">
+
+                  <h2 class="text-uppercase">Ridgeline plot</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Scatter -->
+    <div class="portfolio-modal modal fade" id="scatter" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/ScatterPlot150.png" alt="">
+
+                  <h2 class="text-uppercase">Scatter plot</h2>
+                  <p class="item-intro text-muted">A scatter plot shows the relationship between 2 numeric variables.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Heatmap -->
+    <div class="portfolio-modal modal fade" id="heatmap" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Heatmap150.png" alt="">
+
+                  <h2 class="text-uppercase">Heatmap</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Correlogram -->
+    <div class="portfolio-modal modal fade" id="correlogram" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Correlogram150.png" alt="">
+
+                  <h2 class="text-uppercase">Correlogram</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Bubble -->
+    <div class="portfolio-modal modal fade" id="bubble" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/BubblePlot150.png" alt="">
+
+                  <h2 class="text-uppercase">Bubble plot</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Connected scatter -->
+    <div class="portfolio-modal modal fade" id="connectedscatter" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/ScatterConnected150.png" alt="">
+
+                  <h2 class="text-uppercase">Connected Scatter</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Density 2d -->
+    <div class="portfolio-modal modal fade" id="density2d" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/2dDensity150.png" alt="">
+
+                  <h2 class="text-uppercase">Density 2d</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Barplot -->
+    <div class="portfolio-modal modal fade" id="barplot" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Bar150.png" alt="">
+
+                  <h2 class="text-uppercase">Barplot</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Spider -->
+    <div class="portfolio-modal modal fade" id="spider" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Spider150.png" alt="">
+
+                  <h2 class="text-uppercase">Spider / Web</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Wordcloud -->
+    <div class="portfolio-modal modal fade" id="wordcloud" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Wordcloud150.png" alt="">
+
+                  <h2 class="text-uppercase">Wordcloud</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Parallel -->
+    <div class="portfolio-modal modal fade" id="parallel" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Parallel1150.png" alt="">
+
+                  <h2 class="text-uppercase">Parallel coordinates</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Lollipop -->
+    <div class="portfolio-modal modal fade" id="lollipop" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Lollipop150.png" alt="">
+
+                  <h2 class="text-uppercase">Lollipop</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Circular Barplot -->
     <div class="portfolio-modal modal fade" id="circularbarplot" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -1460,20 +2222,27 @@ for (var i = 0; i < btns.length; i++) {
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
                   <img class="img-fluid d-block mx-auto" src="img/section/CircularBarplot150.png" alt="">
+
                   <h2 class="text-uppercase">Circular Barplot</h2>
                   <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
-                  <div class="cardtitle">Common Mistake</div>
+                  <div class="cardtitle">About</div>
                   <hr>
                   <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                  <div class="cardtitle">Links</div>
+
+                  <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <p>the R Graph Gallery</p> 
-                  <P>the Python Graph gallery</p>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <button class="btn btn-primary" data-dismiss="modal" type="button">
-                    <i class="fa fa-times"></i>
-                    Close Project</button>
+                  <p align="justify">Use this areandis facere nemo!</p>
                 </div>
               </div>
             </div>
@@ -1482,6 +2251,50 @@ for (var i = 0; i < btns.length; i++) {
       </div>
     </div>
 
+
+        <!-- Treemap -->
+    <div class="portfolio-modal modal fade" id="treemap" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Tree150.png" alt="">
+
+                  <h2 class="text-uppercase">Treemap</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <!-- Modal 1 -->
     <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
