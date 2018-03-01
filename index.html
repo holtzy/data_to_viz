@@ -22,6 +22,8 @@
 
     <!-- Custom styles for this template -->
     <link href="css/agency.css" rel="stylesheet">
+<!-- Tether for tooltip -->
+<script src="TMP/tether.js"></script>
 
   </head>
 
@@ -78,6 +80,17 @@
       </div>
     </header>
 
+
+
+<script>
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+</script>
+
+<button type="button" class="btn btn-secondary" data-toggle="tooltip" data-html="true" title="<em>Tooltip</em> <u>with</u> <b>HTML</b>">
+  Tooltip with HTML
+</button>
 
     <!-- Services -->
     <section id="services">
@@ -2499,6 +2512,7 @@ for (var i = 0; i < btns.length; i++) {
         </div>
       </div>
     </div>
+
 
 
 
