@@ -86,7 +86,12 @@
 
 
 
-    <!-- Services -->
+
+
+
+
+<!-- --------------------------- TREE SELECTION SECTION ------------------------------------------------------------------- -->
+
     <section id="services">
       <div class="container">
         <div class="row">
@@ -96,7 +101,7 @@
         </div>
         <div class="row text-center">
           
-          <div id="numericHead" class="col-md-2 offset-md-1 treeHead" onMouseOver="showTree('catnum'); highlightHead('numericHead');" >
+          <div id="numericHead" class="col-md-2 offset-md-1 treeHead" onMouseOver="showTree('num'); highlightHead('numericHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
@@ -153,13 +158,6 @@
 }
 
 </style>
-
-
-
-
-
-
-<!-- --------------------------- TREE SECTION ------------------------------------------------------------------- -->
 
 
     <!-- Tree Javascript-->
@@ -222,15 +220,228 @@
     </script>
 
 
-            
+<!-- --------------------------------------------------------------------------------------------- -->
 
 
 
 
 
 
-<!-- Categorical And Numerical -->
+
+
+
+
+
+
+
+
+<!-- --------------------------- TREE SECTION ------------------------------------------------------------------- -->
+
+<!-- NOTE TO GO FROM SVG TO THIS CODE -->
+<!--  insert the tree in a div: <div id="num" class="tree" style="text-align:center;">   -->
+<!--  adding width="595.28px" height="1133.858px" allows to control for the general size of the tree -->
+<!--  change path to png images that compose the tree -->
+<!--  add class="graphtypelogo" to every images to give them their CSS spec (get grey when hovered -->
+<!--  make the png clickable: to do so, put <a data-toggle="modal" href="#treemap"></a> around it -->
+<!--  update the modal links one by one.. -->
+<!--  add the tooltip around Polygons: wrap polygon and text into <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' title="<em>Your data look like</em><br> <img class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><u>with</u> <b>HTML</b>"> -->
+<!-- -->
+
+
+<!-- Skip a line befor the trees -->
+</br>
+
+
+<!-- Numeric and cat -->
 <div id="catnum" class="tree" style="text-align:center;">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  width="1092.5px" height="1100px" viewBox="0 0 1133.9 1557.9" style="enable-background:new 0 0 1133.9 1557.9;" xml:space="preserve">
+<style type="text/css">
+  .st0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .st1{fill:#808285;}
+  .st2{fill:#FFFFFF;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .st3{font-family:'Lato-Regular';}
+  .st4{font-size:9px;}
+  .st5{font-family:'Lato-Bold';}
+</style>
+<g id="Cat_And_Num">
+  <g>
+    <line class="st0" x1="956.7" y1="464.8" x2="956.7" y2="1393.5"/>
+    <polyline class="st0" points="956.7,385 956.7,344.3 924.8,325.9     "/>
+    <g>
+      <circle class="st1" cx="956.7" cy="1389.5" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#pie"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PieSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 1340.9679)"></image></a></a>
+      </image></a>
+    </g>
+    <g>
+      <circle class="st1" cx="956.7" cy="1251.6" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 1203.0581)">
+      </image></a>
+    </g>
+    <g>
+      <circle class="st1" cx="956.7" cy="1113.7" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#circularbarplot"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0854 1065.1539)">
+      </image></a>
+    </g>
+    <g>
+      <circle class="st1" cx="956.7" cy="975.8" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#donut"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/DougnutSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 927.2387)">
+      </image></a>
+    </g>
+    <g>
+      <circle class="st1" cx="956.7" cy="837.9" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularBarplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 789.329)">
+      </image></a>
+    </g>
+    <g>
+      <circle class="st1" cx="956.7" cy="700" r="52.4"/>
+      
+        <a  data-toggle="modal" href="#barplot"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 651.4193)">
+      </image></a>
+    </g>
+    <g>
+      <path class="st1" d="M1009.1,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C985.6,509.6,1009.1,533.1,1009.1,562.1z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0828 513.5131)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 900.605 1456.8286)" class="st3 st4">PIE CHART</text>
+    <text transform="matrix(1 0 0 1 899.7632 1318.9182)" class="st3 st4">TREE PLOT</text>
+    <text transform="matrix(1 0 0 1 902.8052 1181.009)"><tspan x="0" y="0" class="st3 st4">CIRCULAR</tspan><tspan x="-21.1" y="10.8" class="st3 st4">PACKING PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 893.0405 1043.1001)"><tspan x="0" y="0" class="st3 st4">DOUGHNUT</tspan><tspan x="30.4" y="10.8" class="st3 st4">PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 902.8052 905.1904)"><tspan x="0" y="0" class="st3 st4">CIRCULAR</tspan><tspan x="0.8" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 903.5615 767.2812)" class="st3 st4">BAR PLOT</text>
+    <text transform="matrix(1 0 0 1 904.498 629.3718)"><tspan x="0" y="0" class="st3 st4">LOLLIPOP</tspan><tspan x="19.1" y="10.8" class="st3 st4">PLOT</tspan></text>
+    <g>
+      <polygon class="st2" points="922.1,405 956.7,385 991.2,405 991.2,444.8 956.7,464.8 922.1,444.8      "/>
+      <text transform="matrix(1 0 0 1 946.9683 422.0898)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-19.6" y="10.8" class="st1 st5 st4">OBS / GROUP</tspan></text>
+    </g>
+  </g>
+  <g>
+    <line class="st0" x1="823.9" y1="460.4" x2="823.9" y2="870"/>
+    <polyline class="st0" points="855.8,325.9 823.9,344.3 823.9,385     "/>
+    <g>
+      <path class="st1" d="M876.4,837.9c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C852.9,785.5,876.4,808.9,876.4,837.9z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box2Small.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 789.335)">
+      </image></a>
+    </g>
+    <g>
+      <path class="st1" d="M876.4,700c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C852.9,647.6,876.4,671,876.4,700z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 651.4249)">
+      </image></a>
+    </g>
+    <g>
+      <path class="st1" d="M876.4,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C852.9,509.6,876.4,533.1,876.4,562.1z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/JoyplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 513.515)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 769.5269 905.1902)" class="st3 st4">BOX PLOT</text>
+    <text transform="matrix(1 0 0 1 783.4087 767.28)"><tspan x="0" y="0" class="st3 st4">VIOLIN</tspan><tspan x="-12.3" y="10.8" class="st3 st4">DIAGRAM</tspan></text>
+    <text transform="matrix(1 0 0 1 771.9067 629.3718)" class="st3 st4">JOY PLOT</text>
+    <g>
+      <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' title="<em>Your data look like</em><br> <img class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><u>with</u> <b>HTML</b>">
+        <polygon class="st2" points="789.4,405 823.9,385 858.5,405 858.5,444.8 823.9,464.8 789.4,444.8      "/>
+        <text transform="matrix(1 0 0 1 804.8143 422.0898)"><tspan x="0" y="0" class="st1 st5 st4">SEVERAL</tspan><tspan x="-10.1" y="10.8" class="st1 st5 st4">OBS / GROUP</tspan></text>
+      </g>  
+    </g>
+  </g>
+  <g>
+    <polygon class="st2" points="855.8,286 890.3,266.1 924.8,286 924.8,325.9 890.3,345.8 855.8,325.9    "/>
+    <text transform="matrix(1 0 0 1 880.6093 292.3582)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-11.2" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-4.3" y="21.6" class="st1 st5 st4">&amp; ONE</tspan><tspan x="-8.2" y="32.4" class="st1 st5 st4">FACTOR</tspan></text>
+  </g>
+  <g>
+    <line class="st0" x1="566.9" y1="464.8" x2="566.9" y2="713"/>
+    <g>
+      <path class="st1" d="M619.4,700c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C595.9,647.6,619.4,671,619.4,700z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 518.3561 651.4244)">
+      </image></a>
+    </g>
+    <g>
+      <path class="st1" d="M619.4,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        C595.9,509.6,619.4,533.1,619.4,562.1z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 518.3561 513.5142)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 516.0542 767.2808)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-2.1" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 512.7473 629.3716)"><tspan x="0" y="0" class="st3 st4">GROUPED</tspan><tspan x="1.1" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
+    <g>
+      <polygon class="st2" points="532.4,405 566.9,385 601.4,405 601.4,444.8 566.9,464.8 532.4,444.8      "/>
+      <text transform="matrix(1 0 0 1 557.238 411.2962)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-11.2" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-5.7" y="21.6" class="st1 st5 st4">&amp; TWO</tspan><tspan x="-10.7" y="32.4" class="st1 st5 st4">FACTORS</tspan></text>
+    </g>
+  </g>
+  <g>
+    <line class="st0" x1="309.9" y1="464.8" x2="309.9" y2="700"/>
+    <g>
+      <path class="st1" d="M362.4,700c0,29-23.5,52.4-52.4,52.4S257.5,729,257.5,700c0-29,23.5-52.4,52.4-52.4S362.4,671,362.4,700z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedAreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 261.3461 651.4249)">
+      </image></a>
+    </g>
+    <g>
+      <path class="st1" d="M362.4,562.1c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S362.4,533.1,362.4,562.1z"/>
+      
+        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StreamSmall.png"  transform="matrix(0.8522 0 0 0.8522 261.3442 513.5131)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 258.9146 767.28)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-7.6" y="10.8" class="st3 st4">AREA PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 239.0288 629.3718)" class="st3 st4">STREAM PLOT</text>
+    <g>
+      <polygon class="st2" points="275.4,405 309.9,385 344.4,405 344.4,444.8 309.9,464.8 275.4,444.8      "/>
+      <text transform="matrix(1 0 0 1 298.8531 411.2962)"><tspan x="0" y="0" class="st1 st5 st4">TWO</tspan><tspan x="-9.8" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-3" y="21.6" class="st1 st5 st4">&amp; ONE</tspan><tspan x="-6.8" y="32.4" class="st1 st5 st4">FACTOR</tspan></text>
+    </g>
+  </g>
+  <g>
+    <polyline class="st0" points="309.9,385 309.9,187 566.9,38.6    "/>
+    <line class="st0" x1="566.9" y1="38.6" x2="566.9" y2="0"/>
+    <polyline class="st0" points="890.3,266.1 890.3,225.3 890.3,225.3 566.9,38.6    "/>
+    <line class="st0" x1="566.9" y1="385" x2="566.9" y2="38.6"/>
+  </g>
+</g>
+<g id="Time">
+</g>
+<g id="Geo">
+</g>
+<g id="Categorical">
+</g>
+<g id="Numeric">
+</g>
+</svg>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Numeric -->
+<div id="num" class="tree" style="text-align:center;">
 <svg version="1.1" id="CatAndNumTree" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="595.28px" height="1133.858px" >
 <g>
 
@@ -987,6 +1198,7 @@
 //Do not show these trees at the beginning.
 document.getElementById('catnum').style.display = 'none';
 document.getElementById('relationnal').style.display = 'none';
+document.getElementById('num').style.display = 'none';
 
 </script>
 
