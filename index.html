@@ -22,8 +22,9 @@
 
     <!-- Custom styles for this template -->
     <link href="css/agency.css" rel="stylesheet">
-<!-- Tether for tooltip -->
-<script src="TMP/tether.js"></script>
+
+    <!-- Tether for tooltip -->
+    <script src="TMP/tether.js"></script>
 
   </head>
 
@@ -71,10 +72,10 @@
      <div class="parallax">
      <div class="container">
         <div class="intro-text">
-          <img src="img/logo/tree-s.png" style="width:30%;height:30%;">
-          <br><br><br>
-          <div class="intro-lead-in">A decision tree for data analysis</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+          <img src="img/logo/tree-s.png" style="width:50%;height:50%;">
+          <br><br>
+          <div class="intro-lead-in">From data to viz leads you to the most appropriate graphic for your data. It links you to the code to build it and lists common mistakes you should avoid.</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Explore</a>
         </div>
       </div>
       </div>
@@ -350,7 +351,7 @@
     <text transform="matrix(1 0 0 1 783.4087 767.28)"><tspan x="0" y="0" class="st3 st4">VIOLIN</tspan><tspan x="-12.3" y="10.8" class="st3 st4">DIAGRAM</tspan></text>
     <text transform="matrix(1 0 0 1 771.9067 629.3718)" class="st3 st4">JOY PLOT</text>
     <g>
-      <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' title="<em>Your data look like</em><br> <img class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><u>with</u> <b>HTML</b>">
+      <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Second categoric variable is nested in the first one. Whatever other explanation about this table</em><br><br><img width='350' height='250' class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><br><br></div>">
         <polygon class="st2" points="789.4,405 823.9,385 858.5,405 858.5,444.8 823.9,464.8 789.4,444.8      "/>
         <text transform="matrix(1 0 0 1 804.8143 422.0898)"><tspan x="0" y="0" class="st1 st5 st4">SEVERAL</tspan><tspan x="-10.1" y="10.8" class="st1 st5 st4">OBS / GROUP</tspan></text>
       </g>  
@@ -398,7 +399,7 @@
         <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StreamSmall.png"  transform="matrix(0.8522 0 0 0.8522 261.3442 513.5131)">
       </image></a>
     </g>
-    <text transform="matrix(1 0 0 1 258.9146 767.28)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-7.6" y="10.8" class="st3 st4">AREA PLOT</tspan></text>
+    <text transform="matrix(1 0 0 1 258.9146 767.28)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-7.6" y="10.8" class="st3 st4">AREA PLOT</tspan><tspan x="20" y="35" class="st3 st4">story</tspan></text>
     <text transform="matrix(1 0 0 1 239.0288 629.3718)" class="st3 st4">STREAM PLOT</text>
     <g>
       <polygon class="st2" points="275.4,405 309.9,385 344.4,405 344.4,444.8 309.9,464.8 275.4,444.8      "/>
@@ -2769,14 +2770,6 @@ for (var i = 0; i < btns.length; i++) {
 
 
 
-
-
-
-
-
-
-
-
 <!-- ------------------------ JAVASCRIPT SECTION ----------------------------- -->
 
 
@@ -2805,33 +2798,33 @@ for (var i = 0; i < btns.length; i++) {
 
     <!-- Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ -->
     <script>
-	$(window).load(function(){
-	    var $container = $('.portfolioContainer');
-	    $container.isotope({
-	        filter: '*',
-	        animationOptions: {
-	            duration: 750,
-	            easing: 'linear',
-	            queue: false
-	        }
-	    });
-	 
-	    $('.portfolioFilter a').click(function(){
-	        $('.portfolioFilter .current').removeClass('current');
-	        $(this).addClass('current');
-	 
-	        var selector = $(this).attr('data-filter');
-	        $container.isotope({
-	            filter: selector,
-	            animationOptions: {
-	                duration: 750,
-	                easing: 'linear',
-	                queue: false
-	            }
-	         });
-	         return false;
-	    }); 
-	});
+  	$(window).load(function(){
+  	    var $container = $('.portfolioContainer');
+  	    $container.isotope({
+  	        filter: '*',
+  	        animationOptions: {
+  	            duration: 750,
+  	            easing: 'linear',
+  	            queue: false
+  	        }
+  	    });
+  	 
+  	    $('.portfolioFilter a').click(function(){
+  	        $('.portfolioFilter .current').removeClass('current');
+  	        $(this).addClass('current');
+  	 
+  	        var selector = $(this).attr('data-filter');
+  	        $container.isotope({
+  	            filter: selector,
+  	            animationOptions: {
+  	                duration: 750,
+  	                easing: 'linear',
+  	                queue: false
+  	            }
+  	         });
+  	         return false;
+  	    }); 
+  	});
 	</script>
 
 
@@ -2847,6 +2840,18 @@ for (var i = 0; i < btns.length; i++) {
       });
   </script>
 
+
+
+
+  <script>
+    $('.tip').each(function () {
+      $(this).tooltip(
+      {
+        html: true,
+          title: $('#' + $(this).data('tip')).html()
+      });
+    });
+  </script>
 
 
 <!-- ---------------------------------------------------------------------------------------------- -->

@@ -1,0 +1,18 @@
+---
+title: "One Numeric variable only"
+output:
+  html_document:
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+        before_body: header.html
+---
+
+Yo mate
