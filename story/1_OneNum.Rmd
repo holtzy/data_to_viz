@@ -1,5 +1,6 @@
 ---
-title: "One Numeric variable only"
+title: "How to visualize a unique Numeric variable"
+author: "A few ideas for [data-to-viz.com](https://github.com/holtzy/)"
 output:
   html_document:
       theme: "lumen"
@@ -15,4 +16,35 @@ output:
         before_body: header.html
 ---
 
-Yo mate
+>Let's start here
+
+#- First title
+***
+
+That's my story
+
+#- Second one
+***
+
+No wayyy
+
+```{r}
+plot(1,1)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
