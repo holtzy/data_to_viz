@@ -28,7 +28,9 @@ output:
 
 ***
 
-This document aims to describe a few dataviz that can be applied to a dataset containing an ordered numeric variable, a categoric variable and another numeric variable. An an example we will consider the evolution of first name frequencies in the US between 1880 and 2015. This dataset comes from x and is available through the [babynames]() R library. It looks like that:
+This document provides a few direction for the visualization of geographical connections. The dataset is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). It lists about 13k tweets containing the [#surf](https://twitter.com/search?q=%23surf&src=typd&lang=en) hashtag. This tweets have been recovered on a 10 months period and you can learn more on this project dedicated page.
+
+The dataset provides longitude and latitude for both the home location of tweeters, and their instant geolocation as well. Basically it looks like that:
 
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
@@ -37,17 +39,83 @@ library(hrbrthemes)
 library(viridis)
 library(DT)
 
+#load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
+#data <- data %>% select(homename, homecontinent, homecountry, homelat, homelon, travellon, travellat) %>% na.omit()
+#write.table(data, file="/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/19_MapConnection.csv", quote=TRUE, row.names=FALSE, sep=",")  
+
 # Load dataset from github (Surfer project)
-load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
-data <- 
+data <- read.table("https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv", header=T, sep=",")
 
 # Show long format
 data %>%
-  select(year, name, n) %>%
-  head(5) %>%
-  arrange(name) %>%
-  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px")
+  tail(5) %>%
+  mutate(homename = gsub( ", Western Australia", "", homename)) %>%
+  mutate(homename = gsub( ", France", "", homename)) %>%
+  mutate(homename = gsub( " - Bali - Indonesia", "", homename)) %>%
+  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px") 
 ```
 
 <br><br>
-It is of impor
+
+#- Showing a few connection on a map
+***
+
+Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called great circles. A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
+
+Here are the connection between 8 cities on a world map:
+
+```{r, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
+data=rbind(
+	Buenos_aires=c(-58,-34),
+	Paris=c(2,49),
+	Melbourne=c(145,-38),
+	Saint.Petersburg=c(30.32, 59.93),
+	Abidjan=c(-4.03, 5.33),
+	Montreal=c(-73.57, 45.52),
+	Nairobi=c(36.82, -1.29),
+	Salvador=c(-38.5, -12.97)
+	)  %>% as.data.frame()
+colnames(data)=c("long","lat")
+
+
+all_pairs=cbind(t(combn(data$long, 2)), t(combn(data$lat, 2))) %>% as.data.frame()
+colnames(all_pairs)=c("long1","long2","lat1","lat2")
+
+plot_my_connection=function( dep_lon, dep_lat, arr_lon, arr_lat, ...){
+	inter <- gcIntermediate(c(dep_lon, dep_lat), c(arr_lon, arr_lat), n=50, addStartEnd=TRUE, breakAtDateLine=F)             
+	inter=data.frame(inter)
+	diff_of_lon=abs(dep_lon) + abs(arr_lon)
+	if(diff_of_lon > 180){
+		lines(subset(inter, lon>=0), ...)
+		lines(subset(inter, lon<0), ...)
+	}else{
+		lines(inter, ...)
+		}
+}
+
+library(maps)
+library(geosphere)
+
+# background map
+par(mar=c(0,0,0,0))
+map('world',col="#f2f2f2", fill=TRUE, bg="white", lwd=0.05,mar=rep(0,4),border=0, ylim=c(-80,80) )
+ 
+# add every connections:
+for(i in 1:nrow(all_pairs)){
+	plot_my_connection(all_pairs$long1[i], all_pairs$lat1[i], all_pairs$long2[i], all_pairs$lat2[i], col="skyblue", lwd=1)
+	}
+ 
+# add points and names of cities
+points(x=data$long, y=data$lat, col="slateblue", cex=2, pch=20)
+text(rownames(data), x=data$long, y=data$lat,  col="slateblue", cex=1, pos=4)
+```
+
+
+
+#- Showing many connections on a map
+***
+
+
+
+
+
