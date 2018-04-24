@@ -1,0 +1,53 @@
+
+---
+title: "<center><div class='mytitle'>Visualizing connection on a map<br></div></center>"
+output:
+  html_document:
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+        before_body: header.html
+---
+
+
+<div class="mycontent">
+
+<br>
+<center>
+![](../img/section/ConnectedMap150.png){width=75px}
+
+
+</center>
+
+***
+
+This document aims to describe a few dataviz that can be applied to a dataset containing an ordered numeric variable, a categoric variable and another numeric variable. An an example we will consider the evolution of first name frequencies in the US between 1880 and 2015. This dataset comes from x and is available through the [babynames]() R library. It looks like that:
+
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(DT)
+
+# Load dataset from github (Surfer project)
+load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
+data <- 
+
+# Show long format
+data %>%
+  select(year, name, n) %>%
+  head(5) %>%
+  arrange(name) %>%
+  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px")
+```
+
+<br><br>
+It is of impor

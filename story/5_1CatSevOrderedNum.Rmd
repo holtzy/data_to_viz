@@ -59,7 +59,6 @@ data %>%
 <br><br>
 It is of importance to note that the following table provides exactly the same information, but in a different format. We call it 'long' and 'wide' format and most tools provide function to go from one to the other. In any case, we will apply the same kind of visualization to both format.
 ```{r }
-
 data %>%
   filter(name %in% c("Helen", "Amanda", "Betty", "Dorothy", "Linda")) %>%
   select(year, name, n) %>%
