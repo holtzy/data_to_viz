@@ -1,6 +1,6 @@
 ---
-title: "How to visualize a unique Numeric variable"
-author: "A few ideas for [data-to-viz.com](https://github.com/holtzy/)"
+title: "<center><div class='mytitle'>Visualizing a unique Numeric variable</div></center>"
+author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
 output:
   html_document:
       theme: "lumen"
@@ -16,24 +16,83 @@ output:
         before_body: header.html
 ---
 
+
+<div class="mycontent">
+
+
+<center>
+![](../img/section/Density150.png){width=75px}
+![](../img/section/Histogram150.png){width=75px}
+</center>
+
+***
+
 >Let's start here
 
-#- First title
+# Dataset
 ***
+In this document we will consider the night price of several Airbnb appartements. This dataset is quite basic and looks like this
 
-That's my story
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
 
-#- Second one
-***
-
-No wayyy
-
-```{r}
-plot(1,1)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
 ```
 
 
 
+
+# Option 1: Histogram
+***
+
+No wayyy
+
+```{r, fig.align="center"}
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    stat_bin(breaks=seq(0,300,10), fill="#69b3a2", color="#e9ecef", alpha=0.9) +
+    ggtitle("Night price distribution of Airbnb appartements") +
+    theme_ipsum()
+```
+
+Note that it is really important to play with the size of the bins during your exploratory analysis. Let's check what happens if we split prices by bins of 2 euros instead of 10:
+
+```{r, fig.align="center"}
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    stat_bin(breaks=seq(0,300,1), fill="#69b3a2", color="#e9ecef", alpha=0.9) +
+    ggtitle("Night price distribution of Airbnb appartements") +
+    theme_ipsum()
+
+
+```
+
+Ouch, this is a very different picture. What's going on?
+
+
+
+# Option 2: Density
+***
+
+No wayyy
+
+```{r, fig.align="center"}
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.7) +
+    ggtitle("Night price distribution of Airbnb appartements") +
+    theme_ipsum()
+```
+
+
+
+</div>
 
 
 

@@ -21,6 +21,12 @@ pre {
     border-radius: 0px;
  }
 
+a {
+  color: #69b3a2;
+}
+
+
+
 .btn {
     border-width: 0 0px 0px 0px;
     font-weight: normal;
@@ -28,9 +34,40 @@ pre {
 }
 
 .btn-default {
-    color: #2ecc71;
+    color: #69b3a2;
     background-color: #ffffff;
-    border-color: #ffffff;
+    border-color: #69b3a2;
 }
 
 
+
+.main-container {
+    max-width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mycontent{
+      max-width: 900px !important;
+      margin-left: auto;
+      margin-right: auto;
+      font-family: 'Montserrat';
+      font-size: 130%;
+      line-height: 1.7;
+}
+
+
+
+
+.mytitle{
+  text-transform: uppercase;
+  font-family: 'Montserrat';
+  font-size: 80%;
+  font-weight: 300;
+  letter-spacing: 4px;
+}
+
+.mysubtitle{
+  color:grey;
+  font-family: 'Montserrat';
+}

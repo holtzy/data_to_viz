@@ -1,0 +1,175 @@
+
+---
+title: "<center><div class='mytitle'>Visualizing ordered numeric variables for different groups<br></div></center>"
+output:
+  html_document:
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+        before_body: header.html
+---
+
+
+<div class="mycontent">
+
+<br>
+<center>
+![](../img/section/Line150.png){width=75px}
+![](../img/section/Area150.png){width=75px}
+![](../img/section/Stackedarea150.png){width=75px}
+![](../img/section/Stream150.png){width=75px}
+
+
+
+</center>
+
+***
+
+This document aims to describe a few dataviz that can be applied to a dataset containing an ordered numeric variable, a categoric variable and another numeric variable. An an example we will consider the evolution of first name frequencies in the US between 1880 and 2015. This dataset comes from x and is available through the [babynames]() R library. It looks like that:
+
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(streamgraph)
+library(viridis)
+library(DT)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# Show long format
+data %>%
+  select(year, name, n) %>%
+  head(5) %>%
+  arrange(name) %>%
+  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px")
+```
+
+<br><br>
+It is of importance to note that the following table provides exactly the same information, but in a different format. We call it 'long' and 'wide' format and most tools provide function to go from one to the other. In any case, we will apply the same kind of visualization to both format.
+```{r }
+
+data %>%
+  filter(name %in% c("Helen", "Amanda", "Betty", "Dorothy", "Linda")) %>%
+  select(year, name, n) %>%
+  spread(name, n) %>%
+  head(3) %>%
+  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px")
+
+```
+
+
+
+# Line plot
+***
+
+The first obvious solution to represent this dataset is to produce a line chart. Each name will be represented by a line. The X axis gives the year and the Y axis shows the number of babies.
+```{r, fig.align="center", fig.width=10}
+data %>%
+  ggplot( aes(x=year, y=n, group=name, color=name)) +
+    geom_line() +
+    scale_color_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum()
+```
+
+Line charts tend to be too cluttered as soon as more than a few groups are displayed. This is a common mistake in dataviz, so common that it has been named [spaghetti chart](). Thus this solution is usually applied if you want to highlight a specific group from the whole dataset. For example, let's highlight the evolution of Amanda compared to the other first names:
+
+```{r, fig.align="center", fig.width=10}
+data %>%
+  mutate( highlight=ifelse(name=="Amanda", "Amanda", "Other")) %>%
+  ggplot( aes(x=year, y=n, group=name, color=highlight, size=highlight)) +
+    geom_line() +
+    scale_color_manual(values = c("#69b3a2", "lightgrey")) +
+    scale_size_manual(values=c(1.5,0.2)) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    geom_label( x=1990, y=55000, label="Amanda reached xxx\npeople in 1970", size=4, color="#69b3a2")
+```
+
+
+# Area chart
+***
+```{r, fig.align="center", fig.width=8}
+data %>%
+  ggplot( aes(x=year, y=n, group=name, fill=name)) +
+    geom_area() +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    facet_wrap(~name, scale="free_y")
+```
+
+
+
+# Stack area chart
+***
+```{r, fig.align="center", fig.width=10}
+data %>% 
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_area( ) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+```
+
+Proportionnal?
+```{r, fig.align="center", fig.width=10}
+# Compute the proportions:
+
+data %>% 
+  group_by(year) %>%
+  mutate(freq = n / sum(n)) %>%
+  ungroup() %>%
+  ggplot( aes(x=year, y=freq, fill=name, color=name)) +
+    geom_area(  ) +
+    scale_fill_viridis(discrete = TRUE) +
+    scale_color_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+```
+
+
+
+
+# Streamgraph
+***
+```{r, fig.align="center", fig.width=10, fig.height=3}
+data %>% 
+  streamgraph(key="name", value="n", date="year")
+```
+
+
+
+
+# A lot of groups: PCA
+***
+
+blabla
+
+
+
+</div>
