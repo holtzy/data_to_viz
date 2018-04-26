@@ -40,7 +40,7 @@ library(viridis)
 library(DT)
 
 #load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
-#data <- data %>% select(homename, homecontinent, homecountry, homelat, homelon, travellon, travellat) %>% na.omit()
+#data <- data %>% select(homename, homecontinent, homecountry, homelat, homelon, travelcontinent, travelcountry, travellat, travellon) %>% na.omit()
 #write.table(data, file="/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/19_MapConnection.csv", quote=TRUE, row.names=FALSE, sep=",")  
 
 # Load dataset from github (Surfer project)
@@ -65,7 +65,7 @@ Before showing all the relationships provided in this dataset, it is important t
 Here are the connection between 8 cities on a world map:
 
 ```{r, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
-data=rbind(
+don=rbind(
 	Buenos_aires=c(-58,-34),
 	Paris=c(2,49),
 	Melbourne=c(145,-38),
@@ -75,10 +75,10 @@ data=rbind(
 	Nairobi=c(36.82, -1.29),
 	Salvador=c(-38.5, -12.97)
 	)  %>% as.data.frame()
-colnames(data)=c("long","lat")
+colnames(don)=c("long","lat")
 
 
-all_pairs=cbind(t(combn(data$long, 2)), t(combn(data$lat, 2))) %>% as.data.frame()
+all_pairs=cbind(t(combn(don$long, 2)), t(combn(don$lat, 2))) %>% as.data.frame()
 colnames(all_pairs)=c("long1","long2","lat1","lat2")
 
 plot_my_connection=function( dep_lon, dep_lat, arr_lon, arr_lat, ...){
@@ -106,8 +106,8 @@ for(i in 1:nrow(all_pairs)){
 	}
  
 # add points and names of cities
-points(x=data$long, y=data$lat, col="slateblue", cex=2, pch=20)
-text(rownames(data), x=data$long, y=data$lat,  col="slateblue", cex=1, pos=4)
+points(x=don$long, y=don$lat, col="slateblue", cex=2, pch=20)
+text(rownames(don), x=don$long, y=don$lat,  col="slateblue", cex=1, pos=4)
 ```
 
 
@@ -115,7 +115,76 @@ text(rownames(data), x=data$long, y=data$lat,  col="slateblue", cex=1, pos=4)
 #- Showing many connections on a map
 ***
 
+```{r}
+library(tidyverse)
+library(jpeg)
+library(maps)
+library(geosphere)
+library(grid)
+```
 
 
+
+```{r}
+# Download NASA night lights image
+download.file("https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg", destfile = "IMG/BlackMarble_2016_01deg.jpg", mode = "wb")
+
+# Load picture and render
+earth <- readJPEG("IMG/BlackMarble_2016_01deg.jpg", native = TRUE)
+earth <- rasterGrob(earth, interpolate = TRUE)
+```
+
+```{r}
+# Count how many times we have each unique connexion + order by importance
+summary=data %>% 
+  count(homelat,homelon,homecontinent, travellat,travellon,travelcontinent) %>%
+  #filter(n>1) %>%
+  arrange(n) 
+summary=head(summary, 1000)
+
+# A function that makes a dateframe per connection (we will use these connections to plot each lines)
+data_for_connection=function( dep_lon, dep_lat, arr_lon, arr_lat, group){
+  inter <- gcIntermediate(c(dep_lon, dep_lat), c(arr_lon, arr_lat), n=50, addStartEnd=TRUE, breakAtDateLine=F)             
+  inter=data.frame(inter)
+  inter$group=NA
+  diff_of_lon=abs(dep_lon) + abs(arr_lon)
+  if(diff_of_lon > 180){
+    inter$group[ which(inter$lon>=0)]=paste(group, "A",sep="")
+    inter$group[ which(inter$lon<0)]=paste(group, "B",sep="")
+  }else{
+    inter$group=group
+  }
+  return(inter)
+}
+
+# Création d'un dataframe complet avec les points de toutes les lignes à faire.
+data_ready_plot=data.frame()
+for(i in c(1:nrow(summary))){
+  tmp=data_for_connection(summary$homelon[i], summary$homelat[i], summary$travellon[i], summary$travellat[i] , i)
+  tmp$homecontinent=summary$homecontinent[i]
+  tmp$n=summary$n[i]
+  data_ready_plot=rbind(data_ready_plot, tmp)
+}
+data_ready_plot$homecontinent=factor(data_ready_plot$homecontinent, levels=c("Asia","Europe","Australia","Africa","North America","South America","Antarctica"))
+```
+
+
+```{r, fig.width=10}
+ggplot() + 
+  annotation_custom(earth, xmax = 180, ymin = -Inf, ymax = Inf) +
+  geom_line(data=data_ready_plot, size=0.5, aes(x=lon, y=lat, group=group, colour=homecontinent, alpha=n)) +
+  xlim(-170, 185)+ ylim(-59, 80) +
+  theme(
+    legend.position="none",
+    #plot.margin = unit(rep(-1.25,4),"lines"),
+    plot.background = element_rect(fill = "#00001C"),
+    panel.background = element_rect(fill='#00001C',colour='#00001C' ),
+    panel.grid=element_blank(), 
+    panel.border = element_blank(),
+    axis.title=element_blank(),
+    axis.text=element_blank(),
+    axis.ticks=element_blank()
+  ) 
+```
 
 
