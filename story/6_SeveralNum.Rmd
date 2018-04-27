@@ -1,0 +1,48 @@
+---
+title: "<center><div class='mytitle'>Visualizing several Numeric variables</div></center>"
+author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+output:
+  html_document:
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+        before_body: header.html
+---
+
+
+<div class="mycontent">
+
+
+<center>
+![](../img/section/Box1150.png){width=45px}
+![](../img/section/Violin150.png){width=45px}
+![](../img/section/Joyplot150.png){width=45px}
+
+![](../img/section/Heatmap150.png){width=45px}
+
+![](../img/section/Dendrogram150.png){width=45px}
+
+</center>
+
+
+***
+
+This page provides a few proposition to visualize a dataset composed of 3 numeric variables. Two dataset are considered. The Gapminder dataset provides the average life expectancy, gdp per capita and population size for more than 100 countries. The volcano dataset provides the Topographic Information on Auckland's Maunga Whau Volcano.
+
+#- Check distribution with a boxplot or a violinplot
+***
+
+```{r, warning=FALSE, message=FALSE, fig.width=10, fig.height=6, fig.align="center"}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(DT)
+library(plotly)
