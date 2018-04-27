@@ -238,7 +238,7 @@ img::-moz-selection {
 
 
 header.masthead .intro-text {
-  padding-top: 150px;
+  padding-top: 100px;
   padding-bottom: 100px;
 }
 
@@ -260,7 +260,7 @@ header.masthead .intro-text .intro-heading {
 
 @media (min-width: 768px) {
   header.masthead .intro-text {
-    padding-top: 200px;
+    padding-top: 100px;
     padding-bottom: 200px;
   }
   header.masthead .intro-text .intro-lead-in {
@@ -843,10 +843,10 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 /* ------------------------------------------------------------------------------------------------------------------- */
 
 /* CSS for the image caroussell (poster) */
-* {box-sizing: border-box}
+/** {box-sizing: border-box}
     body {font-family: Verdana, sans-serif; margin:0}
     .mySlides {display: none}
-    img {vertical-align: middle;}
+    img {vertical-align: middle;}*/
 
     /* Slideshow container */
     .slideshow-container {
