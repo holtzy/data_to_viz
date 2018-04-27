@@ -417,7 +417,7 @@ header.masthead .intro-text .intro-heading {
 .portfolio-modal .modal-dialog {
   margin: 3rem;
   max-width: 100vw;
-  max-height: 90vh;
+  max-height: 95vh;
   overflow-y: auto;
 }
 
