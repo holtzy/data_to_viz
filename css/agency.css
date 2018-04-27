@@ -371,6 +371,11 @@ header.masthead .intro-text .intro-heading {
 
 
 
+
+
+
+
+
 /* -------------------- TOOLTIP ------------------ */
 
 
@@ -939,6 +944,11 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     }
 
 
+    .mystory {
+      fill: #69b3a2;
+      font-size: 16px;
+      text-align: center;  
+    }
 /* ------------------------------------------------------------------------------------------------------------------- */
 
 
