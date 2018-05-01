@@ -85,7 +85,7 @@ a {
 .btn-primary {
   background-color: transparent;
   border-color: #69b3a2;
-  color: black;
+  color: #69b3a2;
   border-width: medium;
 }
 
@@ -99,6 +99,20 @@ a {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }
 
+.mybtnrelated {
+  height: 260px;
+}
+
+.mytextrelated {
+  text-transform: none; 
+  font-weight: normal !important; 
+  color: black;
+}
+
+.mytitlerelated {
+  margin: 10px 0 10px;
+  font-size: 14px;
+}
 
 .btn-secondary {
   background-color: transparent;
