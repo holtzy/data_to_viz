@@ -1,6 +1,6 @@
 ---
-myimage: "../img/section/HistogramSmall.png"
-mytitle: "Histogram"
+myimage: "../img/section/DensitySmall.png"
+mytitle: "Density"
 output:
   html_document:
       template: template_datatoviz.html
@@ -26,9 +26,9 @@ output:
 
 # Definition {#definition}
 ***
-A histogram is an accurate graphical representation of the distribution of a numeric variable. It takes as input numeric variables only. The variable is cut into several bins, and the number of observation per bin is represented by the height of the bar.  
+A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable ([see more](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/)).
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
+It is a smoothed version of the [histogram](histogram.html) and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Libraries
 library(tidyverse)
@@ -42,7 +42,7 @@ data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/
 data %>%
   filter( price<300 ) %>%
   ggplot( aes(x=price)) +
-    stat_bin(breaks=seq(0,300,10), fill="#69b3a2", color="#e9ecef", alpha=0.9) +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
     ggtitle("Night price distribution of Airbnb appartements") +
     theme_ipsum()
 ```
@@ -51,7 +51,7 @@ data %>%
 # What for
 ***
 
-Histogram are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:
+Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:
 
 ```{r, fig.align="center", fig.width=10, warning=FALSE, message=FALSE}
 
@@ -64,8 +64,8 @@ data <- data.frame(
 # Represent it
 data %>%
   ggplot( aes(x=value)) +
-    geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.9) +
-    facet_wrap(~type, scale="free_x") +
+    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.9, adjust = 0.5) +
+    facet_wrap(~type, scale="free") +
     theme_ipsum() +
     theme(
       panel.spacing = unit(0.1, "lines"),
@@ -91,7 +91,7 @@ data <- data.frame(
 # Represent it
 data %>%
   ggplot( aes(x=value, fill=type)) +
-    geom_histogram( color="#e9ecef", alpha=0.6) +
+    geom_density( color="#e9ecef", alpha=0.6) +
     scale_fill_manual(values=c("#69b3a2", "#404080")) +
     theme_ipsum() +
     labs(fill="")
@@ -112,10 +112,10 @@ data <- data.frame(
  
 data %>% 
   ggplot( aes(x) ) + 
-    geom_histogram( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
-    geom_label( aes(x=4.8, y=0.25, label="variable1"), color="#69b3a2") +
-    geom_histogram( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
-    geom_label( aes(x=4.8, y=-0.25, label="variable2"), color="#404080") +
+    geom_density( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
+    geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
+    geom_density( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
+    geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
     theme_ipsum() +
     xlab("value of x")
 ```
@@ -126,11 +126,8 @@ data %>%
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-- Don't use weird color sheme. It does not give any more insight.
-- Don't confound it with a [barplot](). A barplot gives a value for each group of a categoric variable. Here, we have only a numeric variable and we chack its distribution.
-- [Don't compare more than ~3 groups]() in the same histogram. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.
-- Using unequal bin widths
+- [Play with the bandwith argument](), it can lead to very different conclusions.
+- [Don't compare more than ~3 groups]() on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.
 
 
 
@@ -140,10 +137,10 @@ data %>%
 
 <div class="row">
   <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
+  <p class="mytitlerelated">Histogram</p>
+  <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
   </a>
   </div>
   <div class="col-sm-3">
@@ -177,8 +174,8 @@ data %>%
 The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
