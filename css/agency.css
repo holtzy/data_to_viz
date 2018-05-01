@@ -899,14 +899,14 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
       height: 15px;
       width: 15px;
       margin: 0 2px;
-      background-color: #bbb;
+      background-color: #69b3a2;
       border-radius: 50%;
       display: inline-block;
       transition: background-color 0.6s ease;
     }
 
     .active, .dot:hover {
-      background-color: #717171;
+      background-color: white;
     }
 
 /* ------------------------------------------------------------------------------------------------------------------- */
@@ -990,5 +990,40 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* MISTAKE CAROUSSEL CUSTOM
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+
+.carousel-control-next, .carousel-control-prev {
+  color: black;
+}
+
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-prev {
+    left: -121px;
+}
+.carousel-control-next {
+    right: -121px;
+}
+
+.mytextrelated {
+  text-transform: none; 
+  font-weight: normal !important; 
+  color: black;
+}
+
+.mytitlerelated {
+  margin: 10px 0 10px;
+  font-size: 14px;
+}
 
 
