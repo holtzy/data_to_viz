@@ -117,7 +117,7 @@
             <h4 class="service-heading">Numeric</h4>
           </div>
           
-          <div id="categoricHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('categoricHead');" >
+          <div id="categoricHead" class="col-md-2 treeHead" onMouseOver="showTree('cat'); highlightHead('categoricHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
@@ -133,7 +133,7 @@
             <h4 class="service-heading">Num & Cat</h4>
           </div>
               
-          <div id="geographicalHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('geographicalHead');" >
+          <div id="geographicalHead" class="col-md-2 treeHead" onMouseOver="showTree('geo'); highlightHead('geographicalHead');" >
             <span class="fa-stack fa-3x">
               <i class="fa fa-circle fa-stack-2x text-primary"></i>
               <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
@@ -154,18 +154,6 @@
 
 
 
-<style>
-
-.treeHead {
-  border-style: solid; 
-  border-color: rgba(0, 0, 0, 0);
-}
-
-.tree {
-  opacity: 0;
-}
-
-</style>
 
 
     <!-- Tree Javascript-->
@@ -247,7 +235,8 @@
 
 <!-- NOTE TO GO FROM SVG TO THIS CODE -->
 <!--  insert the tree in a div: <div id="num" class="tree" style="text-align:center;">   -->
-<!--  adding width="595.28px" height="1133.858px" allows to control for the general size of the tree -->
+<!--  replace the <svg> header with <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve"> -->
+<!--  Change .st css classes to unique names -->
 <!--  change path to png images that compose the tree -->
 <!--  add class="graphtypelogo" to every images to give them their CSS spec (get grey when hovered -->
 <!--  make the png clickable: to do so, put <a data-toggle="modal" href="#treemap"></a> around it -->
@@ -258,77 +247,75 @@
 
 <!-- Skip a line befor the trees -->
 
-
-
 <!-- Numeric only -->
 <div id="num" class="tree" style="text-align:center;">
 <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
 <style type="text/css">
-  .st0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
-  .st1{font-family:'Lato-Regular';}
-  .st2{font-size:13px; fill: black !important; stroke: none !important; }
-  .st3{fill:#FFFFFF;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
-  .st4{fill:#808285; font-size: 13px !important;}
-  .st5{font-family:'OpenSans-Semibold';}
-  .st6{font-size:14px;}
+  .numst0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .numst1{font-family:'Lato-Regular';}
+  .numst2{font-size:13px; fill: black !important; stroke: none !important; }
+  .numst3{fill:#FFFFFF;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .numst4{fill:#808285; font-size: 13px !important;}
+  .numst5{font-family:'OpenSans-Semibold';}
+  .numst6{font-size:14px;}
 </style>
 <g>
-  <line class="st0" x1="1405.7" y1="312" x2="1405.7" y2="1355.8"/>
-  <text transform="matrix(1 0 0 1 1356.6582 871.4056)"><tspan x="0" y="0" class="st1 st2">RIDGE</tspan><tspan x="10.9" y="13" class="st1 st2">LINE</tspan></text>
-  <text transform="matrix(1 0 0 1 1352.0439 733.4965)"><tspan x="0" y="0" class="st1 st2">VIOLIN</tspan><tspan x="10.5" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 1335.3188 595.5875)" class="st1 st2">BOXPLOT</text>
-  <text transform="matrix(1 0 0 1 1301.064 1423.0453)" class="st1 st2">DENDROGRAM</text>
-  <text transform="matrix(1 0 0 1 1332.5439 1285.1371)" class="st1 st2">HEATMAP</text>
-  <text transform="matrix(1 0 0 1 1369.8401 1009.316)" class="st1 st2">PCA</text>
+  <line class="numst0" x1="1405.7" y1="312" x2="1405.7" y2="1355.8"/>
+  <text transform="matrix(1 0 0 1 1356.6582 871.4056)"><tspan x="0" y="0" class="numst1 numst2">RIDGE</tspan><tspan x="10.9" y="13" class="numst1 numst2">LINE</tspan></text>
+  <text transform="matrix(1 0 0 1 1352.0439 733.4965)"><tspan x="0" y="0" class="numst1 numst2">VIOLIN</tspan><tspan x="10.5" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 1335.3188 595.5875)" class="numst1 numst2">BOXPLOT</text>
+  <text transform="matrix(1 0 0 1 1301.064 1423.0453)" class="numst1 numst2">DENDROGRAM</text>
+  <text transform="matrix(1 0 0 1 1332.5439 1285.1371)" class="numst1 numst2">HEATMAP</text>
+  <text transform="matrix(1 0 0 1 1369.8401 1009.316)" class="numst1 numst2">PCA</text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="right" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by many columns, all numeric</em><br><br><img width='695' height='267' class='img-fluid' src='img/table/SeveralNum.png' alt=''><br><br></div>">
-    <polygon class="st3" points="1364,256.4 1405.7,232.3 1447.4,256.4 1447.4,304.6 1405.7,328.7 1364,304.6  "/>
-    <text transform="matrix(1 0 0 1 1390.7357 276.1355)"><tspan x="0" y="0" class="st4 st5 st6">NOT</tspan><tspan x="-17.6" y="16.8" class="st4 st5 st6">ORDERED</tspan></text>
+    <polygon class="numst3" points="1364,256.4 1405.7,232.3 1447.4,256.4 1447.4,304.6 1405.7,328.7 1364,304.6  "/>
+    <text transform="matrix(1 0 0 1 1390.7357 276.1355)"><tspan x="0" y="0" class="numst4 numst5 numst6">NOT</tspan><tspan x="-17.6" y="16.8" class="numst4 numst5 numst6">ORDERED</tspan></text>
   </g>
 
-  <text transform="matrix(1 0 0 1 1296.4561 1147.2285)" class="st1 st2">CORRELOGRAM</text>
-  <path class="st0" d="M1375.3,185.7h16.3c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
+  <text transform="matrix(1 0 0 1 1296.4561 1147.2285)" class="numst1 numst2">CORRELOGRAM</text>
+  <path class="numst0" d="M1375.3,185.7h16.3c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
   <g>
     
-      <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.2616 22.5944)" class="st4" cx="1405.7" cy="1217.9" rx="52.4" ry="52.4"/>
+      <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.2616 22.5944)" class="numst4" cx="1405.7" cy="1217.9" rx="52.4" ry="52.4"/>
     
       <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1085 1169.2806)">
     </a>
   </g>
   <g>
-    <circle class="st4" cx="1405.7" cy="666.2" r="52.4"/>
+    <circle class="numst4" cx="1405.7" cy="666.2" r="52.4"/>
     
       <a data-toggle="modal" href="#violin"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 617.6404)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1458.1,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1458.1,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       S1458.1,499.3,1458.1,528.3z"/>
     
       <a data-toggle="modal" href="#boxplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 479.7304)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1458.1,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1458.1,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       S1458.1,1051,1458.1,1079.9z"/>
     
       <a data-toggle="modal" href="#correlogram"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CorrelogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 1031.3707)">
     </a>
   </g>
   <g>
-    <circle class="st4" cx="1405.7" cy="1355.8" r="52.4"/>
+    <circle class="numst4" cx="1405.7" cy="1355.8" r="52.4"/>
     
       <a data-toggle="modal" href="#dendrogram"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 1307.1903)">
     </a>
   </g>
   <g>
-    <circle class="st4" cx="1405.7" cy="804.1" r="52.4"/>
+    <circle class="numst4" cx="1405.7" cy="804.1" r="52.4"/>
     
       <a data-toggle="modal" href="#ridgeline"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/JoyplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 755.55)">
     </a>
   </g>
   <g>
-    <circle class="st4" cx="1405.7" cy="942" r="52.4"/>
+    <circle class="numst4" cx="1405.7" cy="942" r="52.4"/>
     
       <a data-toggle="modal" href="#pca"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PCAsmall.png"  transform="matrix(0.8522 0 0 0.8522 1357.1157 893.4603)">
     </a>
@@ -336,52 +323,52 @@
 </g>
 <g>
   <g data-toggle="tooltip" data-html="true" data-placement="bottom" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by many columns, all numeric. Data are ordered</em><br><br><img width='695' height='267' class='img-fluid' src='img/table/SeveralNumOrdered.png' alt=''><br><br></div>">
-    <polygon class="st3" points="1219.6,256.4 1261.4,232.3 1303.1,256.4 1303.1,304.6 1261.4,328.7 1219.6,304.6  "/>
-    <text transform="matrix(1 0 0 1 1228.8063 284.5356)" class="st4 st5 st6">ORDERED</text>
+    <polygon class="numst3" points="1219.6,256.4 1261.4,232.3 1303.1,256.4 1303.1,304.6 1261.4,328.7 1219.6,304.6  "/>
+    <text transform="matrix(1 0 0 1 1228.8063 284.5356)" class="numst4 numst5 numst6">ORDERED</text>
   </g>
-  <path class="st0" d="M1291.8,185.7h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
-  <path class="st0" d="M1219.6,304.6h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v37"/>
+  <path class="numst0" d="M1291.8,185.7h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
+  <path class="numst0" d="M1219.6,304.6h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v37"/>
 </g>
 <g>
-  <polygon class="st3" points="1291.8,137.5 1333.5,113.4 1375.3,137.5 1375.3,185.7 1333.5,209.8 1291.8,185.7  "/>
-  <text transform="matrix(1 0 0 1 1304.6089 157.1974)"><tspan x="0" y="0" class="st4 st5 st6">SEVERAL</tspan><tspan x="-3.2" y="16.8" class="st4 st5 st6">NUMERIC</tspan></text>
+  <polygon class="numst3" points="1291.8,137.5 1333.5,113.4 1375.3,137.5 1375.3,185.7 1333.5,209.8 1291.8,185.7  "/>
+  <text transform="matrix(1 0 0 1 1304.6089 157.1974)"><tspan x="0" y="0" class="numst4 numst5 numst6">SEVERAL</tspan><tspan x="-3.2" y="16.8" class="numst4 numst5 numst6">NUMERIC</tspan></text>
 </g>
 <g>
-  <text transform="matrix(1 0 0 1 1150.7378 871.4054)"><tspan x="0" y="0" class="st1 st2">LINE</tspan><tspan x="-4.8" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 1145.2324 1009.3164)"><tspan x="0" y="0" class="st1 st2">AREA</tspan><tspan x="7.2" y="13" class="st1 st2">(SM)</tspan></text>
-  <text transform="matrix(1 0 0 1 1127.2334 733.4952)"><tspan x="0" y="0" class="st1 st2">STREAM</tspan><tspan x="7.1" y="13" class="st1 st2">GRAPH</tspan></text>
-  <text transform="matrix(1 0 0 1 1120.4048 595.587)"><tspan x="0" y="0" class="st1 st2">STACKED</tspan><tspan x="-10.9" y="13" class="st1 st2">AREA PLOT</tspan></text>
-  <path class="st0" d="M1158.7,304.6h16.3c5.5,5.5,8.6,8.6,14.2,14.2V942"/>
+  <text transform="matrix(1 0 0 1 1150.7378 871.4054)"><tspan x="0" y="0" class="numst1 numst2">LINE</tspan><tspan x="-4.8" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 1145.2324 1009.3164)"><tspan x="0" y="0" class="numst1 numst2">AREA</tspan><tspan x="7.2" y="13" class="numst1 numst2">(SM)</tspan></text>
+  <text transform="matrix(1 0 0 1 1127.2334 733.4952)"><tspan x="0" y="0" class="numst1 numst2">STREAM</tspan><tspan x="7.1" y="13" class="numst1 numst2">GRAPH</tspan></text>
+  <text transform="matrix(1 0 0 1 1120.4048 595.587)"><tspan x="0" y="0" class="numst1 numst2">STACKED</tspan><tspan x="-10.9" y="13" class="numst1 numst2">AREA PLOT</tspan></text>
+  <path class="numst0" d="M1158.7,304.6h16.3c5.5,5.5,8.6,8.6,14.2,14.2V942"/>
   <g>
   <g data-toggle="tooltip" data-html="true" data-placement="bottom" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by 3 columns, all numeric. Data are ordered (see column 1 here)</em><br><br><img width='695' height='267' class='img-fluid' src='img/table/ThreeNumOrdered.png' alt=''><br><br></div>">
-      <polygon class="st3" points="1075.3,256.4 1117,232.3 1158.7,256.4 1158.7,304.6 1117,328.7 1075.3,304.6    "/>
-      <text transform="matrix(1 0 0 1 1084.4702 284.5357)" class="st4 st5 st6">ORDERED</text>
+      <polygon class="numst3" points="1075.3,256.4 1117,232.3 1158.7,256.4 1158.7,304.6 1117,328.7 1075.3,304.6    "/>
+      <text transform="matrix(1 0 0 1 1084.4702 284.5357)" class="numst4 numst5 numst6">ORDERED</text>
     </g>
-    <path class="st0" d="M1086.6,185.7h16.3c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
+    <path class="numst0" d="M1086.6,185.7h16.3c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
   </g>
   <g>
-    <path class="st4" d="M1241.6,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1241.6,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1218.1,475.9,1241.6,499.3,1241.6,528.3z"/>
     
       <a data-toggle="modal" href="#stackedarea"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedAreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 1140.6111 479.7304)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1241.6,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1241.6,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1218.1,613.8,1241.6,637.3,1241.6,666.2z"/>
     
       <a data-toggle="modal" href="#streamgraph"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StreamSmall.png"  transform="matrix(0.8522 0 0 0.8522 1140.6111 617.6404)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1241.6,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1241.6,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1218.1,751.7,1241.6,775.2,1241.6,804.1z"/>
     
       <a data-toggle="modal" href="#line"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LineSmall.png"  transform="matrix(0.8522 0 0 0.8522 1140.6111 755.5505)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1241.6,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1241.6,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1218.1,889.6,1241.6,913.1,1241.6,942z"/>
     
       <a data-toggle="modal" href="#area"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/AreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 1140.6111 893.4613)">
@@ -389,41 +376,41 @@
   </g>
 </g>
 <g>
-  <line class="st0" x1="972.7" y1="307.7" x2="972.7" y2="942"/>
-  <text transform="matrix(1 0 0 1 913.0229 871.4054)"><tspan x="0" y="0" class="st1 st2">BUBBLE</tspan><tspan x="16.4" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 885.6841 1009.316)"><tspan x="0" y="0" class="st1 st2">3D SCATTER</tspan><tspan x="-2.7" y="13" class="st1 st2">OR SURFACE</tspan></text>
-  <text transform="matrix(1 0 0 1 918.8921 733.4952)"><tspan x="0" y="0" class="st1 st2">VIOLIN</tspan><tspan x="10.5" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 902.3071 595.587)" class="st1 st2">BOXPLOT</text>
+  <line class="numst0" x1="972.7" y1="307.7" x2="972.7" y2="942"/>
+  <text transform="matrix(1 0 0 1 913.0229 871.4054)"><tspan x="0" y="0" class="numst1 numst2">BUBBLE</tspan><tspan x="16.4" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 885.6841 1009.316)"><tspan x="0" y="0" class="numst1 numst2">3D SCATTER</tspan><tspan x="-2.7" y="13" class="numst1 numst2">OR SURFACE</tspan></text>
+  <text transform="matrix(1 0 0 1 918.8921 733.4952)"><tspan x="0" y="0" class="numst1 numst2">VIOLIN</tspan><tspan x="10.5" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 902.3071 595.587)" class="numst1 numst2">BOXPLOT</text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="left" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by 3 columns, all numeric.</em><br><br><img width='695' height='267' class='img-fluid' src='img/table/ThreeNum.png' alt=''><br><br></div>">
-    <polygon class="st3" points="930.9,256.4 972.7,232.3 1014.4,256.4 1014.4,304.6 972.7,328.7 930.9,304.6  "/>
-    <text transform="matrix(1 0 0 1 957.7271 276.1364)"><tspan x="0" y="0" class="st4 st5 st6">NOT</tspan><tspan x="-17.6" y="16.8" class="st4 st5 st6">ORDERED</tspan></text>
+    <polygon class="numst3" points="930.9,256.4 972.7,232.3 1014.4,256.4 1014.4,304.6 972.7,328.7 930.9,304.6  "/>
+    <text transform="matrix(1 0 0 1 957.7271 276.1364)"><tspan x="0" y="0" class="numst4 numst5 numst6">NOT</tspan><tspan x="-17.6" y="16.8" class="numst4 numst5 numst6">ORDERED</tspan></text>
   </g>
 
-  <path class="st0" d="M1003.1,185.7h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
+  <path class="numst0" d="M1003.1,185.7h-16.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
   <g>
-    <path class="st4" d="M1025.1,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1025.1,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1001.6,475.9,1025.1,499.3,1025.1,528.3z"/>
     
       <a data-toggle="modal" href="#boxplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 479.7304)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1025.1,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1025.1,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1001.6,613.8,1025.1,637.3,1025.1,666.2z"/>
     
       <a data-toggle="modal" href="#violin"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 617.6404)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1025.1,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1025.1,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1001.6,751.7,1025.1,775.2,1025.1,804.1z"/>
     
       <a data-toggle="modal" href="#bubble"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BubblePlotSmall.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 755.5505)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M1025.1,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M1025.1,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1001.6,889.6,1025.1,913.1,1025.1,942z"/>
     
       <a data-toggle="modal" href="#3D"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/3dRoundSmall.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 893.4613)">
@@ -431,44 +418,40 @@
   </g>
 </g>
 <g>
-  <polygon class="st3" points="1003.1,137.5 1044.8,113.4 1086.6,137.5 1086.6,185.7 1044.8,209.8 1003.1,185.7  "/>
-  <text transform="matrix(1 0 0 1 1023.3417 148.7982)"><tspan x="0" y="0" class="st4 st5 st6">THREE</tspan><tspan x="-10.6" y="16.8" class="st4 st5 st6">NUMERIC</tspan><tspan x="-14.9" y="33.6" class="st4 st5 st6">VARIABLES</tspan></text>
+  <polygon class="numst3" points="1003.1,137.5 1044.8,113.4 1086.6,137.5 1086.6,185.7 1044.8,209.8 1003.1,185.7  "/>
+  <text transform="matrix(1 0 0 1 1023.3417 148.7982)"><tspan x="0" y="0" class="numst4 numst5 numst6">THREE</tspan><tspan x="-10.6" y="16.8" class="numst4 numst5 numst6">NUMERIC</tspan><tspan x="-14.9" y="33.6" class="numst4 numst5 numst6">VARIABLES</tspan></text>
 </g>
-
-
-
-
 
 
 <!-- 2 Numeric -->
 <g>
-  <line class="st0" x1="706.6" y1="307.7" x2="706.6" y2="814.3"/>
-  <text transform="matrix(1 0 0 1 662.6509 733.4961)"><tspan x="0" y="0" class="st1 st2">AREA</tspan><tspan x="0.7" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 668.1562 871.4058)"><tspan x="0" y="0" class="st1 st2">LINE</tspan><tspan x="-4.8" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 615.8408 595.5879)"><tspan x="0" y="0" class="st1 st2">CONNECTED</tspan><tspan x="-11.2" y="13" class="st1 st2">SCATTER PLOT</tspan></text>
+  <line class="numst0" x1="706.6" y1="307.7" x2="706.6" y2="814.3"/>
+  <text transform="matrix(1 0 0 1 662.6509 733.4961)"><tspan x="0" y="0" class="numst1 numst2">AREA</tspan><tspan x="0.7" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 668.1562 871.4058)"><tspan x="0" y="0" class="numst1 numst2">LINE</tspan><tspan x="-4.8" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 615.8408 595.5879)"><tspan x="0" y="0" class="numst1 numst2">CONNECTED</tspan><tspan x="-11.2" y="13" class="numst1 numst2">SCATTER PLOT</tspan></text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="bottom" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by 2 columns, all numeric. Data are ordered (see column 1)</em><br><br><img width='250' height='200' class='img-fluid' src='img/table/TwoNumOrdered.png' alt=''><br><br></div>">
-    <polygon class="st3" points="664.9,256.4 706.6,232.3 748.3,256.4 748.3,304.6 706.6,328.7 664.9,304.6  "/>
-    <text transform="matrix(1 0 0 1 674.0579 284.5357)" class="st4 st5 st6">ORDERED</text>
+    <polygon class="numst3" points="664.9,256.4 706.6,232.3 748.3,256.4 748.3,304.6 706.6,328.7 664.9,304.6  "/>
+    <text transform="matrix(1 0 0 1 674.0579 284.5357)" class="numst4 numst5 numst6">ORDERED</text>
   </g>
 
   <g>
-    <path class="st4" d="M759,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M759,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C735.6,751.7,759,775.2,759,804.1z"/>
     
       <a data-toggle="modal" href="#line"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LineSmall.png"  transform="matrix(0.8522 0 0 0.8522 658.0298 755.55)">
     </a>
   </g>
-  <path class="st0" d="M612.6,185.7h79.9c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
+  <path class="numst0" d="M612.6,185.7h79.9c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
   <g>
-    <path class="st4" d="M759,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M759,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C735.6,613.8,759,637.3,759,666.2z"/>
     
       <a data-toggle="modal" href="#area"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/AreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 658.0308 617.6409)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M759,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M759,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C735.6,475.9,759,499.3,759,528.3z"/>
     
       <a data-toggle="modal" href="#connectedscatter"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterConnectedSmall.png"  transform="matrix(0.8522 0 0 0.8522 658.0308 479.731)">
@@ -476,34 +459,34 @@
   </g>
 </g>
 <g>
-  <line class="st0" x1="501.4" y1="431" x2="501.4" y2="942"/>
-  <text transform="matrix(1 0 0 1 447.7534 595.5883)"><tspan x="0" y="0" class="st1 st2">VIOLIN</tspan><tspan x="10.5" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 437.0413 733.4962)"><tspan x="0" y="0" class="st1 st2">DENSITY</tspan><tspan x="21.2" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 397.2679 871.4056)"><tspan x="0" y="0" class="st1 st2">SCATTER WITH</tspan><tspan x="-16.8" y="13" class="st1 st2">MARGINAL POINT</tspan></text>
-  <text transform="matrix(1 0 0 1 416.2869 1009.3162)"><tspan x="0" y="0" class="st1 st2">2D DENSITY</tspan><tspan x="42" y="13" class="st1 st2">PLOT</tspan></text>
+  <line class="numst0" x1="501.4" y1="431" x2="501.4" y2="942"/>
+  <text transform="matrix(1 0 0 1 447.7534 595.5883)"><tspan x="0" y="0" class="numst1 numst2">VIOLIN</tspan><tspan x="10.5" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 437.0413 733.4962)"><tspan x="0" y="0" class="numst1 numst2">DENSITY</tspan><tspan x="21.2" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 397.2679 871.4056)"><tspan x="0" y="0" class="numst1 numst2">SCATTER WITH</tspan><tspan x="-16.8" y="13" class="numst1 numst2">MARGINAL POINT</tspan></text>
+  <text transform="matrix(1 0 0 1 416.2869 1009.3162)"><tspan x="0" y="0" class="numst1 numst2">2D DENSITY</tspan><tspan x="42" y="13" class="numst1 numst2">PLOT</tspan></text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="left" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by 2 columns, all numeric. In this case we consider dataset with more than ~2000 data points approx.</em><br><br><img width='250' height='200' class='img-fluid' src='img/table/TwoNum.png' alt=''><br><br></div>">
-    <polygon class="st3" points="459.7,379.1 501.4,355 543.1,379.1 543.1,427.3 501.4,451.4 459.7,427.3  "/>
-    <text transform="matrix(1 0 0 1 480.6847 398.8495)"><tspan x="0" y="0" class="st4 st5 st6">MANY</tspan><tspan x="-4.5" y="16.8" class="st4 st5 st6">POINTS</tspan></text>
+    <polygon class="numst3" points="459.7,379.1 501.4,355 543.1,379.1 543.1,427.3 501.4,451.4 459.7,427.3  "/>
+    <text transform="matrix(1 0 0 1 480.6847 398.8495)"><tspan x="0" y="0" class="numst4 numst5 numst6">MANY</tspan><tspan x="-4.5" y="16.8" class="numst4 numst5 numst6">POINTS</tspan></text>
   </g>
 
   <g>
-    <path class="st4" d="M553.8,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M553.8,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C530.4,613.8,553.8,637.3,553.8,666.2z"/>
     
       <a data-toggle="modal" href="#density"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DensitySmall.png"  transform="matrix(0.8522 0 0 0.8522 452.825 617.6411)">
     </a>
   </g>
-  <path class="st0" d="M476.8,306.5h10.5c5.5,5.5,8.6,8.6,14.2,14.2V355"/>
+  <path class="numst0" d="M476.8,306.5h10.5c5.5,5.5,8.6,8.6,14.2,14.2V355"/>
   <g>
-    <path class="st4" d="M553.8,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M553.8,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C530.4,889.6,553.8,913.1,553.8,942z"/>
     
       <a data-toggle="modal" href="#density2d"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/2dDensitySmall.png"  transform="matrix(0.8522 0 0 0.8522 452.825 893.4613)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M553.8,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M553.8,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C530.4,475.9,553.8,499.3,553.8,528.3z"/>
     
       <a data-toggle="modal" href="#violin"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 452.825 479.731)">
@@ -511,7 +494,7 @@
   </g>
   <g>
     <g>
-      <path class="st4" d="M553.8,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+      <path class="numst4" d="M553.8,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
         C530.4,751.7,553.8,775.2,553.8,804.1z"/>
     </g>
     
@@ -520,33 +503,33 @@
   </g>
 </g>
 <g>
-  <line class="st0" x1="368.7" y1="426.7" x2="368.7" y2="836.3"/>
-  <text transform="matrix(1 0 0 1 302.4385 871.4061)"><tspan x="0" y="0" class="st1 st2">SCATTER</tspan><tspan x="23" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 280.7671 733.496)" class="st1 st2">HISTOGRAM</text>
-  <text transform="matrix(1 0 0 1 294.9795 595.5878)" class="st1 st2">BOX PLOT</text>
+  <line class="numst0" x1="368.7" y1="426.7" x2="368.7" y2="836.3"/>
+  <text transform="matrix(1 0 0 1 302.4385 871.4061)"><tspan x="0" y="0" class="numst1 numst2">SCATTER</tspan><tspan x="23" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 280.7671 733.496)" class="numst1 numst2">HISTOGRAM</text>
+  <text transform="matrix(1 0 0 1 294.9795 595.5878)" class="numst1 numst2">BOX PLOT</text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="bottom" offset='100 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A dataset composed by 2 columns, all numeric. In this case we consider dataset with less than ~2000 data points approx.</em><br><br><img width='250' height='200' class='img-fluid' src='img/table/TwoNum.png' alt=''><br><br></div>">
-    <polygon class="st3" points="326.9,375.4 368.7,351.3 410.4,375.4 410.4,423.5 368.7,447.6 326.9,423.5  "/>
-    <text transform="matrix(1 0 0 1 354.4259 395.0734)"><tspan x="0" y="0" class="st4 st5 st6">FEW</tspan><tspan x="-11" y="16.8" class="st4 st5 st6">POINTS</tspan></text>
+    <polygon class="numst3" points="326.9,375.4 368.7,351.3 410.4,375.4 410.4,423.5 368.7,447.6 326.9,423.5  "/>
+    <text transform="matrix(1 0 0 1 354.4259 395.0734)"><tspan x="0" y="0" class="numst4 numst5 numst6">FEW</tspan><tspan x="-11" y="16.8" class="numst4 numst5 numst6">POINTS</tspan></text>
   </g>
 
   <g>
-    <path class="st4" d="M421.1,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M421.1,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C397.6,613.8,421.1,637.3,421.1,666.2z"/>
     
       <a xlink:href="graph/histogram.html"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HistogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 320.1048 617.641)">
     </a>
   </g>
-  <path class="st0" d="M393.3,306.5h-10.5c-5.5,5.5-8.6,8.6-14.2,14.2v30.6"/>
+  <path class="numst0" d="M393.3,306.5h-10.5c-5.5,5.5-8.6,8.6-14.2,14.2v30.6"/>
   <g>
-    <path class="st4" d="M421.1,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M421.1,804.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C397.6,751.7,421.1,775.2,421.1,804.1z"/>
     
       <a data-toggle="modal" href="#scatter"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterPlotSmall.png"  transform="matrix(0.8522 0 0 0.8522 320.1048 755.5511)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M421.1,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+    <path class="numst4" d="M421.1,528.3c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C397.6,475.9,421.1,499.3,421.1,528.3z"/>
     
       <a data-toggle="modal" href="#boxplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 320.1048 479.731)">
@@ -554,46 +537,44 @@
   </g>
 </g>
 <g>
-  <polygon class="st3" points="393.3,258.3 435,234.2 476.8,258.3 476.8,306.5 435,330.6 393.3,306.5  "/>
-  <text transform="matrix(1 0 0 1 420.086 278.0233)"><tspan x="0" y="0" class="st4 st5 st6">NOT</tspan><tspan x="-17.6" y="16.8" class="st4 st5 st6">ORDERED</tspan></text>
-  <path class="st0" d="M529.1,185.7h-79.9c-5.5,5.5-8.6,8.6-14.2,14.2l0,34.4"/>
+  <polygon class="numst3" points="393.3,258.3 435,234.2 476.8,258.3 476.8,306.5 435,330.6 393.3,306.5  "/>
+  <text transform="matrix(1 0 0 1 420.086 278.0233)"><tspan x="0" y="0" class="numst4 numst5 numst6">NOT</tspan><tspan x="-17.6" y="16.8" class="numst4 numst5 numst6">ORDERED</tspan></text>
+  <path class="numst0" d="M529.1,185.7h-79.9c-5.5,5.5-8.6,8.6-14.2,14.2l0,34.4"/>
 </g>
 <g>
-  <polygon class="st3" points="529.1,137.5 570.8,113.4 612.6,137.5 612.6,185.7 570.8,209.8 529.1,185.7  "/>
-  <text transform="matrix(1 0 0 1 554.7292 148.7983)"><tspan x="0" y="0" class="st4 st5 st6">TWO</tspan><tspan x="-16" y="16.8" class="st4 st5 st6">NUMERIC</tspan><tspan x="-20.3" y="33.6" class="st4 st5 st6">VARIABLES</tspan></text>
+  <polygon class="numst3" points="529.1,137.5 570.8,113.4 612.6,137.5 612.6,185.7 570.8,209.8 529.1,185.7  "/>
+  <text transform="matrix(1 0 0 1 554.7292 148.7983)"><tspan x="0" y="0" class="numst4 numst5 numst6">TWO</tspan><tspan x="-16" y="16.8" class="numst4 numst5 numst6">NUMERIC</tspan><tspan x="-20.3" y="33.6" class="numst4 numst5 numst6">VARIABLES</tspan></text>
 </g>
-
-
 
 <!-- One Numeric -->
 <g>
-  <line class="st0" x1="102.6" y1="193.1" x2="102.6" y2="666.2"/>
+  <line class="numst0" x1="102.6" y1="193.1" x2="102.6" y2="666.2"/>
   <g>
-    <circle class="st4" cx="102.6" cy="666.2" r="52.4"/>
+    <circle class="numst4" cx="102.6" cy="666.2" r="52.4"/>
     
       <a data-toggle="modal" href="#density"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DensitySmall.png"  transform="matrix(0.8522 0 0 0.8522 54.0231 617.6336)">
     </a>
   </g>
   <g>
-    <path class="st4" d="M155,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4S155,499.3,155,528.3z"/>
+    <path class="numst4" d="M155,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4S155,499.3,155,528.3z"/>
     
       <a data-toggle="modal" href="#histogram"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HistogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 54.0266 479.7274)">
     </a>
   </g>
-  <text transform="matrix(1 0 0 1 38.105 733.4967)"><tspan x="0" y="0" class="st1 st2">DENSITY</tspan><tspan x="21.2" y="13" class="st1 st2">PLOT</tspan></text>
-  <text transform="matrix(1 0 0 1 14.8321 595.5875)" class="st1 st2">HISTOGRAM</text>
+  <text transform="matrix(1 0 0 1 38.105 733.4967)"><tspan x="0" y="0" class="numst1 numst2">DENSITY</tspan><tspan x="21.2" y="13" class="numst1 numst2">PLOT</tspan></text>
+  <text transform="matrix(1 0 0 1 14.8321 595.5875)" class="numst1 numst2">HISTOGRAM</text>
   
   <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Very simple dataset with only one column composed by numbers</em><br><br><img width='150' height='250' class='img-fluid' src='img/table/OneNum.png' alt=''><br><br></div>">
-    <polygon class="st3" points="60.9,137.5 102.6,113.4 144.3,137.5 144.3,185.7 102.6,209.8 60.9,185.7  "/>
-    <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="0" y="0" class="st4 st5 st6">ONE</tspan><tspan x="-17.2" y="16.8" class="st4 st5 st6">NUMERIC</tspan><tspan x="-17.6" y="33.6" class="st4 st5 st6">VARIABLE</tspan></text>
+    <polygon class="numst3" points="60.9,137.5 102.6,113.4 144.3,137.5 144.3,185.7 102.6,209.8 60.9,185.7  "/>
+    <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="0" y="0" class="numst4 numst5 numst6">ONE</tspan><tspan x="-17.2" y="16.8" class="numst4 numst5 numst6">NUMERIC</tspan><tspan x="-17.6" y="33.6" class="numst4 numst5 numst6">VARIABLE</tspan></text>
   </g>
 
 </g>
 <g>
-  <path class="st0" d="M1333.5,113.4V70.9c-5.5-5.5-8.6-8.6-14.2-14.2H116.8c-5.5,5.5-8.6,8.6-14.2,14.2v42.5"/>
-  <line class="st0" x1="570.8" y1="113.4" x2="570.8" y2="56.7"/>
-  <line class="st0" x1="1044.8" y1="113.4" x2="1044.8" y2="56.7"/>
-  <line class="st0" x1="754.1" y1="56.7" x2="754.1" y2="0"/>
+  <path class="numst0" d="M1333.5,113.4V70.9c-5.5-5.5-8.6-8.6-14.2-14.2H116.8c-5.5,5.5-8.6,8.6-14.2,14.2v42.5"/>
+  <line class="numst0" x1="570.8" y1="113.4" x2="570.8" y2="56.7"/>
+  <line class="numst0" x1="1044.8" y1="113.4" x2="1044.8" y2="56.7"/>
+  <line class="numst0" x1="754.1" y1="56.7" x2="754.1" y2="0"/>
 </g>
 
 <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="-15" y="640"><a class="mystory" xlink:href="story/1_OneNum.html">Story</a></tspan></text>
@@ -610,174 +591,545 @@
 
 
 
-
+<!-- Categoric only -->
+<div id="cat" class="tree" style="text-align:center;">
+<br><br><br><br><br><br><br><br><br>
+<p>Coming soon</p>
+<br><br><br><br><br><br><br><br><br>
+</div>
 
 
 
 
 <!-- Numeric and cat -->
 <div id="catnum" class="tree" style="text-align:center;">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"  width="1092.5px" height="1100px" viewBox="0 0 1133.9 1557.9" style="enable-background:new 0 0 1133.9 1557.9;" xml:space="preserve">
-
+<svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
+<style type="text/css">
+  .catnumst0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .catnumst1{font-family:'Lato-Regular';}
+  .catnumst2{font-size:11px;}
+  .catnumst3{fill:#808285; font-size: 13px;}
+  .catnumst4{fill:#FFFFFF;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+  .catnumst5{font-family:'OpenSans-Semibold';}
+  .catnumst6{font-size:14px;}
+  .catnumst7{fill:none;stroke:#808285;stroke-width:3;stroke-miterlimit:10;}
+</style>
 <g id="Cat_And_Num">
   <g>
-    <line class="st0" x1="956.7" y1="464.8" x2="956.7" y2="1393.5"/>
-    <polyline class="st0" points="956.7,385 956.7,344.3 924.8,325.9     "/>
+    <line class="catnumst0" x1="1397" y1="330.6" x2="1397" y2="1461.8"/>
+    <text transform="matrix(1 0 0 1 1337.511 1560.9491)"><tspan x="0" y="0" class="catnumst1 catnumst2">SANKEY</tspan><tspan x="-10.8" y="13" class="catnumst1 catnumst2">DIAGRAM</tspan></text>
     <g>
-      <circle class="st1" cx="956.7" cy="1389.5" r="52.4"/>
+      <circle class="catnumst3" cx="1397" cy="1493.7" r="52.4"/>
       
-        <a  data-toggle="modal" href="#pie"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PieSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 1340.9679)"></image></a></a>
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.465 1445.1003)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1342.6467 1423.0477)"><tspan x="0" y="0" class="catnumst1 catnumst2">SPIDER</tspan><tspan x="11.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1397" cy="1358.5" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SpiderSmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 1309.9474)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1325.3967 1285.1381)"><tspan x="0" y="0" class="catnumst1 catnumst2">PARALLEL</tspan><tspan x="28.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      
+        <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.2627 22.4563)" class="catnumst3" cx="1397" cy="1217.9" rx="52.4" ry="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Parallel1Small.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 1169.2806)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1328.0676 1147.2299)"><tspan x="0" y="0" class="catnumst1 catnumst2">STACKED</tspan><tspan x="0.3" y="13" class="catnumst1 catnumst2">BARPLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M1449.5,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1449.5,1051,1449.5,1079.9z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1323.6736 1009.3173)"><tspan x="0" y="0" class="catnumst1 catnumst2">GROUPED</tspan><tspan x="4.9" y="13" class="catnumst1 catnumst2">BARPLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1397" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 1348.4657 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1326.592 871.4071)" class="catnumst1 catnumst2">LOLLIPOP</text>
+    <g>
+      <circle class="catnumst3" cx="1397" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1323.8948 733.4979)" class="catnumst1 catnumst2">HEATMAP</text>
+    <g>
+      <circle class="catnumst3" cx="1397" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1323.6736 595.5887)"><tspan x="0" y="0" class="catnumst1 catnumst2">GROUPED</tspan><tspan x="-28.6" y="13" class="catnumst1 catnumst2">SCATTER PLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M1449.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1449.5,499.3,1449.5,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterGroupSmall.png"  transform="matrix(0.8522 0 0 0.8522 1348.4657 479.7304)">
       </image></a>
     </g>
     <g>
-      <circle class="st1" cx="956.7" cy="1251.6" r="52.4"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 1203.0581)">
-      </image></a>
+      <polygon class="catnumst4" points="1355.3,258.3 1397,234.2 1438.8,258.3 1438.8,306.5 1397,330.6 1355.3,306.5      "/>
+      <text transform="matrix(1 0 0 1 1382.1404 269.6234)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE</tspan><tspan x="-21.5" y="16.8" class="catnumst3 catnumst5 st6">VALUE PER</tspan><tspan x="-9.7" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
     </g>
-    <g>
-      <circle class="st1" cx="956.7" cy="1113.7" r="52.4"/>
-      
-        <a  data-toggle="modal" href="#circularbarplot"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0854 1065.1539)">
-      </image></a>
-    </g>
-    <g>
-      <circle class="st1" cx="956.7" cy="975.8" r="52.4"/>
-      
-        <a  data-toggle="modal" href="#donut"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/DougnutSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 927.2387)">
-      </image></a>
-    </g>
-    <g>
-      <circle class="st1" cx="956.7" cy="837.9" r="52.4"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularBarplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 789.329)">
-      </image></a>
-    </g>
-    <g>
-      <circle class="st1" cx="956.7" cy="700" r="52.4"/>
-      
-        <a  data-toggle="modal" href="#barplot"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0793 651.4193)">
-      </image></a>
-    </g>
-    <g>
-      <path class="st1" d="M1009.1,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C985.6,509.6,1009.1,533.1,1009.1,562.1z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 908.0828 513.5131)">
-      </image></a>
-    </g>
-    <text transform="matrix(1 0 0 1 900.605 1456.8286)" class="st3 st4">PIE CHART</text>
-    <text transform="matrix(1 0 0 1 899.7632 1318.9182)" class="st3 st4">TREE PLOT</text>
-    <text transform="matrix(1 0 0 1 902.8052 1181.009)"><tspan x="0" y="0" class="st3 st4">CIRCULAR</tspan><tspan x="-21.1" y="10.8" class="st3 st4">PACKING PLOT</tspan></text>
-    <text transform="matrix(1 0 0 1 893.0405 1043.1001)"><tspan x="0" y="0" class="st3 st4">DOUGHNUT</tspan><tspan x="30.4" y="10.8" class="st3 st4">PLOT</tspan></text>
-    <text transform="matrix(1 0 0 1 902.8052 905.1904)"><tspan x="0" y="0" class="st3 st4">CIRCULAR</tspan><tspan x="0.8" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
-    <text transform="matrix(1 0 0 1 903.5615 767.2812)" class="st3 st4">BAR PLOT</text>
-    <text transform="matrix(1 0 0 1 904.498 629.3718)"><tspan x="0" y="0" class="st3 st4">LOLLIPOP</tspan><tspan x="19.1" y="10.8" class="st3 st4">PLOT</tspan></text>
-    <g>
-      <polygon class="st2" points="922.1,405 956.7,385 991.2,405 991.2,444.8 956.7,464.8 922.1,444.8      "/>
-      <text transform="matrix(1 0 0 1 946.9683 422.0898)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-19.6" y="10.8" class="st1 st5 st4">OBS / GROUP</tspan></text>
-    </g>
+    <path class="catnumst0" d="M1291.7,185.7h89.4c6.2,6.2,9.7,9.7,15.9,15.9v32.6"/>
   </g>
   <g>
-    <line class="st0" x1="823.9" y1="460.4" x2="823.9" y2="870"/>
-    <polyline class="st0" points="855.8,325.9 823.9,344.3 823.9,385     "/>
+    <line class="catnumst0" x1="1250" y1="330.6" x2="1250" y2="1079.9"/>
+    <text transform="matrix(1 0 0 1 1158.8723 1147.2299)"><tspan x="0" y="0" class="catnumst1 catnumst2">CONNECTED</tspan><tspan x="-11.2" y="13" class="catnumst1 catnumst2">SCATTER PLOT</tspan></text>
     <g>
-      <path class="st1" d="M876.4,837.9c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C852.9,785.5,876.4,808.9,876.4,837.9z"/>
+      <path class="catnumst3" d="M1302.3,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1302.3,1051,1302.3,1079.9z"/>
       
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box2Small.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 789.335)">
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterConnectedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1201.2534 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1211.5215 1009.3173)"><tspan x="0" y="0" class="catnumst1 catnumst2">LINE</tspan><tspan x="-4.8" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1249.8" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LineSmall.png"  transform="matrix(0.8522 0 0 0.8522 1201.2534 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1188.2195 871.4071)"><tspan x="0" y="0" class="catnumst1 catnumst2">STREAM</tspan><tspan x="7.1" y="13" class="catnumst1 catnumst2">GRAPH</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1249.8" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StreamSmall.png"  transform="matrix(0.8522 0 0 0.8522 1201.2534 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1206.0168 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">AREA</tspan><tspan x="7.2" y="13" class="catnumst1 catnumst2">(SM)</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1249.8" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/AreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 1201.2534 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1181.0496 595.5887)"><tspan x="0" y="0" class="catnumst1 catnumst2">STACKED</tspan><tspan x="-10.9" y="13" class="catnumst1 catnumst2">AREA PLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M1302.3,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1302.3,499.3,1302.3,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedAreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 1201.2534 479.7304)">
       </image></a>
     </g>
     <g>
-      <path class="st1" d="M876.4,700c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C852.9,647.6,876.4,671,876.4,700z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 651.4249)">
-      </image></a>
+      <polygon class="catnumst4" points="1208.2,258.3 1250,234.2 1291.7,258.3 1291.7,306.5 1250,330.6 1208.2,306.5      "/>
+      <text transform="matrix(1 0 0 1 1216.6699 278.0238)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">A NUM. IS</tspan><tspan x="0.8" y="16.8" class="catnumst3 catnumst5 st6">ORDERED</tspan></text>
     </g>
-    <g>
-      <path class="st1" d="M876.4,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C852.9,509.6,876.4,533.1,876.4,562.1z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/JoyplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 775.3652 513.515)">
-      </image></a>
-    </g>
-    <text transform="matrix(1 0 0 1 769.5269 905.1902)" class="st3 st4">BOX PLOT</text>
-    <text transform="matrix(1 0 0 1 783.4087 767.28)"><tspan x="0" y="0" class="st3 st4">VIOLIN</tspan><tspan x="-12.3" y="10.8" class="st3 st4">DIAGRAM</tspan></text>
-    <text transform="matrix(1 0 0 1 771.9067 629.3718)" class="st3 st4">JOY PLOT</text>
-    <g>
-      <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Second categoric variable is nested in the first one. Whatever other explanation about this table</em><br><br><img width='350' height='250' class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><br><br></div>">
-        <polygon class="st2" points="789.4,405 823.9,385 858.5,405 858.5,444.8 823.9,464.8 789.4,444.8      "/>
-        <text transform="matrix(1 0 0 1 804.8143 422.0898)"><tspan x="0" y="0" class="st1 st5 st4">SEVERAL</tspan><tspan x="-10.1" y="10.8" class="st1 st5 st4">OBS / GROUP</tspan></text>
-      </g>  
-    </g>
+    <line class="catnumst0" x1="1250" y1="209.8" x2="1250" y2="234.2"/>
   </g>
   <g>
-    <polygon class="st2" points="855.8,286 890.3,266.1 924.8,286 924.8,325.9 890.3,345.8 855.8,325.9    "/>
-    <text transform="matrix(1 0 0 1 880.6093 292.3582)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-11.2" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-4.3" y="21.6" class="st1 st5 st4">&amp; ONE</tspan><tspan x="-8.2" y="32.4" class="st1 st5 st4">FACTOR</tspan></text>
+    <line class="catnumst0" x1="1102.9" y1="330.6" x2="1102.9" y2="1217.9"/>
+    <text transform="matrix(1 0 0 1 993.888 1285.1381)" class="catnumst1 catnumst2">CORRELOGRAM</text>
+    <g>
+      
+        <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.3002 17.7613)" class="catnumst3" cx="1102.9" cy="1217.9" rx="52.4" ry="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CorrelogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 1169.2806)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1066.8831 1147.2299)" class="catnumst1 catnumst2">PCA</text>
+    <g>
+      <path class="catnumst3" d="M1155.4,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1155.4,1051,1155.4,1079.9z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PCAsmall.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1049.2805 1009.3173)" class="catnumst1 catnumst2">VIOLIN</text>
+    <g>
+      <circle class="catnumst3" cx="1102.9" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1032.7576 871.4071)" class="catnumst1 catnumst2">BOXPLOT</text>
+    <g>
+      <circle class="catnumst3" cx="1102.9" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box2Small.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1017.8148 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">2D DENSITY</tspan><tspan x="42" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="1102.9" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/2dDensitySmall.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 1029.5593 595.5887)"><tspan x="0" y="0" class="catnumst1 catnumst2">GROUPED</tspan><tspan x="-28.6" y="13" class="catnumst1 catnumst2">SCATTER PLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M1155.4,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S1155.4,499.3,1155.4,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterGroupSmall.png"  transform="matrix(0.8522 0 0 0.8522 1054.3521 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="1061.2,258.3 1102.9,234.2 1144.7,258.3 1144.7,306.5 1102.9,330.6 1061.2,306.5      "/>
+      <text transform="matrix(1 0 0 1 1091.9329 278.0236)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">NO</tspan><tspan x="-12.5" y="16.8" class="catnumst3 catnumst5 st6">ORDER</tspan></text>
+    </g>
+    <path class="catnumst0" d="M1208.2,185.7h-89.4c-6.2,6.2-9.7,9.7-15.9,15.9v32.6"/>
   </g>
   <g>
-    <line class="st0" x1="566.9" y1="464.8" x2="566.9" y2="713"/>
-    <g>
-      <path class="st1" d="M619.4,700c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C595.9,647.6,619.4,671,619.4,700z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 518.3561 651.4244)">
-      </image></a>
-    </g>
-    <g>
-      <path class="st1" d="M619.4,562.1c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        C595.9,509.6,619.4,533.1,619.4,562.1z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 518.3561 513.5142)">
-      </image></a>
-    </g>
-    <text transform="matrix(1 0 0 1 516.0542 767.2808)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-2.1" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
-    <text transform="matrix(1 0 0 1 512.7473 629.3716)"><tspan x="0" y="0" class="st3 st4">GROUPED</tspan><tspan x="1.1" y="10.8" class="st3 st4">BAR PLOT</tspan></text>
-    <g>
-      <polygon class="st2" points="532.4,405 566.9,385 601.4,405 601.4,444.8 566.9,464.8 532.4,444.8      "/>
-      <text transform="matrix(1 0 0 1 557.238 411.2962)"><tspan x="0" y="0" class="st1 st5 st4">ONE</tspan><tspan x="-11.2" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-5.7" y="21.6" class="st1 st5 st4">&amp; TWO</tspan><tspan x="-10.7" y="32.4" class="st1 st5 st4">FACTORS</tspan></text>
-    </g>
+    <polygon class="catnumst4" points="1208.2,137.5 1250,113.4 1291.7,137.5 1291.7,185.7 1250,209.8 1208.2,185.7    "/>
+    <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 1220.0852 149.1627)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE CAT</tspan><tspan x="0.8" y="16.8" class="catnumst3 catnumst5 st6">SEVERAL</tspan><tspan x="12.6" y="33.6" class="catnumst3 catnumst5 st6">NUM</tspan></text>
   </g>
   <g>
-    <line class="st0" x1="309.9" y1="464.8" x2="309.9" y2="700"/>
+    <line class="catnumst0" x1="924.1" y1="330.6" x2="924.1" y2="1079.9"/>
+    <text transform="matrix(1 0 0 1 850.7361 1147.2299)" class="catnumst1 catnumst2">HEATMAP</text>
     <g>
-      <path class="st1" d="M362.4,700c0,29-23.5,52.4-52.4,52.4S257.5,729,257.5,700c0-29,23.5-52.4,52.4-52.4S362.4,671,362.4,700z"/>
+      <path class="catnumst3" d="M976.5,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S976.5,1051,976.5,1079.9z"/>
       
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedAreaSmall.png"  transform="matrix(0.8522 0 0 0.8522 261.3461 651.4249)">
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 875.5016 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 863.5079 1009.3173)"><tspan x="0" y="0" class="catnumst1 catnumst2">SANKEY</tspan><tspan x="-10.8" y="13" class="catnumst1 catnumst2">DIAGRAM</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="924.1" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 875.5009 893.4599)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 888.0906 871.4071)"><tspan x="0" y="0" class="catnumst1 catnumst2">ARC</tspan><tspan x="-35.2" y="13" class="catnumst1 catnumst2">DIAGRAM</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="924.1" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ArcSmal.png"  transform="matrix(0.8522 0 0 0.8522 875.5016 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 866.472 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">CHORD</tspan><tspan x="-13.8" y="13" class="catnumst1 catnumst2">DIAGRAM</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="924.1" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChordSmall.png"  transform="matrix(0.8522 0 0 0.8522 875.5016 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 847.7845 595.5887)" class="catnumst1 catnumst2">NETWORK</text>
+    <g>
+      <path class="catnumst3" d="M976.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S976.5,499.3,976.5,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/NetworkSmall.png"  transform="matrix(0.8522 0 0 0.8522 875.5011 479.7299)">
       </image></a>
     </g>
     <g>
-      <path class="st1" d="M362.4,562.1c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-        S362.4,533.1,362.4,562.1z"/>
-      
-        <a  data-toggle="modal" href="#treemap"><image class="graphtypelogo"  style="overflow:visible;" width="114" height="114" xlink:href="img/section/StreamSmall.png"  transform="matrix(0.8522 0 0 0.8522 261.3442 513.5131)">
-      </image></a>
+      <polygon class="catnumst4" points="882.3,258.3 924.1,234.2 965.8,258.3 965.8,306.5 924.1,330.6 882.3,306.5      "/>
+      <text transform="matrix(1 0 0 1 887.9627 286.1364)" class="catnumst3 catnumst5 catnumst2">ADJACENCY</text>
     </g>
-    <text transform="matrix(1 0 0 1 258.9146 767.28)"><tspan x="0" y="0" class="st3 st4">STACKED</tspan><tspan x="-7.6" y="10.8" class="st3 st4">AREA PLOT</tspan><tspan x="20" y="35" class="st3 st4">story</tspan></text>
-    <text transform="matrix(1 0 0 1 239.0288 629.3718)" class="st3 st4">STREAM PLOT</text>
-    <g>
-      <polygon class="st2" points="275.4,405 309.9,385 344.4,405 344.4,444.8 309.9,464.8 275.4,444.8      "/>
-      <text transform="matrix(1 0 0 1 298.8531 411.2962)"><tspan x="0" y="0" class="st1 st5 st4">TWO</tspan><tspan x="-9.8" y="10.8" class="st1 st5 st4">NUMERIC</tspan><tspan x="-3" y="21.6" class="st1 st5 st4">&amp; ONE</tspan><tspan x="-6.8" y="32.4" class="st1 st5 st4">FACTOR</tspan></text>
-    </g>
+    <path class="catnumst0" d="M761.1,185.7h147.1c6.2,6.2,9.7,9.7,15.9,15.9v32.6"/>
   </g>
   <g>
-    <polyline class="st0" points="309.9,385 309.9,187 566.9,38.6    "/>
-    <line class="st0" x1="566.9" y1="38.6" x2="566.9" y2="0"/>
-    <polyline class="st0" points="890.3,266.1 890.3,225.3 890.3,225.3 566.9,38.6    "/>
-    <line class="st0" x1="566.9" y1="385" x2="566.9" y2="38.6"/>
+    <line class="catnumst0" x1="777" y1="451.4" x2="777" y2="666.2"/>
+    <text transform="matrix(1 0 0 1 723.3729 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">VIOLIN</tspan><tspan x="10.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="777" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 728.4434 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 706.6478 595.5887)" class="catnumst1 catnumst2">BOXPLOT</text>
+    <g>
+      <path class="catnumst3" d="M829.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S829.5,499.3,829.5,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 728.4434 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="735.3,379.1 777,355 818.8,379.1 818.8,427.3 777,451.4 735.3,427.3      "/>
+      <text transform="matrix(1 0 0 1 748.1043 390.4491)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">SEVERAL</tspan><tspan x="-1.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="4.3" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <path class="catnumst0" d="M761.1,306.5L761.1,306.5c6.2,6.2,9.7,9.7,15.9,15.9V355"/>
   </g>
-</g>
-<g id="Time">
-</g>
-<g id="Geo">
-</g>
-<g id="Categorical">
-</g>
-<g id="Numeric">
+  <g>
+    <line class="catnumst0" x1="661.8" y1="451.4" x2="661.8" y2="1073.9"/>
+    <text transform="matrix(1 0 0 1 588.6697 1147.2299)"><tspan x="0" y="0" class="catnumst1 catnumst2">CIRCULAR</tspan><tspan x="-30.5" y="13" class="catnumst1 catnumst2">PACKING PLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M714.2,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S714.2,1051,714.2,1079.9z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 613.1818 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 591.6849 1009.3173)" class="catnumst1 catnumst2">TREEMAP</text>
+    <g>
+      <circle class="catnumst3" cx="661.8" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 613.1818 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 591.074 871.4071)" class="catnumst1 catnumst2">SUNBURT</text>
+    <g>
+      <circle class="catnumst3" cx="661.8" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SunburstSmall.png"  transform="matrix(0.8522 0 0 0.8522 613.1803 755.549)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 556.93 733.4979)" class="catnumst1 catnumst2">DENDROGRAM</text>
+    <g>
+      <circle class="catnumst3" cx="661.8" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 613.1803 617.6389)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 593.284 595.5887)" class="catnumst1 catnumst2">BARPLOT</text>
+    <g>
+      <path class="catnumst3" d="M714.2,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S714.2,499.3,714.2,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 613.1818 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="620,379.1 661.8,355 703.5,379.1 703.5,427.3 661.8,451.4 620,427.3      "/>
+      <text transform="matrix(1 0 0 1 646.8564 390.4493)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE</tspan><tspan x="-15.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="-9.7" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <path class="catnumst0" d="M677.7,306.5L677.7,306.5c-6.2,6.2-9.7,9.7-15.9,15.9V355"/>
+  </g>
+  <g>
+    <g>
+      <polygon class="catnumst4" points="677.7,258.3 719.4,234.2 761.1,258.3 761.1,306.5 719.4,330.6 677.7,306.5      "/>
+      <text transform="matrix(1 0 0 1 693.1432 286.4235)" class="catnumst3 catnumst5 st6">NESTED</text>
+    </g>
+    <line class="catnumst0" x1="719.4" y1="234.2" x2="719.4" y2="209.8"/>
+  </g>
+  <g>
+    <line class="catnumst0" x1="514.7" y1="451.4" x2="514.7" y2="666.2"/>
+    <text transform="matrix(1 0 0 1 461.0545 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">VIOLIN</tspan><tspan x="10.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="514.7" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 466.1252 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 444.3294 595.5887)" class="catnumst1 catnumst2">BOXPLOT</text>
+    <g>
+      <path class="catnumst3" d="M567.1,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S567.1,499.3,567.1,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 466.1252 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="473,379.1 514.7,355 556.4,379.1 556.4,427.3 514.7,451.4 473,427.3      "/>
+      <text transform="matrix(1 0 0 1 485.7862 390.4491)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">SEVERAL</tspan><tspan x="-1.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="4.3" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <path class="catnumst0" d="M498.8,306.5L498.8,306.5c6.2,6.2,9.7,9.7,15.9,15.9V355"/>
+  </g>
+  <g>
+    <line class="catnumst0" x1="399.4" y1="451.4" x2="399.4" y2="1448.3"/>
+    <text transform="matrix(1 0 0 1 339.909 1560.9603)"><tspan x="0" y="0" class="catnumst1 catnumst2">SANKEY</tspan><tspan x="-10.8" y="13" class="catnumst1 catnumst2">DIAGRAM</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="399.4" cy="1493.7" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8629 1445.1003)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 345.0447 1423.0477)"><tspan x="0" y="0" class="catnumst1 catnumst2">SPIDER</tspan><tspan x="11.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="399.4" cy="1355.8" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SpiderSmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 1307.1909)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 327.7947 1285.1381)"><tspan x="0" y="0" class="catnumst1 catnumst2">PARALLEL</tspan><tspan x="28.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      
+        <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.3898 6.5314)" class="catnumst3" cx="399.4" cy="1217.9" rx="52.4" ry="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Parallel1Small.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 1169.2806)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 330.4656 1147.2299)"><tspan x="0" y="0" class="catnumst1 catnumst2">STACKED</tspan><tspan x="0.3" y="13" class="catnumst1 catnumst2">BARPLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M451.9,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S451.9,1051,451.9,1079.9z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 326.0711 1009.3173)"><tspan x="0" y="0" class="catnumst1 catnumst2">GROUPED</tspan><tspan x="4.9" y="13" class="catnumst1 catnumst2">BARPLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="399.4" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 350.8636 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 328.9901 871.4071)" class="catnumst1 catnumst2">LOLLIPOP</text>
+    <g>
+      <circle class="catnumst3" cx="399.4" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 326.2928 733.4979)" class="catnumst1 catnumst2">HEATMAP</text>
+    <g>
+      <circle class="catnumst3" cx="399.4" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 326.0711 595.5887)"><tspan x="0" y="0" class="catnumst1 catnumst2">GROUPED</tspan><tspan x="-28.6" y="13" class="catnumst1 catnumst2">SCATTER PLOT</tspan></text>
+    <g>
+      <path class="catnumst3" d="M451.9,528.3c0,29-23.5,52.4-52.4,52.4S347,557.3,347,528.3c0-29,23.5-52.4,52.4-52.4
+        S451.9,499.3,451.9,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterGroupSmall.png"  transform="matrix(0.8522 0 0 0.8522 350.8636 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="357.7,379.1 399.4,355 441.2,379.1 441.2,427.3 399.4,451.4 357.7,427.3      "/>
+      <text transform="matrix(1 0 0 1 384.5383 390.4493)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE</tspan><tspan x="-15.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="-9.7" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <path class="catnumst0" d="M415.3,306.5L415.3,306.5c-6.2,6.2-9.7,9.7-15.9,15.9V355"/>
+  </g>
+  <g>
+    <g>
+      <polygon class="catnumst4" points="415.3,258.3 457.1,234.2 498.8,258.3 498.8,306.5 457.1,330.6 415.3,306.5      "/>
+      <text transform="matrix(1 0 0 1 418.8344 286.4235)" class="catnumst3 catnumst5 st6">SUBGROUP</text>
+    </g>
+    <path class="catnumst0" d="M677.7,185.7H473c-6.2,6.2-9.7,9.7-15.9,15.9v32.6"/>
+  </g>
+  <g>
+    <polygon class="catnumst4" points="677.7,137.5 719.4,113.4 761.1,137.5 761.1,185.7 719.4,209.8 677.7,185.7    "/>
+    <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 690.3203 149.1525)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">SEVERAL</tspan><tspan x="14" y="16.8" class="catnumst3 catnumst5 st6">CAT.</tspan><tspan x="-6.9" y="33.6" class="catnumst3 catnumst5 st6">ONE NUM.</tspan></text>
+  </g>
+  <g>
+    <g>
+      <polygon class="catnumst4" points="178.9,258.3 220.6,234.2 262.3,258.3 262.3,306.5 220.6,330.6 178.9,306.5      "/>
+      <text transform="matrix(1 0 0 1 191.6729 269.6234)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">SEVERAL</tspan><tspan x="-1.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="4.3" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <line class="catnumst0" x1="220.6" y1="330.6" x2="220.6" y2="1079.9"/>
+    <text transform="matrix(1 0 0 1 132.6228 1147.2299)" class="catnumst1 catnumst2">HISTOGRAM</text>
+    <g>
+      <path class="catnumst3" d="M273,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4S273,1051,273,1079.9z"
+        />
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HistogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 172.0132 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 156.23 1009.3173)" class="catnumst1 catnumst2">DENSITY</text>
+    <g>
+      <circle class="catnumst3" cx="220.6" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DensitySmall.png"  transform="matrix(0.8522 0 0 0.8522 172.0132 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 171.5569 871.4071)"><tspan x="0" y="0" class="catnumst1 catnumst2">RIDGE</tspan><tspan x="10.9" y="13" class="catnumst1 catnumst2">LINE</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="220.6" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/JoyplotSmall.png"  transform="matrix(0.8522 0 0 0.8522 172.0132 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 166.9427 733.4979)"><tspan x="0" y="0" class="catnumst1 catnumst2">VIOLIN</tspan><tspan x="10.5" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="220.6" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ViolinSmall.png"  transform="matrix(0.8522 0 0 0.8522 172.0132 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 150.2176 595.5887)" class="catnumst1 catnumst2">BOXPLOT</text>
+    <g>
+      <path class="catnumst3" d="M273,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4S273,499.3,273,528.3z"
+        />
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box1Small.png"  transform="matrix(0.8522 0 0 0.8522 172.0132 479.7304)">
+      </image></a>
+    </g>
+    <path class="catnumst0" d="M204.7,185.7L204.7,185.7c6.2,6.2,9.7,9.7,15.9,15.9v32.6"/>
+  </g>
+  <g>
+    <line class="catnumst0" x1="105.3" y1="330.6" x2="105.3" y2="1461.8"/>
+    <text transform="matrix(1 0 0 1 44.658 1560.9603)" class="catnumst1 catnumst2">WAFFLE</text>
+    <g>
+      <g>
+        <circle class="catnumst3" cx="105.3" cy="1493.7" r="52.4"/>
+      </g>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 1445.1011)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 32.6341 1423.0502)"><tspan x="0" y="0" class="catnumst1 catnumst2">CIRCULAR</tspan><tspan x="5.4" y="13" class="catnumst1 catnumst2">PACKING</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="105.3" cy="1355.8" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 1307.1909)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 35.2537 1285.14)" class="catnumst1 catnumst2">TREEMAP</text>
+    <g>
+      
+        <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.4273 1.8365)" class="catnumst3" cx="105.3" cy="1217.9" rx="52.4" ry="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 1169.2806)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 52.6736 1147.2299)"><tspan x="0" y="0" class="catnumst1 catnumst2">WORD</tspan><tspan x="-3.3" y="13" class="catnumst1 catnumst2">CLOUD</tspan></text>
+    <g>
+      <path class="catnumst3" d="M157.8,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S157.8,1051,157.8,1079.9z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/WordCloudSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 1031.3705)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 75.813 1009.3192)"><tspan x="0" y="0" class="catnumst1 catnumst2">PIE</tspan><tspan x="-24.3" y="13" class="catnumst1 catnumst2">CHART</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="105.3" cy="942" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PieSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 893.4606)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 18.5291 871.4091)"><tspan x="0" y="0" class="catnumst1 catnumst2">DOUGHNUT</tspan><tspan x="43.9" y="13" class="catnumst1 catnumst2">PLOT</tspan></text>
+    <g>
+      <circle class="catnumst3" cx="105.3" cy="804.1" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DougnutSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 755.5505)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 34.6756 733.4989)" class="catnumst1 catnumst2">LOLLIPOP</text>
+    <g>
+      <circle class="catnumst3" cx="105.3" cy="666.2" r="52.4"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 617.6403)">
+      </image></a>
+    </g>
+    <text transform="matrix(1 0 0 1 34.9544 595.5887)" class="catnumst1 catnumst2">BOXPLOT</text>
+    <g>
+      <path class="catnumst3" d="M157.8,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+        S157.8,499.3,157.8,528.3z"/>
+      
+        <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Box2Small.png"  transform="matrix(0.8522 0 0 0.8522 56.7504 479.7304)">
+      </image></a>
+    </g>
+    <g>
+      <polygon class="catnumst4" points="63.6,258.3 105.3,234.2 147.1,258.3 147.1,306.5 105.3,330.6 63.6,306.5      "/>
+      <text transform="matrix(1 0 0 1 90.4251 269.6234)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE</tspan><tspan x="-15.5" y="16.8" class="catnumst3 catnumst5 st6">OBS. PER</tspan><tspan x="-9.7" y="33.6" class="catnumst3 catnumst5 st6">GROUP</tspan></text>
+    </g>
+    <path class="catnumst0" d="M121.2,185.7L121.2,185.7c-6.2,6.2-9.7,9.7-15.9,15.9v32.6"/>
+  </g>
+  <g>
+    <polygon class="catnumst4" points="121.2,137.5 163,113.4 204.7,137.5 204.7,185.7 163,209.8 121.2,185.7    "/>
+    <text transform="matrix(1 0 0 1 127.175 157.1979)"><tspan x="0" y="0" class="catnumst3 catnumst5 st6">ONE NUM.</tspan><tspan x="4.1" y="16.8" class="catnumst3 catnumst5 st6">ONE CAT.</tspan></text>
+  </g>
+  <g>
+    <path class="catnumst0" d="M163,113.4V72.6c6.2-6.2,9.7-9.7,15.9-15.9h1055.2c6.2,6.2,9.7,9.7,15.9,15.9v40.8"/>
+    <path class="catnumst0" d="M719.4,113.4V70.9c5.5-5.5,8.6-8.6,14.2-14.2h56.2"/>
+    <line class="catnumst7" x1="751.2" y1="0" x2="751.2" y2="56.7"/>
+  </g>
 </g>
 </svg>
-
 
 </div>
 
@@ -786,201 +1138,203 @@
 
 
 
+<!-- Geographic -->
+<div id="geo" class="tree" style="text-align:center;">
+<br><br><br><br><br><br><br><br><br>
+<p>Coming soon</p>
+<br><br><br><br><br><br><br><br><br>
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<style>
-.tooltip {
-	max-width:510px;	 
-	padding:3px 8px;	 
-	color:white;	 
-	text-align:center;	 
-	background-color:white;	 
-	-webkit-border-radius:5px;	 
-	-moz-border-radius:5px;	 
-	border-radius:5px 
-}
-
-.tooltip-inner {
-	max-width:510px;
-	color:black;
-	background-color: white;
-	border-style: solid;
-	border-color: black;
-	border-width: 1px;
-}
-
-</style>
 
 
 
 <!-- Relationnal -->
 <div id="relationnal" class="tree" style="text-align:center;">
-			<?xml version="1.0" encoding="utf-8"?>
-			<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-			<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-			<svg version="1.1" id="Relational" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-			   width="595.28px" height="1133.858px" viewBox="0 0 595.28 1133.858" enable-background="new 0 0 595.28 1133.858"
-			   xml:space="preserve">
-			<g>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="277.072,121.612 
-			    195.954,168.445 195.954,222.942   "/>
-			  <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' title="<em>Your data look like</em><br> <img class='img-fluid' src='img/table/Nested_Data_Frame.png' alt=''><u>with</u> <b>HTML</b>">
-			    <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
-			      161.432,237.316 195.949,217.389 230.465,237.316 230.465,277.174 195.949,297.102 161.432,277.174     "/>
-			    <text transform="matrix(1 0 0 1 171.4902 254.4316)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">NESTED OR</tspan><tspan x="-6.167" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">HIERARCHICAL</tspan></text>
-			  </g>
-			</g>
-			<g>
-			  <polygon fill="#666666" points="277.062,61.856 328.811,31.979 380.561,61.856 380.561,121.612 328.811,151.489 277.062,121.612  
-			    "/>
-			  <text transform="matrix(1 0 0 1 296.1699 81.8779)"><tspan x="0" y="0" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">RELATIONAL</tspan><tspan x="-4.749" y="12.96" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">DATA / GRAPH</tspan><tspan x="2.207" y="25.92" fill="#FFFFFF" font-family="'OpenSans-Semibold'" font-size="10.8">STRUCTURE</tspan></text>
-			</g>
-			<g>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="380.561,121.612 
-			    461.679,168.445 461.679,222.942   "/>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="528.113,893.26 
-			    528.113,295.6 496.199,277.174   "/>
-			  <path fill="#666666" d="M560.704,893.26c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C546.106,860.662,560.704,875.26,560.704,893.26z"/>
-			  <path fill="#666666" d="M560.704,805.25c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C546.106,772.652,560.704,787.25,560.704,805.25z"/>
-			  <path fill="#666666" d="M560.704,717.242c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C546.106,684.645,560.704,699.242,560.704,717.242z"/>
-			  <path fill="#666666" d="M560.704,629.235c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C546.106,596.638,560.704,611.235,560.704,629.235z"/>
-			  <path fill="#666666" d="M560.704,541.227c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C546.106,508.629,560.704,523.227,560.704,541.227z"/>
-			  <g>
-			    <text transform="matrix(1 0 0 1 448.418 895.8975)" font-family="'OpenSans'" font-size="9">HEATMAP</text>
-			    <text transform="matrix(1 0 0 1 458.5254 719.8818)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">CHORD</tspan><tspan x="9.373" y="10.8" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			    <text transform="matrix(1 0 0 1 473.041 807.8896)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">ARC</tspan><tspan x="-23.766" y="10.8" font-family="'OpenSans'" font-size="9">DIAGRAM</tspan></text>
-			    <text transform="matrix(1 0 0 1 470.4648 543.8643)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">HIVE</tspan><tspan x="-2.566" y="10.8" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			    <text transform="matrix(1 0 0 1 446.7773 631.873)" font-family="'OpenSans'" font-size="9">NETWORK</text>
-			  </g>
-			  <g>
-			    <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
-			      427.157,237.316 461.675,217.389 496.19,237.316 496.19,277.174 461.675,297.102 427.157,277.174     "/>
-			    <text transform="matrix(1 0 0 1 439.542 259.832)" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">NETWORK</text>
-			  </g>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/ArcBig.png"  transform="matrix(0.1201 0 0 0.1201 499.7588 776.9062)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/ChordBig.png"  transform="matrix(0.1201 0 0 0.1201 499.7588 688.8975)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/HeatmapBig.png"  transform="matrix(0.1201 0 0 0.1201 499.7588 864.9141)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/HiveBig.png"  transform="matrix(0.1201 0 0 0.1201 499.7588 512.8809)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/NetworkBig.png"  transform="matrix(0.1201 0 0 0.1201 499.7588 600.8896)">
-			  </image>
-			</g>
-			<g>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="395.247,595.508 
-			    395.247,295.601 294.404,237.312 230.469,237.312   "/>
-			  <circle fill="#666666" cx="395.243" cy="629.237" r="32.599"/>
-			  <path fill="#666666" d="M427.842,541.227c0,18.006-14.598,32.6-32.598,32.6c-18.002,0-32.6-14.594-32.6-32.6
-			    c0-18,14.598-32.598,32.6-32.598C413.244,508.629,427.842,523.227,427.842,541.227z"/>
-			  <g>
-			    <text transform="matrix(1 0 0 1 333.9912 631.874)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">EDGE</tspan><tspan x="-12.282" y="10.8" font-family="'OpenSans'" font-size="9">BUNDLE</tspan><tspan x="1.046" y="21.6" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			    <text transform="matrix(1 0 0 1 324.125 543.8652)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">SANKEY</tspan><tspan x="-7.712" y="10.8" font-family="'OpenSans'" font-size="9">DIAGRAM</tspan></text>
-			  </g>
-			  <g>
-			    <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
-			      360.726,382.937 395.243,363.009 429.759,382.937 429.759,422.794 395.243,442.722 360.726,422.794     "/>
-			    <text transform="matrix(1 0 0 1 381.1777 400.0527)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">VALUE</tspan><tspan x="-8.604" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">FOR LINKS</tspan></text>
-			  </g>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/BundleBig.png"  transform="matrix(0.1201 0 0 0.1201 366.8955 600.8896)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/SankeyBig.png"  transform="matrix(0.1201 0 0 0.1201 366.8955 512.8809)">
-			  </image>
-			</g>
-			<g>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="230.465,277.174 
-			    262.379,295.6 262.379,717.244   "/>
-			  <path fill="#666666" d="M294.979,717.243c0,18.008-14.596,32.598-32.598,32.598c-18.004,0-32.6-14.59-32.6-32.598
-			    c0-18,14.596-32.598,32.6-32.598C280.383,684.646,294.979,699.243,294.979,717.243z"/>
-			  <path fill="#666666" d="M294.979,629.236c0,18.008-14.596,32.598-32.598,32.598c-18.004,0-32.6-14.59-32.6-32.598
-			    c0-18,14.596-32.598,32.6-32.598C280.383,596.639,294.979,611.236,294.979,629.236z"/>
-			  <path fill="#666666" d="M294.979,541.228c0,18.008-14.596,32.598-32.598,32.598c-18.004,0-32.6-14.59-32.6-32.598
-			    c0-18,14.596-32.598,32.6-32.598C280.383,508.63,294.979,523.228,294.979,541.228z"/>
-			  <g>
-			    <text transform="matrix(1 0 0 1 182.1221 543.8652)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">TREE MAP</tspan><tspan x="8.407" y="10.8" font-family="'OpenSans'" font-size="9">BUBBLE</tspan></text>
-			    <text transform="matrix(1 0 0 1 178.1099 631.874)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">SUNBURST</tspan><tspan x="24.064" y="10.8" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			    <text transform="matrix(1 0 0 1 203.6992 719.8828)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">TREE</tspan><tspan x="-1.525" y="10.8" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			  </g>
-			  <g>
-			    <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
-			      227.864,382.937 262.382,363.009 296.897,382.937 296.897,422.794 262.382,442.722 227.864,422.794     "/>
-			    <text transform="matrix(1 0 0 1 248.3164 400.0527)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">VALUE</tspan><tspan x="-6.238" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">FOR LEAF</tspan></text>
-			  </g>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/CircularPackingBig.png"  transform="matrix(0.1201 0 0 0.1201 234.0337 512.8809)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/SunburstBig.png"  transform="matrix(0.1201 0 0 0.1201 234.0337 600.8896)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/TreeBig.png"  transform="matrix(0.1201 0 0 0.1201 234.0337 688.8965)">
-			  </image>
-			</g>
-			<g>
-			  <polyline fill="none" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="161.441,277.174 
-			    129.527,295.6 129.527,721.969   "/>
-			  <path fill="#666666" d="M162.116,717.244c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
-			    c0-18.002,14.598-32.6,32.6-32.6C147.519,684.645,162.116,699.242,162.116,717.244z"/>
-			  <path fill="#666666" d="M162.116,541.229c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
-			    c0-18.002,14.598-32.6,32.6-32.6C147.519,508.629,162.116,523.227,162.116,541.229z"/>
-			  <path fill="#666666" d="M162.116,629.237c0,18.006-14.598,32.598-32.598,32.598c-18.002,0-32.6-14.592-32.6-32.598
-			    c0-18.002,14.598-32.6,32.6-32.6C147.519,596.638,162.116,611.235,162.116,629.237z"/>
-			  <g>
-			    <text transform="matrix(1 0 0 1 70.8364 631.873)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">TREE</tspan><tspan x="-1.525" y="10.8" font-family="'OpenSans'" font-size="9">PLOT</tspan></text>
-			    <text transform="matrix(1 0 0 1 27.9673 719.8828)" font-family="'OpenSans'" font-size="9">DENDROGRAM</text>
-			    <text transform="matrix(1 0 0 1 26.0957 543.8652)"><tspan x="0" y="0" font-family="'OpenSans'" font-size="9">PHYLOGENETIC</tspan><tspan x="44.741" y="10.8" font-family="'OpenSans'" font-size="9">TREE</tspan></text>
-			  </g>
-			  <g>
-			    <polygon fill="#FFFFFF" stroke="#666666" stroke-width="3" stroke-linecap="square" stroke-miterlimit="10" points="
-			      95.001,382.937 129.519,363.009 164.034,382.937 164.034,422.794 129.519,442.722 95.001,422.794     "/>
-			    <text transform="matrix(1 0 0 1 122.4512 400.0527)"><tspan x="0" y="0" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">NO</tspan><tspan x="-6.998" y="10.8" fill="#666666" font-family="'OpenSans-Semibold'" font-size="9">VALUE</tspan></text>
-			  </g>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/CircularPackingBig.png"  transform="matrix(0.1201 0 0 0.1201 101.1714 512.8809)">
-			  </image>
-			  
-			    <image class="graphtypelogo"  overflow="visible" width="472" height="472" xlink:href="img/section/DendrogramBig.png"  transform="matrix(0.1201 0 0 0.1201 101.1714 688.8965)">
-			  </image>
-			  
-			<a  data-toggle="modal" href="#treemap">
-				<image class="graphtypelogo" overflow="visible" width="472" height="472" xlink:href="img/section/TreeBig.png"  transform="matrix(0.1201 0 0 0.1201 101.1714 600.8896)"></image>
-			</a>
 
+  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
+  <style type="text/css">
+    .relst0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+    .relst1{fill:#808285;}
+    .relst2{fill:#FFFFFF;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
+    .relst3{fill:none;stroke:#808285;stroke-width:3;stroke-miterlimit:10;}
+    .relst4{font-family:'Lato-Regular';}
+    .relst5{font-size:13px;}
+    .relst6{font-family:'OpenSans-Semibold';}
+    .relst7{font-size:14px;}
+    .relst8{font-size:11px;}
+  </style>
+  <g id="Cat_And_Num">
+  </g>
+  <g id="Relational">
+    <g>
+      <line class="relst0" x1="1271.1" y1="328.7" x2="1271.1" y2="528.3"/>
+      <text transform="matrix(1 0 0 1 1167.9794 595.5887)"><tspan x="0" y="0" class="relst4 relst5">HIERARCHICAL</tspan><tspan x="-12.7" y="13" class="relst4 relst5">EDGE BUNDLING</tspan></text>
+      <g>
+        <path class="relst1" d="M1323.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+          S1323.5,499.3,1323.5,528.3z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BundleSmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.5332 479.729)">
+        </image></a>
+      </g>
+      <g>
+        <polygon class="relst2" points="1229.4,258.3 1271.1,234.2 1312.8,258.3 1312.8,306.5 1271.1,330.6 1229.4,306.5      "/>
+        <text transform="matrix(1 0 0 1 1249.2278 271.847)"><tspan x="0" y="0" class="relst1 relst6 relst7">VALUE</tspan><tspan x="8.2" y="16.8" class="relst1 relst6 relst7">FOR</tspan><tspan x="-14.5" y="30" class="relst1 relst6 relst8">CONNECTION</tspan></text>
+      </g>
+      <path class="relst0" d="M1096.3,185.7h160.6c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
+    </g>
+    <g>
+      <line class="relst0" x1="1126.8" y1="328.7" x2="1126.8" y2="844.4"/>
+      <text transform="matrix(1 0 0 1 1069.3688 871.4071)"><tspan x="0" y="0" class="relst4 relst5">CHORD</tspan><tspan x="-13.8" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <circle class="relst1" cx="1126.8" cy="804.1" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChordSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 755.55)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 1066.2042 733.4979)"><tspan x="0" y="0" class="relst4 relst5">SANKEY</tspan><tspan x="-10.8" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <circle class="relst1" cx="1126.8" cy="666.2" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1964 617.6396)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 1021.9451 595.5887)" class="relst4 relst5">DENDROGRAM</text>
+      <g>
+        <path class="relst1" d="M1179.2,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+          S1179.2,499.3,1179.2,528.3z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1958 479.729)">
+        </image></a>
+      </g>
+      <g>
+        <polygon class="relst2" points="1085,258.3 1126.8,234.2 1168.5,258.3 1168.5,306.5 1126.8,330.6 1085,306.5      "/>
+        <text transform="matrix(1 0 0 1 1104.8917 269.6237)"><tspan x="0" y="0" class="relst1 relst6 relst7">VALUE</tspan><tspan x="8.2" y="16.8" class="relst1 relst6 relst7">FOR</tspan><tspan x="0" y="33.6" class="relst1 relst6 relst7">EDGES</tspan></text>
+      </g>
+      <path class="relst0" d="M1126.8,232.3v-8.4c-5.5-5.5-8.6-8.6-14.2-14.2h-58"/>
+    </g>
+    <g>
+      <g>
+        <polygon class="relst2" points="940.7,258.3 982.4,234.2 1024.2,258.3 1024.2,306.5 982.4,330.6 940.7,306.5      "/>
+        <text transform="matrix(1 0 0 1 960.555 278.0238)"><tspan x="0" y="0" class="relst1 relst6 relst7">VALUE</tspan><tspan x="-9.7" y="16.8" class="relst1 relst6 relst7">FOR LEAF</tspan></text>
+      </g>
+      <path class="relst0" d="M1054.6,209.8h-58c-5.5,5.5-8.6,8.6-14.2,14.2v8.4"/>
+    </g>
+    <g>
+      <path class="relst0" d="M838.1,328.7v59.4c5.5,5.5,8.6,8.6,14.2,14.2h43.8c5.5,5.5,8.6,8.6,14.2,14.2v59.4"/>
+      <path class="relst0" d="M982.4,328.7v59.4c-5.5,5.5-8.6,8.6-14.2,14.2h-43.8c-5.5,5.5-8.6,8.6-14.2,14.2v663.5"/>
+      <text transform="matrix(1 0 0 1 849.5054 1147.2299)"><tspan x="0" y="0" class="relst4 relst5">SANKEY</tspan><tspan x="-10.8" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <path class="relst1" d="M962.7,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+          S962.7,1051,962.7,1079.9z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 861.693 1031.37)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 832.3316 1009.3173)" class="relst4 relst5">SUNBURST</text>
+      <g>
+        <circle class="relst1" cx="910.3" cy="942" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SunburstSmall.png"  transform="matrix(0.8522 0 0 0.8522 861.6923 893.4593)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 837.5772 871.4071)"><tspan x="0" y="0" class="relst4 relst5">CIRCULAR</tspan><tspan x="5.4" y="13" class="relst4 relst5">PACKING</tspan></text>
+      <g>
+        <circle class="relst1" cx="910.3" cy="804.1" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 861.6923 755.5491)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 840.1968 733.4979)" class="relst4 relst5">TREEMAP</text>
+      <g>
+        <circle class="relst1" cx="910.3" cy="666.2" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 861.6932 617.6398)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 805.4412 595.5887)" class="relst4 relst5">DENDROGRAM</text>
+      <g>
+        <path class="relst1" d="M962.7,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+          S962.7,499.3,962.7,528.3z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 861.6923 479.729)">
+        </image></a>
+      </g>
+    </g>
+    <g>
+      <g>
+        <polygon class="relst2" points="796.4,258.3 838.1,234.2 879.8,258.3 879.8,306.5 838.1,330.6 796.4,306.5      "/>
+        <text transform="matrix(1 0 0 1 827.1054 278.0238)"><tspan x="0" y="0" class="relst1 relst6 relst7">NO</tspan><tspan x="-10.9" y="16.8" class="relst1 relst6 relst7">VALUE</tspan></text>
+      </g>
+      <path class="relst0" d="M1012.9,185.7H852.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
+    </g>
+    <g>
+      <polygon class="relst2" points="1012.9,137.5 1054.6,113.4 1096.3,137.5 1096.3,185.7 1054.6,209.8 1012.9,185.7    "/>
+      <text transform="matrix(1 0 0 1 1028.3589 151.0211)"><tspan x="0" y="0" class="relst1 relst6 relst7">NESTED</tspan><tspan x="16.3" y="16.8" class="relst1 relst6 relst7">OR</tspan><tspan x="-12.7" y="30" class="relst1 relst6 relst8">HIERARCHICAL</tspan></text>
+    </g>
+    <g>
+      <line class="relst0" x1="303.4" y1="209.8" x2="303.4" y2="1179.8"/>
+      <text transform="matrix(1 0 0 1 262.9932 1285.1381)" class="relst4 relst5">HIVE</text>
+      <g>
+        
+          <ellipse transform="matrix(0.9999 -1.596311e-02 1.596311e-02 0.9999 -19.4021 4.9987)" class="relst1" cx="303.4" cy="1217.9" rx="52.4" ry="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HiveSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8494 1169.2806)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 230.0841 1147.2299)" class="relst4 relst5">HEATMAP</text>
+      <g>
+        <path class="relst1" d="M355.9,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
+          S355.9,1051,355.9,1079.9z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HeatmapSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8494 1031.3706)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 242.8558 1009.3173)"><tspan x="0" y="0" class="relst4 relst5">SANKEY</tspan><tspan x="-10.8" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <circle class="relst1" cx="303.4" cy="942" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8487 893.4599)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 267.4385 871.4071)"><tspan x="0" y="0" class="relst4 relst5">ARC</tspan><tspan x="-35.2" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <circle class="relst1" cx="303.4" cy="804.1" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ArcSmal.png"  transform="matrix(0.8522 0 0 0.8522 254.8494 755.5505)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 245.8199 733.4979)"><tspan x="0" y="0" class="relst4 relst5">CHORD</tspan><tspan x="-13.8" y="13" class="relst4 relst5">DIAGRAM</tspan></text>
+      <g>
+        <circle class="relst1" cx="303.4" cy="666.2" r="52.4"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChordSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8494 617.6403)">
+        </image></a>
+      </g>
+      <text transform="matrix(1 0 0 1 227.1324 595.5887)" class="relst4 relst5">NETWORK</text>
+      <g>
+        <path class="relst1" d="M355.9,528.3c0,29-23.5,52.4-52.4,52.4S251,557.3,251,528.3c0-29,23.5-52.4,52.4-52.4
+          S355.9,499.3,355.9,528.3z"/>
+        
+          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/NetworkSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8489 479.7299)">
+        </image></a>
+      </g>
+      <g>
+        <polygon class="relst2" points="261.7,137.5 303.4,113.4 345.2,137.5 345.2,185.7 303.4,209.8 261.7,185.7      "/>
+        <text transform="matrix(1 0 0 1 268.9928 165.5978)" class="relst1 relst6 relst7">NETWORK</text>
+      </g>
+    </g>
+    <g>
+      <path class="relst0" d="M1054.6,113.4V70.9c-5.5-5.5-8.6-8.6-14.2-14.2H317.6c-5.5,5.5-8.6,8.6-14.2,14.2v42.5"/>
+      <line class="relst3" x1="751.2" y1="56.7" x2="751.2" y2="0"/>
+    </g>
+  </g>
+  <g id="Numeric_copy">
+  </g>
+  </svg>
 
-</g>
-</svg>
 </div>  
+
+
 
 </section>
 

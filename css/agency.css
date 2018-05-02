@@ -991,6 +991,59 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* BUTTON TREE CHOICE
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+.treeHead {
+  border-style: solid; 
+  border-color: rgba(0, 0, 0, 0);
+}
+
+.tree {
+  opacity: 0;
+}
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* TOOLTIP WITH DATA EXAMPLE
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+.tooltip {
+  max-width:510px;   
+  padding:3px 8px;   
+  color:white;   
+  text-align:center;   
+  background-color:white;  
+  -webkit-border-radius:5px;   
+  -moz-border-radius:5px;  
+  border-radius:5px 
+}
+
+.tooltip-inner {
+  max-width:510px;
+  color:black;
+  background-color: white;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px;
+}
+
+
+
+
+
+
+
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* MISTAKE CAROUSSEL CUSTOM
 /* ------------------------------------------------------------------------------------------------------------------- */
