@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="A datavisualization tool that leads you from your data to the graphic you need." content="">
+    <meta name="Yan Holtz & Conor Healy" content="">
+
+    <title>Data to Viz</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/agency.css" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+
+
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="https://www.data-to-viz.com">
+          <img src="img/logo/typo.png" style="width:30%; vertical-align: top;">
+        </a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav text-uppercase ml-auto">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">All</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">Mistake</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">Poster</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="https://www.data-to-viz.com">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- --------------------------- CAVEATS SECTION ------------------------------------------------------------------- -->
+
+    <section id="caveats">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Caveats</h2>
+            <h3 class="section-subheading text-muted">A collection of dataviz caveats by <a href="www.data-to-viz.com">data-to-viz.com</a></h3>
+          </div>
+        </div>
+
+
+
+                <div class="row">
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/order_data.png">
+                      <p class="mytitlerelated">Order your data!</p>
+                      <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/cut_y_axis.png">
+                      <p class="mytitlerelated">To cut or not to cut?</p>
+                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. Indeed, it can make the plot more insightful.. or allow to lie with data.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/spaghetti.png">
+                      <p class="mytitlerelated">A bit of spaghetti</p>
+                      <p class="mytextrelated">A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/pie.png">
+                      <p class="mytitlerelated">Pie chart</p>
+                      <p class="mytextrelated">Probably the easiest mistake to avoid: just don't do it.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/bin_size.png">
+                      <p class="mytitlerelated">Play with histogram bin size</p>
+                      <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/boxplot.png">
+                      <p class="mytitlerelated">Does boxplot hide information?</p>
+                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution. However it hides the number of data points and its real distribution.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/error_bar.png">
+                      <p class="mytitlerelated">The problem with error bars</p>
+                      <p class="mytextrelated">Barplot with error bars must be used with care. It hides the underlying distribution, and error can be computed using several ways.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/multi_distribution.png">
+                      <p class="mytitlerelated">Too many distribution.</p>
+                      <p class="mytextrelated">If you need to compare the distribution of many variables, don't clutter your graphic.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/overplotting.png">
+                      <p class="mytitlerelated">Overplotting</p>
+                      <p class="mytextrelated">When your sample size gets high, your scatter plot becomes unreadable because of overplotting.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/rainbow.png">
+                      <p class="mytitlerelated">Numeric variable and rainbow palette</p>
+                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. It can be confusing and so many better palette exist.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/small_multiple.png">
+                      <p class="mytitlerelated">Small multiple: horizontal or vertical?</p>
+                      <p class="mytextrelated">Faceting is a powerful technique. But placing the individual plot horizontaly or verticaly is an important choice to make.</p>
+                    </a>
+                  </div>
+                  <div class=" col-xl-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/counter_intuitive.png">
+                      <p class="mytitlerelated">Don't be counter intuitive</p>
+                      <p class="mytextrelated">Your audience is used to a few dataviz standards. Not respecting it can mislead them.</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+
+        <br>
+        <div style="text-align:center"><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="index.html">Back to Data-to-viz.com</a></div>
+
+      </section>
+
+
+<!-- --------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+<!-- --------------------------- FOOTER SECTION ------------------------------------------------------------------- -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <span class="copyright">Copyright &copy; from Data to Viz 2018</span>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline social-buttons">
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-twitter"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-facebook"></i>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <i class="fa fa-linkedin"></i>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-4">
+            <ul class="list-inline quicklinks">
+              <li class="list-inline-item">
+                <a href="#">Privacy Policy</a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">Terms of Use</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+<!-- ---------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ------------------------ JAVASCRIPT SECTION ----------------------------- -->
+
+
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Contact form JavaScript -->
+    <script src="js/jqBootstrapValidation.js"></script>
+    <script src="js/contact_me.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/agency.min.js"></script>
+
+    <!-- Activate the bootstrap tooltip, must be after jQuery load -->
+    <script>
+	$(function () {
+  		$('[data-toggle="tooltip"]').tooltip()
+	})
+	</script>
+
+
+    <!-- Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ -->
+    <script>
+  	$(window).load(function(){
+  	    var $container = $('.portfolioContainer');
+  	    $container.isotope({
+  	        filter: '*',
+  	        animationOptions: {
+  	            duration: 750,
+  	            easing: 'linear',
+  	            queue: false
+  	        }
+  	    });
+  	 
+  	    $('.portfolioFilter a').click(function(){
+  	        $('.portfolioFilter .current').removeClass('current');
+  	        $(this).addClass('current');
+  	 
+  	        var selector = $(this).attr('data-filter');
+  	        $container.isotope({
+  	            filter: selector,
+  	            animationOptions: {
+  	                duration: 750,
+  	                easing: 'linear',
+  	                queue: false
+  	            }
+  	         });
+  	         return false;
+  	    }); 
+  	});
+	</script>
+
+
+
+
+    <!-- Script to give a specific URL to every Modal. TODO: improve it with https://stackoverflow.com/questions/34154370/bootstrap-3-x-how-to-have-url-change-upon-clicking-modal-trigger -->
+    <script>
+      $(document).ready(function(){
+        $(window.location.hash).modal('show');
+        $('a[data-toggle="modal"]').click(function(){
+           window.location.hash = $(this).attr('href');
+        });
+      });
+
+      $('button[data-dismiss="modal"]').click(function(){
+           var original = window.location.href.substr(0, window.location.href.indexOf('#'))
+           history.replaceState({}, document.title, original);
+       });
+
+      $(window.location.hash).modal('show');
+      $('a[data-toggle="modal"]').click(function(){
+          window.location.hash = $(this).attr('href');
+      });
+
+      function revertToOriginalURL() {
+          var original = window.location.href.substr(0, window.location.href.indexOf('#'))
+          history.replaceState({}, document.title, original);
+      }
+
+      $('.modal').on('hidden.bs.modal', function () {
+          revertToOriginalURL();
+      });
+
+  </script>
+
+
+  <script>
+    $('.tip').each(function () {
+      $(this).tooltip(
+      {
+        html: true,
+          title: $('#' + $(this).data('tip')).html()
+      });
+    });
+  </script>
+
+
+<!----------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+
+
+  </body>
+
+</html>

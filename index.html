@@ -49,7 +49,7 @@
               <a class="nav-link js-scroll-trigger" href="#portfolio">All</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#mistake">Mistake</a>
+              <a class="nav-link js-scroll-trigger" href="#caveats">Caveats</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#poster">Poster</a>
@@ -1880,12 +1880,12 @@ for (var i = 0; i < btns.length; i++) {
 
 <!-- --------------------------- MISTAKE SECTION ------------------------------------------------------------------- -->
 
-    <section id="mistake">
+    <section id="caveats">
       <div class="container">
 
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Mistakes</h2>
+            <h2 class="section-heading text-uppercase">Caveats</h2>
             <h3 class="section-subheading text-muted">The best way to visualize data efficiently is probably to avoid the most common mistakes.<br><br>From data to viz offers you a <a href="url">gallery of common caveats</a></h3>
           </div>
         </div>
@@ -1932,30 +1932,30 @@ for (var i = 0; i < btns.length; i++) {
                 <div class="row">
                   <div class="col-sm-3">
                     <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-                      <p class="mytitlerelated">Histogram</p>
-                      <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+                      <img  src="img/mistake/bin_size.png">
+                      <p class="mytitlerelated">Play with histogram bin size</p>
+                      <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-                      <p class="mytitlerelated">Ridgeline</p>
-                      <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+                      <img  src="img/mistake/boxplot.png">
+                      <p class="mytitlerelated">Does boxplot hide information?</p>
+                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution. However it hides the number of data points and its real distribution.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-                      <p class="mytitlerelated">Histogram</p>
-                      <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+                      <img  src="img/mistake/error_bar.png">
+                      <p class="mytitlerelated">The problem with error bars</p>
+                      <p class="mytextrelated">Barplot with error bars must be used with care. It hides the underlying distribution, and error can be computed using several ways.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-                      <p class="mytitlerelated">Ridgeline</p>
-                      <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+                      <img  src="img/mistake/multi_distribution.png">
+                      <p class="mytitlerelated">Too many distribution.</p>
+                      <p class="mytextrelated">If you need to compare the distribution of many variables, don't clutter your graphic.</p>
                     </a>
                   </div>
                 </div>
@@ -1965,30 +1965,30 @@ for (var i = 0; i < btns.length; i++) {
                 <div class="row">
                   <div class="col-sm-3">
                     <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-                      <p class="mytitlerelated">Histogram</p>
-                      <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+                      <img  src="img/mistake/overplotting.png">
+                      <p class="mytitlerelated">Overplotting</p>
+                      <p class="mytextrelated">When your sample size gets high, your scatter plot becomes unreadable because of overplotting.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-                      <p class="mytitlerelated">Ridgeline</p>
-                      <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+                      <img  src="img/mistake/rainbow.png">
+                      <p class="mytitlerelated">Numeric variable and rainbow palette</p>
+                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. It can be confusing and so many better palette exist.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-                      <p class="mytitlerelated">Histogram</p>
-                      <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+                      <img  src="img/mistake/small_multiple.png">
+                      <p class="mytitlerelated">Small multiple: horizontal or vertical?</p>
+                      <p class="mytextrelated">Faceting is a powerful technique. But placing the individual plot horizontaly or verticaly is an important choice to make.</p>
                     </a>
                   </div>
                   <div class="col-sm-3">
                     <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-                      <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-                      <p class="mytitlerelated">Ridgeline</p>
-                      <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+                      <img  src="img/mistake/counter_intuitive.png">
+                      <p class="mytitlerelated">Don't be counter intuitive</p>
+                      <p class="mytextrelated">Your audience is used to a few dataviz standards. Not respecting it can mislead them.</p>
                     </a>
                   </div>
                 </div>
@@ -2007,7 +2007,7 @@ for (var i = 0; i < btns.length; i++) {
 
         </div>
         <br>
-        <div style="text-align:center"><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">See the collection</a></div>
+        <div style="text-align:center"><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="caveats.html">See the collection</a></div>
 
       </section>
 
