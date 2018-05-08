@@ -176,6 +176,7 @@
                   .transition()
                   .duration(750)
                   .style("border-color", "rgba(0, 0, 0, 0)")
+                  .style("background-color", "rgba(0, 0, 0, 0)")
         }
       }
       
@@ -183,7 +184,8 @@
       d3.select("#" + id)
            .transition()
            .duration(750)
-           .style("border-color", "rgba(0, 0, 0, 1)")
+           .style("border-color", "#69b3a2")
+           .style("border-bottom-style", "solid")
     }
 
 
@@ -599,7 +601,7 @@
 
 <!-- Categoric only -->
 <div id="cat" class="tree" style="text-align:center;">
-  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
+  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1582.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
   <style type="text/css">
     .catst0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
     .catst1{fill:#808285;}
@@ -630,21 +632,21 @@
       <g>
         <circle class="catst1" cx="1271.1" cy="942" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.5327 893.4599)">
+          <a data-toggle="modal" href="#sankey"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.5327 893.4599)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1235.1226 871.4072)" class="catst4 catst5">ARC</text>
       <g>
         <circle class="catst1" cx="1271.1" cy="804.1" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ArcSmal.png"  transform="matrix(0.8522 0 0 0.8522 1222.5334 755.5505)">
+          <a data-toggle="modal" href="#arc"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ArcSmal.png"  transform="matrix(0.8522 0 0 0.8522 1222.5334 755.5505)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1213.5039 733.498)" class="catst4 catst5">CHORD</text>
       <g>
         <circle class="catst1" cx="1271.1" cy="666.2" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChordSmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.5334 617.6403)">
+          <a data-toggle="modal" href="#chord"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChordSmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.5334 617.6403)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1194.8169 595.5889)" class="catst4 catst5">NETWORK</text>
@@ -652,12 +654,14 @@
         <path class="catst1" d="M1323.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S1323.5,499.3,1323.5,528.3z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/NetworkSmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.533 479.7299)">
+          <a data-toggle="modal" href="#network"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/NetworkSmall.png"  transform="matrix(0.8522 0 0 0.8522 1222.533 479.7299)">
         </image></a>
       </g>
       <g>
-        <polygon class="catst2" points="1229.4,258.3 1271.1,234.2 1312.8,258.3 1312.8,306.5 1271.1,330.6 1229.4,306.5       "/>
-        <text transform="matrix(1 0 0 1 1234.9928 286.1364)" class="catst1 catst6 catst5">ADJACENCY</text>
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Two independant lists</em><br><br><img width='250' height='250' class='img-fluid' src='img/table/AdjacencyNoEdgeValue.png' alt=''><br><br></div>">
+                <polygon class="catst2" points="1229.4,258.3 1271.1,234.2 1312.8,258.3 1312.8,306.5 1271.1,330.6 1229.4,306.5       "/>
+                <text transform="matrix(1 0 0 1 1234.9928 286.1364)" class="catst1 catst6 catst5">ADJACENCY</text>
+        </g>
       </g>
       <path class="catst0" d="M1096.3,185.7h160.6c5.5,5.5,8.6,8.6,14.2,14.2v32.5"/>
     </g>
@@ -667,14 +671,14 @@
       <g>
         <circle class="catst1" cx="1126.8" cy="1493.7" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1964 1445.1003)">
+          <a data-toggle="modal" href="#sankey"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SankeySmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1964 1445.1003)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1072.3779 1423.0479)"><tspan x="0" y="0" class="catst4 catst5">SPIDER</tspan><tspan x="11.5" y="13" class="catst4 catst5">PLOT</tspan></text>
       <g>
         <circle class="catst1" cx="1126.8" cy="1355.8" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SpiderSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1307.1903)">
+          <a data-toggle="modal" href="#spider"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SpiderSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1307.1903)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1055.1279 1285.1382)"><tspan x="0" y="0" class="catst4 catst5">PARALLEL</tspan><tspan x="28.5" y="13" class="catst4 catst5">PLOT</tspan></text>
@@ -682,7 +686,7 @@
         
           <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.2972 18.1419)" class="catst1" cx="1126.8" cy="1217.9" rx="52.4" ry="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Parallel1Small.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1169.2803)">
+          <a data-toggle="modal" href="#parallel"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/Parallel1Small.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1169.2803)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1057.7983 1147.23)"><tspan x="0" y="0" class="catst4 catst5">STACKED</tspan><tspan x="0.3" y="13" class="catst4 catst5">BARPLOT</tspan></text>
@@ -690,21 +694,21 @@
         <path class="catst1" d="M1179.2,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S1179.2,1051,1179.2,1079.9z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1031.3704)">
+          <a data-toggle="modal" href="#stackedbar"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1031.3704)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1053.4053 1009.3174)"><tspan x="0" y="0" class="catst4 catst5">GROUPED</tspan><tspan x="4.9" y="13" class="catst4 catst5">BARPLOT</tspan></text>
       <g>
         <circle class="catst1" cx="1126.8" cy="942" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 1078.1971 893.4603)">
+          <a data-toggle="modal" href="#barplot"><image class="graphtypelogo" style="overflow:visible;" width="472" height="472" xlink:href="img/section/GroupedRedBig.png"  transform="matrix(0.2058 0 0 0.2058 1078.1971 893.4603)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1056.3232 871.4072)" class="catst4 catst5">LOLLIPOP</text>
       <g>
         <circle class="catst1" cx="1126.8" cy="804.1" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 755.5504)">
+          <a data-toggle="modal" href="#lollipop"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 755.5504)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1053.626 733.498)" class="catst4 catst5">HEATMAP</text>
@@ -719,12 +723,14 @@
         <path class="catst1" d="M1179.2,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S1179.2,499.3,1179.2,528.3z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterGroupSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 479.7304)">
+          <a data-toggle="modal" href="#scatter"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ScatterGroupSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 479.7304)">
         </image></a>
       </g>
       <g>
-        <polygon class="catst2" points="1085,258.3 1126.8,234.2 1168.5,258.3 1168.5,306.5 1126.8,330.6 1085,306.5       "/>
-        <text transform="matrix(1 0 0 1 1088.5372 286.4232)" class="catst1 catst6 catst7">SUBGROUP</text>
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Two categoric variable organized in subgroups. It means that every combination of both variable is possible. Example: each people observed is a male or female (var 1), and </em><br><br><img width='250' height='250' class='img-fluid' src='img/table/TwoCatSubgroup.png' alt=''><br><br></div>">
+                <polygon class="catst2" points="1085,258.3 1126.8,234.2 1168.5,258.3 1168.5,306.5 1126.8,330.6 1085,306.5       "/>
+                <text transform="matrix(1 0 0 1 1088.5372 286.4232)" class="catst1 catst6 catst7">SUBGROUP</text>
+        </g>
       </g>
       <path class="catst0" d="M1126.8,232.3v-8.4c-5.5-5.5-8.6-8.6-14.2-14.2h-58"/>
     </g>
@@ -735,28 +741,28 @@
         <path class="catst1" d="M1034.9,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S1034.9,1051,1034.9,1079.9z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8591 1031.3691)">
+          <a data-toggle="modal" href="#dendrogram"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DendrogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8591 1031.3691)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 913.9634 1009.3174)" class="catst4 catst5">BARPLOT</text>
       <g>
         <circle class="catst1" cx="982.4" cy="942" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 893.4606)">
+          <a data-toggle="modal" href="#barplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 893.4606)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 904.7007 871.4072)" class="catst4 catst5">SUNBURST</text>
       <g>
         <circle class="catst1" cx="982.4" cy="804.1" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SunburstSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8591 755.549)">
+          <a data-toggle="modal" href="#sunburst"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/SunburstSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8591 755.549)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 909.5435 733.498)"><tspan x="0" y="0" class="catst4 catst5">CIRCULAR</tspan><tspan x="5.4" y="13" class="catst4 catst5">PACKING</tspan></text>
       <g>
         <circle class="catst1" cx="982.4" cy="666.2" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 617.6403)">
+          <a data-toggle="modal" href="#circularpacking"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 617.6403)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 912.3643 595.5889)" class="catst4 catst5">TREEMAP</text>
@@ -764,12 +770,14 @@
         <path class="catst1" d="M1034.9,528.3c0,29-23.5,52.4-52.4,52.4S930,557.3,930,528.3c0-29,23.5-52.4,52.4-52.4
           S1034.9,499.3,1034.9,528.3z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 479.7304)">
+          <a data-toggle="modal" href="#treemap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 933.8605 479.7304)">
         </image></a>
       </g>
       <g>
-        <polygon class="catst2" points="940.7,258.3 982.4,234.2 1024.2,258.3 1024.2,306.5 982.4,330.6 940.7,306.5       "/>
-        <text transform="matrix(1 0 0 1 956.1902 286.4235)" class="catst1 catst6 catst7">NESTED</text>
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>The second cat. variable is nested in the first one. Each entity is separately identifiable but also part of a larger data organization. Example: World > Europe > Ireland > Dublin.</em><br><br><img width='250' height='250' class='img-fluid' src='img/table/TwoCatNested.png' alt=''><br><br></div>">
+          <polygon class="catst2" points="940.7,258.3 982.4,234.2 1024.2,258.3 1024.2,306.5 982.4,330.6 940.7,306.5       "/>
+          <text transform="matrix(1 0 0 1 956.1902 286.4235)" class="catst1 catst6 catst7">NESTED</text>
+        </g>
       </g>
       <path class="catst0" d="M1054.6,209.8h-58c-5.5,5.5-8.6,8.6-14.2,14.2v8.4"/>
     </g>
@@ -780,12 +788,14 @@
         <path class="catst1" d="M890.5,528.3c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S890.5,499.3,890.5,528.3z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/VennSmall.png"  transform="matrix(0.8522 0 0 0.8522 789.5245 479.7304)">
+          <a data-toggle="modal" href="#venn"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/VennSmall.png"  transform="matrix(0.8522 0 0 0.8522 789.5245 479.7304)">
         </image></a>
       </g>
       <g>
-        <polygon class="catst2" points="796.4,258.3 838.1,234.2 879.8,258.3 879.8,306.5 838.1,330.6 796.4,306.5       "/>
-        <text transform="matrix(1 0 0 1 822.0057 269.6237)"><tspan x="0" y="0" class="catst1 catst6 catst7">TWO</tspan><tspan x="-22.9" y="15.8" class="catst1 catst6 catst8">INDEPENDANT</tspan><tspan x="-1.5" y="33.6" class="catst1 catst6 catst7">LISTS</tspan></text>
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Two independant lists. Example: list of people playing football, and other of people playing ping pong. The usual goal is to represent the intersection between both lists.</em><br><br><img width='250' height='250' class='img-fluid' src='img/table/TwoIndepList.png' alt=''><br><br></div>">
+          <polygon class="catst2" points="796.4,258.3 838.1,234.2 879.8,258.3 879.8,306.5 838.1,330.6 796.4,306.5 "/>
+          <text transform="matrix(1 0 0 1 822.0057 269.6237)"><tspan x="0" y="0" class="catst1 catst6 catst7">TWO</tspan><tspan x="-22.9" y="15.8" class="catst1 catst6 catst8">INDEPENDANT</tspan><tspan x="-1.5" y="33.6" class="catst1 catst6 catst7">LISTS</tspan></text>
+        </g>
       </g>
       <path class="catst0" d="M1012.9,185.7H852.3c-5.5,5.5-8.6,8.6-14.2,14.2v32.5"/>
     </g>
@@ -799,14 +809,14 @@
       <g>
         <circle class="catst1" cx="303.4" cy="1493.7" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1445.1011)">
+          <a data-toggle="modal" href="#circularpacking"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/CircularPackingSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1445.1011)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 233.5542 1423.0479)" class="catst4 catst5">TREEMAP</text>
       <g>
         <circle class="catst1" cx="303.4" cy="1355.8" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1307.1908)">
+          <a data-toggle="modal" href="#treemap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/TreeSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1307.1908)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 273.9126 1285.1382)" class="catst4 catst5">PIE</text>
@@ -814,7 +824,7 @@
         
           <ellipse transform="matrix(0.9999 -1.596312e-02 1.596312e-02 0.9999 -19.4021 4.9987)" class="catst1" cx="303.4" cy="1217.9" rx="52.4" ry="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PieSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1169.2806)">
+          <a data-toggle="modal" href="#pie"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/PieSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1169.2806)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 216.2319 1147.23)" class="catst4 catst5">DOUGHNUT</text>
@@ -822,14 +832,14 @@
         <path class="catst1" d="M355.9,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S355.9,1051,355.9,1079.9z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DougnutSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1031.3705)">
+          <a data-toggle="modal" href="#donut"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/DougnutSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 1031.3705)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 250.9675 1009.3174)"><tspan x="0" y="0" class="catst4 catst5">WORD</tspan><tspan x="-3.3" y="13" class="catst4 catst5">CLOUD</tspan></text>
       <g>
         <circle class="catst1" cx="303.4" cy="942" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/WordCloudSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 893.4606)">
+          <a data-toggle="modal" href="#wordcloud"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/WordCloudSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 893.4606)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 241.9199 871.4072)" class="catst4 catst5">WAFFLE</text>
@@ -843,7 +853,7 @@
       <g>
         <circle class="catst1" cx="303.4" cy="666.2" r="52.4"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 617.6403)">
+          <a data-toggle="modal" href="#lollipop"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/LollipopSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 617.6403)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 234.9516 595.5889)" class="catst4 catst5">BARPLOT</text>
@@ -851,12 +861,14 @@
         <path class="catst1" d="M355.9,528.3c0,29-23.5,52.4-52.4,52.4S251,557.3,251,528.3c0-29,23.5-52.4,52.4-52.4
           S355.9,499.3,355.9,528.3z"/>
         
-          <a data-toggle="modal" href="#heatmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 479.7304)">
+          <a data-toggle="modal" href="#barplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BarSmall.png"  transform="matrix(0.8522 0 0 0.8522 254.8492 479.7304)">
         </image></a>
       </g>
       <g>
-        <polygon class="catst2" points="261.7,137.5 303.4,113.4 345.2,137.5 345.2,185.7 303.4,209.8 261.7,185.7       "/>
-        <text transform="matrix(1 0 0 1 288.5234 148.7982)"><tspan x="0" y="0" class="catst1 catst6 catst7">ONE</tspan><tspan x="-22" y="15.8" class="catst1 catst6 catst8">CATEGORICAL</tspan><tspan x="-21.5" y="33.6" class="catst1 catst6 catst7">VARIABLES</tspan></text>
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Very simple dataset with only one categoric variable</em><br><br><img width='120' height='200' class='img-fluid' src='img/table/OneCat.png' alt=''><br><br></div>">
+          <polygon class="catst2" points="261.7,137.5 303.4,113.4 345.2,137.5 345.2,185.7 303.4,209.8 261.7,185.7       "/>
+          <text transform="matrix(1 0 0 1 288.5234 148.7982)"><tspan x="0" y="0" class="catst1 catst6 catst7">ONE</tspan><tspan x="-22" y="15.8" class="catst1 catst6 catst8">CATEGORICAL</tspan><tspan x="-21.5" y="33.6" class="catst1 catst6 catst7">VARIABLES</tspan></text>
+        </g>
       </g>
     </g>
     <g>
@@ -884,7 +896,7 @@
 
 <!-- Numeric and cat -->
 <div id="catnum" class="tree" style="text-align:center;">
-  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
+  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1582.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
   <style type="text/css">
     .catnumst0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
     .catnumst1{fill:#808285;}
@@ -1377,7 +1389,7 @@
 
 <!-- Geographic -->
 <div id="geo" class="tree" style="text-align:center;">
-  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
+  <svg version="1.1" id="Numeric_copy" width="80%" height="1433.858px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 400 1508.3 1502.4" style="enable-background:new 0 0 1508.3 1502.4;" xml:space="preserve">
   <style type="text/css">
     .geost0{fill:none;stroke:#808285;stroke-width:3;stroke-linecap:square;stroke-miterlimit:10;}
     .geost1{font-family:'Lato-Regular';}
@@ -2042,6 +2054,30 @@ document.getElementById('num').style.display = 'none';
             <div class="captionPortfolio">Dendrogram</div>
           </div>
 
+          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#circularpacking">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/CircularPacking150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Circular packing</div>
+          </div>
+
+          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+            <a class="portfolio-link" data-toggle="modal" href="#sunburst">
+              <div class="portfolio-hover">
+                <div class="portfolio-hover-content">
+                  <i class="fa fa-plus fa-3x"></i>
+                </div>
+              </div>
+              <img class="img-fluid" src="img/section/Sunburst150.png" alt="">
+            </a>
+            <div class="captionPortfolio">Sunburst</div>
+          </div>
+
           <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#line">
               <div class="portfolio-hover">
@@ -2619,13 +2655,6 @@ for (var i = 0; i < btns.length; i++) {
 
 <!-- -------------------------MODAL SECTION --------------------------------------------------------------------- -->
 
-    <style>
-    .cardtitle {
-      color: orange;
-      text-align: left;
-    }
-
-    </style>
 
 
     <!-- Violin -->
@@ -2645,25 +2674,25 @@ for (var i = 0; i < btns.length; i++) {
                   <img class="img-fluid d-block mx-auto" src="img/section/Violin150.png" alt="">
 
                   <h2 class="text-uppercase">Violin</h2>
-                  <p class="item-intro text-muted">An alternative to boxplot that allows to compare the distribution of several groups.</p>
+                  <p class="item-intro text-muted">An alternative to boxplot to compare the distribution of several groups.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <p align="justify">Violinplots allow to visualize the distribution of a numeric variable for one or several groups. It is really close from a boxplot, but allows a deeper understanding of the distribution. <br><br>Violins are particularly adapted when the amount of data is huge and showing individual observations gets impossible.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <div style="text-align: left !important;"><ul><li>If you have just a few groups, you are probably interested by ridgeline charts.</li><li>If you compare groups with very different sample size, show it.</li><li>Ordering groups by median value makes the chart more insightful.</li></ul><br></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/violin-plot/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/violin-plot/" class="btn btn-primary">Python gallery</a>
                   </p>
 
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">Use this areandis facere nemo!</p>
+                  <p align="justify">See the dedicated page.</p>
                 </div>
               </div>
             </div>
@@ -2698,18 +2727,18 @@ for (var i = 0; i < btns.length; i++) {
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important;"><ul><li>Play with the bandwith of your density function.</li><li>Don't show the distribution of more than ~5 variables. Use Violin or Ridge line plot instead.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Play with the bandwith of your density function.</li><li>Don't show the distribution of more than ~5 variables. Use Violin or Ridge line plot instead.</li><li>Avoid filling with color palettes.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">Use this areandis facere nemo!</p>
+                  <p align="justify">See the dedicated page.</p>
                 </div>
               </div>
             </div>
@@ -2735,25 +2764,25 @@ for (var i = 0; i < btns.length; i++) {
                   <img class="img-fluid d-block mx-auto" src="img/section/Histogram150.png" alt="">
 
                   <h2 class="text-uppercase">Histogram</h2>
-                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <p class="item-intro text-muted">An accurate graphical representation of the distribution of numerical data.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <p align="justify">A histogram takes as input a numeric variable only. The variable is cut into several bins, and the number of observation per bin is represented by the height of the bar. It is possible to represent the distribution of several variable on the same axis using this technique.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <div style="text-align: left !important"><ul><li>Play with the bin size, it can give different insight.</li><li>Don't show the distribution of more than ~5 variables. Use Violin or Ridge line plot instead.</li><li>Avoid filling with color palettes.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/histogram/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/histogram/" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">Use this areandis facere nemo!</p>
+                  <p align="justify">See the dedicated page.</p>
                 </div>
               </div>
             </div>
@@ -2779,25 +2808,25 @@ for (var i = 0; i < btns.length; i++) {
                   <img class="img-fluid d-block mx-auto" src="img/section/Box1150.png" alt="">
 
                   <h2 class="text-uppercase">Boxplot</h2>
-                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <p class="item-intro text-muted">Summarize the distribution of numeric variables</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <p align="justify">A boxplot gives a nice summary of one or several numeric variables. The line that divides the box into 2 parts represents the median of the data. The end of the box shows the upper and lower quartiles. The extreme lines show the highest and lowest value excluding outliers.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <div style="text-align: left !important"><ul><li>Boxplot hide the sample size of each group, show it with annotation or box width.</li><li>Boxplot hide the underlying distribution. Use jitter if low number of data points, or use violin with bigger data.</li><li>Order your boxplot by median can make it more insightful.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/boxplot/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/boxplot/" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">Use this areandis facere nemo!</p>
+                  <p align="justify">See the dedicated page.</p>
                 </div>
               </div>
             </div>
@@ -2807,7 +2836,7 @@ for (var i = 0; i < btns.length; i++) {
     </div>
 
 
-        <!-- Ridgeline-->
+    <!-- Ridgeline-->
     <div class="portfolio-modal modal fade" id="ridgeline" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -3426,7 +3455,7 @@ for (var i = 0; i < btns.length; i++) {
 
 
         <!-- Venn -->
-    <div class="portfolio-modal modal fade" id="Venn" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="venn" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
@@ -3532,25 +3561,25 @@ for (var i = 0; i < btns.length; i++) {
                   <img class="img-fluid d-block mx-auto" src="img/section/Pie150.png" alt="">
 
                   <h2 class="text-uppercase">Pie chart</h2>
-                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <p class="item-intro text-muted">A circular graphic divided into slices to illustrate numerical proportion.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <p align="justify">A pie chart is a circle divided into sectors that each represent a proportion of the whole. It is often used to show proportion, where the sum of the sectors equal 100%.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+                  <p align="justify">Pie chart is easily the worst way to convey information ever developed in the history of data visualization. Thus, it must be avoided and replaced with barplot most of the time. Indeed, it is really difficult for a human to make the difference between the size of similar slices. 3D pie plot is even worse since it distorts reality.</p>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/pie-plot/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/pie-plot/" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">Use this areandis facere nemo!</p>
+                  <p align="justify"><a href="https://blog.datawrapper.de/pie-charts/">What to consider when creating pie charts</a> by Uncharted.</p>
                 </div>
               </div>
             </div>
@@ -3603,6 +3632,102 @@ for (var i = 0; i < btns.length; i++) {
         </div>
       </div>
     </div>
+
+
+
+        <!-- Circular packing -->
+    <div class="portfolio-modal modal fade" id="circularpacking" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/CircularPacking150.png" alt="">
+
+                  <h2 class="text-uppercase">Circular Packing</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+        <!-- Sunburst -->
+    <div class="portfolio-modal modal fade" id="sunburst" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-10 mx-auto">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/section/Sunburst150.png" alt="">
+
+                  <h2 class="text-uppercase">Sunburst</h2>
+                  <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
+                  <div class="cardtitle">About</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Common Mistakes</div>
+                  <hr>
+                  <p align="justify">Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
+
+                  <div class="cardtitle">Code</div>
+                  <hr>
+                  <p>
+                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  </p>
+                  
+                  <div class="cardtitle">Read More</div>
+                  <hr>
+                  <p align="justify">Use this areandis facere nemo!</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
 
 
         <!-- Line -->

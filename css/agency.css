@@ -26,7 +26,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: 700;
+  font-weight: 695;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -998,7 +998,8 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 .treeHead {
   border-style: solid; 
-  border-color: rgba(0, 0, 0, 0);
+  border-color: rgba(0, 0, 0, 1);
+  border-radius: 25px;
 }
 
 .tree {
@@ -1084,6 +1085,19 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 
 
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* LOST
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+
+    .cardtitle {
+      color: orange;
+      text-align: left;
+    }
 
 
 
