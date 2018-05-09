@@ -33,6 +33,16 @@ output:
 ***
 In this document we will consider the night price of several Airbnb appartements. This dataset is quite basic and looks like this
 Data provided by the [Stockholm International Peace Research Institute](http://armstrade.sipri.org/armstrade/page/toplist.php). Available at .csv format here.
+TIV of arms exports from the top 50 largest exporters, 1990-2017	
+Figures are SIPRI Trend Indicator Values (TIVs) expressed in millions	
+Figures may not add up due to the conventions of rounding.	
+A '0' indicates that the value of deliveries is less than 0.5m	
+For more information, see http://www.sipri.org/databases/armstransfers/sources-and-methods/	
+Source: SIPRI Arms Transfers Database	
+Generated: 09 May 2018	
+
+data=read.table("7_OneCatOneNum.csv", header=T, na.strings="", sep=",")
+
 
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
@@ -40,56 +50,113 @@ library(tidyverse)
 library(hrbrthemes)
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 ```
 
 
 
 
-# Option 1: Histogram
+# Option 1: Lollipop
 ***
 
 No wayyy
 
-```{r, fig.align="center"}
+```{r, fig.align="center", fig.height=7}
 data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    stat_bin(breaks=seq(0,300,10), fill="#69b3a2", color="#e9ecef", alpha=0.9) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
 ```
 
 Note that it is really important to play with the size of the bins during your exploratory analysis. Let's check what happens if we split prices by bins of 2 euros instead of 10:
 
-```{r, fig.align="center"}
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    stat_bin(breaks=seq(0,300,1), fill="#69b3a2", color="#e9ecef", alpha=0.9) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
 
-
-```
-
-Ouch, this is a very different picture. What's going on?
-
-
-
-# Option 2: Density
+#- Treemap
 ***
 
-No wayyy
+```{r, fig.align="center", fig.width=9}
+library(treemap)
 
-```{r, fig.align="center"}
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.7) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
+treemap(data,
+            
+            # data
+            index="Country",
+            vSize="Value",
+            type="index",
+            
+            # Main
+            title="",
+            palette="Dark2",
+
+            # Borders:
+            border.col=c("black"),             
+            border.lwds=1,                         
+        
+            # Labels
+            fontsize.labels=0.5,
+            fontcolor.labels="white",
+            fontface.labels=1,            
+            bg.labels=c("transparent"),              
+            align.labels=c("left", "top"),                                  
+            overlap.labels=0.5,
+            inflate.labels=T                        # If true, labels are bigger when rectangle is bigger.
+
+            
+            )
 ```
+
+
+# Circle packing
+***
+
+```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
+# Libraries
+library(ggraph)
+library(igraph)
+library(tidyverse)
+library(viridis)
+ 
+# We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
+tmp <- data %>% filter(!is.na(Value))
+edges <- data.frame(
+  from = "o",
+  to = tmp$Country
+)
+vertices = rbind(tmp, data.frame(Country="o", Value=1)) %>% mutate(name=Country)
+mygraph <- graph_from_data_frame( edges, vertices=vertices )
+
+ggraph(mygraph, layout = 'circlepack', weight="Value") + 
+  geom_node_circle( aes(fill=name)) +
+  scale_fill_viridis(discrete=TRUE) +
+  geom_node_label(aes(label=name, size=Value)) +
+  theme_void() +
+  theme(
+    legend.position="none"
+  )
+
+
+
+```
+
+
+
+
+ 
+ 
+ 
+ 
+
 
 
 
