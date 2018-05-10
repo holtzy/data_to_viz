@@ -52,9 +52,15 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-- Relationships can be `undirected` and `unweighted`. I will consider all the co-authors of a researcher and study who is connected through a common publication.
+- Relationships can be `undirected` and `unweighted`. I will consider all the co-authors of a researcher and study who is connected through a common publication. Data have been retrieved using the [scholar](https://github.com/jkeirstead/scholar) package, the pipeline is describe in this [github repository](https://github.com/holtzy/Google-Scholar-Network). The result is an adjacency matrix with about 100 researchers, filled with 1 if they have published a paper together, 0 otherwise.
+
 ```{r, warning=FALSE, message=FALSE}
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+# Load data
+dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+
+# show data
+dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
 - Relationships can also be `undirected` and `weighted`
