@@ -1,0 +1,11 @@
+"Africa" "East Asia" "Europe" "Latin America" "North America" "Oceania" "South Asia" "South East Asia" "Soviet Union" "West Asia"
+"Africa" 3.142471 0 2.107883 0 0.540887 0.155988 0 0 0 0.673004
+"East Asia" 0 1.630997 0.601265 0 0.97306 0.333608 0 0.380388 0 0.869311
+"Europe" 0 0 2.401476 0 0 0 0 0 0 0
+"Latin America" 0 0 1.762587 0.879198 3.627847 0 0 0 0 0
+"North America" 0 0 1.215929 0.276908 0 0 0 0 0 0
+"Oceania" 0 0 0.17037 0 0 0.190706 0 0 0 0
+"South Asia" 0 0.525881 1.390272 0 1.508008 0.34742 1.307907 0 0 4.902081
+"South East Asia" 0 0.145264 0.468762 0 1.057904 0.278746 0 0.781316 0 0
+"Soviet Union" 0 0 0.60923 0 0 0 0 0 1.870501 0
+"West Asia" 0 0 0.449623 0 0.169274 0 0 0 0 0.927243

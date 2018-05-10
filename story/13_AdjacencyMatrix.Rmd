@@ -1,0 +1,85 @@
+---
+title: "<center><div class='mytitle'>Visualizing a numeric and a categoric variable</div></center>"
+author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+output:
+  html_document:
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+        before_body: header.html
+---
+
+
+<div class="mycontent">
+
+
+<center>
+![](../img/section/Bar150.png){width=75px}
+![](../img/section/CircularBarplot150.png){width=75px}
+</center>
+
+***
+
+>Let's start here
+
+# Dataset
+***
+
+Adjacency matrix has a lot of variation..
+
+- Directed / Not directed
+- Weighted / Unweighted
+- Adjacency (rows=cols) / Incidence matrix (rows != cols)
+
+Thus we will consider several datasets to represents these possibilities.
+
+- Twitter network of #Python #Rstats and #Dataviz
+- Publication network of co-authors
+- Migration flow from one country to the other.
+
+
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(circlize)
+library(migest)
+
+
+
+demo(cfplot_reg, package = "migest", ask = FALSE)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+```
+
+
+
+
+ 
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
