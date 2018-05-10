@@ -53,6 +53,9 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
 ```
 
 - Relationships can be `undirected` and `unweighted`. I will consider all the co-authors of a researcher and study who is connected through a common publication.
+```{r, warning=FALSE, message=FALSE}
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+```
 
 - Relationships can also be `undirected` and `weighted`
 
