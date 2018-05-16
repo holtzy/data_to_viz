@@ -1,0 +1,91 @@
+---
+myimage1: "../img/section/Choropleth150.png"
+myimage2: "../img/section/MapHexbin150.png"
+myimage3: "../img/section/Cartogram150.png"
+mytitle: "Visualizing a set of geographic coordinates"
+output:
+  html_document:
+      template: template_story.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+
+
+
+<div class = "row">
+<div class = "col-md-8">
+<br><br><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+</div>
+<div class = "col-md-4">
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(viridis)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.gz", header=TRUE)
+
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+#Hexbin
+***
+
+```{r}
+# Get the GPS coordinates of a set of 200k tweets:
+data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/Coordinate_Surf_Tweets.csv", sep=",", header=T)
+ 
+# Get the world polygon
+library(mapdata)
+world <- map_data("world")
+ 
+# Remember, We can plot these polygons with ggplot2
+ggplot() + 
+  geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
+  theme_void() +
+  coord_map()
+ 
+# Make the hexbin map with the geom_hex function
+ggplot(data, aes(x=homelon, y=homelat)) + 
+  geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
+  geom_bin2d(bins=80) +
+  theme_void() +
+  scale_fill_viridis(
+    trans = "log", 
+    name="Number of Tweets", 
+    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)
+  ) +
+  theme(
+    legend.position = c(0.5, 0.09),
+  ) +
+  ylim(-70, 80)
+```
+

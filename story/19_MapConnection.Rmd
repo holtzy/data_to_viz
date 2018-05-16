@@ -1,32 +1,25 @@
-
 ---
-title: "<center><div class='mytitle'>Visualizing connection on a map<br></div></center>"
+myimage1: "../img/section/ConnectedMapSmall.png"
+mytitle: "Visualizing geographic connections"
 output:
   html_document:
+      template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
         after_body: footer.html
-        before_body: header.html
 ---
 
-
+<br><br>
 <div class="mycontent">
 
-<br>
-<center>
-![](../img/section/ConnectedMap150.png){width=75px}
 
-
-</center>
-
-***
 
 This document provides a few direction for the visualization of geographical connections. The dataset is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). It lists about 13k tweets containing the [#surf](https://twitter.com/search?q=%23surf&src=typd&lang=en) hashtag. This tweets have been recovered on a 10 months period and you can learn more on this project dedicated page.
 
@@ -38,6 +31,8 @@ library(tidyverse)
 library(hrbrthemes)
 library(viridis)
 library(DT)
+library(kableExtra)
+options(knitr.table.format = "html")
 
 #load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
 #data <- data %>% select(homename, homecontinent, homecountry, homelat, homelon, travelcontinent, travelcountry, travellat, travellon) %>% na.omit()
@@ -47,20 +42,29 @@ library(DT)
 data <- read.table("https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv", header=T, sep=",")
 
 # Show long format
-data %>%
+tmp <- data %>%
   tail(5) %>%
   mutate(homename = gsub( ", Western Australia", "", homename)) %>%
   mutate(homename = gsub( ", France", "", homename)) %>%
   mutate(homename = gsub( " - Bali - Indonesia", "", homename)) %>%
-  datatable(options = list(dom = 't', ordering=F), rownames= FALSE, width = "30px") 
+  mutate(homelat=round(homelat,1), homelon=round(homelon,1), travellat=round(travellat,1), travellon=round(travellon,1)) %>%
+  select(homename, homelat, homelon, travelcountry, travellat, travellon)
+
+tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
 ```
+
+
+
+
+
+
 
 <br><br>
 
-#- Showing a few connection on a map
+#Showing a few connection on a map
 ***
 
-Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called great circles. A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
+Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called [great circles](https://en.wikipedia.org/wiki/Great_circle). A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
 
 Here are the connection between 8 cities on a world map:
 
@@ -112,7 +116,7 @@ text(rownames(don), x=don$long, y=don$lat,  col="slateblue", cex=1, pos=4)
 
 
 
-#- Showing many connections on a map
+#Showing many connections on a map
 ***
 
 ```{r}

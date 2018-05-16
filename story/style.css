@@ -64,7 +64,7 @@ a {
 .mytitle{
   text-transform: uppercase;
   font-family: 'Montserrat';
-  font-size: 80%;
+  font-size: 180%;
   font-weight: 300;
   letter-spacing: 4px;
 }
@@ -72,4 +72,10 @@ a {
 .mysubtitle{
   color:grey;
   font-family: 'Montserrat';
+  font-size: 110%;
 }
+
+.mylogoheader{
+  width: 70px ;
+}
+

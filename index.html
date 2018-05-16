@@ -110,47 +110,28 @@
         <div class="row text-center">
           
           <div id="numericHead" class="col-md-2 offset-md-1 treeHead" onMouseOver="showTree('num'); highlightHead('numericHead');" >
-            <span class="fa-stack fa-3x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-sort fa-stack-1x fa-inverse"></i>
-            </span>
             <h4 class="service-heading">Numeric</h4>
           </div>
           
           <div id="categoricHead" class="col-md-2 treeHead" onMouseOver="showTree('cat'); highlightHead('categoricHead');" >
-            <span class="fa-stack fa-3x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-laptop fa-stack-1x fa-inverse"></i>
-            </span>
             <h4 class="service-heading">Categoric</h4>
           </div>
           
           <div id="numcatHead" class="col-md-2 treeHead" onMouseOver="showTree('catnum'); highlightHead('numcatHead');">
-            <span class="fa-stack fa-3x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-certificate fa-stack-1x fa-inverse"></i>
-            </span>
             <h4 class="service-heading">Num & Cat</h4>
           </div>
               
           <div id="geographicalHead" class="col-md-2 treeHead" onMouseOver="showTree('geo'); highlightHead('geographicalHead');" >
-            <span class="fa-stack fa-3x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-globe fa-stack-1x fa-inverse"></i>
-            </span>
             <h4 class="service-heading">Geographical</h4>
           </div>
 
           <div id="relationnalHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('relationnalHead');"  >
-            <span class="fa-stack fa-3x">
-              <i class="fa fa-circle fa-stack-2x text-primary"></i>
-              <i class="fa fa-tree fa-stack-1x fa-inverse"></i>
-            </span>
             <h4 class="service-heading">Relationnal</h4>
           </div>
 
         </div>
       </div>
+      <br>
 
 
 
@@ -177,6 +158,8 @@
                   .duration(750)
                   .style("border-color", "rgba(0, 0, 0, 0)")
                   .style("background-color", "rgba(0, 0, 0, 0)")
+                  .style("color", "grey")
+                  .style("font-size", "1rem")     
         }
       }
       
@@ -186,6 +169,8 @@
            .duration(750)
            .style("border-color", "#69b3a2")
            .style("border-bottom-style", "solid")
+           .style("color", "#69b3a2")
+           .style("font-size", "2rem")     
     }
 
 
@@ -1423,31 +1408,34 @@
       <text transform="matrix(1 0 0 1 691.4728 1147.23)"><tspan x="0" y="0" class="geost1 geost2">BUBBLE</tspan><tspan x="20.3" y="13" class="geost1 geost2">MAP</tspan></text>
       <g>
         <path class="geost3" d="M803.6,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
-          S803.6,1051,803.6,1079.9z"/>
-        
-          <a data-toggle="modal" href="#bubblemap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BubbleMapSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 1031.3705)">
-        </image></a>
+          S803.6,1051,803.6,1079.9z"/>     
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Requires the latitude and longitude of each bubble, plus a numeric value for their size. Note that a categoric variable can be added, to control the color of the bubble for example.</em><br><br><img width='420' height='800' class='img-fluid' src='img/table/Map/coordAndValue.png' alt=''><br><br></div>">
+          <a data-toggle="modal" href="#bubblemap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/BubbleMapSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 1031.3705)"></image></a>
+        </g>
       </g>
       <text transform="matrix(1 0 0 1 711.9479 1009.3174)"><tspan x="0" y="0" class="geost1 geost2">MAP</tspan><tspan x="-19.2" y="13" class="geost1 geost2">HEXBIN</tspan></text>
       <g>
         <circle class="geost3" cx="751.2" cy="942" r="52.4"/>
-        
-          <a data-toggle="modal" href="#hexbinmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/MapHexbinSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 893.4605)">
-        </image></a>
+
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>A list of coordinates. It is then possible to cut the space in several hexagons and count the number of dot per hexagon.<br><br>OR<br><br>A numeric value per region. Each region will be represented by an hexagon, which shape file must be provided as well.</em><br><br><img width='970' height='1350' class='img-fluid' src='img/table/Map/hexbin.png' alt=''><br><br></div>">       
+          <a data-toggle="modal" href="#hexbinmap"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/MapHexbinSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 893.4605)"></image></a>
+        </g>
       </g>
       <text transform="matrix(1 0 0 1 656.9191 871.4072)" class="geost1 geost2">CHOROPLETH</text>
       <g>
         <circle class="geost3" cx="751.2" cy="804.1" r="52.4"/>
-        
-          <a data-toggle="modal" href="#choropleth"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChoroplethSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 755.5505)">
-        </image></a>
+
+        <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Requires a value (most often a numeric value) for each region to color. More over, you need the boundary coordinates of these regions.</em><br><br><img width='270' height='550' class='img-fluid' src='img/table/Map/RegionValue.png' alt=''><br><br></div>">
+          <a data-toggle="modal" href="#choropleth"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ChoroplethSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 755.5505)"></image></a>
+        </g>      
       </g>
-      <text transform="matrix(1 0 0 1 660.4225 733.498)"><tspan x="0" y="0" class="geost1 geost2">CONNECTED</tspan><tspan x="51.5" y="13" class="geost1 geost2">MAP</tspan></text>
+      <text transform="matrix(1 0 0 1 660.4225 733.498)"><tspan x="-8" y="0" class="geost1 geost2">CONNECTION</tspan><tspan x="50.5" y="13" class="geost1 geost2">MAP</tspan></text>
       <g>
         <circle class="geost3" cx="751.2" cy="666.2" r="52.4"/>
         
-          <a data-toggle="modal" href="#connection"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ConnectedMapSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 617.6404)">
-        </image></a>
+       <g data-toggle="tooltip" data-html="true" data-placement="left" offset='10 - 5vh + 3%' class="data-tooltip" style="color: #f00;" title="<div class='data-tooltip'><br><em>Requires the GPS coordinates of both the origin and the end of the connection. It is possible to provide a value for this connection as well.</em><br><br><img width='670' height='1250' class='img-fluid' src='img/table/Map/coordStartEnd.png' alt=''><br><br></div>">
+          <a data-toggle="modal" href="#connection"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/ConnectedMapSmall.png"  transform="matrix(0.8522 0 0 0.8522 702.6083 617.6404)"></image></a>
+        </g>
       </g>
       <text transform="matrix(1 0 0 1 711.9479 595.5889)" class="geost1 geost2">MAP</text>
       <g>
@@ -1470,13 +1458,10 @@
   <g id="Numeric_copy">
   </g>
 
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="-15" y="640"><a class="mystory" xlink:href="story/1_OneNum.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="225" y="800"><a class="mystory" xlink:href="story/2_TwoNum.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="375" y="920"><a class="mystory" xlink:href="story/2_TwoNum.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="565" y="800"><a class="mystory" xlink:href="story/3_TwoNumOrdered.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="830" y="920"><a class="mystory" xlink:href="story/4_ThreeNum.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="1050" y="920"><a class="mystory" xlink:href="story/5_1CatSevOrderedNum.html">Story</a></tspan></text>
-<text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="1270" y="1340"><a class="mystory" xlink:href="story/6_SeveralNum.html">Story</a></tspan></text>
+  <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="720" y="530"><a class="mystory" xlink:href="story/19_MapConnection.html">Story</a></tspan></text>
+  <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="720" y="670"><a class="mystory" xlink:href="story/20_RegionWithValue.html">Story</a></tspan></text>
+  <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="720" y="810"><a class="mystory" xlink:href="story/17_GPSCoordWithoutValue.html">Story</a></tspan></text>
+  <text transform="matrix(0.9999 -1.224000e-02 1.224000e-02 0.9999 87.5505 148.9814)"><tspan x="720" y="950"><a class="mystory" xlink:href="story/18_GPSCoordWithValue.html">Story</a></tspan></text>
 
   </svg>
 </div>
@@ -4255,7 +4240,7 @@ by the Y axis, and one by the size.</p>
                   <p class="item-intro text-muted">A circular barplot is like a barplot, but with the X axis circularized.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A bubble map uses circles of different size to represent a numeric value on a territory. It is possible to display a bubble per geographic coordinate, or a bubble per region (in this case the bubble is usually displayed in the baricentre of the region).<br><br>Bubble map allows to avoid the biais caused by regional area sizes in chloropleth maps.</p>
+                  <p align="justify">A bubble map uses circles of different size to represent a numeric value on a territory. It is possible to display a bubble per geographic coordinate, or a bubble per region (in this case the bubble is usually displayed in the baricentre of the region).<br><br>Bubble map allows to avoid the biais caused by regional area sizes in choropleth maps.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
