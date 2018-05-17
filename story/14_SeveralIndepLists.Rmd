@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/section/VennSmall.png"
 myimage2: "../img/section/LollipopSmall.png"
-mytitle: "Visualizing a unique Numeric variable"
+mytitle: "Visualizing several independant lists"
 output:
   html_document:
       template: template_story.html
@@ -10,14 +10,14 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
         after_body: footer.html
 ---
 
-<br><br>
+<br><br><br><br>
 <div class="mycontent">
 
 
@@ -26,37 +26,124 @@ output:
 
 
 <div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
+<div class = "col-md-6">
+This document gives a few suggestions to analyse a dataset composed by a few lists of items.<br><br>It considers the lyrics of 2 famous french rapers ([Nekfeu](https://en.wikipedia.org/wiki/Nekfeu) and [Booba](https://en.wikipedia.org/wiki/Booba)) and a french singer ([Georges Brassens](https://en.wikipedia.org/wiki/Georges_Brassens)).<br><br>This example dataset has been downloaded from the [Paroles.net website](https://www.paroles.net/) using a custom script and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Seventy five songs are considered.
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(kableExtra)
+library(tm)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv", header=TRUE) 
+to_remove <- c("_|[0-9]|\\.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined" )
+data <- data %>% filter(!grepl(to_remove, word)) %>% filter(!word %in% stopwords('fr'))
+
+
 
 # show data
-data %>% head(6) %>% kable() %>%
+a <- data %>% filter(artist=="booba") %>% select(word) %>% arrange(word) %>% mutate(booba=word) %>% select(booba) %>% sample_n(6)
+b <- data %>% filter(artist=="nekfeu") %>% select(word) %>% arrange(word) %>% mutate(nekfeu=word) %>% select(nekfeu) %>% sample_n(6)
+c <- data %>% filter(artist=="georges-brassens") %>% select(word) %>% arrange(word) %>% mutate(brassens=word) %>% select(brassens) %>% sample_n(6)
+```
+
+</div>
+
+<div class = "col-md-2">
+```{r, echo=FALSE}
+a %>% head(6) %>% kable(row.names=FALSE) %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 </div>
+
+<div class = "col-md-2">
+```{r, echo=FALSE}
+b %>% head(6) %>% kable(row.names=FALSE) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+
+<div class = "col-md-2">
+```{r, echo=FALSE}
+c %>% head(6) %>% kable(row.names=FALSE) %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+
 </div>
 
 
 
 
 
+#Check the most frequent words
+***
+```{r, fig.align="center", fig.height=8}
+data %>%
+  filter(artist=="nekfeu") %>%
+  select(word) %>%
+  group_by(word) %>%
+  summarize(n=n()) %>%
+  arrange(n) %>%
+  mutate(word=factor(word, word)) %>%
+  tail(30) %>%
+  ggplot( aes(word, y=n)) +
+    geom_segment( aes(x=word ,xend=word, y=0, yend=n), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
+```
 
 
 
-
-
-#Histogram
+#Venn diagram
 ***
 
-The mos
+```{r, warning=FALSE, message=FALSE, results = "hide"}
+#upload library
+library(VennDiagram)
+ 
+#The goal of the Venn Diagram is to count how many words are common between SNP_pop_1 and SNP_pop_2, between SNP_pop_1 and SNP_pop_3 and so on...
+#The venn.diagram function do it automatically and draw it! (you will get a png file in your current working directory)
+ 
+venn.diagram(
+  x = list(
+    data %>% filter(artist=="booba") %>% select(word) %>% unlist() , 
+    data %>% filter(artist=="nekfeu") %>% select(word) %>% unlist() , 
+    data %>% filter(artist=="georges-brassens") %>% select(word) %>% unlist()
+    ),
+  category.names = c("Booba" , "Nekfeu" , "Brassens"),
+  filename = 'venn.png',
+  output = TRUE ,
+          imagetype="png" ,
+          height = 480 , 
+          width = 480 , 
+          resolution = 300,
+          compression = "lzw",
+          lwd = 1,
+          col=c("#440154ff", '#21908dff', '#fde725ff'),
+          fill = c(alpha("#440154ff",0.3), alpha('#21908dff',0.3), alpha('#fde725ff',0.3)),
+          cex = 0.5,
+          fontfamily = "sans",
+          cat.cex = 0.6,
+          cat.default.pos = "outer",
+          cat.pos = c(-27, 27, 135),
+          cat.dist = c(0.055, 0.055, 0.085),
+          cat.fontfamily = "sans",
+          cat.col = c("#440154ff", '#21908dff', '#fde725ff'),
+          rotation = 1
+        )
+```
+<center>
+![](venn.png)
+</center>
+
