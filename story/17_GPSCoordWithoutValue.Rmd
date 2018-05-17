@@ -38,10 +38,10 @@ library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.gz", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
 
 # show data
-data %>% head(6) %>% kable() %>%
+data %>% head(3) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 </div>
@@ -52,27 +52,54 @@ data %>% head(6) %>% kable() %>%
 
 
 
+#Showing a few dots
+***
 
 
+
+#A dot density map
+***
 
 
 #Hexbin
 ***
 
-```{r}
-# Get the GPS coordinates of a set of 200k tweets:
-data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/Coordinate_Surf_Tweets.csv", sep=",", header=T)
- 
+```{r, warning=FALSE, message=FALSE, fig.alig="center"}
 # Get the world polygon
 library(mapdata)
 world <- map_data("world")
  
-# Remember, We can plot these polygons with ggplot2
-ggplot() + 
-  geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
-  theme_void() +
-  coord_map()
- 
+data %>%
+  filter(homecontinent=='Europe') %>%
+  ggplot( aes(x=homelon, y=homelat)) + 
+    geom_hex(bins=65) +
+    theme_void() +
+    xlim(-30, 70) +
+    ylim(24, 72) +
+    scale_fill_viridis(
+      trans = "log", 
+      name="Number of Tweet recorded in 8 months", 
+      guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+    )  +
+    ggtitle( "Where people tweet about #Surf" ) +
+    theme(
+      legend.position = c(0.5, 0.09),
+      text = element_text(color = "#22211d"),
+      #plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+      #panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+      #legend.background = element_rect(fill = "#f5f5f2", color = NA),
+      plot.title = element_text(size= 22, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    )
+```
+
+
+
+
+
+
+
+```{r, warning=FALSE}
+
 # Make the hexbin map with the geom_hex function
 ggplot(data, aes(x=homelon, y=homelat)) + 
   geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
@@ -88,4 +115,10 @@ ggplot(data, aes(x=homelon, y=homelat)) +
   ) +
   ylim(-70, 80)
 ```
+
+
+
+#Choropleth
+***
+
 
