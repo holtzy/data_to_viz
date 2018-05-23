@@ -19,9 +19,9 @@ output:
 <br><br>
 <div class="mycontent">
 
+This document provides a few suggestions for the visualization of geographical connections.  
 
-
-This document provides a few direction for the visualization of geographical connections. The dataset is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). It lists about 13k tweets containing the [#surf](https://twitter.com/search?q=%23surf&src=typd&lang=en) hashtag. This tweets have been recovered on a 10 months period and you can learn more on this project dedicated page.
+The dataset considered here is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). It is based on about 13,000 tweets containing the [#surf](https://twitter.com/search?q=%23surf&src=typd&lang=en) hashtag. These tweets have been recovered on a 10 months period, and those with both current geo location and correct city of origin have been kept. You can learn more on this project in this dedicated [github repository](https://github.com/holtzy/About-Surfers-On-Twitter).
 
 The dataset provides longitude and latitude for both the home location of tweeters, and their instant geolocation as well. Basically it looks like that:
 
@@ -33,6 +33,10 @@ library(viridis)
 library(DT)
 library(kableExtra)
 options(knitr.table.format = "html")
+library(jpeg)
+library(maps)
+library(geosphere)
+library(grid)
 
 #load(url("https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata"))
 #data <- data %>% select(homename, homecontinent, homecountry, homelat, homelon, travelcontinent, travelcountry, travellat, travellon) %>% na.omit()
@@ -66,11 +70,10 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
 
 Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called [great circles](https://en.wikipedia.org/wiki/Great_circle). A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
 
-Here are the connection between 8 cities on a world map:
+Here are the connection between 2 cities on a world map:
 
 ```{r, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
 don=rbind(
-	Buenos_aires=c(-58,-34),
 	Paris=c(2,49),
 	Melbourne=c(145,-38),
 	Saint.Petersburg=c(30.32, 59.93),
@@ -97,9 +100,6 @@ plot_my_connection=function( dep_lon, dep_lat, arr_lon, arr_lat, ...){
 		}
 }
 
-library(maps)
-library(geosphere)
-
 # background map
 par(mar=c(0,0,0,0))
 map('world',col="#f2f2f2", fill=TRUE, bg="white", lwd=0.05,mar=rep(0,4),border=0, ylim=c(-80,80) )
@@ -119,32 +119,25 @@ text(rownames(don), x=don$long, y=don$lat,  col="slateblue", cex=1, pos=4)
 #Showing many connections on a map
 ***
 
-```{r}
-library(tidyverse)
-library(jpeg)
-library(maps)
-library(geosphere)
-library(grid)
-```
+It is then possible to use the same method for the whole dataset composed of about 10,000 connections. With such a sample size, it makes sense to group the connections that have exactly the same starting and ending points. Then it is important to represent the connections with high volume on top of the graphic, and those with small volume below it. Indeed this will allow to highlight the most important pattern and hide the noise of rare connections.  
 
+Here I choosed to use a [NASA night lights](https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg) image as a background, inspired from this [blog post](https://www.dataplanes.org/notes/2018/01/27/flight-routes-night-lights).
 
+```{r, cache=TRUE, warning=FALSE, message=FALSE}
+# Load dataset from github (Surfer project)
+data <- read.table("https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv", header=T, sep=",")
 
-```{r}
 # Download NASA night lights image
-download.file("https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg", destfile = "IMG/BlackMarble_2016_01deg.jpg", mode = "wb")
-
+download.file("https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg", 
+destfile = "IMG/BlackMarble_2016_01deg.jpg", mode = "wb")
 # Load picture and render
 earth <- readJPEG("IMG/BlackMarble_2016_01deg.jpg", native = TRUE)
 earth <- rasterGrob(earth, interpolate = TRUE)
-```
 
-```{r}
 # Count how many times we have each unique connexion + order by importance
 summary=data %>% 
-  count(homelat,homelon,homecontinent, travellat,travellon,travelcontinent) %>%
-  #filter(n>1) %>%
-  arrange(n) 
-summary=head(summary, 1000)
+  dplyr::count(homelat,homelon,homecontinent, travellat,travellon,travelcontinent) %>%
+  arrange(n)
 
 # A function that makes a dateframe per connection (we will use these connections to plot each lines)
 data_for_connection=function( dep_lon, dep_lat, arr_lon, arr_lat, group){
@@ -173,22 +166,48 @@ data_ready_plot$homecontinent=factor(data_ready_plot$homecontinent, levels=c("As
 ```
 
 
-```{r, fig.width=10}
-ggplot() + 
-  annotation_custom(earth, xmax = 180, ymin = -Inf, ymax = Inf) +
-  geom_line(data=data_ready_plot, size=0.5, aes(x=lon, y=lat, group=group, colour=homecontinent, alpha=n)) +
-  xlim(-170, 185)+ ylim(-59, 80) +
+```{r, cache=TRUE, warning=FALSE, message=FALSE}
+# Plot
+p <- ggplot() +
+  annotation_custom(earth, xmin = -180, xmax = 180, ymin = -90, ymax = 90) +
+  geom_line(data=data_ready_plot, aes(x=lon, y=lat, group=group, colour=homecontinent, alpha=n), size=0.6) +
+  scale_color_brewer(palette="Set3") +
+  theme_void() +
   theme(
-    legend.position="none",
-    #plot.margin = unit(rep(-1.25,4),"lines"),
-    plot.background = element_rect(fill = "#00001C"),
-    panel.background = element_rect(fill='#00001C',colour='#00001C' ),
-    panel.grid=element_blank(), 
-    panel.border = element_blank(),
-    axis.title=element_blank(),
-    axis.text=element_blank(),
-    axis.ticks=element_blank()
-  ) 
+        legend.position="none",
+        panel.background = element_rect(fill = "black", colour = "black"), 
+        panel.spacing=unit(c(0,0,0,0), "null"),
+        plot.margin=grid::unit(c(0,0,0,0), "cm"),
+  ) +
+  ggplot2::annotate("text", x = -150, y = -45, hjust = 0, size = 11, label = paste("Where surfers travel."), color = "white") +
+  ggplot2::annotate("text", x = -150, y = -51, hjust = 0, size = 8, label = paste("data-to-viz.com | NASA.gov | 10,000 #surf tweets recovered"), color = "white", alpha = 0.5) +
+  #ggplot2::annotate("text", x = 160, y = -51, hjust = 1, size = 7, label = paste("Cacedédi Air-Guimzu 2018"), color = "white", alpha = 0.5) +
+  xlim(-180,180) +
+  ylim(-60,80) +
+  scale_x_continuous(expand = c(0.006, 0.006)) +
+  coord_equal() 
+
+# Save at PNG
+ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 90)
 ```
+
+</div>
+
+<center>
+
+![](IMG/Surfer_travel.png)
+
+</center>
+
+
+
+
+
+
+
+
+
+
+
 
 
