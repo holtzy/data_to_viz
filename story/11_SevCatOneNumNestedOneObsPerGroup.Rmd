@@ -1,8 +1,12 @@
 ---
-title: "<center><div class='mytitle'>Visualizing a nested data frame</div></center>"
-author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+myimage1: "../img/section/Lollipop150.png"
+myimage2: "../img/section/CircularBarplot150.png"
+myimage3: "../img/section/Tree150.png"
+myimage4: "../img/section/CircularPacking150.png"
+mytitle: "Visualizing the world population"
 output:
   html_document:
+      template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -13,35 +17,23 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
-        before_body: header.html
 ---
 
-
+<br><br>
 <div class="mycontent">
 
 
-<center>
-![](../img/section/Lollipop150.png){width=75px}
-![](../img/section/CircularBarplot150.png){width=75px}
-![](../img/section/Tree150.png){width=75px}
-
-![](../img/section/CircularPacking150.png){width=75px}
-
-</center>
-
-***
 
 
-
-This page provides a few graphic suggestions to represent a nested dataset. A nested dataset means that we have a hierarchical organization in the data. The main group is divided in several subgroups and so on. This document consider the world population of 250 countries as an example. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.  
-
+<br><br><br>
+This document gives a few suggestions to analyse a `nested dataset` in which a numeric value is available for each leaf. A nested dataset is also commonly called a hierarchical dataset: there is an origine node that gives birth to subsequent nodes and so on until the final leaves.
 <br>
-
+This document consider the world population of 250 countries as an example. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.  
+<br>
 Data come from wikipedia and formatted using these 2 pages. ([1](https://github.com/mledoze/countries), [2](http://bl.ocks.org/ganeshv/6a8e9ada3ab7f2d88022)). A clean `.csv` file is available on [github](https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv). It looks like that:
 
 
-
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
@@ -49,42 +41,15 @@ library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+data <- read.table("../Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
 data[ which(data$value==-1),"value"] <- 1
 colnames(data) <- c("Continent", "Region", "Country", "Pop")
+
 # show data
 data %>% head(3) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
-
-
-
-
-# Option 1: Lollipop
-***
-
-```{r, fig.align="center", fig.height=7, warning=FALSE}
-data %>%
-  filter(!is.na(Pop)) %>%
-  arrange(Pop) %>%
-  tail(20) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  mutate(Pop=Pop/1000000) %>%
-  ggplot( aes(x=Country, y=Pop) ) +
-    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Pop), color="grey") +
-    geom_point(size=3, color="#69b3a2") +
-    coord_flip() +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("") +
-    ylab("Population (M)")
-```
-
-
 
 
 
@@ -167,7 +132,36 @@ circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max 
 
 
 
+
+# Lollipop
+***
+
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+data %>%
+  filter(!is.na(Pop)) %>%
+  arrange(Pop) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  mutate(Pop=Pop/1000000) %>%
+  ggplot( aes(x=Country, y=Pop) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Pop), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Population (M)")
+```
+
+
  
+ 
+ # Circular version
+ ***
  
  
  

@@ -70,7 +70,7 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
 
 Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called [great circles](https://en.wikipedia.org/wiki/Great_circle). A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
 
-Here are the connection between 2 cities on a world map:
+Here are the connection between 7 major cities on a world map:
 
 ```{r, fig.width=10, fig.align="center", warning=FALSE, message=FALSE}
 don=rbind(
@@ -106,12 +106,12 @@ map('world',col="#f2f2f2", fill=TRUE, bg="white", lwd=0.05,mar=rep(0,4),border=0
  
 # add every connections:
 for(i in 1:nrow(all_pairs)){
-	plot_my_connection(all_pairs$long1[i], all_pairs$lat1[i], all_pairs$long2[i], all_pairs$lat2[i], col="skyblue", lwd=1)
+	plot_my_connection(all_pairs$long1[i], all_pairs$lat1[i], all_pairs$long2[i], all_pairs$lat2[i], col="#69b3a2", lwd=1)
 	}
  
 # add points and names of cities
-points(x=don$long, y=don$lat, col="slateblue", cex=2, pch=20)
-text(rownames(don), x=don$long, y=don$lat,  col="slateblue", cex=1, pos=4)
+points(x=don$long, y=don$lat, col="#69b3a2", cex=2, pch=20)
+text(rownames(don), x=don$long, y=don$lat,  col="black", cex=1, pos=4)
 ```
 
 
@@ -163,10 +163,7 @@ for(i in c(1:nrow(summary))){
   data_ready_plot=rbind(data_ready_plot, tmp)
 }
 data_ready_plot$homecontinent=factor(data_ready_plot$homecontinent, levels=c("Asia","Europe","Australia","Africa","North America","South America","Antarctica"))
-```
 
-
-```{r, cache=TRUE, warning=FALSE, message=FALSE}
 # Plot
 p <- ggplot() +
   annotation_custom(earth, xmin = -180, xmax = 180, ymin = -90, ymax = 90) +
@@ -199,7 +196,12 @@ ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 
 
 </center>
 
+<br><br>
+<div class="mycontent">
 
+Please note that this map is available [here](https://github.com/holtzy/data_to_viz/tree/master/story/IMG) if needed. Even if a connecting map is probably the best option for plotting this kind of dataset, please note that other representation like chord diagrams or networks could make a good job as well.
+
+</div>
 
 
 

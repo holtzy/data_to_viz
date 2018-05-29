@@ -1,6 +1,43 @@
+
+Title
+———————
+A chart decision tree
+Leading to the chart you need
+Chart me I’m famous (nawak)
+The tree of charts
+A taxonomy of charts
+A classification of chart types (deja utilisé)
+Chart classification system
+The dataviz kingdom
+From data to viz
+
+
+Text
+———————
+
+From Data to Viz is a classification of chart types based on their input data format. It can be seen as a decision tree leading to a set of potential appropriate visualizations to represent your dataset.
+
+This project is built on two underlying philosophies. First, that most of the data analysis can be summarized in about twenty different dataset formats. Second, that it is the data and the context that decide the chart. Thus the suggested method consists to identify and try all the feasible chart types to find out which suits the best your data and idea.
+
+Dataviz is a world with endless possibilities and this project does not claim to be exhaustive. However it should lead you to a good starting point. An interactive version of this classification is available online. It provides more information on each chart type and highlights a few pitfalls to avoid. For each dataset format, an example of real data analysis is offered to illustrate the different chart types with their pro and con.
+
+Data-to-viz.com
+
+
+
+
+
+
+
+
+
+
+
 - Not exhaustive
 
 - Not gonna save your life, but helps
+
+- Most of our analysis can be summarized in about 20 datasets.
 
 - There is a website going with it. It gives more info, give strength and weakness of each graph type, give story, caveats..
 
@@ -11,3 +48,10 @@
 - From data to viz is a decision tree leading to the potential graph type you could apply to your data.
 
 - It is a common problem to wonder what graphics to do.
+
+- The same data can be visualized in many ways
+
+- data & context decide the chart. You can’t decide before trying.
+
+You can find an interactive version
+

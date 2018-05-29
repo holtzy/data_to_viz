@@ -48,7 +48,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="#services">Explore</a>
+              <a class="nav-link js-scroll-trigger" href="#explore">Explore</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#story">Story</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#portfolio">All</a>
@@ -82,7 +85,7 @@
           <img src="img/logo/tree-s.png" style="width:45%;height:45%;">
           <br><br>
           <div class="intro-lead-in">From data to viz leads you to the most appropriate graphic for your data. It links you to the code to build it and lists common mistakes you should avoid.</div>
-          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Explore</a>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#explore">Explore</a>
         </div>
       </div>
       </div>
@@ -105,7 +108,7 @@
 
 <!-- --------------------------- TREE SELECTION SECTION ------------------------------------------------------------------- -->
 
-    <section id="services" style="padding: 0px 0; padding-top: 100px">
+    <section id="explore" style="padding: 0px 0; padding-top: 100px">
       <div class="container">
         <div class="row">
           <div class="col-lg-12 text-center">
@@ -1801,7 +1804,66 @@ showTree('num')
 
 
 
+<!-- ---------------- STORY SECTION ------------------------------------------------------------------------------ -->
 
+    <section class="" id="story" style="background-color:#69b3a2; padding: 0px 0; padding-top: 0px">
+    <div class="parallaxstory">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-2 text-center"></div>
+          <div class="col-lg-8 text-center">
+            <br><br><br>
+            <h2 class="section-heading text-uppercase" >Data Story</h2>
+            <p>From data to viz provides a decision tree based on input data format. This tree leads to twenty format representing the most common dataset types. For each, an example of analysis based on real life data is provided using the R programming language.</p>
+            <div class="dropdown">
+              <button type="button" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown">  Pick up a story  </button>
+              <div class="dropdown-menu">
+                <h5 class="dropdown-header">Numeric only</h5>
+                <a class="dropdown-item" href="story/1_OneNum.html">Rbnb night prices on the french riviera</a>
+                <a class="dropdown-item" href="story/2_TwoNum.html">Price / area relationship of 1500 apartments</a>
+                <a class="dropdown-item" href="story/3_TwoNumOrdered.html">Evolution of the bitcoin price</a>
+                <a class="dropdown-item" href="story/4_ThreeNum.html">Relationship between life expectancy, gdp per capita and population</a>
+                <a class="dropdown-item" href="story/5_1CatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
+                <a class="dropdown-item" href="story/6_SeveralNum.html">Features of 32 famous car models</a>
+
+                <h5 class="dropdown-header">Categoric only</h5>
+                <a class="dropdown-item" href="story/7_OneNumOneCat.html">Who sells more weapons?</a>
+                <a class="dropdown-item" href="story/14_SeveralIndepLists.html">Comparing the lyrics of 3 french rapers</a>
+                <a class="dropdown-item" href="story/11_SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
+                <a class="dropdown-item" href="story/9_OneNumSevCatSubgroupOneObsPerGroup.html">MISSING: subgroups</a>
+                <a class="dropdown-item" href="story/13_AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
+
+                <h5 class="dropdown-header">Categoric AND numeric</h5>
+                <a class="dropdown-item" href="story/7_OneNumOneCat.html">Who sells more weapons?</a>
+                <a class="dropdown-item" href="story/8_OneNumOneCatSeveralObs.html">How people perceive probability vocabulary</a>                
+                <a class="dropdown-item" href="story/9_OneNumSevCatSubgroupOneObsPerGroup.html">MISSING: subgroups</a>
+                <a class="dropdown-item" href="story/10_OneNumSevCatSubgroupSevObsPerGroup.html">MISSING: subgroups sev var per group</a>
+                <a class="dropdown-item" href="story/11_SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
+                <a class="dropdown-item" href="story/12_NestedSeveralValue.html">MISSING: nested several values</a>
+                <a class="dropdown-item" href="story/13_AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
+                <a class="dropdown-item" href="story/.html">MISSING: one cat several num no order</a>
+                <a class="dropdown-item" href="story/5_1CatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
+
+                <h5 class="dropdown-header">Geographic</h5>
+                <a class="dropdown-item" href="story/17_GPSCoordWithoutValue.html">Where surfers live</a>
+                <a class="dropdown-item" href="story/18_GPSCoordWithValue.html">The population of 1000 cities in the UK</a>
+                <a class="dropdown-item" href="story/19_MapConnection.html">Where surfers travel</a>
+                <a class="dropdown-item" href="story/20_RegionWithValue.html">MISSING: choropleth</a>              
+
+                <h5 class="dropdown-header">Relationnal</h5>
+                <a class="dropdown-item" href="story/13_AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
+                <a class="dropdown-item" href="story/11_SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
+                <a class="dropdown-item" href="story/15_NestedValueForLinks.html">MISSING: nested value for edges</a>
+                <a class="dropdown-item" href="story/16_NestedValueForConnection.html">MISSING: edge bundle</a>
+                <br>  
+              </div>
+              <br><br><br><br>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </section>
 
 
 
@@ -2377,7 +2439,7 @@ for (var i = 0; i < btns.length; i++) {
 
 
 
-<!-- --------------------------- MISTAKE SECTION ------------------------------------------------------------------- -->
+<!-- --------------------------- CAVEAT SECTION ------------------------------------------------------------------- -->
 
     <section id="caveats">
       <div class="container">
@@ -2396,32 +2458,33 @@ for (var i = 0; i < btns.length; i++) {
 
               <div class="carousel-item active">
                 <div class="row">
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/order_data.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/order_data.png">
-                      <p class="mytitlerelated">Order your data!</p>
+                      <p class="mytitlerelated">Order your data</p>
                       <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 misleading top10">
+                    <a href="caveat/cut_y_axis.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/cut_y_axis.png">
                       <p class="mytitlerelated">To cut or not to cut?</p>
-                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. Indeed, it can make the plot more insightful.. or allow to lie with data.</p>
+                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. See why.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/spaghetti.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/spaghetti.png">
-                      <p class="mytitlerelated">A bit of spaghetti</p>
+                      <p class="mytitlerelated">The spaghetti chart</p>
                       <p class="mytextrelated">A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/pie.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/pie.png">
                       <p class="mytitlerelated">Pie chart</p>
-                      <p class="mytextrelated">Probably the easiest mistake to avoid: just don't do it.</p>
+                      <p class="mytextrelated">The human eye is bad at reading angle. See how to replace the most criticized chart ever.</p>
                     </a>
                   </div>
                 </div>
@@ -2429,29 +2492,29 @@ for (var i = 0; i < btns.length; i++) {
 
               <div class="carousel-item">
                 <div class="row">
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 misleading">
+                    <a href="caveat/bin_size.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/bin_size.png">
                       <p class="mytitlerelated">Play with histogram bin size</p>
                       <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 misleading improvement top10">
+                    <a href="caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/boxplot.png">
                       <p class="mytitlerelated">Does boxplot hide information?</p>
-                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution. However it hides the number of data points and its real distribution.</p>
+                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution but hides the sample size and their distribution.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 misleading improvement top10">
+                    <a href="caveat/error_bar.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/error_bar.png">
                       <p class="mytitlerelated">The problem with error bars</p>
-                      <p class="mytextrelated">Barplot with error bars must be used with care. It hides the underlying distribution, and error can be computed using several ways.</p>
+                      <p class="mytextrelated">Barplot with error bars must be used with great care. See why and how to replace it.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/multi_distribution.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/multi_distribution.png">
                       <p class="mytitlerelated">Too many distribution.</p>
                       <p class="mytextrelated">If you need to compare the distribution of many variables, don't clutter your graphic.</p>
@@ -2462,29 +2525,29 @@ for (var i = 0; i < btns.length; i++) {
 
               <div class="carousel-item">
                 <div class="row">
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/overplotting.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/overplotting.png">
                       <p class="mytitlerelated">Overplotting</p>
-                      <p class="mytextrelated">When your sample size gets high, your scatter plot becomes unreadable because of overplotting.</p>
+                      <p class="mytextrelated">Too many points on your scatter plot makes it unreadable? Techniques exist to avoid overplotting.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/rainbow.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/rainbow.png">
-                      <p class="mytitlerelated">Numeric variable and rainbow palette</p>
-                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. It can be confusing and so many better palette exist.</p>
+                      <p class="mytitlerelated">The rainbow color palette</p>
+                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. So many better palettes exist.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 improvement">
+                    <a href="caveat/small_multiple.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/small_multiple.png">
-                      <p class="mytitlerelated">Small multiple: horizontal or vertical?</p>
-                      <p class="mytextrelated">Faceting is a powerful technique. But placing the individual plot horizontaly or verticaly is an important choice to make.</p>
+                      <p class="mytitlerelated">Faceting: horizontal or vertical?</p>
+                      <p class="mytextrelated">Placing the individual plot horizontaly or verticaly is an important choice to make.</p>
                     </a>
                   </div>
-                  <div class="col-sm-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-md-3 col-sm-6 misleading">
+                    <a href="caveat/counter_intuitive.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/counter_intuitive.png">
                       <p class="mytitlerelated">Don't be counter intuitive</p>
                       <p class="mytextrelated">Your audience is used to a few dataviz standards. Not respecting it can mislead them.</p>

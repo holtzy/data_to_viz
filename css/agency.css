@@ -131,7 +131,7 @@ img::-moz-selection {
 }
 
 #mainNav {
-  background-color: #212529;
+  background-color: white;
 }
 
 #mainNav .navbar-toggler {
@@ -141,7 +141,7 @@ img::-moz-selection {
   text-transform: uppercase;
   color: white;
   border: 0;
-  background-color: #fed136;
+  background-color: #69b3a2;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -235,11 +235,23 @@ img::-moz-selection {
     background-size: cover;
 }
 
+.parallaxstory {
+    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+    background-image: url("../img/parallax/story_fading.png");
 
+    /* Set a specific height */
+    min-height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
 
 header.masthead .intro-text {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 150px;
+  padding-bottom: 150px;
 }
 
 header.masthead .intro-text .intro-lead-in {
@@ -1080,8 +1092,26 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 }
 
 .mybtnrelated {
-  height: 400px;
+  height: 380px;
+  margin-top: 24px;
+  padding-top: 24px;
 }
+
+
+
+
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* DROPDOWN BUTTON
+/* ------------------------------------------------------------------------------------------------------------------- */
+
+.dropdown-item {
+  margin-left: 30px;
+}
+
+
+
+
+
 
 
 

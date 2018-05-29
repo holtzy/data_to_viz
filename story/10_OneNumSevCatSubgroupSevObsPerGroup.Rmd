@@ -50,7 +50,7 @@ data %>% head(6) %>% kable() %>%
 
 
 
-
+--> grouped boxplot and grouped violin
 
 
 

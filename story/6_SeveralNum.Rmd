@@ -1,8 +1,14 @@
 ---
-title: "<center><div class='mytitle'>Visualizing several Numeric variables</div></center>"
-author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+myimage1: "../img/section/DensitySmall.png"
+myimage2: "../img/section/Box1Small.png"
+myimage3: "../img/section/ViolinSmall.png"
+myimage4: "../img/section/JoyplotSmall.png"
+myimage5: "../img/section/HeatmapSmall.png"
+myimage6: "../img/section/DendrogramSmall.png"
+mytitle: "Eleven features for 32 cars"
 output:
   html_document:
+      template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -13,36 +19,17 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
-        before_body: header.html
 ---
 
-
+<br><br>
 <div class="mycontent">
 
-
-<center>
-
-![](../img/section/Box1150.png){width=45px}
-![](../img/section/Violin150.png){width=45px}
-![](../img/section/Joyplot150.png){width=45px}
-![](../img/section/Heatmap150.png){width=45px}
-![](../img/section/Dendrogram150.png){width=45px}
-
-</center>
-
-
-***
 
 This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous mtcars dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for about  32 car models.
 
 
-
-#- Check distribution
-***
-
-In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a [violin plot](), a [boxplot]() or a [ridgeline plot]() if your variables are all on the same scale. In the case of the `mtcars` dataset the variables are completely different one to each other so it make more sense to make an histogram for each of them:
-
-```{r, warning=FALSE, message=FALSE, fig.width=10, fig.height=6, fig.align="center"}
+```{r, warning=FALSE, message=FALSE}
+# Libraries
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
@@ -52,6 +39,23 @@ library(plotly)
 library(dendextend)
 library(car)
 library(FactoMineR)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# This dataset is available in R by default
+data <- mtcars
+
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+#- Check distribution
+***
+
+In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a [violin plot](), a [boxplot]() or a [ridgeline plot]() if your variables are all on the same scale. In the case of the `mtcars` dataset the variables are completely different one to each other so it make more sense to make an histogram for each of them:
+
+```{r, warning=FALSE, message=FALSE, fig.width=10, fig.height=6, fig.align="center"}
 
 # Keep the numeric variables of the mtcars dataset
 data <- mtcars %>% select( disp, drat, hp, mpg, qsec, wt)

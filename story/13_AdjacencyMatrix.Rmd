@@ -1,32 +1,23 @@
 ---
-title: "<center><div class='mytitle'>Visualizing a numeric and a categoric variable</div></center>"
-author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+myimage1: "../img/section/Bar150.png"
+mytitle: "Researchers network and migration flows"
 output:
   html_document:
+      template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
         after_body: footer.html
-        before_body: header.html
 ---
 
-
+<br><br>
 <div class="mycontent">
-
-
-<center>
-![](../img/section/Bar150.png){width=75px}
-![](../img/section/CircularBarplot150.png){width=75px}
-</center>
-
-***
-
 
 
 
@@ -43,9 +34,12 @@ library(circlize)
 library(kableExtra)
 options(knitr.table.format = "html")
 library(viridis)
+library(igraph)
+library(ggraph)
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
+#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
+data <- read.table("../Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
 
 # show data
 data %>% head(3) %>% select(1:3) %>% kable() %>%
@@ -56,7 +50,8 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
 
 ```{r, warning=FALSE, message=FALSE}
 # Load data
-dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+#dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+dataUU <- read.table("../Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
 
 # show data
 dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
@@ -80,8 +75,7 @@ Chord diagram is a good way to represent the migration flows. It works well if y
 
 Disclaimer: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com), who is also the author of the migration [dataset](https://www.oeaw.ac.at/fileadmin/subsites/Institute/VID/PDF/Publications/Working_Papers/WP2016_02.pdf) used here.
 
-
-
+Since this kind of graphic is used to display flows, it can be applied only on network where connection are `weighted`. It does not work for the other example on authors connections.
 
 ```{r, fig.align="center", fig.width=7, fig.height=7}
 # short names
@@ -145,12 +139,15 @@ circos.trackPlotRegion(
 )
   
 ```
+In my opinion this is a powerful way to display information. Major flows are easy to detect, like the migration from South Asia towars Westa Asia, or Africa to Europe. Moreover, for each continent it is quite easy to quantify the proportion of people leaving and arriving.
 
+However chord diagram is not an usual way of displaying information. Thus, it is advised to give a good amount of explanation to educate your audience. A good way to do so is to draw just a few connections in a first step, before displaying the whole graphic. See this blog post by [Nadieh Bremer]() for more ideas on this topic.
 
 
 # Sankey diagram
 ***
 
+[Sankey diagram]() is another option to display weighted connection. Intead of displaying regions on a circle, they are duplicated and represented on both side of the graphic. Origin is usually on the left, destination on the right.
 ```{r, fig.align="center", fig.width=10, fig.height=7, warning=FALSE}
 # Package
 library(networkD3)
@@ -184,7 +181,25 @@ sankeyNetwork(Links = data_long, Nodes = nodes,
 
 
 
+#Heatmap
+***
 
+```{r}
+
+# with ggplot2 --> not very insightful if not clusterised
+dataUU %>% 
+  gather(key="to", value="value", -1) %>%
+  ggplot( aes(x=to, y=from, fill=value)) +
+    geom_tile()
+
+tmp <- dataUU
+rownames(tmp) <- tmp[,1]
+tmp <- tmp[,-1]
+tmp <- as.matrix(tmp)
+tmp[which(is.na(tmp))] <- 0
+heatmap(tmp, na.rm=TRUE)
+summary(tmp)
+```
 
 
 
@@ -194,42 +209,112 @@ sankeyNetwork(Links = data_long, Nodes = nodes,
 
 # Network
 ***
+Since an adjacency matrix is a network structure, it is possible to build a network graph. In my opinion, this makes more sense when the connection are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
 
-mygraph <- graph_from_data_frame( connect, vertices=coauth)
+Thus, here is an application of this chart type to the coauthor network. When to people have published at least one scientific paper together, they are connected.
+```{r}
+# Transform the adjacency matrix in a long format
+connect <- dataUU %>% 
+  gather(key="to", value="value", -1) %>%
+  na.omit()
 
-# Find the number of connection per people
-V(mygraph)$vertex_degree <-  degree(mygraph)
-V(mygraph)$vertex_degree[V(mygraph)$vertex_degree<10]=0
+# Number of connection per person
+c( as.character(connect$from), as.character(connect$to)) %>%
+  as.tibble() %>%
+  group_by(value) %>%
+  summarize(n=n()) -> coauth
+colnames(coauth) <- c("name", "n")
 
-# Find the community?
-wc <- cluster_edge_betweenness(mygraph)
-modularity(wc)
-membership(wc)
-plot(wc, mygraph)
+# Create a graph object with igraph
+mygraph <- graph_from_data_frame( connect, vertices = coauth )
+plot(mygraph)
 
 # Make the graph
-p=ggraph(mygraph, layout="nicely") + 
-  geom_edge_density(edge_fill="skyblue") +
+ggraph(mygraph, layout="nicely") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
-  geom_node_point(aes(colour=year), size=0.1, alpha=1 ) +
-  geom_node_label( aes(label=name, filter=vertex_degree>35 , fill=year), size=5.6) +
-  scale_size_continuous( range = c(0,10) ) +
-  scale_colour_distiller(palette="BuPu") +
+  geom_node_point(aes(size=n, alpha=n)) +
   theme_void() +
-  #ggtitle(paste(l$name, " | # of coauthor: ", N_coauthor, " | # of publication: ", N_publication, sep="")) +
   theme(
     legend.position="none",
     plot.margin=unit(c(0,0,0,0), "null"),
     panel.spacing=unit(c(0,0,0,0), "null")
-  )
+  ) 
 
 
-# Save it as png
-png(file=paste("~/Dropbox/SCHOLAR_ANALYSIS/",last_name,"_Network.png", sep=""), width=1500, height=1500)
-p
-dev.off()
+```
+
+Network chart is a whole field of study on its own and overtake the scope of this website from far. The biggest challenge is to position each node efficiently, to avoid crosses between edges. Several algorithms exist to tackle this issue and it is always a good practice to try several of them.
+
+```{r, fig.align="center"}
+# Make the graph
+ggraph(mygraph, layout="auto") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0,0), "null"),
+    panel.spacing=unit(c(0,0,0,0), "null")
+  ) 
+
+ggraph(mygraph, layout="igraph", algorithm="kk") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0,0), "null"),
+    panel.spacing=unit(c(0,0,0,0), "null")
+  ) 
+```
 
 
+# Chord diagram
+***
+Instead of using a custom algorithm to position each nodes, it is possible to place them al around a circule, a bit like for a chord diagram. But this kind of chart makes sense only if the order of nodes around the circule is carefully chosen, to avoid aving a fusball.
+```{r}
+#dataUU %>% hclust()
+#help(hclust)
+#dist(dataUU)
+#cor(dataUU[,-1], use="complete.obs")
+#summary(dataUU)
+#as.dist(dataUU)
+#dim(dataUU)
+#hclust(d, method = "complete", members = NULL)
+
+# Make the graph
+ggraph(mygraph, layout="circle") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0,0), "null"),
+    panel.spacing=unit(c(0,0,0,0), "null")
+  ) 
+```
+
+
+# Arc diagram
+***
+This is basically the same concept, but where nodes are displayed all along a line
+```{r}
+# Make the graph
+ggraph(mygraph, layout="linear") + 
+  geom_edge_arc(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  geom_node_text(aes(label=name), angle=45, hjust=1) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0.4,0), "null"),
+    panel.spacing=unit(c(0,0,3.4,0), "null")
+  ) 
+```
 
 
 

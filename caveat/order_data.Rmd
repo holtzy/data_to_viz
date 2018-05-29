@@ -1,0 +1,207 @@
+---
+myimage1: "../img/mistake/order_data.png"
+mytitle: "Order your data improves your chart"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+ 
+---
+
+<br><br>
+<div class="mycontent">
+
+
+
+
+
+
+<div class = "row">
+<div class = "col-md-8">
+<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+</div>
+<div class = "col-md-4">
+```{r, warning=FALSE, message=FALSE, eval=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+#Histogram
+***
+
+
+#See more
+***
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Caveats</h2>
+            <h3 class="section-subheading text-muted">The best way to visualize data efficiently is probably to avoid the most common mistakes.<br><br>From data to viz offers you a <a href="url">gallery of common caveats</a></h3>
+          </div>
+        </div>
+
+
+
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/order_data.png">
+                      <p class="mytitlerelated">Order your data!</p>
+                      <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/cut_y_axis.png">
+                      <p class="mytitlerelated">To cut or not to cut?</p>
+                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. Indeed, it can make the plot more insightful.. or allow to lie with data.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/spaghetti.png">
+                      <p class="mytitlerelated">A bit of spaghetti</p>
+                      <p class="mytextrelated">A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/pie.png">
+                      <p class="mytitlerelated">Pie chart</p>
+                      <p class="mytextrelated">Probably the easiest mistake to avoid: just don't do it.</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/bin_size.png">
+                      <p class="mytitlerelated">Play with histogram bin size</p>
+                      <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/boxplot.png">
+                      <p class="mytitlerelated">Does boxplot hide information?</p>
+                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution. However it hides the number of data points and its real distribution.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/error_bar.png">
+                      <p class="mytitlerelated">The problem with error bars</p>
+                      <p class="mytextrelated">Barplot with error bars must be used with care. It hides the underlying distribution, and error can be computed using several ways.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/multi_distribution.png">
+                      <p class="mytitlerelated">Too many distribution.</p>
+                      <p class="mytextrelated">If you need to compare the distribution of many variables, don't clutter your graphic.</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/overplotting.png">
+                      <p class="mytitlerelated">Overplotting</p>
+                      <p class="mytextrelated">When your sample size gets high, your scatter plot becomes unreadable because of overplotting.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/rainbow.png">
+                      <p class="mytitlerelated">Numeric variable and rainbow palette</p>
+                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. It can be confusing and so many better palette exist.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/small_multiple.png">
+                      <p class="mytitlerelated">Small multiple: horizontal or vertical?</p>
+                      <p class="mytextrelated">Faceting is a powerful technique. But placing the individual plot horizontaly or verticaly is an important choice to make.</p>
+                    </a>
+                  </div>
+                  <div class="col-sm-3">
+                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/counter_intuitive.png">
+                      <p class="mytitlerelated">Don't be counter intuitive</p>
+                      <p class="mytextrelated">Your audience is used to a few dataviz standards. Not respecting it can mislead them.</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+        </div>
+        <br>
+        <div style="text-align:center"><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="caveats.html">See the collection</a></div>
+        
+        
+        
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

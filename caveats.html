@@ -33,7 +33,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
       <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="">
+        <a class="navbar-brand js-scroll-trigger" href="index.html">
           <img src="img/logo/typo.png" style="width:30%; vertical-align: top;">
         </a>
         <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -43,7 +43,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav text-uppercase ml-auto">
             <li class="nav-item">
-              <a class="nav-link js-scroll-trigger" href="www.data-to-viz.com">Explore</a>
+              <a class="nav-link js-scroll-trigger" href="index.html">Explore</a>
             </li>
             <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="www.data-to-viz.com">All</a>
@@ -74,119 +74,229 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- --------------------------- CAVEATS SECTION ------------------------------------------------------------------- -->
 
     <section id="caveats">
       <div class="container">
 
+
         <div class="row">
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">Caveats</h2>
             <h3 class="section-subheading text-muted">A collection of dataviz caveats by <a href="www.data-to-viz.com">data-to-viz.com</a></h3>
+            <div id="myBtnContainer">
+              <button class="btn btn-secondary" onclick="filterSelection('all')">Show all</button>
+              <button class="btn btn-secondary" onclick="filterSelection('top10')">Top 10</button>
+              <button class="btn btn-secondary" onclick="filterSelection('improvement')">Improvement</button>
+              <button class="btn btn-secondary" onclick="filterSelection('misleading')">Misleading</button>
+            </div>
+            <br>
           </div>
         </div>
-
-
-
                 <div class="row">
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/order_data.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/order_data.png">
-                      <p class="mytitlerelated">Order your data!</p>
+                      <p class="mytitlerelated">Order your data</p>
                       <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading top10">
+                    <a href="caveat/cut_y_axis.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/cut_y_axis.png">
                       <p class="mytitlerelated">To cut or not to cut?</p>
-                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. Indeed, it can make the plot more insightful.. or allow to lie with data.</p>
+                      <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. See why.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/spaghetti.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/spaghetti.png">
-                      <p class="mytitlerelated">A bit of spaghetti</p>
+                      <p class="mytitlerelated">The spaghetti chart</p>
                       <p class="mytextrelated">A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement top10">
+                    <a href="caveat/pie.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/pie.png">
                       <p class="mytitlerelated">Pie chart</p>
-                      <p class="mytextrelated">Probably the easiest mistake to avoid: just don't do it.</p>
+                      <p class="mytextrelated">The human eye is bad at reading angle. See how to replace the most criticized chart ever.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading">
+                    <a href="caveat/bin_size.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/bin_size.png">
                       <p class="mytitlerelated">Play with histogram bin size</p>
                       <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading improvement top10">
+                    <a href="caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/boxplot.png">
                       <p class="mytitlerelated">Does boxplot hide information?</p>
-                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution. However it hides the number of data points and its real distribution.</p>
+                      <p class="mytextrelated">Boxplot is a great way to summarize a distribution but hides the sample size and their distribution.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading improvement top10">
+                    <a href="caveat/error_bar.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/error_bar.png">
                       <p class="mytitlerelated">The problem with error bars</p>
-                      <p class="mytextrelated">Barplot with error bars must be used with care. It hides the underlying distribution, and error can be computed using several ways.</p>
+                      <p class="mytextrelated">Barplot with error bars must be used with great care. See why and how to replace it.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/multi_distribution.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/multi_distribution.png">
                       <p class="mytitlerelated">Too many distribution.</p>
                       <p class="mytextrelated">If you need to compare the distribution of many variables, don't clutter your graphic.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/overplotting.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/overplotting.png">
                       <p class="mytitlerelated">Overplotting</p>
-                      <p class="mytextrelated">When your sample size gets high, your scatter plot becomes unreadable because of overplotting.</p>
+                      <p class="mytextrelated">Too many points on your scatter plot makes it unreadable? Techniques exist to avoid overplotting.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/rainbow.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/rainbow.png">
-                      <p class="mytitlerelated">Numeric variable and rainbow palette</p>
-                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. It can be confusing and so many better palette exist.</p>
+                      <p class="mytitlerelated">The rainbow color palette</p>
+                      <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. So many better palettes exist.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/small_multiple.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/small_multiple.png">
-                      <p class="mytitlerelated">Small multiple: horizontal or vertical?</p>
-                      <p class="mytextrelated">Faceting is a powerful technique. But placing the individual plot horizontaly or verticaly is an important choice to make.</p>
+                      <p class="mytitlerelated">Faceting: horizontal or vertical?</p>
+                      <p class="mytextrelated">Placing the individual plot horizontaly or verticaly is an important choice to make.</p>
                     </a>
                   </div>
-                  <div class=" col-xl-3">
-                    <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading">
+                    <a href="caveat/counter_intuitive.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/counter_intuitive.png">
                       <p class="mytitlerelated">Don't be counter intuitive</p>
                       <p class="mytextrelated">Your audience is used to a few dataviz standards. Not respecting it can mislead them.</p>
+                    </a>
+                  </div>
+
+
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading top10">
+                    <a href="caveat/dual_axis.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/dual_axis.png">
+                      <p class="mytitlerelated">The problem with dual axis</p>
+                      <p class="mytextrelated">Using dual axis is a good way to manipulate the history behind your data. Avoid it.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading">
+                    <a href="caveat/calculation_error.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/calculation_error.png">
+                      <p class="mytitlerelated">Calculation errors</p>
+                      <p class="mytextrelated">Always double check the values written on the chart. Does your sum make sense?</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/circular_barplot_accordeon.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/circular_barplot_accordeon.png">
+                      <p class="mytitlerelated">Barplot with radial coordinate</p>
+                      <p class="mytextrelated">This kind of barplot distort reality, the outside bar tends to look bigger than the inside one.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/connect_your_dot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/connect_your_dot.png">
+                      <p class="mytitlerelated">Connect your dots</p>
+                      <p class="mytextrelated">If your X axis is ordered, connecting the dots will make the message much clearer.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/color_com_nothing.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/color_com_nothing.png">
+                      <p class="mytitlerelated">Color that communicates nothing</p>
+                      <p class="mytextrelated">A bad use of colors can be misleading. If your color does not represent anything, don't use it.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading">
+                    <a href="caveat/radius_or_area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/radius_or_area.png">
+                      <p class="mytitlerelated">Bubble size: radius or area?</p>
+                      <p class="mytextrelated">When using bubbles on a chart, their area must be proportional to the underlying variable. Not their radius.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/hard_label.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/hard_label.png">
+                      <p class="mytitlerelated">When axis labels break your neck</p>
+                      <p class="mytextrelated">Having long and vertical axis labels can be annoying. If you can, flip your chart.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/circular_bar_yaxis.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/circular_bar_yaxis.png">
+                      <p class="mytitlerelated">Circular barplot and distortion.</p>
+                      <p class="mytextrelated">Set a sufficient inner circle size to avoid bar shape distortion.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column misleading">
+                    <a href="caveat/3d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/3d.png">
+                      <p class="mytitlerelated">The issue with 3D</p>
+                      <p class="mytextrelated">Except in a few rare situation 3D must be avoided. It distorts reality.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/aspect_ratio.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/aspect_ratio.png">
+                      <p class="mytitlerelated">Mind the aspect ratio</p>
+                      <p class="mytextrelated">Avoid extreme aspect ratios. It can make the plot unreadable.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/stacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/stacking.png">
+                      <p class="mytitlerelated">The issue with stacking</p>
+                      <p class="mytextrelated">Stacking makes difficult the analysis of each represented group. See when to use it.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/mental_workout.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/mental_workout.png">
+                      <p class="mytitlerelated">Mental arithmetic</p>
+                      <p class="mytextrelated">Don't ask the reader to make mental arithmetic, it is hard to compare shapes.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/bubble_hard.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/bubble_hard.png">
+                      <p class="mytitlerelated">Area is a poor metaphor</p>
+                      <p class="mytextrelated">Human brain struggles to translate areas to precise values. Prefer other shapes.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/--.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/ungrouped_grouped_barplot.png">
+                      <p class="mytitlerelated">Grouped barplot must be grouped</p>
+                      <p class="mytextrelated">In a grouped barplot, bars in the same group must be close one to each other. It makes group obvious.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/--.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/declutter_your_graphic.png">
+                      <p class="mytitlerelated">Declutter your graphic</p>
+                      <p class="mytextrelated">Keep only what's necessary on your graphic: 3d, color effect, redondant info etc. hide the story.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement">
+                    <a href="caveat/---.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/mind_your_legend.png">
+                      <p class="mytitlerelated">Mind your legend</p>
+                      <p class="mytextrelated">A few tips for a useful legend. Hint: you should worry if you have 14 groups.</p>
+                    </a>
+                  </div>
+                  <div class="col-lg-3 col-md-6 col-sm-6 column improvement misleading">
+                    <a href="caveat/---.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+                      <img  src="img/mistake/consistency_sev_graph.png">
+                      <p class="mytitlerelated">Consistency between charts</p>
+                      <p class="mytextrelated">If you present several graphics, be consistent. Does each color always represent the same group?</p>
                     </a>
                   </div>
                 </div>
@@ -252,6 +362,59 @@
     </footer>
 
 <!-- ---------------------------------------------------------------------------------------------- -->
+
+
+
+
+
+<script>
+// --------------------------------------------------------------------------------------------------------------------------------- //
+// A script to select charts based on their tag //
+// --------------------------------------------------------------------------------------------------------------------------------- //
+filterSelection("all")
+function filterSelection(c) {
+  var x, i;
+  x = document.getElementsByClassName("column");
+  if (c == "all") c = "";
+  for (i = 0; i < x.length; i++) {
+    w3RemoveClass(x[i], "show");
+    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
+  }
+}
+
+function w3AddClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
+  }
+}
+
+function w3RemoveClass(element, name) {
+  var i, arr1, arr2;
+  arr1 = element.className.split(" ");
+  arr2 = name.split(" ");
+  for (i = 0; i < arr2.length; i++) {
+    while (arr1.indexOf(arr2[i]) > -1) {
+      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+    }
+  }
+  element.className = arr1.join(" ");
+}
+
+// Add active class to the current button (highlight it)
+var btnContainer = document.getElementById("myBtnContainer");
+var btns = btnContainer.getElementsByClassName("btn");
+for (var i = 0; i < btns.length; i++) {
+  btns[i].addEventListener("click", function(){
+    var current = document.getElementsByClassName("active");
+    current[0].className = current[0].className.replace(" active", "");
+    this.className += " active";
+  });
+}
+// --------------------------------------------------------------------------------------------------------------------------------- //
+</script>
 
 
 

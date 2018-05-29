@@ -1,8 +1,11 @@
 ---
-title: "<center><div class='mytitle'>Visualizing a numeric and a categoric variable</div></center>"
-author: "<center><div class='mysubtitle'>A few data analytics ideas from [data-to-viz.com](https://github.com/holtzy/)</div></center>"
+myimage1: "../img/section/Bar150.png"
+myimage2: "../img/section/CircularBarplot150.png"
+myimage3: "../img/section/Lollipop150.png"
+mytitle: "Who sells more weapons?"
 output:
   html_document:
+      template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -13,45 +16,46 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
-        before_body: header.html
 ---
 
-
+<br><br>
 <div class="mycontent">
 
 
-<center>
-![](../img/section/Bar150.png){width=75px}
-![](../img/section/CircularBarplot150.png){width=75px}
-</center>
+<div class = "row">
+<div class = "col-md-8">
+<br><br><br>
+This document gives a few suggestions to analyse a dataset composed by `one numeric and one categoric` variable.
+<br>
+The dataset used as an example provides the quantity of weapons exported by the top 50 largest exporters in 2017. This dataset has been downloaded on the [Stockholm International Peace Research Institute](http://armstrade.sipri.org/armstrade/page/toplist.php) website and more information about it are available [here](http://www.sipri.org/databases/armstransfers/sources-and-methods/).
+<br>
+A clean version at `.csv` format is available on github, and the table beside shows how it looks like.
+</div>
 
-***
-
->Let's start here
-
-# Dataset
-***
-In this document we will consider the night price of several Airbnb appartements. This dataset is quite basic and looks like this
-Data provided by the [Stockholm International Peace Research Institute](http://armstrade.sipri.org/armstrade/page/toplist.php). Available at .csv format here.
-TIV of arms exports from the top 50 largest exporters, 1990-2017	
-Figures are SIPRI Trend Indicator Values (TIVs) expressed in millions	
-Figures may not add up due to the conventions of rounding.	
-A '0' indicates that the value of deliveries is less than 0.5m	
-For more information, see http://www.sipri.org/databases/armstransfers/sources-and-methods/	
-Source: SIPRI Arms Transfers Database	
-Generated: 09 May 2018	
-
-data=read.table("7_OneCatOneNum.csv", header=T, na.strings="", sep=",")
-
-
+<div class = "col-md-4">
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+data <- read.table("../Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
 ```
+</div>
+</div>
+
+
+
+
+
+
 
 
 
@@ -59,8 +63,9 @@ data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/
 # Option 1: Lollipop
 ***
 
-No wayyy
+Even if the most common way to represent this kind of information is probably to use barplots, lollipop can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
 
+Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.
 ```{r, fig.align="center", fig.height=7}
 data %>%
   filter(!is.na(Value)) %>%
@@ -79,15 +84,65 @@ data %>%
     xlab("")
 ```
 
-Note that it is really important to play with the size of the bins during your exploratory analysis. Let's check what happens if we split prices by bins of 2 euros instead of 10:
+#- Barplot
+***
+
+Here is the barplot version that looks very similar to the lollipop. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.
+```{r, fig.align="center", fig.height=7}
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
+```
+
+
+#- Circular barplot
+***
+
+```{r, fig.align="center", fig.height=7}
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      panel.grid.major.x = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    coord_polar() +
+    ylim(-7000,13000)
+```
+
+
+
+
 
 
 #- Treemap
 ***
-
+A treemap represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
+It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.
 ```{r, fig.align="center", fig.width=9}
+# Package
 library(treemap)
 
+# Plot
 treemap(data,
             
             # data
@@ -120,6 +175,8 @@ treemap(data,
 # Circle packing
 ***
 
+Circle packing is the circular version of the treemap. Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.
+
 ```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
 # Libraries
 library(ggraph)
@@ -149,13 +206,6 @@ ggraph(mygraph, layout = 'circlepack', weight="Value") +
 
 ```
 
-
-
-
- 
- 
- 
- 
 
 
 

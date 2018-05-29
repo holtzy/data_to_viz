@@ -36,13 +36,13 @@ library(hrbrthemes)
 library(kableExtra)
 library(tm)
 options(knitr.table.format = "html")
+library(proustr)
+library()
 
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv", header=TRUE) 
-to_remove <- c("_|[0-9]|\\.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined" )
-data <- data %>% filter(!grepl(to_remove, word)) %>% filter(!word %in% stopwords('fr'))
-
-
+to_remove <- c("_|[0-9]|\\.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist")
+data <- data %>% filter(!grepl(to_remove, word)) %>% filter(!word %in% stopwords('fr')) %>% filter(!word %in% proust_stopwords()$word)
 
 # show data
 a <- data %>% filter(artist=="booba") %>% select(word) %>% arrange(word) %>% mutate(booba=word) %>% select(booba) %>% sample_n(6)
@@ -79,9 +79,33 @@ c %>% head(6) %>% kable(row.names=FALSE) %>%
 
 
 
-#Check the most frequent words
+#Wordcloud
 ***
-```{r, fig.align="center", fig.height=8}
+If some words are repeated in the dataset, the first thing to do is probably to find out what are the most frequent ones. A common way to do so is to build a [wordcloud](): each word is written with a size proportionnal to its frequency. 
+```{r, fig.align="center", fig.height=6}
+# The wordcloud 2 library is the best option for wordcloud in R
+library(wordcloud2)
+
+# prepare a list of word (50 most frequent)
+mywords <- data %>%
+  filter(artist=="nekfeu") %>%
+  select(word) %>%
+  group_by(word) %>%
+  summarize(freq=n()) %>%
+  arrange(freq) %>%
+  tail(50)
+
+# Make the plot
+wordcloud2(mywords, size = 2, minRotation = -pi/2, maxRotation = -pi/2,
+         backgroundColor = "white", color="#69b3a2")
+```
+
+However this type of chart can be criticized since it does not reflect frequencies accurately: long words appear bigger and comparing size is always complicated. Thus, the techniques seen in [this page]() are strongly advised, and my best choice goes to the lollipop chart.
+
+#Lollipop chart
+***
+A [lollipop]() chart is like a [barplot](), but the bar is replaced by a segment and a circle. It gives a lighter appearance. It is advised to use a horizontal version: words are easier to read.
+```{r, fig.align="center", fig.height=6}
 data %>%
   filter(artist=="nekfeu") %>%
   select(word) %>%
@@ -89,12 +113,13 @@ data %>%
   summarize(n=n()) %>%
   arrange(n) %>%
   mutate(word=factor(word, word)) %>%
-  tail(30) %>%
+  tail(10) %>%
   ggplot( aes(word, y=n)) +
     geom_segment( aes(x=word ,xend=word, y=0, yend=n), color="grey") +
     geom_point(size=3, color="#69b3a2") +
     coord_flip() +
     theme_ipsum() +
+    ggtitle("10 most frequent words used by Nekfeu") +
     theme(
       panel.grid.minor.y = element_blank(),
       panel.grid.major.y = element_blank(),
@@ -107,14 +132,13 @@ data %>%
 
 #Venn diagram
 ***
+Once the most frequent words are known, it is of interest to know how many words are common to every lists, and how many are specific to each artist. The best way to represent this information is to use a [venn diagram]().
 
 ```{r, warning=FALSE, message=FALSE, results = "hide"}
 #upload library
 library(VennDiagram)
  
-#The goal of the Venn Diagram is to count how many words are common between SNP_pop_1 and SNP_pop_2, between SNP_pop_1 and SNP_pop_3 and so on...
-#The venn.diagram function do it automatically and draw it! (you will get a png file in your current working directory)
- 
+#Make the plot
 venn.diagram(
   x = list(
     data %>% filter(artist=="booba") %>% select(word) %>% unlist() , 
@@ -146,4 +170,29 @@ venn.diagram(
 <center>
 ![](venn.png)
 </center>
+
+
+--> this goes further than simple data visualization. Must be kept for a blogpost instead.
+#Comparing frequencies
+***
+
+Heatmap to compare the most frequent terms?
+```{r}
+don <- data %>%
+  group_by(word, artist) %>%
+  summarize(n=n()) %>%
+  spread(key=artist, value=n) %>%
+  rowwise() %>%
+  mutate(total=sum(booba, nekfeu, `georges-brassens`)) %>%
+  filter(total>5)
+don
+dim(don)
+
+don %>%
+  select(booba, `georges-brassens`, nekfeu) %>%
+  cor()
+don 
+heatmap(don) 
+```
+
 
