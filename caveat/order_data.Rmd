@@ -105,6 +105,13 @@ Reordering your data is an easy step you should always consider when building a 
 <center>
 <a class="btn btn-primary text-uppercase js-scroll-trigger" href="https://www.data-to-viz.com/caveats.html">See the collection</a>
 </center>
+
+
+
+#Comments
+***
+Any thoughts on this? Want to share another common dataviz pitfall? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+
 </div>
 
 
