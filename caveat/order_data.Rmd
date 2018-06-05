@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/order_data.png"
-mytitle: "Order your data improves your chart"
+mytitle: "Why you should order your data"
 output:
   html_document:
       template: template_caveat.html
@@ -21,16 +21,14 @@ output:
 <div class="mycontent">
 
 
+By default, most of the data visualization tools will order the groups of your categoric variables using their alphabetical order, or using the order of apparition in your input table. It is a good practice to think about this order since changing it can add a lot of insight to your graphic.
 
 
+#Unordered lollipop plot
+***
+Let's start with a [lollipop plot]() showing the [quantity of weapon sold](https://www.data-to-viz.com/story/7_OneNumOneCat.html) by a few countries. Here each row represents a country and the X axis shows how much weapon have been sold in 2017. Country are ordered in alphabetical order by default.
 
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE, eval=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
@@ -38,39 +36,59 @@ library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# Plot 
+data %>%
+  filter(!is.na(Value)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
 ```
-</div>
-</div>
+
+It is quite obvious that the US, and Russia sell much more weapon than other country. However, it is quite hard to make the difference between any other country, and the reader has to go from one to the other to compare them. This is a lot of work and will definitely discard attention to your graphic.
 
 
-
-
-
-
-
-
-
-
-#Histogram
+#Reorder it
 ***
+Instead, let's make the exact same chart, but reordering each group using their value:
+```{r, fig.align="center", fig.height=7}
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
+``` 
+    
+The figure is now way more insightful, with france being the third biggest exporting country, followed by Germany, Israel and the UK. Of course, note that it would make sense to normalize this graphic by the population of each country to have more comparable data.
 
 
-#See more
+#Conclusion
 ***
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <h2 class="section-heading text-uppercase">Caveats</h2>
-            <h3 class="section-subheading text-muted">The best way to visualize data efficiently is probably to avoid the most common mistakes.<br><br>From data to viz offers you a <a href="url">gallery of common caveats</a></h3>
-          </div>
-        </div>
+Reordering your data is an easy step you should always consider when building a chart. Of course, sometimes the order of groups must be set by their feature and not their value, like going the months of the year, but it's worth thinking about it.
 
 
 
+
+<div class="row">
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner" role="listbox">
 
