@@ -1,5 +1,6 @@
 ---
 myimage1: "../img/mistake/order_data.png"
+mydisqus: "order_data"
 mytitle: "Why you should order your data"
 output:
   html_document:
