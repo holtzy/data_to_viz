@@ -27,6 +27,12 @@ a {
 
 
 
+/* ---------- Button ----------------- */
+.btn {
+  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
 .btn {
     border-width: 0 0px 0px 0px;
     font-weight: normal;
@@ -38,6 +44,30 @@ a {
     background-color: #ffffff;
     border-color: #69b3a2;
 }
+
+.btn-primary {
+  background-color: transparent;
+  border-color: #69b3a2;
+  color: #69b3a2;
+  border-width: medium;
+}
+
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+  background-color: #69b3a2 !important;
+  border-color: #69b3a2 !important;
+  color: white;
+}
+
+.btn-primary:active, .btn-primary:focus {
+  box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+}
+
+
+
+
+
+
+
 
 
 
