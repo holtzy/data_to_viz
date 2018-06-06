@@ -1,0 +1,111 @@
+"Country","TIME","Value"
+"Australia",2000,17.2
+"Australia",2005,15.8
+"Australia",2010,14
+"Australia",2015,13
+"Austria",2000,23.1
+"Austria",2005,22
+"Austria",2010,19.2
+"Austria",2015,17
+"Belgium",2000,13.6
+"Belgium",2005,11.5
+"Belgium",2010,7
+"Belgium",2015,4.7
+"Canada",2000,23.9
+"Canada",2005,21.3
+"Canada",2010,19
+"Canada",2015,18.6
+"Chile",2000,6.1
+"Chile",2015,21.1
+"Colombia",2010,6.4
+"Colombia",2015,11.1
+"Costa Rica",2015,3.7
+"Costa Rica",2010,0
+"Czech Republic",2000,19.1
+"Czech Republic",2005,15.9
+"Czech Republic",2010,15.8
+"Czech Republic",2015,16.5
+"Denmark",2005,10.2
+"Denmark",2010,8.9
+"Denmark",2015,5.8
+"Estonia",2010,27.8
+"Finland",2000,20.4
+"Finland",2005,18.9
+"Finland",2010,18.9
+"Finland",2015,18.1
+"France",2010,9.1
+"Germany",2000,19.6
+"Germany",2005,16.3
+"Germany",2010,16.7
+"Germany",2015,15.8
+"Greece",2005,16.7
+"Greece",2010,12.2
+"Greece",2015,6.3
+"Hungary",2000,14.1
+"Hungary",2005,4
+"Hungary",2010,6.4
+"Hungary",2015,9.5
+"Iceland",2005,13.2
+"Iceland",2010,14.3
+"Iceland",2015,9.9
+"Ireland",2000,19.7
+"Ireland",2005,13.8
+"Ireland",2010,12.8
+"Ireland",2015,14.4
+"Israel",2005,22.9
+"Israel",2010,20.1
+"Israel",2015,19.3
+"Italy",2000,8.5
+"Italy",2010,9.9
+"Japan",2000,33.9
+"Japan",2005,32.8
+"Japan",2010,28.7
+"Japan",2015,25.7
+"Korea",2000,41.7
+"Korea",2005,39.6
+"Korea",2010,39.6
+"Korea",2015,37.2
+"Latvia",2010,19.1
+"Lithuania",2010,10.6
+"Luxembourg",2010,4.6
+"Mexico",2005,16.7
+"Mexico",2010,11.6
+"Mexico",2015,16.7
+"Netherlands",2010,17.9
+"New Zealand",2000,7.2
+"New Zealand",2005,9.6
+"New Zealand",2010,7
+"New Zealand",2015,7.9
+"Norway",2000,10.2
+"Norway",2005,9.4
+"Norway",2010,8.1
+"Norway",2015,7.1
+"OECD - Average",2000,17.8
+"OECD - Average",2005,15.6
+"OECD - Average",2010,14.5
+"OECD - Average",2015,14.3
+"Poland",2005,11
+"Poland",2010,7.2
+"Portugal",2005,16
+"Portugal",2010,13.5
+"Portugal",2015,18.9
+"Slovak Republic",2005,20.1
+"Slovak Republic",2010,14.9
+"Slovak Republic",2015,13.4
+"Slovenia",2010,1
+"Spain",2005,12.5
+"Spain",2010,13.5
+"Sweden",2000,15.5
+"Sweden",2005,14.4
+"Sweden",2010,14.3
+"Switzerland",2000,23.8
+"Switzerland",2010,20.1
+"Turkey",2010,3.1
+"United Kingdom",2000,26.3
+"United Kingdom",2005,22.1
+"United Kingdom",2010,19.2
+"United Kingdom",2015,17.1
+"United States",2000,23.1
+"United States",2005,19
+"United States",2010,18.8
+"United States",2015,18.9

@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/cut_y_axis.png"
+mydisqus: "cut_y_axis"
+mytitle: "To cut or not to cut (the Y axis)"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -14,51 +15,79 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
+ 
 ---
 
 <br><br>
 <div class="mycontent">
 
 
+Cuting or not the Y axis is probably one of the most disputed topic in data visualization, as [here](http://callingbullshit.org/tools/tools_misleading_axes.html), [here](https://qz.com/418083/its-ok-not-to-start-your-y-axis-at-zero/) and [here](http://stephanieevergreen.com/y-axis/). Basically, the idea is to decide wether or not the Y axis should always start at zero or not. Let's try to find out why this topic struggles to get a consensus.
 
 
+#When it is bad
+***
+Let's start with a barplot showing the
 
 
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
-```
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-#Histogram
+#When it is good
 ***
 
+>*"In general, in a time-series, use a baseline that shows the data not the zero point"* - [Edward Tufte](https://www.edwardtufte.com/bboard/q-and-a-fetch-msg?msg_id=00003q)
+
+bla
+
+
+#So how to choose
+***
+By its design bar graph emphasizes the absolute magnitude of values associated with each category, whereas a line graph emphasizes the change in the dependent variable (usually the y value) as the independent variable (usually the x value) changes.
+
+- Barplot: In this kind there is a consensus: your Y axis should starts at 0
+- Line plot: Here however there is no consensus, even if in general you don't have to start at 0.
+
+
+
+
+
+<br>
+*Read more*: 
+
+- Have a look to this [#SWD challenge](http://www.storytellingwithdata.com/blog/2018/3/9/bring-on-the-bar-charts) by storytelling with data: you will see that most of the entry ordered their barplot.
+- Read more about [barplot]() and [lollipop plot]()
+- Have a look to the collection of dataviz pitfalls:
+
 </div>
+
+<center>
+<a href="https://www.data-to-viz.com/caveats.html"><img src="../img/mistake/long_caveat_list.png" style="width:90%"></a>
+</center>
+
+
+
+<div class="mycontent">
+<br>
+<center>
+<a class="btn btn-primary text-uppercase js-scroll-trigger" href="https://www.data-to-viz.com/caveats.html">See the collection</a>
+</center>
+
+
+
+#Comments
+***
+Any thoughts on this? Want to share another common dataviz pitfall? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+</div>
+
+
+
+
+
+
+
+
+
+
 
 
 

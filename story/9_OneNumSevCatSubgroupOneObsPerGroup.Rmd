@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/section/DensitySmall.png"
 myimage2: "../img/section/Box1Small.png"
-mytitle: "Visualizing a unique Numeric variable"
+mytitle: "Work in progress"
 output:
   html_document:
       template: template_story.html
@@ -19,56 +19,47 @@ output:
 
 <br><br>
 <div class="mycontent">
+This page is still work in progress. Sorry for the inconvenience.
 
 
-NEED A DATASET
 
 
+Work on the gender gap
+data recovered here: https://stats.oecd.org/index.aspx?queryid=54751
+and coming from the Employment database: http://www.oecd.org/employment/emp/onlineoecdemploymentdatabase.htm of OECD.org
+The gender wage gap is defined as the difference between male and female median wages divided by the male median wages.
 
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by `a numeric variable provided for samples ditributed in several way of grouping`.<br>
-It consider..
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
-# Libraries
+```{r}
+data <- read.table("~/Downloads/GENDER_EMP_06062018110412742.csv", header=T, sep=",")
+
 library(tidyverse)
-library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
+tmp <- data %>%
+  select(Country, TIME, Value) %>%
+  filter(TIME %in% c(2000, 2005, 2010, 2015)) %>%
+  arrange(Country) %>%
+  filter(!is.na(Value))
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+write.table(tmp, "/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", sep=",", row.names=FALSE)
 
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+data <- read.table("/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", header=T, sep=",")
 ```
+
+
+
+```{r, fig.width=8}
+data
+
+# Grouped
+data %>%
+  ggplot(aes(fill=as.factor(TIME), y=Value, x=Country)) + 
+    geom_bar(position="dodge", stat="identity") +
+    coord_flip()
+
+
+```
+
+
+
+
+
 </div>
-</div>
-
-
---> grouped barplot / stack barplot
-
-
-
-
-
-
-
-#Histogram
-***
-
-
-
-
-
-
-
-
-#Histogram
-***
-
-The mos

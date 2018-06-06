@@ -33,6 +33,7 @@ A clean version at `.csv` format is available on github, and the table beside sh
 </div>
 
 <div class = "col-md-4">
+<br>
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -60,13 +61,13 @@ data %>% head(6) %>% kable() %>%
 
 
 
-# Option 1: Lollipop
+#Lollipop
 ***
 
 Even if the most common way to represent this kind of information is probably to use barplots, lollipop can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
 
 Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.
-```{r, fig.align="center", fig.height=7}
+```{r, fig.align="center", fig.height=7, warning=FALSE}
 data %>%
   filter(!is.na(Value)) %>%
   arrange(Value) %>%
@@ -84,11 +85,11 @@ data %>%
     xlab("")
 ```
 
-#- Barplot
+#Barplot
 ***
 
 Here is the barplot version that looks very similar to the lollipop. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.
-```{r, fig.align="center", fig.height=7}
+```{r, fig.align="center", fig.height=7, warning=FALSE}
 data %>%
   filter(!is.na(Value)) %>%
   arrange(Value) %>%
@@ -106,37 +107,58 @@ data %>%
 ```
 
 
-#- Circular barplot
+#Circular barplot
 ***
-
-```{r, fig.align="center", fig.height=7}
-data %>%
+The [circular barplot]() is an alternative to the barplot, where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if significant differences exist between group.
+```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
+# Order data
+tmp <- data %>%
   filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_bar(stat="identity", fill="#69b3a2") +
-    coord_flip() +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      panel.grid.major.x = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("") +
-    coord_polar() +
-    ylim(-7000,13000)
+  arrange(desc(Value)) %>%
+  mutate(Country=factor(Country, Country))
+
+# Set a number of 'empty bar'
+empty_bar=10
+
+# Add lines to the initial tmpset
+to_add = matrix(NA, empty_bar, ncol(tmp))
+colnames(to_add) = colnames(tmp)
+tmp=rbind(tmp, to_add)
+tmp$id=seq(1, nrow(tmp))
+
+# Get the name and the y position of each label
+label_tmp=tmp
+number_of_bar=nrow(label_tmp)
+angle= 90 - 360 * (label_tmp$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_tmp$hjust<-ifelse( angle < -90, 1, 0)
+label_tmp$angle<-ifelse(angle < -90, angle+180, angle)
+label_tmp$Country <- gsub("United States", "US", label_tmp$Country)
+label_tmp$Country <- paste(label_tmp$Country, " (", label_tmp$Value,")", sep="")
+
+# Make the plot
+ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", fill=alpha("#69b3a2", 0.8)) +
+  ylim(-7000,13000) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar(start = 0) + 
+  geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
+  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
 ```
 
+Please not that in this case the circular barplot do not look very good due to a lot of very small values that are hardly visible on the chart.
 
 
 
 
-
-#- Treemap
+#Treemap
 ***
-A treemap represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
+A [treemap]() represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
 It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.
 ```{r, fig.align="center", fig.width=9}
 # Package
