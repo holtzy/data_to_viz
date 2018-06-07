@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/section/DensitySmall.png"
 myimage2: "../img/section/Box1Small.png"
-mytitle: "Work in progress"
+mytitle: "The gender wage gap"
 output:
   html_document:
       template: template_story.html
@@ -19,44 +19,147 @@ output:
 
 <br><br>
 <div class="mycontent">
-This page is still work in progress. Sorry for the inconvenience.
 
 
+<div class = "row">
+<div class = "col-md-8">
+<br><br><br>
+This document gives a few suggestions to analyse a dataset composed by a numeric variable split in groups and subgroups.
+<br><br>
+The dataset used as an example quantifies the gender wage gap in 39 countries at three different time stamp. The gender wage gap is defined as the difference between male and female median wages divided by the male median wages.
+<br><br>
+Data have been gathered on the [OECD website](https://stats.oecd.org/index.aspx?queryid=54751). A clean version is available at `csv`format on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset).
+</div>
 
-
-Work on the gender gap
-data recovered here: https://stats.oecd.org/index.aspx?queryid=54751
-and coming from the Employment database: http://www.oecd.org/employment/emp/onlineoecdemploymentdatabase.htm of OECD.org
-The gender wage gap is defined as the difference between male and female median wages divided by the male median wages.
-
-```{r}
-data <- read.table("~/Downloads/GENDER_EMP_06062018110412742.csv", header=T, sep=",")
-
+<div class = "col-md-4">
+<br>
+```{r, warning=FALSE, message=FALSE}
+# Libraries
 library(tidyverse)
-tmp <- data %>%
-  select(Country, TIME, Value) %>%
-  filter(TIME %in% c(2000, 2005, 2010, 2015)) %>%
-  arrange(Country) %>%
-  filter(!is.na(Value))
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+library(viridis)
+library(ggrepel)
 
-write.table(tmp, "/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", sep=",", row.names=FALSE)
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", header=T, sep=",")
 
-data <- read.table("/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", header=T, sep=",")
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
 ```
+</div>
+</div>
 
 
 
-```{r, fig.width=8}
-data
+#Grouped barplot
+***
+The most common way to represent this kind of dataset is probably to build a [grouped barplot](). In this example, each bar represents a gender wage gap. Bars can be grouped by year or by country depending on what you want to focus on.
+
+This works well if your groups have no logical orders
+
+```{r, fig.width=8, fig.height=9, fig.align="center", warning=FALSE}
+# List of country with 4 values
+with4 <- data %>%
+  group_by(Country) %>%
+  summarize(n=n()) %>%
+  filter(n==4)
 
 # Grouped
 data %>%
+  filter(Country %in% with4$Country) %>%
+  mutate(Country = fct_reorder(Country, Value)) %>%
+  mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
   ggplot(aes(fill=as.factor(TIME), y=Value, x=Country)) + 
     geom_bar(position="dodge", stat="identity") +
-    coord_flip()
+    scale_fill_viridis(discrete=T, name="") +
+    coord_flip() +
+    theme_ipsum() 
+```
 
+
+```{r, fig.width=8, fig.height=9, fig.align="center"}
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  mutate(Country = fct_reorder(Country, Value)) %>%
+  mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
+  ggplot(aes(fill=Country, y=Value, x=as.factor(TIME))) + 
+    geom_bar(position="dodge", stat="identity") +
+    scale_fill_viridis(discrete=T, name="") +
+    coord_flip() +
+    theme_ipsum() 
+```
+
+
+
+#Parallel coordinates plot
+***
+```{r, fig.width=8, fig.height=6, fig.align="center"}
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  filter(Country != "OECD - Average") %>%
+  mutate(label = if_else(TIME == max(TIME), as.character(Country), NA_character_)) %>%
+  mutate(label1 = if_else(TIME == max(TIME), as.character(Country), NA_character_)) %>%
+  mutate(label2 = if_else(TIME == max(TIME), as.character(Country), NA_character_)) %>%
+  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) + 
+    geom_point() +
+    geom_line() +
+    geom_label_repel( aes(label=label), nudge_x = 1, na.rm = TRUE) +
+    scale_color_viridis(discrete=T, name="") +
+    theme_ipsum() +
+    theme(
+      legend.position ="none"
+    ) +
+    xlab("") +
+    ylab("gender wage gap (%)")
+```
+
+
+
+
+
+
+
+#Slope chart
+***
+If one of the categoric variable has only two levels, it is possible to build a slope chart that is a specific use case of the parallel coordinates plot.
+```{r}
+data %>%
+  filter(TIME %in% c(2000, 2015)) %>%
+  ggplot(aes(x=as.factor(TIME), y=Value)) +
+    geom_point() +
+    theme_ipsum()
 
 ```
+
+
+
+#Spider plot
+***
+Needs another dataset
+
+
+#Grouped scatter
+***
+
+```{r}
+data %>%
+  filter(TIME %in% c(2000, 2015)) %>%
+  ggplot(aes(x=as.factor(TIME), y=Value)) +
+    geom_point() +
+    theme_ipsum()
+
+```
+
+
+
+
+
+
 
 
 
