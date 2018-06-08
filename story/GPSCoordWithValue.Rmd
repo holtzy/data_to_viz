@@ -1,0 +1,101 @@
+---
+myimage1: "../img/section/Bubblemap150.png"
+mytitle: "Visualizing a unique Numeric variable"
+output:
+  html_document:
+      template: template_story.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br><br><br>
+<div class="mycontent">
+
+
+
+
+
+
+<div class = "row">
+<div class = "col-md-6">
+<br>This document gives a few suggestions to analyse a dataset composed by a set of geographic coordinates that have an associated numeric value.<br><br>It considers the population of 925 cities in the UK. This example dataset is provided in the [R maps library](https://github.com/adeckmyn/maps) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+</div>
+<div class = "col-md-6">
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/18_ListGPSCoordinatesWithValue.csv", header=T)
+
+# show data
+data %>% head(5) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+#Bubble map
+***
+
+```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=8, fig.width=7}
+# Get the world polygon and extract UK
+library(maps)
+UK <- map_data("world") %>% filter(region=="UK")
+
+# Easy to make it interactive!
+library(plotly)
+ 
+# plot
+p=data %>%
+  
+  arrange(pop) %>%
+  mutate( name=factor(name, unique(name))) %>%
+  mutate( mytext=paste("City: ", name, "\n", "Population: ", pop, sep="")) %>%  # This prepare the text displayed on hover.
+ 
+  # Makte the static plot calling this text:
+  ggplot() +
+    geom_polygon(data = UK, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
+    geom_point(aes(x=long, y=lat, size=pop, color=pop, text=mytext, alpha=pop) ) +
+    
+    scale_size_continuous(range=c(1,15)) +
+    scale_color_viridis(option="inferno", trans="log" ) +
+    scale_alpha_continuous(trans="log") +
+    theme_void() +
+    ylim(50,59) +
+    coord_map() +
+    theme(legend.position = "none")
+ 
+ggplotly(p, tooltip="text")
+
+```
+
+
+
+
+
+
+
+
+

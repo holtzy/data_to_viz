@@ -1,0 +1,186 @@
+---
+myimage1: "../img/section/Lollipop150.png"
+myimage2: "../img/section/CircularBarplot150.png"
+myimage3: "../img/section/Tree150.png"
+myimage4: "../img/section/CircularPacking150.png"
+mytitle: "Visualizing the world population"
+output:
+  html_document:
+      template: template_story.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+
+
+
+<br><br><br>
+This document gives a few suggestions to analyse a `nested dataset` in which a numeric value is available for each leaf. A nested dataset is also commonly called a hierarchical dataset: there is an origine node that gives birth to subsequent nodes and so on until the final leaves.
+<br>
+This document consider the world population of 250 countries as an example. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.  
+<br>
+Data come from wikipedia and formatted using these 2 pages. ([1](https://github.com/mledoze/countries), [2](http://bl.ocks.org/ganeshv/6a8e9ada3ab7f2d88022)). A clean `.csv` file is available on [github](https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv). It looks like that:
+
+
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# Load dataset from github
+#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+data <- read.table("../Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+data[ which(data$value==-1),"value"] <- 1
+colnames(data) <- c("Continent", "Region", "Country", "Pop")
+
+# show data
+data %>% head(3) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+
+
+
+
+# Treemap {.tabset}
+***
+
+A treemap represents each node of the hierarchical structure as a square. Each square area is proportionnal to its value: the population here.
+```{r, fig.align="center", fig.width=8, fig.height=7,  warning=FALSE}
+library(treemap)
+
+p <- treemap(data,
+            
+            # data
+            index=c("Continent", "Region", "Country"),
+            vSize="Pop",
+            type="index",
+            
+            # Main
+            title="",
+            palette="Dark2",
+
+            # Borders:
+            border.col=c("black", "grey", "grey"),             
+            border.lwds=c(1,0.5,0.1),                         
+        
+            # Labels
+            fontsize.labels=c(0.7, 0.4, 0.3),
+            fontcolor.labels=c("white", "white", "black"),
+            fontface.labels=1,            
+            bg.labels=c("transparent"),              
+            align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),                                  
+            overlap.labels=0.5,
+            inflate.labels=T   
+            
+)
+```
+
+
+## Interactive
+
+It is quite common to use an interactive version of the treemap:
+
+```{r, warning=FALSE, fig.width=9}
+
+library(d3treeR)
+
+d3tree2( p ,  rootname = "General" )
+
+```
+
+
+
+
+
+
+# Circle packing
+***
+Circle packing follows the same idea than treemap, except that it uses circles instead of squares to represent each nodes. Because of that it uses space less efficiently. However groups are more obvious and the figure appear less cluttered.
+
+<center>
+```{r, fig.align="center", fig.width=9, fig.height=6, warning=FALSE, message=FALSE}
+# Libraries
+library(circlepackeR)  
+ 
+
+# Remove a few problematic lines
+data <- data %>% filter(Continent!="") %>% droplevels()
+
+# Change the format. This use the data.tree library. This library needs a column that looks like root/group/subgroup/..., so I build it
+library(data.tree)
+data$pathString <- paste("world", data$Continent, data$Region, data$Country, sep = "/")
+population <- as.Node(data)
+ 
+# You can custom the minimum and maximum value of the color range.
+circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max = "hsl(341,30%,40%)")
+```
+</center>
+
+
+
+
+# Lollipop
+***
+
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+data %>%
+  filter(!is.na(Pop)) %>%
+  arrange(Pop) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  mutate(Pop=Pop/1000000) %>%
+  ggplot( aes(x=Country, y=Pop) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Pop), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Population (M)")
+```
+
+
+ 
+ 
+ # Circular version
+ ***
+ 
+ 
+ 
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

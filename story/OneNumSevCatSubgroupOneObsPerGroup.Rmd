@@ -1,0 +1,215 @@
+---
+myimage1: "../img/section/DensitySmall.png"
+myimage2: "../img/section/Box1Small.png"
+mytitle: "The gender wage gap"
+output:
+  html_document:
+      template: template_story.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+
+<div class = "row">
+<div class = "col-md-8">
+<br><br><br>
+This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups.
+<br><br>
+The dataset used as an example quantifies the gender wage gap in 39 countries at three different time stamp. The gender wage gap is defined as the difference between male and female median wages divided by the male median wages.
+<br><br>
+Data have been gathered on the [OECD website](https://stats.oecd.org/index.aspx?queryid=54751). A clean version is available at `csv`format on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset).
+</div>
+
+<div class = "col-md-4">
+<br>
+```{r, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+library(viridis)
+library(ggrepel)
+library(plotly)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv", header=T, sep=",")
+
+# show data
+data %>% head(6) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+</div>
+</div>
+
+
+
+#Grouped barplot
+***
+The most common way to represent this kind of dataset is probably to build a [grouped barplot](). In this example, each bar represents a gender wage gap. Bars can be grouped by year or by country depending on what you want to focus on.
+
+This works well if your groups have no logical orders
+
+```{r, fig.width=8, fig.height=9, fig.align="center", warning=FALSE}
+# List of country with 4 values
+with4 <- data %>%
+  group_by(Country) %>%
+  summarize(n=n()) %>%
+  filter(n==4)
+
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  mutate(Country = fct_reorder(Country, Value)) %>%
+  mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
+  ggplot(aes(fill=as.factor(TIME), y=Value, x=Country)) + 
+    geom_bar(position="dodge", stat="identity") +
+    scale_fill_viridis(discrete=T, name="") +
+    coord_flip() +
+    theme_ipsum()  +
+    ylab("gender wage gap (%)")
+```
+
+On this graphic, bars are grouped per country. Since country are ordered, it is easy to notice that Korea is the country with the biggest wage gap, followed by Japan and the UK. It is also possible to observe that the gender wage gap globally decreased between 2000 and 2015, but there are clearly better way to represent this idea.
+<br><br>
+Note that choosing the appropriate grouping variable is important. Let's check what happens when grouping using the other categoric variable, the year:
+
+```{r, fig.width=8, fig.height=9, fig.align="center"}
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  mutate(Country = fct_reorder(Country, Value)) %>%
+  mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
+  ggplot(aes(fill=Country, y=Value, x=as.factor(TIME))) + 
+    geom_bar(position="dodge", stat="identity") +
+    scale_fill_viridis(discrete=T, name="") +
+    coord_flip() +
+    theme_ipsum() +
+    xlab("") +
+    ylab("gender wage gap (%)")
+```
+
+The result of this grouped barplot is quite disapointing compared to the previous one. This is mainly due to the fact that too many bars are displayed for each year. It gets very hard to make a link with the legend, and the comparison from a year to the other is very complicated as well. Globally, it is better to group bars in a way that minimize the number of bar per group. Moreover, remember that having a legend with more than ~7 groups probably means that there is a better way to represent the information.
+
+
+
+
+#Parallel coordinates plot
+***
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
+# Groups
+all <- unique(data$Country)
+grp1 <- sample( all, 20)
+grp2 <- all[ ! all%in%grp1]
+
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  filter(Country != "OECD - Average") %>%
+  mutate(label = if_else(TIME == max(TIME) & Country %in% grp1, as.character(Country), NA_character_)) %>%
+  mutate(label2 = if_else(TIME == min(TIME) & Country %in% grp2, as.character(Country), NA_character_)) %>%
+  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) + 
+    geom_point() +
+    geom_line() +
+    geom_label_repel( aes(label=label), nudge_x = 0.3, hjust=0, na.rm = TRUE, segment.colour="grey") +
+    geom_label_repel( aes(label=label2), nudge_x = -0.3, hjust=1, na.rm = TRUE, segment.colour="grey") +
+    scale_color_viridis(discrete=T, name="") +
+    theme_ipsum() +
+    theme(
+      legend.position ="none"
+    ) +
+    xlab("") +
+    ylab("gender wage gap (%)")
+```
+
+
+
+
+
+#Spider plot
+***
+The [spider chart]() is a circular version of the parallel coordinates plot where vertical axis are joint in the center of the figure. It is sometimes criticized [[1](http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart), [2](https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html)], but I believe in their effectiveness in certain cases, as explained [here]().
+
+
+
+
+
+#Slope chart
+***
+If one of the categoric variable has only two levels, it is possible to build a slope chart that is a specific use case of the [parallel coordinates plot](). It is very powerful since it describes efficiently both the ranking and the evolution of every country.
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
+# Groups
+all <- unique(data$Country)
+grp1 <- sample( all, 20)
+grp2 <- all[ ! all%in%grp1]
+
+# Grouped
+data %>%
+  filter(Country %in% with4$Country) %>%
+  filter(Country != "OECD - Average") %>%
+  filter(TIME %in% c(2000, 2015)) %>%
+  mutate(label = if_else(TIME == max(TIME) & Country %in% grp1, as.character(Country), NA_character_)) %>%
+  mutate(label2 = if_else(TIME == min(TIME) & Country %in% grp2, as.character(Country), NA_character_)) %>%
+  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) + 
+    geom_point() +
+    geom_line() +
+    geom_label_repel( aes(label=label), nudge_x = 0.3, hjust=0, na.rm = TRUE, segment.colour="grey") +
+    geom_label_repel( aes(label=label2), nudge_x = -0.3, hjust=1, na.rm = TRUE, segment.colour="grey") +
+    scale_color_viridis(discrete=T, name="") +
+    theme_ipsum() +
+    theme(
+      legend.position ="none"
+    ) +
+    xlab("") +
+    ylab("gender wage gap (%)")
+```
+
+
+
+
+
+#Grouped scatter
+***
+
+If one of the grouping variable has 2 levels, it is also possible to build a scatterplot. In this case it is useful to use interactivity: it avoids to have a legend with too many levels.
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
+p <- data %>%
+  filter(TIME %in% c(2000, 2015)) %>%
+  spread(key=TIME, value=Value, -1) %>%
+  filter(`2000`!=-1) %>%
+  filter(`2015`!=-1) %>%
+  mutate(text=paste("Country: ",Country, "\n", "Wage gap in 2000: ", `2000`, "%\nWage gap in 2015: ", `2015`, sep="")) %>%
+  ggplot(aes(x=`2000`, y=`2015`, text=text, color=Country)) +
+    geom_point(size=4, alpha=0.6) +
+    scale_color_viridis(discrete=T, name="") +
+    theme_ipsum() +
+    theme(legend.position="none") +
+    xlab("Gender wage gap in 2000 (%)") +
+    ylab("Gender wage gap in 2015 (%)")
+  
+
+ggplotly(p, tooltip="text")
+```
+
+
+
+
+
+
+
+
+
+
+
+</div>
