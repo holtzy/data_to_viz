@@ -1,5 +1,6 @@
 ---
 myimage: "../img/section/HistogramSmall.png"
+mydisqus: "histogram"
 mytitle: "Histogram"
 output:
   html_document:
