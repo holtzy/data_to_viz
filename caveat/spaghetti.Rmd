@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/spaghetti.png"
+mytitle: "The Spaghetti plot"
+mydisqus: "spaghetti"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -19,51 +20,127 @@ output:
 <br><br>
 <div class="mycontent">
 
+A Spaghetti plot is a [line plot](https://www.data-to-viz.com/graph/line.html) with many lines displayed together. With more than a few (~5?) groups this kind of graphic gets really hard to read, and thus provide few insight about the data. Let's make an example with the [evolution of baby names](http://www.data-to-viz.com/story/OneCatSevOrderedNum.html) in the US from 1880 to 2015.
 
-
-
-
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(kableExtra)
 options(knitr.table.format = "html")
+library(babynames)
+library(streamgraph)
+library(viridis)
+library(DT)
+library(plotly)
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- babynames %>% 
+  filter(name %in% c("Mary","Emma", "Ida", "Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# Plot
+data %>%
+  ggplot( aes(x=year, y=n, group=name, color=name)) +
+    geom_line() +
+    scale_color_viridis(discrete = TRUE) +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=14)
+    ) +
+    ggtitle("A spaghetti chart of baby names popularity") +
+    theme_ipsum()
 ```
-</div>
-</div>
+
+It is very hard to follow a line to understand the evolution of a specific name popularity. Plus, if you manage to follow a line you then it to link it with the legend which is even harder. Let's try to find a few workarounds to improve this graphic.
 
 
 
+#Target a specific group
+***
+Let’s say you plot many groups, but the actual reason for that is to explain the feature of one particular group compared to the others. Then a good workaround is to highlight this group: make it appears different, and give it a proper annotation. Here, the evolution of Amanda's popularity is obvious. Leaving the other lines is important since it allows to compare Amanda with all other names.
+
+```{r, fig.align="center", fig.width=10}
+data %>%
+  mutate( highlight=ifelse(name=="Amanda", "Amanda", "Other")) %>%
+  ggplot( aes(x=year, y=n, group=name, color=highlight, size=highlight)) +
+    geom_line() +
+    scale_color_manual(values = c("#69b3a2", "lightgrey")) +
+    scale_size_manual(values=c(1.5,0.2)) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    geom_label( x=1990, y=55000, label="Amanda reached 3550\nbabies in 1970", size=4, color="#69b3a2") +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=14)
+)
+```
 
 
 
+#Use small multiple
+***
+[Area chart](https://www.data-to-viz.com/graph/area.html) can be used to have a more general overview of the dataset, especially when used in combination with small multiple. In the following chart it is easy to get a glimpse of the evolution of any name:
+```{r, fig.align="center", fig.width=8, fig.height=8}
+data %>%
+  ggplot( aes(x=year, y=n, group=name, fill=name)) +
+    geom_area() +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8),
+      plot.title = element_text(size=14)
+    ) +
+    facet_wrap(~name)
+```
+For instance, `Linda` has been a really popular name for a really short period of time. On another hand, Patricia has never been very popular, but has been given during several decades.
 
 
 
+#Combine approaches
+***
+Note that if you want to compare the evolution of each line compared to the others, you can combine both approaches together:
+```{r, fig.align="center", fig.width=8, fig.height=8}
+tmp <- data %>%
+  mutate(name2=name)
 
-#Histogram
+tmp %>%
+  ggplot( aes(x=year, y=n)) +
+    geom_line( data=tmp %>% select(-name), aes(group=name2), color="grey", size=0.5, alpha=0.5) +
+    geom_line( aes(color=name), color="#69b3a2", size=1.2 )+
+    scale_color_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=14),
+      panel.grid = element_blank()
+    ) +
+    ggtitle("A spaghetti chart of baby names popularity") +
+    facet_wrap(~name)
+
+```
+
+
+#Going further
 ***
 
+- strategies for avoiding the spaghetti graph, by [storytelling with data](http://www.storytellingwithdata.com/blog/2013/03/avoiding-spaghetti-graph)
+- doing line plots in [R](https://www.r-graph-gallery.com/line-plot/) and [Python](https://python-graph-gallery.com/line-chart/)
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
 </div>
-
-
-
-
-
 
 
 

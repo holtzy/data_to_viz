@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/pie.png"
+mytitle: "The issue with pie chart"
+mydisqus: "pie"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -20,46 +21,198 @@ output:
 <div class="mycontent">
 
 
+#Bad by definition
+***
 
-
+A pie chart is a circle divided into sectors that each represent a proportion of the whole. It is often used to show proportion, where the sum of the sectors equal 100%.
 
 
 <div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+<div class = "col-md-6">
+<br><br>
+The problem is that the human eye is pretty bad to read angles. In the adjacent pie chart, try to figure out which group is the biggest one and try to order them by value. You will probably struggle to do so and this is why pie charts must be avoided.
 </div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+<div class = "col-md-6">
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(kableExtra)
 options(knitr.table.format = "html")
+library(babynames)
+library(streamgraph)
+library(viridis)
+library(DT)
+library(plotly)
+library(patchwork)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# create 3 data frame:
+data1 <- data.frame( name=letters[1:5], value=c(17,18,20,22,24) )
+data2 <- data.frame( name=letters[1:5], value=c(20,18,21,20,20) )
+data3 <- data.frame( name=letters[1:5], value=c(24,23,21,19,18) )
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# Plot
+plot_pie <- function(data, vec){
+
+ggplot(data, aes(x="name", y=value, fill=name)) +
+  geom_bar(width = 1, stat = "identity") +
+  coord_polar("y", start=0) +
+  scale_fill_viridis(discrete = TRUE) + 
+  geom_text(aes(y = vec, label = name, size=5, color=c(rep("black", 4), "white"))) +
+  scale_color_manual(values=c("black", "white")) +
+  theme_ipsum() +
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=14),
+    panel.grid = element_blank(),
+    axis.text = element_blank(),
+    legend.margin=unit(0, "null")
+  ) +
+  xlab("") +
+  ylab("")
+  
+}
+
+plot_pie(data1, c(10,35,55,75,93))
 ```
 </div>
 </div>
 
 
 
+If you're still not convinced, let's try to compare several pie plots. Once more, try to understand which group has the highest value in these 3 graphics. Also, try to figure out what is the evolution of the value among groups.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
+a <- plot_pie(data1, c(10,35,55,75,93))
+b <- plot_pie(data2, c(10,32,53,75,93))
+c <- plot_pie(data3, c(10,26,50,75,93))
+a + b + c
+```
+
+Now, let's represent exactly the same data using a [barplot](https://www.data-to-viz.com/graph/barplot.html):
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
+# A function to make barplots
+plot_bar <- function(data){
+  ggplot(data, aes(x=name, y=value, fill=name)) +
+    geom_bar( stat = "identity") +
+    scale_fill_viridis(discrete = TRUE) + 
+    scale_color_manual(values=c("black", "white")) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=14),
+      panel.grid = element_blank(),
+    ) +
+    ylim(0,25) +
+    xlab("") +
+    ylab("")
+}
+
+# Make 3 barplots
+a <- plot_bar(data1)
+b <- plot_bar(data2)
+c <- plot_bar(data3)
+
+# Put them together with patchwork
+a + b + c
+```
+
+As you can see on this barplot there is a heavy difference between the three pie plots with a hidden pattern that you definitely don't want to miss when you tell your story. 
+
+
+#And often made even worst
+***
+Even if pie charts are bad by definition, it is still possible to make them even worst using additional bad features:
+
+- 3d
+- legend aside
+- percentages that does not sum up to 100
+- too many items
+- exploded pie charts
 
 
 
 
+#Alternatives
+***
+The [barplot](https://www.data-to-viz.com/graph/barplot.html) is the best alternative to pie plots. If you have many values to display, you can also consider doing a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot that is a bit more elegant in my opinion. Here is an example based on the [amount of weapons sold](http://www.data-to-viz.com/story/OneNumOneCat.html) by a few country in the world:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=6, fig.height=7}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# plot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
+```
 
 
+Another possibility would be to create a treemap if your goal is to describe what the whole is composed with.
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
+# Package
+library(treemap)
 
-#Histogram
+# Plot
+treemap(data,
+            
+            # data
+            index="Country",
+            vSize="Value",
+            type="index",
+            
+            # Main
+            title="",
+            palette="Dark2",
+
+            # Borders:
+            border.col=c("black"),             
+            border.lwds=1,                         
+        
+            # Labels
+            fontsize.labels=0.5,
+            fontcolor.labels="white",
+            fontface.labels=1,            
+            bg.labels=c("transparent"),              
+            align.labels=c("left", "top"),                                  
+            overlap.labels=0.5,
+            inflate.labels=T                        # If true, labels are bigger when rectangle is bigger.
+
+            
+            )
+```
+
+
+#Going further
 ***
 
-</div>
+- [Who sell more weapons](http://www.data-to-viz.com/story/OneNumOneCat.html): see this story that gives several alternatives to pie plot.
+- Four problems with Pie Charts (And what to do instead) by [iCharts.net](https://icharts.net/blog/data-visualization-guides/4-problems-pie-charts-instead)
+- The worst chart in the world by [Buisness insider](https://www.businessinsider.com.au/pie-charts-are-the-worst-2013-6?r=US&IR=T)
+- doing pie plots in [R](https://www.r-graph-gallery.com/pie-plot/) and [Python](https://python-graph-gallery.com/pie-plot/)
 
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+</div>
 
 
 
