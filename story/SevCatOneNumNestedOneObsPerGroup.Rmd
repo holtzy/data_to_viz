@@ -3,6 +3,7 @@ myimage1: "../img/section/Lollipop150.png"
 myimage2: "../img/section/CircularBarplot150.png"
 myimage3: "../img/section/Tree150.png"
 myimage4: "../img/section/CircularPacking150.png"
+mydisqus: "SevCatOneNumNestedOneObsPerGroup"
 mytitle: "Visualizing the world population"
 output:
   html_document:
@@ -160,12 +161,15 @@ data %>%
 
  
  
- # Circular version
- ***
+# Circular version
+***
+bla 
  
  
- 
-
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
 
 
 
