@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/error_bar.png"
+mytitle: "The issue with error bars"
+mydisqus: "error_bar"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -20,43 +21,187 @@ output:
 <div class="mycontent">
 
 
+Error bars give a general idea of how precise a measurement is, or conversely, how far from the reported value the true (error free) value might be. If the value displayed on your barplot is the result of an aggregation (like the mean value of several data points), you may want to display error bars.
 
 
-
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
+library(viridis)
+library(patchwork)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# create dummy data
+data <- data.frame(
+  name=letters[1:5],
+  value=sample(seq(4,15),5),
+  sd=c(1,0.2,3,2,4)
+)
+ 
+# Plot
+ggplot(data) +
+    geom_bar( aes(x=name, y=value), stat="identity", fill="#69b3a2", alpha=0.7, width=0.5) +
+    geom_errorbar( aes(x=name, ymin=value-sd, ymax=value+sd), width=0.4, colour="black", alpha=0.9, size=1) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A barplot with error bar") +
+    xlab("")
+  
 ```
-</div>
-</div>
+
+
+In the graphic above 5 groups are reported. The bar heights represent their mean value. The black error bar gives information on how the individual observation are dispersed around the average. For instance, it appears that measurement in group `B` are more precise than for group `E`.
 
 
 
-
-
-
-
-
-
-
-#Histogram
+#Error bars hide information
 ***
+
+The first issue with error bars is that it hides information. Here is a figure from a [paper in PLOS Biology](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). It illustrates that the full data may suggest different conclusions from the summary statistics. The same barplot with error bar (left) can represent several situations. Both group can have the same kind of distribution (`B`), one group can have outliers (`C`), one group can have a bimodal distribution (`D`) or groups can have an unequal sample size:
+
+
+<br>
+
+<center>
+<img src="IMG/error_bar_article.png" alt="img" width="600" height="700">
+</center>
+
+<center>
+*[Weissgerber et al. 2015](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)*
+</center>
+
+<br>
+
+
+Thus, the same barplot with error bar can in fact tell very different story, hidden to the reader.
+
+>Always show your individual data points if you can [#showyourdata](https://twitter.com/search?q=%23showyourdata&src=typd)
+
+
+
+#What is an error bar?
+***
+The second issue with error bars is that they are used to show `different metrics`, and not always specifying which one is used. Three different types of values are commonly used for error bars, sometimes giving very different results (see further). Here is an overview of their definintion and how to calculate them on a simple vector in R. 
+
+- [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation) (SD) represents the amount of  dispersion of the variable. Calculated as the root square of the variance
+```{r, eval=FALSE}
+sd <- sd(vec)
+sd <- sqrt(var(vec))
+```
+
+- [Standard Error](https://en.wikipedia.org/wiki/Standard_error) (SE). It is the standard deviation of the vector sampling distribution. Calculated as the SD divided by the square root of the sample size. By construction, SE is smaller than SD. With a very big sample size, SE tends toward 0.
+```{r, eval=FALSE}
+se = sd(vec) / sqrt(length(vec))
+```
+
+- [Confidence Interval](https://en.wikipedia.org/wiki/Confidence_interval) (CI). This interval is defined so that there is a specified probability that a value lies within it. It is calculated as t * SE. Where t is the value of the [Student’s t-distribution](https://en.wikipedia.org/wiki/Student%27s_t-distribution) for a specific alpha. Its value is often rounded to 1.96 (its value with a big sample size). If the sample size is huge or the distribution not normal, it is better to calculate the CI using the bootstrap method, however.
+```{r, eval=FALSE}
+alpha=0.05
+t=qt((1-alpha)/2 + .5, length(vec)-1)   # tend to 1.96 if sample size is big enough
+CI=t*se
+```
+
+<br>
+
+Here is an application of these 3 metrics on the famous [Iris dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html). It shows the average sepal length of three species of Iris. The variation around the average length is represented using the error bar.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
+# Data
+data <- iris %>% select(Species, Sepal.Length) 
+ 
+# Calculates mean, sd, se and IC
+my_sum <- data %>%
+  group_by(Species) %>%
+  summarise( 
+    n=n(),
+    mean=mean(Sepal.Length),
+    sd=sd(Sepal.Length)
+  ) %>%
+  mutate( se=sd/sqrt(n))  %>%
+  mutate( ic=se * qt((1-0.05)/2 + .5, n-1))
+ 
+# Standard deviation
+p1 <- ggplot(my_sum) +
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_errorbar( aes(x=Species, ymin=mean-sd, ymax=mean+sd), width=0.4, colour="black", alpha=0.9, size=1) +
+  ggtitle("standard deviation") +
+  theme(
+    plot.title = element_text(size=6)
+  ) +
+  theme_ipsum() +
+  xlab("") +
+  ylab("Sepal Length")
+ 
+# Standard Error
+p2 <- ggplot(my_sum) +
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_errorbar( aes(x=Species, ymin=mean-se, ymax=mean+se),width=0.4, colour="black", alpha=0.9, size=1) +
+  ggtitle("standard error") +
+  theme(
+    plot.title = element_text(size=6)
+  ) +
+  theme_ipsum() +
+  xlab("") +
+  ylab("Sepal Length")
+ 
+# Confidence Interval
+p3 <- ggplot(my_sum) +
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_errorbar( aes(x=Species, ymin=mean-ic, ymax=mean+ic), width=0.4, colour="black", alpha=0.9, size=1) +
+  ggtitle("confidence interval") +
+  theme(
+    plot.title = element_text(size=6)
+  ) +
+  theme_ipsum() +
+  xlab("") +
+  ylab("Sepal Length")
+
+p1 + p2 + p3
+```
+
+It is quite obvious that the 3 metrics report very different visualizations and conclusions.
+
+>Always specify which metrics you used for the error bars
+
+
+
+#Workaround
+***
+
+It is better to avoid error bars as much as you can. Of course it is not possible if you only have summary statistics. But if you know the individual data points, show them. Several workarounds are possible. The [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html) is a good one for a relatively small amount of data. The [violin plot](https://www.data-to-viz.com/graph/violin.html) is another possibility if you have a big sample size to display.
+  
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+data %>%
+  ggplot( aes(x=Species, y=Sepal.Length)) +
+    geom_boxplot( fill="#69b3a2", notch=TRUE) +
+    geom_jitter( size=0.9, color="orange", width=0.1) +
+    ggtitle("confidence interval") +
+    theme(
+      plot.title = element_text(size=6)
+    ) +
+    theme_ipsum() +
+    xlab("") +
+    ylab("Sepal Length")
+```  
+
+
+
+#Going further
+***
+
+- Weissgerber et al. 2015, *Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm*. [link](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
+- Doing boxplots in [R](https://www.r-graph-gallery.com/boxplot/) and [Python](https://python-graph-gallery.com/boxplot/)
+- Doing violin plots in [R](https://www.r-graph-gallery.com/violin/) and [Python](https://python-graph-gallery.com/violin/)
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 </div>
 

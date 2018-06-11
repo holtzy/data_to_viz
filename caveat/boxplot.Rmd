@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/boxplot.png"
+mytitle: "The Boxplot and its pitfalls"
+mydisqus: "boxplot"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -20,43 +21,219 @@ output:
 <div class="mycontent">
 
 
+A boxplot gives a nice summary of one or several numeric variables. It is composed by several elements:
 
+- The line that divides the box into 2 parts represents the [median](https://en.wikipedia.org/wiki/Median) of the data. If the median is 10, it means that there is the same number of data points below and above 10.
+- The end of the box shows the upper and lower [quartiles](https://en.wikipedia.org/wiki/Quartile). If the third quartile is 15, it means that 75% of the observation are lower than 15.
+- The difference between Quartiles 1 and 3 is called the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range) (IQR)
+- The extreme lines show the highest and lowest value excluding outliers. 
 
+<br>
 
+Here is a diagram showing the boxplot anatomy:
 
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+<br>
+
+<center>
+<img src="IMG/boxplot_explanation.png" alt="img" width="600" height="700">
+</center>
+
+<center>
+*[Anatomy of a boxplot (image source)](https://www.leansigmacorporation.com/box-plot-with-minitab/)*
+</center>
+
+<br>
+
+A boxplot summarizes the distribution of a numeric variable for several groups. The problem is that summarizing also means loosing information, and that can become a pitfall. If we consider the boxplot below, it is easy to conclude that the group `C` has a higher value than the others. However, we cannot see what is the underlying distribution of dots into each group, neither their number of observation.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
+library(viridis)
+library(plotly)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# Plot
+data %>%
+  ggplot( aes(x=name, y=value, fill=name)) +
+    geom_boxplot() +
+    scale_fill_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A somewhat misleading boxplot") +
+    xlab("")
 ```
-</div>
-</div>
+
+Let’s see what happens when the boxplot is improved using additional elements.
 
 
 
-
-
-
-
-
-
-
-#Histogram
+#Adding jitter
 ***
+
+If the amount of data you are working with is not too high, adding `jitter` on top of your boxplot can make the graphic more insgightful.
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+# Plot
+data %>%
+  ggplot( aes(x=name, y=value, fill=name)) +
+    geom_boxplot() +
+    scale_fill_viridis(discrete = TRUE) +
+    geom_jitter(color="grey", size=0.7, alpha=0.5) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A boxplot with jitter") +
+    xlab("")
+```
+
+Here some new patterns appear clearly. The group `C` has a very low sample size compared to the group `B` and `C`. This is definnitely something you want to find out before saying that groupd `C` has a greater value than others. Moreover, it looks like group `B` has a `bimodal distribution`: dots are distributed in 2 groups: around y=18 and y=13.
+
+
+
+#Switching to violin plot
+***
+If you have a huge sample size, using `jitter` is not an option anymore since dots tend to overlap, making the figure unreadable. Another alternative is the [violin plot](https://www_data-to-viz.com/violin.html), that describe the distribution of the data for each group:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+# sample size
+sample_size = data %>% group_by(name) %>% summarize(num=n())
+
+# Plot
+data %>%
+  left_join(sample_size) %>%
+  mutate(myaxis = paste0(name, "\n", "n=", num)) %>%
+  ggplot( aes(x=myaxis, y=value, fill=name)) +
+    geom_violin(width=1.4) +
+    geom_boxplot(width=0.1, color="grey", alpha=0.2) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A boxplot with jitter") +
+    xlab("")
+```
+Here it appears very clearly that the shape of the distribution is very different from a group to another. The bimodal distribution of group `B` becomes obvious. Violin plot is a very powerful way to display information, that is probably underutilized compare to boxplot.
+
+
+
+
+#Adding the sample size
+***
+On the previous chart, sample size of each group is indicated on the X axis, below group name. This is a good practice and allows to find out that the group `C` is under represented. However, it is sometimes better to show the data points themselves, thus this really good alternative: a half violin plot showing raw data. This uses code coming from [jbburant](https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062) and [David Robinson](https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+# Code coming from @drob: https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r
+"%||%" <- function(a, b) {
+  if (!is.null(a)) a else b
+}
+
+geom_flat_violin <- function(mapping = NULL, data = NULL, stat = "ydensity",
+                        position = "dodge", trim = TRUE, scale = "area",
+                        show.legend = NA, inherit.aes = TRUE, ...) {
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = GeomFlatViolin,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = inherit.aes,
+    params = list(
+      trim = trim,
+      scale = scale,
+      ...
+    )
+  )
+}
+
+#' @rdname ggplot2-ggproto
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomFlatViolin <-
+  ggproto("GeomFlatViolin", Geom,
+          setup_data = function(data, params) {
+            data$width <- data$width %||%
+              params$width %||% (resolution(data$x, FALSE) * 0.9)
+            
+            # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
+            data %>%
+              group_by(group) %>%
+              mutate(ymin = min(y),
+                     ymax = max(y),
+                     xmin = x,
+                     xmax = x + width / 2)
+            
+          },
+          
+          draw_group = function(data, panel_scales, coord) {
+            # Find the points for the line to go all the way around
+            data <- transform(data, xminv = x,
+                              xmaxv = x + violinwidth * (xmax - x))
+            
+            # Make sure it's sorted properly to draw the outline
+            newdata <- rbind(plyr::arrange(transform(data, x = xminv), y),
+                             plyr::arrange(transform(data, x = xmaxv), -y))
+            
+            # Close the polygon: set first and last point the same
+            # Needed for coord_polar and such
+            newdata <- rbind(newdata, newdata[1,])
+            
+            ggplot2:::ggname("geom_flat_violin", GeomPolygon$draw_panel(newdata, panel_scales, coord))
+          },
+          
+          draw_key = draw_key_polygon,
+          
+          default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
+                            alpha = NA, linetype = "solid"),
+          
+          required_aes = c("x", "y")
+)
+
+
+# Final plot inspired from @jbburant: https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062
+data %>%
+  sample_frac(0.4) %>%
+  ggplot(aes(x = name, y = value, fill = name)) + 
+    geom_flat_violin(scale = "count", trim = FALSE, width=2) + 
+    scale_fill_viridis(discrete = TRUE) +
+    stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "pointrange", position = position_nudge(4.9)) + 
+    geom_dotplot(binaxis = "y", dotsize = 0.8, stackdir = "down", binwidth = 0.3, position = position_nudge(-0.025)) + 
+    theme_ipsum() +
+    theme(
+      legend.position = "none"
+    ) + 
+    ylab("value")
+```
+
+
+
+#Going further
+***
+
+- Hintze et al. 1998, *Violin Plots: A Box Plot-Density Trace Synergism*. [PDF](http://www.stat.cmu.edu/~rnugent/PCMI2016/papers/ViolinPlots.pdf)
+- Doing boxplots in [R](https://www.r-graph-gallery.com/boxplot/) and [Python](https://python-graph-gallery.com/boxplot/)
+- Doing violin plots in [R](https://www.r-graph-gallery.com/violin/) and [Python](https://python-graph-gallery.com/violin/)
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 </div>
 
