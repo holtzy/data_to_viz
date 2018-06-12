@@ -22,36 +22,3 @@ This project is built on two underlying philosophies. First, that most of the da
 Dataviz is a world with endless possibilities and this project does not claim to be exhaustive. However it should lead you to a good starting point. An interactive version of this classification is available online. It provides more information on each chart type and highlights a few pitfalls to avoid. For each dataset format, an example of real data analysis is offered to illustrate the different chart types with their pro and con.
 
 Data-to-viz.com
-
-
-
-
-
-
-
-
-
-
-
-- Not exhaustive
-
-- Not gonna save your life, but helps
-
-- Most of our analysis can be summarized in about 20 datasets.
-
-- There is a website going with it. It gives more info, give strength and weakness of each graph type, give story, caveats..
-
-- Dataviz = infinite possibilities
-
-- There is not one graph for one goal. The best graph depends of the content of your data. A scatterplot can be beauty or ugly following what’s in there. Thus the only way is to try all of them.
-
-- From data to viz is a decision tree leading to the potential graph type you could apply to your data.
-
-- It is a common problem to wonder what graphics to do.
-
-- The same data can be visualized in many ways
-
-- data & context decide the chart. You can’t decide before trying.
-
-You can find an interactive version
-

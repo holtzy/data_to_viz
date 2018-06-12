@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/overplotting.png"
+mytitle: "How to avoid overplotting"
+mydisqus: "overplotting"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -25,25 +26,45 @@ output:
 
 
 <div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+
+
+<div class = "col-md-6">
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
+library(viridis)
+library(patchwork)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# Dataset:
+a <- data.frame( x=rnorm(20000, 10, 1.2), y=rnorm(20000, 10, 1.2), group=rep("A",20000))
+b <- data.frame( x=rnorm(20000, 14.5, 1.2), y=rnorm(20000, 14.5, 1.2), group=rep("B",20000))
+c <- data.frame( x=rnorm(20000, 9.5, 1.5), y=rnorm(20000, 15.5, 1.5), group=rep("C",20000))
+data <- do.call(rbind, list(a,b,c))               
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=2) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
 ```
+
+
 </div>
+
+
+
+<div class = "col-md-6">
+<br><br>
+Overplotting is a common issue in dataviz. When your dataset is big, dots of your [scatterplot](https://www.data-to-viz.com/graph/scatter.html) tend to overlap, making the graphic unreadable.
+<br><br>
+This issue is illustrated in the scatterplot beside. A first look might lead to the conclusion that there is no obvious relationships between X and Y. We will see below how wrong it is.
+<br><br>
+In this post, I suggest 10 workarounds to avoid overplotting.
+</div>
+
 </div>
 
 
@@ -55,8 +76,214 @@ data %>% head(6) %>% kable() %>%
 
 
 
-#Histogram
+
+
+
+
+#Decreasing dot size
 ***
+The easiest workaround is probably to `reduce dot size`. Depending on the quantity of overlap you have, it can give a really satisfying result. Here it appears clearly that 3 clusters are present, what whas hidden on the previous figure.
+
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=0.02) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
+```
+
+#Transparency
+***
+In combination with decreasing dot size, using transparency also allows to reveal patterns when you encounter overplotting issues:
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=2, alpha=0.01) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
+```
+
+
+#2D density
+***
+The 2d density chart basically counts the number of observations within a particular area of the 2D space and represent this count by a color. If you divide the space by several squares you get a 2D histogram. If you use hexagons you get a hexbin plot. You can also calculate Density estimate and represent 2D density plots or Contour plots. You can read more about this on the [dedicated page](https://www.data-to-viz.com/graph/density2d.html) of data-to-viz.com.
+
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_viridis() +
+  theme(
+    legend.position='none'
+  )
+```
+
+
+#Sampling
+***
+Sometimes less is more. Plotting only a fraction of your data (5% here) greatly impact the computing time and help to avoid overplotting:
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  sample_frac(0.05) %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=2) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
+```
+
+
+
+#Highlighting a group
+***
+Another way to reduce the complexity on the graphic is to highlight a specific group. (This suggest that you have a grouping variable in your dataset).
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="grey", size=2) +
+    geom_point(data = data %>% filter(group=="B"), color="#69b3a2", size=2) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=12)
+    ) +
+    ggtitle('Behavior of the group B') 
+```
+
+
+
+#Grouping
+***
+If you have a grouping variable it is highly recommended to make it appear on the graphic. In the case of overplotting, it can also help to reveal patterns.
+
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  ggplot( aes(x=x, y=y, color=group)) +
+    geom_point( size=2, alpha=0.1) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum()
+```
+
+
+#Faceting
+***
+As soon as you have several groups in your plot, an alternative is to use faceting: the same plot is repeated, each time highlighting another group:
+```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+# Plot with small dot size
+data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point( data=data %>% select(-group), size=1, alpha=0.05, color="grey") +
+    geom_point( aes( color=group) , size=2, alpha=0.1) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+    ) +
+    facet_wrap(~group)
+```
+
+
+
+
+#Jittering
+***
+`Jittering` is an option when one of the axis is qualitative (like 1, 2, 3.., see left figure). It adds or substract a random value to each data point to avoid overplotting. Note that other chart types are available in that kind of situation, like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin plot](https://www.data-to-viz.com/graph/violin.html).
+
+```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+# Create data
+don <- data.frame(
+  x = rep(seq(1,5), each=1000),
+  y = c( rnorm(1000, 4, 2), rnorm(1000, 4, 4), rnorm(500, 2, 1), rnorm(500, 10, 2), rnorm(1000, 8, 4), rnorm(1000, 10, 4))
+)
+
+# basique plot
+p1 <- don %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point( aes( color=x) , size=2, alpha=0.2) +
+    scale_color_viridis() +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+    )
+
+# Plot with jitter
+p2 <- don %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_jitter( aes( color=x) , size=2, alpha=0.2, width=0.3) +
+    scale_color_viridis() +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+    )
+
+p1 + p2
+```
+
+
+#3D
+***
+
+As for 2d density plots, it is possible to transform the scatter plot information in a grid, and count the number of data points on each position of the grid. Then, instead of representing this number by a graduating color, the surface plot use 3d to represent dense are higher than others. In this case, the position of the 3 groups become obvious:
+```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+library(plotly)
+library(MASS)
+
+# Compute kde2d
+kd <- with(data, MASS::kde2d(x, y, n = 50))
+
+# Plot with plotly
+plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
+```
+
+
+
+#Marginal distribution
+***
+Adding marginal distribution allows to detect the distribution hidden on the overplotting parts of the graphic. You can add a boxplot, a histogram or a density plot in the marginal parts.
+```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+library(ggExtra)
+
+# create a ggplot2 scatterplot
+p <- data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=2, alpha=0.01) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
+
+# add marginal histograms
+ggExtra::ggMarginal(p, type = "histogram")
+```
+
+
+
+
+
+#Going further
+***
+
+- *Too Big Data: Coping with Overplotting* by [Tim Brock](https://www.infragistics.com/community/blogs/b/tim_brock/posts/too-big-data-coping-with-overplotting)
+- Scatterplots in [R](https://www.r-graph-gallery.com/scatterplot/) and [Python](https://python-graph-gallery.com/scatter-plot/).
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 </div>
 
