@@ -77,7 +77,7 @@ Let’s see what happens when the boxplot is improved using additional elements.
 
 
 
-#Adding jitter
+#Adding jitter {#boxplotjitter}
 ***
 
 If the amount of data you are working with is not too high, adding `jitter` on top of your boxplot can make the graphic more insgightful.

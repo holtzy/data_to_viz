@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/violinSmall.png"
+mydisqus: "violin"
+mytitle: "Violin plot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -18,41 +18,158 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+Violin plot allows to visualize the distribution of a numeric variable for one or several groups. Each 'violin' represents a group or a variable. The shape represents the density estimate of the variable: the more data points in a specific range, the larger the violin is for that range. It is really close to a [boxplot](http://www.data-to-viz.com/caveat/boxplot.html), but allows a deeper understanding of the distribution.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+<br>
+
+Here is an example showing how people [perceive probability](http://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html). On the [/r/samplesize](https://www.reddit.com/r/SampleSize/) thread of reddit, questions like *What probability would you assign to the phrase “Highly likely”* were asked. Answers between 0 and 100 were recorded, and here is the distribution for each question:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>% 
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+
+# Plot
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(x=text, y=value, fill=text, color=text)) +
+    geom_violin(width=2.1, size=0.2) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    ) +
+    coord_flip() +
+    xlab("") +
+    ylab("Assigned Probability (%)")
 ```
+
+**Disclaimer**: This idea originally comes from a publication of the [CIA](https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html) which resulted in this [figure](https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/fig18.gif/image.gif). Then, [Zoni Nation](https://github.com/zonination) cleaned the reddit dataset and built [graphics with R](https://github.com/zonination/perceptions).  
+
 
 
 # What for
 ***
 
-Still in progress
+Violin plot is a powerful data visualization technique since it allows to compare both the `ranking` of several groups and their `distribution`. Surprisingly, it is less used than [boxplot](http://www.data-to-viz.com/caveat/boxplot.html), even if it provides more information in my opinion.
+
+<br>
+
+Violins are particularly adapted when the amount of data is huge and showing individual observations gets impossible. For small datasets, a [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html/#boxplotjitter) is probably a better option since it really shows all the information. This technique getting impossible with many data points, violin plot take all their sense
+
+
+
 
 # Variation
 ***
 
-Again
+- Violin plot are made vertically most of the time. If you have long label, building an horizontal version like above make the labels more readable.
+
+- It is possible to display a boxplot in the violin: it allows to assess the median and quartiles in a glimpse. See the boxplot section for more info.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# sample size
+sample_size = data %>% group_by(name) %>% summarize(num=n())
+
+# Plot
+data %>%
+  left_join(sample_size) %>%
+  mutate(myaxis = paste0(name, "\n", "n=", num)) %>%
+  ggplot( aes(x=myaxis, y=value, fill=name)) +
+    geom_violin(width=1.4) +
+    geom_boxplot(width=0.1, color="grey", alpha=0.2) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A boxplot with jitter") +
+    xlab("")
+```
+
+
+
+- If your variable are grouped, you can build a grouped violin as you would do for a boxplot. Here is an example showing [how much Male and Female tip](http://www.data-to-viz.com/story/OneNumSevCatSubgroupSevObsPerGroup.html) depending on the day of the week.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv", header=T, sep=",") %>%
+  mutate(tip = round(tip/total_bill*100, 1))
+  
+# Grouped
+data %>%
+  mutate(day = fct_reorder(day, tip)) %>%
+  mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
+  ggplot(aes(fill=sex, y=tip, x=day)) + 
+    geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") +
+    scale_fill_viridis(discrete=T, name="") +
+    theme_ipsum()  +
+    xlab("") +
+    ylab("Tip (%)") +
+    ylim(0,40)
+```
+
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+- If you have just a few groups, you are probably interested by [ridgeline charts](http://www.data-to-viz.com/graph/ridgeline.html). Here is a version of the probability perception story:
+```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>% 
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+
+library(ggridges)
+
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(y=text, x=value,  fill=text)) +
+    geom_density_ridges(alpha=0.6, bandwidth=4) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)")
+```
+
+- If you compare groups with very [different sample size](http://www.data-to-viz.com/caveat/boxplot.html), show it.
+- [Ordering groups](http://www.data-to-viz.com/caveat/order_data.html) by median value makes the chart more insightful.
+
+
 
 
 
