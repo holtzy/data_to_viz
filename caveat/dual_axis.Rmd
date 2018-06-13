@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/dual_axis.png"
+mydisqus: "dual_axis"
+mytitle: "The issue with dual axis"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -14,49 +15,100 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
+ 
 ---
 
 <br><br>
 <div class="mycontent">
 
 
-
-
-
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
-```
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-#Histogram
+#Example
 ***
+ good example coming from
+ http://emschuch.github.io/Planned-Parenthood/
+ and from
+ http://www.politifact.com/truth-o-meter/statements/2015/oct/01/jason-chaffetz/chart-shown-planned-parenthood-hearing-misleading-/
+ 
+ initially published on http://www.aul.org
+ 
+ 
+ Data here
+ https://docs.google.com/spreadsheets/d/1vzkuzSi2S-JO0m0VolflzxaMN9wUfjw6Slek97_6L4s/edit#gid=0
+
+
+
+
+
+```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
+library(plotly)
+
+ay <- list(
+  tickfont = list(color = "red"),
+  overlaying = "y",
+  side = "right",
+  title = "second y axis"
+)
+p <- plot_ly() %>%
+  add_lines(x = ~1:3, y = ~10*(1:3), name = "slope of 10") %>%
+  add_lines(x = ~2:4, y = ~1:3, name = "slope of 1", yaxis = "y2") %>%
+  layout(
+    title = "Double Y Axis", yaxis2 = ay,
+    xaxis = list(title="x")
+  )
+
+# add slider control to plot
+p <- p %>%
+  layout(sliders = list(list(active = 3,
+                             currentvalue = list(prefix = "Frequency: "),
+                             steps = c(1:10))))
+p
+```
+
+```{r}
+x <- seq(0,10, length.out = 1000)
+
+# create data
+aval <- list()
+for(step in 1:11){
+  aval[[step]] <-list(visible = FALSE,
+                      name = paste0('v = ', step),
+                      x=x,
+                      y=sin(step*x))
+}
+aval[3][[1]]$visible = TRUE
+aval
+
+
+
+# create steps and plot all traces
+steps <- list()
+p <- plot_ly()
+for (i in 1:11) {
+  p <- add_lines(p,x=aval[i][[1]]$x,  y=aval[i][[1]]$y, visible = aval[i][[1]]$visible, 
+                 name = aval[i][[1]]$name, type = 'scatter', mode = 'lines', hoverinfo = 'name', 
+                 line=list(color='00CED1'), showlegend = FALSE)
+
+  step <- list(args = list('visible', rep(FALSE, length(aval))),
+               method = 'restyle')
+  step$args[[2]][i] = TRUE  
+  steps[[i]] = step 
+}  
+
+# add slider control to plot
+p <- p %>%
+  layout(sliders = list(list(active = 3,
+                             currentvalue = list(prefix = "Frequency: "),
+                             steps = steps)))
+p
+```
+
+
+
+find how to add a slider:
+https://plot.ly/r/sliders/
+
+
+
 
 </div>
 
