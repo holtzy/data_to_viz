@@ -111,34 +111,24 @@
     <section id="explore" style="padding: 0px 0; padding-top: 100px">
       <div class="container">
         <div class="row">
+          <div class="col-lg-2 text-center"></div>
+          <div class="col-lg-8 text-center">
+            <p>What kind of data do you have? Pick up the main type using the button below. Then let the decision tree guides you toward your graphic possibilities.</p>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-lg-12 text-center">
-            <h3 class="section-subheading text-muted">How does your data look like?</h3>
-          </div>
-        </div>
-        <div class="row text-center">
-          
-          <div id="numericHead" class="col-md-2 offset-md-1 treeHead" onMouseOver="showTree('num'); highlightHead('numericHead');" >
-            <h4 class="service-heading">Numeric</h4>
-          </div>
-          
-          <div id="categoricHead" class="col-md-2 treeHead" onMouseOver="showTree('cat'); highlightHead('categoricHead');" >
-            <h4 class="service-heading">Categoric</h4>
-          </div>
-          
-          <div id="numcatHead" class="col-md-2 treeHead" onMouseOver="showTree('catnum'); highlightHead('numcatHead');">
-            <h4 class="service-heading">Num & Cat</h4>
-          </div>
-              
-          <div id="geographicalHead" class="col-md-2 treeHead" onMouseOver="showTree('geo'); highlightHead('geographicalHead');" >
-            <h4 class="service-heading">Geographical</h4>
-          </div>
-
-          <div id="relationnalHead" class="col-md-2 treeHead" onMouseOver="showTree('relationnal'); highlightHead('relationnalHead');"  >
-            <h4 class="service-heading">Relationnal</h4>
-          </div>
-
-        </div>
-      </div>
+            <div id="myBtnContainer">
+              <button class="btn btn-secondary active" onclick="showTree('num'); highlightHead('numericHead');">Numeric</button>
+              <button class="btn btn-secondary" onclick="showTree('cat'); highlightHead('categoricHead');">Categoric</button>
+              <button class="btn btn-secondary" onclick="showTree('catnum'); highlightHead('numcatHead');">Num & Cat</button>
+              <button class="btn btn-secondary" onclick="showTree('geo'); highlightHead('geographicalHead');">Maps</button>
+              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Network</button>
+              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Time series</button>
+            </div>
+          </div>  
+        </div> 
+       </div>
       <br>
 
 
@@ -2547,28 +2537,28 @@ for (var i = 0; i < btns.length; i++) {
               <div class="carousel-item active">
                 <div class="row">
                   
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/order_data.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/order_data.png">
                       <p class="mytitlerelated">Order your data</p>
                       <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 misleading top10">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/cut_y_axis.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/cut_y_axis.png">
                       <p class="mytitlerelated">To cut or not to cut?</p>
                       <p class="mytextrelated">Cuting the Y axis is one of the most controversial practice in data viz. See why.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/spaghetti.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/spaghetti.png">
                       <p class="mytitlerelated">The spaghetti chart</p>
                       <p class="mytextrelated">A line graph with too many lines becomes unreadable: it is called a spaghetti graph.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/pie.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/pie.png">
                       <p class="mytitlerelated">Pie chart</p>
@@ -2580,28 +2570,28 @@ for (var i = 0; i < btns.length; i++) {
 
               <div class="carousel-item">
                 <div class="row">
-                  <div class="col-md-3 col-sm-6 misleading">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/bin_size.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/bin_size.png">
                       <p class="mytitlerelated">Play with histogram bin size</p>
                       <p class="mytextrelated">Always try different bin size when you build an histogram, it can lead to different insights.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 misleading improvement top10">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/boxplot.png">
                       <p class="mytitlerelated">Does boxplot hide information?</p>
                       <p class="mytextrelated">Boxplot is a great way to summarize a distribution but hides the sample size and their distribution.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 misleading improvement top10">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/error_bar.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/error_bar.png">
                       <p class="mytitlerelated">The problem with error bars</p>
                       <p class="mytextrelated">Barplot with error bars must be used with great care. See why and how to replace it.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/multi_distribution.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/multi_distribution.png">
                       <p class="mytitlerelated">Too many distribution.</p>
@@ -2613,28 +2603,28 @@ for (var i = 0; i < btns.length; i++) {
 
               <div class="carousel-item">
                 <div class="row">
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/overplotting.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/overplotting.png">
                       <p class="mytitlerelated">Overplotting</p>
                       <p class="mytextrelated">Too many points on your scatter plot makes it unreadable? Techniques exist to avoid overplotting.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/rainbow.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/rainbow.png">
                       <p class="mytitlerelated">The rainbow color palette</p>
                       <p class="mytextrelated">Avoid the rainbow color palette when you map a numeric variable. So many better palettes exist.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 improvement">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/small_multiple.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/small_multiple.png">
                       <p class="mytitlerelated">Faceting: horizontal or vertical?</p>
                       <p class="mytextrelated">Placing the individual plot horizontaly or verticaly is an important choice to make.</p>
                     </a>
                   </div>
-                  <div class="col-md-3 col-sm-6 misleading">
+                  <div class="col-lg-3 col-md-6 col-sm-6">
                     <a href="caveat/counter_intuitive.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/counter_intuitive.png">
                       <p class="mytitlerelated">Don't be counter intuitive</p>
