@@ -249,6 +249,20 @@ img::-moz-selection {
     background-size: cover;
 }
 
+.parallaxcontact {
+    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+    background-image: url("../img/parallax/surf_fading.png");
+
+    /* Set a specific height */
+    min-height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 header.masthead .intro-text {
   padding-top: 150px;
   padding-bottom: 150px;
