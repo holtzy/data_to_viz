@@ -1,9 +1,10 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/radius_or_area.png"
+mytitle: "Scaling to radius or area?"
+mydisqus: "radius_or_area"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE
@@ -19,44 +20,68 @@ output:
 <br><br>
 <div class="mycontent">
 
+A usual practice in data visualization consists to `scale` a graphic component to a numeric value. For instance, bar lengths are scaled to values in a [barplot](https://www.data-to-viz.com/graph/barplot). When the value is scaled to an area, scaling it by two sides at the same time produces a quadratic effect for a linear change. This amplifies the differences.
 
 
 
-
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
-```
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-#Histogram
+#Example
 ***
+Here is an example coming from the Barack Obama’s [State of the Union](https://www.youtube.com/watch?v=kl2g40GoRxg) speech in 2011. It shows the 2010 Gross Domestic Product of 5 countries, each value beeing represented by a circle. The radius of each circle has been scaled based on the size of each nation’s economy. 
+
+<br><br>
+
+<center>
+<img src="IMG/circle_radius.jpg" alt="img" width="600" height="700">
+</center>
+
+<center>
+Source: [The 2011 State of the Union Address](https://www.youtube.com/watch?v=kl2g40GoRxg)
+</center>
+<br><br>
+
+Here, America's economy looks way bigger than others.
+
+
+
+#Correction
+***
+
+This distorts the perception of the relative sizes of the circles since the radius scales linearly, but the area scales quadratically. Basically, the size of the United States economy appears much bigger than it should.
+
+<br>
+
+Here is a corrected version released on the [Fast Fedora blog](http://blog.fastfedora.com/2011/01/2011-state-of-the-union-visualizations.html) where circle size is scaled to the area instead:
+
+<br><br>
+
+<center>
+<img src="IMG/circle_radius2.jpg" alt="img" width="600" height="700">
+</center>
+
+<br><br>
+
+The United States still have the biggest economy, but the difference with other country does not appear as big as it was on the first graphic.
+
+
+#Conclusion
+***
+When working with 2d objects, the scaling must be done using the area and not the radius. Furthermore, note that areas are a poor metaphor of values, badly perceived by human eyes. It must be used only when better visuals have already been used on the graphic (like in [bubble plot](https://www.data-to-viz.com/graph/bubble.html)). In this case, a barplot would probably have done a better job. 
+
+
+
+#Going further
+***
+
+- *Linear vs. Quadratic Change* by [Robert Kosara](https://eagereyes.org/blog/2008/linear-vs-quadratic-change)
+- *2011 State of the Union Visualizations: Charts, Graphs & Infographics* on the [Fast Fedora](http://blog.fastfedora.com/2011/01/2011-state-of-the-union-visualizations.html) blog
+- This pitfall example comes from this [blog](http://paldhous.github.io/ucb/2016/dataviz/week2.html)
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 </div>
 

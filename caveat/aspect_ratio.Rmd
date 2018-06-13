@@ -1,0 +1,148 @@
+---
+myimage1: "../img/mistake/aspect_ratio.png"
+mytitle: "Mind the aspect ratio"
+mydisqus: "aspect_ratio"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+`Aspect ratio` is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insight of your graphic, making it readable or not.  
+
+<br>
+
+Here is an example with a line plot showing yearly sunspot numbers from 1749 to 1983. ([Sunspots](https://en.wikipedia.org/wiki/Sunspot) are temporary phenomena on the Sun's photosphere that appear as spots darker than the surrounding areas.). The dataset comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613) originally, related by [Andrews et al.](https://www.springer.com/gp/book/9781461295631).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# Load dataset: comes with R
+data <- data.frame(
+  Year = as.numeric(time(sunspot.year)),
+  Sunspots = as.numeric(sunspot.year)
+)
+
+# Plot
+data %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_line() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
+```
+
+
+The [solar cycle](https://en.wikipedia.org/wiki/Solar_cycle) is quite obvious on this figure. The sunspot numbers follow this nearly periodic 11-year change in the sun's activity, making the line going up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
+
+
+
+#Playing with the aspect ratio
+***
+Now let's change the aspect ratio of this figure, making it wider and less high. To exagerate the effect the graphic is even zoomed on the 1800 to 1900 period:
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=12, fig.height=3}
+
+# Plot
+data %>%
+  filter(Year>1800 & Year<1900) %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_line() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
+```
+
+The conclusion found using the first graphic are still true, but here a new pattern is visible. The sunspot number increases quicker than it decreases ([ref](http://adsabs.harvard.edu/full/1992SoPh..137...51H)). This is due to the fact that the sunspot decay rate is lower than the formation rate ([ref](http://www2.mps.mpg.de/dokumente/publikationen/solanki/r45.pdf)).
+
+<br>
+
+On the first chart this pattern was not visible since lines were almost vertical from the bottom to the top of a pic. Here, the slope beeing less steep, this pattern becomes visible.
+
+
+#Target 45 degrees
+***
+
+Here is a figure from [W.S. Cleveland](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) explaining that the aspect ratio of a graphic should target 45 degrees angle on this kind if figure. It shows what happens when angles are too big or to small:
+
+<br><br>
+
+<center>
+<img src="IMG/angle45.png" alt="img" width="600" height="700">
+</center>
+
+<center>
+[W.S. Cleveland. 1993. Visualizing Data.](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406)
+</center>
+<br><br>
+
+
+#Interactivity
+***
+
+In this kind of situation, producing an interactive graphic allows the user to `zoom` on a specific part and thus to try several different aspect ratio. Allowing this kind of exploration greatly improves the value of your graphic:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=9, fig.height=6}
+
+library(plotly)
+
+# Plot
+p <- data %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_line() +
+    ggtitle("# of sunspots (select a zone to zoom in)") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
+
+ggplotly(p)
+```
+
+
+#Going further
+***
+
+- About the 45° rule: [W.S. Cleveland. 1993. Visualizing Data.](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406)
+- Doing line plots in [R](https://www.r-graph-gallery.com/line-plot/) and [Python](https://python-graph-gallery.com/line-chart/)
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

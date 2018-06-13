@@ -29,6 +29,19 @@ Cuting or not the Y axis is probably one of the most disputed topic in data visu
 ***
 Let's start with a barplot showing the
 
+<br><br>
+
+<center>
+<img src="IMG/cut_barplot.jpg" alt="img" width="600" height="700">
+</center>
+
+<center>
+Source: Fox News, via [Media Matters for America](https://www.mediamatters.org/blog/2013/04/05/fox-news-newest-dishonest-chart-immigration-enf/193507)
+</center>
+<br><br>
+
+
+
 
 #When it is good
 ***
