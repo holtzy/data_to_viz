@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/Joyplot150.png"
+mydisqus: "ridgeline"
+mytitle: "Ridgeline plot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -18,42 +18,110 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A Ridgeline plot (sometimes called Joyplot) shows the distribution of a numeric value for several groups. Distribution can be represented using [histograms](http://www.data-to-viz.com/graph/histogram.html) or [density plots](http://www.data-to-viz.com/graph/density.html), all aligned to the same horizontal scale and presented with a slight overlap. 
+
+
+<br>
+
+Here is an example showing how people [perceive probability](http://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html). On the [/r/samplesize](https://www.reddit.com/r/SampleSize/) thread of reddit, questions like *What probability would you assign to the phrase “Highly likely”* were asked. Answers between 0 and 100 were recorded, and here is the distribution for each question:
+
+
+```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>% 
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+
+library(ggridges)
+
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(y=text, x=value,  fill=text)) +
+    geom_density_ridges(alpha=0.6, bandwidth=4) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)")
 ```
+
+
+**Disclaimer**: This idea originally comes from a publication of the [CIA](https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html) which resulted in this [figure](https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/fig18.gif/image.gif). Then, [Zoni Nation](https://github.com/zonination) cleaned the reddit dataset and built [graphics with R](https://github.com/zonination/perceptions).  
 
 
 # What for
 ***
 
-Still in progress
+- Ridgeline plots make sense when the number of group to represent is `medium to high`, and thus a classic window separation would take to much space. Indeed, the fact that groups overlap each other allows to use space more efficiently. If you have less than ~6 groups, dealing with other [distribution plots](http://www.data-to-viz.com/#portfolio) is probably better.
+
+- It works well when there is a clear pattern in the result, like if there is an obvious ranking in groups. Otherwise group will tend to overlap each other, leading to a messy plot not providing any insight.
+
+
 
 # Variation
 ***
 
-Again
+- The above example is a ridgeline plot using a set of density plots. It is possible to use histograms as well:
+```{r, fig.align='center', fig.height=5, fig.width=7, warning=FALSE, message=FALSE}
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(y=text, x=value,  fill=text)) +
+    geom_density_ridges(alpha=0.6, stat="binline", bins=20) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)")
+```
 
+
+- It is possible to color depending on the numeric variable instead of the categoric one. (code from the [ridgeline R package](https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html) by [Claus O. Wilke](https://github.com/clauswilke) )
+```{r, fig.align='center', fig.height=5, fig.width=7, warning=FALSE, message=FALSE}
+ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x..)) +
+  geom_density_ridges_gradient(scale = 3, rel_min_height = 0.01) +
+  scale_fill_viridis(name = "Temp. [F]", option = "C") +
+  labs(title = 'Temperatures in Lincoln NE in 2016') +
+  theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) 
+```
+
+- See more variations in the [R graph gallery](https://www.r-graph-gallery.com/ridgeline-plot/).
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
+- As with histogram or density plot, [play with bin size / bandwidth argument](http://www.data-to-viz.com/caveat/bin_size.html).
+- Think about [ordering groups](http://www.data-to-viz.com/caveat/order_data.html) in a smart way.
+- Ridgeline plot works well when there is a `clear pattern` to discover since it hides a part of the data where the overlap takes place.
 
 
 
@@ -93,15 +161,16 @@ Again
 
 
 
+
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/ridgeline-plot/" class="btn btn-primary">R graph gallery</a>
 </p>
+
 
 
 

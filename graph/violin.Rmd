@@ -71,7 +71,7 @@ Violin plot is a powerful data visualization technique since it allows to compar
 
 <br>
 
-Violins are particularly adapted when the amount of data is huge and showing individual observations gets impossible. For small datasets, a [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html/#boxplotjitter) is probably a better option since it really shows all the information.
+Violins are particularly adapted when the amount of data is huge and showing individual observations gets impossible. For small datasets, a [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html#boxplotjitter) is probably a better option since it really shows all the information.
 
 
 
@@ -215,8 +215,8 @@ data %>%
 The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/violin-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/violin-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 

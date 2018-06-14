@@ -1,0 +1,51 @@
+---
+myimage1: "../img/mistake/bin_size.png"
+mytitle: "Radar chart and its caveats"
+mydisqus: "spider"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+#Going further
+***
+- see http://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2
+- About histogram [bin width optimization](http://176.32.89.45/~hideaki/res/histogram.html)
+- Doing histograms in [R](https://www.r-graph-gallery.com/histogram/) and [Python](https://python-graph-gallery.com/histogram/)
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
