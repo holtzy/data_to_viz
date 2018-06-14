@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/ScatterPlotSmall.png"
+mydisqus: "scatter"
+mytitle: "Scatter plot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -18,42 +18,126 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+A scatterplot displays the relationship between 2 numeric variables. For each data point, the value of its first variable is represented on the X axis, the second on the Y axis.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+<br>
+
+Here is an example considering the price of 1460 apartements and their ground living area. This dataset comes from a [kaggle](https://www.kaggle.com/c/house-prices-advanced-regression-techniques/data) machine learning competition. You can read more about this example [here](http://www.data-to-viz.com/story/TwoNum.html).
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=5}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", header=T, sep=",") %>% dplyr::select(GrLivArea, SalePrice)
+
+# plot
+data %>% 
+  ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
+    geom_point(color="#69b3a2", alpha=0.8) +
+    ggtitle("Ground living area partially explains sale price of apartments") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    ) +
+    ylab('Sale price (k$)') +
+    xlab('Ground living area')
 ```
 
 
 # What for
 ***
+A scatterplot is made to study the relationship between 2 variables. Thus it is often accompanied by a [correlation coefficient](https://en.wikipedia.org/wiki/Correlation_coefficient) calculation, that usually tries to measure the `linear relationship`. 
 
-Still in progress
+<br>
+
+However other types of relationship can be detected using scatterplots, and a common task consists to fit a model explaining Y in function of X. Here is a few pattern you can detect doing a scatterplot.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=5}
+# Create data
+d1 <- data.frame(x=seq(1,100), y=rnorm(100), name="No trend")
+d2 <- d1 %>% mutate(y=x*10 + rnorm(100,sd=60)) %>% mutate(name="Linear relationship")
+d3 <- d1 %>% mutate(y=x^2 + rnorm(100,sd=140)) %>% mutate(name="Square")
+d4 <- data.frame( x=seq(1,10,0.1), y=sin(seq(1,10,0.1)) + rnorm(91,sd=0.6)) %>% mutate(name="Sin")
+don <- do.call(rbind, list(d1, d2, d3, d4))
+
+# Plot
+don %>%
+  ggplot(aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", alpha=0.8) +
+    theme_ipsum() +
+    facet_wrap(~name, scale="free")
+
+```
+
 
 # Variation
 ***
 
-Again
+
+Interactivity is a real plus for scatterplot. It allows to `zoom` on a specific part of the graphic to detect more precise pattern. It also allows to `hover` dots to get more information about them, like below:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=5}
+# Plotly allows to turn any ggplot2 graphic interactive
+library(plotly)
+
+p <- data %>% 
+  mutate(text=paste("Apartment Number: ", seq(1:nrow(data)), "\nLocation: New York\nAny other information you need..", sep="")) %>%
+  ggplot( aes(x=GrLivArea, y=SalePrice/1000, text=text)) +
+    geom_point(color="#69b3a2", alpha=0.8) +
+    ggtitle("Ground living area partially explains sale price of apartments") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    ) +
+    ylab('Sale price (k$)') +
+    xlab('Ground living area')
+
+ggplotly(p, tooltip="text")
+```
+
+
+
+Scatterplot are sometimes supported by marginal distributions. It indeed adds insight to the graphic, revealing the distribution of both variables:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=5}
+library(ggExtra)
+
+# create a ggplot2 scatterplot
+p <- data %>%
+  ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
+    geom_point(color="#69b3a2", alpha=0.8) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    )
+
+# add marginal histograms
+ggExtra::ggMarginal(p, type = "histogram", color="grey")
+```
+
+
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+- [Overplotting](http://www.data-to-viz.com/caveat/overplotting.html) is the most common mistake when sample size is high. [This post](http://www.data-to-viz.com/caveat/overplotting.html) describes about 10 different workarounds to fix this issue.
 
+- Don't forget to show subgroups if you have some. Indeed it can reveal important hidden patterns in your data, like in the case of the Simpson paradox.
 
 
 
@@ -61,34 +145,36 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
+  <p class="mytitlerelated">Bubble plot</p>
+  <p class="mytextrelated">Add a third dimension to your scatter: the circle size</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Correlogram</p>
+  <p class="mytextrelated">Shows the relationship between each pair of numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+  <p class="mytitlerelated">Connected Scatterplot</p>
+  <p class="mytextrelated">Very close from a scatterplot, but link data points with segments</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
+
+
 </div>
 
 
@@ -96,11 +182,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/scatterplot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/scatter-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
