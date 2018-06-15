@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/CorrelogramSmall.png"
+mydisqus: "correlogram"
+mytitle: "Correlogram"
 output:
   html_document:
       template: template_datatoviz.html
@@ -19,74 +19,137 @@ output:
 
 
 
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+A `correlogram` or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a [scatterplot](http://www.data-to-viz.com/graph/scatter.html), or a symbol that represents the correlation (bubble, line, number..).
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+<br>
+
+The diagonal often represents the `distribution` of each variable, using an [histogram](http://www.data-to-viz.com/graph/histogram.html) or a [density plot](http://www.data-to-viz.com/graph/density.html).
+
+
+
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
 # Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(viridis)
+library(reticulate)
 ```
+
+```{python, engine.path="/Users/y.holtz/anaconda3/bin/python", fig.width=1, fig.height=1}
+# library & dataset
+import seaborn as sns
+df = sns.load_dataset('iris')
+import matplotlib.pyplot as plt
+ 
+# Basic correlogram
+sns_plot = sns.pairplot(df)
+sns_plot.savefig("IMG/correlogram1.png")
+```
+
+<br><br>
+<center>
+<img src="IMG/correlogram1.png" alt="img" width="500" height="500">
+</center>
+
+<br><br>
+
+
+*Note*: exceptionally, graphic provided in this page are made with [Python](https://python-graph-gallery.com/correlogram/), since I really like the `pairplot` function of the [seaborn library](https://python-graph-gallery.com/correlogram/).
+
+
 
 
 # What for
 ***
 
-Still in progress
+Correlogram are really handy for `exploratory analysis`. It allows to visualize the relationships of the whole dataset in a glimpse. For instance, the linear relationship between petal length and petal width is obvious here, as the  one concerning sepal.
+
+<br>
+
+When you get a multivariate dataset, building a correlogram is one of the first step you should follow.
+
+
 
 # Variation
 ***
 
-Again
+All the variations described in the [scatterplot](http://www.data-to-viz.com/graph/scatter.html) section are also available for correlogram. For example, why not applying a linear regression to each pair of variable:
+
+```{python, engine.path="/Users/y.holtz/anaconda3/bin/python"}
+# with regression
+sns_plot = sns.pairplot(df, kind="reg")
+sns_plot.savefig("IMG/correlogram2.png")
+```
+
+<br><br>
+<center>
+<img src="IMG/correlogram2.png" alt="img" width="500" height="500">
+</center>
+
+<br><br>
+
+As described in the scatterplot section, it is a good practice to display subgroups if a categoric variable is available as well:
+```{python, engine.path="/Users/y.holtz/anaconda3/bin/python"}
+# with regression
+sns_plot = sns.pairplot(df, kind="scatter", hue="species", markers=["o", "s", "D"], palette="Set2")
+sns_plot.savefig("IMG/correlogram3.png")
+```
+
+<br><br>
+<center>
+<img src="IMG/correlogram3.png" alt="img" width="500" height="500">
+</center>
+
+<br><br>
+
+
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
+- Displaying the relationship between more than ~10 variables makes the plot very hard to read
+- All the common caveats of [scatterplot](http://www.data-to-viz.com/graph/scatter.html) and [histogram](http://www.data-to-viz.com/graph/histogram.html) apply
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
+  <p class="mytitlerelated">Bubble plot</p>
+  <p class="mytextrelated">Add a third dimension to your scatter: the circle size</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+  <p class="mytitlerelated">Scatter plot</p>
+  <p class="mytextrelated">Display the relationship between 2 numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+  <p class="mytitlerelated">Connected Scatterplot</p>
+  <p class="mytextrelated">Very close from a scatterplot, but link data points with segments</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
 </div>
@@ -96,11 +159,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/correlogram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/correlogram/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -109,6 +172,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 
