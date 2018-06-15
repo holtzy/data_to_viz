@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/BubblePlotSmall.png"
+mydisqus: "bubble"
+mytitle: "Bubble plot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -27,66 +27,174 @@ output:
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A `bubble plot is a [scatterplot](http://www.data-to-viz.com/graph/scatter.html) where a `third dimension` is added: the value of an additional numeric variable is represented through the `size` of the dots.
+
+You need 3 numerical variables as input: one is represented by the X axis, one by the Y axis, and one by the dot size.
+
+Here is an example using an abstract of the [Gapminder dataset](https://www.gapminder.org/data/) made famous through the [Hans Rosling Ted Talk](https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen). It provides the average life expectancy, gdp per capita and population size for more than 100 countries. This dataset is available through the gapminder [R package](https://github.com/jennybc/gapminder).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=8}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+library(gridExtra)
+library(ggrepel)
+library(plotly)
+
+# The dataset is provided in the gapminder library
+library(gapminder)
+data <- gapminder %>% filter(year=="2007") %>% dplyr::select(-year)
+
+# Show a bubbleplot
+data %>%
+  mutate(pop=pop/1000000) %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot( aes(x=gdpPercap, y=lifeExp, size = pop, color = continent)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE, guide=FALSE) +
+    theme_ipsum() +
+    theme(legend.position="bottom")
 ```
 
 
 # What for
 ***
 
-Still in progress
+In this chart, the relationship between gdp per capita and life Expectancy is quite obvious: rich countries tend to live longuer, with a threshold effect when gdp per capita reaches ~10,000. This relationship could have been detected using a classic [scatterplot](http://www.data-to-viz.com/graph/scatter.html), but the bubble size allows to nuance this result with a third level of information: the country population.
+
+<br>
+
+This last variable is much more difficult to interpret than the one on the X and Y axis. Indeed, area is [hardly interpreted by the human eye](http://www.data-to-viz.com/caveat/bubble_hard.html). But the information is here, and if a clear relationship between population and gdp per capita or life expectancy existed, we would spot it.
+
+
+
+
 
 # Variation
 ***
 
-Again
+The previous graphic is quite interesting since it allows to understand the relationship between gdp per capita and life expectancy. However it can be frustrating not to know what are the countries in the extreme part of the graphic, or what are the one out of the general trend. As usual `annotating` the graphic is a crucial step to make it insightful:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=8}
+# Prepare data
+tmp <- data %>%
+ mutate(
+   annotation = case_when(
+    gdpPercap > 5000 & lifeExp < 60 ~ "yes",
+    lifeExp < 30 ~ "yes",
+     gdpPercap > 40000 ~ "yes"
+    )
+) %>%
+mutate(pop=pop/1000000) %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country))
+
+# Plot
+ggplot( tmp, aes(x=gdpPercap, y=lifeExp, size = pop, color = continent)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(legend.position="none") +
+    geom_text_repel(data=tmp %>% filter(annotation=="yes"), aes(label=country), size=4 )
+```
+
+
+Following the same idea, bubble plot is probably the type of chart where using `interactivity` makes the more sense. In the following plot you can hover bubbles to get conutry name and zoom on a specific part of the graphic.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=8}
+# Interactive version
+p <- data %>%
+  mutate(gdpPercap=round(gdpPercap,0)) %>%
+  mutate(pop=round(pop/1000000,2)) %>%
+  mutate(lifeExp=round(lifeExp,1)) %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  mutate(text = paste("Country: ", country, "\nPopulation (M): ", pop, "\nLife Expectancy: ", lifeExp, "\nGdp per capita: ", gdpPercap, sep="")) %>%
+  ggplot( aes(x=gdpPercap, y=lifeExp, size = pop, color = continent, text=text)) +
+    geom_point(alpha=0.7) +
+    scale_size(range = c(1.4, 19), name="Population (M)") +
+    scale_color_viridis(discrete=TRUE, guide=FALSE) +
+    theme_ipsum() +
+    theme(legend.position="none")
+
+ggplotly(p, tooltip="text")
+```
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+- The problem with bubble plot is that the relationship between the variable of the X and Y axis is much more obvious than the relationship with the third variable. Thus you must `prioritize` your variables and be sure of what you want to show. Before doing that kind of chart, I believe it is a good practice to try other combinations:
 
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=8}
+p2 <- data %>%
+  mutate(pop=pop/1000000) %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot( aes(x=gdpPercap, y=pop, size = lifeExp, color = continent)) +
+    geom_point(alpha=0.7) +
+    scale_color_viridis(discrete=TRUE) +
+    scale_y_log10() +
+    theme_ipsum() +
+    theme(legend.position="none") 
 
+p3 <- data %>%
+  mutate(pop=pop/1000000) %>%
+  arrange(desc(pop)) %>%
+  mutate(country = factor(country, country)) %>%
+  ggplot( aes(x=lifeExp, y=pop, size = gdpPercap, color = continent)) +
+    geom_point(alpha=0.7) +
+    scale_color_viridis(discrete=TRUE) +
+    scale_y_log10() +
+    theme_ipsum() +
+    theme(legend.position="none") 
+
+grid.arrange(p2,p3, ncol=2)
+```
+
+- Use bubble `area` as metrics, [not diameter](http://www.data-to-viz.com/caveat/radius_or_area.html).
+- As for scatter, bubble plot suffers [overplotting](http://www.data-to-viz.com/caveat/overplotting.html) if sample size is too big.
+- Show a legend for bubble size.
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+  <p class="mytitlerelated">Scatter plot</p>
+  <p class="mytextrelated">Display the relationship between 2 numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Correlogram</p>
+  <p class="mytextrelated">Shows the relationship between each pair of numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+  <p class="mytitlerelated">Connected Scatterplot</p>
+  <p class="mytextrelated">Very close from a scatterplot, but link data points with segments</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
 </div>
@@ -96,12 +204,13 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/bubble-chart/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/bubble-plot/" class="btn btn-primary">Python gallery</a>
 </p>
+
 
 
 
