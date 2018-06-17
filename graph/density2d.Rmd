@@ -1,6 +1,7 @@
 ---
-myimage: "../img/section/DensitySmall.png"
-mytitle: "Density"
+myimage: "../img/section/2dDensitySmall.png"
+mydisqus: "density2d"
+mytitle: "2D density plot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -17,151 +18,194 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable ([see more](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/)).
 
-It is a smoothed version of the [histogram](histogram.html) and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(viridis)
+This page is dedicated to a group of graphics allowing to study the `combined distribution` of two quantitative variables. These graphics are basically extensions of the well known [density plot](https://www.data-to-viz.com/graph/density.html) and [histogram](https://www.data-to-viz.com/graph/histogram.html).
+<br><br>
+The global concept is the same for each variation. One variable is represented on the X axis, the other on the Y axis, like for a [scatterplot](https://www.data-to-viz.com/graph/scatter) (`1`). Then, the number of observations within a particular area of the 2D space is counted and represented by a `color gradient`. The shape can vary:
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+- Hexagones are often used, leading to a hexbin chart (`2`)
+- Squares make 2d histograms (`3`)
+- It is also possible to compute kernel density estimate to get 2d density plots (`5`) or contour plots (`6`)
 
-# Make the histogram
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
+<br>
+Here is an overview of these different possibilities
+
+```{r, warning=FALSE, message=FALSE, echo=FALSE}
+library(reticulate)
 ```
+
+```{python, engine.path="/Users/y.holtz/anaconda3/bin/python", fig.width=1, fig.height=1}
+# Libraries
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import kde
+ 
+# Create data: 200 points
+data = np.random.multivariate_normal([0, 0], [[1, 0.5], [0.5, 3]], 200)
+x, y = data.T
+ 
+# Create a figure with 6 plot areas
+fig, axes = plt.subplots(ncols=6, nrows=1, figsize=(21, 5))
+ 
+# Everything starts with a Scatterplot
+axes[0].set_title('Scatterplot')
+axes[0].plot(x, y, 'ko')
+
+# Thus we can cut the plotting window in several hexbins
+nbins = 20
+axes[1].set_title('Hexbin')
+axes[1].hexbin(x, y, gridsize=nbins, cmap=plt.cm.BuGn_r)
+ 
+# 2D Histogram
+axes[2].set_title('2D Histogram')
+axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.BuGn_r)
+ 
+# Evaluate a gaussian kde on a regular grid of nbins x nbins over data extents
+k = kde.gaussian_kde(data.T)
+xi, yi = np.mgrid[x.min():x.max():nbins*1j, y.min():y.max():nbins*1j]
+zi = k(np.vstack([xi.flatten(), yi.flatten()]))
+ 
+# plot a density
+axes[3].set_title('Calculate Gaussian KDE')
+axes[3].pcolormesh(xi, yi, zi.reshape(xi.shape), cmap=plt.cm.BuGn_r)
+ 
+# add shading
+axes[4].set_title('2D Density with shading')
+axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+ 
+# contour
+axes[5].set_title('Contour')
+axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
+axes[5].contour(xi, yi, zi.reshape(xi.shape) )
+
+# save
+plt.savefig("IMG/density2d.png")
+```
+
+</div>
+
+
+<br><br>
+<center>
+<img src="IMG/density2d.png" alt="img" width="1800" height="900">
+</center>
+
+<br><br>
+
+
+<div class="mycontent">
 
 
 # What for
 ***
 
-Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:
+2d distribution are very useful to avoid [overplotting](http://www.data-to-viz.com/caveat/overplotting.html) in a [scatterplot](https://www.data-to-viz.com/graph/scatter). Here is an example showing the difference between an overplotted scatterplot and a 2d density plot. In the second case, a very obvious hidden pattern appears:
 
-```{r, fig.align="center", fig.width=10, warning=FALSE, message=FALSE}
 
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("edge peak", 1000), rep("comb", 1000), rep("normal", 1000), rep("uniform", 1000), rep("bimodal", 1000), rep("skewed", 1000) ),
-  value = c( rnorm(900), rep(3, 100), rnorm(360, sd=0.5), rep(c(-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75), 80), rnorm(1000), runif(1000), rnorm(500, mean=-2), rnorm(500, mean=2), abs(log(rnorm(1000))) )
-)
+```{r, fig.align='center', fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+library(patchwork)
 
-# Represent it
-data %>%
-  ggplot( aes(x=value)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.9, adjust = 0.5) +
-    facet_wrap(~type, scale="free") +
+# Dataset:
+a <- data.frame( x=rnorm(20000, 10, 1.2), y=rnorm(20000, 10, 1.2), group=rep("A",20000))
+b <- data.frame( x=rnorm(20000, 14.5, 1.2), y=rnorm(20000, 14.5, 1.2), group=rep("B",20000))
+c <- data.frame( x=rnorm(20000, 9.5, 1.5), y=rnorm(20000, 15.5, 1.5), group=rep("C",20000))
+data <- do.call(rbind, list(a,b,c))               
+
+p1 <- data %>%
+  ggplot( aes(x=x, y=y)) +
+    geom_point(color="#69b3a2", size=2) +
     theme_ipsum() +
     theme(
-      panel.spacing = unit(0.1, "lines"),
-      axis.title.x=element_blank(),
-      axis.text.x=element_blank(),
-      axis.ticks.x=element_blank()
+      legend.position="none"
     )
 
-```
+p2 <- ggplot(data, aes(x=x, y=y) ) +
+  stat_density_2d(aes(fill = ..density..), geom = "raster", contour = FALSE) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_viridis() +
+  theme(
+    legend.position='none'
+  )
 
-Checking this distribution also helps you discovering mistakes in the data. For example, the `comb` distribution can often denote a rounding that has been applied to the variable or another mistake.
-
-As a second step, histogram allow to compare the distribution of **a few** variables. Don't compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.
-
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
-  value = c( rnorm(1000), rnorm(1000, mean=4) )
-)
-
-# Represent it
-data %>%
-  ggplot( aes(x=value, fill=type)) +
-    geom_density( color="#e9ecef", alpha=0.6) +
-    scale_fill_manual(values=c("#69b3a2", "#404080")) +
-    theme_ipsum() +
-    labs(fill="")
-
+p1 + p2
 ```
 
 
-# Variation
+
+# Variation {#variation}
 ***
 
-A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.
+2d distribution is one of the rare cases where using 3d can be worth it.  
 
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-data <- data.frame(
-  x = rnorm(1000), 
-  y = rnorm(1000, mean=2)
-)
- 
-data %>% 
-  ggplot( aes(x) ) + 
-    geom_density( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
-    geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
-    geom_density( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
-    geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
-    theme_ipsum() +
-    xlab("value of x")
+<br>
+
+It is possible to transform the [scatterplot](https://www.data-to-viz.com/graph/scatter) information in a grid, and count the number of data points on each position of the grid. Then, instead of representing this number by a graduating color, the `surface plot` use 3d to represent dense are higher than others. 
+
+<br>
+
+In this case, the position of the 3 groups become obvious:
+
+```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
+library(plotly)
+library(MASS)
+
+# Compute kde2d
+kd <- with(data, MASS::kde2d(x, y, n = 50))
+
+# Plot with plotly
+plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
 ```
-
-
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Play with the bandwith argument](), it can lead to very different conclusions.
-- [Don't compare more than ~3 groups]() on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.
-
-
-
+- Play with [bin size / bandwidth](http://www.data-to-viz.com/caveat/bin_size.html). As for 2d, density and histograms are really sensitive to this parameter and can lead to different conclusions.
+- Useful only if sample size is huge. Use [scatterplot](https://www.data-to-viz.com/graph/scatter) if there is no overplotting.
+- Pick up a good [color palette](http://www.data-to-viz.com/caveat/rainbow.html).
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-  <p class="mytitlerelated">Histogram</p>
-  <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
+  <p class="mytitlerelated">Bubble plot</p>
+  <p class="mytextrelated">Add a third dimension to your scatter: the circle size</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Correlogram</p>
+  <p class="mytextrelated">Shows the relationship between each pair of numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+  <p class="mytitlerelated">Connected Scatterplot</p>
+  <p class="mytextrelated">Very close from a scatterplot, but link data points with segments</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
 </div>
@@ -171,12 +215,20 @@ data %>%
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a>
-<a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/2d-density-chart/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/2d-density-plot/" class="btn btn-primary">Python gallery</a>
 </p>
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 
 </div>
