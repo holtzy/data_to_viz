@@ -42,8 +42,7 @@ library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
-data <- read.table("../Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
 # show data
 data %>% head(6) %>% kable() %>%
@@ -66,6 +65,7 @@ data %>% head(6) %>% kable() %>%
 
 Even if the most common way to represent this kind of information is probably to use barplots, lollipop can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
 
+
 Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.
 ```{r, fig.align="center", fig.height=7, warning=FALSE}
 data %>%
@@ -84,6 +84,9 @@ data %>%
     ) +
     xlab("")
 ```
+
+
+
 
 #Barplot
 ***
