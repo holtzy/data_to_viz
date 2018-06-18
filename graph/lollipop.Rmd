@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/LollipopSmall.png"
+mydisqus: "lollipop"
+mytitle: "Lollipop chart"
 output:
   html_document:
       template: template_datatoviz.html
@@ -18,41 +18,156 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A `lollipop plot` is basically a [barplot](https://www.data-to-viz.com/graph/barplot.html), where the bar is transformed in a `line` and a `dot`. It shows the relationship between a numeric and a categoric variable.
+
+
+Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(viridis)
+library(kableExtra)
+options(knitr.table.format = "html")
+library(patchwork)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Plot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
 ```
+
+
+
+
 
 
 # What for
 ***
 
-Still in progress
+The lollipop plot is used exactly in the same situation than a barplot. However it is somewhat more appealing and convey as well the information. It is especially useful when you have several bars of the same height: it avoids to have a `cluttered` figure and a [Moiré effect](https://en.wikipedia.org/wiki/Moiré_pattern).
 
-# Variation
+<br>
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
+
+don <- data.frame(
+  group = LETTERS[1:20],
+  val = 20 + rnorm(20)
+)
+
+p1 <- don %>%
+    arrange(val) %>%
+    mutate(group=factor(group, group)) %>%
+    ggplot( aes(x=group, y=val) ) +
+      geom_bar(stat="identity", fill="#69b3a2") +
+      coord_flip() +
+      theme_ipsum() +
+      theme(
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.position="none"
+      ) +
+      xlab("") +
+      ylab("Weapon quantity (SIPRI trend-indicator value)")
+
+p2 <- don %>%
+    arrange(val) %>%
+    mutate(group=factor(group, group)) %>%
+    ggplot( aes(x=group, y=val) ) +
+      geom_segment( aes(x=group ,xend=group, y=0, yend=val), color="grey") +
+      geom_point(size=3, color="#69b3a2") +
+      coord_flip() +
+      theme_ipsum() +
+      theme(
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.y = element_blank(),
+        legend.position="none"
+      ) +
+      xlab("") +
+      ylab("Weapon quantity (SIPRI trend-indicator value)")
+
+p1 + p2
+```
+
+
+
+
+# Variation {#variation}
 ***
 
-Again
+The `Cleveland dotplot` is a handy variation, allowing to compare the value of 2 numeric values for each group. This kind of data could also be visualized using a grouped or stack [barplot](https://www.data-to-viz.com/graph/barplot.html). However, this representation is less cluttered and way easier to read. Use it if you have 2 subgroups per group.
+
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+# Create data (could be way easier but it's late)
+value1 <- abs(rnorm(26))*2
+don <- data.frame(
+  x=LETTERS[1:26], 
+  value1=value1, 
+  value2=value1+1+rnorm(26, sd=1) 
+  ) %>%
+  rowwise() %>% 
+  mutate( mymean = mean(c(value1,value2) )) %>% 
+  arrange(mymean) %>% 
+  mutate(x=factor(x, x))
+ 
+
+# With a bit more style
+ggplot(don) +
+  geom_segment( aes(x=x, xend=x, y=value1, yend=value2), color="grey") +
+  geom_point( aes(x=x, y=value1), color=rgb(0.2,0.7,0.1,0.8), size=3 ) +
+  geom_point( aes(x=x, y=value2), color=rgb(0.7,0.2,0.1,0.8), size=3 ) +
+  coord_flip()+
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.border = element_blank(),
+  ) +
+  xlab("") +
+  ylab("Value of Y")
+```
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+- [Order your groups](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
+
+- If for whatever reason your bars must remain unsorted, it is probably better to use a barplot instead. Lollipop would be harder to read.
+
+- Several values per group? [Don't use a lollipop](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
+
+- Think about the horizontal verison, it makes the labels easier to read.
+
+
 
 
 
@@ -61,32 +176,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+  <p class="mytitlerelated">Barplot</p>
+  <p class="mytextrelated">Represents the value of entities using bar of various length.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/parallel.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png">
+  <p class="mytitlerelated">Parallel coord.</p>
+  <p class="mytextrelated">Compare samples for several numeric values.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+  <p class="mytitlerelated">Wordcloud</p>
+  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
+  </a>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
-  </a>
-  </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
   </a>
   </div>
 </div>
@@ -96,11 +211,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/lollipop-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/lollipop-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -109,6 +224,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 
