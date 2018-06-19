@@ -1,8 +1,11 @@
 ---
-myimage: "../img/section/DensitySmall.png"
+myimage: "DensitySmall.png"
 mytitle: "Density"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/CircularPackingSmall.png"
+myimage: "CircularPackingSmall.png"
 mydisqus: "circularpacking"
 mytitle: "Circular Packing"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

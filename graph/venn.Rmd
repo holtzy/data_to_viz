@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/VennSmall.png"
+myimage: "VennSmall.png"
 mydisqus: "venn"
 mytitle: "Venn Diagram"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

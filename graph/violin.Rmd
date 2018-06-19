@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/violinSmall.png"
+myimage: "violinSmall.png"
 mydisqus: "violin"
 mytitle: "Violin plot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

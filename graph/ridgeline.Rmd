@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/Joyplot150.png"
+myimage: "Joyplot150.png"
 mydisqus: "ridgeline"
 mytitle: "Ridgeline plot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

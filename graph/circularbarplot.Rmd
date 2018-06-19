@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/CircularBarplotSmall.png"
+myimage: "CircularBarplotSmall.png"
 mydisqus: "circularbarplot"
 mytitle: "Circular Barplot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

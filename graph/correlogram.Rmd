@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/CorrelogramSmall.png"
+myimage: "CorrelogramSmall.png"
 mydisqus: "correlogram"
 mytitle: "Correlogram"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

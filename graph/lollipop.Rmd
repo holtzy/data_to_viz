@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/LollipopSmall.png"
+myimage: "LollipopSmall.png"
 mydisqus: "lollipop"
 mytitle: "Lollipop chart"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/ScatterPlotSmall.png"
+myimage: "ScatterPlotSmall.png"
 mydisqus: "scatter"
 mytitle: "Scatter plot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css

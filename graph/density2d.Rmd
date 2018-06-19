@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/2dDensitySmall.png"
+myimage: "2dDensitySmall.png"
 mydisqus: "density2d"
 mytitle: "2D density plot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css
