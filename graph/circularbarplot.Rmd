@@ -1,7 +1,7 @@
 ---
-myimage: "BarSmall.png"
-mydisqus: "barplot"
-mytitle: "Barplot"
+myimage: "../img/section/CircularBarplotSmall.png"
+mydisqus: "circularbarplot"
+mytitle: "Circular Barplot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -26,7 +26,8 @@ output:
 # Definition {#definition}
 ***
 
-A barplot (or barchart) is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable. Each entity of the categoric variable is represented as a bar. The size of the bar represents its numeric value.
+A `circular barplot` is a [barplot](https://www.data-to-viz.com/graph/barplot), with each bar displayed along a circle instead of a line. Thus, it is advised to have a good understanding of how barplot works before making it circular. Circular bar chart is very ‘eye catching’ and allows a better use of the space than a long usual barplot.
+
 <br>
 
 Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
@@ -38,117 +39,8 @@ library(tidyverse)
 library(hrbrthemes)
 library(kableExtra)
 options(knitr.table.format = "html")
-
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
-
-# Barplot
-data %>%
-  filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  tail(20) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_bar(stat="identity", fill="#69b3a2") +
-    coord_flip() +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("") +
-    ylab("Weapon quantity (SIPRI trend-indicator value)")
-```
-
-
-
-
-
-
-# What for
-***
-
-A barplot shows the relationship between a numeric and a categoric variable. In the previous graphic, each country is a level of the categoric variable, and the quantity of weapon sold is the numeric variable. An `ordered` barplot is a very good choice here since it displays both the ranking of countries and their specific value.
-
-<br>
-
-A barplot can also display values for `several levels of grouping`. In the following graphic, the number of given baby name is provided by name (level1) and per year (level2). With this kind of information it is possible to build a `grouped barplot`:
-
-```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(babynames)
 library(viridis)
 
-# Load dataset from github
-data <- babynames %>% 
-  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
-  filter(sex=="F")
-
-# A grouped barplot
-data  %>% 
-  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
-  filter(year %in% c(1920, 1960, 2000)) %>%
-  mutate(year=as.factor(year)) %>%
-  ggplot( aes(x=year, y=n, fill=name)) +
-    geom_bar(stat="identity", position="dodge") +
-    scale_fill_viridis(discrete=TRUE, name="") +
-    theme_ipsum() +
-    ylab("Number of baby")
-  
-
-```
-
-Instead of puting the bars one beside each other it is possible to stack them, resulting in a stacked barplot:
-
-```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
-# A grouped barplot
-data  %>% 
-  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
-  filter(year %in% c(1920, 1960, 2000)) %>%
-  mutate(year=as.factor(year)) %>%
-  ggplot( aes(x=year, y=n, fill=name)) +
-    geom_bar(stat="identity", width = 0.5) +
-    scale_fill_viridis(discrete=TRUE, name="") +
-    theme_ipsum() +
-    ylab("Number of baby")
-```
-
-
-
-
-# Variation {#variation}
-***
-
-Barplot is sometimes described as a boring way to visualize information, despite its incredible efficiency. There are a few variations that allows to create more eye-catching figures without loosing any of the barplot accuracy. My favorite variation is the lollipop plot that replaces the bars with a segment and a dot. It results in a less cluttered figure that is often more attractive:
-
-```{r, fig.align="center", fig.height=7, warning=FALSE}
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
-
-# Plot
-data %>%
-  filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
-    geom_point(size=3, color="#69b3a2") +
-    coord_flip() +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("")
-```
-
-Circular barplot can also be considered if you have many groups. The group comparison is less accurate, thus this option must be selected if there is an obvious pattern to show in the data.
-
-```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
@@ -193,6 +85,183 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 ```
 
 
+*Note*: 
+
+- Here no Y scale is displayed since exact values are written on each bar.
+- More representation of this dataset are available [here](http://www.data-to-viz.com/story/OneNumOneCat.html), with further explanation.
+
+
+# What for
+***
+
+Circular barplot is really eye catching but makes it more difficult to read the differences between each bar size. Thus, circular barcharts make sense only if you have a huge number of bar to display, and if an obvious pattern pops out.
+
+
+<br>
+
+In my opinion, circular barplot gets even more interesting with a grouping variable. In the following example that uses dummy data, it is easy to compare groups and entities into each group.
+
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# Create dataset
+data=data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+data = data %>% arrange(group, value)
+
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=3
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar)
+data=rbind(data, to_add)
+data=data %>% arrange(group)
+data$id=seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data=data
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+# prepare a data frame for base lines
+base_data=data %>% 
+  group_by(group) %>% 
+  summarize(start=min(id), end=max(id) - empty_bar) %>% 
+  rowwise() %>% 
+  mutate(title=mean(c(start, end)))
+ 
+# prepare a data frame for grid (scales)
+grid_data = base_data
+grid_data$end = grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+grid_data$start = grid_data$start - 1
+grid_data=grid_data[-1,]
+ 
+# Make the plot
+p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  
+  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 80, xend = start, yend = 80), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 60, xend = start, yend = 60), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 40, xend = start, yend = 40), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 20, xend = start, yend = 20), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  annotate("text", x = rep(max(data$id),4), y = c(20, 40, 60, 80), label = c("20", "40", "60", "80") , color="grey", size=3 , angle=0, fontface="bold", hjust=1) +
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  ylim(-100,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) +
+  
+  # Add base line information
+  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
+ 
+p
+ 
+```
+
+
+
+
+# Variation {#variation}
+***
+
+Most of the variations presented for the [barplot](https://www.data-to-viz.com/graph/barplot) are obviously available for the circular barplot. For instance, you can group your variable and stack the group to get a `stacked circular barplot`:
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+# Create dataset
+data=data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 10), rep('B', 30), rep('C', 14), rep('D', 6)) ,
+  value1=sample( seq(10,100), 60, replace=T),
+  value2=sample( seq(10,100), 60, replace=T),
+  value3=sample( seq(10,100), 60, replace=T)
+)
+ 
+# Transform data in a tidy format (long format)
+data = data %>% gather(key = "observation", value="value", -c(1,2)) 
+ 
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=2
+nObsType=nlevels(as.factor(data$observation))
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group)*nObsType, ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar*nObsType )
+data=rbind(data, to_add)
+data=data %>% arrange(group, individual)
+data$id=rep( seq(1, nrow(data)/nObsType) , each=nObsType)
+ 
+# Get the name and the y position of each label
+label_data= data %>% group_by(id, individual) %>% summarize(tot=sum(value))
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+# prepare a data frame for base lines
+base_data=data %>% 
+  group_by(group) %>% 
+  summarize(start=min(id), end=max(id) - empty_bar) %>% 
+  rowwise() %>% 
+  mutate(title=mean(c(start, end)))
+ 
+# prepare a data frame for grid (scales)
+grid_data = base_data
+grid_data$end = grid_data$end[ c( nrow(grid_data), 1:nrow(grid_data)-1)] + 1
+grid_data$start = grid_data$start - 1
+grid_data=grid_data[-1,]
+ 
+# Make the plot
+p = ggplot(data) +      
+  
+  # Add the stacked bar
+  geom_bar(aes(x=as.factor(id), y=value, fill=observation), stat="identity", alpha=0.5) +
+  scale_fill_viridis(discrete=TRUE) +
+  
+  # Add a val=100/75/50/25 lines. I do it at the beginning to make sur barplots are OVER it.
+  geom_segment(data=grid_data, aes(x = end, y = 0, xend = start, yend = 0), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 50, xend = start, yend = 50), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 100, xend = start, yend = 100), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 150, xend = start, yend = 150), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  geom_segment(data=grid_data, aes(x = end, y = 200, xend = start, yend = 200), colour = "grey", alpha=1, size=0.3 , inherit.aes = FALSE ) +
+  
+  # Add text showing the value of each 100/75/50/25 lines
+  annotate("text", x = rep(max(data$id),5), y = c(0, 50, 100, 150, 200), label = c("0", "50", "100", "150", "200") , color="grey", size=2 , angle=0, fontface="bold", hjust=1) +
+  
+  ylim(-150,max(label_data$tot, na.rm=T)) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() +
+  
+  # Add labels on top of each bar
+  geom_text(data=label_data, aes(x=id, y=tot+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=1, angle= label_data$angle, inherit.aes = FALSE ) +
+  
+  # Add base line information
+  geom_segment(data=base_data, aes(x = start, y = -5, xend = end, yend = -5), colour = "black", alpha=0.8, size=0.6 , inherit.aes = FALSE )  +
+  geom_text(data=base_data, aes(x = title, y = -18, label=group), hjust=c(1,1,0,0), colour = "black", alpha=0.8, size=4, fontface="bold", inherit.aes = FALSE)
+p
+```
+
+
 
 
 
@@ -201,10 +270,60 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 # Common mistakes {#mistake}
 ***
 
-- Do not confound barchart with [histogram](https://www.data-to-viz.com/graph/histogram.html). A histogram has only a numeric variable as input and shows its distribution. 
 
+- The proportion of the [inner circle must be huge](https://www.data-to-viz.com/caveat/circular_bar_yaxis.html) (>1/2). Otherwise bars are very skewed like on the next example. In my opinion this distorts reality: biggest bars look even bigger that they are. You can read more about that in the [dedicated article](https://www.data-to-viz.com/caveat/circular_bar_yaxis.html).
+
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# Create dataset
+data=data.frame(
+  individual=paste( "Mister ", seq(1,30), sep=""),
+  group=c( rep('A', 10), rep('C', 14), rep('D', 6)) ,
+  value=sample( seq(10,100), 30, replace=T)
+)
+data = data %>% arrange(group, value)
+
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=1
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar)
+data=rbind(data, to_add)
+data=data %>% arrange(group)
+data$id=seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data=data
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+
+# Make the plot
+p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  ylim(-10,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+  
+p
+ 
+```
+
+
+
+- Works only if you have many levels to display (> ~40) and a clear pattern
+- Keep displaying a Y axis all along the circle.
 - [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
-
 - Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
 
 
@@ -218,10 +337,10 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
-  <p class="mytitlerelated">Lollipop plot</p>
-  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Try it and adopt it.</p>
+  <a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+  <p class="mytitlerelated">Barplot</p>
+  <p class="mytextrelated">Represents the value of entities using bar of various length.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -232,10 +351,10 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
-  <p class="mytitlerelated">Wordcloud</p>
-  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
+  <a href="http://www.data-to-viz.com/graph/spider.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png">
+  <p class="mytitlerelated">Spider / Radar</p>
+  <p class="mytextrelated">One or more series of values over multiple common quantitative variables. Axis are joint on the middle of the figure.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -255,8 +374,7 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/barplot/" class="btn btn-primary">R graph gallery</a>
-<a href="https://python-graph-gallery.com/barplot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/circular-barplot/" class="btn btn-primary">R graph gallery</a>
 </p>
 
 
