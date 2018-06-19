@@ -19,3 +19,10 @@ maps
 geosphere
 jpeg
 cowplot
+circlize
+igraph
+ggraph
+networkD3
+plotly
+mapdata
+hexbin

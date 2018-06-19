@@ -1,17 +1,20 @@
 ---
-myimage1: "../img/section/Choropleth150.png"
-myimage2: "../img/section/MapHexbin150.png"
-myimage3: "../img/section/Cartogram150.png"
+myimage1: "Choropleth150.png"
+myimage2: "MapHexbin150.png"
+myimage3: "Cartogram150.png"
 mytitle: "Visualizing a set of geographic coordinates"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_story.html
       theme: "lumen"
       css: style.css
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 

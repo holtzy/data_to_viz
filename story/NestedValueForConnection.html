@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+
+
+
+
+<style>
+.myheader {
+  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+    min-height: 350px; 
+    background-size: 100% 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  
+    height: 100%; 
+    width: 100% !important;
+  }
+.mytitle{
+  text-transform: uppercase;
+  font-family: 'Montserrat';
+  font-size: 200%;
+  font-weight: 500;
+  letter-spacing: 4px;
+  }   
+</style>
+
+<div class="myheader" style="text-align: center;">
+  <br>
+  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
+  <br><br>
+  <br><br>
+  <p class="mytitle">Visualizing a set of geographic coordinates</p>
+  <center><div class='mysubtitle'>
+    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
+  </div></center>
+  <br><br>
+
+    <a href="http://www.data-to-viz.com"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Choropleth150.png></a>
+  
+    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbin150.png></a>
+  
+    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Cartogram150.png></a>
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/navigation-1.1/codefolding.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<br><br>
+<div class="mycontent">
+<div class="row">
+<div class="col-md-8">
+<p><br><br><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">Github repository</a>. Basically it looks like the table beside.</p>
+</div>
+<div class="col-md-4">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(hrbrthemes)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
+<span class="kw">library</span>(mapdata)
+
+<span class="co"># Load dataset from github</span>
+<span class="co">#data &lt;- read.table(&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv&quot;, sep=&quot;,&quot;, header=T)</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../Example_dataset/17_ListGPSCoordinates.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span>T)
+
+<span class="co"># show data</span>
+data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:right;">
+homelat
+</th>
+<th style="text-align:right;">
+homelon
+</th>
+<th style="text-align:left;">
+homecontinent
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+18.28548
+</td>
+<td style="text-align:right;">
+-70.33012
+</td>
+<td style="text-align:left;">
+South America
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+39.10312
+</td>
+<td style="text-align:right;">
+-84.51202
+</td>
+<td style="text-align:left;">
+North America
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+19.41095
+</td>
+<td style="text-align:right;">
+-99.27186
+</td>
+<td style="text-align:left;">
+South America
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<h1 id="showing-a-few-dots">Showing a few dots</h1>
+<hr />
+<p>If your dataset is composed by a few data point only, you can just display them on a map. If you have specific information to display concerning these positions, use an interactive: more information are available when you click data points.</p>
+<h1 id="a-dot-density-map">A dot density map</h1>
+<hr />
+<p>A dot density map is used when the sample size of your dataset is high.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the world polygon</span>
+world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)
+
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co">#head(1000) %&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="fl">0.8</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+        <span class="dt">panel.spacing=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),
+        <span class="dt">plot.margin=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>),
+    ) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">150</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">11</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;Where surfers live.&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;Black&quot;</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">150</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">51</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;data-to-viz.com | 200,000 #surf tweets recovered&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">180</span>,<span class="dv">180</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">60</span>,<span class="dv">80</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.006</span>, <span class="fl">0.006</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_equal</span>() </code></pre></div>
+<p><img src="NestedValueForConnection_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;IMG/Surfer_position.png&quot;</span>, <span class="dt">width =</span> <span class="dv">36</span>, <span class="dt">height =</span> <span class="fl">15.22</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">dpi =</span> <span class="dv">90</span>)</code></pre></div>
+</div>
+<center>
+<div class="figure">
+<img src="IMG/Surfer_position.png" />
+
+</div>
+</center>
+<br><br>
+<div class="mycontent">
+
+<p>Dotmaps give a good idea about where samples are distributed. However, once dots start to overlap, it gets impossible to distinguish how many of them are displayed on a certain zone. That’s where binning becomes an interesting option.</p>
+<div id="hexbin" class="section level1">
+<h1>Hexbin</h1>
+<hr />
+<p>To create a hexbin map, the territory is divided in many hexagones and the number of sample per hexagone is counted and represented by a color.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(homecontinent<span class="op">==</span><span class="st">&#39;Europe&#39;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_hex</span>(<span class="dt">bins=</span><span class="dv">65</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">30</span>, <span class="dv">70</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="dv">24</span>, <span class="dv">72</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_viridis</span>(
+      <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
+      <span class="dt">name=</span><span class="st">&quot;Number of Tweet recorded in 8 months&quot;</span>, 
+      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
+    )  <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>( <span class="st">&quot;Where people tweet about #Surf&quot;</span> ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.09</span>),
+      <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
+      <span class="co">#plot.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA), </span>
+      <span class="co">#panel.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA), </span>
+      <span class="co">#legend.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA),</span>
+      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.1</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
+    )</code></pre></div>
+<p><img src="NestedValueForConnection_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make the hexbin map with the geom_hex function</span>
+<span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_bin2d</span>(<span class="dt">bins=</span><span class="dv">120</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_viridis</span>(
+    <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
+    <span class="dt">name=</span><span class="st">&quot;Number of Tweets&quot;</span>, 
+    <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.09</span>),
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">70</span>, <span class="dv">80</span>)</code></pre></div>
+<p><img src="NestedValueForConnection_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="choropleth" class="section level1">
+<h1>Choropleth</h1>
+<hr />
+<p>It is also possible to divide your territory (the world here) in regions other than square or hexagones. This will result in a chloropleth map. Of course, you need the information of the exact shape of your regions.</p>
+</div>
+
+
+
+
+<!-- Insert code for DISQUS comments  -->
+
+      <div class="container">
+        <div id="disqus_thread"></div>
+        <script>
+
+        var disqus_config = function () {
+        this.page.url = www.data-to-viz.com/story/.html;  
+        this.page.identifier = ; 
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://data-to-viz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+<!-- Insert code for DISQUS comments  -->
+
+
+
+
+
+&nbsp;
+<hr />
+<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+	<a href="https://twitter.com/r_graph_gallery?lang=en" class="fa fa-twitter"></a>
+	<a href="https://www.linkedin.com/in/yan-holtz-2477534a/" class="fa fa-linkedin"></a>
+	<a href="https://github.com/holtzy/" class="fa fa-github"></a>
+</p>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79254642-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79254642-3');
+</script>
+
+
+&nbsp;
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

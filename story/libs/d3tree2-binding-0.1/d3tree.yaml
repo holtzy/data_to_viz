@@ -1,0 +1,9 @@
+dependencies:
+  - name: d3
+    version: 3.5.5
+    src: htmlwidgets/lib/d3
+    script: d3.min.js
+  - name: d3tree
+    version: 0.1
+    src: htmlwidgets/lib/d3tree
+    stylesheet: d3tree.css

@@ -1,9 +1,12 @@
 ---
-myimage1: "../img/section/VennSmall.png"
-myimage2: "../img/section/LollipopSmall.png"
+myimage1: "VennSmall.png"
+myimage2: "LollipopSmall.png"
 mytitle: "Visualizing several independant lists"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_story.html
       theme: "lumen"
       css: style.css

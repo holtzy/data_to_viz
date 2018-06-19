@@ -1,13 +1,16 @@
 ---
-myimage1: "../img/section/DensitySmall.png"
-myimage2: "../img/section/HistogramSmall.png"
-myimage3: "../img/section/Box1Small.png"
-myimage4: "../img/section/ViolinSmall.png"
-myimage5: "../img/section/JoyplotSmall.png"
+myimage1: "DensitySmall.png"
+myimage2: "HistogramSmall.png"
+myimage3: "Box1Small.png"
+myimage4: "ViolinSmall.png"
+myimage5: "JoyplotSmall.png"
 mytitle: "Perception of probability"
 mydisqus: "8_OneNumOneCatSeveralObs"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_story.html
       theme: "lumen"
       css: style.css
