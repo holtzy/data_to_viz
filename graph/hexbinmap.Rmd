@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/MapHexbinSmall.png"
-mydisqus: "hexbinmap"
-mytitle: "Hexbin map"
+myimage: "BarSmall.png"
+mydisqus: "barplot"
+mytitle: "Barplot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -26,118 +26,42 @@ output:
 # Definition {#definition}
 ***
 
-The term `hexbin map` refers to two different concepts:
-
-- The first definition is based on an unusual geospatial object where all regions of the map are represented as hexagons. Here is an example representing the US states, each represented as an hexagon. Note that here the data input provides `one value per state` and a `specific shape file` with hexagone boundaries.
-
-```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8, eval=FALSE}
-# library
-library(tidyverse)
- 
-# Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:
-library(rgdal)
-spdf <- readOGR("us_states_hexgrid.geojson.json",  "OGRGeoJSON")
- 
-# I need to 'fortify' the data to be able to show it with ggplot2 (we need a data frame format)
-library(broom)
-spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
-spdf_fortified <- tidy(spdf, region = "google_name")
- 
-# Calculate the centroid of each hexagon to add the label:
-library(rgeos)
-centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
-
-# Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html
-data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv", header=T, sep=",", na.strings="---")
- 
-# Merge geospatial and numerical information
-spdf_fortified = spdf_fortified %>%
-  left_join(. , data, by=c("id"="state")) 
- 
-# Prepare binning
-spdf_fortified$bin = cut( spdf_fortified$y_2015 , breaks=c(seq(5,10), Inf), labels=c("5-6", "6-7", "7-8", "8-9", "9-10", "10+" ), include.lowest = TRUE )
- 
-# Prepare a color scale coming from the viridis color palette
-library(viridis)
-my_palette=rev(magma(8))[c(-1,-8)]
- 
-# plot
-ggplot() +
-  geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
-  geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
-  theme_void() +
-  scale_fill_manual( 
-    values=my_palette, 
-    name="Wedding per 1000 people in 2015", 
-    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
-  ) +
-  ggtitle( "A map of marriage rates, state by state" ) +
-  theme(
-    legend.position = c(0.5, 0.9),
-    text = element_text(color = "#22211d"),
-    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
-    legend.background = element_rect(fill = "#f5f5f2", color = NA),
-    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
-  )
-```
-
-<br><br>
-
-<center>
-<img src="https://www.r-graph-gallery.com/wp-content/uploads/2017/12/328_Hexbin_map_USA_4.png" alt="img" width="600" height="700">
-</center>
-
+A barplot (or barchart) is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable. Each entity of the categoric variable is represented as a bar. The size of the bar represents its numeric value.
 <br>
 
+Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
 
-
-
-
-- The second definition refers to the utilisation of [2D density](file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html) techniques. Think of a scatterplot where the X axis is the longitude and the Y axis is the latitude. The graphic area is divided in a multitude of hexagones and the number of data point in each is counted and represented using a color gradient. Note that here `no map boundaries is needed`. It requires only a `list of latitude and longitude`.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6}
 # Libraries
 library(tidyverse)
-library(viridis)
 library(hrbrthemes)
 library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
-# Get the world polygon
-library(mapdata)
-world <- map_data("world")
- 
+# Barplot
 data %>%
-  filter(homecontinent=='Europe') %>%
-  ggplot( aes(x=homelon, y=homelat)) + 
-    geom_hex(bins=65) +
-    theme_void() +
-    xlim(-30, 70) +
-    ylim(24, 72) +
-    scale_fill_viridis(
-      trans = "log", 
-      name="Number of Tweet recorded in 8 months", 
-      guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
-    )  +
-    ggtitle( "Where people tweet about #Surf" ) +
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
     theme(
-      legend.position = c(0.5, 0.09),
-      text = element_text(color = "#22211d"),
-      #plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-      #panel.background = element_rect(fill = "#f5f5f2", color = NA), 
-      #legend.background = element_rect(fill = "#f5f5f2", color = NA),
-      plot.title = element_text(size= 22, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
-    )
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
 ```
 
-*Note on the first map*: You can learn more about this story [here](file:///Users/yan/Dropbox/data_to_viz/story/RegionWithValue.html). Data comes from [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map). Code has been inspired from [this post](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) and [that one](https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/).
 
-
-*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](file:///Users/yan/Dropbox/data_to_viz/story/GPSCoordWithoutValue.html).
 
 
 
@@ -145,16 +69,130 @@ data %>%
 # What for
 ***
 
-Hexbin or grid map has an `advantage` over usual [choropleth maps](https://www.data-to-vize.com/graph/choropleth.html). In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.  
+A barplot shows the relationship between a numeric and a categoric variable. In the previous graphic, each country is a level of the categoric variable, and the quantity of weapon sold is the numeric variable. An `ordered` barplot is a very good choice here since it displays both the ranking of countries and their specific value.
 
-There’s a `drawback` to this format though. Map readers generally recognize a geographic area by it’s shape and orientation to other areas. For instance, the geography of the US is well known and people easily identify different regions. In hexbin maps, these landmarks do not exist anymore what can confuse the audience. One solution for this is to choose a basemap that uses labels on top of your data layer.
+<br>
+
+A barplot can also display values for `several levels of grouping`. In the following graphic, the number of given baby name is provided by name (level1) and per year (level2). With this kind of information it is possible to build a `grouped barplot`:
+
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", position="dodge") +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby")
+  
+
+```
+
+Instead of puting the bars one beside each other it is possible to stack them, resulting in a stacked barplot:
+
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", width = 0.5) +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby")
+```
+
 
 
 
 # Variation {#variation}
 ***
 
-Hexbin map uses hexagons to split the area in several parts and attribute a color to it. Note that it is possible to use square instead of hexagones, resulting in a [2D histogram map](file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html).
+Barplot is sometimes described as a boring way to visualize information, despite its incredible efficiency. There are a few variations that allows to create more eye-catching figures without loosing any of the barplot accuracy. My favorite variation is the lollipop plot that replaces the bars with a segment and a dot. It results in a less cluttered figure that is often more attractive:
+
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Plot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
+```
+
+Circular barplot can also be considered if you have many groups. The group comparison is less accurate, thus this option must be selected if there is an obvious pattern to show in the data.
+
+```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Order data
+tmp <- data %>%
+  filter(!is.na(Value)) %>%
+  arrange(desc(Value)) %>%
+  mutate(Country=factor(Country, Country))
+
+# Set a number of 'empty bar'
+empty_bar=10
+
+# Add lines to the initial tmpset
+to_add = matrix(NA, empty_bar, ncol(tmp))
+colnames(to_add) = colnames(tmp)
+tmp=rbind(tmp, to_add)
+tmp$id=seq(1, nrow(tmp))
+
+# Get the name and the y position of each label
+label_tmp=tmp
+number_of_bar=nrow(label_tmp)
+angle= 90 - 360 * (label_tmp$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_tmp$hjust<-ifelse( angle < -90, 1, 0)
+label_tmp$angle<-ifelse(angle < -90, angle+180, angle)
+label_tmp$Country <- gsub("United States", "US", label_tmp$Country)
+label_tmp$Country <- paste(label_tmp$Country, " (", label_tmp$Value,")", sep="")
+
+# Make the plot
+ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", fill=alpha("#69b3a2", 0.8)) +
+  ylim(-7000,13000) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar(start = 0) + 
+  geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
+  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
+```
+
+
 
 
 
@@ -163,8 +201,11 @@ Hexbin map uses hexagons to split the area in several parts and attribute a colo
 # Common mistakes {#mistake}
 ***
 
-All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph/choropleth.html) section apply
+- Do not confound barchart with [histogram](https://www.data-to-viz.com/graph/histogram.html). A histogram has only a numeric variable as input and shows its distribution. 
 
+- [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
+
+- Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
 
 
 
@@ -177,31 +218,31 @@ All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph
 
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
-  <p class="mytitlerelated">Choropleth</p>
-  <p class="mytextrelated">Display a aggregated value for each region of the map using color gradients.</p>
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Try it and adopt it.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
-  <p class="mytitlerelated">Cartogram</p>
-  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
-  <p class="mytitlerelated">Bubble map</p>
-  <p class="mytextrelated">Display bubble on a map background to represent the value of a numeric variable.</p>
+  <a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+  <p class="mytitlerelated">Wordcloud</p>
+  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
-  <p class="mytitlerelated">Background Map</p>
-  <p class="mytextrelated">The basis for any geographic data visualization is to build a good background map.</p>
+  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+  <p class="mytitlerelated">Boxplot</p>
+  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
   </a>
   </div>
 </div>
@@ -214,8 +255,8 @@ All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph
 The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/chloropleth-map/" class="btn btn-primary">R graph gallery</a>
-<a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/barplot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/barplot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 

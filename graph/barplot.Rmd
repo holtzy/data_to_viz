@@ -1,5 +1,5 @@
 ---
-myimage: "../img/section/BarSmall.png"
+myimage: "BarSmall.png"
 mydisqus: "barplot"
 mytitle: "Barplot"
 output:

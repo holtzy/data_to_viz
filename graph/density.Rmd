@@ -1,6 +1,7 @@
 ---
-myimage: "../img/section/DensitySmall.png"
-mytitle: "Density"
+myimage: "BarSmall.png"
+mydisqus: "barplot"
+mytitle: "Barplot"
 output:
   html_document:
       template: template_datatoviz.html
@@ -17,108 +18,182 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable ([see more](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/)).
 
-It is a smoothed version of the [histogram](histogram.html) and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A barplot (or barchart) is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable. Each entity of the categoric variable is represented as a bar. The size of the bar represents its numeric value.
+<br>
+
+Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(viridis)
+library(kableExtra)
+options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
-# Make the histogram
+# Barplot
 data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")
 ```
+
+
+
+
 
 
 # What for
 ***
 
-Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:
+A barplot shows the relationship between a numeric and a categoric variable. In the previous graphic, each country is a level of the categoric variable, and the quantity of weapon sold is the numeric variable. An `ordered` barplot is a very good choice here since it displays both the ranking of countries and their specific value.
 
-```{r, fig.align="center", fig.width=10, warning=FALSE, message=FALSE}
+<br>
 
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("edge peak", 1000), rep("comb", 1000), rep("normal", 1000), rep("uniform", 1000), rep("bimodal", 1000), rep("skewed", 1000) ),
-  value = c( rnorm(900), rep(3, 100), rnorm(360, sd=0.5), rep(c(-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75), 80), rnorm(1000), runif(1000), rnorm(500, mean=-2), rnorm(500, mean=2), abs(log(rnorm(1000))) )
-)
+A barplot can also display values for `several levels of grouping`. In the following graphic, the number of given baby name is provided by name (level1) and per year (level2). With this kind of information it is possible to build a `grouped barplot`:
 
-# Represent it
-data %>%
-  ggplot( aes(x=value)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.9, adjust = 0.5) +
-    facet_wrap(~type, scale="free") +
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", position="dodge") +
+    scale_fill_viridis(discrete=TRUE, name="") +
     theme_ipsum() +
-    theme(
-      panel.spacing = unit(0.1, "lines"),
-      axis.title.x=element_blank(),
-      axis.text.x=element_blank(),
-      axis.ticks.x=element_blank()
-    )
+    ylab("Number of baby")
+  
 
 ```
 
-Checking this distribution also helps you discovering mistakes in the data. For example, the `comb` distribution can often denote a rounding that has been applied to the variable or another mistake.
+Instead of puting the bars one beside each other it is possible to stack them, resulting in a stacked barplot:
 
-As a second step, histogram allow to compare the distribution of **a few** variables. Don't compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.
-
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
-  value = c( rnorm(1000), rnorm(1000, mean=4) )
-)
-
-# Represent it
-data %>%
-  ggplot( aes(x=value, fill=type)) +
-    geom_density( color="#e9ecef", alpha=0.6) +
-    scale_fill_manual(values=c("#69b3a2", "#404080")) +
+```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
+# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", width = 0.5) +
+    scale_fill_viridis(discrete=TRUE, name="") +
     theme_ipsum() +
-    labs(fill="")
-
+    ylab("Number of baby")
 ```
 
 
-# Variation
+
+
+# Variation {#variation}
 ***
 
-A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.
+Barplot is sometimes described as a boring way to visualize information, despite its incredible efficiency. There are a few variations that allows to create more eye-catching figures without loosing any of the barplot accuracy. My favorite variation is the lollipop plot that replaces the bars with a segment and a dot. It results in a less cluttered figure that is often more attractive:
 
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-data <- data.frame(
-  x = rnorm(1000), 
-  y = rnorm(1000, mean=2)
-)
- 
-data %>% 
-  ggplot( aes(x) ) + 
-    geom_density( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
-    geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
-    geom_density( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
-    geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Plot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
     theme_ipsum() +
-    xlab("value of x")
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")
 ```
+
+Circular barplot can also be considered if you have many groups. The group comparison is less accurate, thus this option must be selected if there is an obvious pattern to show in the data.
+
+```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Order data
+tmp <- data %>%
+  filter(!is.na(Value)) %>%
+  arrange(desc(Value)) %>%
+  mutate(Country=factor(Country, Country))
+
+# Set a number of 'empty bar'
+empty_bar=10
+
+# Add lines to the initial tmpset
+to_add = matrix(NA, empty_bar, ncol(tmp))
+colnames(to_add) = colnames(tmp)
+tmp=rbind(tmp, to_add)
+tmp$id=seq(1, nrow(tmp))
+
+# Get the name and the y position of each label
+label_tmp=tmp
+number_of_bar=nrow(label_tmp)
+angle= 90 - 360 * (label_tmp$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_tmp$hjust<-ifelse( angle < -90, 1, 0)
+label_tmp$angle<-ifelse(angle < -90, angle+180, angle)
+label_tmp$Country <- gsub("United States", "US", label_tmp$Country)
+label_tmp$Country <- paste(label_tmp$Country, " (", label_tmp$Value,")", sep="")
+
+# Make the plot
+ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", fill=alpha("#69b3a2", 0.8)) +
+  ylim(-7000,13000) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar(start = 0) + 
+  geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
+  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
+```
+
+
+
 
 
 
@@ -126,8 +201,14 @@ data %>%
 # Common mistakes {#mistake}
 ***
 
-- [Play with the bandwith argument](), it can lead to very different conclusions.
-- [Don't compare more than ~3 groups]() on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.
+- Do not confound barchart with [histogram](https://www.data-to-viz.com/graph/histogram.html). A histogram has only a numeric variable as input and shows its distribution. 
+
+- [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
+
+- Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
+
+
+
 
 
 
@@ -136,32 +217,32 @@ data %>%
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-  <p class="mytitlerelated">Histogram</p>
-  <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Try it and adopt it.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+  <p class="mytitlerelated">Wordcloud</p>
+  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
+  </a>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
-  </a>
-  </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
   </a>
   </div>
 </div>
@@ -171,12 +252,20 @@ data %>%
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a>
-<a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/barplot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/barplot/" class="btn btn-primary">Python gallery</a>
 </p>
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 
 </div>
