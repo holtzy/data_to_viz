@@ -1,9 +1,12 @@
 ---
-myimage: "../img/section/Box1Small.png"
+myimage: "DensitySmall.png"
 mydisqus: "boxplot"
 mytitle: "Boxplot"
 output:
   html_document:
+      self_contained: false    
+      mathjax: default
+      lib_dir: libs
       template: template_datatoviz.html
       theme: "lumen"
       css: style.css
@@ -16,7 +19,6 @@ output:
       includes: 
         after_body: footer.html
 ---
-
 
 
 
