@@ -2297,18 +2297,6 @@ showTree('num')
           </div>
 
           <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
-            <a class="portfolio-link" data-toggle="modal" href="#parallel">
-              <div class="portfolio-hover">
-                <div class="portfolio-hover-content">
-                  <i class="fa fa-plus fa-3x"></i>
-                </div>
-              </div>
-              <img class="img-fluid" src="img/section/Parallel2150.png" alt="">
-            </a>
-            <div class="captionPortfolio">Parallele</div>
-          </div>
-
-          <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#streamgraph">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2321,7 +2309,7 @@ showTree('num')
           </div>
 
           <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
-            <a class="portfolio-link" data-toggle="modal" href="#maps">
+            <a class="portfolio-link" data-toggle="modal" href="#map">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
                   <i class="fa fa-plus fa-3x"></i>
@@ -3999,17 +3987,17 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Line150.png" alt=""></a>
+                  <a href="graph/line.html"><img class="img-fluid d-block mx-auto" src="img/section/Line150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Line chart</h2></a>
+                  <a href="graph/line.html"><h2 class="text-uppercase">Line chart</h2></a>
                   <p class="item-intro text-muted">Shows the evolution of numeric variables.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A line chart or line graph displays the evolution of one or several numeric variables. Data points are connected by straight line segments. It is similar to a scatter plot except that the measurement points are ordered (typically by their x-axis value) and joined with straight line segments.<br><br>A line chart is often used to visualize a trend in data over intervals of time – a time series – thus the line is often drawn chronologically.<br><br>When several values are available for each time stamp, data can be aggregated and a confidence zone is generally added around the trend.</p>
+                  <p align="justify">A <a href="graph/line.html">line chart</a> or line graph displays the evolution of one or several numeric variables. Data points are connected by straight line segments. It is similar to a <a href="graph/scatter.html">scatter plot</a> except that the measurement points are ordered (typically by their x-axis value) and joined with straight line segments.<br><br>A line chart is often used to visualize a trend in data over intervals of time – a time series – thus the line is often drawn chronologically.<br><br>When several values are available for each time stamp, data can be aggregated and a confidence zone is generally added around the trend.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>To cut or not to cut the Y axis?</li><li>If you need to compare the evolution of 2 different variables, do not use dual axis.</li><li>Mind the spaghetti chart: too many lines make the chart unreadable.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li><a href="file:///Users/y.holtz/Dropbox/data_to_viz/caveat/cut_y_axis.html">To cut or not to cut</a> the Y axis?</li><li>If you need to compare the evolution of 2 different variables, do not use <a href="caveat/dual_axis.html">dual axis</a>.</li><li>Mind the <a href="caveat/spaghetti.html">spaghetti chart</a>: too many lines make the chart unreadable.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
@@ -4020,7 +4008,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/line.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4044,17 +4032,17 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Area150.png" alt=""></a>
+                  <a href="graph/area.html"><img class="img-fluid d-block mx-auto" src="img/section/Area150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Area chart</h2></a>
+                  <a href="graph/area.html"><h2 class="text-uppercase">Area chart</h2></a>
                   <p class="item-intro text-muted">A line graph, filling the area under the curve.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">An area chart is really similar to a line chart, except that the area between the x axis and the line is filled in with color or shading. It represents the evolution of a numerical variable following another numerical variable.<br><br>I am a big fan of area charts and believe that it makes the trend more obvious than using a line graph.</p>
+                  <p align="justify">An <a href="graph/area.html">area chart</a> is really similar to a <a href="graph/line.html">line chart</a>, except that the area between the x axis and the line is filled in with color or shading. It represents the evolution of a numeric variable.<br><br>I am a big fan of area charts and believe that it makes the trend more obvious than using a line graph.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>To cut or not to cut the Y axis?</li><li>Using the same color for the line and the fill with more transparency for the fill usually gives a nice visual.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li><a href="file:///Users/y.holtz/Dropbox/data_to_viz/caveat/cut_y_axis.html">To cut or not to cut</a> the Y axis?</li><li>Using the same color for the line and the fill with more transparency for the fill usually gives a nice visual.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
@@ -4065,7 +4053,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/area.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4089,13 +4077,13 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/StackedArea150.png" alt=""></a>
+                  <a href="graph/stackedarea.html"><img class="img-fluid d-block mx-auto" src="img/section/StackedArea150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Stacked Area</h2></a>
+                   <a href="graph/stackedarea.html"><h2 class="text-uppercase">Stacked Area</h2></a>
                   <p class="item-intro text-muted">A stacked version of the area chart to compare several groups.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A stacked area chart is the extension of a basic area chart which displays the evolution of the value of several groups on the same graphic. The values of each group are displayed on top of each other, what allows to check on the same figure the evolution of both the total of a numeric variable, and the importance of each group.<br><br>If only the relative importance of each group interests you, you should probably draw a percent stacked area chart. It is the same thing, but proportion of each group are represented instead of absolute value.<br><br>Stacked area charts are criticized. Indeed, it can be hard to read the evolution of a specific group, since the reader has to substract the other groups in his mind. It is often better to use small multiple or line plot instead.</p>
+                  <p align="justify">A  <a href="graph/stackedarea.html">stacked area chart</a> is the extension of a basic  <a href="graph/area.html">area chart</a> which displays the evolution of the value of several groups on the same graphic. The values of each group are displayed on top of each other, what allows to check on the same figure the evolution of both the total of a numeric variable, and the importance of each group.<br><br>If only the relative importance of each group interests you, you should probably draw a percent stacked area chart. It is the same thing, but proportion of each group are represented instead of absolute value.<br><br><a href="graph/stackedarea.html">Stacked area chart</a> are criticized. Indeed, it can be hard to read the evolution of a specific group, since the reader has to substract the other groups in his mind. It is often better to use small multiple or line plot instead.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
@@ -4110,7 +4098,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/stackedarea.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4128,23 +4116,23 @@ by the Y axis, and one by the dot size.</p>
             <div class="lr">
               <div class="rl"></div>
             </div>
-          </div>e
+          </div>
           <div class="container">
             <div class="row">
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Stream150.png" alt=""></a>
+                  <a href="graph/streamgraph.html"><img class="img-fluid d-block mx-auto" src="img/section/Stream150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Streamgraph</h2></a>
+                  <a href="graph/streamgraph.html"><h2 class="text-uppercase">Streamgraph</h2></a>
                   <p class="item-intro text-muted">A smooth version of the stacked area chart.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A Stream graph is a type of stacked area chart. It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This evolution is represented for several groups, all with a distinct color.<br><br>Contrary to a stacked area, there is no corner: edges are rounded what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape.<br><br>Stream chart gets really useful when displayed in an interactive mode: highlighting a group gives you directly an insight of its evolution.</p>
+                  <p align="justify">A <a href="graph/streamgraph.html">Stream graph</a> is a type of <a href="graph/stackedarea.html">stacked area chart</a>. It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This evolution is represented for several groups, all with a distinct color.<br><br>Contrary to a stacked area, there is no corner: edges are rounded what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape.<br><br><a href="graph/streamgraph.html">Stream chart</a> gets really useful when displayed in an interactive mode: highlighting a group gives you directly an insight of its evolution.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>Good to study the relative proportions of the whole.</li><li>Bad to study the evolution of each individual group: it is very hard to substract the height of other groups at each time point.</li><li>For a more accurate but less attractive figure, consider a line chart or using small multiple.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Good to study the relative proportions of the whole.</li><li>Bad to study the <a href="">evolution of each individual</a> group: it is very hard to substract the height of other groups at each time point.</li><li>For a more accurate but less attractive figure, consider a <a href="graph/line.html">line chart</a> or using small multiple.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
@@ -4155,7 +4143,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/streamchart.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4179,17 +4167,17 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Map150.png" alt=""></a>
+                  <a href="graph/map.html"><img class="img-fluid d-block mx-auto" src="img/section/Map150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Background Map</h2></a>
+                  <a href="graph/map.html"><h2 class="text-uppercase">Background Map</h2></a>
                   <p class="item-intro text-muted">The basis of all geospatial analysis.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Drawing a background map is the first step of any geospatial analysis.<br><br>Once this background is available, you can color each region to get a choropleth map, add points or bubble to get a bubble map, reshape the region to get a cartogram, or show connection with a connection map.</p>
+                  <p align="justify">Drawing a <a href="graph/map.html">background map</a> is the first step of any geospatial analysis.<br><br>Once this background is available, you can color each region to get a <a href="graph/choropleth.html">choropleth</a> map, add points or bubble to get a <a href="graph/bubblemap.html">bubble map</a>, reshape the region to get a <a href="graph/cartogram.html">cartogram</a>, or show connection with a <a href="story/MapConnection.html">connection map</a>.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>Be careful concerning the projection of geo coordinates you are using.</li><li>Indicate your source of information and the projection used.</li><li>Don't use color without obvious purpose)</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Be careful concerning the projection of geo coordinates you are using.</li><li>Indicate your source of information and the projection used.</li><li>Don't use color without obvious purpose</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
@@ -4200,7 +4188,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/map.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4226,28 +4214,28 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/MapHexbin150.png" alt=""></a>
+                  <a href="graph/hexbinmap.html"><img class="img-fluid d-block mx-auto" src="img/section/MapHexbin150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Hexbin Map</h2></a>
-                  <p class="item-intro text-muted">The basis of all geospatial analysis.</p>
+                  <a href="graph/hexbinmap.html"><h2 class="text-uppercase">Hexbin Map</h2></a>
+                  <p class="item-intro text-muted">Split the geographic region in a multitude of hexagons</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Drawing a background map is the first step of any geospatial analysis.<br><br>Once this background is available, you can color each region to get a choropleth map, add points or bubble to get a bubble map, reshape the region to get a cartogram, or show connection with a connection map.</p>
+                  <p align="justify">A <a href="graph/hexbinmap.html">hexbin map</a> splits a geographic area in a multitude of hexagons. A numeric value is attributed to each hexagone, what controls its color.<br><br>Hexbin map is a kind of <a href="graph/choropleth.html">choropleth map</a>. It removes the bias introduced by the different region size in choropleth, since each region is represented by the same hexagone.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>Be careful concerning the projection of geo coordinates you are using.</li><li>Indicate your source of information and the projection used.</li><li>Don't use color without obvious purpose)</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Hexbin map can be confusing for reader. It is indeed harder to make the link with a real map since usual geographic landmarks are not present.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="https://www.r-graph-gallery.com/map/" class="btn btn-primary">R graph gallery</a>
-                  <a href="https://python-graph-gallery.com/map/" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/hexbin-map/" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://python-graph-gallery.com/2d-density-plot/" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/hexbin.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4260,7 +4248,7 @@ by the Y axis, and one by the dot size.</p>
 
 
     <!-- Cartogram-->
-    <div class="portfolio-modal modal fade" id="hexbinmap" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="portfolio-modal modal fade" id="cartogram" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
@@ -4273,28 +4261,27 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Cartogram150.png" alt=""></a>
+                  <a href="graph/cartogram.html"><img class="img-fluid d-block mx-auto" src="img/section/Cartogram150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Cartogram</h2></a>
-                  <p class="item-intro text-muted">The basis of all geospatial analysis.</p>
+                  <a href="graph/cartogram.html"><h2 class="text-uppercase">Cartogram</h2></a>
+                  <p class="item-intro text-muted">Distorts regions to map a quantitative variable</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">Drawing a background map is the first step of any geospatial analysis.<br><br>Once this background is available, you can color each region to get a choropleth map, add points or bubble to get a bubble map, reshape the region to get a cartogram, or show connection with a connection map.</p>
+                  <p align="justify">A <a href="graph/cartogram.html">cartogram</a> is a map in which the geometry of regions is distorted in order to convey the information of an alternate variable.<br><br>Cartogram aims to correct the bias that can be observed in a <a href="graph/choropleth.html">choropleth map</a>: when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>Be careful concerning the projection of geo coordinates you are using.</li><li>Indicate your source of information and the projection used.</li><li>Don't use color without obvious purpose)</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Normalize your variable: you cannot compare raw numbers between regions of distinct size or population.</li><li>Take a huge care when choosing the continuous color palette.</li><li>Don't forget the legend.</li></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="https://www.r-graph-gallery.com/map/" class="btn btn-primary">R graph gallery</a>
-                  <a href="https://python-graph-gallery.com/map/" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com/cartogram/" class="btn btn-primary">R graph gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/cartogram.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4319,13 +4306,13 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/Choropleth150.png" alt=""></a>
+                  <a href="graph/choropleth.html"><img class="img-fluid d-block mx-auto" src="img/section/Choropleth150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Choropleth map</h2></a>
+                  <a href="graph/choropleth.html"><h2 class="text-uppercase">Choropleth map</h2></a>
                   <p class="item-intro text-muted">Display a aggregated value for each region of the map.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A choropleth map displays divided geographical areas or regions that are coloured in relation to a numeric variable. It allows to study how a variable evolutes along a territory.<br><br>It is a powerful and widely used data visualization technique. However, its downside is that regions with bigger sizes tend to have a bigger weight in the map interpretation, which includes a biais.</p>
+                  <p align="justify">A <a href="graph/choropleth.html">choropleth map</a> displays divided geographical areas or regions that are coloured in relation to a numeric variable. It allows to study how a variable evolutes along a territory.<br><br>It is a powerful and widely used data visualization technique. However, its downside is that regions with bigger sizes tend to have a bigger weight in the map interpretation, which includes a bias.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
@@ -4340,7 +4327,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/choropleth.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
@@ -4365,17 +4352,17 @@ by the Y axis, and one by the dot size.</p>
               <div class="col-lg-10 mx-auto">
                 <div class="modal-body">
                   <!-- Project Details Go Here -->
-                  <a href="graph/violin.html"><img class="img-fluid d-block mx-auto" src="img/section/ConnectedMap150.png" alt=""></a>
+                  <a href="story/MapConnection.html"><img class="img-fluid d-block mx-auto" src="img/section/ConnectedMap150.png" alt=""></a>
 
-                  <a href="graph/violin.html"><h2 class="text-uppercase">Connection map</h2></a>
+                  <a href="story/MapConnection.html"><h2 class="text-uppercase">Connection map</h2></a>
                   <p class="item-intro text-muted">Shows multiple connection using lines or arcs.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">A connection map allows to show the connection between several positions on a map.<br><br>The link between 2 places can be drawn with a straight line, or more commonly by representing the ‘great circle‘: the shortest route between them. Knowing that the earth is a sphere, this results in rounded lines that give a really pleasant look to the map.</p>
+                  <p align="justify">A <a href="story/MapConnection.html">connection map</a> allows to show the connection between several positions on a map.<br><br>The link between 2 places can be drawn with a straight line, or more commonly by representing the ‘great circle‘: the shortest route between them. Knowing that the earth is a sphere, this results in rounded lines that give a really pleasant look to the map.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>If showing a multitude of connection, think of the order of the traits you draw. The latest will be more apparant.</li><li>Use great circle instead of straight lines.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>If showing a multitude of connection, think of the order of the traits you draw. The latest will be more apparant.</li><li>Use <a href="story/MapConnection.html">great circle</a> instead of straight lines.</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
@@ -4386,7 +4373,7 @@ by the Y axis, and one by the dot size.</p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="story/MapConnection.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
