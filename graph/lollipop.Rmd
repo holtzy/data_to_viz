@@ -153,6 +153,43 @@ ggplot(don) +
   ylab("Value of Y")
 ```
 
+*Note*: The term `cleveland dotplot` does not look to be very well defined as far as I know, and looks to be sometimes used for [dotplots](http://www.joyce-robbins.com/blog/2016/06/02/datavis-with-rdrawing-a-cleveland-dot-plot-with-ggplot2/) or [classic lollipop](https://link.springer.com/chapter/10.1007/978-3-319-53019-2_11) plots as well. The previous chart is also called [Dumbbell dot plots](http://datavizproject.com/data-type/dumbbell-plot/). Further investigation is needed on this matter and any feedback is more than welcome.
+
+Note that with a number of subgroups between 3 and ~7 this type of lollipop plot is nice as well:
+
+```{r, fig.align="center", fig.height=7, warning=FALSE}
+# Create data (could be way easier but it's late)
+value1 <- abs(rnorm(6))*2
+don <- data.frame(
+  x=LETTERS[1:24], 
+  val=c( value1, value1+1+rnorm(6, 14,1) ,value1+1+rnorm(6, sd=1) ,value1+1+rnorm(6, 12, 1) ),
+  grp=rep(c("grp1", "grp2", "grp3", "grp4"), each=6)
+  ) %>%
+  arrange(val) %>%
+  mutate(x=factor(x, x))
+
+
+# With a bit more style
+ggplot(don) +
+  geom_segment( aes(x=x, xend=x, y=0, yend=val), color="grey") +
+  geom_point( aes(x=x, y=val, color=grp), size=3 ) +
+  coord_flip()+
+  theme_ipsum() +
+  theme(
+    legend.position = "none",
+    panel.border = element_blank(),
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 8)
+  ) +
+  xlab("") +
+  ylab("Value of Y") +
+  facet_wrap(~grp, ncol=1, scale="free_y")
+```
+
+
+
+
+
 
 
 

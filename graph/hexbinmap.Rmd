@@ -1,7 +1,7 @@
 ---
-myimage: "../img/section/Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "../img/section/MapHexbinSmall.png"
+mydisqus: "hexbinmap"
+mytitle: "Hexbin map"
 output:
   html_document:
       template: template_datatoviz.html
@@ -18,41 +18,156 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+The term `hexbin map` refers to two different concepts:
+
+- The first definition is based on an unusual geospatial object where all regions of the map are represented as hexagons. Here is an example representing the US states, each represented as an hexagon. Note that here the data input provides `one value per state` and a `specific shape file` with hexagone boundaries.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8, eval=FALSE}
+# library
+library(tidyverse)
+ 
+# Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:
+library(rgdal)
+spdf <- readOGR("us_states_hexgrid.geojson.json",  "OGRGeoJSON")
+ 
+# I need to 'fortify' the data to be able to show it with ggplot2 (we need a data frame format)
+library(broom)
+spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+spdf_fortified <- tidy(spdf, region = "google_name")
+ 
+# Calculate the centroid of each hexagon to add the label:
+library(rgeos)
+centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
+
+# Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html
+data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv", header=T, sep=",", na.strings="---")
+ 
+# Merge geospatial and numerical information
+spdf_fortified = spdf_fortified %>%
+  left_join(. , data, by=c("id"="state")) 
+ 
+# Prepare binning
+spdf_fortified$bin = cut( spdf_fortified$y_2015 , breaks=c(seq(5,10), Inf), labels=c("5-6", "6-7", "7-8", "8-9", "9-10", "10+" ), include.lowest = TRUE )
+ 
+# Prepare a color scale coming from the viridis color palette
+library(viridis)
+my_palette=rev(magma(8))[c(-1,-8)]
+ 
+# plot
+ggplot() +
+  geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+  geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
+  theme_void() +
+  scale_fill_manual( 
+    values=my_palette, 
+    name="Wedding per 1000 people in 2015", 
+    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+  ) +
+  ggtitle( "A map of marriage rates, state by state" ) +
+  theme(
+    legend.position = c(0.5, 0.9),
+    text = element_text(color = "#22211d"),
+    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    legend.background = element_rect(fill = "#f5f5f2", color = NA),
+    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+  )
+```
+
+<br><br>
+
+<center>
+<img src="https://www.r-graph-gallery.com/wp-content/uploads/2017/12/328_Hexbin_map_USA_4.png" alt="img" width="600" height="700">
+</center>
+
+<br>
+
+
+
+
+
+- The second definition refers to the utilisation of [2D density](file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html) techniques. Think of a scatterplot where the X axis is the longitude and the Y axis is the latitude. The graphic area is divided in a multitude of hexagones and the number of data point in each is counted and represented using a color gradient. Note that here `no map boundaries is needed`. It requires only a `list of latitude and longitude`.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
 library(viridis)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
+
+# Get the world polygon
+library(mapdata)
+world <- map_data("world")
+ 
+data %>%
+  filter(homecontinent=='Europe') %>%
+  ggplot( aes(x=homelon, y=homelat)) + 
+    geom_hex(bins=65) +
+    theme_void() +
+    xlim(-30, 70) +
+    ylim(24, 72) +
+    scale_fill_viridis(
+      trans = "log", 
+      name="Number of Tweet recorded in 8 months", 
+      guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+    )  +
+    ggtitle( "Where people tweet about #Surf" ) +
+    theme(
+      legend.position = c(0.5, 0.09),
+      text = element_text(color = "#22211d"),
+      #plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+      #panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+      #legend.background = element_rect(fill = "#f5f5f2", color = NA),
+      plot.title = element_text(size= 22, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    )
 ```
+
+*Note on the first map*: You can learn more about this story [here](file:///Users/yan/Dropbox/data_to_viz/story/RegionWithValue.html). Data comes from [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map). Code has been inspired from [this post](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) and [that one](https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/).
+
+
+*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](file:///Users/yan/Dropbox/data_to_viz/story/GPSCoordWithoutValue.html).
+
+
 
 
 # What for
 ***
 
-Still in progress
+Hexbin or grid map has an `advantage` over usual [choropleth maps](https://www.data-to-vize.com/graph/choropleth.html). In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.  
 
-# Variation
+There’s a `drawback` to this format though. Map readers generally recognize a geographic area by it’s shape and orientation to other areas. For instance, the geography of the US is well known and people easily identify different regions. In hexbin maps, these landmarks do not exist anymore what can confuse the audience. One solution for this is to choose a basemap that uses labels on top of your data layer.
+
+
+
+# Variation {#variation}
 ***
 
-Again
+Hexbin map uses hexagons to split the area in several parts and attribute a color to it. Note that it is possible to use square instead of hexagones, resulting in a [2D histogram map](file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html).
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph/choropleth.html) section apply
+
+
+
+
 
 
 
@@ -61,32 +176,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
+  <p class="mytitlerelated">Choropleth</p>
+  <p class="mytextrelated">Display a aggregated value for each region of the map using color gradients.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
+  <p class="mytitlerelated">Cartogram</p>
+  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
+  <p class="mytitlerelated">Bubble map</p>
+  <p class="mytextrelated">Display bubble on a map background to represent the value of a numeric variable.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
+  <p class="mytitlerelated">Background Map</p>
+  <p class="mytextrelated">The basis for any geographic data visualization is to build a good background map.</p>
   </a>
   </div>
 </div>
@@ -96,11 +211,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/chloropleth-map/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -109,6 +224,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 
