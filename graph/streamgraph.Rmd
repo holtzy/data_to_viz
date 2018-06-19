@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "StreamSmall.png"
+mydisqus: "streamgraph"
+mytitle: "Streamgraph"
 output:
   html_document:
       self_contained: false    
@@ -21,75 +21,112 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+A Stream graph is a type of [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This evolution is represented for several groups, all with a distinct color.  
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+Contrary to a stacked area, there is no corner: edges are rounded what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape.
+
+<br>
+
+The following example shows the evolution of baby name frequencies in the US between 1880 and 2015. 
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
-library(viridis)
+library(babynames)
+library(streamgraph)
+
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# Plot
+data %>% 
+  streamgraph(key="name", value="n", date="year") %>%
+  sg_fill_brewer("BuPu")
+
 ```
+
+*Note*: The dataset is available through the [babynames](https://github.com/hadley/babynames) R library and a `.csv` version is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset).
+
+
 
 
 # What for
 ***
+Streamchart are good to study the `relative proportions` of the whole. However they are bad to study the evolution of each `individual group`: it is very hard to substract the height of other groups at each time point. For a more accurate but less attractive figure, consider a [line chart](https://www.data-to-viz.com/graph/line.html) or [area chart](https://www.data-to-viz.com/graph/area.html) using small multiple.  
 
-Still in progress
+Stream chart gets really useful when displayed in an interactive mode: highlighting a group gives you directly an insight of its evolution.
+
+
 
 # Variation
 ***
 
-Again
+Even if areas are usually displaced around a central axis, it is possible to display them as for most of the chart type: over the 0 axis.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
+# Plot
+data %>% 
+  streamgraph(key="name", value="n", date="year", offset="zero") %>%
+  sg_fill_brewer("BuPu")
+```
+
+<br><br>
+
+It also possible to create a percent streamchart where the proportion of each group is displayed instead of its absolute value. Here, the total number of baby names is not available anymore. However, the most popular names at each period gets more obvious.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
+# Plot
+data %>% 
+  streamgraph(key="name", value="n", date="year", offset="expand") %>%
+  sg_fill_brewer("BuPu")
+```
 
 
-# Common mistakes {#mistake}
+# Common caveats {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
+- In my opinion, streamgraph work well when there is a clear pattern in the data. If the proportion of each group remain more or less the same all along the time frame, the figure won't be very insightfull since small variations will be hard to read.
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
+  <p class="mytitlerelated">Line plot</p>
+  <p class="mytextrelated">Displays the evolution of one or several numeric variables.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
+  <p class="mytitlerelated">Area chart</p>
+  <p class="mytextrelated">Basically a line graph, filling the area under the curve.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
+  <p class="mytitlerelated">Stacked area chart</p>
+  <p class="mytextrelated">Displays the evolution of the value of several groups on the same graphic</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
+  <p class="mytitlerelated">Streamgraph</p>
+  <p class="mytextrelated">A stacked area graph displaced around a central axis, resulting in a flowing, organic shape</p>
   </a>
   </div>
 </div>
@@ -99,11 +136,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/streamgraph/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/streamchart/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
