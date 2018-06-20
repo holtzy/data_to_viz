@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "AreaSmall.png"
+mydisqus: "area"
+mytitle: "Area chart"
 output:
   html_document:
       self_contained: false    
@@ -21,42 +21,149 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+An `area chart` is really similar to a [line chart](https://www.data-to-viz.com/graph/line.html) and represents the evolution of a numeric variable. Basically, the X axis represents time or an ordered variable, and the Y axis gives the value of another variable. Data points are connected by straight line segments and the area between the x axis and the line is filled in with color or shading. 
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+
+<br>
+
+The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) between April 2013 and April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website. 
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
+library(plotly)
+library(patchwork)
+library(babynames)
 library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
+
+# plot
+data %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_area(fill="#69b3a2", alpha=0.5) +
+    geom_line(color="#69b3a2") +
+    ggtitle("Evolution of Bitcoin price") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
 ```
+
+*Note*: You can read more about this project [here](https://www.data-to-viz.com/story/TwoNumOrdered.html).
+
+
 
 
 # What for
 ***
 
-Still in progress
+Area chart is used to show the evolution of numeric variable. It is sometimes criticized for not optimizing the [data-ink ratio](https://www.infovis-wiki.net/index.php/Data-Ink_Ratio), a data visualization principle that checks that no inks is used for nothing on the chart. Indeed, removing the area under the curve would make a [line chart](https://www.data-to-viz.com/graph/line.html) that conveys the same information. In my opinion area chart make a very good work to show an evolution and the filled area makes the pattern even more obvious.
+
+
+Area chart can also be used to show the evolution of `several variables`. The most classic way is through a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html) that is discussed in another [section](https://www.data-to-viz.com/graph/stackedarea.html), but this can also be done using `small multiple`. Here is an example showing the evolution of a few baby name frequencies in the US between 1880 and 2015.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8}
+# Load dataset from github
+don <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Mary", "Deborah",   "Dorothy", "Betty", "Helen", "Jennifer", "Shirley")) %>%
+  filter(sex=="F")
+
+# Plot
+don %>%
+  ggplot( aes(x=year, y=n, group=name, fill=name)) +
+    geom_area() +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0, "lines"),
+      strip.text.x = element_text(size = 8),
+      plot.title = element_text(size=13)
+    ) +
+    facet_wrap(~name, scale="free_y")
+```
+*Note*: this graphic would deserve a discussion on the Y axis range to use and on the number of row & column to set. [Watch this space](https://www.data-to-viz.com/caveat/small_multiple.html).
+
+
+
 
 # Variation
 ***
 
-Again
+If the number of data points is low, it is advised to represent each individual observation with a dot. It allows to understand when exactly the observation have been made:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
+data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Cuting") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+```
 
 
-# Common mistakes {#mistake}
+Note that lines are also used to show trends in a scatterplot. Here is an example using Smoothed conditional means and showing confidence interval around it:
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=7}
+ggplot(mpg, aes(displ, hwy)) +
+  geom_point() +
+  geom_smooth(color="#69b3a2") +
+  theme_ipsum()
+
+```
+
+*Note*: this example comes from the [ggplot2 documentaion](http://ggplot2.tidyverse.org/reference/geom_smooth.html).
+
+
+
+
+# Common caveats {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+The line chart is subject to a lot of discussion concerning potential caveats. Here is an overview:
 
+- [To cut or not to cut the Y axis](https://www.data-to-viz.com/caveat/cut_y_axis.html)? Wether or not the Y axis must start at 0 is a hot topic leading to intense debates. The graphic below presents the same data, starting at 0 (left) or not (right). Generally, line plot do not need to start at 0 since it allows to observe patterns more efficiently, but you probably want to learn more about it [here](https://www.data-to-viz.com/caveat/cut_y_axis.html).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
+p1 <- data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Not cuting") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum() +
+    ylim(0,10000)
+
+p2 <- data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Cuting") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+
+p1 + p2
+```
+
+
+<br><br>
+
+- If you need to compare the evolution of 2 different variables, do not use [dual axis](https://www.data-to-viz.com/caveat/dual_axis.html). Indeed dual axis can show very different results depending on what range you apply to the axis. [Read more about it](https://www.data-to-viz.com/caveat/dual_axis.html).
+- Mind the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html): too many lines make the chart unreadable.
+- Think about the [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html) of the graphic, extreme ratio make the chart unreadable.
 
 
 
@@ -64,32 +171,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
+  <p class="mytitlerelated">Line plot</p>
+  <p class="mytextrelated">Displays the evolution of one or several numeric variables.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
+  <p class="mytitlerelated">Area chart</p>
+  <p class="mytextrelated">Basically a line graph, filling the area under the curve.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
+  <p class="mytitlerelated">Stacked area chart</p>
+  <p class="mytextrelated">Displays the evolution of the value of several groups on the same graphic</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
+  <p class="mytitlerelated">Streamgraph</p>
+  <p class="mytextrelated">A stacked area graph displaced around a central axis, resulting in a flowing, organic shape</p>
   </a>
   </div>
 </div>
@@ -99,11 +206,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/area-chart/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/area-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
