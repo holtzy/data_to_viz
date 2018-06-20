@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Dendrogram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -222,72 +222,120 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
+<p>A dendrogram is a <code>network structure</code>. It is constituted of a <code>root node</code> that gives birth to several <code>nodes</code> connected by <code>edges or branches</code>. The last nodes of the hierarchy are called <code>leaves</code>. In the following example, the CEO is the root node. He manages 2 managers that manage 8 employees (the leaves).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># libraries</span>
+<span class="kw">library</span>(ggraph)
+<span class="kw">library</span>(igraph)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+
+<span class="co"># create a data frame </span>
+data=<span class="kw">data.frame</span>(
+  <span class="dt">level1=</span><span class="st">&quot;CEO&quot;</span>,
+  <span class="dt">level2=</span><span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;boss1&quot;</span>,<span class="dv">4</span>), <span class="kw">rep</span>(<span class="st">&quot;boss2&quot;</span>,<span class="dv">4</span>)),
+  <span class="dt">level3=</span><span class="kw">paste0</span>(<span class="st">&quot;mister_&quot;</span>, letters[<span class="dv">1</span><span class="op">:</span><span class="dv">8</span>])
+)
+ 
+<span class="co"># transform it to a edge list!</span>
+edges_level1_<span class="dv">2</span> =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(level1, level2) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">from=</span>level1, <span class="dt">to=</span>level2)
+edges_level2_<span class="dv">3</span> =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(level2, level3) <span class="op">%&gt;%</span><span class="st"> </span>unique <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">from=</span>level2, <span class="dt">to=</span>level3)
+edge_list=<span class="kw">rbind</span>(edges_level1_<span class="dv">2</span>, edges_level2_<span class="dv">3</span>)
+ 
+<span class="co"># Now we can plot that</span>
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edge_list )
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_diagonal</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>(
+    <span class="kw">aes</span>(  <span class="dt">label=</span><span class="kw">c</span>(<span class="st">&quot;CEO&quot;</span>, <span class="st">&quot;Manager&quot;</span>, <span class="st">&quot;Manager&quot;</span>, LETTERS[<span class="dv">8</span><span class="op">:</span><span class="dv">1</span>]) ), 
+    <span class="dt">hjust=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)), 
+    <span class="dt">nudge_y =</span> <span class="kw">c</span>(<span class="op">-</span>.<span class="dv">02</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="kw">rep</span>(.<span class="dv">02</span>,<span class="dv">8</span>)),
+    <span class="dt">nudge_x =</span> <span class="kw">c</span>(<span class="dv">0</span>, .<span class="dv">3</span>, .<span class="dv">3</span>, <span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>))
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_y_reverse</span>() </code></pre></div>
+<p><img src="dendrogram_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Dendrogram can be made with 2 types of dataset. i/ A numeric matrix allowing to compute distance between individuals ii/ A hierarchical dataset where the relationship between entities is provided directly.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to <a href="https://www.data-to-viz.com/caveat/bubble_hard.html">translate an area into an accurate number</a>. If you need accuracy, use a <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> or a <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> plot instead.</p>
+<p>However, circular packing shows very well how groups are organised in subgroups. It uses the space a bit less efficiently than a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, but the hierarchy gets very neat.</p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>When using circular packing I really like to remove the first or two first levels of the hierarchy on the plot. I believe it improves the appearance of the graphic but this is purely an aesthetic point of view:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
+<span class="kw">library</span>(ggraph)
+<span class="kw">library</span>(igraph)
+<span class="kw">library</span>(viridis)
+ 
+<span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span>
+edges=flare<span class="op">$</span>edges
+vertices =<span class="st"> </span>flare<span class="op">$</span>vertices
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
+ 
+<span class="co"># Second one: add 2 first levels</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="dt">weight=</span><span class="st">&quot;size&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_node_circle</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">as.factor</span>(depth), <span class="dt">color =</span> <span class="kw">as.factor</span>(depth) )) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">2</span>], <span class="st">&quot;3&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">3</span>], <span class="st">&quot;4&quot;</span>=<span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">4</span>])) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>( <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;3&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;4&quot;</span>=<span class="st">&quot;black&quot;</span>) ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;FALSE&quot;</span>)</code></pre></div>
+<p><img src="dendrogram_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Note that if only one level of hierarchy is displayed (no encapsulation), it becomes equivalent to a barplot. Instead of showing the value of each individual as a bar, it uses a circle.</p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li>If many levels in the hierarchy, using an interactive version is advised. Indeed adding to many labels could make the graphic unreadable.</li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
-Density
+Barplot
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Represents the value of entities using bar of various length.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Lollipop plot
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/treemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/TreeSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Treemap
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Displays hierarchical data as a set of nested rectangles. Perfect to show how the whole is divided.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
 <p class="mytitlerelated">
-Violin
+Dendrogram
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+A network structure used to show a hierarchical organization.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/circle-packing/" class="btn btn-primary">R graph gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +350,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/dendrogram.html;  
+        this.page.identifier = dendrogram; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
