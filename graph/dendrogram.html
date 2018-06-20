@@ -72,6 +72,12 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.3/./d3.min.js"></script>
+<link href="libs/d3heatmapcore-0.0.0/heatmapcore.css" rel="stylesheet" />
+<script src="libs/d3heatmapcore-0.0.0/heatmapcore.js"></script>
+<script src="libs/d3-tip-0.6.6/index.js"></script>
+<script src="libs/d3heatmap-binding-0.6.1.2/d3heatmap.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -220,13 +226,22 @@ $(document).ready(function () {
 
 
 <div class="mycontent">
-<h1 id="definition">Definition</h1>
+
+
+
+
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
-<p>A dendrogram is a <code>network structure</code>. It is constituted of a <code>root node</code> that gives birth to several <code>nodes</code> connected by <code>edges or branches</code>. The last nodes of the hierarchy are called <code>leaves</code>. In the following example, the CEO is the root node. He manages 2 managers that manage 8 employees (the leaves).</p>
+<p>A dendrogram is a <code>network structure</code>. It is constituted of a <code>root node</code> that gives birth to several <code>nodes</code> connected by <code>edges</code> or <code>branches</code>. The last nodes of the hierarchy are called <code>leaves</code>. In the following example, the CEO is the root node. He manages 2 managers that manage 8 employees (the leaves).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># libraries</span>
 <span class="kw">library</span>(ggraph)
 <span class="kw">library</span>(igraph)
 <span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(dendextend)
+<span class="kw">library</span>(colormap)
+<span class="kw">library</span>(kableExtra)
+<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
 
 <span class="co"># create a data frame </span>
 data=<span class="kw">data.frame</span>(
@@ -255,58 +270,239 @@ mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</sp
 <span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">scale_y_reverse</span>() </code></pre></div>
 <p><img src="dendrogram_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Dendrogram can be made with 2 types of dataset. i/ A numeric matrix allowing to compute distance between individuals ii/ A hierarchical dataset where the relationship between entities is provided directly.</p>
-<h1 id="what-for">What for</h1>
+<p><br></p>
+<p>Two type of dendrogram exist, resulting from 2 types of dataset:</p>
+<ul>
+<li>A <code>hierarchic</code> dataset provides the links between nodes explicitely. Like above.</li>
+<li>The result of a <code>clustering</code> algorythm can be visualized as a dendrogram.</li>
+</ul>
+</div>
+<div id="dendrogram-from-hierarchic-data" class="section level1">
+<h1>Dendrogram from hierarchic data</h1>
 <hr />
-<p>Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to <a href="https://www.data-to-viz.com/caveat/bubble_hard.html">translate an area into an accurate number</a>. If you need accuracy, use a <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> or a <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> plot instead.</p>
-<p>However, circular packing shows very well how groups are organised in subgroups. It uses the space a bit less efficiently than a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, but the hierarchy gets very neat.</p>
-<h1 id="variation">Variation</h1>
+</div>
+<div id="dendrogram-from-clustering" class="section level1">
+<h1>Dendrogram from clustering</h1>
 <hr />
-<p>When using circular packing I really like to remove the first or two first levels of the hierarchy on the plot. I believe it improves the appearance of the graphic but this is purely an aesthetic point of view:</p>
+<div class = "row">
+<div class="col-md-6">
+<p><br><br> Let’s consider a <code>distance matrix</code> that provides the distance between all pairs of 28 major cities. Note that this kind of matrix can be computed from a <code>multivariate dataset</code>, computing distance between each pair of individual using <code>correlation</code> or <code>euclidean distance</code>.</p>
+</div>
+<div class = "col-md-6">
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load the data</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/13_AdjacencyUndirecterWeighted.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">row.names=</span><span class="st">&quot;Cities.&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>as.matrix
+<span class="kw">colnames</span>(data) &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>, <span class="kw">colnames</span>(data))
+
+<span class="co"># show data</span>
+tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span>.[<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">6</span>),]
+tmp[<span class="kw">is.na</span>(tmp)] &lt;-<span class="st"> &quot;-&quot;</span>
+tmp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+Berlin
+</th>
+<th style="text-align:left;">
+Cairo
+</th>
+<th style="text-align:left;">
+Caracas
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Berlin
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+1795
+</td>
+<td style="text-align:left;">
+5247
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Cairo
+</td>
+<td style="text-align:left;">
+1795
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+<td style="text-align:left;">
+6338
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Caracas
+</td>
+<td style="text-align:left;">
+5247
+</td>
+<td style="text-align:left;">
+6338
+</td>
+<td style="text-align:left;">
+<ul>
+<li></td>
+</tr>
+</tbody>
+</table></li>
+</ul></li>
+</ul></li>
+</ul>
+</div>
+</div>
+<p><br></p>
+<p>It is possible to perform <a href="https://en.wikipedia.org/wiki/Hierarchical_clustering">hierarchical cluster analysis</a> on this set of dissimilarities. Basically, this statistical method seeks to build a <code>hierarchy</code> of clusters: it tries to group sample that are close one from another.</p>
+<p>The result can be seen as a dendrogram:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Perform hierarchical cluster analysis.</span>
+dend &lt;-<span class="st"> </span><span class="kw">as.dist</span>(data) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">hclust</span>(<span class="dt">method=</span><span class="st">&quot;ward.D&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">as.dendrogram</span>()
+
+<span class="co"># Plot with Color in function of the cluster</span>
+leafcolor &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap =</span> colormaps<span class="op">$</span>viridis, <span class="dt">nshades =</span> <span class="dv">5</span>, <span class="dt">format =</span> <span class="st">&quot;hex&quot;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">reverse =</span> <span class="ot">FALSE</span>)
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>))
+dend <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="dt">value =</span> leafcolor, <span class="dt">k=</span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;branches_k_color&quot;</span>, <span class="dt">value =</span> leafcolor, <span class="dt">k =</span> <span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz=</span><span class="ot">TRUE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="dendrogram_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>As expected, cities that are in same geographic area tend to be <code>clusterized</code> together. For example, the yellow cluster is composed by all the Asian cities of the dataset. Note that the dendrogram provides even more information. For instance, Sydney appears to be a bit further to Calcutta than calcutta is from Tokyo: this can be deduce from the branch size that represents the distance.</p>
+<p>A common task consists to compare the result of a clustering with an expected result. For instance, we can check if the countries are indeed grouped in continent using a color bar:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create a color vector with continent</span>
+continent &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;North America&quot;</span>, 
+               <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>,
+               <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Europe&quot;</span>,
+               <span class="st">&quot;North America&quot;</span>
+               )
+barcolor &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap =</span> colormaps<span class="op">$</span>viridis, <span class="dt">nshades =</span> <span class="dv">5</span>, <span class="dt">format =</span> <span class="st">&quot;hex&quot;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">reverse =</span> <span class="ot">FALSE</span>)
+barcolor &lt;-<span class="st"> </span>barcolor[<span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(continent))]
+
+<span class="co"># Make the dendrogram</span>
+<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>))
+dend <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="dt">value =</span> leafcolor, <span class="dt">k=</span><span class="dv">5</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;branches_k_color&quot;</span>, <span class="dt">value =</span> leafcolor, <span class="dt">k =</span> <span class="dv">5</span>)  <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">plot</span>(<span class="dt">axes=</span><span class="ot">FALSE</span>)
+
+<span class="kw">colored_bars</span>(<span class="dt">colors =</span> barcolor, <span class="dt">dend =</span> dend, <span class="dt">rowLabels =</span> <span class="st">&quot;continent&quot;</span>)</code></pre></div>
+<p><img src="dendrogram_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p>This graphic allows to validate that the clustering indeed grouped cities by continent. There are a few discrepencies that are logical. Indeed, Mexico city has been considered as a city of South America here, altough it is probably closer from North America as suggested by the clustering.</p>
+</div>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
+<hr />
+<p>Many variations exist for dendrogram. It can be horizontal or vertical as shown before. It can also be linear or circular. The advantage of the circular verion being that it uses the graphic space more efficiently:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(ggraph)
 <span class="kw">library</span>(igraph)
-<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(RColorBrewer) 
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+
+<span class="co"># create a data frame giving the hierarchical structure of your individuals</span>
+d1=<span class="kw">data.frame</span>(<span class="dt">from=</span><span class="st">&quot;origin&quot;</span>, <span class="dt">to=</span><span class="kw">paste</span>(<span class="st">&quot;group&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>), <span class="dt">sep=</span><span class="st">&quot;&quot;</span>))
+d2=<span class="kw">data.frame</span>(<span class="dt">from=</span><span class="kw">rep</span>(d1<span class="op">$</span>to, <span class="dt">each=</span><span class="dv">10</span>), <span class="dt">to=</span><span class="kw">paste</span>(<span class="st">&quot;group&quot;</span>, <span class="kw">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="dt">sep=</span><span class="st">&quot;_&quot;</span>))
+edges=<span class="kw">rbind</span>(d1, d2)
  
-<span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span>
-edges=flare<span class="op">$</span>edges
-vertices =<span class="st"> </span>flare<span class="op">$</span>vertices
+<span class="co"># create a vertices data.frame. One line per object of our hierarchy</span>
+vertices =<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">name =</span> <span class="kw">unique</span>(<span class="kw">c</span>(<span class="kw">as.character</span>(edges<span class="op">$</span>from), <span class="kw">as.character</span>(edges<span class="op">$</span>to))) , 
+  <span class="dt">value =</span> <span class="kw">runif</span>(<span class="dv">111</span>)
+) 
+<span class="co"># Let&#39;s add a column with the group of each name. It will be useful later to color points</span>
+vertices<span class="op">$</span>group =<span class="st"> </span>edges<span class="op">$</span>from[ <span class="kw">match</span>( vertices<span class="op">$</span>name, edges<span class="op">$</span>to ) ]
+ 
+ 
+<span class="co">#Let&#39;s add information concerning the label we are going to add: angle, horizontal adjustement and potential flip</span>
+<span class="co">#calculate the ANGLE of the labels</span>
+vertices<span class="op">$</span>id=<span class="ot">NA</span>
+myleaves=<span class="kw">which</span>(<span class="kw">is.na</span>( <span class="kw">match</span>(vertices<span class="op">$</span>name, edges<span class="op">$</span>from) ))
+nleaves=<span class="kw">length</span>(myleaves)
+vertices<span class="op">$</span>id[ myleaves ] =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>nleaves)
+vertices<span class="op">$</span>angle=<span class="st"> </span><span class="dv">90</span> <span class="op">-</span><span class="st"> </span><span class="dv">360</span> <span class="op">*</span><span class="st"> </span>vertices<span class="op">$</span>id <span class="op">/</span><span class="st"> </span>nleaves
+ 
+<span class="co"># calculate the alignment of labels: right or left</span>
+<span class="co"># If I am on the left part of the plot, my labels have currently an angle &lt; -90</span>
+vertices<span class="op">$</span>hjust&lt;-<span class="kw">ifelse</span>( vertices<span class="op">$</span>angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+ 
+<span class="co"># flip angle BY to make them readable</span>
+vertices<span class="op">$</span>angle&lt;-<span class="kw">ifelse</span>(vertices<span class="op">$</span>angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, vertices<span class="op">$</span>angle<span class="op">+</span><span class="dv">180</span>, vertices<span class="op">$</span>angle)
+ 
+<span class="co"># Create a graph object</span>
 mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
- 
-<span class="co"># Second one: add 2 first levels</span>
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="dt">weight=</span><span class="st">&quot;size&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_circle</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">as.factor</span>(depth), <span class="dt">color =</span> <span class="kw">as.factor</span>(depth) )) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">2</span>], <span class="st">&quot;3&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">3</span>], <span class="st">&quot;4&quot;</span>=<span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">4</span>])) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>( <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;3&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;4&quot;</span>=<span class="st">&quot;black&quot;</span>) ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;FALSE&quot;</span>)</code></pre></div>
-<p><img src="dendrogram_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Note that if only one level of hierarchy is displayed (no encapsulation), it becomes equivalent to a barplot. Instead of showing the value of each individual as a bar, it uses a circle.</p>
-<h1 id="mistake">Common mistakes</h1>
+
+<span class="co"># prepare color</span>
+mycolor &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap =</span> colormaps<span class="op">$</span>viridis, <span class="dt">nshades =</span> <span class="dv">6</span>, <span class="dt">format =</span> <span class="st">&quot;hex&quot;</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">reverse =</span> <span class="ot">FALSE</span>)[<span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">6</span>), <span class="dv">10</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>)]
+
+<span class="co"># Make the plot</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_diagonal</span>(<span class="dt">colour=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_edge_colour_distiller</span>(<span class="dt">palette =</span> <span class="st">&quot;RdPu&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.15</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.15</span>, <span class="dt">filter =</span> leaf, <span class="dt">label=</span>name, <span class="dt">angle =</span> angle, <span class="dt">hjust=</span>hjust, <span class="dt">colour=</span>group), <span class="dt">size=</span><span class="fl">2.7</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">filter =</span> leaf, <span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.07</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.07</span>, <span class="dt">colour=</span>group, <span class="dt">size=</span>value, <span class="dt">alpha=</span><span class="fl">0.2</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_colour_manual</span>(<span class="dt">values=</span> mycolor) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_size_continuous</span>( <span class="dt">range =</span> <span class="kw">c</span>(<span class="fl">0.1</span>,<span class="dv">7</span>) ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>),
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.3</span>, <span class="fl">1.3</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.3</span>, <span class="fl">1.3</span>))</code></pre></div>
+<p><img src="dendrogram_files/figure-html/unnamed-chunk-5-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>Another common variation is to display a heatmap at the bottom of the dendrogram. Indeed, it allows to visualize the distance between each sample and thus to understand why the clustering algorythm put 2 samples next to each other.</p>
+<center>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(d3heatmap)
+<span class="kw">d3heatmap</span>(mtcars, <span class="dt">scale =</span> <span class="st">&quot;column&quot;</span>, <span class="dt">colors =</span> <span class="st">&quot;Blues&quot;</span>)</code></pre></div>
+<div id="htmlwidget-7e7b2cc17482353a9893" style="width:576px;height:576px;" class="d3heatmap html-widget"></div>
+<script type="application/json" data-for="htmlwidget-7e7b2cc17482353a9893">{"x":{"rows":{"members":32,"height":425.344651694364,"edgePar":{"col":""},"children":[{"members":23,"height":261.849881468371,"edgePar":{"col":""},"children":[{"members":16,"height":141.704447795403,"edgePar":{"col":""},"children":[{"members":12,"height":113.302300506212,"edgePar":{"col":""},"children":[{"members":11,"height":74.3824295717746,"edgePar":{"col":""},"children":[{"members":6,"height":50.1094029998363,"edgePar":{"col":""},"children":[{"members":5,"height":33.180384265406,"edgePar":{"col":""},"children":[{"members":4,"height":20.6939435584424,"edgePar":{"col":""},"children":[{"members":3,"height":13.1357108677072,"edgePar":{"col":""},"children":[{"members":2,"height":8.65359029536296,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Toyota Corona","edgePar":{"col":""}},{"members":1,"height":0,"label":"Porsche 914-2","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Datsun 710","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Volvo 142E","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Merc 230","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Lotus Europa","edgePar":{"col":""}}]},{"members":5,"height":64.889871320569,"edgePar":{"col":""},"children":[{"members":4,"height":15.6724726830197,"edgePar":{"col":""},"children":[{"members":2,"height":1.52315462117278,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Merc 280","edgePar":{"col":""}},{"members":1,"height":0,"label":"Merc 280C","edgePar":{"col":""}}]},{"members":2,"height":0.61532511731604,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Mazda RX4 Wag","edgePar":{"col":""}},{"members":1,"height":0,"label":"Mazda RX4","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"Merc 240D","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"Ferrari Dino","edgePar":{"col":""}}]},{"members":4,"height":14.7807070196253,"edgePar":{"col":""},"children":[{"members":3,"height":10.3922856003865,"edgePar":{"col":""},"children":[{"members":2,"height":5.14734154685698,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Fiat 128","edgePar":{"col":""}},{"members":1,"height":0,"label":"Fiat X1-9","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Toyota Corolla","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Honda Civic","edgePar":{"col":""}}]}]},{"members":7,"height":103.431069316719,"edgePar":{"col":""},"children":[{"members":5,"height":51.8242520447715,"edgePar":{"col":""},"children":[{"members":3,"height":2.13834047803431,"edgePar":{"col":""},"children":[{"members":2,"height":0.982649479723062,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Merc 450SL","edgePar":{"col":""}},{"members":1,"height":0,"label":"Merc 450SE","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Merc 450SLC","edgePar":{"col":""}}]},{"members":2,"height":14.0154994559595,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Dodge Challenger","edgePar":{"col":""}},{"members":1,"height":0,"label":"AMC Javelin","edgePar":{"col":""}}]}]},{"members":2,"height":33.5508692137775,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Hornet 4 Drive","edgePar":{"col":""}},{"members":1,"height":0,"label":"Valiant","edgePar":{"col":""}}]}]}]},{"members":9,"height":214.936685793747,"edgePar":{"col":""},"children":[{"members":8,"height":134.811946429091,"edgePar":{"col":""},"children":[{"members":5,"height":101.738968566622,"edgePar":{"col":""},"children":[{"members":3,"height":21.2655989805131,"edgePar":{"col":""},"children":[{"members":2,"height":10.0761202851097,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Duster 360","edgePar":{"col":""}},{"members":1,"height":0,"label":"Camaro Z28","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Ford Pantera L","edgePar":{"col":""}}]},{"members":2,"height":40.005247468301,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Pontiac Firebird","edgePar":{"col":""}},{"members":1,"height":0,"label":"Hornet Sportabout","edgePar":{"col":""}}]}]},{"members":3,"height":40.8399635773589,"edgePar":{"col":""},"children":[{"members":2,"height":15.6224446230416,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"Cadillac Fleetwood","edgePar":{"col":""}},{"members":1,"height":0,"label":"Lincoln Continental","edgePar":{"col":""}}]},{"members":1,"height":0,"label":"Chrysler Imperial","edgePar":{"col":""}}]}]},{"members":1,"height":0,"label":"Maserati Bora","edgePar":{"col":""}}]}]},"cols":{"members":11,"height":1475.10429122825,"edgePar":{"col":""},"children":[{"members":9,"height":115.849514457334,"edgePar":{"col":""},"children":[{"members":7,"height":34.7850542618522,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"cyl","edgePar":{"col":""}},{"members":6,"height":18.9208879284245,"edgePar":{"col":""},"children":[{"members":2,"height":3.60555127546399,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"am","edgePar":{"col":""}},{"members":1,"height":0,"label":"vs","edgePar":{"col":""}}]},{"members":4,"height":10.6897474245185,"edgePar":{"col":""},"children":[{"members":2,"height":8.59634050046879,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"carb","edgePar":{"col":""}},{"members":1,"height":0,"label":"wt","edgePar":{"col":""}}]},{"members":2,"height":2.98172768709686,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"drat","edgePar":{"col":""}},{"members":1,"height":0,"label":"gear","edgePar":{"col":""}}]}]}]}]},{"members":2,"height":33.2610913831762,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"qsec","edgePar":{"col":""}},{"members":1,"height":0,"label":"mpg","edgePar":{"col":""}}]}]},{"members":2,"height":656.640441946732,"edgePar":{"col":""},"children":[{"members":1,"height":0,"label":"hp","edgePar":{"col":""}},{"members":1,"height":0,"label":"disp","edgePar":{"col":""}}]}]},"matrix":{"data":["4","0","1","1","2.465","3.7","3","20.01","21.5","97","120.1","4","1","0","2","2.14","4.43","5","16.7","26","91","120.3","4","1","1","1","2.32","3.85","4","18.61","22.8","93","108","4","1","1","2","2.78","4.11","4","18.6","21.4","109","121","4","0","1","2","3.15","3.92","4","22.9","22.8","95","140.8","4","1","1","2","1.513","3.77","5","16.9","30.4","113","95.1","6","0","1","4","3.44","3.92","4","18.3","19.2","123","167.6","6","0","1","4","3.44","3.92","4","18.9","17.8","123","167.6","6","1","0","4","2.875","3.9","4","17.02","21","110","160","6","1","0","4","2.62","3.9","4","16.46","21","110","160","4","0","1","2","3.19","3.69","4","20","24.4","62","146.7","6","1","0","6","2.77","3.62","5","15.5","19.7","175","145","4","1","1","1","2.2","4.08","4","19.47","32.4","66","78.7","4","1","1","1","1.935","4.08","4","18.9","27.3","66","79","4","1","1","1","1.835","4.22","4","19.9","33.9","65","71.1","4","1","1","2","1.615","4.93","4","18.52","30.4","52","75.7","8","0","0","3","3.73","3.07","3","17.6","17.3","180","275.8","8","0","0","3","4.07","3.07","3","17.4","16.4","180","275.8","8","0","0","3","3.78","3.07","3","18","15.2","180","275.8","8","0","0","2","3.52","2.76","3","16.87","15.5","150","318","8","0","0","2","3.435","3.15","3","17.3","15.2","150","304","6","0","1","1","3.215","3.08","3","19.44","21.4","110","258","6","0","1","1","3.46","2.76","3","20.22","18.1","105","225","8","0","0","4","3.57","3.21","3","15.84","14.3","245","360","8","0","0","4","3.84","3.73","3","15.41","13.3","245","350","8","1","0","4","3.17","4.22","5","14.5","15.8","264","351","8","0","0","2","3.845","3.08","3","17.05","19.2","175","400","8","0","0","2","3.44","3.15","3","17.02","18.7","175","360","8","0","0","4","5.25","2.93","3","17.98","10.4","205","472","8","0","0","4","5.424","3","3","17.82","10.4","215","460","8","0","0","4","5.345","3.23","3","17.42","14.7","230","440","8","1","0","8","3.57","3.54","5","14.6","15","335","301"],"dim":[32,11],"rows":["Toyota Corona","Porsche 914-2","Datsun 710","Volvo 142E","Merc 230","Lotus Europa","Merc 280","Merc 280C","Mazda RX4 Wag","Mazda RX4","Merc 240D","Ferrari Dino","Fiat 128","Fiat X1-9","Toyota Corolla","Honda Civic","Merc 450SL","Merc 450SE","Merc 450SLC","Dodge Challenger","AMC Javelin","Hornet 4 Drive","Valiant","Duster 360","Camaro Z28","Ford Pantera L","Pontiac Firebird","Hornet Sportabout","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Maserati Bora"],"cols":["cyl","am","vs","carb","wt","drat","gear","qsec","mpg","hp","disp"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAALCAYAAAAeEY8BAAAEZElEQVQ4jWXTW2xTBRzH8W/P6XXrlfWybt26DQaDbYzJYF7IzIIkKCgRwSAkSogajDEYXxZfZMQXw4M3jDFCTIREVEggAiFAyIZhW1CZ4ByDXdtd6LbSbr2st3N6jg/GJsT3T34P33/+mgsDs+qjdJZvro3Tsb2OaCZH73iMzSsdfHpxmMZaJ09V2yjSidgNOo6cu8d7z68gnJSodpjoOHWHbDpHx94mfuyb4sCzfnSCULCiqKFjex0pSeb83XlEQQOAoqpsrXci7njr/U67QU/XvTC9oxGWl1pwFOk43TuN32tFzqvMJSQsRi0aQWVrQylLkszJGwHKXMWUeqwYzAZCsRzdP19FKPPhLzESz8m82OQt7Po9ZvauK+ePmRg3bwXZvcnP0Z8GEFv3vNtpNWgRTDq2Nbk5eSNAKJHD7zETT0voRAFR1KCgIS0pxHMyY5FMwSZyMh67iXhaomF9HRkpj71YTzL7r13mKCIQStBe7+KL7nGa/XYw6pmL53jpSR/Cg/kUwViaSruBgdkU+bzKvtZyHkZTbFnjJCPlyeTyrHKbmFzIIGig0m7AaTJwcEsNsViGBq+ZKrcZs0mHSa/lXO8UPSMR6krM1DqNtK3zcuzyKPtay/n6x36eXuFgmcXAV2f/RtjV4GFyIUff2CK1TiOHX17DscujxGIZfFYT+zaUMbuQ4tq9CMMzMT757jeq7UUAOE0G8nmVM72TtNc42N3oYXYhxYpKOwatQOe5QcrMJtqrHYVd/3I3tSXF7Kr3UOq1IkobXuscGIvQ1zPM/udWoxU0tNW5CrfzuYo5sNHPh59foeWJapbXuPj24hA7N1aiqNA3scDbm6uRFIWrw1FU4JVmD/VlZkxmIylZ5tLgPENzSyQzcsFefhAhkZXRnO6fVhVVZWg+hceso3s4ikErEpxN8Ga7H0GjoWciztximj0tXhRV5dfxGK1+C5cGwv+z4aTEnekEB1srCSaWmE9KWIwCt6eWmJhLkEjmHrPC1ftRJEVltbuISEpmW6MLW7GeEruRgdkUiqpydyTMG60+bgbiaNDQVmPj+5tTWE16WqqsrKywF+yZ3kl2rvVw/Pcp/JZi3GYdX14YodSi54W1btavcnGiK4iiqrjMOkR3++udobhEmd2A16LHotdRbtNzvmeSR4ksfwZihWzd98MMziYJJSRebfHSWuGgSC9y6voY0ZRE/8QikqSwrsZO72iUuWyesz1BHoWTHN7RyFwqw4lfhrDZjfRPxGiusiF+dORwp82k48pgmLXlViRFYWoxi89rBUFgOhRnMLREc5WNJp8Vt9VIOJmjcpmRTD5PYCFNTbkNWYVYMotWKxZs11CY+wPTHD/UxnQyxa1gko93NNA1FmF0KMREIo/wXwpJVnjn6HVMWpEKu4G0rHBoUzVWm5HAePixbA+jKT747AbxrIzPZgBge6OLbFZmemaRE13Bwtsl/urhh/6H3J5JcqlrBL1WYP8zFSwGxnA6TPwDUPUZFSxOfbgAAAAASUVORK5CYII=","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[],"jsHooks":[]}</script>
+</center>
+</div>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <ul>
-<li>If many levels in the hierarchy, using an interactive version is advised. Indeed adding to many labels could make the graphic unreadable.</li>
+<li>If using a clustering algorythm, be sure you understood which metrics have been used for the distance calculation and for the clustering algorythm.</li>
+<li>Horizontal version are appreciated with long labels</li>
+<li>Showing the heatmap is a good practice if you’re working with clustering.</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+<a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
 <p class="mytitlerelated">
-Barplot
+Heatmap
 </p>
 <p class="mytextrelated">
-Represents the value of entities using bar of various length.
+Representation of data where the individual values contained in a matrix are represented as colors
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+<a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
 <p class="mytitlerelated">
-Lollipop plot
+Circular packing
 </p>
 <p class="mytextrelated">
-A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.
+A circular version of a Treemap to visualize a hierarchical organization
 </p>
 </a>
 </div>
@@ -331,15 +527,20 @@ A network structure used to show a hierarchical organization.
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
 <p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
 <a href="https://www.r-graph-gallery.com/circle-packing/" class="btn btn-primary">R graph gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
+</div>
+<div id="comments" class="section level1">
+<h1>Comments</h1>
 <hr />
 <p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
 

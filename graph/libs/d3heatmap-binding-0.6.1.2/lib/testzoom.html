@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <style>
+    #top {
+        width: 500px;
+        height: 500px;
+    }
+    </style>
+</head>
+<body>
+
+<svg id="top">
+</svg>
+
+<script>
+
+var data = d3.range(10);
+var svg = d3.select('#top');
+
+var x = d3.scale.linear().domain([0,10]).range([0, 500]);
+var y = d3.scale.linear().domain([0,10]).range([0, 500]);
+var zoom = d3.behavior.zoom().x(x).y(y);
+
+svg.call(zoom);
+
+var circle = svg.selectAll('circle').data(data);
+
+circle.enter().append('circle').attr('r', 3.5);
+function draw() {
+    circle
+        .attr('cx', function(d, i) { return x(d); })
+        .attr('cy', function(d, i) { return y(d); });
+}
+draw();
+zoom.on('zoom.draw', draw);
+var pinnedY;
+zoom.on('zoomstart.pin', function() {
+   pinnedY = zoom.translate()[1];
+});
+zoom.on('zoom.pin', function() {
+   var t = zoom.translate();
+   t[1] = pinnedY;
+   zoom.translate(t); 
+   draw();
+});
+
+</script>
+
+</body>
+</html>
