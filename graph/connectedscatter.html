@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Connected Scatterplot</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -222,72 +222,216 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p>A <code>connected scatterplot</code> displays the evolution of a numeric variable. Data points are represented by a dot and connected by straight line segments. It often shows a trend in data over intervals of time: a time series. Basically it is the same as a <a href="https://www.data-to-viz.com/graph/line.html">line plot</a> in most of the cases, except that individual observation are highlighted.</p>
+<p>The following example shows the evolution of the <a href="https://www.data-to-viz.com/story/TwoNumOrdered.html">bitcoin price</a> in April 2018. Data comes from the <a href="https://www.data-to-viz.com/story/TwoNumOrdered.html">CoinMarketCap</a> website.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(plotly)
+<span class="kw">library</span>(patchwork)
+<span class="kw">library</span>(babynames)
+<span class="kw">library</span>(viridis)
+
+<span class="co"># Load dataset from github</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv&quot;</span>, <span class="dt">header=</span>T)
+data<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(data<span class="op">$</span>date)
+
+<span class="co"># Plot</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">4</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Evolution of Bitcoin price&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>Note</em>: You can read more about this project <a href="https://www.data-to-viz.com/story/TwoNumOrdered.html">here</a>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Connected scatterplot makes sense in specific conditions where both the <a href="https://www.data-to-viz.com/graph/scatter.html">scatterplot</a> and the <a href="https://www.data-to-viz.com/graph/line.html">line chart</a> are not enough:</p>
+<ul>
+<li>When doing a line chart, it is sometimes difficult to visualize where the breaks in the curve are, and thus when the observation have been done.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot</span>
+p1 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">60</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Line chart&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()
+
+p2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">60</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Connected scatterplot&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()
+
+p1 <span class="op">+</span><span class="st"> </span>p2</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;" /></p>
+<ul>
+<li>When your X axis is ordered you must connect the dots together to get a connected scatterplot. Indeed, the pattern is way hard to read if dots are not connected as illustrated in the graphic below. Note the this can even lead to misleading conclusion like explained here.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">60</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">2</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Line chart&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-3-1.png" width="576" style="display: block; margin: auto;" /></p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>The connected scatterplot can also be a powerfull technique to tell a story about the evolution of 2 variables. Let’s consider a dataset composed of 3 columns:</p>
+<ul>
+<li>Year</li>
+<li>Number of baby born called Amanda this year</li>
+<li>Number of baby born called Ashley</li>
+</ul>
+<p>We can first visualize the evolution of both names using a usual line plot with 2 lines:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(babynames)
+
+<span class="co"># Load dataset</span>
+data &lt;-<span class="st"> </span>babynames <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">filter</span>(name <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Ashley&quot;</span>, <span class="st">&quot;Amanda&quot;</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(sex<span class="op">==</span><span class="st">&quot;F&quot;</span>)
+
+<span class="co">#plot</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>year, <span class="dt">y=</span>n, <span class="dt">group=</span>name, <span class="dt">color=</span>name)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete =</span> <span class="ot">TRUE</span>, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Popularity of American names in the previous 30 years&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>This is an accurate way to visualize the information. However, it would be much harder to build it if both variables would not share the same unit. In this case, it would require a dual axis line chart that is known to be very misleading.</p>
+<p>The connected scatterplot can be a good workaround in this situation:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(grid) <span class="co"># needed for arrow function</span>
+<span class="kw">library</span>(ggrepel)
+
+<span class="co"># data</span>
+tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(year<span class="op">&gt;</span><span class="dv">1970</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">select</span>(year, name, n) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key =</span> name, <span class="dt">value=</span>n, <span class="op">-</span><span class="dv">1</span>)
+
+<span class="co"># data for date</span>
+tmp_date &lt;-<span class="st"> </span>tmp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.3</span>)
+
+tmp<span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>Amanda, <span class="dt">y=</span>Ashley, <span class="dt">label=</span>year)) <span class="op">+</span>
+<span class="st">     </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">     </span><span class="kw">geom_text_repel</span>(<span class="dt">data=</span>tmp_date) <span class="op">+</span>
+<span class="st">     </span><span class="kw">geom_segment</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, 
+                  <span class="kw">aes</span>(
+                    <span class="dt">xend=</span><span class="kw">c</span>(<span class="kw">tail</span>(Amanda, <span class="dt">n=</span><span class="op">-</span><span class="dv">1</span>), <span class="ot">NA</span>), 
+                    <span class="dt">yend=</span><span class="kw">c</span>(<span class="kw">tail</span>(Ashley, <span class="dt">n=</span><span class="op">-</span><span class="dv">1</span>), <span class="ot">NA</span>)
+                  ),
+                  <span class="dt">arrow=</span><span class="kw">arrow</span>(<span class="dt">length=</span><span class="kw">unit</span>(<span class="fl">0.3</span>,<span class="st">&quot;cm&quot;</span>))
+      ) <span class="op">+</span>
+<span class="st">      </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here the history of both names is obvious. They were not popular at all in 1972 at the beginning of the dataset. Between 1972 and 1980 Amanda got super popular but Ashley was still not common at all. Then a second period between 1980 is caracterized by the expansion of Ashley, Amanda remaining popular. Both names then decreased in popularity until 2014.</p>
+<p><em>Warning</em>: Readers usually expect time to flow from left-to-right. Here it flowed in both directions, what could mislead your audience. Here are a few advice:</p>
+<ul>
+<li>The direction of time should be strongly indicated. Arrows and date must be written on the chart.</li>
+<li>This graph is not adapted for all audience. At least, you need to educate the audience with progressive explanation to make it impactful.</li>
+</ul>
+<p><em>Going further</em>:</p>
+<ul>
+<li><em>The Connected Scatterplot for Presenting Paired Time Series</em> by <a href="http://steveharoz.com/research/connected_scatterplot/">Haroz et al</a>.</li>
+<li>A nice and famous example of story telling by the <a href="https://archive.nytimes.com/www.nytimes.com/interactive/2012/09/17/science/driving-safety-in-fits-and-starts.html?smid=tw-share">New York Times</a></li>
+</ul>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
+<p>The connected scatterplot is subject to the same caveats than the line chart:</p>
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li><a href="https://www.data-to-viz.com/caveat/cut_y_axis.html">To cut or not to cut the Y axis</a>? Wether or not the Y axis must start at 0 is a hot topic leading to intense debates. The graphic below presents the same data, starting at 0 (left) or not (right). Generally, line plot do not need to start at 0 since it allows to observe patterns more efficiently, but you probably want to learn more about it <a href="https://www.data-to-viz.com/caveat/cut_y_axis.html">here</a>.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv&quot;</span>, <span class="dt">header=</span>T)
+data<span class="op">$</span>date &lt;-<span class="st"> </span><span class="kw">as.Date</span>(data<span class="op">$</span>date)
+
+p1 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">4</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Not cuting&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">10000</span>)
+
+p2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">tail</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>date, <span class="dt">y=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">4</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Cuting&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;bitcoin price ($)&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()
+
+p1 <span class="op">+</span><span class="st"> </span>p2</code></pre></div>
+<p><img src="connectedscatter_files/figure-html/unnamed-chunk-6-1.png" width="960" style="display: block; margin: auto;" /></p>
+<ul>
+<li>If you need to compare the evolution of 2 different variables, do not use <a href="https://www.data-to-viz.com/caveat/dual_axis.html">dual axis</a>. Indeed dual axis can show very different results depending on what range you apply to the axis. <a href="https://www.data-to-viz.com/caveat/dual_axis.html">Read more about it</a>.</li>
+<li>Mind the <a href="https://www.data-to-viz.com/caveat/spaghetti.html">spaghetti chart</a>: too many lines make the chart unreadable.</li>
+<li>Think about the <a href="https://www.data-to-viz.com/caveat/aspect_ratio.html">aspect ratio</a> of the graphic, extreme ratio make the chart unreadable.</li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
 <p class="mytitlerelated">
-Density
+Line plot
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Displays the evolution of one or several numeric variables.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Area chart
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+Basically a line graph, filling the area under the curve.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Stacked area chart
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Displays the evolution of the value of several groups on the same graphic
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
 <p class="mytitlerelated">
-Violin
+Streamgraph
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+A stacked area graph displaced around a central axis, resulting in a flowing, organic shape
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/scatterplot/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/scatter-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +446,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/connectedscatter.html;  
+        this.page.identifier = connectedscatter; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

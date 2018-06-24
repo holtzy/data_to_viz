@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "CartogramSmall.png"
+mydisqus: "cartogram"
+mytitle: "Cartogram"
 output:
   html_document:
       self_contained: false    
@@ -21,41 +21,177 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+A `cartogram` is a map in which the geometry of regions is `distorted` in order to convey the information of an alternate variable. The region area will be inflated or deflated according to its numeric value.  
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+Most of the time, a cartogram is also a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html) where regions are colored according to a numeric variable (not necessarily the one use to build the cartogram).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10, eval=FALSE}
 # Libraries
+library(maptools)
+library(cartogram)
 library(tidyverse)
-library(hrbrthemes)
+library(broom)
 library(viridis)
+library(patchwork)
+
+# Get the shape file of Africa
+data(wrld_simpl)
+afr=wrld_simpl[wrld_simpl$REGION==2,]
+
+# Usual choropleth map:
+spdf_fortified <- tidy(afr)
+spdf_fortified = spdf_fortified %>% left_join(. , afr@data, by=c("id"="ISO3")) 
+p1 <- ggplot() +
+  geom_polygon(data = spdf_fortified, aes(fill = POP2005/1000000, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+  theme_void() +
+  scale_fill_viridis(name="Population (M)", breaks=c(1,50,100, 140), guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)) +
+  labs( title = "Real boundaries" ) +
+  ylim(-35,35) +
+  theme(
+    text = element_text(color = "#22211d"), 
+    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    legend.position = c(0.2, 0.26)
+  ) +
+  coord_map()
+
+# construct a cartogram using the population in 2005
+afr_cartogram <- cartogram(afr, "POP2005", itermax=5)
+ 
+# It is a new geospatial object: we can use all the usual techniques on it! Let's start with a basic ggplot2 chloropleth map:
+spdf_fortified <- tidy(afr_cartogram)
+spdf_fortified = spdf_fortified %>% left_join(. , afr_cartogram@data, by=c("id"="ISO3")) 
+ggplot() +
+  geom_polygon(data = spdf_fortified, aes(fill = POP2005, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+  coord_map() +
+  theme_void()
+ 
+# As seen before, we can do better with a bit of customization
+p2 <- ggplot() +
+  geom_polygon(data = spdf_fortified, aes(fill = POP2005/1000000, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+  theme_void() +
+  scale_fill_viridis(name="Population (M)", breaks=c(1,50,100, 140), guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)) +
+  labs( title = "Cartogram" ) +
+  ylim(-35,35) +
+  theme(
+    text = element_text(color = "#22211d"), 
+    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    legend.position = c(0.2, 0.26)
+  ) +
+  coord_map()
+
+# Save them
+ggsave(p1, filename="IMG/cartogram1.png", dpi=100, width=7, height=7)
+ggsave(p2, filename="IMG/cartogram2.png", dpi=100, width=7, height=7)
 ```
+
+<div class = "row">
+  
+<div class = "col-md-6">
+<center>
+<img src="IMG/cartogram1.png" alt="img" width="600" height="700">
+</center>
+</div>
+
+<div class = "col-md-6">
+<center>
+<img src="IMG/cartogram2.png" alt="img" width="600" height="700">
+</center>
+</div>
+
+</div>
+
+
+The above maps illustrate the difference between real african country boundaries (left), and a cartogram (right). Each country area is inflated or deflated according to their population in 2005. ([data](https://cran.r-project.org/web/packages/maptools/maptools.pdf)). For instance, Nigeria (in yellow) appears much bigger in the cartogram than in the classic map, according to its huge population.
+
+
 
 
 # What for
 ***
 
-Still in progress
+Cartogram aims to correct the bias that can be observed in a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html): when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points.  
 
-# Variation
+For instance, imagine you display the average salary per region on your choropleth map. A region with 3 inhabitants with a huge area will have more importance on your map than a small one with 3,000 inhabitants, what induces a strong bias. The cartogram aims to reduce this bias.
+
+
+
+# Variation {#variation}
 ***
 
-Again
+[Hexbin map](https://www.data-to-viz.com/graph/hexbinmap.html) represents every region of the map as hexagons. It is possible to build a cartogram to hexbin map following the same strategy. Here is an example with the population in the US states:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10, eval=FALSE}
+# library
+library(tidyverse)
+library(geojsonio)
+library(RColorBrewer)
+ 
+# Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and load it in R:
+spdf <- geojson_read("us_states_hexgrid.geojson.json",  what = "sp")
+spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
+ 
+# Load the population per states (source: https://www.census.gov/data/tables/2017/demo/popest/nation-total.html)
+pop=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2018/01/pop_US.csv", sep=",", header=T)
+pop$pop = pop$pop / 1000000
+ 
+# merge both
+spdf@data = spdf@data %>% left_join(., pop, by=c("google_name"="state"))
+ 
+# Compute the cartogram, using this population information
+cartogram <- cartogram(spdf, 'pop')
+ 
+# First look!
+plot(cartogram)
+ 
+# tidy data to be drawn by ggplot2 (broom library of the tidyverse)
+carto_fortified <- tidy(cartogram, region = "google_name")
+carto_fortified = carto_fortified %>% left_join(. , cartogram@data, by=c("id"="google_name")) 
+ 
+# Calculate the position of state labels
+centers <- cbind.data.frame(data.frame(gCentroid(cartogram, byid=TRUE), id=cartogram@data$iso3166_2))
+ 
+# plot
+ggplot() +
+  geom_polygon(data = carto_fortified, aes(fill = pop, x = long, y = lat, group = group) , size=0.05, alpha=0.9, color="black") +
+  scale_fill_gradientn(colours=brewer.pal(7,"BuPu"), name="population (in M)", guide=guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), title.position = 'top', label.position = "bottom") ) +
+  geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
+  theme_void() +
+  ggtitle( "Another look on the US population" ) +
+  theme(
+    legend.position = c(0.5, 0.9),
+    legend.direction = "horizontal",
+    text = element_text(color = "#22211d"),
+    plot.background = element_rect(fill = "#f5f5f9", color = NA), 
+    panel.background = element_rect(fill = "#f5f5f9", color = NA), 
+    legend.background = element_rect(fill = "#f5f5f9", color = NA),
+    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+  ) +
+  coord_map()
+```
+<center>
+<img src="IMG/hexbin_cartogram.png" alt="img" width="600" height="700">
+</center>
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+Since a cartogram is often used as a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html), all the related pitfalls apply:
+
+- Normalize your variable: you cannot compare raw numbers between regions of distinct size or population.
+- Take a huge care when choosing the continuous color palette.
+- Don't forget the legend.
+
+Moreover, note that a cartogram distorts real boundaries and thus make the map harder to identify. Be carefull not to confuse your audience: you need to introduce it with good explanations and showing the initial map is probably a good  practice.
 
 
 
@@ -64,32 +200,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
+  <p class="mytitlerelated">Choropleth</p>
+  <p class="mytextrelated">Display a aggregated value for each region of the map using color gradients.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
+  <p class="mytitlerelated">Cartogram</p>
+  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
+  <p class="mytitlerelated">Bubble map</p>
+  <p class="mytextrelated">Display bubble on a map background to represent the value of a numeric variable.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
+  <p class="mytitlerelated">Background Map</p>
+  <p class="mytextrelated">The basis for any geographic data visualization is to build a good background map.</p>
   </a>
   </div>
 </div>
@@ -99,11 +235,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/cartogram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -112,6 +248,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 

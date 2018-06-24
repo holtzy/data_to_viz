@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "ArcSmal.png"
+mydisqus: "arc"
+mytitle: "Arc diagram"
 output:
   html_document:
       self_contained: false    
@@ -21,75 +21,118 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+Arc diagrams are an alternate way of representing two-dimensional graphs. Rather than scattering the nodes across the page connected by straight edges, you can instead arrange the nodes along a one-dimensional axis, and replace the straight edges with arcs between the nodes. While an arc diagram might not give as good a sense of the connections between the nodes as a traditional graph layout, judicious ordering of the nodes can help identify clusters. It's also a useful format (especially in the vertical orientation) when you want to label each of the notes with other quantities in a table-like format.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+
+Show a network and a arc diagram beside
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10, eval=FALSE}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
 library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(igraph)
+library(ggraph)
+
+# A really simple edge list
+links=data.frame(
+    source=c("A","A", "A", "A", "A","F", "B"),
+    target=c("B","B", "C", "D", "F","A","E")
+    )
+
+# Transform to a igraph object
+mygraph <- graph_from_data_frame(links)
+
+# Make the plot
+ggraph(mygraph, layout="nicely") + 
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(size=3) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0,0), "null"),
+    panel.spacing=unit(c(0,0,0,0), "null")
+  ) 
+
 ```
+
+
+```{r}
+# Load data
+dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+
+# show data
+dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+
+The above maps illustrate the difference between real african country boundaries (left), and a cartogram (right). Each country area is inflated or deflated according to their population in 2005. ([data](https://cran.r-project.org/web/packages/maptools/maptools.pdf)). For instance, Nigeria (in yellow) appears much bigger in the cartogram than in the classic map, according to its huge population.
+
+
 
 
 # What for
 ***
 
-Still in progress
+Good to show the label of each node
 
-# Variation
+Good to show eventual clustering
+
+
+
+# Variation {#variation}
 ***
 
-Again
+Possible to make connection bigger following a variable
+
+Node size also can vay in size
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
-
+Order of nodes is key.
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
+  <p class="mytitlerelated">Choropleth</p>
+  <p class="mytextrelated">Display a aggregated value for each region of the map using color gradients.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
+  <p class="mytitlerelated">Cartogram</p>
+  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
+  <p class="mytitlerelated">Bubble map</p>
+  <p class="mytextrelated">Display bubble on a map background to represent the value of a numeric variable.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-3 col-sm-3">
+  <a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
+  <p class="mytitlerelated">Background Map</p>
+  <p class="mytextrelated">The basis for any geographic data visualization is to build a good background map.</p>
   </a>
   </div>
 </div>
@@ -99,11 +142,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/cartogram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -112,6 +155,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 

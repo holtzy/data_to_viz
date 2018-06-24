@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Chord diagram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -72,6 +72,12 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/d3-3.5.15/d3.min.js"></script>
+<script src="libs/d3-tip-0.6.7/index.js"></script>
+<link href="libs/chorddiag-0.0.0.9000/chorddiag.css" rel="stylesheet" />
+<script src="libs/chorddiag-0.0.0.9000/chorddiag.js"></script>
+<script src="libs/chorddiag-binding-0.1.2/chorddiag.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -222,72 +228,168 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p>A <code>chord diagram</code> represents flows or connections between several entities (called <code>nodes</code>). Each entity is represented by a fragment on the outer part of the <code>circular layout</code>. Then, <code>arcs</code> are drawn between each entities. The size of the arc is proportional to the importance of the flow.</p>
+<p>Here is an example displaying the number of people migrating from one country to another. Data used comes from this <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327">scientific publication</a> from <a href="http://guyabel.com">Gui J. Abel</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(patchwork)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(circlize)
+
+<span class="co"># Load dataset from github</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+
+<span class="co"># short names</span>
+<span class="kw">colnames</span>(data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;East Asia&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Latin Ame.&quot;</span>,   <span class="st">&quot;North Ame.&quot;</span>,   <span class="st">&quot;Oceania&quot;</span>, <span class="st">&quot;South Asia&quot;</span>, <span class="st">&quot;South East Asia&quot;</span>, <span class="st">&quot;Soviet Union&quot;</span>, <span class="st">&quot;West.Asia&quot;</span>)
+<span class="kw">rownames</span>(data) &lt;-<span class="st"> </span><span class="kw">colnames</span>(data)
+
+<span class="co"># I need a long format</span>
+data_long &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span>rownames_to_column <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&#39;key&#39;</span>, <span class="dt">value =</span> <span class="st">&#39;value&#39;</span>, <span class="op">-</span>rowname)
+
+<span class="co"># parameters</span>
+<span class="kw">circos.clear</span>()
+<span class="kw">circos.par</span>(<span class="dt">start.degree =</span> <span class="dv">90</span>, <span class="dt">gap.degree =</span> <span class="dv">4</span>, <span class="dt">track.margin =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="dt">points.overflow.warning =</span> <span class="ot">FALSE</span>)
+<span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">4</span>))
+
+<span class="co"># color palette</span>
+mycolor &lt;-<span class="st"> </span><span class="kw">viridis</span>(<span class="dv">10</span>, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">begin =</span> <span class="dv">0</span>, <span class="dt">end =</span> <span class="dv">1</span>, <span class="dt">option =</span> <span class="st">&quot;D&quot;</span>)
+mycolor &lt;-<span class="st"> </span>mycolor[<span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)]
+
+<span class="co"># Base plot</span>
+<span class="kw">chordDiagram</span>(
+  <span class="dt">x =</span> data_long, 
+  <span class="dt">grid.col =</span> mycolor,
+  <span class="dt">transparency =</span> <span class="fl">0.25</span>,
+  <span class="dt">directional =</span> <span class="dv">1</span>,
+  <span class="dt">direction.type =</span> <span class="kw">c</span>(<span class="st">&quot;arrows&quot;</span>, <span class="st">&quot;diffHeight&quot;</span>), 
+  <span class="dt">diffHeight  =</span> <span class="op">-</span><span class="fl">0.04</span>,
+  <span class="dt">annotationTrack =</span> <span class="st">&quot;grid&quot;</span>, 
+  <span class="dt">annotationTrackHeight =</span> <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.1</span>),
+  <span class="dt">link.arr.type =</span> <span class="st">&quot;big.arrow&quot;</span>, 
+  <span class="dt">link.sort =</span> <span class="ot">TRUE</span>, 
+  <span class="dt">link.largest.ontop =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># Add text and axis</span>
+<span class="kw">circos.trackPlotRegion</span>(
+  <span class="dt">track.index =</span> <span class="dv">1</span>, 
+  <span class="dt">bg.border =</span> <span class="ot">NA</span>, 
+  <span class="dt">panel.fun =</span> <span class="cf">function</span>(x, y) {
+    
+    xlim =<span class="st"> </span><span class="kw">get.cell.meta.data</span>(<span class="st">&quot;xlim&quot;</span>)
+    sector.index =<span class="st"> </span><span class="kw">get.cell.meta.data</span>(<span class="st">&quot;sector.index&quot;</span>)
+    
+    <span class="co"># Add names to the sector. </span>
+    <span class="kw">circos.text</span>(
+      <span class="dt">x =</span> <span class="kw">mean</span>(xlim), 
+      <span class="dt">y =</span> <span class="fl">3.2</span>, 
+      <span class="dt">labels =</span> sector.index, 
+      <span class="dt">facing =</span> <span class="st">&quot;bending&quot;</span>, 
+      <span class="dt">cex =</span> <span class="fl">0.8</span>
+      )
+
+    <span class="co"># Add graduation on axis</span>
+    <span class="kw">circos.axis</span>(
+      <span class="dt">h =</span> <span class="st">&quot;top&quot;</span>, 
+      <span class="dt">major.at =</span> <span class="kw">seq</span>(<span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> xlim[<span class="dv">2</span>], <span class="dt">by =</span> <span class="kw">ifelse</span>(<span class="dt">test =</span> xlim[<span class="dv">2</span>]<span class="op">&gt;</span><span class="dv">10</span>, <span class="dt">yes =</span> <span class="dv">2</span>, <span class="dt">no =</span> <span class="dv">1</span>)), 
+      <span class="dt">minor.ticks =</span> <span class="dv">1</span>, 
+      <span class="dt">major.tick.percentage =</span> <span class="fl">0.5</span>,
+      <span class="dt">labels.niceFacing =</span> <span class="ot">FALSE</span>)
+  }
+)</code></pre></div>
+<p><img src="chord_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>Note</em>: this plot is made using the circlize library, and very strongly inspired from the <a href="https://github.com/cran/migest">Migest package</a> from <a href="http://guyabel.com">Gui J. Abel</a>. Read more about this story <a href="file:///Users/yan/Dropbox/data_to_viz/story/AdjacencyMatrix.html">here</a>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Chord diagrams are eye catching and quite popular in data visualization. They allow to visualize <code>weigthed</code> relationships between several entities. They are adapted for several specific situations that slightly modify the output and the way to read them:</p>
+<ul>
+<li><p>Flow. This is the example decribed in the chord diagram above. But two ways to represent it:</p>
+<ul>
+<li>One asymetric arc per pair</li>
+<li>Two arcs per pair</li>
+</ul></li>
+<li><p>Bipartite: nodes are grouped in a few categories. Connections go <em>between</em> categories but not <em>within</em> categories. In my opinion <a href="https://www.data-to-viz.com/graph/sankey.html">sankey diagrams</a> are more adapted in this situation.</p></li>
+</ul>
+<p><em>Note</em>: this section is under construction.</p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>Interactivity is a real plus to make the chord diagram understandable. In the example below, you can hover a specific group to highlight all its connections.</p>
+<center>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(chorddiag)
+m &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">c</span>(<span class="dv">11975</span>,  <span class="dv">5871</span>, <span class="dv">8916</span>, <span class="dv">2868</span>,
+              <span class="dv">1951</span>, <span class="dv">10048</span>, <span class="dv">2060</span>, <span class="dv">6171</span>,
+              <span class="dv">8010</span>, <span class="dv">16145</span>, <span class="dv">8090</span>, <span class="dv">8045</span>,
+              <span class="dv">1013</span>,   <span class="dv">990</span>,  <span class="dv">940</span>, <span class="dv">6907</span>),
+            <span class="dt">byrow =</span> <span class="ot">TRUE</span>,
+            <span class="dt">nrow =</span> <span class="dv">4</span>, <span class="dt">ncol =</span> <span class="dv">4</span>)
+haircolors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>, <span class="st">&quot;blonde&quot;</span>, <span class="st">&quot;brown&quot;</span>, <span class="st">&quot;red&quot;</span>)
+<span class="kw">dimnames</span>(m) &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">have =</span> haircolors,
+                    <span class="dt">prefer =</span> haircolors)
+
+groupColors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#FFDD89&quot;</span>, <span class="st">&quot;#957244&quot;</span>, <span class="st">&quot;#F26223&quot;</span>)
+<span class="kw">chorddiag</span>(m, <span class="dt">groupColors =</span> groupColors, <span class="dt">groupnamePadding =</span> <span class="dv">20</span>)</code></pre></div>
+<div id="htmlwidget-1ffbf231577a590cf62a" style="width:672px;height:672px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1ffbf231577a590cf62a">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+</center>
+<p><em>Note</em>: this example comes from the <a href="https://github.com/mattflor/chorddiag">chorddiag</a> package documentation.</p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li>The group order around the circle is important. Try to minimize the number of arc crossing.</li>
+<li>Mind over-cluttering that makes the figure unreadable. It is advised to dismiss weak connections.</li>
+<li>Chord diagrams are not straightforward to understand at all. Give plenty of explanation to your audience when you present it. It is advised to break down the graphic, presenting its components progressively. See this awesome example of storytelling from <a href="https://www.visualcinnamon.com/2014/12/using-data-storytelling-with-chord">Nadieh Bremer</a>.</li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
 <p class="mytitlerelated">
-Density
+Network
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Represents relationships using nodes and edges.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
 <p class="mytitlerelated">
-Ridgeline
+Arc diagram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A subset of the network diagram where nodes are aligned and edges are arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
 <p class="mytitlerelated">
-Boxplot
+Sankey diagram
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
 <p class="mytitlerelated">
-Violin
+Edge bundling
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+Show connections between entities organized in a hierarchy.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/chord-diagram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/chord-diagram/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +404,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/chord.html;  
+        this.page.identifier = chord; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

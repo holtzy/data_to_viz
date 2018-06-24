@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Bubble map</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -62,7 +62,7 @@
 
 <title></title>
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="libs/jquery-1.12.4/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
@@ -72,6 +72,17 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<link href="libs/leaflet-0.7.7/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-0.7.7/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<link href="libs/leaflet-label-0.2.2/leaflet.label.css" rel="stylesheet" />
+<script src="libs/leaflet-label-0.2.2/leaflet.label.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-0.7.2/proj4leaflet.js"></script>
+<script src="libs/leaflet-binding-1.1.0/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.0.27/leaflet-providers.js"></script>
+<script src="libs/leaflet-providers-plugin-1.1.0/leaflet-providers-plugin.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -222,72 +233,148 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p>A <code>bubble map</code> uses circles of different size to represent a numeric value on a territory. It displays one bubble per geographic coordinate, or one bubble per region (in this case the bubble is usually displayed in the baricentre of the region).</p>
+<p>Here is an example showing the geographic position of about <a href="https://www.data-to-viz.com/story/GPSCoordWithoutValue.html">200k tweets</a> containing the hashtags #surf, #windsurf or #kitesurf. See more about this project <a href="https://www.data-to-viz.com/story/GPSCoordWithoutValue.html">here</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(viridis)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(mapdata)
+
+<span class="co"># Load dataset from github</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span>T)
+
+<span class="co"># Get the world polygon</span>
+world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)
+
+<span class="co"># Reformat data: I count the occurence of each unique position</span>
+p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homelat=</span><span class="kw">round</span>(homelat,<span class="dv">1</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homelon=</span><span class="kw">round</span>(homelon,<span class="dv">1</span>)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="co">#head(1000) %&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(homelat, homelon, homecontinent) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">n=</span><span class="kw">n</span>()) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat, <span class="dt">color=</span>homecontinent, <span class="dt">size=</span>n), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>, <span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_size_continuous</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="fl">0.2</span>,<span class="dv">68</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_equal</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+        <span class="dt">panel.spacing=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),
+        <span class="dt">plot.margin=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>),
+        <span class="dt">legend.position=</span><span class="kw">c</span>(<span class="fl">0.15</span>,<span class="fl">0.07</span>),
+        <span class="dt">legend.direction=</span><span class="st">&quot;horizontal&quot;</span>
+    ) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">165</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">30</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">11</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;Where surfers live.&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;Black&quot;</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">165</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">36</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;data-to-viz.com | 200,000 #surf tweets recovered&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">180</span>,<span class="dv">180</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">60</span>,<span class="dv">80</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.006</span>, <span class="fl">0.006</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_equal</span>() 
+
+<span class="co"># Save at PNG</span>
+<span class="kw">ggsave</span>(<span class="st">&quot;IMG/Surfer_bubble.png&quot;</span>, <span class="dt">width =</span> <span class="dv">36</span>, <span class="dt">height =</span> <span class="fl">15.22</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">dpi =</span> <span class="dv">90</span>)</code></pre></div>
+<br><br>
+<center>
+<img src="IMG/Surfer_bubble.png" alt="img" width="1000" height="700">
+</center>
+<p><br><br></p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Bubble maps are used with two types of dataset:</p>
+<ul>
+<li><p>a <em>list of geographic coordinates</em> (longitude and latitude) and a numeric variable controling the size of the bubble. In the previous example, the number of tweet at each unique pair of coordinate was used.</p></li>
+<li><p>a <em>list of regions</em> with attributed values and knwon boundary. In this case, the bubble map will replace the usual <a href="https://www.data-to-viz/graph/choropleth.html">choropleth map</a>. Note that it allows to avoid the bias caused by different regional area in choropleth maps. (big regions tend to have more weight during the observation).</p></li>
+</ul>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>Interactivity is appreciated for bubble maps. It allows to zoom on a specific part, or click bubbles for more information. Here is an example showing a feaw earthquacke that happend in the Fiji Region since 1964 (<a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html">data</a>)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Library</span>
+<span class="kw">library</span>(leaflet)
+ 
+<span class="co"># load example data (Fiji Earthquakes) + keep only 100 first lines</span>
+<span class="kw">data</span>(quakes)
+quakes =<span class="st">  </span><span class="kw">head</span>(quakes, <span class="dv">100</span>)
+ 
+<span class="co"># Create a color palette with handmade bins.</span>
+mybins=<span class="kw">seq</span>(<span class="dv">4</span>, <span class="fl">6.5</span>, <span class="dt">by=</span><span class="fl">0.5</span>)
+mypalette =<span class="st"> </span><span class="kw">colorBin</span>( <span class="dt">palette=</span><span class="st">&quot;YlOrBr&quot;</span>, <span class="dt">domain=</span>quakes<span class="op">$</span>mag, <span class="dt">na.color=</span><span class="st">&quot;transparent&quot;</span>, <span class="dt">bins=</span>mybins)
+ 
+<span class="co"># Prepare the text for the tooltip:</span>
+mytext=<span class="kw">paste</span>(<span class="st">&quot;Depth: &quot;</span>, quakes<span class="op">$</span>depth, <span class="st">&quot;&lt;br/&gt;&quot;</span>, <span class="st">&quot;Stations: &quot;</span>, quakes<span class="op">$</span>stations, <span class="st">&quot;&lt;br/&gt;&quot;</span>, <span class="st">&quot;Magnitude: &quot;</span>, quakes<span class="op">$</span>mag, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">lapply</span>(htmltools<span class="op">::</span>HTML)
+ 
+<span class="co"># Final Map</span>
+<span class="kw">leaflet</span>(quakes) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">addTiles</span>()  <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">setView</span>( <span class="dt">lat=</span><span class="op">-</span><span class="dv">27</span>, <span class="dt">lng=</span><span class="dv">170</span> , <span class="dt">zoom=</span><span class="dv">4</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">addProviderTiles</span>(<span class="st">&quot;Esri.WorldImagery&quot;</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">addCircles</span>(<span class="op">~</span>long, <span class="op">~</span>lat, 
+    <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">mypalette</span>(mag), <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>, <span class="dt">color=</span><span class="st">&quot;white&quot;</span>, <span class="dt">radius=</span><span class="op">~</span><span class="kw">sqrt</span>(depth)<span class="op">*</span><span class="dv">3000</span>, <span class="dt">stroke=</span><span class="ot">FALSE</span>, <span class="dt">weight =</span> <span class="dv">1</span>,
+    <span class="dt">label =</span> mytext,
+    <span class="dt">labelOptions =</span> <span class="kw">labelOptions</span>( <span class="dt">style =</span> <span class="kw">list</span>(<span class="st">&quot;font-weight&quot;</span> =<span class="st"> &quot;normal&quot;</span>, <span class="dt">padding =</span> <span class="st">&quot;3px 8px&quot;</span>), <span class="dt">textsize =</span> <span class="st">&quot;13px&quot;</span>, <span class="dt">direction =</span> <span class="st">&quot;auto&quot;</span>)
+  ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">addLegend</span>( <span class="dt">pal=</span>mypalette, <span class="dt">values=</span><span class="op">~</span>mag, <span class="dt">opacity=</span><span class="fl">0.9</span>, <span class="dt">title =</span> <span class="st">&quot;Magnitude&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;bottomright&quot;</span> )</code></pre></div>
+<div id="htmlwidget-395b6316131ce273e48e" style="width:864px;height:384px;" class="leaflet html-widget"></div>
+<script type="application/json" data-for="htmlwidget-395b6316131ce273e48e">{"x":{"options":{"crs":{"crsClass":"L.CRS.EPSG3857","code":null,"proj4def":null,"projectedBounds":null,"options":{}}},"calls":[{"method":"addTiles","args":["//{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",null,null,{"minZoom":0,"maxZoom":18,"maxNativeZoom":null,"tileSize":256,"subdomains":"abc","errorTileUrl":"","tms":false,"continuousWorld":false,"noWrap":false,"zoomOffset":0,"zoomReverse":false,"opacity":1,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false,"attribution":"&copy; <a href=\"http://openstreetmap.org\">OpenStreetMap<\/a> contributors, <a href=\"http://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA<\/a>"}]},{"method":"addProviderTiles","args":["Esri.WorldImagery",null,null,{"errorTileUrl":"","noWrap":false,"zIndex":null,"unloadInvisibleTiles":null,"updateWhenIdle":null,"detectRetina":false,"reuseTiles":false}]},{"method":"addCircles","args":[[-20.42,-20.62,-26,-17.97,-20.42,-19.68,-11.7,-28.11,-28.74,-17.47,-21.44,-12.26,-18.54,-21,-20.7,-15.94,-13.64,-17.83,-23.5,-22.63,-20.84,-10.98,-23.3,-30.2,-19.66,-17.94,-14.72,-16.46,-20.97,-19.84,-22.58,-16.32,-15.55,-23.55,-16.3,-25.82,-18.73,-17.64,-17.66,-18.82,-37.37,-15.31,-24.97,-15.49,-19.23,-30.1,-26.4,-11.77,-24.12,-18.97,-18.75,-19.26,-22.75,-21.37,-20.1,-19.85,-22.7,-22.06,-17.8,-24.2,-20.69,-21.16,-13.82,-11.49,-20.68,-17.1,-20.14,-21.96,-20.42,-15.46,-15.31,-19.86,-11.55,-23.74,-17.7,-23.54,-19.21,-12.11,-21.81,-28.98,-34.02,-23.84,-19.57,-20.12,-17.7,-19.66,-21.5,-23.64,-15.43,-15.41,-15.48,-13.36,-20.64,-19.72,-15.44,-19.73,-27.24,-18.16,-13.66,-24.57],[181.62,181.03,184.1,181.66,181.96,184.31,166.1,181.93,181.74,179.59,180.69,167,182.11,181.66,169.92,184.95,165.96,181.5,179.78,180.31,181.16,166.32,180.16,182,180.28,181.49,167.51,180.79,181.47,182.37,179.24,166.74,185.05,180.8,186,179.33,169.23,181.28,181.4,169.33,176.78,186.1,179.82,186.04,169.41,182.3,181.7,166.32,180.08,185.25,182.35,184.42,173.2,180.67,182.16,182.13,181,180.6,181.35,179.2,181.55,182.4,172.38,166.22,181.41,184.93,181.6,179.62,181.86,187.81,185.8,184.35,166.2,179.99,181.23,180.04,184.7,167.06,181.71,181.11,180.21,180.99,182.38,183.4,181.7,184.31,170.5,179.96,186.3,186.44,167.53,167.06,182.02,169.71,185.26,182.4,181.11,183.41,166.54,179.92],[71119.6175467782,76485.2927038918,19442.2220952236,75059.9760191808,76426.435217142,41892.7201313068,27166.1554144123,41785.1648315524,43577.5171390019,74819.7834800396,72436.1788058978,47339.2015141785,70611.6137756389,73484.6922834953,35369.4783676548,52478.5670536077,21213.2034355964,72869.7468089467,71624.0183178799,73362.1155638249,72000,43577.5171390019,67882.2509939086,33541.0196624968,62281.6184760801,69519.7813575388,37349.6987939662,66947.7408132642,72374.0284908889,54332.3108288245,70547.8560978291,21213.2034355964,51264.0224719052,56044.6250768082,20784.6096908265,73484.6922834953,43058.100283222,71874.8913042656,72560.3197346869,45497.2526643093,48651.8242206806,29393.8769133981,67815.9273327439,29086.079144498,47053.1614240744,22449.9443206436,54415.0714416512,25099.8007960223,66610.8099335236,34073.4500748016,70611.6137756389,44799.5535692042,20346.9899493758,73054.7739713155,66340.0331624879,71119.6175467782,63285.069329187,72498.2758415674,69390.2010373223,69065.186599328,72374.0284908889,48373.5464897913,74276.5104188397,27495.454169735,73054.7739713155,50734.6035758633,72684.2486375143,75119.9041532935,69065.186599328,18973.6659610103,36986.4840178139,42532.3406362735,29393.8769133981,67483.331275212,70099.9286732875,71246.0525222275,42107.0065428546,48836.4617882991,53916.6022668343,52306.7873224881,25980.7621135332,57471.7321820041,72187.2564930958,50556.8986390582,63639.6103067893,39115.2144312159,32449.9614791759,69584.4810284592,33271.6095192283,24919.8715887542,33941.1254969543,46086.8744872116,66880.4904288239,49386.232899463,44899.8886412873,58094.7501931112,57314.9195236284,52478.5670536077,21213.2034355964,66000],null,null,{"lineCap":null,"lineJoin":null,"clickable":true,"pointerEvents":null,"className":"","stroke":false,"color":"white","weight":1,"opacity":0.5,"fill":true,"fillColor":["#FED98E","#FFFFD4","#FE9929","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FED98E","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FFFFD4","#993404","#FFFFD4","#993404","#FED98E","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FFFFD4","#FED98E","#FE9929","#FFFFD4","#FED98E","#FE9929","#FED98E","#FFFFD4","#FED98E","#FED98E","#FED98E","#FFFFD4","#FED98E","#FFFFD4","#FED98E","#FED98E","#FFFFD4","#FFFFD4","#FED98E","#FED98E","#FFFFD4","#FFFFD4","#FED98E","#FED98E","#FED98E","#FFFFD4","#FFFFD4","#FE9929","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FE9929","#FED98E","#FED98E","#FED98E","#FFFFD4","#FE9929","#FED98E","#D95F0E","#FFFFD4","#FED98E","#FFFFD4","#FE9929","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FFFFD4","#FE9929","#FE9929","#FED98E","#FED98E","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FED98E","#FFFFD4","#FFFFD4","#FE9929","#FED98E","#FE9929","#FFFFD4","#FFFFD4","#FFFFD4","#FED98E","#FE9929","#FE9929","#FED98E"],"fillOpacity":0.7,"dashArray":null},null,null,["Depth: 562<br/>Stations: 41<br/>Magnitude: 4.8","Depth: 650<br/>Stations: 15<br/>Magnitude: 4.2","Depth: 42<br/>Stations: 43<br/>Magnitude: 5.4","Depth: 626<br/>Stations: 19<br/>Magnitude: 4.1","Depth: 649<br/>Stations: 11<br/>Magnitude: 4","Depth: 195<br/>Stations: 12<br/>Magnitude: 4","Depth: 82<br/>Stations: 43<br/>Magnitude: 4.8","Depth: 194<br/>Stations: 15<br/>Magnitude: 4.4","Depth: 211<br/>Stations: 35<br/>Magnitude: 4.7","Depth: 622<br/>Stations: 19<br/>Magnitude: 4.3","Depth: 583<br/>Stations: 13<br/>Magnitude: 4.4","Depth: 249<br/>Stations: 16<br/>Magnitude: 4.6","Depth: 554<br/>Stations: 19<br/>Magnitude: 4.4","Depth: 600<br/>Stations: 10<br/>Magnitude: 4.4","Depth: 139<br/>Stations: 94<br/>Magnitude: 6.1","Depth: 306<br/>Stations: 11<br/>Magnitude: 4.3","Depth: 50<br/>Stations: 83<br/>Magnitude: 6","Depth: 590<br/>Stations: 21<br/>Magnitude: 4.5","Depth: 570<br/>Stations: 13<br/>Magnitude: 4.4","Depth: 598<br/>Stations: 18<br/>Magnitude: 4.4","Depth: 576<br/>Stations: 17<br/>Magnitude: 4.5","Depth: 211<br/>Stations: 12<br/>Magnitude: 4.2","Depth: 512<br/>Stations: 18<br/>Magnitude: 4.4","Depth: 125<br/>Stations: 22<br/>Magnitude: 4.7","Depth: 431<br/>Stations: 57<br/>Magnitude: 5.4","Depth: 537<br/>Stations: 15<br/>Magnitude: 4","Depth: 155<br/>Stations: 18<br/>Magnitude: 4.6","Depth: 498<br/>Stations: 79<br/>Magnitude: 5.2","Depth: 582<br/>Stations: 25<br/>Magnitude: 4.5","Depth: 328<br/>Stations: 17<br/>Magnitude: 4.4","Depth: 553<br/>Stations: 21<br/>Magnitude: 4.6","Depth: 50<br/>Stations: 30<br/>Magnitude: 4.7","Depth: 292<br/>Stations: 42<br/>Magnitude: 4.8","Depth: 349<br/>Stations: 10<br/>Magnitude: 4","Depth: 48<br/>Stations: 10<br/>Magnitude: 4.5","Depth: 600<br/>Stations: 13<br/>Magnitude: 4.3","Depth: 206<br/>Stations: 17<br/>Magnitude: 4.5","Depth: 574<br/>Stations: 17<br/>Magnitude: 4.6","Depth: 585<br/>Stations: 17<br/>Magnitude: 4.1","Depth: 230<br/>Stations: 11<br/>Magnitude: 4.4","Depth: 263<br/>Stations: 34<br/>Magnitude: 4.7","Depth: 96<br/>Stations: 32<br/>Magnitude: 4.6","Depth: 511<br/>Stations: 23<br/>Magnitude: 4.4","Depth: 94<br/>Stations: 26<br/>Magnitude: 4.3","Depth: 246<br/>Stations: 27<br/>Magnitude: 4.6","Depth: 56<br/>Stations: 34<br/>Magnitude: 4.9","Depth: 329<br/>Stations: 24<br/>Magnitude: 4.5","Depth: 70<br/>Stations: 18<br/>Magnitude: 4.4","Depth: 493<br/>Stations: 21<br/>Magnitude: 4.3","Depth: 129<br/>Stations: 73<br/>Magnitude: 5.1","Depth: 554<br/>Stations: 13<br/>Magnitude: 4.2","Depth: 223<br/>Stations: 15<br/>Magnitude: 4","Depth: 46<br/>Stations: 26<br/>Magnitude: 4.6","Depth: 593<br/>Stations: 13<br/>Magnitude: 4.3","Depth: 489<br/>Stations: 16<br/>Magnitude: 4.2","Depth: 562<br/>Stations: 31<br/>Magnitude: 4.4","Depth: 445<br/>Stations: 17<br/>Magnitude: 4.5","Depth: 584<br/>Stations: 11<br/>Magnitude: 4","Depth: 535<br/>Stations: 23<br/>Magnitude: 4.4","Depth: 530<br/>Stations: 12<br/>Magnitude: 4.3","Depth: 582<br/>Stations: 35<br/>Magnitude: 4.7","Depth: 260<br/>Stations: 12<br/>Magnitude: 4.1","Depth: 613<br/>Stations: 61<br/>Magnitude: 5","Depth: 84<br/>Stations: 32<br/>Magnitude: 4.6","Depth: 593<br/>Stations: 40<br/>Magnitude: 4.9","Depth: 286<br/>Stations: 25<br/>Magnitude: 4.7","Depth: 587<br/>Stations: 13<br/>Magnitude: 4.1","Depth: 627<br/>Stations: 45<br/>Magnitude: 5","Depth: 530<br/>Stations: 27<br/>Magnitude: 4.5","Depth: 40<br/>Stations: 91<br/>Magnitude: 5.5","Depth: 152<br/>Stations: 11<br/>Magnitude: 4","Depth: 201<br/>Stations: 30<br/>Magnitude: 4.5","Depth: 96<br/>Stations: 14<br/>Magnitude: 4.3","Depth: 506<br/>Stations: 75<br/>Magnitude: 5.2","Depth: 546<br/>Stations: 35<br/>Magnitude: 4.4","Depth: 564<br/>Stations: 15<br/>Magnitude: 4.3","Depth: 197<br/>Stations: 11<br/>Magnitude: 4.1","Depth: 265<br/>Stations: 23<br/>Magnitude: 4.5","Depth: 323<br/>Stations: 15<br/>Magnitude: 4.2","Depth: 304<br/>Stations: 60<br/>Magnitude: 5.3","Depth: 75<br/>Stations: 65<br/>Magnitude: 5.2","Depth: 367<br/>Stations: 27<br/>Magnitude: 4.5","Depth: 579<br/>Stations: 38<br/>Magnitude: 4.6","Depth: 284<br/>Stations: 15<br/>Magnitude: 4.3","Depth: 450<br/>Stations: 11<br/>Magnitude: 4","Depth: 170<br/>Stations: 15<br/>Magnitude: 4.3","Depth: 117<br/>Stations: 32<br/>Magnitude: 4.7","Depth: 538<br/>Stations: 26<br/>Magnitude: 4.5","Depth: 123<br/>Stations: 16<br/>Magnitude: 4.2","Depth: 69<br/>Stations: 42<br/>Magnitude: 4.3","Depth: 128<br/>Stations: 61<br/>Magnitude: 5.1","Depth: 236<br/>Stations: 22<br/>Magnitude: 4.7","Depth: 497<br/>Stations: 64<br/>Magnitude: 5.2","Depth: 271<br/>Stations: 14<br/>Magnitude: 4.2","Depth: 224<br/>Stations: 21<br/>Magnitude: 4.2","Depth: 375<br/>Stations: 18<br/>Magnitude: 4","Depth: 365<br/>Stations: 21<br/>Magnitude: 4.5","Depth: 306<br/>Stations: 54<br/>Magnitude: 5.2","Depth: 50<br/>Stations: 45<br/>Magnitude: 5.1","Depth: 484<br/>Stations: 33<br/>Magnitude: 4.7"],{"clickable":false,"noHide":false,"direction":"auto","opacity":1,"offset":[12,-15],"textsize":"13px","textOnly":false,"style":{"font-weight":"normal","padding":"3px 8px"},"zoomAnimation":true,"className":""},null,null]},{"method":"addLegend","args":[{"colors":["#FFFFD4","#FED98E","#FE9929","#D95F0E","#993404"],"labels":["4.0 &ndash; 4.5","4.5 &ndash; 5.0","5.0 &ndash; 5.5","5.5 &ndash; 6.0","6.0 &ndash; 6.5"],"na_color":null,"na_label":"NA","opacity":0.9,"position":"bottomright","type":"bin","title":"Magnitude","extra":null,"layerId":null,"className":"info legend"}]}],"setView":[[-27,170],4,[]],"limits":{"lat":[-37.37,-10.98],"lng":[165.96,187.81]}},"evals":[],"jsHooks":[]}</script>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li><p>As for <a href="https://www.data-to-viz.com/graph/bubble.html">bubble charts</a>, the size of bubbles must be mapped to its area, <a href="https://www.data_to_viz.com/caveat/radius_or_area.html">not to its radius</a>. If not it exagerates differences. <a href="https://www.data_to_viz.com/caveat/radius_or_area.html">See more</a>.</p></li>
+<li><p>Mind <a href="https://www.data_to_viz.com/caveat/overplotting.html">overplotting</a>. In any case, it is a good practice to set up a bit of transparency for each bubble, allowing to see the map behind it.</p></li>
+<li><p>Don’t forget your legend to make the link between bubble size and numeric value.</p></li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
 <p class="mytitlerelated">
-Density
+Choropleth
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Display a aggregated value for each region of the map using color gradients.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Cartogram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A circular version of a Treemap to visualize a hierarchical organization
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/hexbinmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbinSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Hexbin map
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Split the geographic area in a set of hexagon and display an aggregated value for each
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
 <p class="mytitlerelated">
-Violin
+Background Map
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+The basis for any geographic data visualization is to build a good background map.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/bubble-map/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/bubble-map/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +389,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/bubblemap.html;  
+        this.page.identifier = bubblemap; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

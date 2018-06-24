@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "ScatterConnectedSmall.png"
+mydisqus: "connectedscatter"
+mytitle: "Connected Scatterplot"
 output:
   html_document:
       self_contained: false    
@@ -21,41 +21,212 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A `connected scatterplot` displays the evolution of a numeric variable. Data points are represented by a dot and connected by straight line segments. It often shows a trend in data over intervals of time: a time series. Basically it is the same as a [line plot](https://www.data-to-viz.com/graph/line.html) in most of the cases, except that individual observation are highlighted.  
+
+The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) in April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website. 
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
+library(plotly)
+library(patchwork)
+library(babynames)
 library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
+
+# Plot
+data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Evolution of Bitcoin price") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
 ```
+
+
+*Note*: You can read more about this project [here](https://www.data-to-viz.com/story/TwoNumOrdered.html).
+
+
 
 
 # What for
 ***
 
-Still in progress
+Connected scatterplot makes sense in specific conditions where both the [scatterplot](https://www.data-to-viz.com/graph/scatter.html) and the [line chart](https://www.data-to-viz.com/graph/line.html) are not enough:
+
+- When doing a line chart, it is sometimes difficult to visualize where the breaks in the curve are, and thus when the observation have been done.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=9}
+# Plot
+p1 <- data %>%
+  tail(60) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    ggtitle("Line chart") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+
+p2 <- data %>%
+  tail(60) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=2) +
+    ggtitle("Connected scatterplot") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+
+p1 + p2
+```
+
+
+
+- When your X axis is ordered you must connect the dots together to get a connected scatterplot. Indeed, the pattern is way hard to read if dots are not connected as illustrated in the graphic below. Note the this can even lead to misleading conclusion like explained here.
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=6}
+# Plot
+data %>%
+  tail(60) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_point(color="#69b3a2", size=2) +
+    ggtitle("Line chart") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+```
+
+
+
+
+
 
 # Variation
 ***
 
-Again
+The connected scatterplot can also be a powerfull technique to tell a story about the evolution of 2 variables. Let's consider a dataset composed of 3 columns:
+
+- Year
+- Number of baby born called Amanda this year
+- Number of baby born called Ashley
+
+We can first visualize the evolution of both names using a usual line plot with 2 lines:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=5}
+library(babynames)
+
+# Load dataset
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda")) %>%
+  filter(sex=="F")
+
+#plot
+data %>%
+  ggplot( aes(x=year, y=n, group=name, color=name)) +
+    geom_line() +
+    scale_color_viridis(discrete = TRUE, name="") +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum()
+```
+
+This is an accurate way to visualize the information. However, it would be much harder to build it if both variables would not share the same unit. In this case, it would require a dual axis line chart that is known to be very misleading.  
+
+The connected scatterplot can be a good workaround in this situation:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=5}
+library(grid) # needed for arrow function
+library(ggrepel)
+
+# data
+tmp <- data %>%
+  filter(year>1970) %>%
+  select(year, name, n) %>%
+  spread(key = name, value=n, -1)
+
+# data for date
+tmp_date <- tmp %>% sample_frac(0.3)
+
+tmp%>% 
+  ggplot(aes(x=Amanda, y=Ashley, label=year)) +
+     geom_point(color="#69b3a2") +
+     geom_text_repel(data=tmp_date) +
+     geom_segment(color="#69b3a2", 
+                  aes(
+                    xend=c(tail(Amanda, n=-1), NA), 
+                    yend=c(tail(Ashley, n=-1), NA)
+                  ),
+                  arrow=arrow(length=unit(0.3,"cm"))
+      ) +
+      theme_ipsum()
+```
+
+Here the history of both names is obvious. They were not popular at all in 1972 at the beginning of the dataset. Between 1972 and 1980 Amanda got super popular but Ashley was still not common at all. Then a second period between 1980 is caracterized by the expansion of Ashley, Amanda remaining popular. Both names then decreased in popularity until 2014.
+
+
+*Warning*: Readers usually expect time to flow from left-to-right. Here it flowed in both directions, what could mislead your audience. Here are a few advice:
+
+- The direction of time should be strongly indicated. Arrows and date must be written on the chart.
+- This graph is not adapted for all audience. At least, you need to educate the audience with progressive explanation to make it impactful.
+
+
+*Going further*: 
+
+- *The Connected Scatterplot for Presenting Paired Time Series* by [Haroz et al](http://steveharoz.com/research/connected_scatterplot/).
+- A nice and famous example of story telling by the [New York Times](https://archive.nytimes.com/www.nytimes.com/interactive/2012/09/17/science/driving-safety-in-fits-and-starts.html?smid=tw-share)
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
+The connected scatterplot is subject to the same caveats than the line chart:
 
-- [Try several bin size](), it can lead to very different conclusions.
+- [To cut or not to cut the Y axis](https://www.data-to-viz.com/caveat/cut_y_axis.html)? Wether or not the Y axis must start at 0 is a hot topic leading to intense debates. The graphic below presents the same data, starting at 0 (left) or not (right). Generally, line plot do not need to start at 0 since it allows to observe patterns more efficiently, but you probably want to learn more about it [here](https://www.data-to-viz.com/caveat/cut_y_axis.html).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
+
+p1 <- data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Not cuting") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum() +
+    ylim(0,10000)
+
+p2 <- data %>%
+  tail(10) %>%
+  ggplot( aes(x=date, y=value)) +
+    geom_line(color="#69b3a2") +
+    geom_point(color="#69b3a2", size=4) +
+    ggtitle("Cuting") +
+    ylab("bitcoin price ($)") +
+    theme_ipsum()
+
+p1 + p2
+```
+
+
+    
+- If you need to compare the evolution of 2 different variables, do not use [dual axis](https://www.data-to-viz.com/caveat/dual_axis.html). Indeed dual axis can show very different results depending on what range you apply to the axis. [Read more about it](https://www.data-to-viz.com/caveat/dual_axis.html).
+- Mind the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html): too many lines make the chart unreadable.
+- Think about the [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html) of the graphic, extreme ratio make the chart unreadable.
 
 
 
@@ -64,46 +235,47 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
+  <p class="mytitlerelated">Line plot</p>
+  <p class="mytextrelated">Displays the evolution of one or several numeric variables.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
+  <p class="mytitlerelated">Area chart</p>
+  <p class="mytextrelated">Basically a line graph, filling the area under the curve.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
+  <p class="mytitlerelated">Stacked area chart</p>
+  <p class="mytextrelated">Displays the evolution of the value of several groups on the same graphic</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
+  <p class="mytitlerelated">Streamgraph</p>
+  <p class="mytextrelated">A stacked area graph displaced around a central axis, resulting in a flowing, organic shape</p>
   </a>
   </div>
 </div>
 
 
 
+
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/scatterplot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/scatter-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 

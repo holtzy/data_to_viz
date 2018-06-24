@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Sankey diagram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -72,6 +72,10 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/d3-4.5.0/d3.min.js"></script>
+<script src="libs/sankey-1/sankey.js"></script>
+<script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -222,72 +226,132 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p>A <code>Sankey Diagram</code> is a visualisation technique that allows to display flows. Several entities (<code>nodes</code>) are represented by rectangles or text. Their links are represented with arrow or arcs that have a width proportional to the importance of the flow.</p>
+<p>Here is an example displaying the number of people migrating from one country (left) to another (right). Data used comes from this <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327">scientific publication</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(patchwork)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(circlize)
+
+<span class="co"># Load dataset from github</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+<span class="co"># Package</span>
+<span class="kw">library</span>(networkD3)
+
+<span class="co"># I need a long format</span>
+data_long &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
+<span class="st">  </span>rownames_to_column <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key =</span> <span class="st">&#39;key&#39;</span>, <span class="dt">value =</span> <span class="st">&#39;value&#39;</span>, <span class="op">-</span>rowname) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>(value <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+<span class="kw">colnames</span>(data_long) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;source&quot;</span>, <span class="st">&quot;target&quot;</span>, <span class="st">&quot;value&quot;</span>)
+data_long<span class="op">$</span>target &lt;-<span class="st"> </span><span class="kw">paste</span>(data_long<span class="op">$</span>target, <span class="st">&quot; &quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)
+
+<span class="co"># From these flows we need to create a node data frame: it lists every entities involved in the flow</span>
+nodes &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">name=</span><span class="kw">c</span>(<span class="kw">as.character</span>(data_long<span class="op">$</span>source), <span class="kw">as.character</span>(data_long<span class="op">$</span>target)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unique</span>())
+ 
+<span class="co"># With networkD3, connection must be provided using id, not using real name like in the links dataframe.. So we need to reformat it.</span>
+data_long<span class="op">$</span>IDsource=<span class="kw">match</span>(data_long<span class="op">$</span>source, nodes<span class="op">$</span>name)<span class="op">-</span><span class="dv">1</span> 
+data_long<span class="op">$</span>IDtarget=<span class="kw">match</span>(data_long<span class="op">$</span>target, nodes<span class="op">$</span>name)<span class="op">-</span><span class="dv">1</span>
+
+<span class="co"># prepare colour scale</span>
+ColourScal =<span class="st">&#39;d3.scaleOrdinal() .range([&quot;#FDE725FF&quot;,&quot;#B4DE2CFF&quot;,&quot;#6DCD59FF&quot;,&quot;#35B779FF&quot;,&quot;#1F9E89FF&quot;,&quot;#26828EFF&quot;,&quot;#31688EFF&quot;,&quot;#3E4A89FF&quot;,&quot;#482878FF&quot;,&quot;#440154FF&quot;])&#39;</span>
+
+<span class="co"># Make the Network</span>
+<span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> data_long, <span class="dt">Nodes =</span> nodes,
+                     <span class="dt">Source =</span> <span class="st">&quot;IDsource&quot;</span>, <span class="dt">Target =</span> <span class="st">&quot;IDtarget&quot;</span>,
+                     <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>, 
+                     <span class="dt">sinksRight=</span><span class="ot">FALSE</span>, <span class="dt">colourScale=</span>ColourScal, <span class="dt">nodeWidth=</span><span class="dv">40</span>, <span class="dt">fontSize=</span><span class="dv">13</span>, <span class="dt">nodePadding=</span><span class="dv">20</span>)</code></pre></div>
+<div id="htmlwidget-afbe497d3c31429df924" style="width:960px;height:672px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-afbe497d3c31429df924">{"x":{"links":{"source":[0,1,2,3,0,1,4,5,6,7,2,3,8,9,5,6,0,1,5,2,3,9,0,1,7,2,3,2,1,3,8,0,1,2,9],"target":[10,11,11,11,12,12,12,12,12,12,12,12,12,12,13,13,14,14,14,14,14,14,15,15,15,15,15,16,17,17,18,19,19,19,19],"value":[3.142471,1.630997,0.525881,0.145264,2.107883,0.601265,2.401476,1.762587,1.215929,0.17037,1.390272,0.468762,0.60923,0.449623,0.879198,0.276908,0.540887,0.97306,3.627847,1.508008,1.057904,0.169274,0.155988,0.333608,0.190706,0.34742,0.278746,1.307907,0.380388,0.781316,1.870501,0.673004,0.869311,4.902081,0.927243]},"nodes":{"name":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "],"group":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal() .range([\"#FDE725FF\",\"#B4DE2CFF\",\"#6DCD59FF\",\"#35B779FF\",\"#1F9E89FF\",\"#26828EFF\",\"#31688EFF\",\"#3E4A89FF\",\"#482878FF\",\"#440154FF\"])","fontSize":13,"fontFamily":null,"nodeWidth":40,"nodePadding":20,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+<p><em>Note</em>: an <em>Alluvial diagram</em> is a sub category of Sankey diagrams where nodes are grouped in vertical nodes (sometimes called steps). In many cases, these steps represent different time stamp. Note that there are confusions on this topic as illustrated in this <a href="https://twitter.com/visualisingdata/status/580742089484439552?lang=fr">twitter discussion</a>. Please reach me out if you have a better definition.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Sankey diagrams are used to show weighted networks, i.e. flows. It can happen with several data structure:</p>
+<ul>
+<li><p><em>evolution</em>: the nodes are duplicated in 2 or more groups that represent stages. Connections show the evolution between two states, like in the migration example above. This is more often visualized as a <a href="https://www.data-to-viz.com/graph/chord.html">chord diagram</a>.</p></li>
+<li><p><em>source to end</em>: consider a total amount, the diagram shows where it comes from and where it ends up, with possible intermediate steps. Each node is unique. (Example coming from the <a href="https://christophergandrud.github.io/networkD3/">networkD3</a> package).</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load package</span>
+<span class="kw">library</span>(networkD3)
+ 
+<span class="co"># Load energy projection data</span>
+URL &lt;-<span class="st"> &quot;https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json&quot;</span>
+Energy &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span class="kw">fromJSON</span>(URL)
+ 
+<span class="co"># Now we have 2 data frames: a &#39;links&#39; data frame with 3 columns (from, to, value), and a &#39;nodes&#39; data frame that gives the name of each node.</span>
+
+<span class="co"># Thus we can plot it</span>
+<span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> Energy<span class="op">$</span>links, <span class="dt">Nodes =</span> Energy<span class="op">$</span>nodes, <span class="dt">Source =</span> <span class="st">&quot;source&quot;</span>,
+              <span class="dt">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>,
+              <span class="dt">units =</span> <span class="st">&quot;TWh&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>, <span class="dt">nodeWidth =</span> <span class="dv">30</span>)</code></pre></div>
+<div id="htmlwidget-db26435c42daa0e755b8" style="width:864px;height:576px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-db26435c42daa0e755b8">{"x":{"links":{"source":[0,1,1,1,1,6,7,8,10,9,11,11,11,15,15,15,15,15,15,15,15,15,15,15,23,25,5,5,5,5,5,27,17,17,28,29,2,2,2,2,2,2,2,2,34,24,35,36,38,37,39,39,40,40,41,42,43,43,4,4,4,26,26,26,44,45,46,47],"target":[1,2,3,4,5,2,4,9,9,4,12,13,14,16,14,17,12,18,19,13,3,20,21,22,24,24,13,3,26,19,12,15,28,3,18,15,12,30,18,31,32,19,33,20,1,5,26,37,37,2,4,1,14,13,15,14,42,41,19,26,12,15,3,11,15,1,15,15],"value":[124.729,0.597,26.862,280.322,81.144,35,35,11.606,63.965,75.571,10.639,22.505,46.184,104.453,113.726,27.14,342.165,37.797,4.412,40.858,56.691,7.863,90.008,93.494,40.719,82.233,0.129,1.401,151.891,2.096,48.58,7.013,20.897,6.242,20.897,6.995,121.066,128.69,135.835,14.458,206.267,3.64,33.218,4.413,4.375,122.952,839.978,504.287,107.703,611.99,56.587,77.81,193.026,70.672,59.901,19.263,19.263,59.901,0.882,400.12,46.477,525.531,787.129,79.329,9.452,182.01,19.013,289.366]},"nodes":{"name":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"],"group":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"TWh","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>Sankey diagram are prone to many visual variations, even if the underlying idea remain the same. Here is an example showing metal recovery and recycling in Australia (<a href="http://www.sankey-diagrams.com/tag/australia/">source</a>):</p>
+<br><br>
+<center>
+<img src="IMG/sankey.jpg" alt="img" width="600" height="700">
+</center>
+<p><br><br></p>
+<p>If you’re interested to see more examples, there is a <a href="http://www.sankey-diagrams.com">whole website about it</a>.</p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li>The position of nodes is very important: algorythm exist to minimize the number of crossing between links.</li>
+<li>Mind over-cluttering that makes the figure unreadable. It is advised to dismiss weak connections.</li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
 <p class="mytitlerelated">
-Density
+Network
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Represents relationships using nodes and edges.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
 <p class="mytitlerelated">
-Ridgeline
+Arc diagram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A subset of the network diagram where nodes are aligned and edges are arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Chord diagram
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+A circular layout used to display weighted relationships between entities through arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
 <p class="mytitlerelated">
-Violin
+Edge bundling
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+Show connections between entities organized in a hierarchy.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/sankey-diagram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/sankey-diagram/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +366,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/sankey.html;  
+        this.page.identifier = sankey; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

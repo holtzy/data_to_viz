@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+
+
+
+
+
+<style>
+.myheader {
+  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+    min-height: 300px; 
+    background-size: 100% 100%;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  
+  
+    height: 100%; 
+    width: 100% !important;
+  }
+.mytitle{
+  text-transform: uppercase;
+  font-family: 'Montserrat';
+  font-size: 200%;
+  font-weight: 500;
+  letter-spacing: 4px;
+  }   
+</style>
+
+<div class="myheader" style="text-align: center;">
+  <br>
+  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
+  <br><br>
+  <br><br>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png"></a>
+  <br><br>
+  <p class="mytitle">Density</p>
+  <p style="color: #D0D0D0;">
+    <a href="#definition">definition</a> -
+    <a href="#mistake">mistake</a> - 
+    <a href="#related">related</a> - 
+    <a href="#code">code</a>
+  </p>
+</div>
+
+
+
+
+
+<title></title>
+
+<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="libs/navigation-1.1/tabsets.js"></script>
+<script src="libs/navigation-1.1/codefolding.js"></script>
+<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+div.sourceCode {
+  overflow-x: visible;
+}
+</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+
+
+
+
+
+<div class="fluid-row" id="header">
+
+<div class="btn-group pull-right">
+<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+
+</div>
+
+
+<div class="mycontent">
+<h1 id="definition">Definition</h1>
+<hr />
+<p>A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable (<a href="https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/">see more</a>).</p>
+<p>It is a smoothed version of the <a href="histogram.html">histogram</a> and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
+<span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(hrbrthemes)
+<span class="kw">library</span>(viridis)
+
+<span class="co"># Load dataset from github</span>
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+
+<span class="co"># Make the histogram</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">filter</span>( price<span class="op">&lt;</span><span class="dv">300</span> ) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>price)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_density</span>(<span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.8</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Night price distribution of Airbnb appartements&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p><img src="density_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h1 id="what-for">What for</h1>
+<hr />
+<p>Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;edge peak&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;comb&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;uniform&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;bimodal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;skewed&quot;</span>, <span class="dv">1000</span>) ),
+  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">900</span>), <span class="kw">rep</span>(<span class="dv">3</span>, <span class="dv">100</span>), <span class="kw">rnorm</span>(<span class="dv">360</span>, <span class="dt">sd=</span><span class="fl">0.5</span>), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="fl">0.75</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.25</span>,<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>), <span class="dv">80</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">runif</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="op">-</span><span class="dv">2</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="dv">2</span>), <span class="kw">abs</span>(<span class="kw">log</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>))) )
+)
+
+<span class="co"># Represent it</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_density</span>(<span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>, <span class="dt">adjust =</span> <span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type, <span class="dt">scale=</span><span class="st">&quot;free&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
+      <span class="dt">axis.title.x=</span><span class="kw">element_blank</span>(),
+      <span class="dt">axis.text.x=</span><span class="kw">element_blank</span>(),
+      <span class="dt">axis.ticks.x=</span><span class="kw">element_blank</span>()
+    )</code></pre></div>
+<p><img src="density_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>Checking this distribution also helps you discovering mistakes in the data. For example, the <code>comb</code> distribution can often denote a rounding that has been applied to the variable or another mistake.</p>
+<p>As a second step, histogram allow to compare the distribution of <strong>a few</strong> variables. Don’t compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
+data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;variable 1&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;variable 2&quot;</span>, <span class="dv">1000</span>) ),
+  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">4</span>) )
+)
+
+<span class="co"># Represent it</span>
+data <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value, <span class="dt">fill=</span>type)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_density</span>( <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>)) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
+<p><img src="density_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h1 id="variation">Variation</h1>
+<hr />
+<p>A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
+  <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>), 
+  <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">2</span>)
+)
+ 
+data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(x) ) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_density</span>( <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> ..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span> ) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable1&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_density</span>( <span class="kw">aes</span>(<span class="dt">x =</span> y, <span class="dt">y =</span> <span class="op">-</span>..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span> <span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="op">-</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable2&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;value of x&quot;</span>)</code></pre></div>
+<p><img src="density_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<h1 id="mistake">Common mistakes</h1>
+<hr />
+<ul>
+<li><a href="">Play with the bandwith argument</a>, it can lead to very different conclusions.</li>
+<li><a href="">Don’t compare more than ~3 groups</a> on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.</li>
+</ul>
+<h1 id="related">Related</h1>
+<hr />
+<div class="row">
+<div class="col-sm-3">
+<a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
+<p class="mytitlerelated">
+Histogram
+</p>
+<p class="mytextrelated">
+Very close from a density. Cut the data in several bins and show the number of entry per bin.
+</p>
+</a>
+</div>
+<div class="col-sm-3">
+<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<p class="mytitlerelated">
+Ridgeline
+</p>
+<p class="mytextrelated">
+Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+</p>
+</a>
+</div>
+<div class="col-sm-3">
+<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<p class="mytitlerelated">
+Boxplot
+</p>
+<p class="mytextrelated">
+Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+</p>
+</a>
+</div>
+<div class="col-sm-3">
+<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<p class="mytitlerelated">
+Violin
+</p>
+<p class="mytextrelated">
+Show the density of several numeric variables. Use it with a large amount of data
+</p>
+</a>
+</div>
+</div>
+<h1 id="code">Build your own</h1>
+<hr />
+<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>
+<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
+</p>
+</div>
+
+
+<!-- Insert code for DISQUS comments  -->
+
+      <div class="container">
+        <div id="disqus_thread"></div>
+        <script>
+
+        var disqus_config = function () {
+        this.page.url = www.data-to-viz.com/graph/.html;  
+        this.page.identifier = ; 
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://data-to-viz.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+        })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+      </div>
+  <!-- Insert code for DISQUS comments  -->
+    
+
+
+&nbsp;
+<hr />
+<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- Add font awesome icons -->
+<p style="text-align: center;">
+	<a href="https://twitter.com/r_graph_gallery?lang=en" class="fa fa-twitter"></a>
+	<a href="https://www.linkedin.com/in/yan-holtz-2477534a/" class="fa fa-linkedin"></a>
+	<a href="https://github.com/holtzy/" class="fa fa-github"></a>
+</p>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79254642-3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-79254642-3');
+</script>
+
+
+&nbsp;
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+
+</body>
+</html>

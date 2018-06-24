@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>d3.tip.js - Tooltips for D3</title>
+  <meta charset="utf-8" />
+  <title>Example styles</title>
+  <script type="text/javascript" src="../bower_components/d3/d3.js"></script>
+  <script type="text/javascript" src="../index.js"></script>
+  <link rel="stylesheet" type="css" href="example-styles.css">
+  <style type="text/css">
+  body {
+    padding: 40px;
+    font-family: "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 12px;
+    width: 600px;
+  }
+
+  svg.n, svg.s {
+    margin-left: 200px;
+    margin-right: 200px;
+  }
+  svg.e {
+    margin-left: 200px;
+  }
+
+  circle {
+    fill: #ccc;
+    fill-opacity: 0.6;
+    stroke: #bbb;
+    stroke-width: 1px;
+  }
+
+  circle:hover {
+    fill: #bbb;
+    stroke: #999;
+  }
+
+  text {
+    text-anchor: middle;
+  }
+  </style>
+</head>
+<body>
+  <script type="text/javascript">
+    var data = [],
+      random = d3.random.normal(5),
+      random2 = d3.random.irwinHall(1)
+    for(var i = 0; i < 25; i++) data.push(random(i))
+
+    var w = 200,
+        h = 200,
+        b = 20,
+        r = 10,
+        x = d3.scale.linear().domain([0, data.length - 1]).range([r, w - r]),
+        y = d3.scale.linear().domain([0, d3.max(data)]).range([h,  0])
+
+    var directions = ['n', 'w', 'e', 's'];
+    directions.forEach(function (direction) {
+      var tip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function(d) { return d.toFixed(2) })
+        .direction(direction)
+        .offset(function () {
+          if(direction=='n') { return [-10,0] }
+          else if(direction=='s') { return [10,0] }
+          else if(direction=='e') { return [0,10] }
+          else if(direction=='w') { return [0,-10] }
+        })
+
+      var vis = d3.select(document.body)
+        .append('svg')
+        .attr('class', direction)
+        .attr('width', w)
+        .attr('height', h)
+      .append('g')
+        .attr('transform', 'translate('+b+','+b+')')
+      .call(tip)
+
+      vis.append('text')
+        .attr('class', 'direction')
+        .attr('x', w/2)
+        .attr('y', -b)
+        .attr('dy', '1em')
+        .text('direction: ' + direction)
+
+      vis.selectAll('circle')
+        .data(data)
+      .enter().append('circle')
+        .attr('r', function(d, i) { return random2(i) * 10 })
+        .attr('cx', function(d, i) { return x(i) })
+        .attr('cy', y)
+        .on('mouseover', tip.show)
+        .on('mouseout', tip.hide)
+    })
+  </script>
+</body>
+</html>

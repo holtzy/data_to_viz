@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Arc diagram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -222,72 +222,81 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p>A <code>cartogram</code> is a map in which the geometry of regions is <code>distorted</code> in order to convey the information of an alternate variable. The region area will be inflated or deflated according to its numeric value.</p>
+<p>Most of the time, a cartogram is also a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a> where regions are colored according to a numeric variable (not necessarily the one use to build the cartogram).</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
+<span class="kw">library</span>(maptools)
+<span class="kw">library</span>(cartogram)
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(broom)
+<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(patchwork)</code></pre></div>
+<p>The above maps illustrate the difference between real african country boundaries (left), and a cartogram (right). Each country area is inflated or deflated according to their population in 2005. (<a href="https://cran.r-project.org/web/packages/maptools/maptools.pdf">data</a>). For instance, Nigeria (in yellow) appears much bigger in the cartogram than in the classic map, according to its huge population.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>Cartogram aims to correct the bias that can be observed in a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a>: when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points.</p>
+<p>For instance, imagine you display the average salary per region on your choropleth map. A region with 3 inhabitants with a huge area will have more importance on your map than a small one with 3,000 inhabitants, what induces a strong bias. The cartogram aims to reduce this bias.</p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p><a href="https://www.data-to-viz.com/graph/hexbinmap.html">Hexbin map</a> represents every region of the map as hexagons. It is possible to build a cartogram to hexbin map following the same strategy. Here is an example with the population in the US states:</p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
+<p>Since a cartogram is often used as a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a>, all the related pitfalls apply:</p>
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li>Normalize your variable: you cannot compare raw numbers between regions of distinct size or population.</li>
+<li>Take a huge care when choosing the continuous color palette.</li>
+<li>Don’t forget the legend.</li>
 </ul>
+<p>Moreover, note that a cartogram distorts real boundaries and thus make the map harder to identify. Be carefull not to confuse your audience: you need to introduce it with good explanations and showing the initial map is probably a good practice.</p>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-3 col-sm-3">
+<a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
 <p class="mytitlerelated">
-Density
+Choropleth
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Display a aggregated value for each region of the map using color gradients.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-3 col-sm-3">
+<a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Cartogram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A circular version of a Treemap to visualize a hierarchical organization
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-3 col-sm-3">
+<a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Bubble map
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Display bubble on a map background to represent the value of a numeric variable.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-3 col-sm-3">
+<a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
 <p class="mytitlerelated">
-Violin
+Background Map
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+The basis for any geographic data visualization is to build a good background map.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/cartogram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +311,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/arc.html;  
+        this.page.identifier = arc; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

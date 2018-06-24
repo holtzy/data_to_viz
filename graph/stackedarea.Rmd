@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "StackedAreaSmall.png"
+mydisqus: "stackedarea"
+mytitle: "Stacked Area Graph"
 output:
   html_document:
       self_contained: false    
@@ -21,75 +21,129 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+A `stacked area chart` is the extension of a basic [area chart](https://www.data-to-viz.com/graph/area.html). It displays the evolution of the value of several groups on the same graphic. The values of each group are displayed on top of each other, what allows to check on the same figure the evolution of both the total of a numeric variable, and the importance of each group.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+<br>
+
+The following example shows the evolution of baby name frequencies in the US between 1880 and 2015. 
+
+<center>
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=8}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
+library(babynames)
+library(streamgraph)
 library(viridis)
+library(hrbrthemes)
+library(plotly)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# Plot
+p <- data %>% 
+  ggplot( aes(x=year, y=n, fill=name, text=name)) +
+    geom_area( ) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+ggplotly(p, tooltip="text")
 ```
+</center>
+
+*Note*: This graphic does not have a legend since it is interactive. Hover a group to get its name. The dataset is available through the [babynames](https://github.com/hadley/babynames) R library and a `.csv` version is available on [github](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset).
+
+
 
 
 # What for
 ***
 
-Still in progress
+The efficiency of stacked area graph is [discussed](https://www.data-to-viz.com/caveat/stacking.html) and it must be used with care. To put it in a nutshell:
+
+- stacked area graph are `appropriate` to study the evolution of the `whole` and the `relative proportions` of each group. Indeed, the top of the areas allows to visualize how the whole behaves, like for a classic area chart.
+
+- however they are not appropriate to study the evolution of each `individual group`: it is very hard to substract the height of other groups at each time point. For a more accurate but less attractive figure, consider a [line chart](https://www.data-to-viz.com/graph/line.html) or [area chart](https://www.data-to-viz.com/graph/area.html) using small multiple.  
+
+This website dedicates a whole [page about stacking](https://www.data-to-viz.com/caveat/stacking.html) and its potential pitfalls, [visit it](https://www.data-to-viz.com/caveat/stacking.html) to go further.
+
+
 
 # Variation
 ***
 
-Again
+A variation of the stacked area graph is the `percent stacked area graph`. It is the same thing but value of each group are normalized at each time stamp. That allows to study the percentage of each group in the whole more efficiently:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
+
+p <- data %>% 
+  # Compute the proportions:
+  group_by(year) %>%
+  mutate(freq = n / sum(n)) %>%
+  ungroup() %>%
+  
+  # Plot
+  ggplot( aes(x=year, y=freq, fill=name, color=name, text=name)) +
+    geom_area(  ) +
+    scale_fill_viridis(discrete = TRUE) +
+    scale_color_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+ggplotly(p, tooltip="text")
+```
 
 
-# Common mistakes {#mistake}
+
+
+# Common caveats {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
-
+- Use it with care, try using small multiple with [area chart](https://www.data-to-viz.com/graph/area.html) or [line chart](https://www.data-to-viz.com/graph/line.html) instead.
+- The group order (from bottom to top) can have an influence, try several orders.
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
+  <p class="mytitlerelated">Line plot</p>
+  <p class="mytextrelated">Displays the evolution of one or several numeric variables.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
+  <p class="mytitlerelated">Area chart</p>
+  <p class="mytextrelated">Basically a line graph, filling the area under the curve.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
+  <p class="mytitlerelated">Stacked area chart</p>
+  <p class="mytextrelated">Displays the evolution of the value of several groups on the same graphic</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
+  <p class="mytitlerelated">Streamgraph</p>
+  <p class="mytextrelated">A stacked area graph displaced around a central axis, resulting in a flowing, organic shape</p>
   </a>
   </div>
 </div>
@@ -99,11 +153,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/stacked-area-graph/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/stacked-area-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 

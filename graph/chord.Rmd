@@ -1,7 +1,7 @@
 ---
-myimage: "DensitySmall.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "ChordSmall.png"
+mydisqus: "chord"
+mytitle: "Chord diagram"
 output:
   html_document:
       self_contained: false    
@@ -21,41 +21,153 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A `chord diagram` represents flows or connections between several entities (called `nodes`). Each entity is represented by a fragment on the outer part of the `circular layout`. Then, `arcs` are drawn between each entities. The size of the arc is proportional to the importance of the flow.
+
+
+
+Here is an example displaying the number of people migrating from one country to another. Data used comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) from [Gui J. Abel](http://guyabel.com).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=7}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
 library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(circlize)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
+
+# short names
+colnames(data) <- c("Africa", "East Asia", "Europe", "Latin Ame.",   "North Ame.",   "Oceania", "South Asia", "South East Asia", "Soviet Union", "West.Asia")
+rownames(data) <- colnames(data)
+
+# I need a long format
+data_long <- data %>%
+  rownames_to_column %>%
+  gather(key = 'key', value = 'value', -rowname)
+
+# parameters
+circos.clear()
+circos.par(start.degree = 90, gap.degree = 4, track.margin = c(-0.1, 0.1), points.overflow.warning = FALSE)
+par(mar = rep(0, 4))
+
+# color palette
+mycolor <- viridis(10, alpha = 1, begin = 0, end = 1, option = "D")
+mycolor <- mycolor[sample(1:10)]
+
+# Base plot
+chordDiagram(
+  x = data_long, 
+  grid.col = mycolor,
+  transparency = 0.25,
+  directional = 1,
+  direction.type = c("arrows", "diffHeight"), 
+  diffHeight  = -0.04,
+  annotationTrack = "grid", 
+  annotationTrackHeight = c(0.05, 0.1),
+  link.arr.type = "big.arrow", 
+  link.sort = TRUE, 
+  link.largest.ontop = TRUE)
+
+# Add text and axis
+circos.trackPlotRegion(
+  track.index = 1, 
+  bg.border = NA, 
+  panel.fun = function(x, y) {
+    
+    xlim = get.cell.meta.data("xlim")
+    sector.index = get.cell.meta.data("sector.index")
+    
+    # Add names to the sector. 
+    circos.text(
+      x = mean(xlim), 
+      y = 3.2, 
+      labels = sector.index, 
+      facing = "bending", 
+      cex = 0.8
+      )
+
+    # Add graduation on axis
+    circos.axis(
+      h = "top", 
+      major.at = seq(from = 0, to = xlim[2], by = ifelse(test = xlim[2]>10, yes = 2, no = 1)), 
+      minor.ticks = 1, 
+      major.tick.percentage = 0.5,
+      labels.niceFacing = FALSE)
+  }
+)
+  
 ```
+
+*Note*: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com). Read more about this story [here](file:///Users/yan/Dropbox/data_to_viz/story/AdjacencyMatrix.html). 
+
 
 
 # What for
 ***
 
-Still in progress
 
-# Variation
+Chord diagrams are eye catching and quite popular in data visualization. They allow to visualize `weigthed` relationships between several entities. They are adapted for several specific situations that slightly modify the output and the way to read them:
+
+
+- Flow. This is the example decribed in the chord diagram above. But two ways to represent it:
+
+    - One asymetric arc per pair
+    - Two arcs per pair
+    
+- Bipartite: nodes are grouped in a few categories. Connections go *between* categories but not *within* categories. In my opinion [sankey diagrams](https://www.data-to-viz.com/graph/sankey.html) are more adapted in this situation. 
+
+
+
+*Note*: this section is under construction.
+
+
+
+
+
+
+# Variation {#variation}
 ***
 
-Again
+Interactivity is a real plus to make the chord diagram understandable. In the example below, you can hover a specific group to highlight all its connections.
+
+<center>
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=7}
+library(chorddiag)
+m <- matrix(c(11975,  5871, 8916, 2868,
+              1951, 10048, 2060, 6171,
+              8010, 16145, 8090, 8045,
+              1013,   990,  940, 6907),
+            byrow = TRUE,
+            nrow = 4, ncol = 4)
+haircolors <- c("black", "blonde", "brown", "red")
+dimnames(m) <- list(have = haircolors,
+                    prefer = haircolors)
+
+groupColors <- c("#000000", "#FFDD89", "#957244", "#F26223")
+chorddiag(m, groupColors = groupColors, groupnamePadding = 20)
+
+```
+</center>
+
+*Note*: this example comes from the [chorddiag](https://github.com/mattflor/chorddiag) package documentation.
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
+- The group order around the circle is important. Try to minimize the number of arc crossing.
+- Mind over-cluttering that makes the figure unreadable. It is advised to dismiss weak connections.
+- Chord diagrams are not straightforward to understand at all. Give plenty of explanation to your audience when you present it. It is advised to break down the graphic, presenting its components progressively. See this awesome example of storytelling from [Nadieh Bremer](https://www.visualcinnamon.com/2014/12/using-data-storytelling-with-chord).
 
 
 
@@ -64,34 +176,34 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
+  <p class="mytitlerelated">Network</p>
+  <p class="mytextrelated">Represents relationships using nodes and edges.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
+  <p class="mytitlerelated">Arc diagram</p>
+  <p class="mytextrelated">A subset of the network diagram where nodes are aligned and edges are arcs.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
+  <p class="mytitlerelated">Sankey diagram</p>
+  <p class="mytextrelated">A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
+  <p class="mytitlerelated">Edge bundling</p>
+  <p class="mytextrelated">Show connections between entities organized in a hierarchy.</p>
   </a>
-  </div>
+  </div>  
 </div>
 
 
@@ -99,11 +211,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/chord-diagram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/chord-diagram/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -112,6 +224,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 

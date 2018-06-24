@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "TreemapSmall.png"
+mydisqus: "treemap"
+mytitle: "Treemap"
 output:
   html_document:
       self_contained: false    
@@ -13,7 +13,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
@@ -21,75 +21,186 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
-# Libraries
+A `Treemap` displays `hierarchical` data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. Using color schemes and or interactivity, it is possible to represent several dimensions: groups, subgroups etc.  
+
+Here is an example describing the world population of 250 countries as an example. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.  
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4}
+# libraries
 library(tidyverse)
-library(hrbrthemes)
-library(viridis)
+library(treemap)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+data[ which(data$value==-1),"value"] <- 1
+colnames(data) <- c("Continent", "Region", "Country", "Pop")
+
+# Plot
+quartz()
+p <- treemap(data,
+            
+            # data
+            index=c("Continent", "Region", "Country"),
+            vSize="Pop",
+            type="index",
+            
+            # Main
+            title="",
+            palette="Dark2",
+
+            # Borders:
+            border.col=c("black", "grey", "grey"),             
+            border.lwds=c(1,0.5,0.1),                         
+        
+            # Labels
+            fontsize.labels=c(0.7, 0.4, 0.3),
+            fontcolor.labels=c("white", "white", "black"),
+            fontface.labels=1,            
+            bg.labels=c("transparent"),              
+            align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),                                  
+            overlap.labels=0.5,
+            inflate.labels=T   
+            
+)
 ```
+
+<br>
+
+*Note*: You can read more about this story here, with many more way to visualize this dataset. Data source: wikipedia and formating by [1](https://github.com/mledoze/countries) and [2](http://bl.ocks.org/ganeshv/6a8e9ada3ab7f2d88022).
+
 
 
 # What for
 ***
 
-Still in progress
+Treemaps have the advantage to make efficient use of space, what makes them useful to represent a big amount of data.
 
-# Variation
+If you have many levels of hierarchy (>2), it is advised to build an interactive figure: clicking on a upper level of organization will reveal the next level and so on.
+
+
+
+# Variation {#variation}
 ***
 
-Again
+Many variations exist for dendrogram. It can be horizontal or vertical as shown before. It can also be linear or circular. The advantage of the circular verion being that it uses the graphic space more efficiently:
 
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
+# Libraries
+library(ggraph)
+library(igraph)
+library(tidyverse)
+library(RColorBrewer) 
+set.seed(1)
+
+# create a data frame giving the hierarchical structure of your individuals
+d1=data.frame(from="origin", to=paste("group", seq(1,10), sep=""))
+d2=data.frame(from=rep(d1$to, each=10), to=paste("group", seq(1,100), sep="_"))
+edges=rbind(d1, d2)
+ 
+# create a vertices data.frame. One line per object of our hierarchy
+vertices = data.frame(
+  name = unique(c(as.character(edges$from), as.character(edges$to))) , 
+  value = runif(111)
+) 
+# Let's add a column with the group of each name. It will be useful later to color points
+vertices$group = edges$from[ match( vertices$name, edges$to ) ]
+ 
+ 
+#Let's add information concerning the label we are going to add: angle, horizontal adjustement and potential flip
+#calculate the ANGLE of the labels
+vertices$id=NA
+myleaves=which(is.na( match(vertices$name, edges$from) ))
+nleaves=length(myleaves)
+vertices$id[ myleaves ] = seq(1:nleaves)
+vertices$angle= 90 - 360 * vertices$id / nleaves
+ 
+# calculate the alignment of labels: right or left
+# If I am on the left part of the plot, my labels have currently an angle < -90
+vertices$hjust<-ifelse( vertices$angle < -90, 1, 0)
+ 
+# flip angle BY to make them readable
+vertices$angle<-ifelse(vertices$angle < -90, vertices$angle+180, vertices$angle)
+ 
+# Create a graph object
+mygraph <- graph_from_data_frame( edges, vertices=vertices )
+
+# prepare color
+mycolor <- colormap(colormap = colormaps$viridis, nshades = 6, format = "hex", alpha = 1, reverse = FALSE)[sample(c(1:6), 10, replace=TRUE)]
+
+# Make the plot
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+  geom_edge_diagonal(colour="grey") +
+  scale_edge_colour_distiller(palette = "RdPu") +
+  geom_node_text(aes(x = x*1.15, y=y*1.15, filter = leaf, label=name, angle = angle, hjust=hjust, colour=group), size=2.7, alpha=1) +
+  geom_node_point(aes(filter = leaf, x = x*1.07, y=y*1.07, colour=group, size=value, alpha=0.2)) +
+  scale_colour_manual(values= mycolor) +
+  scale_size_continuous( range = c(0.1,7) ) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(c(0,0,0,0),"cm"),
+  ) +
+  expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
+```
+
+
+Another common variation is to display a heatmap at the bottom of the dendrogram. Indeed, it allows to visualize the distance between each sample and thus to understand why the clustering algorythm put 2 samples next to each other.
+
+<center>
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
+library(d3heatmap)
+d3heatmap(mtcars, scale = "column", colors = "Blues")
+```
+
+</center>
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
+- If using a clustering algorythm, be sure you understood which metrics have been used for the distance calculation and for the clustering algorythm.
+- Horizontal version are appreciated with long labels
+- Showing the heatmap is a good practice if you're working with clustering.
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
+  <p class="mytitlerelated">Heatmap</p>
+  <p class="mytextrelated">Representation of data where the individual values contained in a matrix are represented as colors</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
+  <p class="mytitlerelated">Circular packing</p>
+  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/treemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/TreeSmall.png">
+  <p class="mytitlerelated">Treemap</p>
+  <p class="mytextrelated">Displays hierarchical data as a set of nested rectangles. Perfect to show how the whole is divided.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+  <p class="mytitlerelated">Dendrogram</p>
+  <p class="mytextrelated">A network structure used to show a hierarchical organization.</p>
   </a>
   </div>
 </div>
@@ -99,11 +210,10 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/circle-packing/" class="btn btn-primary">R graph gallery</a>
 </p>
 
 
@@ -112,6 +222,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 
