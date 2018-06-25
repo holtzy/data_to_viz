@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "NetworkSmall.png"
+mydisqus: "network"
+mytitle: "Network diagram"
 output:
   html_document:
       self_contained: false    
@@ -21,77 +21,351 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+`Network diagrams` (also called Graphs) show interconnections between a set of entities. Each entity is represented by a `Node` (or vertice). Connections between nodes are represented through `links` (or edges).  
+
+Here is an example showing the co-authors network of [Vincent Ranwez](https://sites.google.com/site/ranwez/), a researcher who's my previous supervisor. Basically, people having published at least one research paper with him are represented by a node. If two people have been listed on the same publication at least once, they are connected by a link.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=9}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
 library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(ggraph)
+library(igraph)
+library(networkD3)
+
+# Load researcher data
+dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+
+# Transform the adjacency matrix in a long format
+connect <- dataUU %>% 
+  gather(key="to", value="value", -1) %>%
+  na.omit()
+
+# Number of connection per person
+c( as.character(connect$from), as.character(connect$to)) %>%
+  as.tibble() %>%
+  group_by(value) %>%
+  summarize(n=n()) -> coauth
+colnames(coauth) <- c("name", "n")
+
+# NetworkD3 format
+graph=simpleNetwork(connect)
+
+# Plot
+simpleNetwork(connect,     
+        Source = 1,                 # column number of source
+        Target = 2,                 # column number of target
+        height = 880,               # height of frame area in pixels
+        width = 1980,
+        linkDistance = 10,         # distance between node. Increase this value to have more space between nodes
+        charge = -4,              # numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)
+        fontSize = 5,              # size of the node names
+        fontFamily = "serif",       # font og node names
+        linkColour = "#666",        # colour of edges, MUST be a common colour for the whole graph
+        nodeColour = "#69b3a2",     # colour of nodes, MUST be a common colour for the whole graph
+        opacity = 0.9,              # opacity of nodes. 0=transparent. 1=no transparency
+        zoom = T                    # Can you zoom on the figure?
+        )
+
 ```
 
 
-# What for
+*Note*: This chart is `interactive`: zoom on a specific cluster to see researcher names. Data have been retrieved using the [scholar](https://github.com/jkeirstead/scholar) package, the pipeline is describe in this [github repository](https://github.com/holtzy/Google-Scholar-Network). You can read more about this story [here](https://www.data-to-viz.com/story/AdjacencyMatrix.html).
+
+
+
+
+
+
+# Four types of input
+***
+Four main types of network diagram exist, according to the features of data inputs. Here is a short description.
+<br>
+
+</div>
+
+
+<div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+<div class = "col-md-3 col-sm-6">
+<br>
+<h4>`Undirected and Unweighted`</h4>  
+Tom, Cherelle and Melanie live in the same house. They are connected but no direction and no weight.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Create data
+set.seed(2)
+data=matrix(sample(0:1, 25, replace=TRUE), nrow=5)
+data[lower.tri(data)] <- NA
+colnames(data)=rownames(data)=LETTERS[1:5]
+
+# Transform it in a graph format
+network=graph_from_adjacency_matrix(data)
+
+# Plot it
+# Make the graph
+ggraph(network) + 
+  geom_edge_link(edge_colour="black", edge_alpha=0.3, edge_width=0.2) +
+  geom_node_point( color="#69b3a2", size=5) +
+  geom_node_text( aes(label=name), repel = TRUE, size=8, color="#69b3a2") +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+
+```
+</div>
+
+
+
+<div class = "col-md-3 col-sm-6">
+<br>
+<h4>`Undirected and Weighted`</h4>
+In the previous co-authors network, people are connected if they published a scientific paper together. The weight is the number of time it happend.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Create data
+set.seed(1)
+data=matrix(sample(0:3, 25, replace=TRUE), nrow=5)
+data[lower.tri(data)] <- NA
+colnames(data)=rownames(data)=LETTERS[1:5]
+ 
+# Transform it in a graph format
+network=graph_from_adjacency_matrix(data, weighted = TRUE)
+
+# Make the graph
+ggraph(network) + 
+  geom_edge_link( aes(edge_width=E(network)$weight), edge_colour="black", edge_alpha=0.3) +
+  geom_node_point( color="#69b3a2", size=5) +
+  geom_node_text( aes(label=name), repel = TRUE, size=8, color="#69b3a2") +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+
+```
+</div>
+
+
+
+<div class = "col-md-3 col-sm-6">
+<br>
+<h4>`Directed and Unweighted`</h4>
+Tom follows Shirley on twitter, but the opposite is not necessarily true. The connection is unweighted: just connected or not.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Create data
+set.seed(10)
+data=matrix(sample(0:1, 25, replace=TRUE), nrow=5)
+diag(data) = NA
+colnames(data)=rownames(data)=LETTERS[1:5]
+ 
+# Transform it in a graph format
+network=graph_from_adjacency_matrix(data)
+
+# Make the graph
+ggraph(network) + 
+  geom_edge_link(edge_colour="black", edge_alpha=0.8, edge_width=0.2, arrow = arrow(angle=20)) +
+  geom_node_point( color="#69b3a2", size=3) +
+  geom_node_text( aes(label=name), repel = TRUE, size=6, color="#69b3a2") +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+
+```
+</div>
+
+
+
+<div class = "col-md-3 col-sm-6">
+<br>
+<h4>`Directed and Weighted`</h4>
+People migrate from a country to another: the weight is the number of people, the direction is the destination.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Create data
+set.seed(10)
+data=matrix(sample(0:3, 16, replace=TRUE), nrow=4)
+diag(data) <- NA
+colnames(data)=rownames(data)=LETTERS[1:4]
+ 
+# Transform it in a graph format
+network=graph_from_adjacency_matrix(data, weighted=TRUE)
+
+# Make the graph
+ggraph(network) + 
+  geom_edge_link(edge_colour="black", edge_alpha=0.3, aes(edge_width=E(network)$weight) , arrow=arrow()) +
+  scale_edge_width(range=c(1,3)) +
+  geom_node_point( color="#69b3a2", size=3) +
+  geom_node_text( aes(label=name), repel = TRUE, size=6, color="#69b3a2") +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+
+```
+</div>
+</div>
+
+
+<div class="mycontent">
+
+<br><br>
+
+*Note*: as you can observe on the examples above, directed graphs are quite hard to represent using this type of visualization. More appropriate techniques exist to represent flows, like [Sankey diagram](https://www.data-to-viz.com/graph/sankey.html) or [chord diagram](https://www.data-to-viz.com/graph/chord.html). 
+
+
+
+
+
+
+
+# Variation {#variation}
 ***
 
-Still in progress
+Many customizations are available for network diagrams. Here are a few features you can work on to improve your graphic:
 
-# Variation
-***
+- Adding information to the node: you can add more insight to the graphic by customizing the color, the shape or the size of each node according to other variables.
 
-Again
+- Different `layout algorythm`: finding the most optimal position for each node is a tricky exercise that highly impacts the output. Several algorithms have been developped, and choosing the right one for your data is a crucial step. See [this page](http://igraph.org/r/doc/layout_.html) for a list of the most common algorithm. Here is an example illustrating the differences between three options:
+<br><br>
+
+</div>
+
+
+
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>`Fruchterman-Reingold`</h4>
+<hr>
+Probably the most widely used algorithm, using a force-directed method.
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Load researcher data
+dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+
+# Transform the adjacency matrix in a long format
+connect <- dataUU %>% 
+  gather(key="to", value="value", -1) %>%
+  na.omit()
+
+# Number of connection per person
+c( as.character(connect$from), as.character(connect$to)) %>%
+  as.tibble() %>%
+  group_by(value) %>%
+  summarize(n=n()) -> coauth
+colnames(coauth) <- c("name", "n")
+
+# Create a graph object with igraph
+mygraph <- graph_from_data_frame( connect, vertices = coauth )
+
+# Make the graph
+ggraph(mygraph, layout="fr") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+```
+</div>
+
+
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>`DrL`</h4>
+<hr>
+A force-directed graph layout toolbox focused on real-world large-scale graphs
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Make the graph
+ggraph(mygraph, layout="drl") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+```
+</div>
+
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>`Randomly`</h4>
+<hr>
+This is what happens if node positions is set up randomly
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+ggraph(mygraph, layout="igraph", algorithm="randomly") + 
+  #geom_edge_density(edge_fill="#69b3a2") +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
+  geom_node_point(aes(size=n, alpha=n)) +
+  theme_void() +
+  theme(
+    legend.position="none",
+    plot.margin=unit(rep(1,4), "cm")
+  ) 
+```
+
+</div>
+
+</div>
+
+<div class="mycontent">
+
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
-
+`Hairball` is the main caveat when ploting networks: when too many connections and no obivious pattern is represented, the figure get cluttered and unreadable.
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
+  <p class="mytitlerelated">Chord diagram</p>
+  <p class="mytextrelated">A circular layout used to display weighted relationships between entities through arcs.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
+  <p class="mytitlerelated">Arc diagram</p>
+  <p class="mytextrelated">A subset of the network diagram where nodes are aligned and edges are arcs.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
+  <p class="mytitlerelated">Sankey diagram</p>
+  <p class="mytextrelated">A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
+  <p class="mytitlerelated">Edge bundling</p>
+  <p class="mytextrelated">Show connections between entities organized in a hierarchy.</p>
   </a>
-  </div>
+  </div>  
 </div>
 
 
@@ -99,11 +373,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/network/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/network-chart/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -112,6 +386,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 

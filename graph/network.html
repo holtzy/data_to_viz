@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Network diagram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -72,6 +72,9 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/d3-4.5.0/d3.min.js"></script>
+<script src="libs/forceNetwork-binding-0.4/forceNetwork.js"></script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -222,72 +225,308 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p><code>Network diagrams</code> (also called Graphs) show interconnections between a set of entities. Each entity is represented by a <code>Node</code> (or vertice). Connections between nodes are represented through <code>links</code> (or edges).</p>
+<p>Here is an example showing the co-authors network of <a href="https://sites.google.com/site/ranwez/">Vincent Ranwez</a>, a researcher who’s my previous supervisor. Basically, people having published at least one research paper with him are represented by a node. If two people have been listed on the same publication at least once, they are connected by a link.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
+<span class="kw">library</span>(viridis)
+<span class="kw">library</span>(patchwork)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
-<h1 id="what-for">What for</h1>
+<span class="kw">library</span>(ggraph)
+<span class="kw">library</span>(igraph)
+<span class="kw">library</span>(networkD3)
+
+<span class="co"># Load researcher data</span>
+dataUU &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+
+<span class="co"># Transform the adjacency matrix in a long format</span>
+connect &lt;-<span class="st"> </span>dataUU <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;to&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()
+
+<span class="co"># Number of connection per person</span>
+<span class="kw">c</span>( <span class="kw">as.character</span>(connect<span class="op">$</span>from), <span class="kw">as.character</span>(connect<span class="op">$</span>to)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>()) -&gt;<span class="st"> </span>coauth
+<span class="kw">colnames</span>(coauth) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;n&quot;</span>)
+
+<span class="co"># NetworkD3 format</span>
+graph=<span class="kw">simpleNetwork</span>(connect)
+
+<span class="co"># Plot</span>
+<span class="kw">simpleNetwork</span>(connect,     
+        <span class="dt">Source =</span> <span class="dv">1</span>,                 <span class="co"># column number of source</span>
+        <span class="dt">Target =</span> <span class="dv">2</span>,                 <span class="co"># column number of target</span>
+        <span class="dt">height =</span> <span class="dv">880</span>,               <span class="co"># height of frame area in pixels</span>
+        <span class="dt">width =</span> <span class="dv">1980</span>,
+        <span class="dt">linkDistance =</span> <span class="dv">10</span>,         <span class="co"># distance between node. Increase this value to have more space between nodes</span>
+        <span class="dt">charge =</span> <span class="op">-</span><span class="dv">4</span>,              <span class="co"># numeric value indicating either the strength of the node repulsion (negative value) or attraction (positive value)</span>
+        <span class="dt">fontSize =</span> <span class="dv">5</span>,              <span class="co"># size of the node names</span>
+        <span class="dt">fontFamily =</span> <span class="st">&quot;serif&quot;</span>,       <span class="co"># font og node names</span>
+        <span class="dt">linkColour =</span> <span class="st">&quot;#666&quot;</span>,        <span class="co"># colour of edges, MUST be a common colour for the whole graph</span>
+        <span class="dt">nodeColour =</span> <span class="st">&quot;#69b3a2&quot;</span>,     <span class="co"># colour of nodes, MUST be a common colour for the whole graph</span>
+        <span class="dt">opacity =</span> <span class="fl">0.9</span>,              <span class="co"># opacity of nodes. 0=transparent. 1=no transparency</span>
+        <span class="dt">zoom =</span> T                    <span class="co"># Can you zoom on the figure?</span>
+        )</code></pre></div>
+<div id="htmlwidget-83cd87ab01d727e18270" style="width:864px;height:672px;" class="forceNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-83cd87ab01d727e18270">{"x":{"links":{"source":[174,130,221,0,80,175,38,114,207,63,121,53,142,159,0,3,74,80,175,97,144,112,183,201,64,70,98,116,154,36,127,225,7,63,121,60,91,7,26,63,121,33,38,93,179,196,225,4,38,114,6,65,70,106,112,114,172,179,181,201,202,207,220,117,134,51,162,203,27,60,91,1,174,199,205,222,8,53,142,159,11,131,182,159,91,95,177,75,148,172,207,98,202,6,38,64,75,98,116,120,148,154,182,207,211,35,196,133,144,0,3,80,175,27,38,49,60,70,91,98,120,152,154,182,8,50,53,142,159,108,126,154,180,210,0,0,3,9,74,80,175,2,83,94,130,132,160,164,185,212,221,94,130,136,185,221,163,208,38,112,124,25,36,127,225,38,92,179,83,130,136,185,84,163,208,24,144,153,182,38,70,116,154,92,93,180,126,154,180,210,221,21,38,183,201,45,117,134,150,197,23,64,70,98,154,134,38,62,70,75,95,98,154,177,180,63,38,112,154,36,225,34,38,83,93,94,132,136,179,185,212,221,84,96,163,208,221,10,97,99,144,110,53,159,24,110,135,165,75,120,45,117,134,197,75,152,184,11,52,92,93,106,180,38,62,64,70,75,95,98,116,120,177,180,130,132,212,221,24,97,144,51,208,2,130,221,2,82,110,130,132,135,160,164,212,221,47,51,162,203,6,207,0,80,75,151,152,184,95,110,135,146,165,185,62,83,92,93,95,126,130,154,177,185,221,6,172,207,131,153,112,201,75,152,4,37,38,83,94,110,114,130,135,136,146,165,221,45,117,134,1,174,205,51,162,1,174,5,21,38,75,89,106,112,124,151,152,176,183,184,201,209,218,38,106,112,207,126,154,180,38,207,2,34,38,82,93,130,132,164,165,179,221,38,94,110,135,146,165,178,185,1,174,199,205],"target":[12,13,13,14,14,14,15,15,16,17,17,18,18,18,19,19,19,19,19,20,20,22,22,22,28,28,28,28,28,29,29,29,30,30,30,31,31,32,32,32,32,39,40,40,40,41,42,43,43,43,44,44,44,44,44,44,44,44,44,44,44,44,44,46,46,48,48,48,54,54,54,55,55,55,55,55,56,56,56,56,57,58,58,59,61,66,66,67,67,67,67,68,69,71,71,71,71,71,71,71,71,71,71,71,71,72,72,73,73,76,76,76,76,77,77,77,77,77,77,77,77,77,77,77,78,78,78,78,78,79,79,79,79,79,81,85,85,85,85,85,85,86,86,86,86,86,86,86,86,86,86,87,87,87,87,87,88,88,90,90,90,100,100,100,100,101,101,101,102,102,102,102,103,103,103,104,104,104,104,105,105,105,105,107,107,107,109,109,109,109,111,113,113,113,113,115,115,115,115,115,118,118,118,118,118,119,122,122,122,122,122,122,122,122,122,123,125,125,128,129,129,137,137,137,137,137,137,137,137,137,137,137,138,138,138,138,139,140,140,140,140,141,143,143,145,147,147,147,149,149,155,155,155,155,156,156,156,157,157,157,157,157,157,158,158,158,158,158,158,158,158,158,158,158,161,161,161,161,166,166,166,167,168,169,169,169,170,170,170,170,170,170,170,170,170,170,171,171,171,171,173,173,186,186,187,187,187,187,188,189,189,189,189,189,190,190,190,190,190,190,190,190,190,190,190,191,191,191,192,192,193,193,194,194,195,195,195,195,195,195,195,195,195,195,195,195,195,198,198,198,200,200,200,204,204,206,206,213,213,213,213,213,213,213,213,213,213,213,213,213,213,213,213,214,214,214,214,215,215,215,216,216,217,217,217,217,217,217,217,217,217,217,217,219,223,223,223,223,223,223,223,224,224,224,224],"value":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"colour":["#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666","#666"]},"nodes":{"name":["A Armero","A Bateman","A Besnard","A Breil","A Cenci","A Chifolleau","A Criscuolo","A Dassouli","A Dellagi","A Dereeper","A Regnault","A Serra","A.Bateman","A.Besnard","A.Breil","A.Cenci","A.Criscuolo","A.Dassouli","A.Dellagi","A.Dereeper","A.Regnault","AMA Chifolleau","AMA.Chifolleau","B Boussau","B Duthil","B Martret","B Noel","B Roure","B.Boussau","B.Martret","B.Noel","B.Roure","B.Vacherie","C Abessolo","C Burgarella","C Douady","C Fizames","C Guilhaumon","C Scornavacca","C.Abessolo","C.Burgarella","C.Douady","C.Fizames","C.Guilhaumon","C.Scornavacca","CP Meyer","CP.Meyer","CW Kilpatrick","CW.Kilpatrick","D Baurain","D Expert","D Huchon","D Pot","D Vile","D.Baurain","D.Durand","D.Expert","D.Pot","D.Sánchez","D.Vile","DMD Vienne","DMD.Vienne","E Bazin","E Cornillot","E Figuet","E Jacox","E.Bazin","E.Douzery","E.Figuet","E.Jacox","EJP Douzery","EJP.Douzery","EJPDNLH.Philippe","EMA.LGI2P","F De Lamotte","F Delsuc","F.De.Lamotte","F.Delsuc","F.Gosti","F.Zhang","FC Baurens","FC.Baurens","G Poux","G Sarah","G Tsagkogeorga","G.Droc","G.Poux","G.Sarah","G.Tsagkogeorga","GJ Szöllősi","GJ.Szöllősi","H Philippe","I Fischer","J Dainat","J David","J Dutheil","J Melo‐Ferreira","J Montmain","J Romiguier","J Villerd","J.Alassimone","J.Dainat","J.David","J.Melo.Ferreira","J.Montmain","J.Romiguier","JF Dufayard","JF.Dufayard","JH Wilson","JH.Wilson","JL David","JL.David","JP Doyon","JP.Doyon","JS Escobar","JT.Boehm","JY Dutheil","JY Yang","JY.Dutheil","JY.Yang","K Belkhir","K Hadj-Kaddour","K.Belkhir","K.Hadj.Kaddour","KY Gorbunov","KY.Gorbunov","L Duret","L Marquès","L.Duret","L.Marquès","M Ardisson","M Batet","M Bonnefoy","M Crampes","M Leray","M Tavaud","M Tavaud-Pirra","M.Ardisson","M.Ballenghien","M.Bonnefoy","M.Crampes","M.Tavaud","MC SOULIE","MC.SOULIE","MF Sy","MF.Sy","MH Muller","MH.Muller","MK Tilak","MK.Tilak","N Agudelo","N Auberval","N Clairon","N Fiorini","N Galtier","N.Agudelo","N.Auberval","N.Chantret","N.Galtier","NNT Nguyen","NO Rode","NO.Rode","P Chevret","P Gayral","P Leroy","P Roumet","P.Augereau","P.Chevret","P.Gayral","P.Leroy","P.Roumet","PD.Jenkins","PH Fabre","PH.Fabre","RF Murphy","S Bocs","S Diser","S Gaillard","S Gautier","S Glemin","S Glémin","S Guillemot","S Harispe","S Pointet","S Pourali","S Santoni","S.Bocs","S.Diser","S.Gaillard","S.Gautier","S.Glémin","S.Guillemot","S.Harispe","S.Pointet","S.Pourali","S.Santoni","SBACF Delsuc","SC Mills","SC.Mills","T Lengauer","T.Lengauer","TH Nguyen","TH To","U Jordan","U.Jordan","UK Hinxton","UK.Hinxton","V Berry","V Cahais","V Daubin","V Dion","V Lefort","V Viader","V.Berry","V.Daubin","V.Dion","V.Lefort","V.Viader","W Paprotny","W.Paprotny","Y Chan","Y Holtz","Y Moreau","Y.Holtz","Y.Moreau","Z Shahzad"],"group":[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],"nodesize":[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8]},"options":{"NodeID":"name","Group":"group","colourScale":"d3.scaleOrdinal(['#69b3a2'])","fontSize":5,"fontFamily":"serif","clickTextSize":12.5,"linkDistance":10,"linkWidth":"'1.5px'.toString()","charge":-4,"opacity":0.9,"zoom":true,"legend":false,"arrows":false,"nodesize":true,"radiusCalculation":"d.nodesize","bounded":false,"opacityNoHover":1,"clickAction":null}},"evals":[],"jsHooks":[]}</script>
+<p><em>Note</em>: This chart is <code>interactive</code>: zoom on a specific cluster to see researcher names. Data have been retrieved using the <a href="https://github.com/jkeirstead/scholar">scholar</a> package, the pipeline is describe in this <a href="https://github.com/holtzy/Google-Scholar-Network">github repository</a>. You can read more about this story <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">here</a>.</p>
+<h1 id="four-types-of-input">Four types of input</h1>
 <hr />
-<p>Still in progress</p>
+<p>Four main types of network diagram exist, according to the features of data inputs. Here is a short description. <br></p>
+</div>
+<div class="row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+<div class="col-md-3 col-sm-6">
+<br>
+<h4>
+<code>Undirected and Unweighted</code>
+</h4>
+<p>Tom, Cherelle and Melanie live in the same house. They are connected but no direction and no weight.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create data</span>
+<span class="kw">set.seed</span>(<span class="dv">2</span>)
+data=<span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">25</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="dt">nrow=</span><span class="dv">5</span>)
+data[<span class="kw">lower.tri</span>(data)] &lt;-<span class="st"> </span><span class="ot">NA</span>
+<span class="kw">colnames</span>(data)=<span class="kw">rownames</span>(data)=LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+
+<span class="co"># Transform it in a graph format</span>
+network=<span class="kw">graph_from_adjacency_matrix</span>(data)
+
+<span class="co"># Plot it</span>
+<span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(network) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.3</span>, <span class="dt">edge_width=</span><span class="fl">0.2</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">TRUE</span>, <span class="dt">size=</span><span class="dv">8</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<p><img src="network_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-md-3 col-sm-6">
+<br>
+<h4>
+<code>Undirected and Weighted</code>
+</h4>
+<p>In the previous co-authors network, people are connected if they published a scientific paper together. The weight is the number of time it happend.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create data</span>
+<span class="kw">set.seed</span>(<span class="dv">1</span>)
+data=<span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">25</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="dt">nrow=</span><span class="dv">5</span>)
+data[<span class="kw">lower.tri</span>(data)] &lt;-<span class="st"> </span><span class="ot">NA</span>
+<span class="kw">colnames</span>(data)=<span class="kw">rownames</span>(data)=LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+ 
+<span class="co"># Transform it in a graph format</span>
+network=<span class="kw">graph_from_adjacency_matrix</span>(data, <span class="dt">weighted =</span> <span class="ot">TRUE</span>)
+
+<span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(network) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>( <span class="kw">aes</span>(<span class="dt">edge_width=</span><span class="kw">E</span>(network)<span class="op">$</span>weight), <span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">5</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">TRUE</span>, <span class="dt">size=</span><span class="dv">8</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<p><img src="network_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-md-3 col-sm-6">
+<br>
+<h4>
+<code>Directed and Unweighted</code>
+</h4>
+<p>Tom follows Shirley on twitter, but the opposite is not necessarily true. The connection is unweighted: just connected or not.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create data</span>
+<span class="kw">set.seed</span>(<span class="dv">10</span>)
+data=<span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">1</span>, <span class="dv">25</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="dt">nrow=</span><span class="dv">5</span>)
+<span class="kw">diag</span>(data) =<span class="st"> </span><span class="ot">NA</span>
+<span class="kw">colnames</span>(data)=<span class="kw">rownames</span>(data)=LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>]
+ 
+<span class="co"># Transform it in a graph format</span>
+network=<span class="kw">graph_from_adjacency_matrix</span>(data)
+
+<span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(network) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.8</span>, <span class="dt">edge_width=</span><span class="fl">0.2</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">angle=</span><span class="dv">20</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">TRUE</span>, <span class="dt">size=</span><span class="dv">6</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<p><img src="network_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+<div class="col-md-3 col-sm-6">
+<br>
+<h4>
+<code>Directed and Weighted</code>
+</h4>
+<p>People migrate from a country to another: the weight is the number of people, the direction is the destination.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Create data</span>
+<span class="kw">set.seed</span>(<span class="dv">10</span>)
+data=<span class="kw">matrix</span>(<span class="kw">sample</span>(<span class="dv">0</span><span class="op">:</span><span class="dv">3</span>, <span class="dv">16</span>, <span class="dt">replace=</span><span class="ot">TRUE</span>), <span class="dt">nrow=</span><span class="dv">4</span>)
+<span class="kw">diag</span>(data) &lt;-<span class="st"> </span><span class="ot">NA</span>
+<span class="kw">colnames</span>(data)=<span class="kw">rownames</span>(data)=LETTERS[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]
+ 
+<span class="co"># Transform it in a graph format</span>
+network=<span class="kw">graph_from_adjacency_matrix</span>(data, <span class="dt">weighted=</span><span class="ot">TRUE</span>)
+
+<span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(network) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.3</span>, <span class="kw">aes</span>(<span class="dt">edge_width=</span><span class="kw">E</span>(network)<span class="op">$</span>weight) , <span class="dt">arrow=</span><span class="kw">arrow</span>()) <span class="op">+</span>
+<span class="st">  </span><span class="kw">scale_edge_width</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">TRUE</span>, <span class="dt">size=</span><span class="dv">6</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<p><img src="network_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div class="mycontent">
+<p><br><br></p>
+<p><em>Note</em>: as you can observe on the examples above, directed graphs are quite hard to represent using this type of visualization. More appropriate techniques exist to represent flows, like <a href="https://www.data-to-viz.com/graph/sankey.html">Sankey diagram</a> or <a href="https://www.data-to-viz.com/graph/chord.html">chord diagram</a>.</p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>Many customizations are available for network diagrams. Here are a few features you can work on to improve your graphic:</p>
+<ul>
+<li><p>Adding information to the node: you can add more insight to the graphic by customizing the color, the shape or the size of each node according to other variables.</p></li>
+<li><p>Different <code>layout algorythm</code>: finding the most optimal position for each node is a tricky exercise that highly impacts the output. Several algorithms have been developped, and choosing the right one for your data is a crucial step. See <a href="http://igraph.org/r/doc/layout_.html">this page</a> for a list of the most common algorithm. Here is an example illustrating the differences between three options: <br><br></p></li>
+</ul>
+</div>
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>
+<code>Fruchterman-Reingold</code>
+</h4>
+<hr>
+<p>Probably the most widely used algorithm, using a force-directed method.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load researcher data</span>
+dataUU &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+
+<span class="co"># Transform the adjacency matrix in a long format</span>
+connect &lt;-<span class="st"> </span>dataUU <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;to&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">na.omit</span>()
+
+<span class="co"># Number of connection per person</span>
+<span class="kw">c</span>( <span class="kw">as.character</span>(connect<span class="op">$</span>from), <span class="kw">as.character</span>(connect<span class="op">$</span>to)) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>()) -&gt;<span class="st"> </span>coauth
+<span class="kw">colnames</span>(coauth) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;n&quot;</span>)
+
+<span class="co"># Create a graph object with igraph</span>
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( connect, <span class="dt">vertices =</span> coauth )
+
+<span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;fr&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co">#geom_edge_density(edge_fill=&quot;#69b3a2&quot;) +</span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.2</span>, <span class="dt">edge_width=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>n, <span class="dt">alpha=</span>n)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<img src="network_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" />
+</div>
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>
+<code>DrL</code>
+</h4>
+<hr>
+<p>A force-directed graph layout toolbox focused on real-world large-scale graphs</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make the graph</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;drl&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co">#geom_edge_density(edge_fill=&quot;#69b3a2&quot;) +</span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.2</span>, <span class="dt">edge_width=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>n, <span class="dt">alpha=</span>n)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<img src="network_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" />
+</div>
+<div class = "col-md-4 col-sm-12">
+<br>
+<h4>
+<code>Randomly</code>
+</h4>
+<hr>
+<p>This is what happens if node positions is set up randomly</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;igraph&quot;</span>, <span class="dt">algorithm=</span><span class="st">&quot;randomly&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="co">#geom_edge_density(edge_fill=&quot;#69b3a2&quot;) +</span>
+<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.2</span>, <span class="dt">edge_width=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>n, <span class="dt">alpha=</span>n)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
+  ) </code></pre></div>
+<p><img src="network_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div class="mycontent">
 <h1 id="mistake">Common mistakes</h1>
 <hr />
-<ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
-</ul>
+<p><code>Hairball</code> is the main caveat when ploting networks: when too many connections and no obivious pattern is represented, the figure get cluttered and unreadable.</p>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
 <p class="mytitlerelated">
-Density
+Chord diagram
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+A circular layout used to display weighted relationships between entities through arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
 <p class="mytitlerelated">
-Ridgeline
+Arc diagram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A subset of the network diagram where nodes are aligned and edges are arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
 <p class="mytitlerelated">
-Boxplot
+Sankey diagram
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
 <p class="mytitlerelated">
-Violin
+Edge bundling
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+Show connections between entities organized in a hierarchy.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/network/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/network-chart/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +541,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/network.html;  
+        this.page.identifier = network; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
