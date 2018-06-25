@@ -1,6 +1,7 @@
 ---
-myimage: "DensitySmall.png"
-mytitle: "Density"
+myimage: "BundleSmall.png"
+mydisqus: "edge_bundling"
+mytitle: "Hierarchical edge bundling"
 output:
   html_document:
       self_contained: false    
@@ -20,153 +21,204 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable ([see more](https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/)).
+`Hierarchical Edge Bundling` allows to visualize `adjacency relations` between entities organized in a `hierarchy`. The idea is to bundle the adjacency edges together to decrease the clutter usually observed in complex networks.
 
-It is a smoothed version of the [histogram](histogram.html) and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+<br>
+
+<u>Step 1</u>: Let's consider the hierarchy of the [Flare](http://flare.prefuse.org) ActionScript visualization library. The elements of its library are organized in several folder, like query, data, scale... Each folder is then subdivided in subfolders and so on. The hierarchy can be visualized as a [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html) as follow: 
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 # Libraries
 library(tidyverse)
-library(hrbrthemes)
 library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(ggraph)
+library(igraph)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# The flare dataset is provided in ggraph
+edges <- flare$edges
+vertices <- flare$vertices %>% arrange(name) %>% mutate(name=factor(name, name))
+connections <- flare$imports
 
-# Make the histogram
-data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.8) +
-    ggtitle("Night price distribution of Airbnb appartements") +
-    theme_ipsum()
+# Preparation to draw labels properly:
+vertices$id=NA
+myleaves=which(is.na( match(vertices$name, edges$from) ))
+nleaves=length(myleaves)
+vertices$id[ myleaves ] = seq(1:nleaves)
+vertices$angle= 90 - 360 * vertices$id / nleaves
+vertices$hjust<-ifelse( vertices$angle < -90, 1, 0)
+vertices$angle<-ifelse(vertices$angle < -90, vertices$angle+180, vertices$angle)
+
+# Build a network object from this dataset:
+mygraph <- graph_from_data_frame(edges, vertices = vertices)
+
+# The connection object must refer to the ids of the leaves:
+from = match( connections$from, vertices$name)
+to = match( connections$to, vertices$name)
+ 
+# Basic dendrogram
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+    geom_edge_link(size=0.4, alpha=0.1) +
+    geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
+    coord_fixed() +
+    theme_void() +
+    theme(
+      legend.position="none",
+      plot.margin=unit(c(0,0,0,0),"cm"),
+    ) +
+    expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
 ```
+
+<u>Step 2</u>: now consider another level of information. Some elements of the library have dependencies: basically they call other elements when they are used. A naive approach to represent this connection would be to draw a straight line (left). Instead, hierarchical edge bundling uses a curve that follows the hierarchy link between the 2 elements (right). 
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
+
+# Just one connection:
+from_head = match( connections$from, vertices$name) %>% head(1)
+to_head = match( connections$to, vertices$name) %>% head(1)
+
+# Basic dendrogram
+p1 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+    geom_edge_link(size=0.4, alpha=0.1) +
+    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0) + 
+    geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
+    coord_fixed() +
+    theme_void() +
+    theme(
+      legend.position="none",
+      plot.margin=unit(c(0,0,0,0),"cm"),
+    ) +
+    expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
+
+p2 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+    geom_edge_link(size=0.4, alpha=0.1) +
+    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0.9) + 
+    geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
+    coord_fixed() +
+    theme_void() +
+    theme(
+      legend.position="none",
+      plot.margin=unit(c(0,0,0,0),"cm"),
+    ) +
+    expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
+
+p1 + p2
+```
+
+
+<u>Step 3</u>: Hierarchical edge bundling apply this technique to every adjacency connection of the dataset. Also, it does not show the hierarchy of the dataset to decrease the clutter as much as possible. It results in a smooth eye catching figure where connection get obvious and the clutter minimal. Here is an analogy suggested by the inventor of this technique:
+
+> ... as bundling your electrical wires together in order to reduce clutter, while fanning them out at their terminus in order to plus them in.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=7}
+# Make the plot
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+    geom_conn_bundle(data = get_con(from = from, to = to), alpha = 0.1, colour="#69b3a2") + 
+    geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
+    coord_fixed() +
+    theme_void() +
+    theme(
+      legend.position="none",
+      plot.margin=unit(c(0,0,0,0),"cm"),
+    ) +
+    expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
+
+```
+
+
+*Note*: This example uses the famous `flare` example provided in the [ggraph R library](https://github.com/thomasp85/ggraph/blob/master/R/data_flare.R).
+
+*Reference*: Hierarchical edge bundling is a method developped by: D. Holten 2006. [Hierarchical Edge Bundles: Visualization of Adjacency Relations in Hierarchical Data](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4015425). *IEEE Transactions on Visualization and Computer Graphics 12(5)*.
+
+
+
 
 
 # What for
 ***
 
-Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:
+Hierarchical edge bundling reduces visual clutter and also visualizes implicit adjacency edges between parent nodes that are the result of explicit adjacency edges between their respective child nodes. Furthermore, hierarchical edge bundling is a generic method which can be used in conjunction with existing tree visualization techniques.   
 
-```{r, fig.align="center", fig.width=10, warning=FALSE, message=FALSE}
+Here is an example showing the same dataset with and without the use of bundling. The use of straight line on the left results in a cluttered figure that makes impossible to read the connection. The use of bundling on the right makes a neat figure:
 
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("edge peak", 1000), rep("comb", 1000), rep("normal", 1000), rep("uniform", 1000), rep("bimodal", 1000), rep("skewed", 1000) ),
-  value = c( rnorm(900), rep(3, 100), rnorm(360, sd=0.5), rep(c(-1,-0.75,-0.5,-0.25,0,0.25,0.5,0.75), 80), rnorm(1000), runif(1000), rnorm(500, mean=-2), rnorm(500, mean=2), abs(log(rnorm(1000))) )
-)
+<br><br>
+<center>
+<img src="IMG/bundle_compare.png" alt="img" width="600" height="700">
+</center>
 
-# Represent it
-data %>%
-  ggplot( aes(x=value)) +
-    geom_density(fill="#69b3a2", color="#e9ecef", alpha=0.9, adjust = 0.5) +
-    facet_wrap(~type, scale="free") +
-    theme_ipsum() +
-    theme(
-      panel.spacing = unit(0.1, "lines"),
-      axis.title.x=element_blank(),
-      axis.text.x=element_blank(),
-      axis.ticks.x=element_blank()
-    )
-
-```
-
-Checking this distribution also helps you discovering mistakes in the data. For example, the `comb` distribution can often denote a rounding that has been applied to the variable or another mistake.
-
-As a second step, histogram allow to compare the distribution of **a few** variables. Don't compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.
-
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-
-# Build dataset with different distributions
-data <- data.frame(
-  type = c( rep("variable 1", 1000), rep("variable 2", 1000) ),
-  value = c( rnorm(1000), rnorm(1000, mean=4) )
-)
-
-# Represent it
-data %>%
-  ggplot( aes(x=value, fill=type)) +
-    geom_density( color="#e9ecef", alpha=0.6) +
-    scale_fill_manual(values=c("#69b3a2", "#404080")) +
-    theme_ipsum() +
-    labs(fill="")
-
-```
+<br><br>
 
 
-# Variation
+
+*source*: [Holten 2006.](https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=4015425)
+
+
+
+
+
+
+# Variation {#variation}
 ***
 
-A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.
-
-```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
-data <- data.frame(
-  x = rnorm(1000), 
-  y = rnorm(1000, mean=2)
-)
- 
-data %>% 
-  ggplot( aes(x) ) + 
-    geom_density( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
-    geom_label( aes(x=4.5, y=0.25, label="variable1"), color="#69b3a2") +
-    geom_density( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
-    geom_label( aes(x=4.5, y=-0.25, label="variable2"), color="#404080") +
-    theme_ipsum() +
-    xlab("value of x")
-```
+Because I love this kind of graphic so much, I feel like displaying a few examples
 
 
+- Application of edge bundling on maps, with a method that do not even need a hierarchy: it uses a self-organizing approach to bundling. *Source*: Holten et al. 2009. [Force-Directed Edge Bundling for Graph Visualization](https://www.win.tue.nl/vis1/home/dholten/papers/forcebundles_eurovis.pdf).
 
+<br><br>
+<center>
+<img src="IMG/bundle_map.png" alt="img" width="800" height="900">
+</center>
 
-# Common mistakes {#mistake}
-***
+<br><br>
 
-- [Play with the bandwith argument](), it can lead to very different conclusions.
-- [Don't compare more than ~3 groups]() on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.
+- The [Eigen factor project](http://truth-and-beauty.net/projects/well-formed-eigenfactor) study citation patterns between scientific journals. *Moritz Stefaner* used this data to build beautiful visuals using the hierarchical edge bundling technique:
 
-
+<br>
+<center>
+<img src="IMG/bundle_eigen.png" alt="img" width="600" height="600">
+</center>
 
 
 # Related {#related}
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
-  <p class="mytitlerelated">Histogram</p>
-  <p class="mytextrelated">Very close from a density. Cut the data in several bins and show the number of entry per bin.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
+  <p class="mytitlerelated">Network</p>
+  <p class="mytextrelated">Represents relationships using nodes and edges.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
+  <p class="mytitlerelated">Arc diagram</p>
+  <p class="mytextrelated">A subset of the network diagram where nodes are aligned and edges are arcs.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
+  <p class="mytitlerelated">Sankey diagram</p>
+  <p class="mytextrelated">A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
+  <p class="mytitlerelated">Chord diagram</p>
+  <p class="mytextrelated">A circular layout used to display weighted relationships between entities through arcs.</p>
   </a>
-  </div>
+  </div>  
 </div>
 
 
@@ -174,12 +226,19 @@ data %>%
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a>
-<a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/hierarchical-edge-bundling/" class="btn btn-primary">R graph gallery</a>
 </p>
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
 
 
 </div>

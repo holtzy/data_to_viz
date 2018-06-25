@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png"></a>
   <br><br>
-  <p class="mytitle">Density</p>
+  <p class="mytitle">Hierarchical edge bundling</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -222,135 +222,181 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function of the variable (<a href="https://chemicalstatistician.wordpress.com/2013/06/09/exploratory-data-analysis-kernel-density-estimation-in-r-on-ozone-pollution-data-in-new-york-and-ozonopolis/">see more</a>).</p>
-<p>It is a smoothed version of the <a href="histogram.html">histogram</a> and is used in the same concept. Here is an example showing the distribution of the night price of Rbnb appartements in the south of France.</p>
+<p><code>Hierarchical Edge Bundling</code> allows to visualize <code>adjacency relations</code> between entities organized in a <code>hierarchy</code>. The idea is to bundle the adjacency edges together to decrease the clutter usually observed in complex networks.</p>
+<p><br></p>
+<p><u>Step 1</u>: Let’s consider the hierarchy of the <a href="http://flare.prefuse.org">Flare</a> ActionScript visualization library. The elements of its library are organized in several folder, like query, data, scale… Each folder is then subdivided in subfolders and so on. The hierarchy can be visualized as a <a href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a> as follow:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
 <span class="kw">library</span>(viridis)
+<span class="kw">library</span>(patchwork)
+<span class="kw">library</span>(hrbrthemes)
+<span class="kw">library</span>(ggraph)
+<span class="kw">library</span>(igraph)
 
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
+<span class="co"># The flare dataset is provided in ggraph</span>
+edges &lt;-<span class="st"> </span>flare<span class="op">$</span>edges
+vertices &lt;-<span class="st"> </span>flare<span class="op">$</span>vertices <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">name=</span><span class="kw">factor</span>(name, name))
+connections &lt;-<span class="st"> </span>flare<span class="op">$</span>imports
 
-<span class="co"># Make the histogram</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>( price<span class="op">&lt;</span><span class="dv">300</span> ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>price)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density</span>(<span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.8</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Night price distribution of Airbnb appartements&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
-<p><img src="density_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
+<span class="co"># Preparation to draw labels properly:</span>
+vertices<span class="op">$</span>id=<span class="ot">NA</span>
+myleaves=<span class="kw">which</span>(<span class="kw">is.na</span>( <span class="kw">match</span>(vertices<span class="op">$</span>name, edges<span class="op">$</span>from) ))
+nleaves=<span class="kw">length</span>(myleaves)
+vertices<span class="op">$</span>id[ myleaves ] =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">1</span><span class="op">:</span>nleaves)
+vertices<span class="op">$</span>angle=<span class="st"> </span><span class="dv">90</span> <span class="op">-</span><span class="st"> </span><span class="dv">360</span> <span class="op">*</span><span class="st"> </span>vertices<span class="op">$</span>id <span class="op">/</span><span class="st"> </span>nleaves
+vertices<span class="op">$</span>hjust&lt;-<span class="kw">ifelse</span>( vertices<span class="op">$</span>angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+vertices<span class="op">$</span>angle&lt;-<span class="kw">ifelse</span>(vertices<span class="op">$</span>angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, vertices<span class="op">$</span>angle<span class="op">+</span><span class="dv">180</span>, vertices<span class="op">$</span>angle)
+
+<span class="co"># Build a network object from this dataset:</span>
+mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(edges, <span class="dt">vertices =</span> vertices)
+
+<span class="co"># The connection object must refer to the ids of the leaves:</span>
+from =<span class="st"> </span><span class="kw">match</span>( connections<span class="op">$</span>from, vertices<span class="op">$</span>name)
+to =<span class="st"> </span><span class="kw">match</span>( connections<span class="op">$</span>to, vertices<span class="op">$</span>name)
+ 
+<span class="co"># Basic dendrogram</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_edge_link</span>(<span class="dt">size=</span><span class="fl">0.4</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">filter =</span> leaf, <span class="dt">label=</span>shortName, <span class="dt">angle =</span> angle, <span class="dt">hjust=</span>hjust), <span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+      <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>),
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))</code></pre></div>
+<p><img src="edge_bundling_files/figure-html/unnamed-chunk-1-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p><u>Step 2</u>: now consider another level of information. Some elements of the library have dependencies: basically they call other elements when they are used. A naive approach to represent this connection would be to draw a straight line (left). Instead, hierarchical edge bundling uses a curve that follows the hierarchy link between the 2 elements (right).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Just one connection:</span>
+from_head =<span class="st"> </span><span class="kw">match</span>( connections<span class="op">$</span>from, vertices<span class="op">$</span>name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">1</span>)
+to_head =<span class="st"> </span><span class="kw">match</span>( connections<span class="op">$</span>to, vertices<span class="op">$</span>name) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">1</span>)
+
+<span class="co"># Basic dendrogram</span>
+p1 &lt;-<span class="st"> </span><span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_edge_link</span>(<span class="dt">size=</span><span class="fl">0.4</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_conn_bundle</span>(<span class="dt">data =</span> <span class="kw">get_con</span>(<span class="dt">from =</span> from_head, <span class="dt">to =</span> to_head), <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">width=</span><span class="dv">2</span>, <span class="dt">tension=</span><span class="dv">0</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">filter =</span> leaf, <span class="dt">label=</span>shortName, <span class="dt">angle =</span> angle, <span class="dt">hjust=</span>hjust), <span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+      <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>),
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))
+
+p2 &lt;-<span class="st"> </span><span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_edge_link</span>(<span class="dt">size=</span><span class="fl">0.4</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_conn_bundle</span>(<span class="dt">data =</span> <span class="kw">get_con</span>(<span class="dt">from =</span> from_head, <span class="dt">to =</span> to_head), <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">width=</span><span class="dv">2</span>, <span class="dt">tension=</span><span class="fl">0.9</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">filter =</span> leaf, <span class="dt">label=</span>shortName, <span class="dt">angle =</span> angle, <span class="dt">hjust=</span>hjust), <span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+      <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>),
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))
+
+p1 <span class="op">+</span><span class="st"> </span>p2</code></pre></div>
+<p><img src="edge_bundling_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><u>Step 3</u>: Hierarchical edge bundling apply this technique to every adjacency connection of the dataset. Also, it does not show the hierarchy of the dataset to decrease the clutter as much as possible. It results in a smooth eye catching figure where connection get obvious and the clutter minimal. Here is an analogy suggested by the inventor of this technique:</p>
+<blockquote>
+<p>… as bundling your electrical wires together in order to reduce clutter, while fanning them out at their terminus in order to plus them in.</p>
+</blockquote>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make the plot</span>
+<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_conn_bundle</span>(<span class="dt">data =</span> <span class="kw">get_con</span>(<span class="dt">from =</span> from, <span class="dt">to =</span> to), <span class="dt">alpha =</span> <span class="fl">0.1</span>, <span class="dt">colour=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">y=</span>y<span class="op">*</span><span class="fl">1.01</span>, <span class="dt">filter =</span> leaf, <span class="dt">label=</span>shortName, <span class="dt">angle =</span> angle, <span class="dt">hjust=</span>hjust), <span class="dt">size=</span><span class="fl">1.5</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">coord_fixed</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+      <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>),<span class="st">&quot;cm&quot;</span>),
+    ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))</code></pre></div>
+<p><img src="edge_bundling_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>Note</em>: This example uses the famous <code>flare</code> example provided in the <a href="https://github.com/thomasp85/ggraph/blob/master/R/data_flare.R">ggraph R library</a>.</p>
+<p><em>Reference</em>: Hierarchical edge bundling is a method developped by: D. Holten 2006. <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4015425">Hierarchical Edge Bundles: Visualization of Adjacency Relations in Hierarchical Data</a>. <em>IEEE Transactions on Visualization and Computer Graphics 12(5)</em>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Density plots are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
-data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;edge peak&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;comb&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;uniform&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;bimodal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;skewed&quot;</span>, <span class="dv">1000</span>) ),
-  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">900</span>), <span class="kw">rep</span>(<span class="dv">3</span>, <span class="dv">100</span>), <span class="kw">rnorm</span>(<span class="dv">360</span>, <span class="dt">sd=</span><span class="fl">0.5</span>), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="fl">0.75</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.25</span>,<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>), <span class="dv">80</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">runif</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="op">-</span><span class="dv">2</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="dv">2</span>), <span class="kw">abs</span>(<span class="kw">log</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>))) )
-)
-
-<span class="co"># Represent it</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density</span>(<span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>, <span class="dt">adjust =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type, <span class="dt">scale=</span><span class="st">&quot;free&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
-      <span class="dt">axis.title.x=</span><span class="kw">element_blank</span>(),
-      <span class="dt">axis.text.x=</span><span class="kw">element_blank</span>(),
-      <span class="dt">axis.ticks.x=</span><span class="kw">element_blank</span>()
-    )</code></pre></div>
-<p><img src="density_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Checking this distribution also helps you discovering mistakes in the data. For example, the <code>comb</code> distribution can often denote a rounding that has been applied to the variable or another mistake.</p>
-<p>As a second step, histogram allow to compare the distribution of <strong>a few</strong> variables. Don’t compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
-data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;variable 1&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;variable 2&quot;</span>, <span class="dv">1000</span>) ),
-  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">4</span>) )
-)
-
-<span class="co"># Represent it</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value, <span class="dt">fill=</span>type)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density</span>( <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
-<p><img src="density_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Hierarchical edge bundling reduces visual clutter and also visualizes implicit adjacency edges between parent nodes that are the result of explicit adjacency edges between their respective child nodes. Furthermore, hierarchical edge bundling is a generic method which can be used in conjunction with existing tree visualization techniques.</p>
+<p>Here is an example showing the same dataset with and without the use of bundling. The use of straight line on the left results in a cluttered figure that makes impossible to read the connection. The use of bundling on the right makes a neat figure:</p>
+<br><br>
+<center>
+<img src="IMG/bundle_compare.png" alt="img" width="600" height="700">
+</center>
+<p><br><br></p>
+<p><em>source</em>: <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4015425">Holten 2006.</a></p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>), 
-  <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">2</span>)
-)
- 
-data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(x) ) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_density</span>( <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> ..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span> ) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable1&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density</span>( <span class="kw">aes</span>(<span class="dt">x =</span> y, <span class="dt">y =</span> <span class="op">-</span>..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span> <span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.5</span>, <span class="dt">y=</span><span class="op">-</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable2&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;value of x&quot;</span>)</code></pre></div>
-<p><img src="density_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="mistake">Common mistakes</h1>
-<hr />
+<p>Because I love this kind of graphic so much, I feel like displaying a few examples</p>
 <ul>
-<li><a href="">Play with the bandwith argument</a>, it can lead to very different conclusions.</li>
-<li><a href="">Don’t compare more than ~3 groups</a> on the same density plot. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.</li>
+<li>Application of edge bundling on maps, with a method that do not even need a hierarchy: it uses a self-organizing approach to bundling. <em>Source</em>: Holten et al. 2009. <a href="https://www.win.tue.nl/vis1/home/dholten/papers/forcebundles_eurovis.pdf">Force-Directed Edge Bundling for Graph Visualization</a>.</li>
 </ul>
+<br><br>
+<center>
+<img src="IMG/bundle_map.png" alt="img" width="800" height="900">
+</center>
+<p><br><br></p>
+<ul>
+<li>The <a href="http://truth-and-beauty.net/projects/well-formed-eigenfactor">Eigen factor project</a> study citation patterns between scientific journals. <em>Moritz Stefaner</em> used this data to build beautiful visuals using the hierarchical edge bundling technique:</li>
+</ul>
+<br>
+<center>
+<img src="IMG/bundle_eigen.png" alt="img" width="600" height="600">
+</center>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
 <p class="mytitlerelated">
-Histogram
+Network
 </p>
 <p class="mytextrelated">
-Very close from a density. Cut the data in several bins and show the number of entry per bin.
+Represents relationships using nodes and edges.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
 <p class="mytitlerelated">
-Ridgeline
+Arc diagram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+A subset of the network diagram where nodes are aligned and edges are arcs.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
 <p class="mytitlerelated">
-Boxplot
+Sankey diagram
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
 <p class="mytitlerelated">
-Violin
+Chord diagram
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+A circular layout used to display weighted relationships between entities through arcs.
 </p>
 </a>
 </div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/density-plot/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/density-plot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/chord-diagram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/chord-diagram/" class="btn btn-primary">Python gallery</a>
 </p>
+<h1 id="comments">Comments</h1>
+<hr />
+<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
 </div>
 
 
@@ -361,8 +407,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/.html;  
-        this.page.identifier = ; 
+        this.page.url = www.data-to-viz.com/graph/edge_bundling.html;  
+        this.page.identifier = edge_bundling; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
