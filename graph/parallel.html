@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Parallel coordinates plot</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -222,48 +222,229 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
+<p><code>Parallel plot</code> or parallel coordinates plot allows to compare the feature of several individual observations (<code>series</code>) on a set of numeric variables. Each vertical bar represents a variable and often has its own scale. (The units can even be different). Values are then plotted as series of lines connected across each axis.</p>
+<p><br></p>
+<p>The <code>ìris</code> dataset provides four features (each represented with a vertical line) for 150 flower samples (each represented with a color line). Samples are grouped in three species. The chart below highlights efficiently that setosa has smaller Petals, but its sepal tends to be wider.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
+<span class="kw">library</span>(patchwork)
+<span class="kw">library</span>(GGally)
+<span class="kw">library</span>(viridis)
+
+<span class="co"># Data set is provided by R natively</span>
+data &lt;-<span class="st"> </span>iris
+
+<span class="co"># Plot</span>
+data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Parallel Coordinate Plot for the Iris Data&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  )</code></pre></div>
+<p><img src="parallel_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><em>Note</em>: Parallel plot is the equivalent of a <a href="https://www.data-to-viz.com/caveat/spider.html">spider chart</a>, but with cartesian coordinates. Thus, it is often prefered.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Still in progress</p>
+<p>A parallel plot allows to study the features of samples for <code>several quantitative</code> variables. Its strength is that the variables can even be completely different: different <code>ranges</code> and even different <code>units</code>.</p>
+<p>In the graphic above flower features were grouped in species, and all variables were normalized and sharing the same unit (cm). Here is another example where diamonds are compared for 4 variables that share different units, like the price in $ or depth in %. Note the use of scaling to be able to compare them.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">diamonds <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">sample_n</span>(<span class="dv">10</span>) <span class="op">%&gt;%</span>
+<span class="st">    </span><span class="kw">ggparcoord</span>(
+      <span class="dt">columns =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">5</span><span class="op">:</span><span class="dv">7</span>), 
+      <span class="dt">groupColumn =</span> <span class="dv">2</span>, 
+      <span class="co">#order = &quot;anyClass&quot;,</span>
+      <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+      <span class="dt">title =</span> <span class="st">&quot;Diamonds features&quot;</span>,
+      <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+      ) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+    )</code></pre></div>
+<p><img src="parallel_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;" /></p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Again</p>
+<p>Here is an overview of the parallel coordinates features you can play with:</p>
+<ul>
+<li><em>Scaling</em> - scaling transforms the raw data to a new scale that is common with other variables. It is a crucial step to compare variables that do not have the same unit, but can also help otherwise as shown in the example below:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot</span>
+p1 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">scale=</span><span class="st">&quot;globalminmax&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;No scaling&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+  
+p2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">scale=</span><span class="st">&quot;uniminmax&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Standardize to Min = 0 and Max = 1&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+
+
+p3 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">scale=</span><span class="st">&quot;std&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Normalize univariately (substract mean &amp; divide by sd)&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+
+
+p4 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">scale=</span><span class="st">&quot;center&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Standardize and center variables&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+
+
+p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span>p4 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">2</span>)</code></pre></div>
+<p><img src="parallel_files/figure-html/unnamed-chunk-3-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p><br><br></p>
+<ul>
+<li><em>Axis order</em> - optimizing the order of vertical axis can decrease the <code>clutter</code> of your parallel plot. Basically, the goal is to minimize the number of cross between series. On the next figure, the left plot is much harder to understand the the right one. Only variable order is different.</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot</span>
+p1 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>),
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Original&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;Default&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+  
+p2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Re-ordered&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)
+
+p1 <span class="op">+</span><span class="st"> </span>p2 </code></pre></div>
+<p><img src="parallel_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><br></p>
+<ul>
+<li><em>Highlighting</em> - a parallel plot being a <a href="https://www.data-to-viz.com/graph/line.html">line plot</a>, the main caveat is the <a href="https://www.data-to-viz.com/caveat/spaghetti.html">spaghetti chart</a> where too many lines overlap, making the chart unreadable. Several workaround exist as described in <a href="https://www.data-to-viz.com/caveat/spaghetti.html">this page</a>. A solution is to highlight a specific sample or a specific group of interest:</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Plot</span>
+data <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">ggparcoord</span>(
+    <span class="dt">columns =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">groupColumn =</span> <span class="dv">5</span>, <span class="dt">order =</span> <span class="st">&quot;anyClass&quot;</span>,
+    <span class="dt">showPoints =</span> <span class="ot">TRUE</span>, 
+    <span class="dt">title =</span> <span class="st">&quot;Original&quot;</span>,
+    <span class="dt">alphaLines =</span> <span class="fl">0.3</span>
+    ) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span><span class="kw">c</span>( <span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;grey&quot;</span>, <span class="st">&quot;grey&quot;</span>) ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">theme_ipsum</span>()<span class="op">+</span>
+<span class="st">  </span><span class="kw">theme</span>(
+    <span class="dt">legend.position=</span><span class="st">&quot;Default&quot;</span>,
+    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">10</span>)
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</code></pre></div>
+<p><img src="parallel_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li>Like for <a href="https://www.data-to-viz.com/graph/line.html">line plot</a>, displaying too many samples result in a cluttered and unreadable <a href="https://www.data-to-viz.com/caveat/spaghetti.html">spaghetti chart</a>.</li>
+<li>Sort the variables on the X axis, it makes sense to avoid crosses in sample lines.</li>
+<li>Try different scalings to find the one fitting your data best.</li>
 </ul>
 <h1 id="related">Related</h1>
 <hr />
 <div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
-Density
+Barplot
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Represents the value of entities using bar of various length.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/spider.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Spider / Radar
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+One or more series of values over multiple common quantitative variables. Axis are joint on the middle of the figure.
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+<p class="mytitlerelated">
+Wordcloud
+</p>
+<p class="mytextrelated">
+A visual representation of text data, where word size is relative to their frequency.
+</p>
+</a>
+</div>
+<div class="col-lg-3 col-md-6 col-sm-6">
+<a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
 <p class="mytitlerelated">
 Boxplot
 </p>
@@ -272,22 +453,12 @@ Summarize the distribution of several numeric variables using boxes. Use it if y
 </p>
 </a>
 </div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-<p class="mytitlerelated">
-Violin
-</p>
-<p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
-</p>
-</a>
-</div>
 </div>
 <h1 id="code">Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/parallel-plot/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/parallel-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +473,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/parallel.html;  
+        this.page.identifier = parallel; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

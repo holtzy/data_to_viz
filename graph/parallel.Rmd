@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "Parallel1Small.png"
+mydisqus: "parallel"
+mytitle: "Parallel coordinates plot"
 output:
   html_document:
       self_contained: false    
@@ -21,42 +21,232 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
+
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+`Parallel plot` or parallel coordinates plot allows to compare the feature of several individual observations (`series`) on a set of numeric variables. Each vertical bar represents a variable and often has its own scale. (The units can even be different). Values are then plotted as series of lines connected across each axis.  
+
+<br>
+
+The `ìris` dataset provides four features (each represented with a vertical line) for 150 flower samples (each represented with a color line). Samples are grouped in three species. The chart below highlights efficiently that setosa has smaller Petals, but its sepal tends to be wider.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
+library(patchwork)
+library(GGally)
 library(viridis)
+
+# Data set is provided by R natively
+data <- iris
+
+# Plot
+data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Parallel Coordinate Plot for the Iris Data",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    plot.title = element_text(size=10)
+  )
 ```
+
+*Note*: Parallel plot is the equivalent of a [spider chart](https://www.data-to-viz.com/caveat/spider.html), but with cartesian coordinates. Thus, it is often prefered.
+
+
+
+
+
 
 
 # What for
 ***
 
-Still in progress
+A parallel plot allows to study the features of samples for `several quantitative` variables. Its strength is that the variables can even be completely different: different `ranges` and even different `units`.
 
-# Variation
+In the graphic above flower features were grouped in species, and all variables were normalized and sharing the same unit (cm). Here is another example where diamonds are compared for 4 variables that share different units, like the price in $ or depth in %. Note the use of scaling to be able to compare them.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
+diamonds %>% 
+  sample_n(10) %>%
+    ggparcoord(
+      columns = c(1,5:7), 
+      groupColumn = 2, 
+      #order = "anyClass",
+      showPoints = TRUE, 
+      title = "Diamonds features",
+      alphaLines = 0.3
+      ) + 
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum()+
+    theme(
+      plot.title = element_text(size=10)
+    )
+```
+
+
+
+
+# Variation {#variation}
 ***
+Here is an overview of the parallel coordinates features you can play with:
 
-Again
+- *Scaling* - scaling transforms the raw data to a new scale that is common with other variables. It is a crucial step to compare variables that do  not have the same unit, but can also help otherwise as shown in the example below:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=10}
+# Plot
+p1 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="globalminmax",
+    showPoints = TRUE, 
+    title = "No scaling",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+  
+p2 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="uniminmax",
+    showPoints = TRUE, 
+    title = "Standardize to Min = 0 and Max = 1",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+
+
+p3 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="std",
+    showPoints = TRUE, 
+    title = "Normalize univariately (substract mean & divide by sd)",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+
+
+p4 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    scale="center",
+    showPoints = TRUE, 
+    title = "Standardize and center variables",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+
+
+p1 + p2 + p3 + p4 + plot_layout(ncol = 2)
+```
+
+<br><br>
+
+- *Axis order* - optimizing the order of vertical axis can decrease the `clutter` of your parallel plot. Basically, the goal is to minimize the number of cross between series. On the next figure, the left plot is much harder to understand the the right one. Only variable order is different.
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=9}
+# Plot
+p1 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = c(1:4),
+    showPoints = TRUE, 
+    title = "Original",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="Default",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+  
+p2 <- data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Re-ordered",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()+
+  theme(
+    legend.position="none",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+
+p1 + p2 
+```
+
+
+<br>
+
+
+- *Highlighting* - a parallel plot being a [line plot](https://www.data-to-viz.com/graph/line.html), the main caveat is the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html) where too many lines overlap, making the chart unreadable. Several workaround exist as described in [this page](https://www.data-to-viz.com/caveat/spaghetti.html). A solution is to highlight a specific sample or a specific group of interest:
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=7}
+# Plot
+data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Original",
+    alphaLines = 0.3
+    ) + 
+  scale_color_manual(values=c( "#69b3a2", "grey", "grey") ) +
+  theme_ipsum()+
+  theme(
+    legend.position="Default",
+    plot.title = element_text(size=10)
+  ) +
+  xlab("")
+ 
+```
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
+- Like for  [line plot](https://www.data-to-viz.com/graph/line.html), displaying too many samples result in a cluttered and unreadable [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html).
+- Sort the variables on the X axis, it makes sense to avoid crosses in sample lines.
+- Try different scalings to find the one fitting your data best.
 
 
 
@@ -64,32 +254,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+  <p class="mytitlerelated">Barplot</p>
+  <p class="mytextrelated">Represents the value of entities using bar of various length.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/spider.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png">
+  <p class="mytitlerelated">Spider / Radar</p>
+  <p class="mytextrelated">One or more series of values over multiple common quantitative variables. Axis are joint on the middle of the figure.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/CordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+  <p class="mytitlerelated">Wordcloud</p>
+  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
+  </a>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
-  </a>
-  </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
   </a>
   </div>
 </div>
@@ -99,11 +289,11 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/parallel-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/parallel-plot/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
@@ -112,6 +302,8 @@ The R and Python graph galleries are 2 websites providing hundreds of chart exam
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
+
 
 </div>
 
