@@ -1,6 +1,6 @@
 ---
-myimage1: "../img/mistake/bin_size.png"
-mytitle: "Radar chart and its caveats"
+myimage1: "../img/section/Spider150.png"
+mytitle: "The Radar chart and its caveats"
 mydisqus: "spider"
 output:
   html_document:
@@ -18,36 +18,349 @@ output:
 ---
 
 <br><br>
+
 <div class="mycontent">
 
 
-```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
+
+
+# Definition {#definition}
+***
+A `radar` or `spider` or `web` chart is a two-dimensional chart type designed to plot one or more `series` of values over `multiple quantitative variables`. Each variable has its own axis, all axis are joint in the center of the figure.
+
+<br>
+
+Let's consider the exam results of a student. He has a mark ranging from 0 to 20 for ten topics like math, sport, statistics and so on. The radar chart provides one axis for each topic. The shape allows to see for where did the student perform well.
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=5}
 # Libraries
 library(tidyverse)
 library(viridis)
 library(patchwork)
 library(hrbrthemes)
-library(ggraph)
-library(igraph)
+library(fmsb)
+library(colormap)
 
-# The flare dataset is provided in ggraph
-data <- read.table("../Example_dataset/weather.csv", sep=",", header=TRUE)
-data
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <- as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
 
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <- rbind(rep(20,10) , rep(0,10) , data)
 
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+radarchart( data, axistype=1, 
+
+  #custom polygon
+  pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , 
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+  #custom labels
+  vlcex=0.8 
+  )
+
+```
+
+# Variation
+***
+
+In the previous chart only one serie is plotted, showing how one student performed. A common task is to compare several individuals. With only a few series it is possible to show every group on the same chart. Here it is quite obvious that Shirley globally performed better than Sonia, except in sport.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( c( sample( 2:20 , 10 , replace=T), sample( 2:9 , 10 , replace=T)) , ncol=10, byrow=TRUE))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data[2,2]=19
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Prepare color
+colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9)  )
+colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4)  )
+
+# Custom the radarChart !
+radarchart( data, axistype=1, 
+
+  #custom polygon
+  pcol=colors_border , pfcol=colors_in , plwd=4, plty=1 , 
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+  #custom labels
+  vlcex=0.8 
+  )
+
+# Legend
+legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=0.9, pt.cex=1)
+
+```
+With more than two or three series, it is a good practice to use small multiple to avoid getting a too cluttered figure. Each student is represented on its own radar chart. It is easy to understand the feature of a specific individual, and looking for similarity in shapes allows to find student with the similar features.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 60 , replace=T) , ncol=10, byrow=TRUE))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Prepare color
+colors_border=colormap(colormap=colormaps$viridis, nshades=6, alpha=1)
+colors_in=colormap(colormap=colormaps$viridis, nshades=6, alpha=0.3)
+
+# Prepare title
+mytitle <- c("Max", "George", "Xue", "Tom", "Alice", "bob")
+
+# Split the screen in 6 parts
+par(mar=rep(0.8,4))
+par(mfrow=c(2,3))
+
+# Loop for each plot
+for(i in 1:6){
+
+  # Custom the radarChart !
+  radarchart( data[c(1,2,i+2),], axistype=1, 
+  
+    #custom polygon
+    pcol=colors_border[i] , pfcol=colors_in[i] , plwd=4, plty=1 , 
+  
+    #custom the grid
+    cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+  
+    #custom labels
+    vlcex=0.8,
+    
+    #title
+    title=mytitle[i]
+    )
+}
 
 ```
 
 
 
 
-
-
-#Going further
+# What's wrong with it then?
 ***
-- see http://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2
-- About histogram [bin width optimization](http://176.32.89.45/~hideaki/res/histogram.html)
-- Doing histograms in [R](https://www.r-graph-gallery.com/histogram/) and [Python](https://python-graph-gallery.com/histogram/)
+Spider chart are often criticized by dataviz specialist like [here](https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2), [here](https://www.perceptualedge.com/articles/dmreview/radar_graphs.pdf), [here](http://www.verghisgroup.com/wp-content/uploads/2012/04/3-Things-to-Think-About-A-Warning-Label-for-Radar-Charts.pdf) and [here](http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart). Here is an overview of the most common reproaches:
+
+- *Circular layout = harder to read* - quantitative values aree much easier to compare when they are laid out along a single vertical or horizontal axis. This is a general reproach made to circular layouts. Compare the figure below that consider the data of one student only. It is easier to compare values in the barplot, and more accurate.
+
+```{r, out.width=c('50%', '50%'), fig.show='hold', warning=FALSE, message=FALSE, fig.height=8, fig.width=12}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+p1 <- radarchart( data, axistype=1, 
+
+  #custom polygon
+  pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , 
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+  #custom labels
+  vlcex=1.3 
+  )
+
+# Barplot
+data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=0, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 ),
+      legend.position="none"
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")
+```
+
+
+
+
+<br>
+
+- *Supporting the ranking* - In the above example, the lollipop plot is ordered. It allows to see instantly what was the topic with the best mark, and what is the topic ranking. This is more difficult with radar charts where there is no starts and ends.
+
+- *Category order has a huge impact* - Radar chart reader will probably focus on the shape observed. This can be misleading since this shape highly depends on the order of category order around the plot. See these charts made using the same data, but swaping category orders:
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
+# Create data: note in High school for Jonathan:
+set.seed(7)
+data <- as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data[1,1:3]=rep(19,3)
+data[1,6:8]=rep(4,3)
+data <- rbind(rep(20,10) , rep(0,10) , data)
+
+# Change order:
+data2 <- data[,sample(1:10,10, replace=FALSE)]
+data3 <- data[,sample(1:10,10, replace=FALSE)]
+ 
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+par(mfrow=c(1,3))
+radarchart( data, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data3, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+
+```
+
+- *About scales* - Radar charts display the value of several quantitative variables, all represented in an axis. In the previous example, the same scale and the same unit is shared by all variables (a mark ranging from 0 to 20). It is also possible to display variables that are completely different. In this case, don't forget to show an abvious scale for each: the reader will expect the same scale otherwise.
+
+- *Overplotting* - showing more than a couple of series would result in an unreadable graphic. Avoid it and use small multiples instead.
+
+- *Over evaluation of differences* - the area of a shape in a radar chart also increases a square of the values as opposed to linearly, which could lead viewers to think that small changes are more significant than they might actually be. In the following example, the student had a 7 in every topic on the left, 14 on the right. However the right area is bigger than twice the left area.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
+# data:
+data <- as.data.frame(matrix( c(7,7,7,7,7) , ncol=5))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding")
+data <- rbind(rep(20,10) , rep(0,10) , data)
+
+# other dataset
+data2 <- data
+data2[3,] <- rep(14,5)
+
+# Custom the radarChart !
+par(mar=rep(0,4))
+par(mfrow=c(1,2))
+radarchart( data, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+```
+
+
+# Workaround
+***
+If the radar chart is not a good practice, how to replace it then?
+
+- If you have a single serie to display, and that all quantitative variables have the same scale, then use a barplot or a lollipop plot, ranking the variable:
+```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=7, fig.align="center"}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Barplot
+data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=0, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 ),
+      legend.position="none"
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")
+```
+
+- If you have a two series to plot, you can still play with barplot and lollipop plots. Here is an example with 2 series. It focus on the first student (dark) and allows to see how is friend (light) performed in comparison.
+```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=7, fig.align="center"}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 20 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Barplot
+data %>% slice(c(3,4)) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=V2, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    geom_point(aes(y=V2), size=5, color="#69b3a2", alpha=0.1) +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 )
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")
+```
+
+- If you have a few series to plot, using faceting with barplot or lollipop plot can perhaps do the trick:
+```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=10}
+# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 40 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+rownames(data) <- c("-", "--", "John", "Angli", "Baptiste", "Alfred")
+
+# Barplot
+data <- data %>% slice(c(3:6)) %>% 
+  t() %>% 
+  as.data.frame() %>% 
+  add_rownames() %>% 
+  arrange(V1) %>% 
+  mutate(rowname=factor(rowname, rowname)) %>% 
+  gather(key=name, value=mark, -1)
+
+#Recode
+data$name <- recode(data$name, V1 = "John", V2 = "Angli", V3 = "Baptiste", V4 = "Alfred")
+
+# Plot
+data %>% ggplot( aes(x=rowname, y=mark)) +
+    geom_bar(stat="identity", fill="#69b3a2", width=0.6) +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 )
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("") +
+    facet_wrap(~name, ncol=4)
+```
+
+- If you have a lot of series to plot, or if your variables do not have the same scale, then the best option is probably to switch to a parrallel coordinate plot.
+```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=10, fig.align="center"}
+library(GGally)
+data <- iris
+
+data %>% 
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE, 
+    title = "Parallel Coordinate Plot for the Iris Data",
+    alphaLines = 0.3
+    ) + 
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()
+```
+
+
 
 #Comments
 ***
