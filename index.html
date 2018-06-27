@@ -397,7 +397,7 @@
     <path class="numst4" d="M1025.1,942c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C1001.6,889.6,1025.1,913.1,1025.1,942z"/>
     
-      <a data-toggle="modal" href="#3D"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/3dRoundSmall.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 893.4613)">
+      <a data-toggle="modal" href="#bubble"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/3dRoundSmall.png"  transform="matrix(0.8522 0 0 0.8522 924.1057 893.4613)">
     </a>
   </g>
 </g>
@@ -482,7 +482,7 @@
         C530.4,751.7,553.8,775.2,553.8,804.1z"/>
     </g>
     
-      <a data-toggle="modal" href="#join"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/JointSmall.png"  transform="matrix(0.8522 0 0 0.8522 452.825 755.5511)">
+      <a data-toggle="modal" href="#scatter"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/JointSmall.png"  transform="matrix(0.8522 0 0 0.8522 452.825 755.5511)">
     </a>
   </g>
 </g>
@@ -501,7 +501,7 @@
     <path class="numst4" d="M421.1,666.2c0,29-23.5,52.4-52.4,52.4c-29,0-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
       C397.6,613.8,421.1,637.3,421.1,666.2z"/>
     
-      <a xlink:href="graph/histogram.html"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HistogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 320.1048 617.641)">
+      <a data-toggle="modal" href="#histogram"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/HistogramSmall.png"  transform="matrix(0.8522 0 0 0.8522 320.1048 617.641)">
     </a>
   </g>
   <path class="numst0" d="M393.3,306.5h-10.5c-5.5,5.5-8.6,8.6-14.2,14.2v30.6"/>
@@ -676,7 +676,7 @@
         <path class="catst1" d="M1179.2,1079.9c0,29-23.5,52.4-52.4,52.4s-52.4-23.5-52.4-52.4c0-29,23.5-52.4,52.4-52.4
           S1179.2,1051,1179.2,1079.9z"/>
         
-          <a data-toggle="modal" href="#stackedbar"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1031.3704)">
+          <a data-toggle="modal" href="#barplot"><image class="graphtypelogo" style="overflow:visible;" width="114" height="114" xlink:href="img/section/StackedSmall.png"  transform="matrix(0.8522 0 0 0.8522 1078.1971 1031.3704)">
         </image></a>
       </g>
       <text transform="matrix(1 0 0 1 1053.4053 1009.3174)"><tspan x="0" y="0" class="catst4 catst5">GROUPED</tspan><tspan x="4.9" y="13" class="catst4 catst5">BARPLOT</tspan></text>
@@ -2751,9 +2751,9 @@ for (var i = 0; i < btns.length; i++) {
           </div>
           <div class="col-lg-10 mx-auto text-center">
              <div style="text-align:center">
-              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#tools">Tools</a>
-              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#acknowledgment">Acknowledgment</a>
-              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#history">History</a>
+              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#toolsanchor">Tools</a>
+              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#acknowledgmentanchor">Acknowledgment</a>
+              <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="about.html#historyanchor">History</a>
               <a class="btn btn-primary btn-l text-uppercase js-scroll-trigger" href="#contact">Feedback</a>
             </div>
           </div>
@@ -4599,27 +4599,22 @@ by the Y axis, and one by the dot size.</p>
                   <p class="item-intro text-muted">A network structure where nodes are aligned.</p>
                   <div class="cardtitle">About</div>
                   <hr>
-                  <p align="justify">An arc diagram is a graphical display to visualize graphs or networks in a one-dimensional layout. The main idea is to display nodes along a single axis, while representing the edges or connections between nodes with arcs. One of the disadvantages of arc diagrams is that they may not provide the overall structure of the network as effectively as a two-dimensional layout; however, with a good ordering of nodes, better visualizations can be achieved making it easy to identify clusters and bridges. Further, annotations and multivariate data can easily be displayed alongside nodes.
-
-
-                  Arc diagrams are an alternate way of representing two-dimensional graphs. Rather than scattering the nodes across the page connected by straight edges, you can instead arrange the nodes along a one-dimensional axis, and replace the straight edges with arcs between the nodes. While an arc diagram might not give as good a sense of the connections between the nodes as a traditional graph layout, judicious ordering of the nodes can help identify clusters. It's also a useful format (especially in the vertical orientation) when you want to label each of the notes with other quantities in a table-like format.
-
-                </p>
+                  <p align="justify">An <a href="graph/arc.html">arc diagram</a> is a special kind of network graph. It is consituted by nodes that represent entities and by links that show relationships between entities.<br><br>In arc diagrams, nodes are displayed along a single axis and links are represented with arcs.<br><br>They do not convey the overall node structure than an <a href="graph/network.html">2d network</a>, but can highlight clusters and briges if the node order is chosen correclty.</p>
 
                   <div class="cardtitle">Common Mistakes</div>
                   <hr>
-                  <div style="text-align: left !important"><ul><li>Play with bin size / bandwidth.</li><li>Useful only if sample size is huge.</li><li>Pick up a good color palette.</li></ul></div>
+                  <div style="text-align: left !important"><ul><li>Finding the best node order is the key for an insightful arc diagram</li></ul></div>
 
                   <div class="cardtitle">Code</div>
                   <hr>
                   <p>
-                  <a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-                  <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+                  <a href="https://www.r-graph-gallery.com" class="btn btn-primary">R graph gallery</a>
+                  <a href="https://www.python-graph-gallery.com" class="btn btn-primary">Python gallery</a>
                   </p>
                   
                   <div class="cardtitle">Read More</div>
                   <hr>
-                  <p align="justify">See the <a href="graph/violin.html">dedicated page</a>.</p>
+                  <p align="justify">See the <a href="graph/arc.html">dedicated page</a>.</p>
                 </div>
               </div>
             </div>
