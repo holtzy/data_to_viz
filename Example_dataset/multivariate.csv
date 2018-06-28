@@ -1,0 +1,202 @@
+Country;Pop;Birth rate;Mortality rate;Life expectancy;Infant mortality;Children per woman;Growth rate;Population aged 65+;Group;Continent
+Channel Islands;166;9.28;9.14;81.269;7.276;1.492;4.56;30;North;Europe
+Denmark;5733;10.707;9.62;80.839;3.495;1.758;3.67;1132;North;Europe
+Estonia;1302;10.698;12.657;77.342;2.843;1.657;-2.63;256;North;Europe
+Finland;5556;10.672;9.865;81.576;1.839;1.764;2.65;1212;North;Europe
+Iceland;337;12.836;6.467;83.22;1.752;1.893;7.83;50;North;Europe
+Ireland;4791;13.179;6.562;81.621;2.385;1.998;8.84;682;North;Europe
+Latvia;1936;10.093;15.36;74.59;5.493;1.555;-4.36;383;North;Europe
+Lithuania;2817;10.459;16.187;73.831;3.076;1.641;-4.27;535;North;Europe
+Norway;5387;11.923;7.908;82.187;2.108;1.809;10.29;913;North;Europe
+Sweden;9987;12.22;9.011;82.851;2.427;1.927;6.64;2044;North;Europe
+United Kingdom;65913;12.385;9.096;81.327;3.559;1.909;6.06;11997;North;Europe
+Belarus;9429;11.6;14.6;71.8;3.5;1.65;-3.3;1387;East;Europe
+Bulgaria;6992;9.4;15.6;74.6;8.0;1.60;-7.6;1463;East;Europe
+Czech Republic;10563;10.0;10.6;79.2;2.1;1.54;0.7;2067;East;Europe
+Hungary;9754;9.3;13.5;75.7;4.2;1.41;-3.5;1864;East;Europe
+Poland;38523;9.4;10.4;78.1;4.0;1.33;-1.2;6686;East;Europe
+Republic of Moldova;4045;10.0;11.7;71.9;9.7;1.23;-2.7;464;East;Europe
+Romania;19105;8.9;13.7;75.2;8.3;1.54;-6.9;3575;East;Europe
+Russian Federation;143261;12.3;14.2;70.5;7.3;1.73;-1.0;20676;East;Europe
+Slovakia;5434;10.3;10.3;76.8;4.4;1.44;0.3;837;East;Europe
+Ukraine;4417;10.6;15.6;71.3;8.3;1.56;-5.4;7283;East;Europe
+Albania;2919;13.8;7.8;78.5;12.5;1.78;2.7;393;South;Europe
+Bosnia and Herzegovina;3782;8.4;11.1;77.1;6.4;1.23;-2.9;644;South;Europe
+Croatia;4195;9.1;12.8;78.0;3.2;1.48;-3.7;844;South;Europe
+Greece;10872;7.9;11.3;81.7;2.3;1.30;-2.0;2383;South;Europe
+Italy;59788;8.2;10.3;83.8;1.9;1.49;-0.2;1397;South;Europe
+Malta;421;9.0;9.3;81.2;4.0;1.49;2.0;86;South;Europe
+Montenegro;626;11.0;10.3;76.7;3.6;1.65;-0.1;94;South;Europe
+Portugal;10229;7.5;10.7;81.9;2.6;1.24;-3.4;2246;South;Europe
+Serbia;8743;10.2;13.1;75.4;8.2;1.60;-3.9;1626;South;Europe
+Slovenia;2073;10.1;10.0;81.1;2.7;1.66;0.8;406;South;Europe
+Spain;46117;8.5;9.2;83.3;2.5;1.38;1.1;9048;South;Europe
+TFYR Macedonia;2085;11.1;9.8;76.0;8.4;1.56;0.9;284;South;Europe
+Austria;8614;9.7;9.5;82.2;2.5;1.53;2.4;166;West;Europe
+Belgium;11513;11.4;9.7;81.5;2.7;1.83;5.8;2171;West;Europe
+France;65206;11.9;9.1;82.9;2.8;1.99;4.1;13167;West;Europe
+Germany;80561;8.7;11.3;81.6;2.5;1.44;-1.0;17746;West;Europe
+Luxembourg;591;11.5;7.1;82.4;1.3;1.61;11.7;86;West;Europe
+Netherlands;17085;10.5;8.8;82.1;3.0;1.77;3.0;333;West;Europe
+Switzerland;8524;10.5;8.0;83.7;3.0;1.58;8.0;1592;West;Europe
+Canada;36958;10.5;7.5;82.7;4.0;1.56;8.9;6419;North America;North America
+United States of America;328836;12.5;8.5;79.6;5.3;1.89;7.2;52269;North America;North America
+Burundi;12329;41.8;10.4;58.2;70.3;5.62;32.0;319;East;Africa
+Comoros;845;31.9;7.0;64.3;51.6;4.20;22.5;25;East;Africa
+Djibouti;923;23.6;8.5;62.9;49.9;2.96;12.8;40;East;Africa
+Eritrea;5617;31.4;6.0;65.3;36.2;3.99;24.2;152;East;Africa
+Ethiopia;106863;30.4;6.7;66.0;41.8;3.93;23.7;3804;East;Africa
+Kenya;49695;32.5;7.5;63.4;47.6;4.07;24.8;1485;East;Africa
+Madagascar;26326;33.5;6.1;66.6;29.1;4.18;27.4;785;East;Africa
+Malawi;18861;37.3;6.7;66.1;50.9;4.84;30.1;646;East;Africa
+Mauritius;1285;10.8;8.0;75.1;10.1;1.43;2.7;140;East;Africa
+Mayotte;260;28.0;2.4;80.8;3.3;3.69;25.7;10;East;Africa
+Mozambique;30339;37.6;10.7;56.4;56.1;5.09;26.7;103;East;Africa
+Reunion;880;14.1;5.9;80.9;3.3;2.11;7.0;102;East;Africa
+Rwanda;12439;29.2;6.3;66.3;41.8;3.57;22.5;375;East;Africa
+Seychelles;98;15.5;7.7;73.8;8.1;2.21;4.6;7;East;Africa
+Somalia;11723;42.7;11.2;56.7;69.3;6.07;28.8;333;East;Africa
+South Sudan;13439;35.3;10.7;57.3;67.0;4.69;25.3;458;East;Africa
+Uganda;43021;41.2;8.5;61.1;55.6;5.41;32.2;1062;East;Africa
+United Republic of Tanzania;58637;37.2;6.2;66.7;30.9;4.89;30.3;1883;East;Africa
+Zambia;17773;38.6;7.9;62.5;45.5;5.11;30.5;508;East;Africa
+Zimbabwe;16713;32.1;7.7;62.6;38.6;3.63;22.6;495;East;Africa
+Angola;27498;43.6;12.6;53.9;86.8;5.75;31.0;658;Middle;Africa
+Cameroon;25112;34.7;10.5;57.2;64.6;4.42;24.0;805;Middle;Africa
+Central African Republic;5201;32.2;12.9;53.5;82.7;3.98;19.8;202;Middle;Africa
+Chad;15444;43.4;13.1;52.7;85.9;5.74;31.3;383;Middle;Africa
+Congo;4996;34.5;7.7;64.2;42.8;4.62;26.2;186;Middle;Africa
+Democratic Republic of the Congo;84825;40.2;9.5;60.1;65.4;5.62;30.8;252;Middle;Africa
+Equatorial Guinea;920;33.3;10.2;58.8;61.2;4.48;27.5;29;Middle;Africa
+Gabon;184;28.2;7.8;66.2;36.7;3.65;20.9;92;Middle;Africa
+Sao Tome and Principe;203;32.0;6.5;67.0;41.0;4.33;20.5;6;Middle;Africa
+Algeria;4173;21.3;5.1;75.7;24.8;2.61;15.7;2706;North;Africa
+Egypt;97007;25.0;5.9;71.9;15.3;3.16;18.3;5204;North;Africa
+Libyan Arab Jamahiriya;6505;18.5;5.4;72.3;20.7;2.30;15.1;315;North;Africa
+Morocco;35652;19.0;5.7;75.0;20.3;2.37;11.4;24;North;Africa
+Sudan;43196;31.5;7.4;64.4;47.9;4.10;24.1;1493;North;Africa
+Tunisia;11612;16.9;6.6;75.5;16.3;2.07;9.9;958;North;Africa
+Western Sahara;608;17.0;5.6;69.5;30.1;2.05;19.5;21;North;Africa
+Botswana;2383;23.0;7.6;64.9;28.4;2.66;16.3;93;South;Africa
+Lesotho;221;27.5;14.5;50.7;49.1;2.99;11.0;93;South;Africa
+Namibia;2623;28.0;7.0;65.5;28.5;3.29;20.6;96;South;Africa
+South Africa;55867;19.6;12.6;57.9;32.9;2.27;7.5;2957;South;Africa
+Swaziland;1336;28.1;14.8;48.9;57.2;3.03;11.6;50;South;Africa
+Benin;11755;34.4;8.9;60.4;62.7;4.46;25.4;345;West;Africa
+Burkina Faso;19724;38.2;8.7;60.0;57.6;5.19;28.2;471;West;Africa
+Cape Verde;540;20.0;5.1;74.3;17.0;2.17;12.0;25;West;Africa
+Cote Ivoire;24387;36.1;12.6;53.0;61.8;4.74;23.7;743;West;Africa
+Gambia;2187;40.2;8.1;61.2;42.1;5.51;30.9;51;West;Africa
+Ghana;2928;30.5;8.4;62.1;46.5;3.93;21.3;990;West;Africa
+Guinea;13639;35.0;9.0;60.4;49.3;4.70;25.8;434;West;Africa
+Guinea-Bissau;1978;35.1;11.3;56.3;81.4;4.53;22.7;66;West;Africa
+Liberia;4849;33.4;8.0;62.2;51.5;4.44;24.6;148;West;Africa
+Mali;19264;41.2;9.1;60.0;68.9;5.88;30.2;482;West;Africa
+Mauritania;4368;31.9;7.7;63.7;62.0;4.36;23.3;144;West;Africa
+Niger;22445;48.4;8.2;63.1;49.5;7.43;40.1;581;West;Africa
+Nigeria;196753;37.7;12.1;53.9;66.7;5.38;25.2;5403;West;Africa
+Senegal;16524;35.5;5.5;68.0;32.6;4.81;28.7;482;West;Africa
+Sierra Leone;6875;33.8;12.6;52.3;79.6;4.22;20.7;186;West;Africa
+Togo;789;33.6;8.1;61.3;41.2;4.31;25.3;223;West;Africa
+Antigua and Barbuda;95;15.9;6.1;76.7;7.6;2.03;9.7;7;Caribean;South America
+Aruba;105;10.0;9.1;76.1;13.6;1.62;2.6;14;Caribean;South America
+Bahamas;401;14.5;6.5;76.0;7.7;1.83;10.4;37;Caribean;South America
+Barbados;286;11.8;10.9;76.3;7.9;1.80;2.3;44;Caribean;South America
+Cuba;11383;9.6;8.3;80.1;4.7;1.58;-0.7;1745;Caribean;South America
+Curacao;161;13.2;8.7;78.7;8.9;2.06;7.9;26;Caribean;South America
+Dominican Republic;10882;19.5;6.2;74.2;22.2;2.36;10.5;779;Caribean;South America
+Grenada;108;18.1;7.1;74.0;8.4;2.07;4.8;8;Caribean;South America
+Guadeloupe;474;12.2;7.3;82.1;4.6;2.10;3.6;76;Caribean;South America
+Haiti;11117;23.5;8.4;64.0;41.0;2.82;11.9;544;Caribean;South America
+Jamaica;2823;16.6;7.1;76.2;13.1;1.98;3.3;273;Caribean;South America
+Martinique;396;10.6;9.1;82.7;5.0;1.87;-1.1;83;Caribean;South America
+Puerto Rico;3678;11.3;8.0;80.3;5.3;1.58;-0.3;566;Caribean;South America
+Saint Lucia;189;14.3;7.3;75.6;9.5;1.81;7.2;18;Caribean;South America
+Saint Vincent and the Grenadines;110;15.0;7.4;73.4;15.1;1.89;2.7;9;Caribean;South America
+Trinidad and Tobago;1373;12.9;9.9;70.8;22.7;1.73;2.3;142;Caribean;South America
+United States Virgin Islands;107;12.7;8.2;81.3;8.4;2.17;1.5;21;Caribean;South America
+Belize;382;22.1;5.5;70.5;12.2;2.45;20.3;15;Central;South America
+Costa Rica;4953;13.8;5.1;80.2;8.0;1.75;9.4;483;Central;South America
+El Salvador;6188;16.8;7.0;74.0;14.1;1.86;3.5;542;Central;South America
+Guatemala;1734;25.6;5.3;72.7;18.3;3.01;19.4;880;Central;South America
+Honduras;842;20.1;5.0;73.9;24.0;2.23;13.7;443;Central;South America
+Mexico;131788;17.5;4.9;77.6;16.1;2.13;11.8;9325;Central;South America
+Nicaragua;6285;18.7;4.8;76.0;16.0;2.14;10.7;357;Central;South America
+Panama;4112;18.3;5.2;78.3;13.5;2.35;14.6;338;Central;South America
+Argentina;44692;16.8;7.5;77.0;11.5;2.26;9.3;507;South;South America
+Bolivia;11218;22.8;7.2;69.8;34.3;2.81;14.7;767;South;South America
+Brazil;212873;13.8;6.3;75.6;15.9;1.74;7.6;18607;South;South America
+Chile;18493;12.6;5.2;82.8;5.7;1.72;9.6;2228;South;South America
+Colombia;49469;14.7;6.1;74.8;15.2;1.82;8.0;3947;South;South America
+Ecuador;16865;19.6;5.1;76.8;18.4;2.43;14.1;1237;South;South America
+French Guiana;290;23.5;3.0;80.5;8.8;3.27;24.5;16;South;South America
+Guyana;778;19.9;8.6;66.8;30.9;2.46;5.2;43;South;South America
+Paraguay;6897;20.6;5.8;73.3;27.4;2.43;12.4;453;South;South America
+Peru;32554;18.6;5.6;75.6;14.8;2.34;11.8;2389;South;South America
+Suriname;556;17.2;7.7;71.6;15.0;2.27;7.8;40;South;South America
+Uruguay;347;13.8;9.4;77.8;10.9;1.98;3.7;512;South;South America
+Venezuela;32328;18.4;5.7;75.0;11.9;2.27;12.4;2204;South;South America
+Australia;24967;12.9;6.7;83.1;3.3;1.86;12.9;3945;AusNZ;Oceania
+New Zealand;4647;12.8;6.9;82.5;3.7;1.98;9.0;741;AusNZ;Oceania
+Fiji;907;18.6;7.3;70.7;13.1;2.47;4.9;58;Melanesia;Oceania
+New Caledonia;273;14.8;7.0;77.4;11.3;2.03;12.1;29;Melanesia;Oceania
+Papua New Guinea;8093;27.2;7.6;63.3;44.5;3.56;19.7;262;Melanesia;Oceania
+Solomon Islands;617;27.7;5.5;68.8;33.2;3.73;18.2;21;Melanesia;Oceania
+Vanuatu;282;25.2;4.7;72.8;20.2;3.20;20.9;13;Melanesia;Oceania
+Guam;176;16.8;4.9;80.2;8.2;2.31;11.6;17;Micronesia;Oceania
+Kiribati;118;27.4;6.9;66.8;42.1;3.56;17.0;5;Micronesia;Oceania
+Micronesia (Fed. States of);106;23.7;6.1;69.7;29.9;3.05;6.7;5;Micronesia;Oceania
+French Polynesia;292;15.3;5.8;77.3;5.5;1.98;9.2;24;Polynesia;Oceania
+Samoa;197;23.9;5.3;74.4;17.4;3.88;5.8;11;Polynesia;Oceania
+Tonga;109;23.2;5.9;73.5;18.8;3.56;9.1;6;Polynesia;Oceania
+China;1393686;11.3;7.4;76.6;9.3;1.59;3.7;15442;East;Asia
+China. Hong Kong SAR;7455;9.8;6.6;84.6;1.5;1.31;7.0;125;East;Asia
+China. Macao SAR;615;11.8;4.9;81.4;3.0;1.36;14.7;65;East;Asia
+Korea;25527;14.2;9.5;71.2;19.0;1.93;4.7;2314;East;Asia
+Japan;125738;8.0;11.0;84.1;1.9;1.47;-2.6;3488;East;Asia
+Mongolia;3096;21.3;6.1;70.7;18.7;2.54;13.9;136;East;Asia
+Republic of Korea;50897;9.0;6.1;82.9;2.1;1.34;3.7;7395;East;Asia
+Taiwan;2341;7.5;7.5;80.4;3.4;1.03;0.1;3318;East;Asia
+Brunei Darussalam;440;14.7;3.2;79.6;4.0;1.81;12.3;24;South-East;Asia
+Cambodia;16324;22.6;5.8;70.2;19.4;2.50;15.1;746;South-East;Asia
+Indonesia;266357;18.4;7.2;69.6;22.1;2.35;10.6;14733;South-East;Asia
+Laos;7158;24.9;6.2;67.8;37.2;2.74;16.9;287;South-East;Asia
+Malaysia;31571;16.5;5.2;75.4;6.7;1.89;12.8;2056;South-East;Asia
+Myanmar;55311;16.9;8.4;66.6;42.5;2.12;8.5;3301;South-East;Asia
+Philippines;105341;22.6;6.8;68.8;21.1;2.85;14.7;5157;South-East;Asia
+Singapore;5867;8.6;5.1;83.8;1.4;1.26;13.3;798;South-East;Asia
+Thailand;68416;9.8;8.4;75.2;9.3;1.45;1.5;8118;South-East;Asia
+Timor-Leste;1263;35.0;6.4;69.4;37.0;5.27;20.3;66;South-East;Asia
+Viet Nam;96357;16.0;6.0;76.4;17.0;1.95;9.6;7135;South-East;Asia
+Afghanistan;34936;31.0;7.6;61.7;62.8;4.15;21.8;906;South-Central;Asia
+Bangladesh;166735;18.4;5.2;73.1;24.8;2.06;11.4;8373;South-Central;Asia
+Bhutan;801;16.7;6.2;70.9;23.9;1.90;10.3;43;South-Central;Asia
+India;1358138;18.9;7.3;69.2;33.2;2.33;11.5;83498;South-Central;Asia
+Iran (Islamic Republic of);8181;15.3;4.6;76.0;12.6;1.61;10.3;4669;South-Central;Asia
+Kazakhstan;18256;19.7;8.9;69.8;12.0;2.53;10.3;1305;South-Central;Asia
+Kyrgyzstan;6213;23.8;6.3;71.0;16.6;2.93;14.1;285;South-Central;Asia
+Maldives;382;19.0;3.7;77.7;6.8;1.97;15.3;18;South-Central;Asia
+Nepal;29522;19.6;6.2;71.0;25.3;2.06;11.3;1779;South-Central;Asia
+Pakistan;200663;27.3;7.2;66.9;62.7;3.35;19.5;9032;South-Central;Asia
+Sri Lanka;20996;14.7;7.1;75.6;6.8;2.02;4.2;2186;South-Central;Asia
+Tajikistan;9047;28.4;5.5;70.0;35.3;3.31;20.8;293;South-Central;Asia
+Turkmenistan;5565;19.8;7.8;66.1;43.1;2.20;11.1;251;South-Central;Asia
+Uzbekistan;31065;20.6;7.1;68.9;40.5;2.32;11.8;155;South-Central;Asia
+Armenia;3035;12.4;9.6;75.4;11.2;1.50;0.9;356;West;Asia
+Azerbaijan;1007;17.7;7.6;71.2;36.0;2.22;9.2;660;West;Asia
+Bahrain;1442;12.9;2.5;77.1;5.9;1.97;16.1;37;West;Asia
+Cyprus;1198;10.8;7.0;80.8;3.5;1.42;8.7;165;West;Asia
+Georgia;3974;12.8;11.5;75.5;11.5;1.82;0.5;569;West;Asia
+Iraq;39751;33.0;4.9;70.1;27.6;4.33;27.7;1286;West;Asia
+Israel;8455;19.5;5.2;83.1;2.9;2.92;15.6;1018;West;Asia
+Jordan;7985;24.7;3.8;74.6;14.5;3.18;12.8;304;West;Asia
+Kuwait;4177;18.1;2.6;74.9;7.5;2.02;17.6;91;West;Asia
+Lebanon;6022;15.5;4.6;80.4;7.9;1.71;-6.2;530;West;Asia
+Oman;4774;17.3;2.7;77.6;5.8;2.50;5.1;145;West;Asia
+Palestine;5061;31.2;3.5;73.6;18.3;3.92;26.5;155;West;Asia
+Qatar;2378;11.4;1.6;78.8;5.6;1.94;16.3;34;West;Asia
+Saudi Arabia;333;18.3;3.5;74.9;13.1;2.57;16.5;1099;West;Asia
+Syrian Arab Republic;19482;21.2;5.5;70.6;14.8;2.75;33.1;848;West;Asia
+Turkey;81086;15.6;5.8;76.3;9.7;2.00;7.8;6672;West;Asia
+United Arab Emirates;9543;9.9;1.8;77.6;5.2;1.72;15.2;144;West;Asia
+Yemen;28758;30.3;6.6;64.6;48.1;3.73;22.2;870;West;Asia

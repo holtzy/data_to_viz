@@ -46,7 +46,7 @@ library(kableExtra)
 options(knitr.table.format = "html")
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNumOrdered.csv", header=T)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
 data$date <- as.Date(data$date)
 
 # Show long format

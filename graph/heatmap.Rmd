@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "HeatmapSmall.png"
+mydisqus: "heatmap"
+mytitle: "Heatmap"
 output:
   html_document:
       self_contained: false    
@@ -30,33 +30,176 @@ output:
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+A `heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above. 
+
+Here is an example showing 8 general features like population or life expectancy for about 30 countries in 2015. Data come from the French National Institute of [Demographic Studies](https://www.ined.fr/en/everything_about_population/data/all-countries/?lst_continent=908&lst_pays=926).
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
+library(plotly)
+library(d3heatmap)
+
+# Load data 
+data <- read.table("../Example_dataset/multivariate.csv", header=T, sep=";")
+colnames(data) <- gsub("\\.", " ", colnames(data))
+
+# Select a few country
+data <- data %>% 
+  filter(Country %in% c("France", "Sweden", "Italy", "Spain", "England", "Portugal", "Greece", "Peru", "Chile", "Brazil", "Argentina", "Bolivia", "Venezuela", "Australia", "New Zealand", "Fiji", "China", "India", "Thailand", "Afghanistan", "Bangladesh", "United States of America", "Canada", "Burundi", "Angola", "Kenya", "Togo")) %>%
+  arrange(Country) %>%
+  mutate(Country = factor(Country, Country))
+
+# Matrix format
+mat <- data
+rownames(mat) <- mat[,1]
+mat <- mat %>% select(-Country, -Group, -Continent)
+mat <- as.matrix(mat)
+
+# Heatmap
+#d3heatmap(mat, scale="column", dendrogram = "none", width="800px", height="80Opx", colors = "Blues")
+
+library(heatmaply)
+p <- heatmaply(mat, 
+        dendrogram = "none",
+        xlab = "", ylab = "", 
+        main = "",
+        scale = "column",
+        margins = c(60,100,40,20),
+        grid_color = "white",
+        grid_width = 0.00001,
+        titleX = FALSE,
+        hide_colorbar = TRUE,
+        branches_lwd = 0.1,
+        label_names = c("Country", "Feature:", "Value"),
+        fontsize_row = 5, fontsize_col = 5,
+        labCol = colnames(mat),
+        labRow = rownames(mat),
+        heatmap_layers = theme(axis.line=element_blank())
+        )
 ```
+
+<center>
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE}
+p
+```
+</center>
+
+*Note*: You can learn more about this dataset and how to visualize it in the [dedicated page]()
+
 
 
 # What for
 ***
+Heatmap is really useful to display a `general view` of numerical data, not to extract specific data point. In the graphic above, the huge population size of China and India pops out for example.
 
-Still in progress
+<br>
+
+Heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks what countries tend to have the same features on their numeric variables, what countries are similar. The usual way to represent the result is to use [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn on top of the heatmap:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE}
+p <- heatmaply(mat, 
+        #dendrogram = "row",
+        xlab = "", ylab = "", 
+        main = "",
+        scale = "column",
+        margins = c(60,100,40,20),
+        grid_color = "white",
+        grid_width = 0.00001,
+        titleX = FALSE,
+        hide_colorbar = TRUE,
+        branches_lwd = 0.1,
+        label_names = c("Country", "Feature:", "Value"),
+        fontsize_row = 5, fontsize_col = 5,
+        labCol = colnames(mat),
+        labRow = rownames(mat),
+        heatmap_layers = theme(axis.line=element_blank())
+        )
+```
+
+
+<center>
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE}
+p
+```        
+</center>
+
+Here, Afghanistan, India and Bolivia are grouped together. Indeed they are 3 countries in strong expansion, with a lot of children per woman but still a strong mortality rate.
+
+*Note*: in this heatmap, features are also clusterised. For instance, life expectancy and mortality rate are grouped together since they are highly correlated.
+
+*Note*: hierarchical clustering is a complex statistical method. You can learn more about it [here](https://en.wikipedia.org/wiki/Hierarchical_clustering).
+
+
+
 
 # Variation
 ***
 
-Again
+- We've seen in the previous section that heatmap is often used to display the result of a clustering algorithm. A common task is to compare the result with expectations. For instance, we can check if the countries are clustering according to their continent using a `color bar`.
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE, eval=FALSE}
+
+# Pick up 6 nice colors
+library(colormap)
+my_color <- colormap(colormap=colormaps$temperature, nshades=nlevels(data$Continent))
+
+# Create a vector of color in the good order:
+cont <- c("A","S","A","A","N","S","A","S","S","O","S","S","O","O","N","E","E","A","E","E","E","E")
+my_color <- my_color[as.numeric(as.factor(cont))]
+
+# NOTE: this does not work:
+#my_color <- my_color[as.numeric(as.factor(data$Continent))]
+
+# 
+p <- heatmaply(mat, 
+        dendrogram = "row",
+        xlab = "", ylab = "", 
+        main = "",
+        scale = "column",
+        margins = c(60,100,40,20),
+        grid_color = "white",
+        grid_width = 0.00001,
+        titleX = FALSE,
+        hide_colorbar = TRUE,
+        branches_lwd = 0.1,
+        label_names = c("Country", "Feature:", "Value"),
+        fontsize_row = 5, fontsize_col = 5,
+        labCol = colnames(mat),
+        labRow = rownames(mat),
+        heatmap_layers = theme(axis.line=element_blank()),
+        RowSideColors = data.frame(a= c(1,2,1,2,rep(1,18))    ),
+        distfun = "dist",
+        hclust_method = "complete"
+        )
+```
+
+
+
+
+
+          
+- For static heatmap, a common practice is to display the exact value of each cell in numbers. Indeed, it is hard to translate a color in a precise number.
+
+- Heatmaps can also be used for time series where there is a regular pattern in time.
+
+- Heatmaps can be applied to adjacency matrix.
+
+
+
+
+
+
 
 
 # Common mistakes {#mistake}
 ***
 
-- [Try several bin size](), it can lead to very different conclusions.
-
+- Often need to normalize your data
+- Use cluster analysis and thus permute the rows and the columns of the matrix to place similar values near each other according to the clustering
+- Color palette is important
 
 
 
@@ -64,32 +207,32 @@ Again
 ***
 
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+  <p class="mytitlerelated">Scatter plot</p>
+  <p class="mytextrelated">Display the relationship between 2 numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Correlogram</p>
+  <p class="mytextrelated">Shows the relationship between each pair of numeric variables</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+  <p class="mytitlerelated">Connected Scatterplot</p>
+  <p class="mytextrelated">Very close from a scatterplot, but link data points with segments</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
 </div>
@@ -99,12 +242,13 @@ Again
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/heatmap/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/heatmap/" class="btn btn-primary">Python gallery</a>
 </p>
+
 
 
 
