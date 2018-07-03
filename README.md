@@ -1,12 +1,23 @@
-# [from Data to Viz](https://www.data-to-viz.com)
+# From data to viz ([data-to-viz.com](https://www.data-to-viz.com))
+------------------------
+
+From data to viz leads you to the most appropriate graphic for your data. It links to the code to build it and lists common caveats you should avoid.
+
+#Overview
+***
 
 
-A website that leads you to the dataviz you need.
+#Sections
+***
 
-Work in progress
+#Poster
+***
 
-www.data-to-viz.com
+#Feedbacks
+***
 
+#Acknowledgment
+***
 
 
 
