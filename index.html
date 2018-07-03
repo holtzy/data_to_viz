@@ -119,12 +119,12 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div id="myBtnContainer">
-              <button class="btn btn-secondary active" onclick="showTree('num'); highlightHead('numericHead');">Numeric</button>
-              <button class="btn btn-secondary" onclick="showTree('cat'); highlightHead('categoricHead');">Categoric</button>
-              <button class="btn btn-secondary" onclick="showTree('catnum'); highlightHead('numcatHead');">Num & Cat</button>
-              <button class="btn btn-secondary" onclick="showTree('geo'); highlightHead('geographicalHead');">Maps</button>
-              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Network</button>
-              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Time series</button>
+              <button class="btn btn-secondary" onclick="showTree('num')">Numeric</button>
+              <button class="btn btn-secondary" onclick="showTree('cat')">Categoric</button>
+              <button class="btn btn-secondary" onclick="showTree('catnum')">Num & Cat</button>
+              <button class="btn btn-secondary" onclick="showTree('geo')">Maps</button>
+              <button class="btn btn-secondary" onclick="showTree('relationnal')">Network</button>
+              <button class="btn btn-secondary" onclick="showTree('time')">Time series</button>
             </div>
           </div>  
         </div> 
@@ -139,41 +139,6 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <script>
-    function highlightHead(id){     
-
-      console.log(id)
-      
-      // Hide all the heads, except the selected one.
-      var x, i;
-      x = document.getElementsByClassName("treeHead");
-      console.log(x)
-      for (i = 0; i < x.length; i++) {
-        console.log(i)
-        if (id!=x[i].id){
-          console.log(x[i].id)
-          d3.select("#" + x[i].id)
-                  .transition()
-                  .duration(750)
-                  .style("border-color", "rgba(0, 0, 0, 0)")
-                  .style("background-color", "rgba(0, 0, 0, 0)")
-                  .style("color", "grey")
-                  .style("font-size", "1rem")     
-        }
-      }
-      
-      //Show the selected border
-      d3.select("#" + id)
-           .transition()
-           .duration(750)
-           .style("border-color", "#69b3a2")
-           .style("border-bottom-style", "solid")
-           .style("color", "#69b3a2")
-           .style("font-size", "2rem")     
-    }
-
-
-
-
     function showTree(id){     
       
       // Hide all the tree AND set its opacity to 0. except for the selected one.
@@ -2510,8 +2475,8 @@ var btns = btnContainer.getElementsByClassName("btn");
 for (var i = 0; i < btns.length; i++) {
   btns[i].addEventListener("click", function(){
     var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace(" active", "");
-    this.className += " active";
+    current[0].className = current[0].className.replace("active", "");
+    this.className += "active";
   });
 }
 // --------------------------------------------------------------------------------------------------------------------------------- //
