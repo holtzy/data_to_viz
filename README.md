@@ -1,5 +1,5 @@
-<img align="left" src="img/logo/typo.png">
-===================
+<img align="left" src="img/logo/typo.png" style="width: 100px">
+<hr>
 
 [data-to-viz.com](https://www.data-to-viz.com)
 
