@@ -27,7 +27,7 @@ Poster
 -----
 The decision tree offered in the website are also in a high quality poster. Buy it to support the project!
 
-![]("img/poster/poster_screenshot.png")
+<img align="center" src="img/poster/poster_screenshot.png">
 
 <br>
 
