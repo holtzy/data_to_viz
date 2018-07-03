@@ -1,4 +1,4 @@
-From data to viz 
+<img align="left" src="img/logo/typo.png">
 ===================
 
 [data-to-viz.com](https://www.data-to-viz.com)
