@@ -1879,35 +1879,39 @@ showTree('num')
           <div class="col-lg-8 text-center">
             <br><br><br><br><br>
             <h2 class="section-heading text-uppercase" >Data Story</h2>
-            <p>From data to viz provides a decision tree based on input data format. This tree leads to twenty format representing the most common dataset types. For each, an example of analysis based on real life data is provided using the R programming language.</p>
-            <div class="dropdown">
-              <button type="button" class="btn btn-lg btn-primary dropdown-toggle" data-toggle="dropdown">  Pick up a story  </button>
+            <p>From data to viz provides a decision tree based on input data format. This tree leads to twenty format representing the most common dataset types. For each, an example of analysis based on real life data is provided using the <a href="https://www.r-graph-gallery.com">R programming language</a>.</p>
+            <br>
+            <div class="btn-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Numeric</button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="story/OneNum.html">Rbnb night prices on the french riviera</a>
+                  <a class="dropdown-item" href="story/TwoNum.html">Price / area relationship of 1500 apartments</a>
+                  <a class="dropdown-item" href="story/TwoNumOrdered.html">Evolution of the bitcoin price</a>
+                  <a class="dropdown-item" href="story/ThreeNum.html">Relationship between life expectancy, gdp per capita and population</a>
+                  <a class="dropdown-item" href="story/OneCatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
+                  <a class="dropdown-item" href="story/SeveralNum.html">Features of 32 famous car models</a>
+                </div>
+              </div>
+            </div>
 
-              <ul class="dropdown-menu multi-level" role="menu" aria-labelledby="dropdownMenu">
-                  <li class="dropdown-submenu">
-                    <h5 class="dropdown-header">Numeric only</h5>
-                    <ul class="dropdown-menu">
-                      <a class="dropdown-item" href="story/OneNum.html">Rbnb night prices on the french riviera</a>
-                      <a class="dropdown-item" href="story/TwoNum.html">Price / area relationship of 1500 apartments</a>
-                      <a class="dropdown-item" href="story/TwoNumOrdered.html">Evolution of the bitcoin price</a>
-                      <a class="dropdown-item" href="story/ThreeNum.html">Relationship between life expectancy, gdp per capita and population</a>
-                      <a class="dropdown-item" href="story/OneCatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
-                      <a class="dropdown-item" href="story/SeveralNum.html">Features of 32 famous car models</a>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <h5 class="dropdown-header">Categoric only</h5>
-                    <ul class="dropdown-menu">
+            <div class="btn-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Categoric</button>
+                <div class="dropdown-menu">
                       <a class="dropdown-item" href="story/OneNumOneCat.html">Who sells more weapons?</a>
                       <a class="dropdown-item" href="story/SeveralIndepLists.html">Comparing the lyrics of 3 french rapers</a>
                       <a class="dropdown-item" href="story/SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
                       <a class="dropdown-item" href="story/OneNumSevCatSubgroupOneObsPerGroup.html">The gender wage gap</a>
                       <a class="dropdown-item" href="story/AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <h5 class="dropdown-header">Categoric AND numeric</h5>
-                    <ul class="dropdown-menu">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Num & Cat</button>
+                <div class="dropdown-menu">
                       <a class="dropdown-item" href="story/OneNumOneCat.html">Who sells more weapons?</a>
                       <a class="dropdown-item" href="story/OneNumOneCatSeveralObs.html">How people perceive probability vocabulary</a>                
                       <a class="dropdown-item" href="story/OneNumSevCatSubgroupOneObsPerGroup.html">The gender wage gap</a>
@@ -1916,29 +1920,37 @@ showTree('num')
                       <a class="dropdown-item" href="story/SeveralIndepLists.html">Comparing the lyrics of 3 french rapers</a>
                       <a class="dropdown-item" href="story/.html">MISSING: one cat several num no order</a>
                       <a class="dropdown-item" href="story/OneCatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
-                    </ul>
-                  </li>
-                  <li class="dropdown-submenu">
-                    <h5 class="dropdown-header">Geographic</h5>
-                    <ul class="dropdown-menu">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Maps</button>
+                <div class="dropdown-menu">
                       <a class="dropdown-item" href="story/GPSCoordWithoutValue.html">Where surfers live</a>
                       <a class="dropdown-item" href="story/GPSCoordWithValue.html">The population of 1000 cities in the UK</a>
                       <a class="dropdown-item" href="story/MapConnection.html">Where surfers travel</a>
                       <a class="dropdown-item" href="story/RegionWithValue.html">MISSING: choropleth</a> 
-                    </ul>
-                  </li> 
-                  <li class="dropdown-submenu">
-                    <h5 class="dropdown-header">Relationnal</h5>
-                    <ul class="dropdown-menu">
+                </div>
+              </div>
+            </div>
+
+            <div class="btn-group">
+              <div class="btn-group">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Network</button>
+                <div class="dropdown-menu">
                       <a class="dropdown-item" href="story/AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
                       <a class="dropdown-item" href="story/SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
                       <a class="dropdown-item" href="story/NestedValueForLinks.html">MISSING: nested value for edges</a>
                       <a class="dropdown-item" href="story/NestedValueForConnection.html">MISSING: edge bundle</a>
-                    </ul>
-                  </li>
-                </ul>
-              <br><br><br><br>
+                </div>
+              </div>
             </div>
+
+
+
+            <br><br><br><br>
           </div>
         </div>
       </div>
