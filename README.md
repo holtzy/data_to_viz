@@ -1,4 +1,4 @@
-<img align="left" src="img/logo/typo.png" style="width: 100px">
+<img align="left" src="img/logo/typo.png" width="200" height="20">
 <hr>
 
 [data-to-viz.com](https://www.data-to-viz.com)
