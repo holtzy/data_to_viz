@@ -1,6 +1,6 @@
 ---
 myimage1: "DensitySmall.png"
-myimage2: ".Box1Small.png"
+myimage2: "Box1Small.png"
 myimage3: "BubblePlot150.png"
 myimage4: "3D150.png"
 mytitle: "Visualizing a unique Numeric variable"
