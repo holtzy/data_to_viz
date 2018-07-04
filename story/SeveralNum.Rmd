@@ -5,6 +5,7 @@ myimage3: "ViolinSmall.png"
 myimage4: "JoyplotSmall.png"
 myimage5: "HeatmapSmall.png"
 myimage6: "DendrogramSmall.png"
+mydisqus: "SeveralNum"
 mytitle: "Eleven features for 32 cars"
 output:
   html_document:
@@ -33,7 +34,6 @@ This page provides a few hints to visualize a dataset composed of several numeri
 
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
-# Libraries
 library(tidyverse)
 library(hrbrthemes)
 library(viridis)
@@ -45,8 +45,11 @@ library(FactoMineR)
 library(kableExtra)
 options(knitr.table.format = "html")
 
-# This dataset is available in R by default
+# This dataset is available in R by default, and on the datatoviz github repo
 data <- mtcars
+
+# Save it at .csv for the github repo
+#write.csv(mtcars, file="../Example_dataset/6_SeveralNum.csv", quote=F)
 
 # show data
 data %>% head(6) %>% kable() %>%

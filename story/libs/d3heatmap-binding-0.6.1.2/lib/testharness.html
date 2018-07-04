@@ -1,0 +1,2767 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="d3/d3.min.js"></script>
+  <script src="d3-tip/index.js"></script>
+  <script src="d3heatmapcore/heatmap.js"></script>
+  <link rel="stylesheet" type="text/css" href="d3heatmapcore/heatmap.css"/>
+</head>
+<body>
+  <div id="heatmap" class="d3heatmap" style="position: relative"></div>
+  <script>
+    var data = {
+      "x": {
+        "rows": {
+          "members": 32,
+          "height": 425.344651694364,
+          "edgePar": {
+            "col": ""
+          },
+          "children": [
+            {
+              "members": 23,
+              "height": 261.849881468371,
+              "edgePar": {
+                "col": ""
+              },
+              "children": [
+                {
+                  "members": 16,
+                  "height": 141.704447795403,
+                  "edgePar": {
+                    "col": ""
+                  },
+                  "children": [
+                    {
+                      "members": 12,
+                      "height": 113.302300506212,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 11,
+                          "height": 74.3824295717746,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 6,
+                              "height": 50.1094029998363,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 5,
+                                  "height": 33.180384265406,
+                                  "edgePar": {
+                                    "col": ""
+                                  },
+                                  "children": [
+                                    {
+                                      "members": 4,
+                                      "height": 20.6939435584424,
+                                      "edgePar": {
+                                        "col": ""
+                                      },
+                                      "children": [
+                                        {
+                                          "members": 3,
+                                          "height": 13.1357108677072,
+                                          "edgePar": {
+                                            "col": ""
+                                          },
+                                          "children": [
+                                            {
+                                              "members": 2,
+                                              "height": 8.65359029536296,
+                                              "edgePar": {
+                                                "col": ""
+                                              },
+                                              "children": [
+                                                {
+                                                  "members": 1,
+                                                  "height": 0,
+                                                  "label": "Toyota Corona",
+                                                  "edgePar": {
+                                                    "col": ""
+                                                  }
+                                                },
+                                                {
+                                                  "members": 1,
+                                                  "height": 0,
+                                                  "label": "Porsche 914-2",
+                                                  "edgePar": {
+                                                    "col": ""
+                                                  }
+                                                }
+                                                ]
+                                            },
+                                            {
+                                              "members": 1,
+                                              "height": 0,
+                                              "label": "Datsun 710",
+                                              "edgePar": {
+                                                "col": ""
+                                              }
+                                            }
+                                            ]
+                                        },
+                                        {
+                                          "members": 1,
+                                          "height": 0,
+                                          "label": "Volvo 142E",
+                                          "edgePar": {
+                                            "col": ""
+                                          }
+                                        }
+                                        ]
+                                    },
+                                    {
+                                      "members": 1,
+                                      "height": 0,
+                                      "label": "Merc 230",
+                                      "edgePar": {
+                                        "col": ""
+                                      }
+                                    }
+                                    ]
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Lotus Europa",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            },
+                            {
+                              "members": 5,
+                              "height": 64.889871320569,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 4,
+                                  "height": 15.6724726830197,
+                                  "edgePar": {
+                                    "col": ""
+                                  },
+                                  "children": [
+                                    {
+                                      "members": 2,
+                                      "height": 1.52315462117278,
+                                      "edgePar": {
+                                        "col": ""
+                                      },
+                                      "children": [
+                                        {
+                                          "members": 1,
+                                          "height": 0,
+                                          "label": "Merc 280",
+                                          "edgePar": {
+                                            "col": ""
+                                          }
+                                        },
+                                        {
+                                          "members": 1,
+                                          "height": 0,
+                                          "label": "Merc 280C",
+                                          "edgePar": {
+                                            "col": ""
+                                          }
+                                        }
+                                        ]
+                                    },
+                                    {
+                                      "members": 2,
+                                      "height": 0.61532511731604,
+                                      "edgePar": {
+                                        "col": ""
+                                      },
+                                      "children": [
+                                        {
+                                          "members": 1,
+                                          "height": 0,
+                                          "label": "Mazda RX4 Wag",
+                                          "edgePar": {
+                                            "col": ""
+                                          }
+                                        },
+                                        {
+                                          "members": 1,
+                                          "height": 0,
+                                          "label": "Mazda RX4",
+                                          "edgePar": {
+                                            "col": ""
+                                          }
+                                        }
+                                        ]
+                                    }
+                                    ]
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Merc 240D",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            }
+                            ]
+                        },
+                        {
+                          "members": 1,
+                          "height": 0,
+                          "label": "Ferrari Dino",
+                          "edgePar": {
+                            "col": ""
+                          }
+                        }
+                        ]
+                    },
+                    {
+                      "members": 4,
+                      "height": 14.7807070196253,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 3,
+                          "height": 10.3922856003865,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 2,
+                              "height": 5.14734154685698,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Fiat 128",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Fiat X1-9",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Toyota Corolla",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        },
+                        {
+                          "members": 1,
+                          "height": 0,
+                          "label": "Honda Civic",
+                          "edgePar": {
+                            "col": ""
+                          }
+                        }
+                        ]
+                    }
+                    ]
+                },
+                {
+                  "members": 7,
+                  "height": 103.431069316719,
+                  "edgePar": {
+                    "col": ""
+                  },
+                  "children": [
+                    {
+                      "members": 5,
+                      "height": 51.8242520447715,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 3,
+                          "height": 2.13834047803431,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 2,
+                              "height": 0.982649479723062,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Merc 450SL",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Merc 450SE",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Merc 450SLC",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        },
+                        {
+                          "members": 2,
+                          "height": 14.0154994559595,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Dodge Challenger",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "AMC Javelin",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        }
+                        ]
+                    },
+                    {
+                      "members": 2,
+                      "height": 33.5508692137775,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 1,
+                          "height": 0,
+                          "label": "Hornet 4 Drive",
+                          "edgePar": {
+                            "col": ""
+                          }
+                        },
+                        {
+                          "members": 1,
+                          "height": 0,
+                          "label": "Valiant",
+                          "edgePar": {
+                            "col": ""
+                          }
+                        }
+                        ]
+                    }
+                    ]
+                }
+                ]
+            },
+            {
+              "members": 9,
+              "height": 214.936685793747,
+              "edgePar": {
+                "col": ""
+              },
+              "children": [
+                {
+                  "members": 8,
+                  "height": 134.811946429091,
+                  "edgePar": {
+                    "col": ""
+                  },
+                  "children": [
+                    {
+                      "members": 5,
+                      "height": 101.738968566622,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 3,
+                          "height": 21.2655989805131,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 2,
+                              "height": 10.0761202851097,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Duster 360",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "Camaro Z28",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Ford Pantera L",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        },
+                        {
+                          "members": 2,
+                          "height": 40.005247468301,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Pontiac Firebird",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Hornet Sportabout",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        }
+                        ]
+                    },
+                    {
+                      "members": 3,
+                      "height": 40.8399635773589,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 2,
+                          "height": 15.6224446230416,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Cadillac Fleetwood",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "Lincoln Continental",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        },
+                        {
+                          "members": 1,
+                          "height": 0,
+                          "label": "Chrysler Imperial",
+                          "edgePar": {
+                            "col": ""
+                          }
+                        }
+                        ]
+                    }
+                    ]
+                },
+                {
+                  "members": 1,
+                  "height": 0,
+                  "label": "Maserati Bora",
+                  "edgePar": {
+                    "col": ""
+                  }
+                }
+                ]
+            }
+            ]
+        },
+        "cols": {
+          "members": 11,
+          "height": 1475.10429122825,
+          "edgePar": {
+            "col": ""
+          },
+          "children": [
+            {
+              "members": 9,
+              "height": 115.849514457334,
+              "edgePar": {
+                "col": ""
+              },
+              "children": [
+                {
+                  "members": 7,
+                  "height": 34.7850542618522,
+                  "edgePar": {
+                    "col": ""
+                  },
+                  "children": [
+                    {
+                      "members": 1,
+                      "height": 0,
+                      "label": "cyl",
+                      "edgePar": {
+                        "col": ""
+                      }
+                    },
+                    {
+                      "members": 6,
+                      "height": 18.9208879284245,
+                      "edgePar": {
+                        "col": ""
+                      },
+                      "children": [
+                        {
+                          "members": 2,
+                          "height": 3.60555127546399,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "am",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            },
+                            {
+                              "members": 1,
+                              "height": 0,
+                              "label": "vs",
+                              "edgePar": {
+                                "col": ""
+                              }
+                            }
+                            ]
+                        },
+                        {
+                          "members": 4,
+                          "height": 10.6897474245185,
+                          "edgePar": {
+                            "col": ""
+                          },
+                          "children": [
+                            {
+                              "members": 2,
+                              "height": 8.59634050046879,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "carb",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "wt",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            },
+                            {
+                              "members": 2,
+                              "height": 2.98172768709686,
+                              "edgePar": {
+                                "col": ""
+                              },
+                              "children": [
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "drat",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                },
+                                {
+                                  "members": 1,
+                                  "height": 0,
+                                  "label": "gear",
+                                  "edgePar": {
+                                    "col": ""
+                                  }
+                                }
+                                ]
+                            }
+                            ]
+                        }
+                        ]
+                    }
+                    ]
+                },
+                {
+                  "members": 2,
+                  "height": 33.2610913831762,
+                  "edgePar": {
+                    "col": ""
+                  },
+                  "children": [
+                    {
+                      "members": 1,
+                      "height": 0,
+                      "label": "qsec",
+                      "edgePar": {
+                        "col": ""
+                      }
+                    },
+                    {
+                      "members": 1,
+                      "height": 0,
+                      "label": "mpg",
+                      "edgePar": {
+                        "col": ""
+                      }
+                    }
+                    ]
+                }
+                ]
+            },
+            {
+              "members": 2,
+              "height": 656.640441946732,
+              "edgePar": {
+                "col": ""
+              },
+              "children": [
+                {
+                  "members": 1,
+                  "height": 0,
+                  "label": "hp",
+                  "edgePar": {
+                    "col": ""
+                  }
+                },
+                {
+                  "members": 1,
+                  "height": 0,
+                  "label": "disp",
+                  "edgePar": {
+                    "col": ""
+                  }
+                }
+                ]
+            }
+            ]
+        },
+        "matrix": {
+          "merged": [
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "2.465",
+              "color": "rgba(254,214,135,1)"
+            },
+            {
+              "label": "3.7",
+              "color": "rgba(247,251,208,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "20.01",
+              "color": "rgba(177,220,235,1)"
+            },
+            {
+              "label": "21.5",
+              "color": "rgba(245,251,212,1)"
+            },
+            {
+              "label": "97",
+              "color": "rgba(254,218,138,1)"
+            },
+            {
+              "label": "120.1",
+              "color": "rgba(255,205,126,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "2.14",
+              "color": "rgba(254,188,110,1)"
+            },
+            {
+              "label": "4.43",
+              "color": "rgba(148,198,223,1)"
+            },
+            {
+              "label": "5",
+              "color": "rgba(129,183,215,1)"
+            },
+            {
+              "label": "16.7",
+              "color": "rgba(254,224,144,1)"
+            },
+            {
+              "label": "26",
+              "color": "rgba(196,229,240,1)"
+            },
+            {
+              "label": "91",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "120.3",
+              "color": "rgba(255,205,126,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "2.32",
+              "color": "rgba(255,203,124,1)"
+            },
+            {
+              "label": "3.85",
+              "color": "rgba(233,246,233,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.61",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "22.8",
+              "color": "rgba(235,247,231,1)"
+            },
+            {
+              "label": "93",
+              "color": "rgba(254,213,134,1)"
+            },
+            {
+              "label": "108",
+              "color": "rgba(254,197,118,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "2.78",
+              "color": "rgba(255,233,158,1)"
+            },
+            {
+              "label": "4.11",
+              "color": "rgba(198,230,241,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.6",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "21.4",
+              "color": "rgba(246,251,211,1)"
+            },
+            {
+              "label": "109",
+              "color": "rgba(254,228,151,1)"
+            },
+            {
+              "label": "121",
+              "color": "rgba(255,205,126,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.15",
+              "color": "rgba(255,252,186,1)"
+            },
+            {
+              "label": "3.92",
+              "color": "rgba(226,244,245,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "22.9",
+              "color": "rgba(63,92,168,1)"
+            },
+            {
+              "label": "22.8",
+              "color": "rgba(235,247,231,1)"
+            },
+            {
+              "label": "95",
+              "color": "rgba(254,215,136,1)"
+            },
+            {
+              "label": "140.8",
+              "color": "rgba(254,218,138,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "1.513",
+              "color": "rgba(247,129,75,1)"
+            },
+            {
+              "label": "3.77",
+              "color": "rgba(241,249,220,1)"
+            },
+            {
+              "label": "5",
+              "color": "rgba(129,183,215,1)"
+            },
+            {
+              "label": "16.9",
+              "color": "rgba(254,229,152,1)"
+            },
+            {
+              "label": "30.4",
+              "color": "rgba(135,188,217,1)"
+            },
+            {
+              "label": "113",
+              "color": "rgba(255,231,155,1)"
+            },
+            {
+              "label": "95.1",
+              "color": "rgba(254,189,111,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "3.44",
+              "color": "rgba(245,251,212,1)"
+            },
+            {
+              "label": "3.92",
+              "color": "rgba(226,244,245,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.3",
+              "color": "rgba(244,250,214,1)"
+            },
+            {
+              "label": "19.2",
+              "color": "rgba(255,248,180,1)"
+            },
+            {
+              "label": "123",
+              "color": "rgba(255,238,166,1)"
+            },
+            {
+              "label": "167.6",
+              "color": "rgba(255,230,154,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "3.44",
+              "color": "rgba(245,251,212,1)"
+            },
+            {
+              "label": "3.92",
+              "color": "rgba(226,244,245,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.9",
+              "color": "rgba(227,244,243,1)"
+            },
+            {
+              "label": "17.8",
+              "color": "rgba(255,237,163,1)"
+            },
+            {
+              "label": "123",
+              "color": "rgba(255,238,166,1)"
+            },
+            {
+              "label": "167.6",
+              "color": "rgba(255,230,154,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "2.875",
+              "color": "rgba(255,238,165,1)"
+            },
+            {
+              "label": "3.9",
+              "color": "rgba(228,244,241,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "17.02",
+              "color": "rgba(255,233,157,1)"
+            },
+            {
+              "label": "21",
+              "color": "rgba(249,252,205,1)"
+            },
+            {
+              "label": "110",
+              "color": "rgba(254,229,152,1)"
+            },
+            {
+              "label": "160",
+              "color": "rgba(254,227,149,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "2.62",
+              "color": "rgba(254,226,146,1)"
+            },
+            {
+              "label": "3.9",
+              "color": "rgba(228,244,241,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "16.46",
+              "color": "rgba(254,214,134,1)"
+            },
+            {
+              "label": "21",
+              "color": "rgba(249,252,205,1)"
+            },
+            {
+              "label": "110",
+              "color": "rgba(254,229,152,1)"
+            },
+            {
+              "label": "160",
+              "color": "rgba(254,227,149,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.19",
+              "color": "rgba(255,254,189,1)"
+            },
+            {
+              "label": "3.69",
+              "color": "rgba(248,252,207,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "20",
+              "color": "rgba(178,220,235,1)"
+            },
+            {
+              "label": "24.4",
+              "color": "rgba(218,240,246,1)"
+            },
+            {
+              "label": "62",
+              "color": "rgba(253,178,101,1)"
+            },
+            {
+              "label": "146.7",
+              "color": "rgba(254,221,141,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(113,169,207,1)"
+            },
+            {
+              "label": "2.77",
+              "color": "rgba(255,233,157,1)"
+            },
+            {
+              "label": "3.62",
+              "color": "rgba(253,254,195,1)"
+            },
+            {
+              "label": "5",
+              "color": "rgba(129,183,215,1)"
+            },
+            {
+              "label": "15.5",
+              "color": "rgba(253,171,96,1)"
+            },
+            {
+              "label": "19.7",
+              "color": "rgba(255,252,186,1)"
+            },
+            {
+              "label": "175",
+              "color": "rgba(237,247,228,1)"
+            },
+            {
+              "label": "145",
+              "color": "rgba(254,220,140,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "2.2",
+              "color": "rgba(254,193,115,1)"
+            },
+            {
+              "label": "4.08",
+              "color": "rgba(203,232,242,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "19.47",
+              "color": "rgba(203,232,242,1)"
+            },
+            {
+              "label": "32.4",
+              "color": "rgba(108,163,204,1)"
+            },
+            {
+              "label": "66",
+              "color": "rgba(254,182,105,1)"
+            },
+            {
+              "label": "78.7",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "1.935",
+              "color": "rgba(253,172,96,1)"
+            },
+            {
+              "label": "4.08",
+              "color": "rgba(203,232,242,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.9",
+              "color": "rgba(227,244,243,1)"
+            },
+            {
+              "label": "27.3",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "66",
+              "color": "rgba(254,182,105,1)"
+            },
+            {
+              "label": "79",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "1.835",
+              "color": "rgba(252,162,91,1)"
+            },
+            {
+              "label": "4.22",
+              "color": "rgba(181,222,236,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "19.9",
+              "color": "rgba(183,223,236,1)"
+            },
+            {
+              "label": "33.9",
+              "color": "rgba(90,141,193,1)"
+            },
+            {
+              "label": "65",
+              "color": "rgba(254,181,104,1)"
+            },
+            {
+              "label": "71.1",
+              "color": "rgba(253,174,97,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(253,179,101,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "1.615",
+              "color": "rgba(249,139,80,1)"
+            },
+            {
+              "label": "4.93",
+              "color": "rgba(75,123,183,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(236,247,229,1)"
+            },
+            {
+              "label": "18.52",
+              "color": "rgba(238,248,225,1)"
+            },
+            {
+              "label": "30.4",
+              "color": "rgba(135,188,217,1)"
+            },
+            {
+              "label": "52",
+              "color": "rgba(252,165,92,1)"
+            },
+            {
+              "label": "75.7",
+              "color": "rgba(253,177,99,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(250,253,202,1)"
+            },
+            {
+              "label": "3.73",
+              "color": "rgba(231,245,238,1)"
+            },
+            {
+              "label": "3.07",
+              "color": "rgba(254,197,119,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.6",
+              "color": "rgba(255,248,181,1)"
+            },
+            {
+              "label": "17.3",
+              "color": "rgba(255,233,157,1)"
+            },
+            {
+              "label": "180",
+              "color": "rgba(233,246,234,1)"
+            },
+            {
+              "label": "275.8",
+              "color": "rgba(239,248,224,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(250,253,202,1)"
+            },
+            {
+              "label": "4.07",
+              "color": "rgba(205,234,243,1)"
+            },
+            {
+              "label": "3.07",
+              "color": "rgba(254,197,119,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.4",
+              "color": "rgba(255,243,173,1)"
+            },
+            {
+              "label": "16.4",
+              "color": "rgba(254,225,146,1)"
+            },
+            {
+              "label": "180",
+              "color": "rgba(233,246,234,1)"
+            },
+            {
+              "label": "275.8",
+              "color": "rgba(239,248,224,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(250,253,202,1)"
+            },
+            {
+              "label": "3.78",
+              "color": "rgba(228,244,242,1)"
+            },
+            {
+              "label": "3.07",
+              "color": "rgba(254,197,119,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "18",
+              "color": "rgba(252,253,199,1)"
+            },
+            {
+              "label": "15.2",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "180",
+              "color": "rgba(233,246,234,1)"
+            },
+            {
+              "label": "275.8",
+              "color": "rgba(239,248,224,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.52",
+              "color": "rgba(242,249,219,1)"
+            },
+            {
+              "label": "2.76",
+              "color": "rgba(250,147,84,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "16.87",
+              "color": "rgba(254,229,151,1)"
+            },
+            {
+              "label": "15.5",
+              "color": "rgba(254,215,135,1)"
+            },
+            {
+              "label": "150",
+              "color": "rgba(253,254,195,1)"
+            },
+            {
+              "label": "318",
+              "color": "rgba(219,240,247,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.435",
+              "color": "rgba(246,251,211,1)"
+            },
+            {
+              "label": "3.15",
+              "color": "rgba(255,209,130,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.3",
+              "color": "rgba(255,240,168,1)"
+            },
+            {
+              "label": "15.2",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "150",
+              "color": "rgba(253,254,195,1)"
+            },
+            {
+              "label": "304",
+              "color": "rgba(227,244,244,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "3.215",
+              "color": "rgba(255,255,191,1)"
+            },
+            {
+              "label": "3.08",
+              "color": "rgba(254,199,120,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "19.44",
+              "color": "rgba(204,233,242,1)"
+            },
+            {
+              "label": "21.4",
+              "color": "rgba(246,251,211,1)"
+            },
+            {
+              "label": "110",
+              "color": "rgba(254,229,152,1)"
+            },
+            {
+              "label": "258",
+              "color": "rgba(246,251,211,1)"
+            },
+            {
+              "label": "6",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(185,224,237,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "3.46",
+              "color": "rgba(244,250,213,1)"
+            },
+            {
+              "label": "2.76",
+              "color": "rgba(250,147,84,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "20.22",
+              "color": "rgba(167,214,231,1)"
+            },
+            {
+              "label": "18.1",
+              "color": "rgba(255,239,167,1)"
+            },
+            {
+              "label": "105",
+              "color": "rgba(254,226,146,1)"
+            },
+            {
+              "label": "225",
+              "color": "rgba(255,253,188,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "3.57",
+              "color": "rgba(239,248,223,1)"
+            },
+            {
+              "label": "3.21",
+              "color": "rgba(254,218,138,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "15.84",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "14.3",
+              "color": "rgba(254,199,121,1)"
+            },
+            {
+              "label": "245",
+              "color": "rgba(159,207,227,1)"
+            },
+            {
+              "label": "360",
+              "color": "rgba(191,227,239,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "3.84",
+              "color": "rgba(224,243,247,1)"
+            },
+            {
+              "label": "3.73",
+              "color": "rgba(244,250,213,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "15.41",
+              "color": "rgba(252,166,93,1)"
+            },
+            {
+              "label": "13.3",
+              "color": "rgba(254,186,108,1)"
+            },
+            {
+              "label": "245",
+              "color": "rgba(159,207,227,1)"
+            },
+            {
+              "label": "350",
+              "color": "rgba(198,230,241,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "3.17",
+              "color": "rgba(255,253,187,1)"
+            },
+            {
+              "label": "4.22",
+              "color": "rgba(181,222,236,1)"
+            },
+            {
+              "label": "5",
+              "color": "rgba(129,183,215,1)"
+            },
+            {
+              "label": "14.5",
+              "color": "rgba(245,115,69,1)"
+            },
+            {
+              "label": "15.8",
+              "color": "rgba(254,219,139,1)"
+            },
+            {
+              "label": "264",
+              "color": "rgba(135,188,217,1)"
+            },
+            {
+              "label": "351",
+              "color": "rgba(197,230,240,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.845",
+              "color": "rgba(224,243,248,1)"
+            },
+            {
+              "label": "3.08",
+              "color": "rgba(254,199,120,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.05",
+              "color": "rgba(255,233,158,1)"
+            },
+            {
+              "label": "19.2",
+              "color": "rgba(255,248,180,1)"
+            },
+            {
+              "label": "175",
+              "color": "rgba(237,247,228,1)"
+            },
+            {
+              "label": "400",
+              "color": "rgba(164,211,230,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "2",
+              "color": "rgba(255,231,154,1)"
+            },
+            {
+              "label": "3.44",
+              "color": "rgba(245,251,212,1)"
+            },
+            {
+              "label": "3.15",
+              "color": "rgba(255,209,130,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.02",
+              "color": "rgba(255,233,157,1)"
+            },
+            {
+              "label": "18.7",
+              "color": "rgba(255,244,174,1)"
+            },
+            {
+              "label": "175",
+              "color": "rgba(237,247,228,1)"
+            },
+            {
+              "label": "360",
+              "color": "rgba(191,227,239,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "5.25",
+              "color": "rgba(106,160,202,1)"
+            },
+            {
+              "label": "2.93",
+              "color": "rgba(253,177,100,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.98",
+              "color": "rgba(252,254,198,1)"
+            },
+            {
+              "label": "10.4",
+              "color": "rgba(249,142,82,1)"
+            },
+            {
+              "label": "205",
+              "color": "rgba(207,235,243,1)"
+            },
+            {
+              "label": "472",
+              "color": "rgba(115,171,208,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "5.424",
+              "color": "rgba(93,144,194,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,187,109,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.82",
+              "color": "rgba(255,254,190,1)"
+            },
+            {
+              "label": "10.4",
+              "color": "rgba(249,142,82,1)"
+            },
+            {
+              "label": "215",
+              "color": "rgba(195,229,240,1)"
+            },
+            {
+              "label": "460",
+              "color": "rgba(123,178,212,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(254,211,131,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "4",
+              "color": "rgba(217,239,246,1)"
+            },
+            {
+              "label": "5.345",
+              "color": "rgba(99,151,198,1)"
+            },
+            {
+              "label": "3.23",
+              "color": "rgba(254,221,141,1)"
+            },
+            {
+              "label": "3",
+              "color": "rgba(254,202,123,1)"
+            },
+            {
+              "label": "17.42",
+              "color": "rgba(255,243,173,1)"
+            },
+            {
+              "label": "14.7",
+              "color": "rgba(255,205,125,1)"
+            },
+            {
+              "label": "230",
+              "color": "rgba(177,220,235,1)"
+            },
+            {
+              "label": "440",
+              "color": "rgba(137,189,218,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(194,228,239,1)"
+            },
+            {
+              "label": "1",
+              "color": "rgba(179,221,235,1)"
+            },
+            {
+              "label": "0",
+              "color": "rgba(255,207,127,1)"
+            },
+            {
+              "label": "8",
+              "color": "rgba(49,54,149,1)"
+            },
+            {
+              "label": "3.57",
+              "color": "rgba(239,248,223,1)"
+            },
+            {
+              "label": "3.54",
+              "color": "rgba(255,250,183,1)"
+            },
+            {
+              "label": "5",
+              "color": "rgba(129,183,215,1)"
+            },
+            {
+              "label": "14.6",
+              "color": "rgba(246,121,72,1)"
+            },
+            {
+              "label": "15",
+              "color": "rgba(255,208,129,1)"
+            },
+            {
+              "label": "335",
+              "color": "rgba(65,100,171,1)"
+            },
+            {
+              "label": "301",
+              "color": "rgba(228,244,241,1)"
+            }
+          ],
+          "data": [
+            0.56703941946986,
+            1.0148821495606,
+            2.7465668247141,
+            0.36051644609311,
+            3.2116766170377,
+            -0.1057878239476,
+            1.778927579564,
+            1.1899014180239,
+            -0.84464391529564,
+            -0.86802777733332,
+            -1.8180487966121,
+            0.97046468122084,
+            1.0148821495606,
+            1.7110208861561,
+            -0.048290296464634,
+            0.73520308100862,
+            1.1660039158865,
+            1.778927579564,
+            1.1899014180239,
+            -0.71190674996987,
+            -0.86802777733332,
+            -1.8740102832335,
+            -0.6916473971932,
+            -0.10498780857524,
+            0.41294217444257,
+            -0.45709703902238,
+            1.9734398490231,
+            0.043834733679944,
+            1.778927579564,
+            1.1899014180239,
+            -0.064813069006725,
+            -0.86802777733332,
+            -1.3143954170197,
+            -0.5706198186679,
+            -0.10498780857524,
+            -0.53509283973022,
+            -0.34978526910097,
+            0.73520308100862,
+            0.56751368537634,
+            0.42355418561047,
+            1.1899014180239,
+            0.15088482464766,
+            -0.86802777733332,
+            -0.46378082037469,
+            -0.5706198186679,
+            -0.10498780857524,
+            -0.53509283973022,
+            -0.61039956748154,
+            0.73520308100862,
+            0.56751368537634,
+            0.42355418561047,
+            1.1899014180239,
+            0.15088482464766,
+            -0.86802777733332,
+            -0.77716514545442,
+            1.849931751838,
+            1.0148821495606,
+            0.99634833701044,
+            2.2553356978483,
+            0.73520308100862,
+            -1.1157400879335,
+            -0.93181920834303,
+            -0.81414307549007,
+            -1.6078826159188,
+            -0.86802777733332,
+            -0.016088927403646,
+            1.9467538146582,
+            1.0148821495606,
+            0.85049679636847,
+            2.0775047648357,
+            0.73520308100862,
+            -1.2466598258576,
+            -0.93181920834303,
+            -0.81414307549007,
+            -1.6078826159188,
+            -0.86802777733332,
+            0.073449451190563,
+            1.6885616471376,
+            1.0148821495606,
+            1.2151256479734,
+            2.1745963661931,
+            0.73520308100862,
+            -0.68557523475432,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.89442035229281,
+            -0.86802777733332,
+            -0.23993487388917,
+            0.96239617598583,
+            1.0148821495606,
+            1.4339029589363,
+            0.63646099731959,
+            0.73520308100862,
+            0.24956575041781,
+            -0.93181920834303,
+            -0.81414307549007,
+            -1.1267103916129,
+            -0.86802777733332,
+            -1.3647607549789,
+            1.043081228336,
+            1.0148821495606,
+            1.4339029589363,
+            0.36051644609311,
+            0.73520308100862,
+            -0.72298087416121,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.9607889349557,
+            -0.86802777733332,
+            -1.124126362507,
+            0.36371308754737,
+            1.0148821495606,
+            0.48586794476355,
+            0.57513998593593,
+            0.11608469700136,
+            -0.98482035000941,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.8114596239642,
+            -0.86802777733332,
+            0.084641748514839,
+            0.36371308754737,
+            1.0148821495606,
+            0.48586794476355,
+            0.8715248742903,
+            0.11608469700136,
+            -0.98482035000941,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.61235387597554,
+            -0.86802777733332,
+            -0.25112717121345,
+            0.36371308754737,
+            1.0148821495606,
+            0.48586794476355,
+            0.52403914311621,
+            0.11608469700136,
+            -0.98482035000941,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.46302456498405,
+            -0.86802777733332,
+            -0.13920419797068,
+            1.3658214377368,
+            1.0148821495606,
+            0.41294217444257,
+            0.64157108160156,
+            -0.5030336870059,
+            -0.96611753030596,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.14777379733533,
+            -0.86802777733332,
+            -0.44699237438828,
+            1.043081228336,
+            1.0148821495606,
+            0.41294217444257,
+            0.22765425476185,
+            -0.5030336870059,
+            -0.83519779238186,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.23073452566394,
+            -0.86802777733332,
+            -0.46378082037469,
+            0.59124493517492,
+            1.0148821495606,
+            0.048313322837652,
+            0.22254417047987,
+            -0.5030336870059,
+            -0.83519779238186,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.8114596239642,
+            -0.86802777733332,
+            -0.30708865783482,
+            0.7042040084652,
+            1.0148821495606,
+            0.048313322837652,
+            0.3094156032734,
+            -0.5030336870059,
+            -1.5646077608161,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.76168318696704,
+            -0.86802777733332,
+            -0.54772305030676,
+            -1.2507948099801,
+            -1.2248577667111,
+            -1.3810317754536,
+            -1.6375265081579,
+            -0.5030336870059,
+            2.4939041148309,
+            0.42355418561047,
+            1.1899014180239,
+            1.7105465172255,
+            1.1160357137143,
+            0.37564147894602,
+            -1.2879099340611,
+            -1.2248577667111,
+            -1.1914247726191,
+            -1.4126827997511,
+            -1.1221520710132,
+            1.1660039158865,
+            0.42355418561047,
+            1.1899014180239,
+            2.2912716155257,
+            1.1160357137143,
+            1.1479099943211,
+            -1.226589294275,
+            -1.2248577667111,
+            -1.1768396185549,
+            -1.0396466471672,
+            -1.1221520710132,
+            0.90416444003831,
+            0.42355418561047,
+            1.1899014180239,
+            2.0423894305399,
+            1.1160357137143,
+            0.90727560184913,
+            -1.2241687427045,
+            -1.2248577667111,
+            -1.1768396185549,
+            -1.3104811141117,
+            -1.1221520710132,
+            0.90416444003831,
+            0.42355418561047,
+            1.1899014180239,
+            1.1961900015881,
+            1.1160357137143,
+            0.58829512810726,
+            -0.88529152283367,
+            -1.2248577667111,
+            -0.54967799379441,
+            -0.44687687045844,
+            -0.5030336870059,
+            0.96027289914864,
+            0.42355418561047,
+            1.1899014180239,
+            0.21725340731054,
+            1.1160357137143,
+            0.42041066824312,
+            -0.99018209088892,
+            -1.2248577667111,
+            -0.78304045882156,
+            -0.91700462439985,
+            -1.1221520710132,
+            0.47399958685913,
+            0.42355418561047,
+            1.1899014180239,
+            0.44954344663065,
+            1.1160357137143,
+            0.42600681690526,
+            -1.0942658084207,
+            -1.2248577667111,
+            -0.49133737753763,
+            -1.7417722275101,
+            -0.5030336870059,
+            0.32437702923158,
+            1.778927579564,
+            1.1899014180239,
+            1.7105465172255,
+            1.1160357137143,
+            -0.53093460432035,
+            -0.89093947649818,
+            -1.2248577667111,
+            -0.81221076694995,
+            -1.1009676585508,
+            -0.5030336870059,
+            1.5587631296588,
+            1.778927579564,
+            1.1899014180239,
+            0.98049210793374,
+            -0.86802777733332,
+            -0.64285757756311,
+            -0.50929917888176,
+            -0.10498780857524,
+            -0.34548583689566,
+            0.22765425476185,
+            0.73520308100862,
+            0.60491932478322,
+            0.42355418561047,
+            -0.81414307549007,
+            -0.38006383665544,
+            1.1160357137143,
+            0.58829512810726,
+            -0.50929917888176,
+            -0.10498780857524,
+            -0.34548583689566,
+            0.22765425476185,
+            0.73520308100862,
+            0.60491932478322,
+            0.42355418561047,
+            -0.81414307549007,
+            -0.14777379733533,
+            1.1160357137143,
+            0.25252620837898,
+            -0.72553511918028,
+            -1.2248577667111,
+            -0.75387015069317,
+            -0.068730633592521,
+            -0.5030336870059,
+            0.60491932478322,
+            0.42355418561047,
+            -0.81414307549007,
+            0.44954344663065,
+            1.1160357137143,
+            2.8267545929625,
+            -0.67793093829367,
+            -1.2248577667111,
+            -1.2351802348117,
+            -0.027849959336746,
+            -0.5030336870059,
+            0.17475447160404,
+            0.42355418561047,
+            -0.81414307549007,
+            0.71501777728219,
+            1.1160357137143,
+            1.2038714809425,
+            -0.89255317754519,
+            -1.2248577667111,
+            -0.72469984256478,
+            -0.76881218022266,
+            -1.1221520710132,
+            0.19345729130749,
+            -0.93181920834303,
+            -0.81414307549007,
+            0.23384555297626,
+            1.1160357137143,
+            1.2094676296046,
+            0.22009369436402,
+            -0.10498780857524,
+            -0.53509283973022,
+            -0.0022995379268874,
+            -1.1221520710132,
+            -0.96611753030596,
+            -0.93181920834303,
+            -0.81414307549007,
+            0.21725340731054,
+            1.1160357137143,
+            0.89048715586272,
+            -0.046166978391628,
+            -0.10498780857524,
+            -0.6080186100512,
+            0.24809459188973,
+            -1.1221520710132,
+            -1.5646077608161,
+            -0.93181920834303,
+            -0.81414307549007,
+            -0.33028739965827,
+            1.1160357137143,
+            1.3269867515095
+          ],
+          "dim": [
+            32,
+            11
+          ],
+          "rows": [
+            "Maserati Bora",
+            "Ford Pantera L",
+            "Ferrari Dino",
+            "Mazda RX4 Wag",
+            "Mazda RX4",
+            "Lincoln Continental",
+            "Cadillac Fleetwood",
+            "Chrysler Imperial",
+            "Camaro Z28",
+            "Duster 360",
+            "Merc 450SLC",
+            "Merc 450SE",
+            "Merc 450SL",
+            "Pontiac Firebird",
+            "Hornet Sportabout",
+            "AMC Javelin",
+            "Dodge Challenger",
+            "Honda Civic",
+            "Toyota Corolla",
+            "Fiat 128",
+            "Fiat X1-9",
+            "Volvo 142E",
+            "Datsun 710",
+            "Lotus Europa",
+            "Porsche 914-2",
+            "Merc 280C",
+            "Merc 280",
+            "Merc 230",
+            "Merc 240D",
+            "Toyota Corona",
+            "Hornet 4 Drive",
+            "Valiant"
+          ],
+          "cols": [
+            "disp",
+            "cyl",
+            "hp",
+            "wt",
+            "carb",
+            "drat",
+            "gear",
+            "am",
+            "mpg",
+            "vs",
+            "qsec"
+          ],
+          "colors": [
+            "#F7FCF5",
+            "#F6FBF3",
+            "#F4FBF2",
+            "#F3FAF0",
+            "#F1FAEE",
+            "#F0F9EC",
+            "#EEF9EB",
+            "#EDF8E9",
+            "#EBF7E7",
+            "#EAF7E6",
+            "#E8F6E4",
+            "#E7F6E2",
+            "#E6F5E1",
+            "#E3F4DE",
+            "#E1F3DC",
+            "#DFF2D9",
+            "#DCF2D7",
+            "#DAF1D4",
+            "#D7F0D1",
+            "#D5EFCF",
+            "#D3EECC",
+            "#D0EDCA",
+            "#CEECC7",
+            "#CBEBC4",
+            "#C9EAC2",
+            "#C6E9BF",
+            "#C3E7BC",
+            "#C0E6B9",
+            "#BDE5B6",
+            "#BAE4B3",
+            "#B7E2B0",
+            "#B4E1AD",
+            "#B1E0AA",
+            "#AEDEA7",
+            "#ABDDA4",
+            "#A8DCA1",
+            "#A5DA9E",
+            "#A1D99B",
+            "#9ED898",
+            "#9AD695",
+            "#97D492",
+            "#93D28F",
+            "#90D18C",
+            "#8CCF89",
+            "#88CD86",
+            "#85CC83",
+            "#81CA80",
+            "#7DC87D",
+            "#7AC77A",
+            "#76C577",
+            "#72C375",
+            "#6EC173",
+            "#6ABF71",
+            "#67BD6F",
+            "#63BB6D",
+            "#5FB96B",
+            "#5BB769",
+            "#57B567",
+            "#52B365",
+            "#4EB163",
+            "#4AAF61",
+            "#45AD5F",
+            "#41AB5D",
+            "#3EA85B",
+            "#3CA559",
+            "#3AA357",
+            "#37A055",
+            "#359E53",
+            "#339B51",
+            "#30984F",
+            "#2E964D",
+            "#2B934B",
+            "#299149",
+            "#268E47",
+            "#248C45",
+            "#218943",
+            "#1F8741",
+            "#1D843F",
+            "#1A823D",
+            "#187F3B",
+            "#157D39",
+            "#137A37",
+            "#107835",
+            "#0C7633",
+            "#097331",
+            "#05712F",
+            "#026E2D",
+            "#006C2B",
+            "#00682A",
+            "#006529",
+            "#006127",
+            "#005E26",
+            "#005B24",
+            "#005723",
+            "#005422",
+            "#005120",
+            "#004E1F",
+            "#004A1E",
+            "#00471C",
+            "#00441B"
+          ],
+          "domain": [
+            -1.8740102832335,
+            -1.8226397084833,
+            -1.771269133733,
+            -1.7198985589828,
+            -1.6685279842326,
+            -1.6171574094824,
+            -1.5657868347322,
+            -1.514416259982,
+            -1.4630456852318,
+            -1.4116751104816,
+            -1.3603045357313,
+            -1.3089339609811,
+            -1.2575633862309,
+            -1.2061928114807,
+            -1.1548222367305,
+            -1.1034516619803,
+            -1.0520810872301,
+            -1.0007105124799,
+            -0.94933993772963,
+            -0.89796936297942,
+            -0.84659878822921,
+            -0.79522821347899,
+            -0.74385763872878,
+            -0.69248706397857,
+            -0.64111648922835,
+            -0.58974591447814,
+            -0.53837533972792,
+            -0.48700476497771,
+            -0.4356341902275,
+            -0.38426361547728,
+            -0.33289304072707,
+            -0.28152246597686,
+            -0.23015189122664,
+            -0.17878131647643,
+            -0.12741074172621,
+            -0.076040166976001,
+            -0.024669592225787,
+            0.026700982524426,
+            0.07807155727464,
+            0.12944213202485,
+            0.18081270677507,
+            0.23218328152528,
+            0.2835538562755,
+            0.33492443102571,
+            0.38629500577592,
+            0.43766558052614,
+            0.48903615527635,
+            0.54040673002656,
+            0.59177730477678,
+            0.64314787952699,
+            0.69451845427721,
+            0.74588902902742,
+            0.79725960377763,
+            0.84863017852785,
+            0.90000075327806,
+            0.95137132802827,
+            1.0027419027785,
+            1.0541124775287,
+            1.1054830522789,
+            1.1568536270291,
+            1.2082242017793,
+            1.2595947765296,
+            1.3109653512798,
+            1.36233592603,
+            1.4137065007802,
+            1.4650770755304,
+            1.5164476502806,
+            1.5678182250308,
+            1.619188799781,
+            1.6705593745313,
+            1.7219299492815,
+            1.7733005240317,
+            1.8246710987819,
+            1.8760416735321,
+            1.9274122482823,
+            1.9787828230325,
+            2.0301533977828,
+            2.081523972533,
+            2.1328945472832,
+            2.1842651220334,
+            2.2356356967836,
+            2.2870062715338,
+            2.338376846284,
+            2.3897474210343,
+            2.4411179957845,
+            2.4924885705347,
+            2.5438591452849,
+            2.5952297200351,
+            2.6466002947853,
+            2.6979708695355,
+            2.7493414442857,
+            2.800712019036,
+            2.8520825937862,
+            2.9034531685364,
+            2.9548237432866,
+            3.0061943180368,
+            3.057564892787,
+            3.1089354675373,
+            3.1603060422875,
+            3.2116766170377
+          ]
+        },
+        "theme": null,
+        "options": {
+          "xaxis_height": 120,
+          "yaxis_width": 120,
+          "xaxis_font_size": null,
+          "yaxis_font_size": null,
+          "brush_color": "#0000FF",
+          "show_grid": true,
+          "anim_duration": 500
+        }
+      },
+      "evals": [
+        
+      ]
+    };
+    var el = document.getElementById("heatmap");
+    heatmap(el, data.x, {});
+  </script>
+</body>
+</html>

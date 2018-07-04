@@ -1,7 +1,10 @@
 ---
 myimage1: "DensitySmall.png"
 myimage2: "Box1Small.png"
-mytitle: "Relationship between apartment prices and ground living area."
+myimage3: "ScatterPlotSmall.png"
+myimage4: "2dDensitySmall.png"
+mytitle: "Apartment price vs ground living area."
+mydisqus: "TwoNum"
 output:
   html_document:
       self_contained: false    
@@ -47,7 +50,7 @@ library(ggExtra)
 library(patchwork)
 
 # Load dataset from github
-data <- read.table("~/Downloads/train.csv", header=T, sep=",") %>% select(GrLivArea, SalePrice)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", header=T, sep=",") %>% select(GrLivArea, SalePrice)
 
 # show data
 data %>% head(6) %>% kable() %>%
