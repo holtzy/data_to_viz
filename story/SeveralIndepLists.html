@@ -254,7 +254,7 @@ $(document).ready(function () {
 <span class="kw">library</span>(proustr)
 
 <span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>) 
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/8_SeveralIndepLists.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>) 
 to_remove &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;_|[0-9]|</span><span class="ch">\\</span><span class="st">.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist&quot;</span>)
 data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">grepl</span>(to_remove, word)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">stopwords</span>(<span class="st">&#39;fr&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">proust_stopwords</span>()<span class="op">$</span>word)
 
@@ -275,32 +275,32 @@ booba
 <tbody>
 <tr>
 <td style="text-align:left;">
-claque
+j’ai
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-d’or
+booba
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lyrics
+complete
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-porsche
+faire
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-prend
+l’illicite
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-above
+croire
 </td>
 </tr>
 </tbody>
@@ -318,32 +318,32 @@ nekfeu
 <tbody>
 <tr>
 <td style="text-align:left;">
-mèche
+tour
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-traitres
+fuck
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-princesse
+années
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-equimoses
+rester
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-venu
+t’aurais
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-anneaux
+showads
 </td>
 </tr>
 </tbody>
@@ -361,22 +361,17 @@ brassens
 <tbody>
 <tr>
 <td style="text-align:left;">
-camarde
+envierez
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-déplaise
+cabaret
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-charme
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-brassens
+titis
 </td>
 </tr>
 <tr>
@@ -386,7 +381,12 @@ lyrics
 </tr>
 <tr>
 <td style="text-align:left;">
-j’suis
+trempe
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+above
 </td>
 </tr>
 </tbody>
@@ -396,11 +396,11 @@ j’suis
 <div id="wordcloud" class="section level1">
 <h1>Wordcloud</h1>
 <hr />
-<p>If some words are repeated in the dataset, the first thing to do is probably to find out what are the most frequent ones. A common way to do so is to build a <a href="">wordcloud</a>: each word is written with a size proportionnal to its frequency.</p>
+<p>If some words are repeated in the dataset, the first thing to do is probably to find out what are the most frequent ones. A common way to do so is to build a <a href="https://www.data-to-viz.com/graph/wordcloud.html">wordcloud</a>: each word is written with a size proportionnal to its frequency.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># The wordcloud 2 library is the best option for wordcloud in R</span>
-<span class="kw">library</span>(wordcloud2)</code></pre></div>
-<pre><code>## Warning: package &#39;wordcloud2&#39; was built under R version 3.4.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prepare a list of word (50 most frequent)</span>
+<span class="kw">library</span>(wordcloud2)
+
+<span class="co"># prepare a list of word (50 most frequent)</span>
 mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;nekfeu&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(word) <span class="op">%&gt;%</span>
@@ -412,14 +412,14 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="co"># Make the plot</span>
 <span class="kw">wordcloud2</span>(mywords, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">minRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>, <span class="dt">maxRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>,
          <span class="dt">backgroundColor =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
-<div id="htmlwidget-7ef7b7fa6543eba3b764" style="width:672px;height:576px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-7ef7b7fa6543eba3b764">{"x":{"word":["années","d'où","dure","équipe","faut","faux","feel","j'étais","juge","mettre","ossature","reufs","sors","t'as","vie","when","cyborg","douceur","frères","hey","know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":14.4,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
-<p>However this type of chart can be criticized since it does not reflect frequencies accurately: long words appear bigger and comparing size is always complicated. Thus, the techniques seen in <a href="">this page</a> are strongly advised, and my best choice goes to the lollipop chart.</p>
+<div id="htmlwidget-90c115a68846f2d77227" style="width:672px;height:576px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-90c115a68846f2d77227">{"x":{"word":["années","d'où","dure","équipe","faut","faux","feel","j'étais","juge","mettre","ossature","reufs","sors","t'as","vie","when","cyborg","douceur","frères","hey","know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":14.4,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<p>However this type of chart can be <a href="https://www.data-to-viz.com/graph/wordcloud.html">criticized</a> since it does not reflect frequencies accurately: long words appear bigger and comparing size is always complicated. Thus, the techniques seen in <a href="https://www.data-to-viz.com/story/OneNumOneCat.html">this page</a> are strongly advised, and my best choice goes to the lollipop chart.</p>
 </div>
 <div id="lollipop-chart" class="section level1">
 <h1>Lollipop chart</h1>
 <hr />
-<p>A <a href="">lollipop</a> chart is like a <a href="">barplot</a>, but the bar is replaced by a segment and a circle. It gives a lighter appearance. It is advised to use a horizontal version: words are easier to read.</p>
+<p>A <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> chart is like a <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a>, but the bar is replaced by a segment and a circle. It gives a lighter appearance. It is advised to use a horizontal version: words are easier to read.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;nekfeu&quot;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(word) <span class="op">%&gt;%</span>
@@ -445,7 +445,7 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <div id="venn-diagram" class="section level1">
 <h1>Venn diagram</h1>
 <hr />
-<p>Once the most frequent words are known, it is of interest to know how many words are common to every lists, and how many are specific to each artist. The best way to represent this information is to use a <a href="">venn diagram</a>.</p>
+<p>Once the most frequent words are known, it is of interest to know how many words are common to every lists, and how many are specific to each artist. The best way to represent this information is to use a <a href="https://www.data-to-viz.com/graph/venn.html">venn diagram</a>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#upload library</span>
 <span class="kw">library</span>(VennDiagram)
  
@@ -480,31 +480,16 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <center>
 <img src="venn.png" />
 </center>
-<p>–&gt; this goes further than simple data visualization. Must be kept for a blogpost instead.</p>
 </div>
-<div id="comparing-frequencies" class="section level1">
-<h1>Comparing frequencies</h1>
+<div id="note" class="section level1">
+<h1>Note</h1>
 <hr />
-<p>Heatmap to compare the most frequent terms?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">don &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(word, artist) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key=</span>artist, <span class="dt">value=</span>n) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">rowwise</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">total=</span><span class="kw">sum</span>(booba, nekfeu, <span class="st">`</span><span class="dt">georges-brassens</span><span class="st">`</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(total<span class="op">&gt;</span><span class="dv">5</span>)
-
-don <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(booba, <span class="st">`</span><span class="dt">georges-brassens</span><span class="st">`</span>, nekfeu) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">cor</span>()</code></pre></div>
-<pre><code>##                      booba georges-brassens    nekfeu
-## booba            1.0000000        0.5909606 0.6741864
-## georges-brassens 0.5909606        1.0000000 0.6023445
-## nekfeu           0.6741864        0.6023445 1.0000000</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#don </span>
-<span class="co">#heatmap(don) </span></code></pre></div>
-<p>NOTE:</p>
-<p><a href="https://rcrastinate.blogspot.com" class="uri">https://rcrastinate.blogspot.com</a> Several ides to go further.</p>
+<p>This section needs improvements:</p>
+<ul>
+<li>introduction of upset plot</li>
+<li>same number of word per artist</li>
+<li>more ideas to come</li>
+</ul>
 </div>
 
 
