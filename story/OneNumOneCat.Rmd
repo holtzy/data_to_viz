@@ -2,6 +2,9 @@
 myimage1: "Bar150.png"
 myimage2: "CircularBarplot150.png"
 myimage3: "Lollipop150.png"
+myimage4: "Tree150.png"
+myimage5: "CircularPacking150.png"
+mydisqus: "OneNumOneCat"
 mytitle: "Who sells more weapons?"
 output:
   html_document:
@@ -66,7 +69,7 @@ data %>% head(6) %>% kable() %>%
 #Lollipop
 ***
 
-Even if the most common way to represent this kind of information is probably to use barplots, lollipop can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
+Even if the most common way to represent this kind of information is probably to use [barplots](https://www.data-to-viz.com/graph/barplot.html), [lollipop](https://www.data-to-viz.com/graph/lollipop.html) can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
 
 
 Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.
@@ -94,7 +97,7 @@ data %>%
 #Barplot
 ***
 
-Here is the barplot version that looks very similar to the lollipop. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.
+Here is the [barplot](https://www.data-to-viz.com/graph/barplot.html) version that looks very similar to the [lollipop](https://www.data-to-viz.com/graph/lollipop.html). This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.
 ```{r, fig.align="center", fig.height=7, warning=FALSE}
 data %>%
   filter(!is.na(Value)) %>%
@@ -113,9 +116,11 @@ data %>%
 ```
 
 
+
+
 #Circular barplot
 ***
-The [circular barplot]() is an alternative to the barplot, where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if significant differences exist between group.
+The [circular barplot](https://www.data-to-viz.com/graph/circularbarplot.html) is an alternative to the [barplots](https://www.data-to-viz.com/graph/barplot.html), where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if obvious differences exist between group.
 ```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
 # Order data
 tmp <- data %>%
@@ -157,14 +162,14 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
   geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
 ```
 
-Please not that in this case the circular barplot do not look very good due to a lot of very small values that are hardly visible on the chart.
+Please note that in this case the [circular barplot](https://www.data-to-viz.com/graph/circularbarplot.html) do not look very good due to a lot of very small values that are hardly visible on the chart.
 
 
 
 
 #Treemap
 ***
-A [treemap]() represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
+A [treemap](https://www.data-to-viz.com/graph/treemap.html) represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
 It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.
 ```{r, fig.align="center", fig.width=9}
 # Package
@@ -203,7 +208,7 @@ treemap(data,
 # Circle packing
 ***
 
-Circle packing is the circular version of the treemap. Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.
+[Circle packing](https://www.data-to-viz.com/graph/circularpacking.html) is the circular version of the [treemap](https://www.data-to-viz.com/graph/treemap.html). Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.
 
 ```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
 # Libraries
@@ -230,15 +235,9 @@ ggraph(mygraph, layout = 'circlepack', weight="Value") +
     legend.position="none"
   )
 
-
-
 ```
 
 
-
-
-
-</div>
 
 
 

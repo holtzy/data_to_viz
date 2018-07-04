@@ -53,7 +53,7 @@
 
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/.Box1Small.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
   
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
   
@@ -242,9 +242,8 @@ $(document).ready(function () {
 <div class="mycontent">
 
 
-<p>This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous mtcars dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for about 32 car models.</p>
+<p>This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html">mtcars</a> dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for 32 car models.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="co"># Libraries</span>
 <span class="kw">library</span>(tidyverse)
 <span class="kw">library</span>(hrbrthemes)
 <span class="kw">library</span>(viridis)
@@ -256,8 +255,13 @@ $(document).ready(function () {
 <span class="kw">library</span>(kableExtra)
 <span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
 
-<span class="co"># This dataset is available in R by default</span>
-data &lt;-<span class="st"> </span>mtcars
+<span class="co"># This dataset is available in R by default, and on the datatoviz github repo</span>
+data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/6_SeveralNum.csv&quot;</span>, <span class="dt">header=</span>T)
+<span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data[,<span class="dv">1</span>]
+data &lt;-<span class="st"> </span>data[,<span class="op">-</span><span class="dv">1</span>]
+
+<span class="co"># Save it at .csv for the github repo</span>
+<span class="co">#write.csv(mtcars, file=&quot;../Example_dataset/6_SeveralNum.csv&quot;, quote=F)</span>
 
 <span class="co"># show data</span>
 data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
@@ -534,9 +538,9 @@ Valiant
 </tbody>
 </table>
 <div id="check-distribution" class="section level1">
-<h1>- Check distribution</h1>
+<h1>Check distribution</h1>
 <hr />
-<p>In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a <a href="">violin plot</a>, a <a href="">boxplot</a> or a <a href="">ridgeline plot</a> if your variables are all on the same scale. In the case of the <code>mtcars</code> dataset the variables are completely different one to each other so it make more sense to make an histogram for each of them:</p>
+<p>In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a <a href="https://www.data-to-viz.com/graph/violin.html">violin plot</a>, a <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a> or a <a href="https://www.data-to-viz.com/graph/ridgeline.html">ridgeline plot</a> if your variables are all on the same scale. In the case of the <code>mtcars</code> dataset the variables are completely different one to each other so it make more sense to make an <a href="https://www.data-to-viz.com/graph/histogram.html">histogram</a> for each of them:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Keep the numeric variables of the mtcars dataset</span>
 data &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( disp, drat, hp, mpg, qsec, wt)
 
@@ -551,578 +555,21 @@ data <span class="op">%&gt;%</span>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlogram" class="section level1">
-<h1>- Correlogram</h1>
+<h1>Correlogram</h1>
 <hr />
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatterplotMatrix</span>(<span class="op">~</span>mpg<span class="op">+</span>disp<span class="op">+</span>drat<span class="op">+</span>hp<span class="op">+</span>qsec<span class="op">+</span>wt, <span class="dt">data=</span>data , <span class="dt">reg.line=</span><span class="st">&quot;&quot;</span> , <span class="dt">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">id.col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">smoother=</span><span class="st">&quot;&quot;</span> , <span class="dt">smoother.args=</span><span class="kw">list</span>(<span class="dt">col=</span><span class="st">&quot;grey&quot;</span>) , <span class="dt">cex=</span><span class="fl">1.5</span> , <span class="dt">pch=</span><span class="dv">20</span> )</code></pre></div>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;reg.line&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;id.col&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...): &quot;smoother&quot; is
-## not a graphical parameter</code></pre>
-<pre><code>## Warning in axis(side = side, at = at, labels = labels, ...):
-## &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.window(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in plot.xy(xy, type, ...): &quot;smoother.args&quot; is not a graphical
-## parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;reg.line&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;id.col&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother&quot; is not a graphical parameter</code></pre>
-<pre><code>## Warning in title(...): &quot;smoother.args&quot; is not a graphical parameter</code></pre>
-<p><img src="SeveralNum_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>A <a href="https://www.data-to-viz.com/graph/correlogram.html">correlogram</a> or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a scatterplot, or a symbol that represents the correlation (bubble, line, number..). The diagonal often represents the distribution of each variable, using an <a href="https://www.data-to-viz.com/graph/histogram.html">histogram</a> or a <a href="https://www.data-to-viz.com/graph/density.html">density plot</a>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatterplotMatrix</span>(<span class="op">~</span>mpg<span class="op">+</span>disp<span class="op">+</span>drat<span class="op">+</span>hp<span class="op">+</span>qsec<span class="op">+</span>wt, <span class="dt">data=</span>data , <span class="dt">reg.line=</span><span class="ot">FALSE</span>, <span class="dt">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">id.col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">smooth=</span><span class="ot">FALSE</span> , <span class="dt">cex=</span><span class="fl">1.5</span> , <span class="dt">pch=</span><span class="dv">20</span> )</code></pre></div>
+<p><img src="SeveralNum_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /> It is a powerful method that give a good overview of the dataset in an unique graphic. For instance, it is obvious that displacement (<code>disp</code>) and gross horsepower (<code>hp</code>) have a strong correlation.</p>
 </div>
 <div id="dendrogram" class="section level1">
-<h1>- Dendrogram</h1>
+<h1>Dendrogram</h1>
 <hr />
+<p>A <a href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a> can be used to check the result of a clustering algorythm on the dataset. Basically, the steps are:</p>
+<ul>
+<li>compute the distance between each pair of sample using <code>correlation</code> or <code>euclidean distance</code>.</li>
+<li>perform clustering on this matrix: it builds a hierarchy of clusters: groups sample that are close one from another</li>
+<li>show the result as a dendrogram:</li>
+</ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clusterisation using 3 variables</span>
 data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hclust</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.dendrogram</span>() -&gt;<span class="st"> </span>dend
 
@@ -1134,19 +581,24 @@ dend <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz=</span><span class="ot">TRUE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)
 <span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">350</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>Here, the dendrogram informs us that the Mercedes 280 and the Mercedes 280C have similar features, what makes sense. Basically, it gives an idea of group of cars that are similar one another.</p>
+<p>See more about it <a href="https://www.data-to-viz.com/graph/dendrogram.html">here</a>.</p>
 </div>
 <div id="heatmap" class="section level1">
-<h1>- Heatmap</h1>
+<h1>Heatmap</h1>
 <hr />
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(d3heatmap)</code></pre></div>
-<pre><code>## Warning: package &#39;d3heatmap&#39; was built under R version 3.4.3</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">d3heatmap</span>(data, <span class="dt">k_row =</span> <span class="dv">4</span>, <span class="dt">k_col =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="st">&quot;column&quot;</span>)</code></pre></div>
-<div id="htmlwidget-cc629e62d5f67b4f1825" style="width:768px;height:480px;" class="d3heatmap html-widget"></div>
-<script type="application/json" data-for="htmlwidget-cc629e62d5f67b4f1825">{"x":{"rows":{"members":32,"height":425.311735936125,"edgePar":{"col":""},"children":[{"members":23,"height":261.813598625052,"edgePar":{"col":""},"children":[{"members":16,"height":141.626800165082,"edgePar":{"col":"#CC476B"},"children":[{"members":12,"height":113.200756622913,"edgePar":{"col":"#CC476B"},"children":[{"members":11,"height":74.3151789946038,"edgePar":{"col":"#CC476B"},"children":[{"members":6,"height":50.089442690052,"edgePar":{"col":"#CC476B"},"children":[{"members":5,"height":33.1502322767126,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":20.6697677780859,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":13.0210176253625,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.2392126444218,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Toyota Corona","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Porsche 914-2","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Datsun 710","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Volvo 142E","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Merc 230","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Lotus Europa","edgePar":{"col":"#CC476B"}}]},{"members":5,"height":64.8281991111893,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":15.6085361261074,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":1.52315462117278,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Merc 280","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Merc 280C","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":0.61532511731604,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Mazda RX4 Wag","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Mazda RX4","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Merc 240D","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Ferrari Dino","edgePar":{"col":"#CC476B"}}]},{"members":4,"height":14.7468403395439,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":10.3922856003865,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":5.14734154685698,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Fiat 128","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Fiat X1-9","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Toyota Corolla","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Honda Civic","edgePar":{"col":"#CC476B"}}]}]},{"members":7,"height":103.402060424346,"edgePar":{"col":"#767F00"},"children":[{"members":5,"height":51.8146031539372,"edgePar":{"col":"#767F00"},"children":[{"members":3,"height":2.13834047803431,"edgePar":{"col":"#767F00"},"children":[{"members":2,"height":0.982649479723062,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Merc 450SL","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Merc 450SE","edgePar":{"col":"#767F00"}}]},{"members":1,"height":0,"label":"Merc 450SLC","edgePar":{"col":"#767F00"}}]},{"members":2,"height":14.0154994559595,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Dodge Challenger","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"AMC Javelin","edgePar":{"col":"#767F00"}}]}]},{"members":2,"height":33.5508692137775,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Hornet 4 Drive","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Valiant","edgePar":{"col":"#767F00"}}]}]}]},{"members":9,"height":214.887828645552,"edgePar":{"col":""},"children":[{"members":8,"height":134.793400802858,"edgePar":{"col":"#009681"},"children":[{"members":5,"height":101.694728108196,"edgePar":{"col":"#009681"},"children":[{"members":3,"height":21.1477114601084,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":10.0761202851097,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Duster 360","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Camaro Z28","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Ford Pantera L","edgePar":{"col":"#009681"}}]},{"members":2,"height":40.005247468301,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Pontiac Firebird","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Hornet Sportabout","edgePar":{"col":"#009681"}}]}]},{"members":3,"height":40.8399635773589,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":15.6224446230416,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Cadillac Fleetwood","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Lincoln Continental","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Chrysler Imperial","edgePar":{"col":"#009681"}}]}]},{"members":1,"height":0,"label":"Maserati Bora","edgePar":{"col":"#7866D8"}}]}]},"cols":{"members":6,"height":1459.40421703516,"edgePar":{"col":""},"children":[{"members":4,"height":102.877137742066,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.13964679823394,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"wt","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"drat","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":33.2610913831762,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"qsec","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"mpg","edgePar":{"col":"#CC476B"}}]}]},{"members":2,"height":656.640441946732,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"hp","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"disp","edgePar":{"col":"#009681"}}]}]},"matrix":{"data":["2.465","3.7","20.01","21.5","97","120.1","2.14","4.43","16.7","26","91","120.3","2.32","3.85","18.61","22.8","93","108","2.78","4.11","18.6","21.4","109","121","3.15","3.92","22.9","22.8","95","140.8","1.513","3.77","16.9","30.4","113","95.1","3.44","3.92","18.3","19.2","123","167.6","3.44","3.92","18.9","17.8","123","167.6","2.875","3.9","17.02","21","110","160","2.62","3.9","16.46","21","110","160","3.19","3.69","20","24.4","62","146.7","2.77","3.62","15.5","19.7","175","145","2.2","4.08","19.47","32.4","66","78.7","1.935","4.08","18.9","27.3","66","79","1.835","4.22","19.9","33.9","65","71.1","1.615","4.93","18.52","30.4","52","75.7","3.73","3.07","17.6","17.3","180","275.8","4.07","3.07","17.4","16.4","180","275.8","3.78","3.07","18","15.2","180","275.8","3.52","2.76","16.87","15.5","150","318","3.435","3.15","17.3","15.2","150","304","3.215","3.08","19.44","21.4","110","258","3.46","2.76","20.22","18.1","105","225","3.57","3.21","15.84","14.3","245","360","3.84","3.73","15.41","13.3","245","350","3.17","4.22","14.5","15.8","264","351","3.845","3.08","17.05","19.2","175","400","3.44","3.15","17.02","18.7","175","360","5.25","2.93","17.98","10.4","205","472","5.424","3","17.82","10.4","215","460","5.345","3.23","17.42","14.7","230","440","3.57","3.54","14.6","15","335","301"],"dim":[32,6],"rows":["Toyota Corona","Porsche 914-2","Datsun 710","Volvo 142E","Merc 230","Lotus Europa","Merc 280","Merc 280C","Mazda RX4 Wag","Mazda RX4","Merc 240D","Ferrari Dino","Fiat 128","Fiat X1-9","Toyota Corolla","Honda Civic","Merc 450SL","Merc 450SE","Merc 450SLC","Dodge Challenger","AMC Javelin","Hornet 4 Drive","Valiant","Duster 360","Camaro Z28","Ford Pantera L","Pontiac Firebird","Hornet Sportabout","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Maserati Bora"],"cols":["wt","drat","qsec","mpg","hp","disp"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAGCAYAAACij5zfAAACp0lEQVQokUXOXUyVdQDH8e/zHAOF0oYodGFIN10gsizNuYlr05i2Ni+0uXkT5pprqc1Bw6nzogUXOl9GL1QUNedqhbplOjYOeuEJlJa9ogy1Awc4vJw4nMN5eJ4Dz3n+vy7c6PZz9bF096S8yl1c7l/OzufTFPS3Q3oGJZN8mFfH8ed+pDN/P9smz8DcPBjD+EvHCVk+RiFK+8+j5DRWRSVhfxdrV+QoXJSgYCwMwyNYL2/lkVvN7m1fcf3mHkoHmlEohPPpDYKzbVgm1qz63s2c2tiNfr2Lt/0I4145JUtiPBkMwOw08jK4Ja8w7pVjW1Ce/Q7sEPIyWEueYij/DcoyXzO3cgN58Z/BBJDLESt5l7KBRuaqdi64taqSrCnmUv8K1j6zFCt3Ya/sF9dgPV2EKa3AtDazqPYtEn4VxdFWGBrmVmUTAlq+/Z2LZW3IN8j16d7ewqpli+mJTbOnrwH5hiDhcqXmEywbvvi8l4717cidZ/5+kh1jtVxqrabpWoKm+AfYy/Jh2HFkOg9K3lUp3qLR2ZT+9UYUGU099vT3Mg9PL3g0k5XpPCg/uC3Te2zBU9movBM7ZIbOS7+dVGAi+mvKkTN/T+b2USl5Uab3mAIT0T8znqSbMl2HZUdTPu6WAygxyGxxNUufGKew8W3+HkljrduAEjGs1VUsth2KHrTxbPgdsG2aI8VcW/4ejp9HfsihoLWevBdKODf4GuGiQ9jGo2/Cwdu3HwoLqeuqILzyCA/T61j9SwOMPcDatBUm3Ql93B39fxpvkWbaNelO6OqjhHY3dSn3zV7lgh65DTXqjqf05kcRvfr+Twqu7JPMDbkNNeqITunAl3f0+okOmb5GaeYHmVt1uvDnqOov/6Epb0Sau65k7WaZnqNav+UzDWay+g+2SqPnN+Eq8QAAAABJRU5ErkJggg==","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[],"jsHooks":[]}</script>
+<p>The <a href="https://www.data-to-viz.com/graph/heatmap.html">heatmap</a> is often used in complement of a dendrogram. It is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.</p>
+<p>In addition of a dendrogram, it allows to understand why samples ore features are grouped together.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(d3heatmap)
+<span class="kw">d3heatmap</span>(data, <span class="dt">k_row =</span> <span class="dv">4</span>, <span class="dt">k_col =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="st">&quot;column&quot;</span>)</code></pre></div>
+<div id="htmlwidget-b985c3521fc665b4e8bc" style="width:768px;height:480px;" class="d3heatmap html-widget"></div>
+<script type="application/json" data-for="htmlwidget-b985c3521fc665b4e8bc">{"x":{"rows":{"members":32,"height":425.311735936125,"edgePar":{"col":""},"children":[{"members":23,"height":261.813598625052,"edgePar":{"col":""},"children":[{"members":16,"height":141.626800165082,"edgePar":{"col":"#CC476B"},"children":[{"members":12,"height":113.200756622913,"edgePar":{"col":"#CC476B"},"children":[{"members":11,"height":74.3151789946038,"edgePar":{"col":"#CC476B"},"children":[{"members":6,"height":50.089442690052,"edgePar":{"col":"#CC476B"},"children":[{"members":5,"height":33.1502322767126,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":20.6697677780859,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":13.0210176253625,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.2392126444218,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Toyota Corona","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Porsche 914-2","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Datsun 710","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Volvo 142E","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Merc 230","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Lotus Europa","edgePar":{"col":"#CC476B"}}]},{"members":5,"height":64.8281991111893,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":15.6085361261074,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":1.52315462117278,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Merc 280","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Merc 280C","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":0.61532511731604,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Mazda RX4 Wag","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Mazda RX4","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Merc 240D","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Ferrari Dino","edgePar":{"col":"#CC476B"}}]},{"members":4,"height":14.7468403395439,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":10.3922856003865,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":5.14734154685698,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Fiat 128","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Fiat X1-9","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Toyota Corolla","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Honda Civic","edgePar":{"col":"#CC476B"}}]}]},{"members":7,"height":103.402060424346,"edgePar":{"col":"#767F00"},"children":[{"members":5,"height":51.8146031539372,"edgePar":{"col":"#767F00"},"children":[{"members":3,"height":2.13834047803431,"edgePar":{"col":"#767F00"},"children":[{"members":2,"height":0.982649479723062,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Merc 450SL","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Merc 450SE","edgePar":{"col":"#767F00"}}]},{"members":1,"height":0,"label":"Merc 450SLC","edgePar":{"col":"#767F00"}}]},{"members":2,"height":14.0154994559595,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Dodge Challenger","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"AMC Javelin","edgePar":{"col":"#767F00"}}]}]},{"members":2,"height":33.5508692137775,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Hornet 4 Drive","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Valiant","edgePar":{"col":"#767F00"}}]}]}]},{"members":9,"height":214.887828645552,"edgePar":{"col":""},"children":[{"members":8,"height":134.793400802858,"edgePar":{"col":"#009681"},"children":[{"members":5,"height":101.694728108196,"edgePar":{"col":"#009681"},"children":[{"members":3,"height":21.1477114601084,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":10.0761202851097,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Duster 360","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Camaro Z28","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Ford Pantera L","edgePar":{"col":"#009681"}}]},{"members":2,"height":40.005247468301,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Pontiac Firebird","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Hornet Sportabout","edgePar":{"col":"#009681"}}]}]},{"members":3,"height":40.8399635773589,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":15.6224446230416,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Cadillac Fleetwood","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Lincoln Continental","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Chrysler Imperial","edgePar":{"col":"#009681"}}]}]},{"members":1,"height":0,"label":"Maserati Bora","edgePar":{"col":"#7866D8"}}]}]},"cols":{"members":6,"height":1459.40421703516,"edgePar":{"col":""},"children":[{"members":4,"height":102.877137742066,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.13964679823394,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"wt","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"drat","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":33.2610913831762,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"qsec","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"mpg","edgePar":{"col":"#CC476B"}}]}]},{"members":2,"height":656.640441946732,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"hp","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"disp","edgePar":{"col":"#009681"}}]}]},"matrix":{"data":["2.465","3.7","20.01","21.5","97","120.1","2.14","4.43","16.7","26","91","120.3","2.32","3.85","18.61","22.8","93","108","2.78","4.11","18.6","21.4","109","121","3.15","3.92","22.9","22.8","95","140.8","1.513","3.77","16.9","30.4","113","95.1","3.44","3.92","18.3","19.2","123","167.6","3.44","3.92","18.9","17.8","123","167.6","2.875","3.9","17.02","21","110","160","2.62","3.9","16.46","21","110","160","3.19","3.69","20","24.4","62","146.7","2.77","3.62","15.5","19.7","175","145","2.2","4.08","19.47","32.4","66","78.7","1.935","4.08","18.9","27.3","66","79","1.835","4.22","19.9","33.9","65","71.1","1.615","4.93","18.52","30.4","52","75.7","3.73","3.07","17.6","17.3","180","275.8","4.07","3.07","17.4","16.4","180","275.8","3.78","3.07","18","15.2","180","275.8","3.52","2.76","16.87","15.5","150","318","3.435","3.15","17.3","15.2","150","304","3.215","3.08","19.44","21.4","110","258","3.46","2.76","20.22","18.1","105","225","3.57","3.21","15.84","14.3","245","360","3.84","3.73","15.41","13.3","245","350","3.17","4.22","14.5","15.8","264","351","3.845","3.08","17.05","19.2","175","400","3.44","3.15","17.02","18.7","175","360","5.25","2.93","17.98","10.4","205","472","5.424","3","17.82","10.4","215","460","5.345","3.23","17.42","14.7","230","440","3.57","3.54","14.6","15","335","301"],"dim":[32,6],"rows":["Toyota Corona","Porsche 914-2","Datsun 710","Volvo 142E","Merc 230","Lotus Europa","Merc 280","Merc 280C","Mazda RX4 Wag","Mazda RX4","Merc 240D","Ferrari Dino","Fiat 128","Fiat X1-9","Toyota Corolla","Honda Civic","Merc 450SL","Merc 450SE","Merc 450SLC","Dodge Challenger","AMC Javelin","Hornet 4 Drive","Valiant","Duster 360","Camaro Z28","Ford Pantera L","Pontiac Firebird","Hornet Sportabout","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Maserati Bora"],"cols":["wt","drat","qsec","mpg","hp","disp"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAGCAYAAACij5zfAAACp0lEQVQokUXOXUyVdQDH8e/zHAOF0oYodGFIN10gsizNuYlr05i2Ni+0uXkT5pprqc1Bw6nzogUXOl9GL1QUNedqhbplOjYOeuEJlJa9ogy1Awc4vJw4nMN5eJ4Dz3n+vy7c6PZz9bF096S8yl1c7l/OzufTFPS3Q3oGJZN8mFfH8ed+pDN/P9smz8DcPBjD+EvHCVk+RiFK+8+j5DRWRSVhfxdrV+QoXJSgYCwMwyNYL2/lkVvN7m1fcf3mHkoHmlEohPPpDYKzbVgm1qz63s2c2tiNfr2Lt/0I4145JUtiPBkMwOw08jK4Ja8w7pVjW1Ce/Q7sEPIyWEueYij/DcoyXzO3cgN58Z/BBJDLESt5l7KBRuaqdi64taqSrCnmUv8K1j6zFCt3Ya/sF9dgPV2EKa3AtDazqPYtEn4VxdFWGBrmVmUTAlq+/Z2LZW3IN8j16d7ewqpli+mJTbOnrwH5hiDhcqXmEywbvvi8l4717cidZ/5+kh1jtVxqrabpWoKm+AfYy/Jh2HFkOg9K3lUp3qLR2ZT+9UYUGU099vT3Mg9PL3g0k5XpPCg/uC3Te2zBU9movBM7ZIbOS7+dVGAi+mvKkTN/T+b2USl5Uab3mAIT0T8znqSbMl2HZUdTPu6WAygxyGxxNUufGKew8W3+HkljrduAEjGs1VUsth2KHrTxbPgdsG2aI8VcW/4ejp9HfsihoLWevBdKODf4GuGiQ9jGo2/Cwdu3HwoLqeuqILzyCA/T61j9SwOMPcDatBUm3Ql93B39fxpvkWbaNelO6OqjhHY3dSn3zV7lgh65DTXqjqf05kcRvfr+Twqu7JPMDbkNNeqITunAl3f0+okOmb5GaeYHmVt1uvDnqOov/6Epb0Sau65k7WaZnqNav+UzDWay+g+2SqPnN+Eq8QAAAABJRU5ErkJggg==","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[],"jsHooks":[]}</script>
+<p>The heatmap above allows to understand why cars are split in 2 main clusters. For instance the weight (<code>wt</code>) is much higher for the group on top than for the other.</p>
 </div>
 <div id="pca" class="section level1">
-<h1>- PCA</h1>
+<h1>PCA</h1>
 <hr />
+<p>The Principal Component Analysis is a statistical procedure that aims to summarize all the available numeric variables in a set of principal components.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myPCA &lt;-<span class="st"> </span><span class="kw">PCA</span>(data, <span class="dt">scale.unit=</span><span class="ot">TRUE</span>, <span class="dt">graph=</span>F)
 
 myPCA<span class="op">$</span>ind <span class="op">%&gt;%</span>
@@ -1156,14 +608,14 @@ myPCA<span class="op">$</span>ind <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">geom_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_label</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
-<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.4.4</code></pre>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot.PCA(myPCA, axes=c(1, 2), choix=&quot;var&quot;)</span></code></pre></div>
+<p><em>Note</em>: this section needs <code>improvement</code></p>
 </div>
 <div id="getting-a-correlation-matrix" class="section level1">
-<h1>- Getting a correlation matrix</h1>
+<h1>Getting a correlation matrix</h1>
 <hr />
-<p>It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an adjacency matrix. Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: how to visualize an adjacency matrix.</p>
+<p>It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">adjacency matrix</a>. Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">how to visualize an adjacency matrix</a>.</p>
 </div>
 
 
@@ -1173,7 +625,7 @@ myPCA<span class="op">$</span>ind <span class="op">%&gt;%</span>
 <p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/.Box1Small.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
   
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
   

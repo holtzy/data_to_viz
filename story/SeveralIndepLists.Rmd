@@ -1,7 +1,9 @@
 ---
 myimage1: "VennSmall.png"
 myimage2: "LollipopSmall.png"
+myimage3: "WordCloudSmall.png"
 mytitle: "Visualizing several independant lists"
+mydisqus: "SeveralIndepLists"
 output:
   html_document:
       self_contained: false    
@@ -40,10 +42,9 @@ library(kableExtra)
 library(tm)
 options(knitr.table.format = "html")
 library(proustr)
-library()
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv", header=TRUE) 
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/8_SeveralIndepLists.csv", header=TRUE) 
 to_remove <- c("_|[0-9]|\\.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist")
 data <- data %>% filter(!grepl(to_remove, word)) %>% filter(!word %in% stopwords('fr')) %>% filter(!word %in% proust_stopwords()$word)
 
@@ -176,6 +177,11 @@ venn.diagram(
 
 
 --> this goes further than simple data visualization. Must be kept for a blogpost instead.
+
+
+
+
+
 #Comparing frequencies
 ***
 
@@ -188,14 +194,12 @@ don <- data %>%
   rowwise() %>%
   mutate(total=sum(booba, nekfeu, `georges-brassens`)) %>%
   filter(total>5)
-don
-dim(don)
 
 don %>%
   select(booba, `georges-brassens`, nekfeu) %>%
   cor()
-don 
-heatmap(don) 
+#don 
+#heatmap(don) 
 ```
 
 

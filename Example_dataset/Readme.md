@@ -9,6 +9,8 @@ This folder lists the datasets used in the website [data-to-viz.com](https://www
 |4bis| ThreeNum        				| [R & Ross Ihaka](https://vincentarelbundock.github.io/Rdatasets/doc/datasets/volcano.html) | Topographic information for Maunga Whau volcano | link |
 |5   | OneCatSevNumOrdered        	| [Babynames R library](https://github.com/hadley/babynames) | Evolution of first name popularity in the US | link |
 |6   | SeveralNum		       		| [Cars](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html) | Features of 32 cars | link |
+|7   | OneNumOneCat		       		| [Peace Research Inst.](http://armstrade.sipri.org/armstrade/page/toplist.php) | Quantity of weapons exported by the top 50 largest exporters | link |
+|8   | SeveralIndepLists	   		| [Paroles.net](https://www.paroles.net/) | Lyrics of french rapers | link |
 
 
 |19  | MapConnection        		| [#Surfer Project](https://github.com/holtzy/About-Surfers-On-Twitter) | Data on 400k #surf tweets | link |
