@@ -2,7 +2,7 @@
 myimage1: "VennSmall.png"
 myimage2: "LollipopSmall.png"
 myimage3: "WordCloudSmall.png"
-mytitle: "Visualizing several independant lists"
+mytitle: "Comparing raper lyrics"
 mydisqus: "SeveralIndepLists"
 output:
   html_document:

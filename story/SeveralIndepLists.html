@@ -45,7 +45,7 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <p class="mytitle">Visualizing several independant lists</p>
+  <p class="mytitle">Comparing raper lyrics</p>
   <center><div class='mysubtitle'>
     <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
   </div></center>
@@ -254,7 +254,7 @@ $(document).ready(function () {
 <span class="kw">library</span>(proustr)
 
 <span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/8_SeveralIndepLists.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>) 
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>) 
 to_remove &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;_|[0-9]|</span><span class="ch">\\</span><span class="st">.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist&quot;</span>)
 data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">grepl</span>(to_remove, word)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">stopwords</span>(<span class="st">&#39;fr&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">proust_stopwords</span>()<span class="op">$</span>word)
 
@@ -275,32 +275,32 @@ booba
 <tbody>
 <tr>
 <td style="text-align:left;">
-j’ai
+n’ont
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-booba
+ballon
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-complete
+frelon
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-faire
+gentil
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-l’illicite
+blanc
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-croire
+corail
 </td>
 </tr>
 </tbody>
@@ -318,32 +318,32 @@ nekfeu
 <tbody>
 <tr>
 <td style="text-align:left;">
-tour
+s’battent
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-fuck
+d’être
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-années
+corps
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-rester
+sentiment
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-t’aurais
+d’autre
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-showads
+amis
 </td>
 </tr>
 </tbody>
@@ -361,32 +361,32 @@ brassens
 <tbody>
 <tr>
 <td style="text-align:left;">
-envierez
+reine
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-cabaret
+jolies
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-titis
+gare
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-lyrics
+mieux
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-trempe
+veuf
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-above
+morte
 </td>
 </tr>
 </tbody>
@@ -412,8 +412,8 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="co"># Make the plot</span>
 <span class="kw">wordcloud2</span>(mywords, <span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">minRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>, <span class="dt">maxRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>,
          <span class="dt">backgroundColor =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
-<div id="htmlwidget-90c115a68846f2d77227" style="width:672px;height:576px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-90c115a68846f2d77227">{"x":{"word":["années","d'où","dure","équipe","faut","faux","feel","j'étais","juge","mettre","ossature","reufs","sors","t'as","vie","when","cyborg","douceur","frères","hey","know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":14.4,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div id="htmlwidget-e1fe060aecaccd553bb0" style="width:672px;height:576px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e1fe060aecaccd553bb0">{"x":{"word":["années","d'où","dure","équipe","faut","faux","feel","j'étais","juge","mettre","ossature","reufs","sors","t'as","vie","when","cyborg","douceur","frères","hey","know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":14.4,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 <p>However this type of chart can be <a href="https://www.data-to-viz.com/graph/wordcloud.html">criticized</a> since it does not reflect frequencies accurately: long words appear bigger and comparing size is always complicated. Thus, the techniques seen in <a href="https://www.data-to-viz.com/story/OneNumOneCat.html">this page</a> are strongly advised, and my best choice goes to the lollipop chart.</p>
 </div>
 <div id="lollipop-chart" class="section level1">
