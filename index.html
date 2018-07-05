@@ -106,6 +106,7 @@
 
 
 
+
 <!-- --------------------------- TREE SELECTION SECTION ------------------------------------------------------------------- -->
 
     <section id="explore" style="padding: 0px 0; padding-top: 100px">
@@ -118,13 +119,13 @@
         </div>
         <div class="row">
           <div class="col-lg-12 text-center">
-            <div id="myBtnContainer">
-              <button class="btn btn-secondary" onclick="showTree('num')">Numeric</button>
-              <button class="btn btn-secondary" onclick="showTree('cat')">Categoric</button>
-              <button class="btn btn-secondary" onclick="showTree('catnum')">Num & Cat</button>
-              <button class="btn btn-secondary" onclick="showTree('geo')">Maps</button>
-              <button class="btn btn-secondary" onclick="showTree('relationnal')">Network</button>
-              <button class="btn btn-secondary" onclick="showTree('time')">Time series</button>
+            <div id="tree-button-container">
+              <button class="btn btn-secondary active" onclick="showTree('num')" data-tree-section="num">Numeric</button>
+              <button class="btn btn-secondary" onclick="showTree('cat')" data-tree-section="cat">Categoric</button>
+              <button class="btn btn-secondary" onclick="showTree('catnum')" data-tree-section="catnum">Num & Cat</button>
+              <button class="btn btn-secondary" onclick="showTree('geo')" data-tree-section="geo">Maps</button>
+              <button class="btn btn-secondary" onclick="showTree('relationnal')" data-tree-section="relationnal">Network</button>
+              <button class="btn btn-secondary" onclick="showTree('time')" data-tree-section="time">Time series</button>
             </div>
           </div>  
         </div> 
@@ -135,34 +136,7 @@
 
 
 
-    <!-- Tree Javascript-->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
 
-    <script>
-    function showTree(id){     
-      
-      // Hide all the tree AND set its opacity to 0. except for the selected one.
-      var x, i;
-      x = document.getElementsByClassName("tree");
-      for (i = 0; i < x.length; i++) {
-        if (id!=x[i].id){
-          d3.select("#" + x[i].id).style("opacity", 0)
-          document.getElementById(x[i].id).style.display = 'none';   
-        }
-      }
-      
-      //Show the selected tree
-      document.getElementById(id).style.display = 'block';
-
-      //Change its opacity
-      d3.select("#" + id)
-        .transition()
-        .style("opacity", 1)
-        .duration(1000)
-        .delay(000)
-
-    }
-    </script>
 
 
 <!-- --------------------------------------------------------------------------------------------- -->
@@ -1742,19 +1716,7 @@
 
 
 
-<script>
 
-//Do not show these trees at the beginning.
-document.getElementById('num').style.display = 'none';
-document.getElementById('cat').style.display = 'none';
-document.getElementById('catnum').style.display = 'none';
-document.getElementById('geo').style.display = 'none';
-document.getElementById('time').style.display = 'none';
-document.getElementById('relationnal').style.display = 'none';
-highlightHead('numericHead')
-showTree('num')
-
-</script>
 
 
 <!-- ---------------------------------------------------------------------------------------------- -->
@@ -1946,11 +1908,12 @@ showTree('num')
             <h3 class="section-subheading text-muted">Here is an overview of all the graphic types presented in this website.</h3>
             <div id="portfolio-button-container">
               <button class="btn btn-secondary active" data-portfolio-section="all">Show all</button>
+              <button class="btn btn-secondary" data-portfolio-section="distribution">Distribution</button>
               <button class="btn btn-secondary" data-portfolio-section="correlation">Correlation</button>
               <button class="btn btn-secondary" data-portfolio-section="ranking">Ranking</button>
               <button class="btn btn-secondary" data-portfolio-section="partofawhole">Part of a whole</button>
               <button class="btn btn-secondary" data-portfolio-section="evolution">Evolution</button>
-              <button class="btn btn-secondary" data-portfolio-section="map">Map</button>
+              <button class="btn btn-secondary" data-portfolio-section="maps">Map</button>
               <button class="btn btn-secondary" data-portfolio-section="flow">Flow</button>
             </div>
             <br>
@@ -2416,7 +2379,7 @@ showTree('num')
             <div class="captionPortfolio">Arc diagram</div>
           </div>
 
-          <div class="col-iAiImd-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#bundle">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -4647,6 +4610,10 @@ by the Y axis, and one by the dot size.</p>
     <!-- Custom scripts for this template -->
     <script src="js/agency.min.js"></script>
     <script src="js/portfolio.js"></script>
+    <script src="js/tree.js"></script>
+
+    <!-- Load d3.js -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <!-- Activate the bootstrap tooltip, must be after jQuery load -->
     <script>
@@ -4654,6 +4621,13 @@ by the Y axis, and one by the dot size.</p>
       $('[data-toggle="tooltip"]').tooltip()
     });
     </script>
+
+
+    <!-- Now that everything is loaded, show the num tree -->
+    <script>showTree('num')</script>
+
+
+
 
 
     <!-- Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ -->
