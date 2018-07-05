@@ -1944,22 +1944,22 @@ showTree('num')
           <div class="col-lg-12 text-center">
             <h2 class="section-heading text-uppercase">A world of possibility</h2>
             <h3 class="section-subheading text-muted">Here is an overview of all the graphic types presented in this website.</h3>
-            <div id="myBtnContainer">
-              <button class="btn btn-secondary" onclick="filterSelection('all')">Show all</button>
-              <button class="btn btn-secondary" onclick="filterSelection('correlation')">Correlation</button>
-              <button class="btn btn-secondary" onclick="filterSelection('ranking')">Ranking</button>
-              <button class="btn btn-secondary" onclick="filterSelection('partofawhole')">Part of a whole</button>
-              <button class="btn btn-secondary" onclick="filterSelection('evolution')">Evolution</button>
-              <button class="btn btn-secondary" onclick="filterSelection('maps')">Map</button>
-              <button class="btn btn-secondary" onclick="filterSelection('flow')">Flow</button>
+            <div id="portfolio-button-container">
+              <button class="btn btn-secondary active" data-portfolio-section="all">Show all</button>
+              <button class="btn btn-secondary" data-portfolio-section="correlation">Correlation</button>
+              <button class="btn btn-secondary" data-portfolio-section="ranking">Ranking</button>
+              <button class="btn btn-secondary" data-portfolio-section="partofawhole">Part of a whole</button>
+              <button class="btn btn-secondary" data-portfolio-section="evolution">Evolution</button>
+              <button class="btn btn-secondary" data-portfolio-section="map">Map</button>
+              <button class="btn btn-secondary" data-portfolio-section="flow">Flow</button>
             </div>
             <br>
           </div>
         </div>
         <br><br>
-        <div class="row">
+        <div id="portfolio-items" class="row">
 
-          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact bigdata" >
+          <div class="col-md-2 col-sm-4 portfolio-item show column distribution numfact bigdata" >
             <a class="portfolio-link" data-toggle="modal" href="#violin">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -1971,7 +1971,7 @@ showTree('num')
             <div class="captionPortfolio">Violin</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column distribution numonly bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column distribution numonly bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#density">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -1984,7 +1984,7 @@ showTree('num')
           </div>
 
 
-          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column distribution numfact smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#histogram">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -1996,7 +1996,7 @@ showTree('num')
             <div class="captionPortfolio">Histogram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column distribution numfact smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#boxplot">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2008,7 +2008,7 @@ showTree('num')
             <div class="captionPortfolio">Boxplot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column distribution numfact bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column distribution numfact bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#ridgeline">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2020,7 +2020,7 @@ showTree('num')
             <div class="captionPortfolio">Ridgeline</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numonly numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#scatter">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2032,7 +2032,7 @@ showTree('num')
             <div class="captionPortfolio">Scatter</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numfact smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#heatmap">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2044,7 +2044,7 @@ showTree('num')
             <div class="captionPortfolio">Heatmap</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numfact smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#correlogram">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2056,7 +2056,7 @@ showTree('num')
             <div class="captionPortfolio">Correlogram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#bubble">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2068,7 +2068,7 @@ showTree('num')
             <div class="captionPortfolio">Bubble</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly time smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numonly time smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#connectedscatter">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2080,7 +2080,7 @@ showTree('num')
             <div class="captionPortfolio">Connected scatter</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column correlation numonly bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column correlation numonly bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#density2d">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2092,7 +2092,7 @@ showTree('num')
             <div class="captionPortfolio">Density 2d</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#barplot">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2104,7 +2104,7 @@ showTree('num')
             <div class="captionPortfolio">Barplot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#spider">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2116,7 +2116,7 @@ showTree('num')
             <div class="captionPortfolio">Spider / Radar</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#wordcloud">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2128,7 +2128,7 @@ showTree('num')
             <div class="captionPortfolio">Wordcloud</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#parallel">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2140,7 +2140,7 @@ showTree('num')
             <div class="captionPortfolio">Parallel</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#lollipop">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2152,7 +2152,7 @@ showTree('num')
             <div class="captionPortfolio">Lollipop</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column ranking numfact smalldata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column ranking numfact smalldata">
             <a class="portfolio-link" data-toggle="modal" href="#circularbarplot">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2164,7 +2164,7 @@ showTree('num')
             <div class="captionPortfolio">Circular Barplot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#treemap">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2176,7 +2176,7 @@ showTree('num')
             <div class="captionPortfolio">Treemap</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#venn">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2188,7 +2188,7 @@ showTree('num')
             <div class="captionPortfolio">Venn diagram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#donut">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2200,7 +2200,7 @@ showTree('num')
             <div class="captionPortfolio">Doughnut</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#pie">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2212,7 +2212,7 @@ showTree('num')
             <div class="captionPortfolio">Pie chart</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#dendrogram">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2224,7 +2224,7 @@ showTree('num')
             <div class="captionPortfolio">Dendrogram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#circularpacking">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2236,7 +2236,7 @@ showTree('num')
             <div class="captionPortfolio">Circular packing</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column partofawhole graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column partofawhole graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#sunburst">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2248,7 +2248,7 @@ showTree('num')
             <div class="captionPortfolio">Sunburst</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#line">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2260,7 +2260,7 @@ showTree('num')
             <div class="captionPortfolio">Line plot</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#area">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2272,7 +2272,7 @@ showTree('num')
             <div class="captionPortfolio">Area</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#stackedarea">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2284,7 +2284,7 @@ showTree('num')
             <div class="captionPortfolio">Stacked area</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column evolution graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column evolution graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#streamgraph">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2296,7 +2296,7 @@ showTree('num')
             <div class="captionPortfolio">Streamchart</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#map">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2308,7 +2308,7 @@ showTree('num')
             <div class="captionPortfolio">Map</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#choropleth">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2320,7 +2320,7 @@ showTree('num')
             <div class="captionPortfolio">Choropleth</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#hexbinmap">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2332,7 +2332,7 @@ showTree('num')
             <div class="captionPortfolio">Hexbin map</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#cartogram">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2342,9 +2342,9 @@ showTree('num')
               <img class="img-fluid" src="img/section/Cartogram150.png" alt="">
             </a>
             <div class="captionPortfolio">Cartogram</div>
-          </div>          
+          </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#connection">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2356,7 +2356,7 @@ showTree('num')
             <div class="captionPortfolio">Connection</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column maps graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column maps graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#bubblemap">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2368,7 +2368,7 @@ showTree('num')
             <div class="captionPortfolio">Bubble map</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column flow graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#chord">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2380,7 +2380,7 @@ showTree('num')
             <div class="captionPortfolio">Chord diagram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column flow graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#network">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2392,7 +2392,7 @@ showTree('num')
             <div class="captionPortfolio">Network</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column flow graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#sankey">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2404,7 +2404,7 @@ showTree('num')
             <div class="captionPortfolio">Sankey</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column flow graphstructure smalldata bigdata">
+          <div class="col-md-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#arc">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2416,7 +2416,7 @@ showTree('num')
             <div class="captionPortfolio">Arc diagram</div>
           </div>
 
-          <div class="col-md-2 col-sm-4 portfolio-item column flow graphstructure smalldata bigdata">
+          <div class="col-iAiImd-2 col-sm-4 portfolio-item show column flow graphstructure smalldata bigdata">
             <a class="portfolio-link" data-toggle="modal" href="#bundle">
               <div class="portfolio-hover">
                 <div class="portfolio-hover-content">
@@ -2431,57 +2431,6 @@ showTree('num')
         </div>
       </div>
     </section>
-
-
-
-<script>
-// --------------------------------------------------------------------------------------------------------------------------------- //
-// A script to select charts based on their tag //
-// --------------------------------------------------------------------------------------------------------------------------------- //
-filterSelection("all")
-function filterSelection(c) {
-  var x, i;
-  x = document.getElementsByClassName("column");
-  if (c == "all") c = "";
-  for (i = 0; i < x.length; i++) {
-    w3RemoveClass(x[i], "show");
-    if (x[i].className.indexOf(c) > -1) w3AddClass(x[i], "show");
-  }
-}
-
-function w3AddClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    if (arr1.indexOf(arr2[i]) == -1) {element.className += " " + arr2[i];}
-  }
-}
-
-function w3RemoveClass(element, name) {
-  var i, arr1, arr2;
-  arr1 = element.className.split(" ");
-  arr2 = name.split(" ");
-  for (i = 0; i < arr2.length; i++) {
-    while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);     
-    }
-  }
-  element.className = arr1.join(" ");
-}
-
-// Add active class to the current button (highlight it)
-var btnContainer = document.getElementById("myBtnContainer");
-var btns = btnContainer.getElementsByClassName("btn");
-for (var i = 0; i < btns.length; i++) {
-  btns[i].addEventListener("click", function(){
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace("active", "");
-    this.className += "active";
-  });
-}
-// --------------------------------------------------------------------------------------------------------------------------------- //
-</script>
 
 
 <!-- ---------------------------------------------------------------------------------------------- -->
@@ -4697,13 +4646,14 @@ by the Y axis, and one by the dot size.</p>
 
     <!-- Custom scripts for this template -->
     <script src="js/agency.min.js"></script>
+    <script src="js/portfolio.js"></script>
 
     <!-- Activate the bootstrap tooltip, must be after jQuery load -->
     <script>
-	$(function () {
-  		$('[data-toggle="tooltip"]').tooltip()
-	})
-	</script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    });
+    </script>
 
 
     <!-- Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ -->
