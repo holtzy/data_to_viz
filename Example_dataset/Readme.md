@@ -13,16 +13,15 @@ This folder lists the datasets used in the website [data-to-viz.com](https://www
 |8   | OneNumOneCatSevObs      		 		| [Reddit](https://github.com/zonination/perceptions) | Perception of probability | link |
 |9   | OneNumSevCatSubgroupOneObs		    | [OECD](https://stats.oecd.org/index.aspx?queryid=54751) | The Gender Wage Gap | link |
 |10  | OneNumSevCatSubgroupSevObsPerGroup   | [Seaborn Python library](https://www.data-to-viz.com/story/OneNumSevCatSubgroupSevObsPerGroup.html) | How much do people tip? | link |
-|11   | SevCatOneNumNestedOneObsPerGroup	| [Wikipedia](https://github.com/mledoze/countries) | World population for 250 countries | link |
-|13   | AdjacencyMatrix						| [Goggle Scholar](https://github.com/holtzy/Google-Scholar-Network) | Co-autorship network of a researcher | link |
-|13   | AdjacencyMatrix						| [Gui J. Abel Publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) | Migration of people at world scale | link |
-
-
-
+|11  | SevCatOneNumNestedOneObsPerGroup		| [Wikipedia](https://github.com/mledoze/countries) | World population for 250 countries | link |
+|13  | AdjacencyMatrix						| [Goggle Scholar](https://github.com/holtzy/Google-Scholar-Network) | Co-autorship network of a researcher | link |
+|13  | AdjacencyMatrix						| [Gui J. Abel Publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) | Migration of people at world scale | link |
 |14  | SeveralIndepLists	   				| [Paroles.net](https://www.paroles.net/) | Lyrics of french rapers | link |
-
-
-|19  | MapConnection        				| [#Surfer Project](https://github.com/holtzy/About-Surfers-On-Twitter) | Data on 400k #surf tweets | link |
+|15  | NestedLinksValue	   					| [-](https://www.paroles.net/) | - | link |
+|16  | NestedAndConnection	   				| [Flare](https://www.paroles.net/) | Connection between informatic components | link |
+|17  | ListGPSCoordinates	   				| [Surfer project](https://github.com/holtzy/About-Surfers-On-Twitter) | Where do people twitting #surf live? | link |
+|18  | ListGPSCoordinatesWithValue			| [Maps R library](https://github.com/adeckmyn/maps) | Population of 925 cities in the UK | link |
+|19  | MapConnection        				| [Surfer Project](https://github.com/holtzy/About-Surfers-On-Twitter) | Where do surfers travel | link |
 
 
 
