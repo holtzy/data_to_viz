@@ -1,7 +1,7 @@
 ---
-myimage1: "../img/mistake/calculation_error.png"
+myimage1: "../img/mistake/circular_bar_yaxis.png"
+mytitle: "Circular barplot and distortion"
 mydisqus: "circular_bar_yaxis"
-mytitle: "Mind the radial bar charts"
 output:
   html_document:
       template: template_caveat.html
@@ -15,106 +15,203 @@ output:
       code_folding: "hide"
       includes: 
         after_body: footer.html
- 
 ---
 
 <br><br>
 <div class="mycontent">
 
-A radial bar chart is basically a [bar chart](https://www.data-to-viz.com/graph/barplot) plotted in polar coordinates instead of a Cartesian plane.
+
+
+#The issue
+***
+[Circular barplots](https://www.data-to-viz.com/graph/circularbarplot.html) are a good alternative to classic [barplots](https://www.data-to-viz.com/graph/circularbarplot.html). It is basically the same thing with each bar displayed along a circle instead of a line, resulting in a more eye-catching figure.
+
 <br>
-Here is a one showing the quantity of weapons exported by the top 6 largest exporters in 2017. (You can read more about this story [here](http://www.data-to-viz.com/story/OneNumOneCat.html)).
 
-```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
-# Libraries
+However, circular barplots are `less efficient` to represent data `accurately`. Indeed, it is harder to compare bar lenghts since they are not on the same line anymore. Moreover, the basis of the bar is often thiner than the top part. This results in a bias: group with large values appear even larger than they are in reality.
+
+<br>
+
+This bias is even more important if:
+
+- *left* - the number of bar is low.
+- *right* - the inner part of the circle is too small.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=5}
+# package
 library(tidyverse)
-library(hrbrthemes)
+library(viridis)
+library(patchwork)
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+# Create dataset
+data=data.frame(
+  individual=paste( "Mister ", seq(1,9), sep=""),
+  group=c( rep('A', 3), rep('C', 3), rep('D', 3)) ,
+  value=sample( seq(10,100), 9, replace=T)
+)
+data = data %>% arrange(group, value)
 
-# plot
-data %>%
-  filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  tail(6) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_bar(fill="#69b3a2", stat="identity") +
-    geom_text(hjust = 1, size = 3, aes( y = 0, label = paste(Country," "))) +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none",
-      axis.text = element_blank()
-    ) +
-    xlab("") +
-    ylab("") +
-    coord_polar(theta = "y") +
-    ylim(0,15000) 
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=1
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar)
+data=rbind(data, to_add)
+data=data %>% arrange(group)
+data$id=seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data=data
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+
+# Make the plot
+p1 = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  scale_fill_viridis(discrete=TRUE) +
+  ylim(-80,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+  
+
+
+# Create dataset 2
+data=data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 20), rep('C', 24), rep('D', 16)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+data = data %>% arrange(group, value)
+
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=1
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar)
+data=rbind(data, to_add)
+data=data %>% arrange(group)
+data$id=seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data=data
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+
+# Make the plot
+p2 <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  scale_fill_viridis(discrete=TRUE) +
+  ylim(-10,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+  
+
+p1 + p2
 ```
 
-The good point with this kind of graphic is that it is quite eye-catching. However, because the bars are plotted on different radial points of the polar axis, they have different perimeters and cannot be compared by their lengths. A bar on the outside will be longer by construction than one on the inside, even with an equal value.
-<br><br>
-*note*: Other issue exist on this graphic, like the lack of Y axis. Is is made for illustratory purpose only.
-<br><br>
-This radial issue is very well illustrated on this post from [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-barc-charts/):
-
-<br><br>
-
-<center>
-<img src="IMG/radial_bar.png" alt="img" width="400" height="500">
-</center>
-
-<center>
-Source: [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-barc-charts/)
-</center>
-<br><br>
 
 
 
 
 
-
-
-#Workaround
+#Solving the issue
 ***
+Circular barcharts can be a good option in very specific conditions. You need: 
 
-Radial bar chart must be avoided. Instead, you can build a usual [bar chart](https://www.data-to-viz.com/graph/barplot) or [lollipop plot](https://www.data-to-viz.com/graph/lollipop) to display the information more accurately:
+- a high number of bar
+- a clear pattern in the data: if all group have almost the same value, circular version is not accurate enough for comparison.
+- to keep a large inner circle
 
-```{r, fig.align='center', fig.height=8, fig.width=6, warning=FALSE, message=FALSE}
-data %>%
-  filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
-    geom_point(size=3, color="#69b3a2") +
-    coord_flip() +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("")
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# package
+library(tidyverse)
+library(viridis)
+
+# Create dataset
+data=data.frame(
+  individual=paste( "Mister ", seq(1,60), sep=""),
+  group=c( rep('A', 20), rep('C', 24), rep('D', 16)) ,
+  value=sample( seq(10,100), 60, replace=T)
+)
+data = data %>% arrange(group, value)
+
+# Set a number of 'empty bar' to add at the end of each group
+empty_bar=1
+to_add = data.frame( matrix(NA, empty_bar*nlevels(data$group), ncol(data)) )
+colnames(to_add) = colnames(data)
+to_add$group=rep(levels(data$group), each=empty_bar)
+data=rbind(data, to_add)
+data=data %>% arrange(group)
+data$id=seq(1, nrow(data))
+ 
+# Get the name and the y position of each label
+label_data=data
+number_of_bar=nrow(label_data)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_data$hjust<-ifelse( angle < -90, 1, 0)
+label_data$angle<-ifelse(angle < -90, angle+180, angle)
+ 
+
+# Make the plot
+p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  
+  geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
+  scale_fill_viridis(discrete=TRUE) +
+  ylim(-80,120) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar() + 
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
+  
+p
 ```
 
-You can see more way to represent this dataset [here](http://www.data-to-viz.com/story/OneNumOneCat.html).
+
+*Note*: don't forget to add a `legend` or `annotation` for the colors and a `scale` for the bar height. See more in the [circular barplot section](file:///Users/y.holtz/Documents/data_to_viz/graph/circularbarplot.html).
 
 
-#Going further
-***
 
-- *The problems with B'Arc charts* by Andy Kirk on his blog [Visualising Data](http://www.visualisingdata.com/2017/09/problems-barc-charts/)
-- The [dataviz catalog](https://datavizcatalogue.com/methods/radial_bar_chart.html) has a page dedicated to radial bar chart.
-- Doing a barchart with [R](https://www.r-graph-gallery.com/barplot/) and [Python](https://python-graph-gallery.com/barplot/).
+
+
+
+
+
 
 #Comments
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
+
 
 
 
