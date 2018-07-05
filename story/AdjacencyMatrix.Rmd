@@ -1,5 +1,10 @@
 ---
-myimage1: "Bar150.png"
+myimage1: "Arc150.png"
+myimage2: "Network150.png"
+myimage3: "Heatmap150.png"
+myimage4: "Sankey150.png"
+myimage5: "Chord150.png"
+mydisqus: "AdjacencyMatrix"
 mytitle: "Researchers network and migration flows"
 output:
   html_document:
@@ -39,10 +44,10 @@ options(knitr.table.format = "html")
 library(viridis)
 library(igraph)
 library(ggraph)
+library(colormap)
 
 # Load dataset from github
-#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
-data <- read.table("../Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
 
 # show data
 data %>% head(3) %>% select(1:3) %>% kable() %>%
@@ -147,6 +152,14 @@ In my opinion this is a powerful way to display information. Major flows are eas
 However chord diagram is not an usual way of displaying information. Thus, it is advised to give a good amount of explanation to educate your audience. A good way to do so is to draw just a few connections in a first step, before displaying the whole graphic. See this blog post by [Nadieh Bremer]() for more ideas on this topic.
 
 
+
+
+
+
+
+
+
+
 # Sankey diagram
 ***
 
@@ -184,42 +197,104 @@ sankeyNetwork(Links = data_long, Nodes = nodes,
 
 
 
+
+
+
 #Heatmap
 ***
+The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is another great alternative to represent an adjacency matrix. Here, all the origin countries are represented as row, and all the destination as columns. The diagonal pops out with a lot of yellow squares, what means that most of the migrations are intra continental.
 
-```{r}
 
-# with ggplot2 --> not very insightful if not clusterised
-dataUU %>% 
-  gather(key="to", value="value", -1) %>%
-  ggplot( aes(x=to, y=from, fill=value)) +
-    geom_tile()
-
-tmp <- dataUU
-rownames(tmp) <- tmp[,1]
-tmp <- tmp[,-1]
-tmp <- as.matrix(tmp)
-tmp[which(is.na(tmp))] <- 0
-heatmap(tmp, na.rm=TRUE)
-summary(tmp)
+```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
+library(heatmaply)
+p <- heatmaply(data, 
+        dendrogram = "none",
+        xlab = "", ylab = "", 
+        main = "",
+        scale = "column",
+        margins = c(60,100,40,20),
+        grid_color = "white",
+        grid_width = 0.00001,
+        titleX = FALSE,
+        hide_colorbar = TRUE,
+        branches_lwd = 0.1,
+        label_names = c("From", "To:", "Value"),
+        fontsize_row = 7, fontsize_col = 7,
+        labCol = colnames(data),
+        labRow = rownames(data),
+        heatmap_layers = theme(axis.line=element_blank())
+        )
 ```
 
+<center>
+```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE, echo=FALSE}
+p
+```
+</center>
+
+<br><br>
+
+Note that if the matrix is `unweighted`, each connection can have only 2 values: 1  if there is a connection, 0 otherwise. It is the case for the co-authorship network example, where researchers are connected if they have already published a paper together. The heatmap below shows these connection and also apply a clustering algorithm to the data: researchers that tend to be involved in the same papers are grouped together.
 
 
+```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
+# Format data
+tmp <- dataUU
+rownames(tmp) <- tmp$from
+tmp <- tmp %>% select(-from)
+tmp[is.na(tmp)] <- 0
+
+# Keep people with more than 1 connections
+tmp <- tmp[which(rowSums(tmp)>3), which(colSums(tmp)>3)]
+
+# Heatmap
+p <- heatmaply(tmp,
+        dendrogram = "both",
+        xlab = "", ylab = "", 
+        main = "",
+        scale = "none",
+        margins = c(60,100,40,20),
+        grid_color = "white",
+        grid_width = 0.0000000001,
+        titleX = FALSE,
+        hide_colorbar = TRUE,
+        branches_lwd = 0.1,
+        label_names = c("Name", "With:", "Value"),
+        fontsize_row = 7, fontsize_col = 7,
+        labCol = colnames(tmp),
+        labRow = rownames(tmp),
+        heatmap_layers = theme(axis.line=element_blank())
+        )
+```
+
+<center>
+```{r, fig.align="center", fig.width=8, fig.height=8, warning=FALSE, message=FALSE, echo=FALSE}
+p
+```
+</center>
 
 
 
 
 # Network
 ***
-Since an adjacency matrix is a network structure, it is possible to build a network graph. In my opinion, this makes more sense when the connection are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
+Since an adjacency matrix is a `network structure`, it is possible to build a [network graph](https://www.data-to-viz.com/graph/network.html). In a network graph, each entity is represented as a `node`, and each connection as an `edge`.  
 
-Thus, here is an application of this chart type to the coauthor network. When to people have published at least one scientific paper together, they are connected.
-```{r}
+In my opinion, this type of representation makes more sense when the connection are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
+
+Thus, here is an application of this chart type to the coauthor network. Researchers are the nodes, represented as dots. If 2 researchers have published at least one scientific paper together, they are connected. The node size is proportionnal to the number of coauthors.
+
+
+</div>
+
+<div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=12, fig.height=9}
 # Transform the adjacency matrix in a long format
 connect <- dataUU %>% 
   gather(key="to", value="value", -1) %>%
-  na.omit()
+  mutate(to = gsub("\\.", " ",to)) %>%
+  na.omit() 
 
 # Number of connection per person
 c( as.character(connect$from), as.character(connect$to)) %>%
@@ -229,95 +304,175 @@ c( as.character(connect$from), as.character(connect$to)) %>%
 colnames(coauth) <- c("name", "n")
 
 # Create a graph object with igraph
-mygraph <- graph_from_data_frame( connect, vertices = coauth )
-plot(mygraph)
+mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
+
+# Find community
+com <- walktrap.community(mygraph)
+
+#Reorder dataset and make the graph
+coauth <- coauth %>% 
+  mutate( grp = com$membership) %>%
+  arrange(grp) %>%
+  mutate(name=factor(name, name))
+
+# keep only 10 first communities
+coauth <- coauth %>% 
+  filter(grp<16)
+
+# keep only this people in edges
+connect <- connect %>%
+  filter(from %in% coauth$name) %>%
+  filter(to %in% coauth$name)
+
+# Create a graph object with igraph
+mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
+
+# prepare a vector of n color in the viridis scale
+mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
+mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
-ggraph(mygraph, layout="nicely") + 
-  #geom_edge_density(edge_fill="#69b3a2") +
-  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
-  geom_node_point(aes(size=n, alpha=n)) +
+ggraph(mygraph) + 
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
+  geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.9) +
+  scale_size_continuous(range=c(0.5,8)) +
+  scale_color_manual(values=mycolor) +
+  geom_node_text(aes(label=ifelse(n>6, as.character(name), "")), angle=65, hjust=rep(c(0,1),58), nudge_y = rep(c(0.5,-0.5),58), size=2.3, color="grey") +
   theme_void() +
   theme(
     legend.position="none",
     plot.margin=unit(c(0,0,0,0), "null"),
     panel.spacing=unit(c(0,0,0,0), "null")
-  ) 
-
-
-```
-
-Network chart is a whole field of study on its own and overtake the scope of this website from far. The biggest challenge is to position each node efficiently, to avoid crosses between edges. Several algorithms exist to tackle this issue and it is always a good practice to try several of them.
-
-```{r, fig.align="center"}
-# Make the graph
-ggraph(mygraph, layout="auto") + 
-  #geom_edge_density(edge_fill="#69b3a2") +
-  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
-  geom_node_point(aes(size=n, alpha=n)) +
-  theme_void() +
-  theme(
-    legend.position="none",
-    plot.margin=unit(c(0,0,0,0), "null"),
-    panel.spacing=unit(c(0,0,0,0), "null")
-  ) 
-
-ggraph(mygraph, layout="igraph", algorithm="kk") + 
-  #geom_edge_density(edge_fill="#69b3a2") +
-  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
-  geom_node_point(aes(size=n, alpha=n)) +
-  theme_void() +
-  theme(
-    legend.position="none",
-    plot.margin=unit(c(0,0,0,0), "null"),
-    panel.spacing=unit(c(0,0,0,0), "null")
-  ) 
+  ) +
+  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2)) 
 ```
 
 
-# Chord diagram
+</div>
+
+<div class="mycontent">
+
+
+[Network graphs](https://www.data-to-viz.com/graph/network.html) are very powerful to study the global structure of the network. Here, a few groups of researchers are isolated. Each actually represents one single paper where Vincent Ranwez was involved. In the middle a massive network of researchers appear: these are the people with Vincent published more often that are thus all linked together.
+
+<br>
+
+However, network charts are very bad a annotating every single points: names tend to overlap edges making the figure unreadable. The arc diagram described below is a good alternative if you want to show labels.
+
+
+
+
+
+
+
+
+# Chord diagram (again)
 ***
-Instead of using a custom algorithm to position each nodes, it is possible to place them al around a circule, a bit like for a chord diagram. But this kind of chart makes sense only if the order of nodes around the circule is carefully chosen, to avoid aving a fusball.
-```{r}
-#dataUU %>% hclust()
-#help(hclust)
-#dist(dataUU)
-#cor(dataUU[,-1], use="complete.obs")
-#summary(dataUU)
-#as.dist(dataUU)
-#dim(dataUU)
-#hclust(d, method = "complete", members = NULL)
+Instead of using a custom algorithm to position each nodes, it is possible to place them all around a circule, making a chord diagram. But this kind of chart makes sense only if the order of nodes around the circule is carefully chosen, to avoid having a cluttered and unreadable figure.
+
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=8}
+# Transform the adjacency matrix in a long format
+connect <- dataUU %>% 
+  gather(key="to", value="value", -1) %>%
+  mutate(to = gsub("\\.", " ",to)) %>%
+  na.omit() 
+
+# Number of connection per person
+c( as.character(connect$from), as.character(connect$to)) %>%
+  as.tibble() %>%
+  group_by(value) %>%
+  summarize(n=n()) -> coauth
+colnames(coauth) <- c("name", "n")
+
+# Create a graph object with igraph
+mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
+
+# Find community
+com <- walktrap.community(mygraph)
+
+#Reorder dataset and make the graph
+coauth <- coauth %>% 
+  mutate( grp = com$membership) %>%
+  arrange(grp) %>%
+  mutate(name=factor(name, name))
+
+# keep only 10 first communities
+coauth <- coauth %>% 
+  filter(grp<16)
+
+# keep only this people in edges
+connect <- connect %>%
+  filter(from %in% coauth$name) %>%
+  filter(to %in% coauth$name)
+
+# Add label angle
+number_of_bar=nrow(coauth)
+coauth$id = seq(1, nrow(coauth))
+angle= 360 * (coauth$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+coauth$hjust <- ifelse(angle > 90 & angle<270, 1, 0)
+coauth$angle <- ifelse(angle > 90 & angle<270, angle+180, angle)
+
+# Create a graph object with igraph
+mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
+
+# prepare a vector of n color in the viridis scale
+mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
+mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
 ggraph(mygraph, layout="circle") + 
-  #geom_edge_density(edge_fill="#69b3a2") +
-  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
-  geom_node_point(aes(size=n, alpha=n)) +
+  geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=FALSE) +
+  geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.9) +
+  scale_size_continuous(range=c(0.5,8)) +
+  scale_color_manual(values=mycolor) +
+  geom_node_text(aes(label=paste("    ",name,"    "), angle=angle, hjust=hjust), size=2.3, color="black") +
   theme_void() +
   theme(
     legend.position="none",
     plot.margin=unit(c(0,0,0,0), "null"),
     panel.spacing=unit(c(0,0,0,0), "null")
-  ) 
+  ) +
+  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2)) 
 ```
+
+
+
+
+
 
 
 # Arc diagram
 ***
-This is basically the same concept, but where nodes are displayed all along a line
-```{r}
+An arc diagram follows the same concept, but displays nodes along a single axis and links with arcs. The main advantage is that it allows to make the labels easy to read.
+
+</div>
+
+<div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=15, fig.height=7}
 # Make the graph
 ggraph(mygraph, layout="linear") + 
   geom_edge_arc(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
-  geom_node_point(aes(size=n, alpha=n)) +
-  geom_node_text(aes(label=name), angle=45, hjust=1) +
+  geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.5) +
+  scale_size_continuous(range=c(0.5,8)) +
+  scale_color_manual(values=mycolor) +
+  geom_node_text(aes(label=name), angle=65, hjust=1, nudge_y = -1.1, size=2.3) +
   theme_void() +
   theme(
     legend.position="none",
     plot.margin=unit(c(0,0,0.4,0), "null"),
     panel.spacing=unit(c(0,0,3.4,0), "null")
-  ) 
+  ) +
+  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2)) 
+
+
 ```
+
+
+</div>
+
+<div class="mycontent">
 
 
 
@@ -333,9 +488,6 @@ ggraph(mygraph, layout="linear") +
 
 
 
-
-
-</div>
 
 
 

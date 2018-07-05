@@ -51,13 +51,13 @@
   </div></center>
   <br><br>
 
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
   
   
   
@@ -232,6 +232,8 @@ $(document).ready(function () {
 
 <br>
 <div class="mycontent">
+
+
 <div class="row">
 <div class="col-md-8">
 <p><br><br><br> This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups, with several observations for each combinations. <br><br> The dataset used as an example describes the amount that restaurant staff receive in tips based on various indicators like the client sex, the day of the week and if the client smokes or not. <br><br> Data come from the <a href="https://github.com/mwaskom/seaborn-data">Seaborn</a> Python library. A clean <code>.csv</code> version is available in the data-to-viz.com <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github repository</a>.</p>
@@ -360,8 +362,12 @@ No
 </table>
 </div>
 </div>
-<h1 id="grouped-boxplot">Grouped boxplot</h1>
+<div id="grouped-boxplot" class="section level1">
+<h1>Grouped boxplot</h1>
 <hr />
+<p>The most common way to represent that kind of dataset is probably the grouped <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>. Each combination of group is represented by a box. This allows to quickly understand what is the distribution of the numeric variable for each combination.</p>
+<p><br></p>
+<p>Here, it looks like there is not much difference in tip values from one day to the other in average, except a slight increase on sunday. Moreover, it looks like females tend to tip more than males on friday. Note that individual data points are presented using <code>jittering</code>, what allows to detect more particular pattern and assess the sample size of each group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Counts the number of value per group and subgroup</span>
 counts =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">group_by</span>(day, sex) <span class="op">%&gt;%</span><span class="st"> </span>
@@ -378,12 +384,13 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">position=</span><span class="kw">position_dodge2</span>(<span class="dt">preserve =</span> <span class="st">&quot;total&quot;</span>), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>, <span class="dt">varwidth =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">width=</span><span class="fl">0.1</span>, <span class="dt">position=</span><span class="kw">position_jitterdodge</span>() , <span class="dt">alpha=</span><span class="fl">0.4</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data=</span>counts, <span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste0</span>(<span class="st">&quot;n: &quot;</span>,n), <span class="dt">y=</span>median<span class="op">-</span><span class="dv">2</span>), <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="fl">0.8</span>), <span class="dt">hjust=</span><span class="fl">0.5</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data=</span>counts, <span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste0</span>(<span class="st">&quot;n: &quot;</span>,n), <span class="dt">y=</span>median<span class="op">-</span><span class="dv">2</span>), <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="dv">1</span>), <span class="dt">hjust=</span><span class="fl">0.5</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
 <span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">35</span>)</code></pre></div>
-<p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /> The mos</p>
+<p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
+<p>In the above chart categories are grouped by day. It is possible to build the same kind of visualization, grouping by Sex instead. In the first case, it is easy to compare the behavior or each sex day by day. On the second one, the idea is more to compare the difference by day for each sex.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
 data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
@@ -397,8 +404,11 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
-<h1 id="violin">Violin</h1>
+</div>
+<div id="violin" class="section level1">
+<h1>Violin</h1>
 <hr />
+<p>The <a href="https://www.data-to-viz.com/graph/violin.html">violin plot</a> can be used exactly in the same situation that the <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>. Using the same grouping technique, we got here a grouped violin plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
 data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
@@ -411,8 +421,11 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
-<h1 id="histogram">Histogram</h1>
+</div>
+<div id="histogram" class="section level1">
+<h1>Histogram</h1>
 <hr />
+<p>Small multiple is a powerful technique that can be used with that kind of data. Here, each combination is represented in a part of the grid, allowing a quick comparison between them. <a href="https://www.data-to-viz.com/graph/histogram.html">Histograms</a> are used here, but the same result could be obtained with <a href="https://www.data-to-viz.com/graph/density.html">density</a> plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
 data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
@@ -424,23 +437,43 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip&quot;</span>)</code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
 </div>
 
+
+<!-- Insert code for related graphics  -->
+<h1>Going further</h1>
+<hr>
+<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
+  
+  
+  
+  
+  
+  
+  
 
 
 
 <!-- Insert code for DISQUS comments  -->
-
+      <br>
+      <h1>Comments</h1>
+      <hr>
+      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
+      <br>
       <div class="container">
         <div id="disqus_thread"></div>
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/10_OneNumSevCatSubgroupSevObsPerGroup.html;  
-        this.page.identifier = 10_OneNumSevCatSubgroupSevObsPerGroup; 
+        this.page.url = www.data-to-viz.com/story/OneNumSevCatSubgroupSevObsPerGroup.html;  
+        this.page.identifier = OneNumSevCatSubgroupSevObsPerGroup; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
