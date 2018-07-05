@@ -1,10 +1,11 @@
 ---
 myimage1: "DensitySmall.png"
-myimage2: ".Box1Small.png"
+myimage2: "Box1Small.png"
 myimage3: "ViolinSmall.png"
 myimage4: "JoyplotSmall.png"
 myimage5: "HeatmapSmall.png"
 myimage6: "DendrogramSmall.png"
+mydisqus: "SeveralNum"
 mytitle: "Eleven features for 32 cars"
 output:
   html_document:
@@ -28,11 +29,10 @@ output:
 <div class="mycontent">
 
 
-This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous mtcars dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for about  32 car models.
+This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous [mtcars](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html) dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for 32 car models.
 
 
 ```{r, warning=FALSE, message=FALSE}
-# Libraries
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
@@ -45,18 +45,23 @@ library(FactoMineR)
 library(kableExtra)
 options(knitr.table.format = "html")
 
-# This dataset is available in R by default
-data <- mtcars
+# This dataset is available in R by default, and on the datatoviz github repo
+data <- read.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/6_SeveralNum.csv", header=T)
+rownames(data) <- data[,1]
+data <- data[,-1]
+
+# Save it at .csv for the github repo
+#write.csv(mtcars, file="../Example_dataset/6_SeveralNum.csv", quote=F)
 
 # show data
 data %>% head(6) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-#- Check distribution
+#Check distribution
 ***
 
-In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a [violin plot](), a [boxplot]() or a [ridgeline plot]() if your variables are all on the same scale. In the case of the `mtcars` dataset the variables are completely different one to each other so it make more sense to make an histogram for each of them:
+In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a [violin plot](https://www.data-to-viz.com/graph/violin.html), a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or a [ridgeline plot](https://www.data-to-viz.com/graph/ridgeline.html) if your variables are all on the same scale. In the case of the `mtcars` dataset the variables are completely different one to each other so it make more sense to make an [histogram](https://www.data-to-viz.com/graph/histogram.html) for each of them:
 
 ```{r, warning=FALSE, message=FALSE, fig.width=10, fig.height=6, fig.align="center"}
 
@@ -78,15 +83,23 @@ data %>%
 
 
 
-#- Correlogram
+#Correlogram
 ***
+A [correlogram](https://www.data-to-viz.com/graph/correlogram.html) or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a scatterplot, or a symbol that represents the correlation (bubble, line, number..). The diagonal often represents the distribution of each variable, using an [histogram](https://www.data-to-viz.com/graph/histogram.html) or a [density plot](https://www.data-to-viz.com/graph/density.html).
 
-```{r, fig.align="center", fig.width=7, fig.height=7}
-scatterplotMatrix(~mpg+disp+drat+hp+qsec+wt, data=data , reg.line="" , col="#69b3a2", id.col="#69b3a2", smoother="" , smoother.args=list(col="grey") , cex=1.5 , pch=20 )
+```{r, fig.align="center", fig.width=7, fig.height=7, warning=FALSE, message=FALSE}
+scatterplotMatrix(~mpg+disp+drat+hp+qsec+wt, data=data , reg.line=FALSE, col="#69b3a2", id.col="#69b3a2", smooth=FALSE , cex=1.5 , pch=20 )
 ```
+It is a powerful method that give a good overview of the dataset in an unique graphic. For instance, it is obvious that displacement (`disp`) and gross horsepower (`hp`) have a strong correlation.
 
-#- Dendrogram
+
+#Dendrogram
 ***
+A [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html) can be used to check the result of a clustering algorythm on the dataset. Basically, the steps are:
+
+- compute the distance between each pair of sample using `correlation` or `euclidean distance`.
+- perform clustering on this matrix: it builds a hierarchy of clusters: groups sample that are close one from another
+- show the result as a dendrogram:
 
 ```{r, fig.align="center", fig.width=7}
 # Clusterisation using 3 variables
@@ -102,19 +115,33 @@ abline(v = 350, lty = 2)
  
 ```
 
-#- Heatmap
-***
+Here, the dendrogram informs us that the Mercedes 280 and the Mercedes 280C have similar features, what makes sense. Basically, it gives an idea of group of cars that are similar one another.
 
-```{r, fig.align="center", fig.width=8}
+See more about it [here](https://www.data-to-viz.com/graph/dendrogram.html).
+
+
+
+
+#Heatmap
+***
+The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is often used in complement of a dendrogram. It is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.  
+
+In addition of a dendrogram, it allows to understand why samples ore features are grouped together.
+```{r, fig.align="center", fig.width=8, message=FALSE, warning=FALSE}
 library(d3heatmap)
 d3heatmap(data, k_row = 4, k_col = 2, scale = "column")
 ```
 
+The heatmap above allows to understand why cars are split in 2 main clusters. For instance the weight (`wt`) is much higher for the group on top than for the other.
+ 
 
-#- PCA
+
+
+
+#PCA
 ***
-
-```{r, fig.align="center", fig.width=7}
+The Principal Component Analysis is a statistical procedure that aims to summarize all the available numeric variables in a set of principal components.
+```{r, fig.align="center", fig.width=7, message=FALSE, warning=FALSE}
 myPCA <- PCA(data, scale.unit=TRUE, graph=F)
 
 myPCA$ind %>%
@@ -129,9 +156,11 @@ myPCA$ind %>%
 
 ```
 
+*Note*: this section needs `improvement`
 
 
-#- Getting a correlation matrix
+
+#Getting a correlation matrix
 ***
 
-It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an adjacency matrix. Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: how to visualize an adjacency matrix.
+It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an [adjacency matrix](https://www.data-to-viz.com/story/AdjacencyMatrix.html). Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: [how to visualize an adjacency matrix](https://www.data-to-viz.com/story/AdjacencyMatrix.html).

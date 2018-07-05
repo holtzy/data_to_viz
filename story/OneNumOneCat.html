@@ -51,13 +51,15 @@
   </div></center>
   <br><br>
 
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a>
   
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a>
   
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a>
   
   
   
@@ -231,6 +233,8 @@ $(document).ready(function () {
 
 <br><br>
 <div class="mycontent">
+
+
 <div class="row">
 <div class="col-md-8">
 <p><br><br><br> This document gives a few suggestions to analyse a dataset composed by <code>one numeric and one categoric</code> variable. <br> The dataset used as an example provides the quantity of weapons exported by the top 50 largest exporters in 2017. This dataset has been downloaded on the <a href="http://armstrade.sipri.org/armstrade/page/toplist.php">Stockholm International Peace Research Institute</a> website and more information about it are available <a href="http://www.sipri.org/databases/armstransfers/sources-and-methods/">here</a>. <br> A clean version at <code>.csv</code> format is available on github, and the table beside shows how it looks like.</p>
@@ -313,9 +317,10 @@ China
 </table>
 </div>
 </div>
-<h1 id="lollipop">Lollipop</h1>
+<div id="lollipop" class="section level1">
+<h1>Lollipop</h1>
 <hr />
-<p>Even if the most common way to represent this kind of information is probably to use barplots, lollipop can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.</p>
+<p>Even if the most common way to represent this kind of information is probably to use <a href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>, <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.</p>
 <p>Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
@@ -333,9 +338,11 @@ China
     ) <span class="op">+</span>
 <span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="barplot">Barplot</h1>
+</div>
+<div id="barplot" class="section level1">
+<h1>Barplot</h1>
 <hr />
-<p>Here is the barplot version that looks very similar to the lollipop. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.</p>
+<p>Here is the <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> version that looks very similar to the <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a>. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">arrange</span>(Value) <span class="op">%&gt;%</span>
@@ -351,9 +358,11 @@ China
     ) <span class="op">+</span>
 <span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="circular-barplot">Circular barplot</h1>
+</div>
+<div id="circular-barplot" class="section level1">
+<h1>Circular barplot</h1>
 <hr />
-<p>The <a href="">circular barplot</a> is an alternative to the barplot, where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if significant differences exist between group.</p>
+<p>The <a href="https://www.data-to-viz.com/graph/circularbarplot.html">circular barplot</a> is an alternative to the <a href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>, where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if obvious differences exist between group.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Order data</span>
 tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
@@ -393,10 +402,12 @@ label_tmp<span class="op">$</span>Country &lt;-<span class="st"> </span><span cl
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>label_tmp, <span class="kw">aes</span>(<span class="dt">x=</span>id, <span class="dt">y=</span>Value<span class="op">+</span><span class="dv">200</span>, <span class="dt">label=</span>Country ), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">size=</span><span class="fl">2.5</span>, <span class="dt">angle=</span> label_tmp<span class="op">$</span>angle, <span class="dt">hjust=</span>label_tmp<span class="op">$</span>hjust, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span> ) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">24</span>, <span class="dt">y=</span><span class="dv">8000</span>, <span class="dt">label=</span><span class="st">&quot;Who sells more weapons?&quot;</span>), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>Please not that in this case the circular barplot do not look very good due to a lot of very small values that are hardly visible on the chart.</p>
-<h1 id="treemap">Treemap</h1>
+<p>Please note that in this case the <a href="https://www.data-to-viz.com/graph/circularbarplot.html">circular barplot</a> do not look very good due to a lot of very small values that are hardly visible on the chart.</p>
+</div>
+<div id="treemap" class="section level1">
+<h1>Treemap</h1>
 <hr />
-<p>A <a href="">treemap</a> represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.<br />
+<p>A <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a> represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.<br />
 It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Package</span>
 <span class="kw">library</span>(treemap)
@@ -429,9 +440,11 @@ It is a good way to show a general overview of the data organization and is prob
             
             )</code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;" /></p>
-<h1 id="circle-packing">Circle packing</h1>
+</div>
+<div id="circle-packing" class="section level1">
+<h1>Circle packing</h1>
 <hr />
-<p>Circle packing is the circular version of the treemap. Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.</p>
+<p><a href="https://www.data-to-viz.com/graph/circularpacking.html">Circle packing</a> is the circular version of the <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>. Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
 <span class="kw">library</span>(ggraph)
 <span class="kw">library</span>(igraph)
@@ -459,17 +472,41 @@ mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</sp
 </div>
 
 
+<!-- Insert code for related graphics  -->
+<h1>Going further</h1>
+<hr>
+<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a>
+  
+  
+  
+  
+  
+  
+
 
 
 <!-- Insert code for DISQUS comments  -->
-
+      <br>
+      <h1>Comments</h1>
+      <hr>
+      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
+      <br>
       <div class="container">
         <div id="disqus_thread"></div>
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/.html;  
-        this.page.identifier = ; 
+        this.page.url = www.data-to-viz.com/story/OneNumOneCat.html;  
+        this.page.identifier = OneNumOneCat; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

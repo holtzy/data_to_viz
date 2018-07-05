@@ -119,12 +119,12 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div id="myBtnContainer">
-              <button class="btn btn-secondary active" onclick="showTree('num'); highlightHead('numericHead');">Numeric</button>
-              <button class="btn btn-secondary" onclick="showTree('cat'); highlightHead('categoricHead');">Categoric</button>
-              <button class="btn btn-secondary" onclick="showTree('catnum'); highlightHead('numcatHead');">Num & Cat</button>
-              <button class="btn btn-secondary" onclick="showTree('geo'); highlightHead('geographicalHead');">Maps</button>
-              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Network</button>
-              <button class="btn btn-secondary" onclick="showTree('relationnal'); highlightHead('relationnalHead');">Time series</button>
+              <button class="btn btn-secondary" onclick="showTree('num')">Numeric</button>
+              <button class="btn btn-secondary" onclick="showTree('cat')">Categoric</button>
+              <button class="btn btn-secondary" onclick="showTree('catnum')">Num & Cat</button>
+              <button class="btn btn-secondary" onclick="showTree('geo')">Maps</button>
+              <button class="btn btn-secondary" onclick="showTree('relationnal')">Network</button>
+              <button class="btn btn-secondary" onclick="showTree('time')">Time series</button>
             </div>
           </div>  
         </div> 
@@ -139,41 +139,6 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
 
     <script>
-    function highlightHead(id){     
-
-      console.log(id)
-      
-      // Hide all the heads, except the selected one.
-      var x, i;
-      x = document.getElementsByClassName("treeHead");
-      console.log(x)
-      for (i = 0; i < x.length; i++) {
-        console.log(i)
-        if (id!=x[i].id){
-          console.log(x[i].id)
-          d3.select("#" + x[i].id)
-                  .transition()
-                  .duration(750)
-                  .style("border-color", "rgba(0, 0, 0, 0)")
-                  .style("background-color", "rgba(0, 0, 0, 0)")
-                  .style("color", "grey")
-                  .style("font-size", "1rem")     
-        }
-      }
-      
-      //Show the selected border
-      d3.select("#" + id)
-           .transition()
-           .duration(750)
-           .style("border-color", "#69b3a2")
-           .style("border-bottom-style", "solid")
-           .style("color", "#69b3a2")
-           .style("font-size", "2rem")     
-    }
-
-
-
-
     function showTree(id){     
       
       // Hide all the tree AND set its opacity to 0. except for the selected one.
@@ -1903,7 +1868,7 @@ showTree('num')
                       <a class="dropdown-item" href="story/SeveralIndepLists.html">Comparing the lyrics of 3 french rapers</a>
                       <a class="dropdown-item" href="story/SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
                       <a class="dropdown-item" href="story/OneNumSevCatSubgroupOneObsPerGroup.html">The gender wage gap</a>
-                      <a class="dropdown-item" href="story/AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
+                      <a class="dropdown-item" href="story/AdjacencyMatrix.html">Co-autorship network | migration flows</a>
                 </div>
               </div>
             </div>
@@ -1913,13 +1878,14 @@ showTree('num')
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Num & Cat</button>
                 <div class="dropdown-menu">
                       <a class="dropdown-item" href="story/OneNumOneCat.html">Who sells more weapons?</a>
-                      <a class="dropdown-item" href="story/OneNumOneCatSeveralObs.html">How people perceive probability vocabulary</a>                
-                      <a class="dropdown-item" href="story/OneNumSevCatSubgroupOneObsPerGroup.html">The gender wage gap</a>
+                      <a class="dropdown-item" href="story/OneNumOneCatSeveralObs.html">How people perceive probability vocabulary</a>   
+                      <a class="dropdown-item" href="story/SeveralNum.html">Features of 32 famous car models</a>
+                      <a class="dropdown-item" href="story/OneCatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
+                      <a class="dropdown-item" href="story/OneNumSevCatSubgroupOneObsPerGroup.html">The gender wage gap</a>                                  
                       <a class="dropdown-item" href="story/OneNumSevCatSubgroupSevObsPerGroup.html">How much do people tip?</a>
                       <a class="dropdown-item" href="story/SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
-                      <a class="dropdown-item" href="story/SeveralIndepLists.html">Comparing the lyrics of 3 french rapers</a>
-                      <a class="dropdown-item" href="story/.html">MISSING: one cat several num no order</a>
-                      <a class="dropdown-item" href="story/OneCatSevOrderedNum.html">Evolution of baby names in the US since 1880</a>
+                      <a class="dropdown-item" href="-">-</a>
+                      <a class="dropdown-item" href="story/AdjacencyMatrix.html">Co-autorship network | migration flows</a>
                 </div>
               </div>
             </div>
@@ -1931,7 +1897,7 @@ showTree('num')
                       <a class="dropdown-item" href="story/GPSCoordWithoutValue.html">Where surfers live</a>
                       <a class="dropdown-item" href="story/GPSCoordWithValue.html">The population of 1000 cities in the UK</a>
                       <a class="dropdown-item" href="story/MapConnection.html">Where surfers travel</a>
-                      <a class="dropdown-item" href="story/RegionWithValue.html">MISSING: choropleth</a> 
+                      <a class="dropdown-item" href="graph/choropleth.html">Distribution of restaurants in the south of France</a> 
                 </div>
               </div>
             </div>
@@ -1940,10 +1906,10 @@ showTree('num')
               <div class="btn-group">
                 <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown">Network</button>
                 <div class="dropdown-menu">
-                      <a class="dropdown-item" href="story/AdjacencyMatrix.html">Comparing the lyrics of 3 french rapers</a>
+                      <a class="dropdown-item" href="story/AdjacencyMatrix.html">Co-autorship network | migration flows</a>
                       <a class="dropdown-item" href="story/SevCatOneNumNestedOneObsPerGroup.html">Repartition of the world population</a>
-                      <a class="dropdown-item" href="story/NestedValueForLinks.html">MISSING: nested value for edges</a>
-                      <a class="dropdown-item" href="story/NestedValueForConnection.html">MISSING: edge bundle</a>
+                      <a class="dropdown-item" href="-">-</a>
+                      <a class="dropdown-item" href="graph/edge_bundling.html">Connection between informatic components</a>
                 </div>
               </div>
             </div>
@@ -2467,9 +2433,6 @@ showTree('num')
     </section>
 
 
-
-
-
 <!-- ---------------------------------------------------------------------------------------------- -->
 
 
@@ -2749,7 +2712,7 @@ showTree('num')
           <div class="col-sm-2"></div>
           <div class="col-sm-4">
             <div class="team-member">
-              <a href="https://www.linkedin.com/in/yan-holtz-2477534a/"><img class="mx-auto rounded-circle" src="img/team/YanHoltz.jpg" alt=""></a>
+              <a href="https://www.linkedin.com/in/yan-holtz-2477534a/"><img class="mx-auto rounded-circle" src="img/team/YH_pic_square.png" alt=""></a>
               <a href="https://www.linkedin.com/in/yan-holtz-2477534a/"><h4>Yan Holtz</h4></a>
               <p class="text-muted">Data analyst</p>
               <ul class="list-inline social-buttons">

@@ -3,7 +3,7 @@ myimage1: "DensitySmall.png"
 myimage2: "Box1Small.png"
 myimage3: "ViolinSmall.png"
 myimage4: "HistogramSmall.png"
-mydisqus: "10_OneNumSevCatSubgroupSevObsPerGroup"
+mydisqus: "OneNumSevCatSubgroupSevObsPerGroup"
 mytitle: "How much do people tip?"
 output:
   html_document:
@@ -66,7 +66,11 @@ data %>% head(6) %>% select(tip, sex, day, smoker) %>% kable() %>%
 
 #Grouped boxplot
 ***
+The most common way to represent that kind of dataset is probably the grouped [boxplot](https://www.data-to-viz.com/caveat/boxplot.html). Each combination of group is represented by a box. This allows to quickly understand what is the distribution of the numeric variable for each combination.
 
+<br>
+
+Here, it looks like there is not much difference in tip values from one day to the other in average, except a slight increase on sunday. Moreover, it looks like females tend to tip more than males on friday. Note that individual data points are presented using `jittering`, what allows to detect more particular pattern and assess the sample size of each group.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
 # Counts the number of value per group and subgroup
 counts = data %>% 
@@ -84,13 +88,14 @@ data %>%
     geom_boxplot(position=position_dodge2(preserve = "total"), alpha=0.5, outlier.colour="transparent", varwidth = TRUE) +
     geom_point(color="grey", size=1, width=0.1, position=position_jitterdodge() , alpha=0.4) +
     scale_fill_viridis(discrete=T, name="") +
-    geom_text(data=counts, aes(label=paste0("n: ",n), y=median-2), position=position_dodge(0.8), hjust=0.5) +
+    geom_text(data=counts, aes(label=paste0("n: ",n), y=median-2), position=position_dodge(1), hjust=0.5) +
     theme_ipsum()  +
     xlab("") +
     ylab("Tip (%)") +
     ylim(0,35)
 ```
-The mos
+
+In the above chart categories are grouped by day. It is possible to build the same kind of visualization, grouping by Sex instead. In the first case, it is easy to compare the behavior or each sex day by day. On the second one, the idea is more to compare the difference by day for each sex.
 
 
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
@@ -114,6 +119,7 @@ data %>%
 #Violin
 ***
 
+The [violin plot](https://www.data-to-viz.com/graph/violin.html) can be used exactly in the same situation that the [boxplot](https://www.data-to-viz.com/caveat/boxplot.html). Using the same grouping technique, we got here a grouped violin plot.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
 # Grouped
 data %>%
@@ -135,7 +141,7 @@ data %>%
 
 #Histogram
 ***
-
+Small multiple is a powerful technique that can be used with that kind of data. Here, each combination is represented in a part of the grid, allowing a quick comparison between them. [Histograms](https://www.data-to-viz.com/graph/histogram.html) are used here, but the same result could be obtained with [density](https://www.data-to-viz.com/graph/density.html) plot.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
 # Grouped
 data %>%
@@ -150,12 +156,8 @@ data %>%
 ```
 
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
-</div>
+
 
 
 

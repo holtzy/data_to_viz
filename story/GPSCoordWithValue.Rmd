@@ -1,6 +1,7 @@
 ---
-myimage1: "Bubblemap150.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "BubbleMap150.png"
+mydisqus: "GPSCoordWithValue"
+mytitle: "The biggest UK cities"
 output:
   html_document:
       self_contained: false    
@@ -61,6 +62,7 @@ data %>% head(5) %>% kable() %>%
 
 #Bubble map
 ***
+The go-to graphic in this kind of situation is probably the [bubble map](https://www.data-to-viz.com/graph/bubblemap.html). Basically, one circle is drawn per provided geographic position. The size of the bubble is proportional to its corresponding numeric value. Warning, remember that the bubble area must be proportional to the value, [not its radius](https://www.data-to-viz.com/caveat/radius_or_area.html).
 
 ```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=8, fig.width=7}
 # Get the world polygon and extract UK
@@ -73,28 +75,37 @@ library(plotly)
 # plot
 p=data %>%
   
-  arrange(pop) %>%
+  arrange(desc(pop)) %>%
   mutate( name=factor(name, unique(name))) %>%
   mutate( mytext=paste("City: ", name, "\n", "Population: ", pop, sep="")) %>%  # This prepare the text displayed on hover.
  
   # Makte the static plot calling this text:
   ggplot() +
+    ggplot2::annotate("text", x = 1, y = 56.3, label="1000 biggest cities in the UK", colour = "black", size=4, alpha=1) +
+    ggplot2::annotate("segment", x = -1, xend = 3, y = 56, yend = 56, colour = "black", size=0.2, alpha=1) +
     geom_polygon(data = UK, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
     geom_point(aes(x=long, y=lat, size=pop, color=pop, text=mytext, alpha=pop) ) +
-    
-    scale_size_continuous(range=c(1,15)) +
+    scale_size_continuous(range=c(0.3,12)) +
     scale_color_viridis(option="inferno", trans="log" ) +
     scale_alpha_continuous(trans="log") +
     theme_void() +
     ylim(50,59) +
     coord_map() +
-    theme(legend.position = "none")
- 
-ggplotly(p, tooltip="text")
+    theme(
+      legend.position = "none"
+    )
 
+p <- ggplotly(p, tooltip="text")
 ```
 
 
+<center>
+```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=9, fig.width=7, echo=FALSE}
+p
+```
+</center>
+
+*Note*: this map is `interactive`. Hover a bubble to get the city name and its population, Zoom on a specific part for more details.
 
 
 

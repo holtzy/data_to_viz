@@ -5,7 +5,7 @@ myimage3: "Box1Small.png"
 myimage4: "ViolinSmall.png"
 myimage5: "JoyplotSmall.png"
 mytitle: "Perception of probability"
-mydisqus: "8_OneNumOneCatSeveralObs"
+mydisqus: "OneNumOneCatSeveralObs"
 output:
   html_document:
       self_contained: false    

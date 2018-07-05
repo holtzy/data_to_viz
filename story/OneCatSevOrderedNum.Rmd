@@ -1,8 +1,9 @@
 ---
 myimage1: "Line150.png"
 myimage2: "Area150.png"
-myimage3: "Stackedarea150.png"
+myimage3: "StackedArea150.png"
 myimage4: "Stream150.png"
+mydisqus: "OneCatSevOrderedNum"
 mytitle: "Evolution of baby names in the US"
 output:
   html_document:
@@ -60,6 +61,7 @@ data %>%
   kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
+
 </div>
 </div>
 
@@ -208,4 +210,5 @@ ggplot(data, aes(x=PC1, y=PC2)) +
   theme_ipsum()
 ```
 
-</div>
+
+

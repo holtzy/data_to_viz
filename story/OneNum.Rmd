@@ -1,7 +1,8 @@
 ---
 myimage1: "DensitySmall.png"
-myimage2: "Box1Small.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage2: "HistogramSmall.png"
+mytitle: "Airbnb prices on the french riviera"
+mydisqus: "OneNum"
 output:
   html_document:
       self_contained: false    
@@ -128,6 +129,11 @@ data %>%
 ```
 
 </div>
+
+
+
+
+
 
 
 </div>

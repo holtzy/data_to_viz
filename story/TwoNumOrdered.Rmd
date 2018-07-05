@@ -1,7 +1,8 @@
 ---
 myimage1: "Line150.png"
 myimage2: "Area150.png"
-
+myimage3: "ScatterConnected150.png"
+mydisqus: "TwoNumOrdered"
 mytitle: "Evolution of the bitcoin price"
 output:
   html_document:
@@ -68,7 +69,7 @@ data %>%
 
 
 
-#- Line plot
+#Line plot
 ***
 The most comon way to represent that kind of dataset is probably to produce a [line plot](). It allows to give a good overview of the bitcoin price on the period, reaching a value of 20,000 $ in december 2017.
 
@@ -85,7 +86,7 @@ data %>%
 
 
 
-#- Area chart
+#Area chart
 ***
 Even if the line chart is a very good way to convey the information, when only one variable is represented like here, the plot can appear to be slightly empty. Thus, an interesting alternative is the [area chart](). It is basically the same thing, except that the area between the X axis and the line is filled.
 
@@ -102,7 +103,7 @@ data %>%
 Note that using the same color for the filled area and the line is often a good looking choice, with a bit more transparency for the filled area.
 
 
-#- Interactivity
+#Interactivity
 ***
 Using interactivity gives a great added value to your line or area chart. Indeed, it is very useful to ba able to zoom on a specific time slot of interest on the graphic. For instance, have a look to what happened in 2014: bitcoin already experienced a huge evolution, comparable to 2017 in terme of relative evolution, but not mediatised at all.
 ```{r, fig.align="center", fig.width=10}
@@ -119,7 +120,7 @@ ggplotly(p)
 
 
 
-#- Few points? Use connected scatter
+#Few points? Use connected scatter
 ***
 If you have just a few point in your dataset, you probably want to use a [connected scatterplot]() instead. it is basically the same thing where each individual point is represented. It greatly helps to understand when observation have been made. Let's consider the last 10 observation of the bitcoin dataset:
 ```{r, fig.align="center", fig.width=10}
@@ -137,7 +138,7 @@ data %>%
 
 
 
-#- To cut or not to cut?
+#To cut or not to cut?
 ***
 The previous chart can be a bit frustrating. It is indeed hard to study the evolution of the bitcoin in this graphic since the price ranges between 7,500 and 10,000 dollars in this period, when the Y axis ranges between 0 and 10,000. In this case, it is a good practice to cut the Y axis to zoom on the variation. This subject is subject to many debates in the dataviz community and you can read more about it in the [dedicated page]().
 ```{r, fig.align="center", fig.width=10}
@@ -153,10 +154,10 @@ data %>%
 ```
 
 
-#- Comparing to a limit
+#Comparing to a limit
 ***
 Sometimes one can be interested in comparing the value to a specific threshold. In this case, you can fill the area depending on this threshold, with 2 different colors depending if the value is over or below the threshold:
-```{r, fig.align="center", fig.width=10}
+```{r, fig.align="center", fig.width=10, warning=FALSE, message=FALSE}
 data %>%
   tail(300) %>%
   mutate( mycolor=ifelse(value>7500, "yes", "no")) %>%
@@ -169,4 +170,4 @@ data %>%
     theme(legend.position="none")
 ```
 
-Note: this graphic is imperfect and must be improved (don't understand the behavior of `geom_ribbon`)
+*Note*: this graphic is imperfect and must be improved (don't understand the behavior of `geom_ribbon`)

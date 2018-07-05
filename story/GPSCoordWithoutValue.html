@@ -45,17 +45,17 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <p class="mytitle">Visualizing a set of geographic coordinates</p>
+  <p class="mytitle">Where surfers live</p>
   <center><div class='mysubtitle'>
     <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
   </div></center>
   <br><br>
 
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Choropleth150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Choropleth150.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbin150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbin150.png></a>
   
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Cartogram150.png></a>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Cartogram150.png></a>
   
   
   
@@ -229,11 +229,11 @@ $(document).ready(function () {
 </div>
 
 
-<br><br>
+<br><br><br><br>
 <div class="mycontent">
 <div class="row">
 <div class="col-md-8">
-<p><br><br><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">Github repository</a>. Basically it looks like the table beside.</p>
+<p><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">Github repository</a>. Basically it looks like the table beside.</p>
 </div>
 <div class="col-md-4">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
@@ -245,11 +245,10 @@ $(document).ready(function () {
 <span class="kw">library</span>(mapdata)
 
 <span class="co"># Load dataset from github</span>
-<span class="co">#data &lt;- read.table(&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv&quot;, sep=&quot;,&quot;, header=T)</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;../Example_dataset/17_ListGPSCoordinates.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span>T)
+data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span>T)
 
 <span class="co"># show data</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
+data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(homelat, homelon) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
@@ -259,9 +258,6 @@ homelat
 </th>
 <th style="text-align:right;">
 homelon
-</th>
-<th style="text-align:left;">
-homecontinent
 </th>
 </tr>
 </thead>
@@ -273,9 +269,6 @@ homecontinent
 <td style="text-align:right;">
 -70.33012
 </td>
-<td style="text-align:left;">
-South America
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -284,9 +277,6 @@ South America
 <td style="text-align:right;">
 -84.51202
 </td>
-<td style="text-align:left;">
-North America
-</td>
 </tr>
 <tr>
 <td style="text-align:right;">
@@ -294,9 +284,6 @@ North America
 </td>
 <td style="text-align:right;">
 -99.27186
-</td>
-<td style="text-align:left;">
-South America
 </td>
 </tr>
 </tbody>
@@ -312,7 +299,7 @@ South America
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Get the world polygon</span>
 world &lt;-<span class="st"> </span><span class="kw">map_data</span>(<span class="st">&quot;world&quot;</span>)
 
-data <span class="op">%&gt;%</span>
+p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="co">#head(1000) %&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.1</span>) <span class="op">+</span>
@@ -328,9 +315,9 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">180</span>,<span class="dv">180</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">60</span>,<span class="dv">80</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.006</span>, <span class="fl">0.006</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_equal</span>() </code></pre></div>
-<p><img src="GPSCoordWithoutValue_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggsave</span>(<span class="st">&quot;IMG/Surfer_position.png&quot;</span>, <span class="dt">width =</span> <span class="dv">36</span>, <span class="dt">height =</span> <span class="fl">15.22</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">dpi =</span> <span class="dv">90</span>)</code></pre></div>
+<span class="st">    </span><span class="kw">coord_equal</span>() 
+
+<span class="kw">ggsave</span>(p, <span class="dt">file=</span><span class="st">&quot;IMG/Surfer_position.png&quot;</span>, <span class="dt">width =</span> <span class="dv">36</span>, <span class="dt">height =</span> <span class="fl">15.22</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">dpi =</span> <span class="dv">90</span>)</code></pre></div>
 </div>
 <center>
 <div class="figure">
@@ -340,50 +327,77 @@ data <span class="op">%&gt;%</span>
 </center>
 <br><br>
 <div class="mycontent">
-
 <p>Dotmaps give a good idea about where samples are distributed. However, once dots start to overlap, it gets impossible to distinguish how many of them are displayed on a certain zone. That’s where binning becomes an interesting option.</p>
-<div id="hexbin" class="section level1">
-<h1>Hexbin</h1>
+<h1 id="hexbin">Hexbin</h1>
 <hr />
-<p>To create a hexbin map, the territory is divided in many hexagones and the number of sample per hexagone is counted and represented by a color.</p>
+<p>To create a <a href="https://www.data-to-viz.com/graph/hexbinmap.html">hexbin map</a>, the territory is divided in many <code>hexagons</code> and the number of sample per hexagon is counted and represented by a color.</p>
+</div>
+<div class="row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto; background-color: #f5f5f2;">
+<p><br></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(homecontinent<span class="op">==</span><span class="st">&#39;Europe&#39;</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_hex</span>(<span class="dt">bins=</span><span class="dv">65</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_hex</span>(<span class="dt">bins=</span><span class="dv">59</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">27</span>, <span class="dt">y =</span> <span class="dv">72</span>, <span class="dt">label=</span><span class="st">&quot;Where people tweet about #Surf&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="dv">5</span>, <span class="dt">alpha=</span><span class="dv">1</span>, <span class="dt">hjust=</span><span class="dv">0</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">27</span>, <span class="dt">xend =</span> <span class="dv">10</span>, <span class="dt">y =</span> <span class="dv">70</span>, <span class="dt">yend =</span> <span class="dv">70</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">30</span>, <span class="dv">70</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="dv">24</span>, <span class="dv">72</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_fill_viridis</span>(
       <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
-      <span class="dt">name=</span><span class="st">&quot;Number of Tweet recorded in 8 months&quot;</span>, 
-      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
+      <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">54</span>,<span class="dv">403</span>,<span class="dv">3000</span>),
+      <span class="dt">name=</span><span class="st">&quot;Tweet # recorded in 8 months&quot;</span>, 
+      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="fl">2.5</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
     )  <span class="op">+</span>
-<span class="st">    </span><span class="kw">ggtitle</span>( <span class="st">&quot;Where people tweet about #Surf&quot;</span> ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>( <span class="st">&quot;&quot;</span> ) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.09</span>),
+      <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.09</span>),
+      <span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="dv">8</span>),
       <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
-      <span class="co">#plot.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA), </span>
-      <span class="co">#panel.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA), </span>
-      <span class="co">#legend.background = element_rect(fill = &quot;#f5f5f2&quot;, color = NA),</span>
-      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.1</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
-    )</code></pre></div>
-<p><img src="GPSCoordWithoutValue_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+      <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+      <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+      <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
+      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">13</span>, <span class="dt">hjust=</span><span class="fl">0.1</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
+    ) </code></pre></div>
+<p><img src="GPSCoordWithoutValue_files/figure-html/unnamed-chunk-3-1.png" width="864" style="display: block; margin: auto;" /></p>
+<p><br></p>
+</div>
+<div class="mycontent">
+<p><br></p>
+<p>Note that this is very close from an <a href="https://www.data-to-viz.com/graph/hexbinmap.html">2d histogram map</a>. Basically, it splits the space into a set of squares instead of hexagons, and uses the same process:</p>
+<p><br></p>
+</div>
+<div class="row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto; background-color: #f5f5f2;">
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Make the hexbin map with the geom_hex function</span>
 <span class="kw">ggplot</span>(data, <span class="kw">aes</span>(<span class="dt">x=</span>homelon, <span class="dt">y=</span>homelat)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_bin2d</span>(<span class="dt">bins=</span><span class="dv">120</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(
-    <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
-    <span class="dt">name=</span><span class="st">&quot;Number of Tweets&quot;</span>, 
-    <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.09</span>),
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">70</span>, <span class="dv">80</span>)</code></pre></div>
-<p><img src="GPSCoordWithoutValue_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<span class="st">    </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> world, <span class="kw">aes</span>(<span class="dt">x=</span>long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group), <span class="dt">fill=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.3</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_bin2d</span>(<span class="dt">bins=</span><span class="dv">100</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="dv">175</span>, <span class="dt">y =</span> <span class="dv">80</span>, <span class="dt">label=</span><span class="st">&quot;Where people tweet about #Surf&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="dv">4</span>, <span class="dt">alpha=</span><span class="dv">1</span>, <span class="dt">hjust=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;segment&quot;</span>, <span class="dt">x =</span> <span class="dv">100</span>, <span class="dt">xend =</span> <span class="dv">175</span>, <span class="dt">y =</span> <span class="dv">73</span>, <span class="dt">yend =</span> <span class="dv">73</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="fl">0.2</span>, <span class="dt">alpha=</span><span class="dv">1</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme_void</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">70</span>, <span class="dv">80</span>) <span class="op">+</span>
+<span class="st">    </span><span class="kw">scale_fill_viridis</span>(
+      <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
+      <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">54</span>,<span class="dv">403</span>,<span class="dv">3000</span>),
+      <span class="dt">name=</span><span class="st">&quot;Tweet # recorded in 8 months&quot;</span>, 
+      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="fl">2.5</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
+    )  <span class="op">+</span>
+<span class="st">    </span><span class="kw">ggtitle</span>( <span class="st">&quot;&quot;</span> ) <span class="op">+</span>
+<span class="st">    </span><span class="kw">theme</span>(
+      <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.09</span>),
+      <span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="dv">8</span>),
+      <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
+      <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+      <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+      <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
+      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">13</span>, <span class="dt">hjust=</span><span class="fl">0.1</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
+    ) </code></pre></div>
+<p><img src="GPSCoordWithoutValue_files/figure-html/unnamed-chunk-4-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
+<div class="mycontent">
+
+
+
 <div id="choropleth" class="section level1">
 <h1>Choropleth</h1>
 <hr />
@@ -391,17 +405,39 @@ data <span class="op">%&gt;%</span>
 </div>
 
 
+<!-- Insert code for related graphics  -->
+<h1>Going further</h1>
+<hr>
+<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Choropleth150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbin150.png></a>
+  
+    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Cartogram150.png></a>
+  
+  
+  
+  
+  
+  
+  
+  
+
 
 
 <!-- Insert code for DISQUS comments  -->
-
+      <br>
+      <h1>Comments</h1>
+      <hr>
+      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
+      <br>
       <div class="container">
         <div id="disqus_thread"></div>
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/.html;  
-        this.page.identifier = ; 
+        this.page.url = www.data-to-viz.com/story/GPSCoordWithoutValue.html;  
+        this.page.identifier = GPSCoordWithoutValue; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

@@ -1,7 +1,10 @@
 ---
-myimage1: "DensitySmall.png"
-myimage2: "Box1Small.png"
+myimage1: "BarSmall.png"
+myimage2: "Parallel1Small.png"
+myimage3: "SpiderSmall.png"
+myimage4: "ScatterPlotSmall.png"
 mytitle: "The gender wage gap"
+mydisqus: "OneNumSevCatSubgroupOneObsPerGroup"
 output:
   html_document:
       self_contained: false    
@@ -182,10 +185,10 @@ data %>%
 
 
 
-#Grouped scatter
+#Scatter plot
 ***
 
-If one of the grouping variable has 2 levels, it is also possible to build a scatterplot. In this case it is useful to use interactivity: it avoids to have a legend with too many levels.
+If one of the grouping variable has 2 levels, it is also possible to build a scatterplot. One level will be on the X axis, the other on the Y axis. Let's make an example showing the value in the 20' compared to the 2015'. In this case it is useful to use interactivity: it avoids to have a legend with too many levels.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 p <- data %>%
   filter(TIME %in% c(2000, 2015)) %>%
@@ -193,9 +196,8 @@ p <- data %>%
   filter(`2000`!=-1) %>%
   filter(`2015`!=-1) %>%
   mutate(text=paste("Country: ",Country, "\n", "Wage gap in 2000: ", `2000`, "%\nWage gap in 2015: ", `2015`, sep="")) %>%
-  ggplot(aes(x=`2000`, y=`2015`, text=text, color=Country)) +
-    geom_point(size=4, alpha=0.6) +
-    scale_color_viridis(discrete=T, name="") +
+  ggplot(aes(x=`2000`, y=`2015`, text=text)) +
+    geom_point(size=4, alpha=0.6, color="#69b3a2") +
     theme_ipsum() +
     theme(legend.position="none") +
     xlab("Gender wage gap in 2000 (%)") +
@@ -215,4 +217,3 @@ ggplotly(p, tooltip="text")
 
 
 
-</div>

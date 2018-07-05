@@ -1,9 +1,10 @@
 ---
-myimage1: "DensitySmall.png"
-myimage2: ".Box1Small.png"
+myimage1: "Density150.png"
+myimage2: "Box1150.png"
 myimage3: "BubblePlot150.png"
-myimage4: "3D150.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage4: "3d150.png"
+mydisqus: "ThreeNum"
+mytitle: "Life expectancy, gdp per capita and population size"
 output:
   html_document:
       self_contained: false    
@@ -159,7 +160,7 @@ ggplotly(p, tooltip="text")
 ```
 
 
-#- A note on the grid scenario
+#A note on the grid scenario
 ***
 
 

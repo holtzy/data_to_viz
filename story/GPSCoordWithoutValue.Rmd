@@ -2,7 +2,8 @@
 myimage1: "Choropleth150.png"
 myimage2: "MapHexbin150.png"
 myimage3: "Cartogram150.png"
-mytitle: "Visualizing a set of geographic coordinates"
+mydisqus: "GPSCoordWithoutValue"
+mytitle: "Where surfers live"
 output:
   html_document:
       self_contained: false    
@@ -21,7 +22,7 @@ output:
         after_body: footer.html
 ---
 
-<br><br>
+<br><br><br><br>
 <div class="mycontent">
 
 
@@ -29,7 +30,7 @@ output:
 
 <div class = "row">
 <div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+<br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
 </div>
 <div class = "col-md-4">
 ```{r, warning=FALSE, message=FALSE}
@@ -42,11 +43,10 @@ options(knitr.table.format = "html")
 library(mapdata)
 
 # Load dataset from github
-#data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
-data <- read.table("../Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/17_ListGPSCoordinates.csv", sep=",", header=T)
 
 # show data
-data %>% head(3) %>% kable() %>%
+data %>% select(homelat, homelon) %>% head(3) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 </div>
@@ -70,7 +70,7 @@ A dot density map is used when the sample size of your dataset is high.
 # Get the world polygon
 world <- map_data("world")
 
-data %>%
+p <- data %>%
   #head(1000) %>%
   ggplot( aes(x=homelon, y=homelat)) +
     geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.1) +
@@ -88,7 +88,7 @@ data %>%
     scale_x_continuous(expand = c(0.006, 0.006)) +
     coord_equal() 
 
-ggsave("IMG/Surfer_position.png", width = 36, height = 15.22, units = "in", dpi = 90)
+ggsave(p, file="IMG/Surfer_position.png", width = 36, height = 15.22, units = "in", dpi = 90)
 
 ```
 
@@ -110,56 +110,97 @@ Dotmaps give a good idea about where samples are distributed. However, once dots
 #Hexbin
 ***
 
-To create a hexbin map, the territory is divided in many hexagones and the number of sample per hexagone is counted and represented by a color.
+To create a [hexbin map](https://www.data-to-viz.com/graph/hexbinmap.html), the territory is divided in many `hexagons` and the number of sample per hexagon is counted and represented by a color.
 
-```{r, warning=FALSE, message=FALSE, fig.alig="center"}
+</div>
+
+<div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto; background-color: #f5f5f2;">
+
+<br>
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=9, fig.height=6}
 
 data %>%
   filter(homecontinent=='Europe') %>%
   ggplot( aes(x=homelon, y=homelat)) + 
-    geom_hex(bins=65) +
+    geom_hex(bins=59) +
+    ggplot2::annotate("text", x = -27, y = 72, label="Where people tweet about #Surf", colour = "black", size=5, alpha=1, hjust=0) +
+    ggplot2::annotate("segment", x = -27, xend = 10, y = 70, yend = 70, colour = "black", size=0.2, alpha=1) +
     theme_void() +
     xlim(-30, 70) +
     ylim(24, 72) +
     scale_fill_viridis(
       trans = "log", 
-      name="Number of Tweet recorded in 8 months", 
-      guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+      breaks = c(1,7,54,403,3000),
+      name="Tweet # recorded in 8 months", 
+      guide = guide_legend( keyheight = unit(2.5, units = "mm"), keywidth=unit(10, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
     )  +
-    ggtitle( "Where people tweet about #Surf" ) +
+    ggtitle( "" ) +
     theme(
-      legend.position = c(0.5, 0.09),
+      legend.position = c(0.8, 0.09),
+      legend.title=element_text(color="black", size=8),
       text = element_text(color = "#22211d"),
-      #plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-      #panel.background = element_rect(fill = "#f5f5f2", color = NA), 
-      #legend.background = element_rect(fill = "#f5f5f2", color = NA),
-      plot.title = element_text(size= 22, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
-    )
+      plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+      panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+      legend.background = element_rect(fill = "#f5f5f2", color = NA),
+      plot.title = element_text(size= 13, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    ) 
 ```
 
 
 
+<br>
 
 
+</div>
+
+<div class="mycontent">
+
+<br>
 
 
-```{r, warning=FALSE}
+Note that this is very close from an [2d histogram map](https://www.data-to-viz.com/graph/hexbinmap.html). Basically, it splits the space into a set of squares instead of hexagons, and uses the same process:
+
+<br>
+
+
+</div>
+
+<div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto; background-color: #f5f5f2;">
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=9, fig.height=6}
 
 # Make the hexbin map with the geom_hex function
 ggplot(data, aes(x=homelon, y=homelat)) + 
-  geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
-  geom_bin2d(bins=120) +
-  theme_void() +
-  scale_fill_viridis(
-    trans = "log", 
-    name="Number of Tweets", 
-    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)
-  ) +
-  theme(
-    legend.position = c(0.5, 0.09),
-  ) +
-  ylim(-70, 80)
+    geom_polygon(data = world, aes(x=long, y = lat, group = group), fill="grey", alpha=0.3) +
+    geom_bin2d(bins=100) +
+    ggplot2::annotate("text", x = 175, y = 80, label="Where people tweet about #Surf", colour = "black", size=4, alpha=1, hjust=1) +
+    ggplot2::annotate("segment", x = 100, xend = 175, y = 73, yend = 73, colour = "black", size=0.2, alpha=1) +
+    theme_void() +
+    ylim(-70, 80) +
+    scale_fill_viridis(
+      trans = "log", 
+      breaks = c(1,7,54,403,3000),
+      name="Tweet # recorded in 8 months", 
+      guide = guide_legend( keyheight = unit(2.5, units = "mm"), keywidth=unit(10, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+    )  +
+    ggtitle( "" ) +
+    theme(
+      legend.position = c(0.8, 0.09),
+      legend.title=element_text(color="black", size=8),
+      text = element_text(color = "#22211d"),
+      plot.background = element_rect(fill = "#f5f5f2", color = NA), 
+      panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+      legend.background = element_rect(fill = "#f5f5f2", color = NA),
+      plot.title = element_text(size= 13, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    ) 
 ```
+
+
+
+</div>
+
+<div class="mycontent">
 
 
 
