@@ -12,13 +12,21 @@ This folder lists the datasets used in the website [data-to-viz.com](https://www
 |7   | OneNumOneCat		      		 		| [Peace Research Inst.](http://armstrade.sipri.org/armstrade/page/toplist.php) | Quantity of weapons exported by the top 50 largest exporters | link |
 
 
+|9   | OneNumSevCatSubgroupOneObs		    | [OECD](https://stats.oecd.org/index.aspx?queryid=54751) | The Gender Wage Gap | link |
+
+
 |11   | SevCatOneNumNestedOneObsPerGroup	| [Wikipedia](https://github.com/mledoze/countries) | World population for 250 countries | link |
 
 
-|14  | SeveralIndepLists	   		| [Paroles.net](https://www.paroles.net/) | Lyrics of french rapers | link |
+|13   | AdjacencyMatrix	| [Goggle Scholar](https://github.com/holtzy/Google-Scholar-Network) | Co-autorship network of a researcher | link |
+|14   | AdjacencyMatrix	| [Gui J. Abel Publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) | Migration of people at world scale | link |
 
 
-|19  | MapConnection        		| [#Surfer Project](https://github.com/holtzy/About-Surfers-On-Twitter) | Data on 400k #surf tweets | link |
+
+|14  | SeveralIndepLists	   				| [Paroles.net](https://www.paroles.net/) | Lyrics of french rapers | link |
+
+
+|19  | MapConnection        				| [#Surfer Project](https://github.com/holtzy/About-Surfers-On-Twitter) | Data on 400k #surf tweets | link |
 
 
 
