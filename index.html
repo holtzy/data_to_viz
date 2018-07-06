@@ -4625,92 +4625,41 @@ by the Y axis, and one by the dot size.</p>
     <!-- Activate the bootstrap tooltip, must be after jQuery load -->
     <script>
     $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    });
-    </script>
+      $('[data-toggle="tooltip"]').tooltip();
+      showTree('num');
 
+      // Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ
+  	  $('.portfolioFilter a').click(function(){
+        $('.portfolioFilter .current').removeClass('current');
+        $(this).addClass('current');
 
-    <!-- Now that everything is loaded, show the num tree -->
-    <script>showTree('num')</script>
+        var selector = $(this).attr('data-filter');
+        return false;
+	    });
 
+      // Script to give a specific URL to every Modal. TODO: improve it with https://stackoverflow.com/questions/34154370/bootstrap-3-x-how-to-have-url-change-upon-clicking-modal-trigger
+      $(window.location.hash).modal('show');
+      $('a[data-toggle="modal"]').click(function(){
+        window.location.hash = $(this).attr('href');
+      });
 
+      $('button[data-dismiss="modal"]').click(revertToOriginalURL);
+      $('.modal').on('hidden.bs.modal', revertToOriginalURL);
 
-
-
-    <!-- Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ -->
-    <script>
-  	$(window).load(function(){
-  	    var $container = $('.portfolioContainer');
-  	    $container.isotope({
-  	        filter: '*',
-  	        animationOptions: {
-  	            duration: 750,
-  	            easing: 'linear',
-  	            queue: false
-  	        }
-  	    });
-  	 
-  	    $('.portfolioFilter a').click(function(){
-  	        $('.portfolioFilter .current').removeClass('current');
-  	        $(this).addClass('current');
-  	 
-  	        var selector = $(this).attr('data-filter');
-  	        $container.isotope({
-  	            filter: selector,
-  	            animationOptions: {
-  	                duration: 750,
-  	                easing: 'linear',
-  	                queue: false
-  	            }
-  	         });
-  	         return false;
-  	    }); 
-  	});
-	</script>
-
-
-
-
-    <!-- Script to give a specific URL to every Modal. TODO: improve it with https://stackoverflow.com/questions/34154370/bootstrap-3-x-how-to-have-url-change-upon-clicking-modal-trigger -->
-    <script>
-      $(document).ready(function(){
-        $(window.location.hash).modal('show');
-        $('a[data-toggle="modal"]').click(function(){
-           window.location.hash = $(this).attr('href');
+      $('.tip').each(function () {
+        $(this).tooltip({
+          html: true,
+          title: $('#' + $(this).data('tip')).html()
         });
       });
 
-      $('button[data-dismiss="modal"]').click(function(){
-           var original = window.location.href.substr(0, window.location.href.indexOf('#'))
-           history.replaceState({}, document.title, original);
-       });
-
-      $(window.location.hash).modal('show');
-      $('a[data-toggle="modal"]').click(function(){
-          window.location.hash = $(this).attr('href');
-      });
-
-      function revertToOriginalURL() {
-          var original = window.location.href.substr(0, window.location.href.indexOf('#'))
-          history.replaceState({}, document.title, original);
-      }
-
-      $('.modal').on('hidden.bs.modal', function () {
-          revertToOriginalURL();
-      });
-
-  </script>
-
-
-  <script>
-    $('.tip').each(function () {
-      $(this).tooltip(
-      {
-        html: true,
-          title: $('#' + $(this).data('tip')).html()
-      });
     });
-  </script>
+
+    function revertToOriginalURL() {
+      var original = window.location.href.substr(0, window.location.href.indexOf('#'));
+      history.replaceState({}, document.title, original);
+    }
+    </script>
 
 
 
