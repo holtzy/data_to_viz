@@ -1,0 +1,141 @@
+---
+myimage1: "../img/mistake/hard_label.png"
+mytitle: "A note on long labels"
+mydisqus: "hard_label"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+
+
+#Definition
+***
+In short what is happening is that a trend or association that appears between two different variables reverses when a third variable is included.  You will stumble into or at least need to be on the lookout for this effect of spurious correlation when you have unbalanced group sizes, like you often have using observational data.
+
+a trend that appears in different groups of data but disappears or reverses when these groups are combined
+
+
+
+<br>
+
+As a result, these labels become hard to read:
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+dpt = c('A','B','C','D','E','F','A','B','C','D','E','F')
+app = c(825,560,325,417,191,272,108,25,593,375,393,341)
+adm = c(512,353,120,138,53,16,89,17,202,131,94,24)
+gen = c('m','m','m','m','m','m','f','f','f','f','f','f')
+df = cbind.data.frame(dpt,app,adm,gen)
+str(df)
+
+library(dplyr)
+by_gen = group_by(df, gen) 
+summarize(by_gen, adm_rate=sum(adm)/sum(app))
+
+df %>% 
+  ggplot( aes(x=app, y=adm) ) +
+    geom_point()
+
+
+df %>% 
+  ggplot( aes(x=app, y=adm, color=gen) ) +
+    geom_point()
+
+
+```
+
+
+
+
+
+
+
+*Note*: this barplot shows the quantity of weapons exported by the top 20 largest exporters in 2017, [read more](https://www.data-to-viz.com/story/OneNumOneCat.html).
+
+
+
+#Solving the issue
+***
+The workaround is pretty simple, why not considering an `horizontal version` of the chart?
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# Barplot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)") +
+    coord_flip()
+```
+
+
+
+
+
+#Warning
+***
+Note that the horizontal version is not always an option though. If you categoric variable has a natural order, it is better to stick to the vertical version. It happens when:
+
+- you're represented `time series`: time must be represented on the X axis by convention. Not doing so could mislead your audience.
+- you have an `ordinal variable` like age range.
+
+
+
+#Going further
+***
+
+https://paulvanderlaken.com/2017/09/27/simpsons-paradox-two-hr-examples-with-r-code/
+https://www.jstor.org/stable/2684093?seq=3#page_scan_tab_contents
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
