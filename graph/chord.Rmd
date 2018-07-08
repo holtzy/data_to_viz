@@ -41,6 +41,7 @@ library(viridis)
 library(patchwork)
 library(hrbrthemes)
 library(circlize)
+library(chorddiag)  #devtools::install_github("mattflor/chorddiag")
 
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv", header=TRUE)
@@ -107,7 +108,7 @@ circos.trackPlotRegion(
   
 ```
 
-*Note*: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com). Read more about this story [here](file:///Users/yan/Dropbox/data_to_viz/story/AdjacencyMatrix.html). 
+*Note*: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com). Read more about this story [here](https://www.data-to-viz.com/story/AdjacencyMatrix.html). 
 
 
 

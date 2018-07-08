@@ -1,7 +1,7 @@
 ---
-myimage: "Box1Small.png"
-mydisqus: "boxplot"
-mytitle: "Boxplot"
+myimage: "SunburstSmall.png"
+mydisqus: "sunburst"
+mytitle: "Sunburst"
 output:
   html_document:
       self_contained: false    
@@ -32,30 +32,8 @@ output:
 ***
 Work in progress, sorry for the inconvenience.
 
-Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(viridis)
-```
 
 
-# What for
-***
-
-Still in progress
-
-# Variation
-***
-
-Again
-
-
-# Common mistakes {#mistake}
-***
-
-- [Try several bin size](), it can lead to very different conclusions.
 
 
 
@@ -72,21 +50,21 @@ Again
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
   <p class="mytitlerelated">Ridgeline</p>
   <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
   <p class="mytitlerelated">Violin</p>
   <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
@@ -102,8 +80,8 @@ Again
 The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com" class="btn btn-primary">R graph gallery</a>
+<a href="https://www.python-graph-gallery.com" class="btn btn-primary">Python gallery</a>
 </p>
 
 

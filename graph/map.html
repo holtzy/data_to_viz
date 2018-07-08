@@ -45,9 +45,9 @@
   <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
   <br><br>
   <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png"></a>
+  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Map150.png"></a>
   <br><br>
-  <p class="mytitle">Boxplot</p>
+  <p class="mytitle">Background Map</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
     <a href="#mistake">mistake</a> - 
@@ -74,52 +74,6 @@
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
 
 
 <style type="text/css">
@@ -223,71 +177,11 @@ $(document).ready(function () {
 <h1 id="definition">Definition</h1>
 <hr />
 <p>Work in progress, sorry for the inconvenience.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)</code></pre></div>
-<h1 id="what-for">What for</h1>
-<hr />
-<p>Still in progress</p>
-<h1 id="variation">Variation</h1>
-<hr />
-<p>Again</p>
-<h1 id="mistake">Common mistakes</h1>
-<hr />
-<ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
-</ul>
-<h1 id="related">Related</h1>
-<hr />
-<div class="row">
-<div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-<p class="mytitlerelated">
-Density
-</p>
-<p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
-</p>
-</a>
-</div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-<p class="mytitlerelated">
-Ridgeline
-</p>
-<p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
-</p>
-</a>
-</div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-<p class="mytitlerelated">
-Boxplot
-</p>
-<p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
-</p>
-</a>
-</div>
-<div class="col-sm-3">
-<a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-<p class="mytitlerelated">
-Violin
-</p>
-<p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
-</p>
-</a>
-</div>
-</div>
 <h1 id="code">Build your own</h1>
 <hr />
 <p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a> <a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/map/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/map/" class="btn btn-primary">Python gallery</a>
 </p>
 <h1 id="comments">Comments</h1>
 <hr />
@@ -302,8 +196,8 @@ Show the density of several numeric variables. Use it with a large amount of dat
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/boxplot.html;  
-        this.page.identifier = boxplot; 
+        this.page.url = www.data-to-viz.com/graph/map.html;  
+        this.page.identifier = map; 
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

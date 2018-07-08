@@ -1,5 +1,5 @@
 ---
-myimage: "violinSmall.png"
+myimage: "ViolinSmall.png"
 mydisqus: "violin"
 mytitle: "Violin plot"
 output:
@@ -188,21 +188,21 @@ data %>%
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
   <p class="mytitlerelated">Ridgeline</p>
   <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="toto" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
   <p class="mytitlerelated">Violin</p>
   <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>

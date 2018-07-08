@@ -72,7 +72,7 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
 <script src="libs/d3-3.5.15/d3.min.js"></script>
 <script src="libs/d3-tip-0.6.7/index.js"></script>
 <link href="libs/chorddiag-0.0.0.9000/chorddiag.css" rel="stylesheet" />
@@ -236,6 +236,7 @@ $(document).ready(function () {
 <span class="kw">library</span>(patchwork)
 <span class="kw">library</span>(hrbrthemes)
 <span class="kw">library</span>(circlize)
+<span class="kw">library</span>(chorddiag)  <span class="co">#devtools::install_github(&quot;mattflor/chorddiag&quot;)</span>
 
 <span class="co"># Load dataset from github</span>
 data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyDirectedWeighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
@@ -300,7 +301,7 @@ mycolor &lt;-<span class="st"> </span>mycolor[<span class="kw">sample</span>(<sp
   }
 )</code></pre></div>
 <p><img src="chord_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><em>Note</em>: this plot is made using the circlize library, and very strongly inspired from the <a href="https://github.com/cran/migest">Migest package</a> from <a href="http://guyabel.com">Gui J. Abel</a>. Read more about this story <a href="file:///Users/yan/Dropbox/data_to_viz/story/AdjacencyMatrix.html">here</a>.</p>
+<p><em>Note</em>: this plot is made using the circlize library, and very strongly inspired from the <a href="https://github.com/cran/migest">Migest package</a> from <a href="http://guyabel.com">Gui J. Abel</a>. Read more about this story <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">here</a>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
 <p>Chord diagrams are eye catching and quite popular in data visualization. They allow to visualize <code>weigthed</code> relationships between several entities. They are adapted for several specific situations that slightly modify the output and the way to read them:</p>
@@ -330,8 +331,8 @@ haircolors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 
 groupColors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#FFDD89&quot;</span>, <span class="st">&quot;#957244&quot;</span>, <span class="st">&quot;#F26223&quot;</span>)
 <span class="kw">chorddiag</span>(m, <span class="dt">groupColors =</span> groupColors, <span class="dt">groupnamePadding =</span> <span class="dv">20</span>)</code></pre></div>
-<div id="htmlwidget-1ffbf231577a590cf62a" style="width:672px;height:672px;" class="chorddiag html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1ffbf231577a590cf62a">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-a7a8e51688377b542769" style="width:672px;height:672px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-a7a8e51688377b542769">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <p><em>Note</em>: this example comes from the <a href="https://github.com/mattflor/chorddiag">chorddiag</a> package documentation.</p>
 <h1 id="mistake">Common mistakes</h1>

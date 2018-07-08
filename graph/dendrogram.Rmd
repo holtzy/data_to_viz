@@ -101,7 +101,7 @@ Let's consider a `distance matrix` that provides the distance between all pairs 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Load the data
-data <- read.table("/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, row.names="Cities.", sep=",") %>% as.matrix
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, row.names="Cities.", sep=",") %>% as.matrix
 colnames(data) <- gsub("\\.", " ", colnames(data))
 
 # show data

@@ -97,7 +97,7 @@ ggplot() +
 
 
 
-- The second definition refers to the utilisation of [2D density](file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html) techniques. Think of a scatterplot where the X axis is the longitude and the Y axis is the latitude. The graphic area is divided in a multitude of hexagones and the number of data point in each is counted and represented using a color gradient. Note that here `no map boundaries is needed`. It requires only a `list of latitude and longitude`.
+- The second definition refers to the utilisation of [2D density](https://www.data-to-viz.com/graph/density2d.html) techniques. Think of a scatterplot where the X axis is the longitude and the Y axis is the latitude. The graphic area is divided in a multitude of hexagones and the number of data point in each is counted and represented using a color gradient. Note that here `no map boundaries is needed`. It requires only a `list of latitude and longitude`.
 </div>
 
 <div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto; background-color: #f5f5f2;">
@@ -154,10 +154,10 @@ data %>%
 <div class="mycontent">
 
 <br>
-*Note on the first map*: You can learn more about this story [here](file:///Users/yan/Dropbox/data_to_viz/story/RegionWithValue.html). Data comes from [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map). Code has been inspired from [this post](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) and [that one](https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/).
+*Note on the first map*: You can learn more about this story [here](https://www.data-to-viz.com/data_to_viz/story/RegionWithValue.html). Data comes from [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map). Code has been inspired from [this post](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) and [that one](https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/).
 
 
-*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](file:///Users/yan/Dropbox/data_to_viz/story/GPSCoordWithoutValue.html).
+*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](https://www.data-to-viz.com/data_to_viz/story/GPSCoordWithoutValue.html).
 
 
 
