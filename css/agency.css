@@ -263,6 +263,25 @@ img::-moz-selection {
     background-size: cover;
 }
 
+
+
+.parallaxposter {
+    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+    background-image: url("../img/parallax/poster_zoom_fadded.png");
+
+    /* Set a specific height */
+    min-height: 500px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
 header.masthead .intro-text {
   padding-top: 150px;
   padding-bottom: 150px;
@@ -435,8 +454,6 @@ header.masthead .intro-text .intro-heading {
   padding-right: 0px !important;
 }
 
-
-
 /* width of modal: different following the device: small (100%), medium(50%), large(30%); */
 
 .portfolio-modal .modal-dialog {
@@ -491,6 +508,32 @@ header.masthead .intro-text .intro-heading {
 .portfolio-modal .modal-content button {
   cursor: pointer;
 }
+
+
+
+
+
+
+
+
+
+/* -------------------- MODAL FULL SCREEN ------------------ */
+
+
+.fullScreen {
+  max-width: 100vw;  
+  max-height: 100vh;  
+}
+
+.modal-dialog-full {
+  max-width: 100vw;  
+  max-height: 100vh;  
+}
+
+
+
+
+
 
 
 

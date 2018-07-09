@@ -2502,7 +2502,7 @@
                     <a href="caveat/order_data.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
                       <img  src="img/mistake/order_data.png">
                       <p class="mytitlerelated">Order your data</p>
-                      <p class="mytextrelated">When the display the value of several entities, ordering it makes it way more insightful.</p>
+                      <p class="mytextrelated">When displaying the value of several entities, ordering it makes it way more insightful.</p>
                     </a>
                   </div>
                   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -2628,8 +2628,13 @@
   <!-- ANCHOR -->
   <a id="posteranchor"></a>
 
+
+<!-- Croping image: the goal is to have a 800 x 400 -->
+<!-- Change image size o have heght = 400: convert poster_small.png -resize 800x400 poster_xsmall.png -->
+<!-- Add white space on the side to have the good size: convert -size 800x400 xc:white poster_xsmall.png  -gravity center -composite output.png -->
+<!-- OR Crop images with convert alisasinger.jpg -crop 1000x350+50+10  titi.png -->
+
   <!-- see https://www.w3schools.com/howto/howto_js_slideshow.asp for carousel -->
-    <!-- Crop images with convert alisasinger.jpg -crop 1000x350+50+10  titi.png -->
     <section id="poster" class="bg-light">
       <div class="container">
         <div class="row">
@@ -2641,15 +2646,12 @@
         <div class="slideshow-container">
           <div class="mySlides">
             <img src="img/poster/poster_mockup_croped.jpg" style="width:100%">
-            <div class="text"></div>
           </div>
           <div class="mySlides">
-            <img src="img/poster/poster_screenshot_croped-0.png" style="width:100%">
-            <div class="text">An overview of the logo collection</div>
+            <a data-toggle="modal" href="#poster_full"><img src="img/poster/poster_800_400.png" style="width:100%"></a>
           </div>
           <div class="mySlides">
-            <img src="img/poster/poster.pdf" style="width:100%">
-            <div class="text">Poster available in several format</div>
+            <img src="img/poster/poster_zoom_800_400.png" style="width:100%">
           </div>
           <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
           <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -2661,11 +2663,17 @@
           <span class="dot" onclick="currentSlide(3)"></span> 
         </div>
         <br>
-        <div style="text-align:center"><a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="poster.html">Buy a poster</a></div>
+        <div style="text-align:center">
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="poster.html">Buy a poster</a>
+          <a class="btn btn-primary btn-xl text-uppercase" data-toggle="modal" href="#poster_full">See it full screen</a>
+        </div>
       </div>
-
     </section>
    
+
+
+
+
     <script>
     var slideIndex = 1;
     showSlides(slideIndex);
@@ -2875,6 +2883,29 @@
 
 
 <!-- =================== MODAL SECTION ===================================== -->
+
+    <!-- Poster FULL -->
+    <div class="portfolio-modal modal fade" id="poster_full" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog h-100" style="max-width: 100vw;">
+        <div class="modal-content"> 
+          <div class="close-modal" data-dismiss="modal">
+            <div class="lr">
+              <div class="rl"></div>
+            </div>
+          </div>
+          <div class="container">
+            <div class="row">
+                <div class="modal-body">
+                  <!-- Project Details Go Here -->
+                  <img class="img-fluid d-block mx-auto" src="img/poster/poster_big.png" alt="" style="height: 100%; width: 100%">
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
 
 
 
