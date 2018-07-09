@@ -171,10 +171,6 @@
 <!-- -->
 
 
-<!-- ANCHOR -->
-<a id="treeanchor"></a>
-
-
 
 <!-- Skip a line befor the trees -->
 
@@ -1785,8 +1781,7 @@
 
 
 <!-- ======================== STORY SECTION ================================ -->
-    <!-- ANCHOR -->
-    <a id="storyanchor"></a>
+
 
     <section class="" id="story" style="background-color:#69b3a2; padding: 0px 0; padding-top: 0px">
     <div class="parallaxstory">
@@ -1888,9 +1883,6 @@
 
 
 <!-- ======================== PORTFOLIO SECTION ============================ -->
-
-    <!-- ANCHOR -->
-    <a id="portfolioanchor"></a>
 
     <section class="bg-light" id="portfolio">
       <div class="container">
@@ -2411,8 +2403,6 @@
 
 <!-- =========================== CAVEAT SECTION ============================ -->
 
-    <!-- ANCHOR -->
-    <a id="caveatanchor"></a>
 
     <section id="caveats">
       <div class="container">
@@ -2559,9 +2549,6 @@
 
 <!-- ============================= POSTER SECTION ========================== -->
 
-  <!-- ANCHOR -->
-  <a id="posteranchor"></a>
-
 
 <!-- Croping image: the goal is to have a 800 x 400 -->
 <!-- Change image size o have heght = 400: convert poster_small.png -resize 800x400 poster_xsmall.png -->
@@ -2648,8 +2635,6 @@
 
 
 <!-- ========================== ABOUT SECTION ============================== -->
-    <!-- ANCHOR -->
-    <a id="aboutanchor"></a>
 
     <section  id="about">
       <div class="container">
@@ -2736,8 +2721,6 @@
 
 <!-- ======================= CONTACT SECTION =============================== -->
 
-    <!-- ANCHOR -->
-    <a id="contactanchor"></a>
 
 
   <section id="contact" class="bg-light">
@@ -4652,40 +4635,10 @@ by the Y axis, and one by the dot size.</p>
     <script>
     $(function () {
       $('[data-toggle="tooltip"]').tooltip();
-
-
-      // Script for animated portfolio with filter. Found here: https://codepen.io/pramodkumarboda/pen/XdgxmQ
-  	  $('.portfolioFilter a').click(function(){
-        $('.portfolioFilter .current').removeClass('current');
-        $(this).addClass('current');
-
-        var selector = $(this).attr('data-filter');
-        return false;
-	    });
-
-      // Script to give a specific URL to every Modal. TODO: improve it with https://stackoverflow.com/questions/34154370/bootstrap-3-x-how-to-have-url-change-upon-clicking-modal-trigger
-      $(window.location.hash).modal('show');
-      $('a[data-toggle="modal"]').click(function(){
-        window.location.hash = $(this).attr('href');
-      });
-
-      $('button[data-dismiss="modal"]').click(revertToOriginalURL);
-      $('.modal').on('hidden.bs.modal', revertToOriginalURL);
-
-      $('.tip').each(function () {
-        $(this).tooltip({
-          html: true,
-          title: $('#' + $(this).data('tip')).html()
-        });
-      });
-
-    });
-
-    function revertToOriginalURL() {
-      var original = window.location.href.substr(0, window.location.href.indexOf('#'));
-      history.replaceState({}, document.title, original);
-    }
     </script>
+
+
+
 
 
 
