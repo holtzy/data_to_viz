@@ -72,7 +72,7 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
 <link href="libs/wordcloud2-0.0.1/wordcloud.css" rel="stylesheet" />
 <script src="libs/wordcloud2-0.0.1/wordcloud2-all.js"></script>
 <script src="libs/wordcloud2-0.0.1/hover.js"></script>
@@ -256,8 +256,8 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="co"># Make the plot</span>
 <span class="kw">wordcloud2</span>(mywords,  <span class="dt">minRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>, <span class="dt">maxRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>,
          <span class="dt">backgroundColor =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
-<div id="htmlwidget-d2a766b9c02f6cf1d551" style="width:768px;height:768px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-d2a766b9c02f6cf1d551">{"x":{"word":["know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":7.2,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div id="htmlwidget-713196ca03bd75cca321" style="width:768px;height:768px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-713196ca03bd75cca321">{"x":{"word":["know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":7.2,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 <h1 id="what-for">What for</h1>
 <hr />
 <p>Wordcloud is useful for quickly perceiving the most prominent terms and for locating a term alphabetically to determine its relative prominence. It is widely used in media and well understood by the public.</p>
@@ -268,7 +268,7 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <li><p>Longer words appear bigger by construction, since they are composed by more letters. It creates a bias that makes wordcloud even less accurate.</p></li>
 </ul>
 <p><br></p>
-<p>A good workaround is to use <a href="https://wwww.data-to-viz.com/graph/barplot.html">barplot</a> or <a href="https://wwww.data-to-viz.com/graph/lollipop.html">lollipop</a> plot instead. Here is an example using the same data as the previous chart:</p>
+<p>A good workaround is to use <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> or <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> plot instead. Here is an example using the same data as the previous chart:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># prepare a list of word (30 most frequent)</span>
 data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;nekfeu&quot;</span>) <span class="op">%&gt;%</span>

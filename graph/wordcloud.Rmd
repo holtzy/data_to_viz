@@ -82,7 +82,7 @@ However, it is a highly criticized way to convey information due to its lack of 
 
 <br>
 
-A good workaround is to use [barplot](https://wwww.data-to-viz.com/graph/barplot.html) or [lollipop](https://wwww.data-to-viz.com/graph/lollipop.html) plot instead. Here is an example using the same data as the previous chart:
+A good workaround is to use [barplot](https://www.data-to-viz.com/graph/barplot.html) or [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot instead. Here is an example using the same data as the previous chart:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6}
 # prepare a list of word (30 most frequent)

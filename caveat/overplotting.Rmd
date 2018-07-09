@@ -198,7 +198,7 @@ data %>%
 
 #Jittering
 ***
-`Jittering` is an option when one of the axis is qualitative (like 1, 2, 3.., see left figure). It adds or substract a random value to each data point to avoid overplotting. Note that other chart types are available in that kind of situation, like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin plot](https://www.data-to-viz.com/graph/violin.html).
+`Jittering` is an option when one of the axis is qualitative (like 1, 2, 3.., see left figure). It adds or substract a random value to each data point to avoid overplotting. Note that other chart types are available in that kind of situation, like [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or [violin plot](https://www.data-to-viz.com/graph/violin.html).
 
 ```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
 # Create data

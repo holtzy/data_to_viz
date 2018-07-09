@@ -208,7 +208,7 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 
 - [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
 
-- Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
+- Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
 
 
 

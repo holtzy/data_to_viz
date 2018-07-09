@@ -203,7 +203,7 @@ ggplot(don) +
 
 - If for whatever reason your bars must remain unsorted, it is probably better to use a barplot instead. Lollipop would be harder to read.
 
-- Several values per group? [Don't use a lollipop](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/graph/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
+- Several values per group? [Don't use a lollipop](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
 
 - Think about the horizontal verison, it makes the labels easier to read.
 

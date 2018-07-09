@@ -141,9 +141,9 @@ leaflet(quakes) %>%
 # Common mistakes {#mistake}
 ***
 
-- As for [bubble charts](https://www.data-to-viz.com/graph/bubble.html), the size of bubbles must be mapped to its area, [not to its radius](https://www.data_to_viz.com/caveat/radius_or_area.html). If not it exagerates differences. [See more](https://www.data_to_viz.com/caveat/radius_or_area.html).
+- As for [bubble charts](https://www.data-to-viz.com/graph/bubble.html), the size of bubbles must be mapped to its area, [not to its radius](https://www.data-to-viz.com/caveat/radius_or_area.html). If not it exagerates differences. [See more](https://www.data-to-viz.com/caveat/radius_or_area.html).
 
-- Mind [overplotting](https://www.data_to_viz.com/caveat/overplotting.html). In any case, it is a good practice to set up a bit of transparency for each bubble, allowing to see the map behind it.
+- Mind [overplotting](https://www.data-to-viz.com/caveat/overplotting.html). In any case, it is a good practice to set up a bit of transparency for each bubble, allowing to see the map behind it.
 
 - Don't forget your legend to make the link between bubble size and numeric value.
 
