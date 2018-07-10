@@ -447,35 +447,6 @@ for (var i = 0; i < btns.length; i++) {
 
 
 
-    <!-- Script to give a specific URL to every Modal. TODO: improve it with https://stackoverflow.com/questions/34154370/bootstrap-3-x-how-to-have-url-change-upon-clicking-modal-trigger -->
-    <script>
-      $(document).ready(function(){
-        $(window.location.hash).modal('show');
-        $('a[data-toggle="modal"]').click(function(){
-           window.location.hash = $(this).attr('href');
-        });
-      });
-
-      $('button[data-dismiss="modal"]').click(function(){
-           var original = window.location.href.substr(0, window.location.href.indexOf('#'))
-           history.replaceState({}, document.title, original);
-       });
-
-      $(window.location.hash).modal('show');
-      $('a[data-toggle="modal"]').click(function(){
-          window.location.hash = $(this).attr('href');
-      });
-
-      function revertToOriginalURL() {
-          var original = window.location.href.substr(0, window.location.href.indexOf('#'))
-          history.replaceState({}, document.title, original);
-      }
-
-      $('.modal').on('hidden.bs.modal', function () {
-          revertToOriginalURL();
-      });
-
-  </script>
 
 
   <script>
