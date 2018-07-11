@@ -1,7 +1,0 @@
-Plot.ecd send by Alexandre
-
-Story chercheurs is nul part
-
-Remarques guigui
-
-Connected scatter = evolution, pas correlation
