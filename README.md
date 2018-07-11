@@ -8,7 +8,7 @@
 
 Overview
 -----
-From [Data to Viz.com](https://www.data-to-viz) is a website aiming to help in your chart decision. It classifies most of the chart types based on their input data format. It comes in the form of a decision tree leading to a set of potentially appropriate visualizations to represent your dataset.
+From [Data to Viz.com](https://www.data-to-viz.com) is a website aiming to help in your chart decision. It classifies most of the chart types based on their input data format. It comes in the form of a decision tree leading to a set of potentially appropriate visualizations to represent your dataset.
 
 
 <br>
