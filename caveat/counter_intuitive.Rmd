@@ -20,12 +20,12 @@ output:
 <br><br>
 <div class="mycontent">
 
-People are used to seeing data displayed in a usual and logical way. Not respecting the standard of data visualization can make your chart very hard to understand, or even lead your audience to a wrong conclusion.
+People are used to seeing data displayed in a usual and logical way. Not respecting the standards of data visualization can make your chart very hard to understand, or even lead your audience to a wrong conclusion.
 
 
 #Reversing axis
 ***
-The Y axis is almost always rising from the bottom to the top of the graphic. Here is an example with a reverse Y axis. It comes from an article in [business insider](https://www.businessinsider.in/This-Chart-Shows-What-Happened-To-Gun-Deaths-In-Florida-After-Stand-Your-Ground-Was-Enacted/articleshow/30635752.cms) and describes the evolution of gun deaths in Florida.  
+The Y-axis is almost always rising from the bottom to the top of the graphic. Here is an example with a reverse Y-axis. It comes from an article in [business insider](https://www.businessinsider.in/This-Chart-Shows-What-Happened-To-Gun-Deaths-In-Florida-After-Stand-Your-Ground-Was-Enacted/articleshow/30635752.cms) and describes the evolution of gun deaths in Florida.  
 
 *Disclaimer*: I found this image on [KD Nuggets](https://www.kdnuggets.com/2016/02/common-data-visualization-mistakes.html)
 
@@ -36,7 +36,7 @@ The Y axis is almost always rising from the bottom to the top of the graphic. He
 
 <br><br>
 
-Since we are not used to read that kind of axis, it is quite hard to understand that the number of murders committed using firearms in Florida increased between the end of the 90' and 2010. Even worse, a quick look to this graphic without paying attention to the Y axis could lead to the wrong conclusion than number of murders decreased in this period.
+Since we are not used to seeing that kind of axis, it is quite hard to understand that the number of murders committed using firearms in Florida increased between the end of the 90' and 2010. Even worse, a quick look to this graphic without paying attention to the Y-axis could lead to the wrong conclusion that number of murders decreased in this period.
 
 
 #Cheating with colors

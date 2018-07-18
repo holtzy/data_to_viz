@@ -26,11 +26,11 @@ output:
 
 # Definition {#definition}
 ***
-A `radar` or `spider` or `web` chart is a two-dimensional chart type designed to plot one or more `series` of values over `multiple quantitative variables`. Each variable has its own axis, all axis are joint in the center of the figure.
+A `radar` or `spider` or `web` chart is a two-dimensional chart type designed to plot one or more `series` of values over `multiple quantitative variables`. Each variable has its own axis, all axes are joined in the center of the figure.
 
 <br>
 
-Let's consider the exam results of a student. He has a mark ranging from 0 to 20 for ten topics like math, sport, statistics and so on. The radar chart provides one axis for each topic. The shape allows to see for where did the student perform well.
+Let's consider the exam results of a student. He has a mark ranging from 0 to 20 for ten topics like math, sports, statistics, and so on. The radar chart provides one axis for each topic. The shape allows you to see which topics the student performed well or poorly in.
 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=5}
@@ -69,7 +69,7 @@ radarchart( data, axistype=1,
 # Variation
 ***
 
-In the previous chart only one serie is plotted, showing how one student performed. A common task is to compare several individuals. With only a few series it is possible to show every group on the same chart. Here it is quite obvious that Shirley globally performed better than Sonia, except in sport.
+In the previous chart, only one series is plotted, showing how one student performed. A common task is to compare several individuals. With only a few series it is possible to show every group on the same chart. Here it is quite obvious that Shirley globally performed better than Sonia, except in sports.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 # Create data: note in High school for Jonathan:
@@ -102,7 +102,7 @@ radarchart( data, axistype=1,
 legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=0.9, pt.cex=1)
 
 ```
-With more than two or three series, it is a good practice to use small multiple to avoid getting a too cluttered figure. Each student is represented on its own radar chart. It is easy to understand the feature of a specific individual, and looking for similarity in shapes allows to find student with the similar features.
+With more than two or three series, it is a good practice to use small multiples to avoid a cluttered figure. Each student is represented on their own radar chart. It is easy to understand the features of a specific individual, and looking for similarity in shapes allows you to find students with similar features.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 # Create data: note in High school for Jonathan:
@@ -151,9 +151,9 @@ for(i in 1:6){
 
 # What's wrong with it then?
 ***
-Spider chart are often criticized by dataviz specialist like [here](https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2), [here](https://www.perceptualedge.com/articles/dmreview/radar_graphs.pdf), [here](http://www.verghisgroup.com/wp-content/uploads/2012/04/3-Things-to-Think-About-A-Warning-Label-for-Radar-Charts.pdf) and [here](http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart). Here is an overview of the most common reproaches:
+Spider charts are often criticized by dataviz specialists like [here](https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2), [here](https://www.perceptualedge.com/articles/dmreview/radar_graphs.pdf), [here](http://www.verghisgroup.com/wp-content/uploads/2012/04/3-Things-to-Think-About-A-Warning-Label-for-Radar-Charts.pdf) and [here](http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart). Here is an overview of the most common reproaches:
 
-- *Circular layout = harder to read* - quantitative values aree much easier to compare when they are laid out along a single vertical or horizontal axis. This is a general reproach made to circular layouts. Compare the figure below that consider the data of one student only. It is easier to compare values in the barplot, and more accurate.
+- *Circular layout = harder to read* - quantitative values are much easier to compare when they are laid out along a single vertical or horizontal axis. This is a general reproach made to circular layouts. Compare the figure below that considers the data of one student only. It is easier to compare values in the barplot, and more accurate.
 
 ```{r, out.width=c('50%', '50%'), fig.show='hold', warning=FALSE, message=FALSE, fig.height=8, fig.width=12}
 # Create data: note in High school for Jonathan:
@@ -202,9 +202,9 @@ data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1)
 
 <br>
 
-- *Supporting the ranking* - In the above example, the lollipop plot is ordered. It allows to see instantly what was the topic with the best mark, and what is the topic ranking. This is more difficult with radar charts where there is no starts and ends.
+- *Supporting the ranking* - In the above example, the lollipop plot is ordered. It allows you to see instantly which topic had the best mark and what the ranking of each topic was. This is more difficult with radar charts where there are no starts and ends.
 
-- *Category order has a huge impact* - Radar chart reader will probably focus on the shape observed. This can be misleading since this shape highly depends on the order of category order around the plot. See these charts made using the same data, but swaping category orders:
+- *Category order has a huge impact* - Radar chart readers will probably focus on the shape observed. This can be misleading since this shape highly depends on the ordering of categories around the plot. See these charts made using the same data, but changing the category ordering:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 # Create data: note in High school for Jonathan:
 set.seed(7)
@@ -227,11 +227,11 @@ radarchart( data3, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5
 
 ```
 
-- *About scales* - Radar charts display the value of several quantitative variables, all represented in an axis. In the previous example, the same scale and the same unit is shared by all variables (a mark ranging from 0 to 20). It is also possible to display variables that are completely different. In this case, don't forget to show an abvious scale for each: the reader will expect the same scale otherwise.
+- *About scales* - Radar charts display the value of several quantitative variables, all represented on an axis. In the previous example, the same scale and the same unit is shared by all variables (a mark ranging from 0 to 20). It is also possible to display variables that are completely different. In this case, don't forget to show an obvious scale for each: the reader will expect the same scale otherwise.
 
 - *Overplotting* - showing more than a couple of series would result in an unreadable graphic. Avoid it and use small multiples instead.
 
-- *Over evaluation of differences* - the area of a shape in a radar chart also increases a square of the values as opposed to linearly, which could lead viewers to think that small changes are more significant than they might actually be. In the following example, the student had a 7 in every topic on the left, 14 on the right. However the right area is bigger than twice the left area.
+- *Over-evaluation of differences* - the area of a shape in a radar chart also increases quadratically rather than linearly, which could lead viewers to think that small changes are more significant than they actually are. In the following example, the student on the left had a score of 7 in every topic, whereas the student on the right had a score of 14 in every topic. However, the right figure's area is more than twice the left figure's area.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 # data:
@@ -255,7 +255,7 @@ radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5
 ***
 If the radar chart is not a good practice, how to replace it then?
 
-- If you have a single serie to display, and that all quantitative variables have the same scale, then use a barplot or a lollipop plot, ranking the variable:
+- If you have a single series to display and all quantitative variables have the same scale, then use a barplot or a lollipop plot, ranking the variables:
 ```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=7, fig.align="center"}
 # Create data: note in High school for Jonathan:
 set.seed(1)
@@ -281,7 +281,7 @@ data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1)
     xlab("")
 ```
 
-- If you have a two series to plot, you can still play with barplot and lollipop plots. Here is an example with 2 series. It focus on the first student (dark) and allows to see how is friend (light) performed in comparison.
+- If you have two series to plot, you can still play with barplot and lollipop plots. Here is an example with 2 series. It focuses on the first student (dark) and allows you to see how another student (light) performed in comparison.
 ```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=7, fig.align="center"}
 # Create data: note in High school for Jonathan:
 set.seed(1)
@@ -344,7 +344,7 @@ data %>% ggplot( aes(x=rowname, y=mark)) +
     facet_wrap(~name, ncol=4)
 ```
 
-- If you have a lot of series to plot, or if your variables do not have the same scale, then the best option is probably to switch to a parrallel coordinate plot.
+- If you have a lot of series to plot, or if your variables do not have the same scale, then the best option is probably to switch to a parallel coordinates plot.
 ```{r, warning=FALSE, message=FALSE, fig.height=5, fig.width=10, fig.align="center"}
 library(GGally)
 data <- iris

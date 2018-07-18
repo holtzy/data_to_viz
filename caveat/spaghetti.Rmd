@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-A Spaghetti plot is a [line plot](https://www.data-to-viz.com/graph/line.html) with many lines displayed together. With more than a few (~5?) groups this kind of graphic gets really hard to read, and thus provide few insight about the data. Let's make an example with the [evolution of baby names](http://www.data-to-viz.com/story/OneCatSevOrderedNum.html) in the US from 1880 to 2015.
+A Spaghetti plot is a [line plot](https://www.data-to-viz.com/graph/line.html) with many lines displayed together. With more than a few (~5?) groups this kind of graphic gets really hard to read, and thus provides little insight about the data. Let's make an example with the [evolution of baby names](http://www.data-to-viz.com/story/OneCatSevOrderedNum.html) in the US from 1880 to 2015.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
@@ -52,13 +52,13 @@ data %>%
     theme_ipsum()
 ```
 
-It is very hard to follow a line to understand the evolution of a specific name popularity. Plus, if you manage to follow a line you then it to link it with the legend which is even harder. Let's try to find a few workarounds to improve this graphic.
+It is very hard to follow a line to understand the evolution of a specific name's popularity. Plus, even if you manage to follow a line, you then need to link it with the legend which is even harder. Let's try to find a few workarounds to improve this graphic.
 
 
 
 #Target a specific group
 ***
-Let’s say you plot many groups, but the actual reason for that is to explain the feature of one particular group compared to the others. Then a good workaround is to highlight this group: make it appears different, and give it a proper annotation. Here, the evolution of Amanda's popularity is obvious. Leaving the other lines is important since it allows to compare Amanda with all other names.
+Let’s say you plot many groups, but the actual reason for that is to explain the feature of one particular group compared to the others. Then a good workaround is to highlight this group: make it appear different, and give it a proper annotation. Here, the evolution of Amanda's popularity is obvious. Leaving the other lines is important since it allows you to compare Amanda to all other names.
 
 ```{r, fig.align="center", fig.width=10}
 data %>%
@@ -79,9 +79,9 @@ data %>%
 
 
 
-#Use small multiple
+#Use small multiples
 ***
-[Area chart](https://www.data-to-viz.com/graph/area.html) can be used to have a more general overview of the dataset, especially when used in combination with small multiple. In the following chart it is easy to get a glimpse of the evolution of any name:
+[Area charts](https://www.data-to-viz.com/graph/area.html) can be used to give a more general overview of the dataset, especially when used in combination with small multiples. In the following chart, it is easy to get a glimpse of the evolution of any name:
 ```{r, fig.align="center", fig.width=8, fig.height=8}
 data %>%
   ggplot( aes(x=year, y=n, group=name, fill=name)) +
@@ -98,13 +98,13 @@ data %>%
     ) +
     facet_wrap(~name)
 ```
-For instance, `Linda` has been a really popular name for a really short period of time. On another hand, Patricia has never been very popular, but has been given during several decades.
+For instance, `Linda` was a really popular name for a really short period of time. On another hand, Ida has never been very popular, but was used a little during several decades.
 
 
 
 #Combine approaches
 ***
-Note that if you want to compare the evolution of each line compared to the others, you can combine both approaches together:
+Note that if you want to compare the evolution of each line compared to the others, you can combine both approaches:
 ```{r, fig.align="center", fig.width=8, fig.height=8}
 tmp <- data %>%
   mutate(name2=name)

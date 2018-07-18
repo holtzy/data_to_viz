@@ -21,13 +21,13 @@ output:
 <div class="mycontent">
 
 
-Getting rid of all the unnecessary elements can greatly improve the quality and impact of your chart. First the chart will be cleaner and thus more likely to be read by people. Second it will allow people to target directly what is important on the chart, and thus to get your point.  
+Getting rid of all the unnecessary elements can greatly improve the quality and impact of your chart. First, the chart will be cleaner and thus more likely to be read by people. Second, it will allow people to target directly what is important on the chart, and thus to get your point.  
 
-Here is a good example that takes a cluttered graphic from [viz.wtf](http://viz.wtf) and get rid of the unnecessary elements one by one. This examples comes from the website [Storytelling with data](http://www.storytellingwithdata.com/blog/2017/3/29/declutter-this-graph) by [Cole Nussbaumer Knaflic](http://www.storytellingwithdata.com/about/).  
+Here is a good example that takes a cluttered graphic from [viz.wtf](http://viz.wtf) and gets rid of the unnecessary elements one by one. This example comes from the website [Storytelling with data](http://www.storytellingwithdata.com/blog/2017/3/29/declutter-this-graph) by [Cole Nussbaumer Knaflic](http://www.storytellingwithdata.com/about/).  
 
 #Initial graphic
 ***
-The idea of the chart is to show that women tend to begin christmas shopping earlier than men:  
+The idea of the chart is to show that women tend to begin Christmas shopping earlier than men:  
 
 <br>
 <center>

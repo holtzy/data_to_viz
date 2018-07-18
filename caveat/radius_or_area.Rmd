@@ -20,13 +20,13 @@ output:
 <br><br>
 <div class="mycontent">
 
-A usual practice in data visualization consists to `scale` a graphic component to a numeric value. For instance, bar lengths are scaled to values in a [barplot](https://www.data-to-viz.com/graph/barplot). When the value is scaled to an area, scaling it by two sides at the same time produces a quadratic effect for a linear change. This amplifies the differences.
+A usual practice in data visualization consists of `scaling` a graphic component to a numeric value. For instance, bar lengths are scaled to values in a [barplot](https://www.data-to-viz.com/graph/barplot). When the value is scaled to an area, scaling it by two sides at the same time produces a quadratic effect for a linear change. This amplifies the differences.
 
 
 
 #Example
 ***
-Here is an example coming from the Barack Obama’s [State of the Union](https://www.youtube.com/watch?v=kl2g40GoRxg) speech in 2011. It shows the 2010 Gross Domestic Product of 5 countries, each value beeing represented by a circle. The radius of each circle has been scaled based on the size of each nation’s economy. 
+Here is an example coming from the Barack Obama’s [State of the Union](https://www.youtube.com/watch?v=kl2g40GoRxg) speech in 2011. It shows the 2010 Gross Domestic Product of 5 countries, each value being represented by a circle. The radius of each circle has been scaled based on the size of each nation’s economy. 
 
 <br><br>
 
@@ -39,7 +39,7 @@ Source: [The 2011 State of the Union Address](https://www.youtube.com/watch?v=kl
 </center>
 <br><br>
 
-Here, America's economy looks way bigger than others.
+Here, America's economy looks way bigger than the others.
 
 
 
@@ -60,12 +60,12 @@ Here is a corrected version released on the [Fast Fedora blog](http://blog.fastf
 
 <br><br>
 
-The United States still have the biggest economy, but the difference with other country does not appear as big as it was on the first graphic.
+The United States still has the biggest economy, but the difference from other countries does not appear as big as it did on the first graphic.
 
 
 #Conclusion
 ***
-When working with 2d objects, the scaling must be done using the area and not the radius. Furthermore, note that areas are a poor metaphor of values, badly perceived by human eyes. It must be used only when better visuals have already been used on the graphic (like in [bubble plot](https://www.data-to-viz.com/graph/bubble.html)). In this case, a barplot would probably have done a better job. 
+When working with 2d objects, the scaling must be done using the area and not the radius. Furthermore, note that areas are a poor metaphor of values, being poorly perceived by human eyes. It must be used only when better visuals have already been used on the graphic (like in [bubble plot](https://www.data-to-viz.com/graph/bubble.html)). In this case, a barplot would probably have done a better job. 
 
 
 

@@ -21,9 +21,9 @@ output:
 <div class="mycontent">
 
 
-A boxplot gives a nice summary of one or several numeric variables. It is composed by several elements:
+A boxplot gives a nice summary of one or several numeric variables. It is composed of several elements:
 
-- The line that divides the box into 2 parts represents the [median](https://en.wikipedia.org/wiki/Median) of the data. If the median is 10, it means that there is the same number of data points below and above 10.
+- The line that divides the box into 2 parts represents the [median](https://en.wikipedia.org/wiki/Median) of the data. If the median is 10, it means that there are the same number of data points below and above 10.
 - The end of the box shows the upper and lower [quartiles](https://en.wikipedia.org/wiki/Quartile). If the third quartile is 15, it means that 75% of the observation are lower than 15.
 - The difference between Quartiles 1 and 3 is called the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range) (IQR)
 - The extreme lines show the highest and lowest value excluding outliers. 
@@ -44,7 +44,7 @@ Here is a diagram showing the boxplot anatomy:
 
 <br>
 
-A boxplot summarizes the distribution of a numeric variable for several groups. The problem is that summarizing also means loosing information, and that can become a pitfall. If we consider the boxplot below, it is easy to conclude that the group `C` has a higher value than the others. However, we cannot see what is the underlying distribution of dots into each group, neither their number of observation.
+A boxplot summarizes the distribution of a numeric variable for several groups. The problem is that summarizing also means losing information, and that can become a pitfall. If we consider the boxplot below, it is easy to conclude that the group `C` has a higher value than the others. However, we cannot see the underlying distribution of dots in each group or their number of observations.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
@@ -80,7 +80,7 @@ Let’s see what happens when the boxplot is improved using additional elements.
 #Adding jitter {#boxplotjitter}
 ***
 
-If the amount of data you are working with is not too high, adding `jitter` on top of your boxplot can make the graphic more insgightful.
+If the amount of data you are working with is not too high, adding `jitter` on top of your boxplot can make the graphic more insightful.
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Plot
 data %>%
@@ -97,13 +97,13 @@ data %>%
     xlab("")
 ```
 
-Here some new patterns appear clearly. The group `C` has a very low sample size compared to the group `B` and `C`. This is definnitely something you want to find out before saying that groupd `C` has a greater value than others. Moreover, it looks like group `B` has a `bimodal distribution`: dots are distributed in 2 groups: around y=18 and y=13.
+Here some new patterns appear clearly. The group `C` has a very low sample size compared to the other groups. This is definitely something you want to find out before saying that group `C` has a greater value than others. Moreover, it looks like group `B` has a `bimodal distribution`: dots are distributed in 2 groups: around y=18 and y=13.
 
 
 
 #Switching to violin plot
 ***
-If you have a huge sample size, using `jitter` is not an option anymore since dots tend to overlap, making the figure unreadable. Another alternative is the [violin plot](https://www_data-to-viz.com/violin.html), that describe the distribution of the data for each group:
+If you have a huge sample size, using `jitter` is not an option anymore since dots tend to overlap, making the figure unreadable. Another alternative is the [violin plot](https://www_data-to-viz.com/violin.html), which describes the distribution of the data for each group:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # sample size
@@ -125,14 +125,14 @@ data %>%
     ggtitle("A boxplot with jitter") +
     xlab("")
 ```
-Here it appears very clearly that the shape of the distribution is very different from a group to another. The bimodal distribution of group `B` becomes obvious. Violin plot is a very powerful way to display information, that is probably underutilized compare to boxplot.
+Here it appears very clearly that the groups have very different distributions. The bimodal distribution of group `B` becomes obvious. Violin plots are a very powerful way to display information that is probably under-utilized compared to the boxplot.
 
 
 
 
 #Adding the sample size
 ***
-On the previous chart, sample size of each group is indicated on the X axis, below group name. This is a good practice and allows to find out that the group `C` is under represented. However, it is sometimes better to show the data points themselves, thus this really good alternative: a half violin plot showing raw data. This uses code coming from [jbburant](https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062) and [David Robinson](https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r).
+On the previous chart, the sample size of each group is indicated on the X-axis, below the group name. This is a good practice and shows that the group `C` is under-represented. However, it is sometimes better to show the data points themselves. Thus, a really good alternative is a half violin plot showing the raw data. This uses code coming from [jbburant](https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062) and [David Robinson](https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r).
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Code coming from @drob: https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r
