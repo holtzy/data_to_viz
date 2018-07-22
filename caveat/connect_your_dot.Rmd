@@ -1,6 +1,7 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/connect_your_dot.png"
+mytitle: "Connect your dots when the X axis is ordered"
+mydisqus: "connect_your_dot"
 output:
   html_document:
       template: template_caveat.html
@@ -19,51 +20,80 @@ output:
 <br><br>
 <div class="mycontent">
 
+Let's consider a dataset composed by two numeric variables. The X axis represents years, and the Y axis the yearly sunspot numbers from 1749 to 1983. ([Sunspots](https://en.wikipedia.org/wiki/Sunspot) are temporary phenomena on the Sun’s photosphere that appear as spots darker than the surrounding areas.). The dataset comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613) originally, related by [Andrews et al.](https://www.springer.com/gp/book/9781461295631).
 
-
-
-
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
 
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+# Load dataset: comes with R
+data <- data.frame(
+  Year = as.numeric(time(sunspot.year)),
+  Sunspots = as.numeric(sunspot.year)
+)
 
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# Plot
+data %>%
+  head(100) %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_point() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
 ```
-</div>
-</div>
+
+Here, it is very hard to see any trend. It looks like no relationships exist between time and sunspot number.
+
+
+#Connect your lines
+***
+Now, let's take the exact same graphic, except that we connect dots together with segments. We switch from a [scatter plot](https://www.data-to-viz.com/graph/scatter.html) to a [line plot]((https://www.data-to-viz.com/graph/line.html)).
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# Load dataset: comes with R
+data <- data.frame(
+  Year = as.numeric(time(sunspot.year)),
+  Sunspots = as.numeric(sunspot.year)
+)
+
+# Plot
+data %>%
+  head(100) %>%
+  ggplot( aes(x=Year, y=Sunspots)) +
+    geom_line() +
+    ggtitle("Number of sunspots per year") +
+    theme_ipsum() +
+    theme(
+      plot.title = element_text(size=12)
+    )
+```
+
+Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly periodic 11-year change in the sun’s activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
 
 
 
 
-
-
-
-
-
-
-#Histogram
+#Going further
 ***
 
+- Have a look to the article about [aspect ration](https://www.data-to-viz.com/caveat/aspect_ratio.html), it can have a strong effect on the [readability](https://www.data-to-viz.com/caveat/aspect_ratio.html) of your line plot.
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
 </div>
-
-
-
-
-
 
 
 
