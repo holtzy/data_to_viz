@@ -24,13 +24,13 @@ output:
 #Bad by definition
 ***
 
-A pie chart is a circle divided into sectors that each represent a proportion of the whole. It is often used to show proportion, where the sum of the sectors equal 100%.
+A pie chart is a circle divided into sectors that each represent a proportion of the whole. It is often used to show percentage, where the sum of the sectors equals 100%.
 
 
 <div class = "row">
 <div class = "col-md-6">
 <br><br>
-The problem is that the human eye is pretty bad to read angles. In the adjacent pie chart, try to figure out which group is the biggest one and try to order them by value. You will probably struggle to do so and this is why pie charts must be avoided.
+The problem is that humans are pretty bad at reading angles. In the adjacent pie chart, try to figure out which group is the biggest one and try to order them by value. You will probably struggle to do so and this is why pie charts must be avoided.
 </div>
 <div class = "col-md-6">
 
@@ -118,16 +118,16 @@ c <- plot_bar(data3)
 a + b + c
 ```
 
-As you can see on this barplot there is a heavy difference between the three pie plots with a hidden pattern that you definitely don't want to miss when you tell your story. 
+As you can see on this barplot, there is a heavy difference between the three pie plots with a hidden pattern that you definitely don't want to miss when you tell your story. 
 
 
-#And often made even worst
+#And often made even worse
 ***
-Even if pie charts are bad by definition, it is still possible to make them even worst using additional bad features:
+Even if pie charts are bad by definition, it is still possible to make them even worse by adding other bad features:
 
 - 3d
 - legend aside
-- percentages that does not sum up to 100
+- percentages that do not sum to 100
 - too many items
 - exploded pie charts
 
@@ -136,7 +136,7 @@ Even if pie charts are bad by definition, it is still possible to make them even
 
 #Alternatives
 ***
-The [barplot](https://www.data-to-viz.com/graph/barplot.html) is the best alternative to pie plots. If you have many values to display, you can also consider doing a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot that is a bit more elegant in my opinion. Here is an example based on the [amount of weapons sold](http://www.data-to-viz.com/story/OneNumOneCat.html) by a few country in the world:
+The [barplot](https://www.data-to-viz.com/graph/barplot.html) is the best alternative to pie plots. If you have many values to display, you can also consider a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot that is a bit more elegant in my opinion. Here is an example based on the [amount of weapons sold](http://www.data-to-viz.com/story/OneNumOneCat.html) by a few countries in the world:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=6, fig.height=7}
 # Load dataset from github
@@ -161,7 +161,7 @@ data %>%
 ```
 
 
-Another possibility would be to create a treemap if your goal is to describe what the whole is composed with.
+Another possibility would be to create a treemap if your goal is to describe what the whole is composed of.
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
 # Package
 library(treemap)
@@ -199,9 +199,9 @@ treemap(data,
 #Going further
 ***
 
-- [Who sell more weapons](http://www.data-to-viz.com/story/OneNumOneCat.html): see this story that gives several alternatives to pie plot.
+- [Who sells more weapons](http://www.data-to-viz.com/story/OneNumOneCat.html): see this story that gives several alternatives to pie plot.
 - Four problems with Pie Charts (And what to do instead) by [iCharts.net](https://icharts.net/blog/data-visualization-guides/4-problems-pie-charts-instead)
-- The worst chart in the world by [Buisness insider](https://www.businessinsider.com.au/pie-charts-are-the-worst-2013-6?r=US&IR=T)
+- The worst chart in the world by [Business insider](https://www.businessinsider.com.au/pie-charts-are-the-worst-2013-6?r=US&IR=T)
 - doing pie plots in [R](https://www.r-graph-gallery.com/pie-plot/) and [Python](https://python-graph-gallery.com/pie-plot/)
 
 

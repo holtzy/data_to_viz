@@ -24,7 +24,7 @@ output:
 
 #The issue
 ***
-Most of the time, [barplot](https://www.data_to_viz.com/graph/barplot.html) or [lollipop](https://www.data_to_viz.com/graph/lollipop.html) plot are plotted vertically: the Y axis represents the value of the numeric variable. If you label on the X axis are long, they need to be `rotated` in order not to overlap.
+Most of the time, [barplot](https://www.data_to_viz.com/graph/barplot.html) or [lollipop](https://www.data_to_viz.com/graph/lollipop.html) plots are plotted vertically with the Y-axis representing the value of the numeric variable. If your labels on the X-axis are long, they need to be `rotated` in order not to overlap.
 <br>
 
 As a result, these labels become hard to read:
@@ -89,7 +89,7 @@ data %>%
 
 #Warning
 ***
-Note that the horizontal version is not always an option though. If you categoric variable has a natural order, it is better to stick to the vertical version. It happens when:
+Note that the horizontal version is not always an option though. If you categorical variable has a natural order, it is better to stick to the vertical version. It happens when:
 
 - you're represented `time series`: time must be represented on the X axis by convention. Not doing so could mislead your audience.
 - you have an `ordinal variable` like age range.

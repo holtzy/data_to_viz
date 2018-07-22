@@ -24,7 +24,7 @@ output:
 
 #Example
 ***
-Let's consider the number of people entering (red curve) and leaving (blue curve) a shop from 8 am to 10pm. This is an accurate representation using a [line plot](https://www.data-to-viz.com/graph/line.html), that answers very well the question how many people are entering / leaving the shop.
+Let's consider the number of people entering (red curve) and leaving (blue curve) a shop from 8am to 10pm. This is an accurate representation using a [line plot](https://www.data-to-viz.com/graph/line.html), that answers very well the question of how many people are entering / leaving the shop.
 
 <br>
 
@@ -59,19 +59,19 @@ data %>%
 ```
 
 
-Now, what if somebody ask you:
+Now, what if somebody asks you:
 
 - what is the trend of the total number of people in the shop?
-- at what time is the number of people in the shopping centre declining?
+- at what time is the number of people in the shop declining?
 
 
 
 
 #Mental arithmetic
 ***
-To answer this question, your audience must think hard and will probably be confused.
+To answer these questions, your audience must think hard and will probably be confused.
 
-- Is it where the marker `A` is, when the number of people entering the shop start decreasing? 
+- Is it where the marker `A` is, when the number of people entering the shop starts decreasing? 
 - Or marker `B` where more people are leaving than entering? 
 - Or `C` where the number of people leaving decreases?
 
@@ -95,7 +95,7 @@ data %>%
     xlab("Hour of day")
 ```
 
-Of course, if more people leave the shop than the number entering, the total quantity start decreasing (marker B). But if you want your audience to focus on your point, do not give them extra work.
+Of course, if more people leave the shop than enter, the total quantity starts decreasing (marker B). But if you want your audience to focus on your point, do not give them extra work.
 
 
 

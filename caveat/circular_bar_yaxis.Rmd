@@ -28,14 +28,14 @@ output:
 
 <br>
 
-However, circular barplots are `less efficient` to represent data `accurately`. Indeed, it is harder to compare bar lenghts since they are not on the same line anymore. Moreover, the basis of the bar is often thiner than the top part. This results in a bias: group with large values appear even larger than they are in reality.
+However, circular barplots are `less efficient` to represent data `accurately`. Indeed, it is harder to compare bar lengths since they are not on the same line anymore. Moreover, the inner base of the bar is often thinner than the outer part. This results in a bias: group with large values appear even larger than they are in reality.
 
 <br>
 
 This bias is even more important if:
 
-- *left* - the number of bar is low.
-- *right* - the inner part of the circle is too small.
+- *left* - the number of bars is low.
+- *right* - the inner radius of the circle is too small.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=5}
 # package
@@ -63,7 +63,7 @@ data$id=seq(1, nrow(data))
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
-angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
  
@@ -107,7 +107,7 @@ data$id=seq(1, nrow(data))
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
-angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
  
@@ -171,7 +171,7 @@ data$id=seq(1, nrow(data))
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
-angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
  

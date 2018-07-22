@@ -28,7 +28,7 @@ A [barplot](https://www.data-to-viz.com/graph/barplot.html) displays the value o
 
 <br>
 
-When building a grouped barplot, make sure that your bar are indeed grouped: bars must be closer into each group than between group. In the example below, bars are not grouped, making hard to distinguish groups.
+When building a grouped barplot, make sure that your bars are indeed grouped: bars within a group must be closer to one another than bars in different groups. In the example below, bars are not grouped, making hard to distinguish groups.
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Libraries
 library(tidyverse)

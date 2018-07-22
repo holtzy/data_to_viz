@@ -53,14 +53,14 @@ ggplot(data) +
 ```
 
 
-In the graphic above 5 groups are reported. The bar heights represent their mean value. The black error bar gives information on how the individual observation are dispersed around the average. For instance, it appears that measurement in group `B` are more precise than for group `E`.
+In the graphic above 5 groups are reported. The bar heights represent their mean value. The black error bar gives information on how the individual observations are dispersed around the average. For instance, it appears that measurements in group `B` are more precise than in group `E`.
 
 
 
 #Error bars hide information
 ***
 
-The first issue with error bars is that it hides information. Here is a figure from a [paper in PLOS Biology](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). It illustrates that the full data may suggest different conclusions from the summary statistics. The same barplot with error bar (left) can represent several situations. Both group can have the same kind of distribution (`B`), one group can have outliers (`C`), one group can have a bimodal distribution (`D`) or groups can have an unequal sample size:
+The first issue with error bars is that they hide information. Here is a figure from a [paper in PLOS Biology](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). It illustrates that the full data may suggest different conclusions than the summary statistics. The same barplot with error bar (left) can represent several situations. Both groups can have the same kind of distribution (`B`), one group can have outliers (`C`), one group can have a bimodal distribution (`D`), or groups can have unequal sample sizes:
 
 
 <br>
@@ -76,7 +76,7 @@ The first issue with error bars is that it hides information. Here is a figure f
 <br>
 
 
-Thus, the same barplot with error bar can in fact tell very different story, hidden to the reader.
+Thus, the same barplot with error bars can in fact tell very different stories, hidden to the reader.
 
 >Always show your individual data points if you can [#showyourdata](https://twitter.com/search?q=%23showyourdata&src=typd)
 
@@ -84,7 +84,7 @@ Thus, the same barplot with error bar can in fact tell very different story, hid
 
 #What is an error bar?
 ***
-The second issue with error bars is that they are used to show `different metrics`, and not always specifying which one is used. Three different types of values are commonly used for error bars, sometimes giving very different results (see further). Here is an overview of their definintion and how to calculate them on a simple vector in R. 
+The second issue with error bars is that they are used to show `different metrics`, and it is not always clear which one is being shown. Three different types of values are commonly used for error bars, sometimes giving very different results (see further). Here is an overview of their definition and how to calculate them on a simple vector in R. 
 
 - [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation) (SD) represents the amount of  dispersion of the variable. Calculated as the root square of the variance
 ```{r, eval=FALSE}
@@ -106,13 +106,13 @@ CI=t*se
 
 <br>
 
-Here is an application of these 3 metrics on the famous [Iris dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html). It shows the average sepal length of three species of Iris. The variation around the average length is represented using the error bar.
+Here is an application of these 3 metrics to the famous [Iris dataset](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/iris.html). It shows the average sepal length of three species of Iris. The variation around the average length is represented using the error bar.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
 # Data
 data <- iris %>% select(Species, Sepal.Length) 
  
-# Calculates mean, sd, se and IC
+# Calculates mean, sd, se and ci
 my_sum <- data %>%
   group_by(Species) %>%
   summarise( 

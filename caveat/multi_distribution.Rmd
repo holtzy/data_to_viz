@@ -21,7 +21,7 @@ output:
 <div class="mycontent">
 
 
-Comparing the distribution of several numeric variables is a common task in dataviz. Distribution of a variable can be represented using a [histogram](http://www.data-to-viz.com/graph/histogram.html) or a [density chart](http://www.data-to-viz.com/graph/density.html), and it is very tempting to represent many distribution on the same axis.  
+Comparing the distributions of several numeric variables is a common task in dataviz. The distribution of a variable can be represented using a [histogram](http://www.data-to-viz.com/graph/histogram.html) or a [density chart](http://www.data-to-viz.com/graph/density.html), and it is very tempting to represent many distributions on the same axis.  
 
 Here is an example showing how people perceive probability vocabulary. On the [/r/samplesize](https://www.reddit.com/r/SampleSize/) thread of reddit, questions like *What probability would you assign to the phrase "Highly likely"* were asked. Here is the distribution of the score given by people to each question:
 
@@ -67,7 +67,7 @@ data %>%
     ylab("Assigned Probability (%)")
 ```
 
-In this case, the figure is quite neat. People gives a probability between 0 and 20 for the sentence "Almost No chance", and between 75 and 100% for "Almost Certainly". Let's check what happens with more groups:
+In this case, the figure is quite neat. People give a probability between 0 and 20% for the sentence "Almost No chance", and between 75 and 100% for "Almost Certainly". Let's check what happens with more groups:
 
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
 # Plot
@@ -86,7 +86,7 @@ data %>%
     ylab("Assigned Probability (%)")
 ```
 
-Now the figure is way to cluttered and it is impossible to distinguish groups: there are too many distributions represented on the same graphic. How to avoid that?
+Now the figure is way too cluttered and it is impossible to distinguish groups: there are too many distributions represented on the same graphic. How to avoid that?
 
 
 # Workaround {.tabset}

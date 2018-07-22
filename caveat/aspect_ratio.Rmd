@@ -49,13 +49,13 @@ data %>%
 ```
 
 
-The [solar cycle](https://en.wikipedia.org/wiki/Solar_cycle) is quite obvious on this figure. The sunspot numbers follow this nearly periodic 11-year change in the sun's activity, making the line going up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
+The [solar cycle](https://en.wikipedia.org/wiki/Solar_cycle) is quite obvious on this figure. The sunspot numbers follow this nearly periodic 11-year change in the sun's activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
 
 
 
 #Playing with the aspect ratio
 ***
-Now let's change the aspect ratio of this figure, making it wider and less high. To exagerate the effect the graphic is even zoomed on the 1800 to 1900 period:
+Now let's change the aspect ratio of this figure, making it wider and less high. To exaggerate the effect, the graphic is even zoomed on the 1800 to 1900 period:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=12, fig.height=3}
 
 # Plot
@@ -74,13 +74,13 @@ The conclusion found using the first graphic are still true, but here a new patt
 
 <br>
 
-On the first chart this pattern was not visible since lines were almost vertical from the bottom to the top of a pic. Here, the slope beeing less steep, this pattern becomes visible.
+On the first chart this pattern was not visible since lines were almost vertical from the bottom to the top of the axis. Here, the slope being less steep, this pattern becomes visible.
 
 
 #Target 45 degrees
 ***
 
-Here is a figure from [W.S. Cleveland](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) explaining that the aspect ratio of a graphic should target 45 degrees angle on this kind if figure. It shows what happens when angles are too big or to small:
+Here is a figure from [W.S. Cleveland](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406) explaining that the aspect ratio of a graphic should target a 45 degree angle on this kind of figure. It shows what happens when angles are too big or too small:
 
 <br><br>
 
