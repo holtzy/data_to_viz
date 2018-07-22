@@ -3,7 +3,7 @@ myimage1: "../img/mistake/order_data.png"
 mytitle: "Visualizing a unique Numeric variable"
 output:
   html_document:
-      template: template_story.html
+      template: template_caveat.html
       theme: "lumen"
       css: style.css
       toc: FALSE

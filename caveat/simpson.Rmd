@@ -73,29 +73,8 @@ df %>%
 
 
 #Solving the issue
-***
+****
 The workaround is pretty simple, why not considering an `horizontal version` of the chart?
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
-# Barplot
-data %>%
-  filter(!is.na(Value)) %>%
-  arrange(Value) %>%
-  tail(20) %>%
-  mutate(Country=factor(Country, Country)) %>%
-  ggplot( aes(x=Country, y=Value) ) +
-    geom_bar(stat="identity", fill="#69b3a2") +
-    theme_ipsum() +
-    theme(
-      panel.grid.minor.y = element_blank(),
-      panel.grid.major.y = element_blank(),
-      legend.position="none"
-    ) +
-    xlab("") +
-    ylab("Weapon quantity (SIPRI trend-indicator value)") +
-    coord_flip()
-```
-
-
 
 
 
