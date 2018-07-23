@@ -1,6 +1,7 @@
 ---
-myimage1: "../img/mistake/order_data.png"
-mytitle: "Visualizing a unique Numeric variable"
+myimage1: "../img/mistake/3d.png"
+mytitle: "Don't use color if they communicate nothing"
+mydisqus: "color_com_nothing"
 output:
   html_document:
       template: template_caveat.html
@@ -19,51 +20,87 @@ output:
 <br><br>
 <div class="mycontent">
 
+`Colors` are one of the main mediums used to convey information in dataviz. They allow to highlight groups or variation when used appropriately, but are confusing or misleading otherwise.
+
+Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
+
+<br>
+
+<center>
+<img src="IMG/ThreeDBarplot.png" alt="img" width="500" height="600">
+</center>
+
+<br>
+
+Source = https://www.quora.com/How-is-a-3D-column-chart-made-in-Excel
+
+Here, each country is represented using a random color. When looking at it, your audience may try to understand what the color means. They are thus `less focused` on the main point: the bar length.
 
 
+WHY
+
+obfuscates the plot, making it more difficult to find the percentages by eye.
 
 
-
-<div class = "row">
-<div class = "col-md-8">
-<br><br><br>This document gives a few suggestions on how to analyze a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) apartments on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
-</div>
-<div class = "col-md-4">
-```{r, warning=FALSE, message=FALSE}
-# Libraries
-library(tidyverse)
-library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-
-# Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
-
-# show data
-data %>% head(6) %>% kable() %>%
-  kable_styling(bootstrap_options = "striped", full_width = F)
+# 3D in 2d
+***
+That's quite bad in my opinion
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
+library(scatterplot3d)
+attach(mtcars)
+scatterplot3d(wt,disp,mpg, main="3D Scatterplot")
 ```
-</div>
-</div>
+
+
+
+# Good 3d
+
+Note that you can use color to highlight the variation presented by the bar length. I'm personally not a big fan of it, but it is a common practice;
+```{r rgl-firstexample, webgl=TRUE, results='hide', warning=FALSE, message=FALSE}
+library(rgl)
+library(knitr)
+knit_hooks$set(webgl = hook_webgl)
+
+z=iris
+#colors vector
+x=rep(0,150)
+
+for (i in 1:150) {
+	if(z$Species[i] == 'setosa') {x[i]='royalblue1'}
+	if(z$Species[i] == 'versicolor') {x[i]='darkcyan'}
+	if(z$Species[i] == 'virginica') {x[i]='oldlace'}
+}
+z$Color=x
+
+plot3d( z[,1], z[,2], z[,3], col = z$Color, type = 's', radius = .1 )
+```
 
 
 
 
+#Conclusion
+***
+When adding color to your chart, always double check it adds insight to it. Usually colors are useful to:
+
+- Show groups
+- Highlight an item
+- Show gradient
 
 
 
-
-
-
-#Histogram
+#Going further
 ***
 
+- When 3D works by Andy Kirk on [Visualising data](http://www.visualisingdata.com/2015/03/when-3d-works/).
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
 </div>
-
-
-
-
-
 
 
 
