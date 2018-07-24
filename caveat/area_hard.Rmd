@@ -1,0 +1,99 @@
+---
+myimage1: "../img/mistake/bubble_hard.png"
+mytitle: "Area is a poor metaphor"
+mydisqus: "area_hard"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br><br><br>
+<div class="mycontent">
+
+The human eye is not performant when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.  
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=1}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# create 3 data frame:
+data <- data.frame( name=letters[1:5], value=c(17,24,20,15,27) )
+
+# Plot
+ggplot(data, aes(x=name, y=1, size=value)) +
+  geom_point(color="#69b3a2") +
+  geom_text(aes(label=name), size=5) +
+  scale_size_continuous(range=c(17,24)) +
+  theme_void() +
+  theme(
+    legend.position="none"
+  ) +
+  ylim(0.9,1.1)
+```
+
+
+<br><br>
+
+
+
+Now, let's represent the exact same values using bars instead:
+
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=5}
+# Plot
+ggplot(data, aes(x=name, y=value)) +
+  geom_bar(stat="identity", fill="#69b3a2") +
+  theme_ipsum()
+```
+
+That is much easier, is'nt it?
+
+
+
+
+
+#Conclusion
+***
+This does not mean that area must never been used to represent a numeric variable. It means that other shapes and techniques must be used in priority. For instance, the [bubble chart](https://www.data-to-viz.com/graph/bubble.html) makes a really good job to represent the value of 3 numeric variables.
+
+
+
+
+#Going further
+***
+- Using bubbles: [scaling to radius or area](file:///Users/y.holtz/Documents/data_to_viz/caveat/radius_or_area.html)? 
+- Data visualization: basic principles. [link](http://paldhous.github.io/ucb/2016/dataviz/week2.html)
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
