@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/3d.png"
-mytitle: "Don't use color if they communicate nothing"
-mydisqus: "color_com_nothing"
+mytitle: "The issue with 3D in data visualization"
+mydisqus: "3d"
 output:
   html_document:
       template: template_caveat.html
@@ -20,9 +20,17 @@ output:
 <br><br>
 <div class="mycontent">
 
-`Colors` are one of the main mediums used to convey information in dataviz. They allow to highlight groups or variation when used appropriately, but are confusing or misleading otherwise.
+`Three dimensional` objects are very popular but negatively affect the `accuracy` and `speed` at which one can interpret a graphic in most cases. Here is a review of the main graphic types involving 3d, with a discussion wether they are considered as bad practice or not.
 
-Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
+
+#3D Barplots: Don't
+***
+
+Here is a 3d barplot. You are probably familiar with this kind of figure since it is created with Excel, and thus widely used. Compared with a classic grouped barplot, this representation has several drawbacks:
+
+- it is more difficult to find the exact percentages of a bar
+- by construction, green bars in the bottom appear smaller than blue bars at the front for an equivalent value
+- green bars in the bottom are hidden
 
 <br>
 
@@ -32,66 +40,100 @@ Here is an example showing the quantity of weapons exported by the top 20 larges
 
 <br>
 
-Source = https://www.quora.com/How-is-a-3D-column-chart-made-in-Excel
-
-Here, each country is represented using a random color. When looking at it, your audience may try to understand what the color means. They are thus `less focused` on the main point: the bar length.
+<center>[Source](https://www.quora.com/How-is-a-3D-column-chart-made-in-Excel)</center>
 
 
-WHY
-
-obfuscates the plot, making it more difficult to find the percentages by eye.
+<u>Workaround</u>: Just stick to the normal [barplot](https://www.data-to-viz.com/graph/barplot.html).
 
 
-# 3D in 2d
+
+
+
+# 3D Pie charts: Don't
 ***
-That's quite bad in my opinion
-```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
-library(scatterplot3d)
-attach(mtcars)
-scatterplot3d(wt,disp,mpg, main="3D Scatterplot")
-```
+Nothing is worse than a [pie chart](https://www.data-to-viz.com/caveat/pie.html) in dataviz, except a 3D pie chart. Data to viz offers a whole post on [pie chart issues](https://www.data-to-viz.com/caveat/pie.html).  
+
+Adding 3D makes it even worse since it distorts reality. Indeed, the part at the back looks smaller than the one at the front, which is not the case.
+
+<center>
+<img src="IMG/pie3d.png" alt="img" width="350" height="450">
+</center>
+
+<center>[source](http://www.e-tabs.com/data-viz-blog/3d-good-hd-bad-dv/)</center>
+
+<u>Workaround</u>: Don't do [pie charts](https://www.data-to-viz.com/caveat/pie.html).
 
 
 
-# Good 3d
 
-Note that you can use color to highlight the variation presented by the bar length. I'm personally not a big fan of it, but it is a common practice;
-```{r rgl-firstexample, webgl=TRUE, results='hide', warning=FALSE, message=FALSE}
+
+# Static 3D scatterplots: Don't
+***
+The 3d scatterplot is another common use of 3d in datavisualization. This kind of chart takes 3 numeric variables as input, and represents it on the X, Y and Z axis.
+
+The accuracy of 3D scatterplots is widely [discussed](https://www.gabrielaplucinska.com/blog/2017/8/7/3d-graphs). For instance, try to get the X, Y and Z coordinates of a specific point. You will realize that it is quite impossible since the human eye reads 3d badly. Thus, this graphic lacks accuracy.
+
+<center>
+<img src="IMG/scatter3d.png" alt="img" width="500" height="500">
+</center>
+
+<u>Workaround</u>: Use a [bubble chart](https://www.data-to-viz.com/graph/bubble.html) instead, or a [scatterplot](https://www.data-to-viz.com/graph/scatter.html) with color gradients.
+
+
+
+
+# Interactive 3D scatterplots: Perhaps
+***
+
+In my opinion, the 3d scatterplot can make sense only if you can interact with the chart. On the following, you can use your mouse to change the orientation of the plot and zoom on it. It gives a real feeling of 3D that does not exist otherwise. It is still hard to get the accurate coordinates of points, but allows to efficiently explore the group structure.
+
+```{r rgl-firstexample, webgl=TRUE, results='hide', warning=FALSE, message=FALSE, fig.width=9, fig.height=9}
+# library
 library(rgl)
+
+# This is to output a rgl plot in a rmarkdown document. Note that you must add webgl=TRUE, results='hide' in the chunck header
 library(knitr)
 knit_hooks$set(webgl = hook_webgl)
 
-z=iris
-#colors vector
-x=rep(0,150)
+# Data: the iris data is provided by R
+data <- iris
 
-for (i in 1:150) {
-	if(z$Species[i] == 'setosa') {x[i]='royalblue1'}
-	if(z$Species[i] == 'versicolor') {x[i]='darkcyan'}
-	if(z$Species[i] == 'virginica') {x[i]='oldlace'}
-}
-z$Color=x
+# Add a new column with color
+mycolors <- c('royalblue1', 'darkcyan', 'oldlace')
+data$color <- mycolors[ as.numeric(data$Species) ]
 
-plot3d( z[,1], z[,2], z[,3], col = z$Color, type = 's', radius = .1 )
+# Plot
+par(mar=c(0,0,0,0))
+plot3d( 
+  x=data$`Sepal.Length`, y=data$`Sepal.Width`, z=data$`Petal.Length`, 
+  col = data$color, 
+  type = 's', 
+  radius = .1,
+  xlab="Sepal Length", ylab="Sepal Width", zlab="Petal Length")
 ```
 
 
-
-
-#Conclusion
+#Surface plot: Why not
 ***
-When adding color to your chart, always double check it adds insight to it. Usually colors are useful to:
+If you have grid coordinates with a numeric variable for each position, you can represent your data using a surface plot. This kind of representation makes sense especially if the numeric value represents an altitude. In this case, we are actually building a 3D element that is a real 3d object, what makes sense in my opinion.
 
-- Show groups
-- Highlight an item
-- Show gradient
+```{r, message=FALSE, warning=FALSE}
+# Library
+library(plotly)
+
+# Plot
+plot_ly(z = volcano, type = "surface")
+```
+
 
 
 
 #Going further
 ***
-
+- 3D: good for HD, bad for DV by [E-tabs](http://www.e-tabs.com/data-viz-blog/3d-good-hd-bad-dv/)
 - When 3D works by Andy Kirk on [Visualising data](http://www.visualisingdata.com/2015/03/when-3d-works/).
+- 3D graphs by [data in the spotlight](https://www.gabrielaplucinska.com/blog/2017/8/7/3d-graphs)
+- Is the Avoidance of 3-D Bar Graphs a Knee-Jerk Reaction? by Stephen Few in [Visual Business Intelligence](https://www.perceptualedge.com/blog/?p=2362)
 
 #Comments
 ***
