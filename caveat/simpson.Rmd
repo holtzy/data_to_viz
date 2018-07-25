@@ -1,7 +1,7 @@
 ---
-myimage1: "../img/mistake/hard_label.png"
-mytitle: "A note on long labels"
-mydisqus: "hard_label"
+myimage1: "../img/mistake/simpson.png"
+mytitle: "The simpson's paradox"
+mydisqus: "simpson"
 output:
   html_document:
       template: template_caveat.html
@@ -24,74 +24,76 @@ output:
 
 #Definition
 ***
-In short, what is happening is that a trend or association that appears between two different variables reverses when a third variable is included.  You will stumble into or at least need to be on the lookout for this effect of spurious correlation when you have unbalanced group sizes, like you often have using observational data.
 
-A trend that appears in different groups of data but disappears or reverses when these groups are combined.
+>Simpson's paradox, or the Yule–Simpson effect, is a phenomenon in probability and statistics, in which a trend appears in several different groups of data but disappears or reverses when these groups are combined. It is sometimes given the descriptive title reversal paradox or amalgamation paradox.
+
+[Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
 
 
+#Example
+***
 
-<br>
+Let's consider the following [scatterplot](https://www.data-to-viz.com/graph/scatter.html) built from dummy data.
 
-As a result, these labels become hard to read:
-```{r, warning=FALSE, message=FALSE, fig.align="center"}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7}
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-dpt = c('A','B','C','D','E','F','A','B','C','D','E','F')
-app = c(825,560,325,417,191,272,108,25,593,375,393,341)
-adm = c(512,353,120,138,53,16,89,17,202,131,94,24)
-gen = c('m','m','m','m','m','m','f','f','f','f','f','f')
-df = cbind.data.frame(dpt,app,adm,gen)
-str(df)
+library(babynames)
+library(viridis)
 
-library(dplyr)
-by_gen = group_by(df, gen) 
-summarize(by_gen, adm_rate=sum(adm)/sum(app))
+# Create data
+a <- data.frame( x = rnorm(100), y = rnorm(100)) %>% mutate(y = y-x/2)
+b <- a %>% mutate(x=x+2) %>% mutate(y=y+2)
+c <- a %>% mutate(x=x+4) %>% mutate(y=y+4)
+data <- do.call(rbind, list(a,b,c))
+data <- data %>% mutate(group=rep(c("A", "B", "C"), each=100))
 
-df %>% 
-  ggplot( aes(x=app, y=adm) ) +
-    geom_point()
-
-
-df %>% 
-  ggplot( aes(x=app, y=adm, color=gen) ) +
-    geom_point()
-
-
+ggplot(data, aes(x=x, y=y)) +
+  geom_point( size=2) +
+  theme_ipsum()
 ```
 
+Here, it totally makes sense to state that there is a `positive correlation` between the X and the Y axis. Actually, the `Pearson` correlation coefficient is `r cor(data$x, data$y) %>% round(2)`.
+
+<br>
+
+However, let's check what happens if we consider the `groups` present in the dataset (3 groups):
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7}
+# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Create data
+a <- data.frame( x = rnorm(100), y = rnorm(100)) %>% mutate(y = y-x/2)
+b <- a %>% mutate(x=x+2) %>% mutate(y=y+2)
+c <- a %>% mutate(x=x+4) %>% mutate(y=y+4)
+data <- do.call(rbind, list(a,b,c))
+data <- data %>% mutate(group=rep(c("A", "B", "C"), each=100))
+
+ggplot(data, aes(x=x, y=y, color=group)) +
+  geom_point( size=3) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()
+```
+
+Here, we understand that the positive correlation was due to a difference `between groups`. Actually, the correlation coefficient is even negative if each group is considered separately. 
+
+This is the Sympson's paradox: the trend between two different variables reverses when a third variable is included.
 
 
-
-
-
-
-*Note*: this barplot shows the quantity of weapons exported by the top 20 largest exporters in 2017, [read more](https://www.data-to-viz.com/story/OneNumOneCat.html).
-
-
-
-#Solving the issue
-****
-The workaround is pretty simple, why not considering an `horizontal version` of the chart?
-
-
-
-#Warning
+#Impact on dataviz
 ***
-Note that the horizontal version is not always an option though. If you categoric variable has a natural order, it is better to stick to the vertical version. It happens when:
-
-- you're represented `time series`: time must be represented on the X axis by convention. Not doing so could mislead your audience.
-- you have an `ordinal variable` like age range.
+The impact is strong for data analytics and dataviz. The Simpson's paradox can lead to a wrong conclusions with spurious correlation. Always double check the potential effect of confounding variables available in your dataset.
 
 
 
 #Going further
 ***
-
-https://paulvanderlaken.com/2017/09/27/simpsons-paradox-two-hr-examples-with-r-code/
-https://www.jstor.org/stable/2684093?seq=3#page_scan_tab_contents
+- Simpson’s Paradox - Correlations and Slopes. By [Prof. Eric A. Suess](http://rstudio-pubs-static.s3.amazonaws.com/155188_cc8b400f7d134a3e9de6cbfb8320e1e0.html). It gives a nice real life example based on book price and number of pages in books.
+- The [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox) page
 
 
 
