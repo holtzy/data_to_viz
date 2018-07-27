@@ -1,0 +1,88 @@
+---
+myimage1: "../img/mistake/small_multiple.png"
+mytitle: "A few thoughts about small multiples"
+mydisqus: "faceting"
+output:
+  html_document:
+      template: template_caveat.html
+      theme: "lumen"
+      css: style.css
+      toc: FALSE
+      toc_float: TRUE
+      toc_depth: 2
+      number_sections: TRUE
+      df_print: "paged"
+      code_folding: "hide"
+      includes: 
+        after_body: footer.html
+---
+
+<br><br>
+<div class="mycontent">
+
+#What is small multiple
+***
+One of the most useful techniques in data visualization is rendering groups of data alongside each other, making it easy to compare the groups. With ggplot2, one way to do this is by mapping a discrete variable to an aesthetic, like x position, color, or shape. Another way of doing this is to create a subplot for each group and draw the subplots side by side.
+
+These kinds of plots are known as Trellis displays. They’re implemented in the lattice package as well as in the ggplot2 package. In ggplot2, they’re called facets. In this chapter I’ll explain how to use them.
+
+
+Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
+
+```{r, fig.align="center", message=FALSE, warning=FALSE, fig.width=8}
+# Libraries
+library(tidyverse)
+library(babynames)
+library(streamgraph)
+library(viridis)
+library(hrbrthemes)
+library(plotly)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
+  filter(sex=="F")
+
+# Plot
+p <- data %>% 
+  ggplot( aes(x=year, y=n, fill=name, text=name)) +
+    geom_area( ) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme(legend.position="none") +
+    ggtitle("Popularity of American names in the previous 30 years") +
+    theme_ipsum() +
+    theme(legend.position="none")
+ggplotly(p, tooltip="text")
+```
+
+<u>*Note*</u>: This graphic is interactive: hover an area to know the underlying name.  
+
+
+
+#Going further
+***
+
+- Stacked Area Graphs Are Not Your Friend by [Everyday analytics](http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html)
+- Quantitative Displays for Combining Time-Series and Part-to-Whole Relationships by [Stephen Few](http://www.perceptualedge.com/articles/visual_business_intelligence/displays_for_combining_time-series_and_part-to-whole.pdf)
+- I hate stacked area charts by [Dr Drang](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/)
+
+
+
+
+#Comments
+***
+Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
+<br>
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
