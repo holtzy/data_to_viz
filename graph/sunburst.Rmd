@@ -21,19 +21,114 @@ output:
 ---
 
 
-
-
-
 <div class="mycontent">
 
 
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
+
+A `sunburst diagram` displays a hierarchical structure. The origin of the organization is represented by the center of the circle, and each level of the organization by an aditional ring. The last level (leaves) are located at the extreme outer part of the circle. It is very similar to a [treemap](https://www.data-to-viz.com/treemap.html), except it uses a `radial layout`.
+
+<br>
+
+A sunburst diagram can be used in 2 situations:
 
 
 
+
+# Part of a whole
+***
+Here is an example describing the [world population](https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html) of 250 countries. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches. They are thus represented at the outer part of the circle.
+
+```{r, message=FALSE, warning=FALSE}
+# libraries
+library(tidyverse)
+library(treemap)
+library(sunburstR)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
+data[ which(data$value==-1),"value"] <- 1
+colnames(data) <- c("Continent", "Region", "Country", "Pop")
+
+# Reformat data for the sunburstR package
+data <- data %>%
+  filter(Continent != "") %>%
+  mutate(path = paste(Continent, Region, Country, sep="-")) %>%
+  select(path, Pop)
+
+# Plot
+p <- sunburst(data, legend=FALSE)
+```
+
+<center>
+```{r, message=FALSE, warning=FALSE, fig.width=8, echo=FALSE}
+p
+```
+</center>
+
+*Note*: This figure is interactive: hover a region to show the country and its architecture.
+
+
+
+
+
+# Flows
+***
+
+Sunburst diagrams can also be used to represent flows. In this case they are more comparable to a [Sankey diagram](https://www.data-to-viz.com/sankey.html). The following example describe the professional state evolution of a set of people:
+
+```{r, message=FALSE, warning=FALSE}
+library(TraMineR)
+library(sunburstR)
+library(pipeR)
+
+# use example from TraMineR vignette
+data("mvad")
+mvad.alphab <- c(
+  "employment", "FE", "HE", "joblessness",
+  "school", "training"
+)
+mvad.seq <- seqdef(mvad, 17:86, xtstep = 6, alphabet = mvad.alphab)
+
+# to make this work, we'll compress the sequences with seqdss
+#   could also aggregate with dply later
+seqtab( seqdss(mvad.seq), tlim = 0, format = "SPS" ) %>>%
+  attr("freq") %>>%
+  (
+    data.frame(
+      # appending "-end" is necessary for this to work
+      sequence = paste0(
+        gsub(
+          x = names(.$Freq)
+          , pattern = "(/[0-9]*)"
+          , replacement = ""
+          , perl = T
+        )
+        ,"-end"
+      )
+      ,freq = as.numeric(.$Freq)
+      ,stringsAsFactors = FALSE
+    )
+  ) %>>%
+  sunburst ->p
+```
+<center>
+```{r, message=FALSE, warning=FALSE, fig.width=8, echo=FALSE}
+p
+```
+</center>
+
+*Note*: This graphic comes from the [sunburstR package](http://www.buildingwidgets.com/blog/2015/7/2/week-26-sunburstr) documentation. Thanks to [timelyportfolio](https://twitter.com/timelyportfolio?lang=en) for his work.
+
+
+# Downsides
+***
+
+- *Labels* - It is very hard to represent labels on sunburst charts. This is why using `interactivity` as above is often necessary to make the chart useful. This is an important downside though: it is hard to understand the figure in a glimpse.
+- *Angles are hard to read* - sunburst sufferst the same issue than [pie](file:///Users/yan/Desktop/data_to_viz/caveat/pie.html) or [donut](file:///Users/yan/Desktop/data_to_viz/caveat/pie.html) chart. The human eye is bad at reading angles. As a consequence, it is hard to deduce values behind items accurately.
+- *Deeper slices are exagerated* - by construction, outer parts tend to get bigger than inner part for a same value. Indeed, the perimeter of the circle gets longer when you go further from the center of the circle!
 
 
 
@@ -41,36 +136,38 @@ Work in progress, sorry for the inconvenience.
 # Related {#related}
 ***
 
+
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
+  <p class="mytitlerelated">Heatmap</p>
+  <p class="mytextrelated">Representation of data where the individual values contained in a matrix are represented as colors</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
+  <p class="mytitlerelated">Circular packing</p>
+  <p class="mytextrelated">A circular version of a Treemap to visualize a hierarchical organization</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="https://www.data-to-viz.com/graph/sunburst.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png">
+  <p class="mytitlerelated">Sunburst Diagram</p>
+  <p class="mytextrelated">Display a hierarchy through a set of nested donut plots.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+  <p class="mytitlerelated">Dendrogram</p>
+  <p class="mytextrelated">A network structure used to show a hierarchical organization.</p>
   </a>
   </div>
 </div>
+
 
 
 
