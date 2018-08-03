@@ -79,7 +79,7 @@ Here is an animation showing the evolution of the previous chart at each step of
 
 - Visit the website [Story Telling with data](http://www.storytellingwithdata.com/)
 - Order [Cole's book](http://www.storytellingwithdata.com/book/): a data visualization guide for business professionals
-
+- [Data looks better naked](https://www.darkhorseanalytics.com/blog/data-looks-better-naked), by Dark Horse Analytics.
 
 
 #Comments
