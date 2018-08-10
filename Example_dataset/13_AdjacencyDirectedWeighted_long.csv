@@ -1,101 +1,101 @@
-"from","to","value"
-"Africa","Africa",3.142471
-"East Asia","Africa",0
-"Europe","Africa",0
-"Latin America","Africa",0
-"North America","Africa",0
-"Oceania","Africa",0
-"South Asia","Africa",0
-"South East Asia","Africa",0
-"Soviet Union","Africa",0
-"West Asia","Africa",0
-"Africa","East.Asia",0
-"East Asia","East.Asia",1.630997
-"Europe","East.Asia",0
-"Latin America","East.Asia",0
-"North America","East.Asia",0
-"Oceania","East.Asia",0
-"South Asia","East.Asia",0.525881
-"South East Asia","East.Asia",0.145264
-"Soviet Union","East.Asia",0
-"West Asia","East.Asia",0
-"Africa","Europe",2.107883
-"East Asia","Europe",0.601265
-"Europe","Europe",2.401476
-"Latin America","Europe",1.762587
-"North America","Europe",1.215929
-"Oceania","Europe",0.17037
-"South Asia","Europe",1.390272
-"South East Asia","Europe",0.468762
-"Soviet Union","Europe",0.60923
-"West Asia","Europe",0.449623
-"Africa","Latin.America",0
-"East Asia","Latin.America",0
-"Europe","Latin.America",0
-"Latin America","Latin.America",0.879198
-"North America","Latin.America",0.276908
-"Oceania","Latin.America",0
-"South Asia","Latin.America",0
-"South East Asia","Latin.America",0
-"Soviet Union","Latin.America",0
-"West Asia","Latin.America",0
-"Africa","North.America",0.540887
-"East Asia","North.America",0.97306
-"Europe","North.America",0
-"Latin America","North.America",3.627847
-"North America","North.America",0
-"Oceania","North.America",0
-"South Asia","North.America",1.508008
-"South East Asia","North.America",1.057904
-"Soviet Union","North.America",0
-"West Asia","North.America",0.169274
-"Africa","Oceania",0.155988
-"East Asia","Oceania",0.333608
-"Europe","Oceania",0
-"Latin America","Oceania",0
-"North America","Oceania",0
-"Oceania","Oceania",0.190706
-"South Asia","Oceania",0.34742
-"South East Asia","Oceania",0.278746
-"Soviet Union","Oceania",0
-"West Asia","Oceania",0
-"Africa","South.Asia",0
-"East Asia","South.Asia",0
-"Europe","South.Asia",0
-"Latin America","South.Asia",0
-"North America","South.Asia",0
-"Oceania","South.Asia",0
-"South Asia","South.Asia",1.307907
-"South East Asia","South.Asia",0
-"Soviet Union","South.Asia",0
-"West Asia","South.Asia",0
-"Africa","South.East.Asia",0
-"East Asia","South.East.Asia",0.380388
-"Europe","South.East.Asia",0
-"Latin America","South.East.Asia",0
-"North America","South.East.Asia",0
-"Oceania","South.East.Asia",0
-"South Asia","South.East.Asia",0
-"South East Asia","South.East.Asia",0.781316
-"Soviet Union","South.East.Asia",0
-"West Asia","South.East.Asia",0
-"Africa","Soviet.Union",0
-"East Asia","Soviet.Union",0
-"Europe","Soviet.Union",0
-"Latin America","Soviet.Union",0
-"North America","Soviet.Union",0
-"Oceania","Soviet.Union",0
-"South Asia","Soviet.Union",0
-"South East Asia","Soviet.Union",0
-"Soviet Union","Soviet.Union",1.870501
-"West Asia","Soviet.Union",0
-"Africa","West.Asia",0.673004
-"East Asia","West.Asia",0.869311
-"Europe","West.Asia",0
-"Latin America","West.Asia",0
-"North America","West.Asia",0
-"Oceania","West.Asia",0
-"South Asia","West.Asia",4.902081
-"South East Asia","West.Asia",0
-"Soviet Union","West.Asia",0
-"West Asia","West.Asia",0.927243
+from,to,value
+Africa,Africa,3.142471
+East Asia,Africa,0
+Europe,Africa,0
+Latin America,Africa,0
+North America,Africa,0
+Oceania,Africa,0
+South Asia,Africa,0
+South East Asia,Africa,0
+Soviet Union,Africa,0
+West Asia,Africa,0
+Africa,East.Asia,0
+East Asia,East.Asia,1.630997
+Europe,East.Asia,0
+Latin America,East.Asia,0
+North America,East.Asia,0
+Oceania,East.Asia,0
+South Asia,East.Asia,0.525881
+South East Asia,East.Asia,0.145264
+Soviet Union,East.Asia,0
+West Asia,East.Asia,0
+Africa,Europe,2.107883
+East Asia,Europe,0.601265
+Europe,Europe,2.401476
+Latin America,Europe,1.762587
+North America,Europe,1.215929
+Oceania,Europe,0.17037
+South Asia,Europe,1.390272
+South East Asia,Europe,0.468762
+Soviet Union,Europe,0.60923
+West Asia,Europe,0.449623
+Africa,Latin.America,0
+East Asia,Latin.America,0
+Europe,Latin.America,0
+Latin America,Latin.America,0.879198
+North America,Latin.America,0.276908
+Oceania,Latin.America,0
+South Asia,Latin.America,0
+South East Asia,Latin.America,0
+Soviet Union,Latin.America,0
+West Asia,Latin.America,0
+Africa,North.America,0.540887
+East Asia,North.America,0.97306
+Europe,North.America,0
+Latin America,North.America,3.627847
+North America,North.America,0
+Oceania,North.America,0
+South Asia,North.America,1.508008
+South East Asia,North.America,1.057904
+Soviet Union,North.America,0
+West Asia,North.America,0.169274
+Africa,Oceania,0.155988
+East Asia,Oceania,0.333608
+Europe,Oceania,0
+Latin America,Oceania,0
+North America,Oceania,0
+Oceania,Oceania,0.190706
+South Asia,Oceania,0.34742
+South East Asia,Oceania,0.278746
+Soviet Union,Oceania,0
+West Asia,Oceania,0
+Africa,South.Asia,0
+East Asia,South.Asia,0
+Europe,South.Asia,0
+Latin America,South.Asia,0
+North America,South.Asia,0
+Oceania,South.Asia,0
+South Asia,South.Asia,1.307907
+South East Asia,South.Asia,0
+Soviet Union,South.Asia,0
+West Asia,South.Asia,0
+Africa,South.East.Asia,0
+East Asia,South.East.Asia,0.380388
+Europe,South.East.Asia,0
+Latin America,South.East.Asia,0
+North America,South.East.Asia,0
+Oceania,South.East.Asia,0
+South Asia,South.East.Asia,0
+South East Asia,South.East.Asia,0.781316
+Soviet Union,South.East.Asia,0
+West Asia,South.East.Asia,0
+Africa,Soviet.Union,0
+East Asia,Soviet.Union,0
+Europe,Soviet.Union,0
+Latin America,Soviet.Union,0
+North America,Soviet.Union,0
+Oceania,Soviet.Union,0
+South Asia,Soviet.Union,0
+South East Asia,Soviet.Union,0
+Soviet Union,Soviet.Union,1.870501
+West Asia,Soviet.Union,0
+Africa,West.Asia,0.673004
+East Asia,West.Asia,0.869311
+Europe,West.Asia,0
+Latin America,West.Asia,0
+North America,West.Asia,0
+Oceania,West.Asia,0
+South Asia,West.Asia,4.902081
+South East Asia,West.Asia,0
+Soviet Union,West.Asia,0
+West Asia,West.Asia,0.927243
