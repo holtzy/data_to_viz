@@ -38,13 +38,7 @@ The problem is that humans are pretty bad at reading angles. In the adjacent pie
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(kableExtra)
-options(knitr.table.format = "html")
-library(babynames)
-library(streamgraph)
 library(viridis)
-library(DT)
-library(plotly)
 library(patchwork)
 
 # create 3 data frame:
@@ -57,9 +51,9 @@ plot_pie <- function(data, vec){
 
 ggplot(data, aes(x="name", y=value, fill=name)) +
   geom_bar(width = 1, stat = "identity") +
-  coord_polar("y", start=0) +
-  scale_fill_viridis(discrete = TRUE) + 
-  geom_text(aes(y = vec, label = name, size=5, color=c(rep("black", 4), "white"))) +
+  coord_polar("y", start=0, direction = -1) +
+  scale_fill_viridis(discrete = TRUE,  direction=-1) + 
+  geom_text(aes(y = vec, label = rev(name), size=4, color=c( "white", rep("black", 4)))) +
   scale_color_manual(values=c("black", "white")) +
   theme_ipsum() +
   theme(
@@ -85,8 +79,8 @@ If you're still not convinced, let's try to compare several pie plots. Once more
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
 a <- plot_pie(data1, c(10,35,55,75,93))
-b <- plot_pie(data2, c(10,32,53,75,93))
-c <- plot_pie(data3, c(10,26,50,75,93))
+b <- plot_pie(data2, c(10,35,53,75,93))
+c <- plot_pie(data3, c(10,29,50,75,93))
 a + b + c
 ```
 
