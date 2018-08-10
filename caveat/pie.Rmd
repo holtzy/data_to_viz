@@ -96,7 +96,7 @@ Now, let's represent exactly the same data using a [barplot](https://www.data-to
 plot_bar <- function(data){
   ggplot(data, aes(x=name, y=value, fill=name)) +
     geom_bar( stat = "identity") +
-    scale_fill_viridis(discrete = TRUE) + 
+    scale_fill_viridis(discrete = TRUE, direction=-1) + 
     scale_color_manual(values=c("black", "white")) +
     theme_ipsum() +
     theme(
