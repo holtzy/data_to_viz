@@ -275,26 +275,42 @@ value
 <tbody>
 <tr>
 <td style="text-align:left;">
-Likely
-</td>
-<td style="text-align:right;">
-75
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 Improbable
 </td>
 <td style="text-align:right;">
-5
+33
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-Highly Likely
+Almost Certainly
 </td>
 <td style="text-align:right;">
-85
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Likely
+</td>
+<td style="text-align:right;">
+60
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Almost Certainly
+</td>
+<td style="text-align:right;">
+98
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Unlikely
+</td>
+<td style="text-align:right;">
+10
 </td>
 </tr>
 <tr>
@@ -307,34 +323,18 @@ Probably Not
 </tr>
 <tr>
 <td style="text-align:left;">
-Better Than Even
+About Even
 </td>
 <td style="text-align:right;">
-60
+50
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-We Believe
+Probably
 </td>
 <td style="text-align:right;">
-60
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Chances Are Slight
-</td>
-<td style="text-align:right;">
-5
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-Chances Are Slight
-</td>
-<td style="text-align:right;">
-5
+75
 </td>
 </tr>
 </tbody>
@@ -452,8 +452,13 @@ data <span class="op">%&gt;%</span>
 <h1>Ridgeline plot</h1>
 <hr />
 <p>In this example, the best option is probably the <a href="">ridgeline plot</a>. It shares all the benefits of a violinplot and avoid to loose space since there is an overlap between groups. Both individual distribution and comparison between groups are described efficiently.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggridges)
-data <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(ggridges)</code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;ggridges&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:ggplot2&#39;:
+## 
+##     scale_discrete_manual</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">fct_reorder</span>(text, value)) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">y=</span>text, <span class="dt">x=</span>value,  <span class="dt">fill=</span>text)) <span class="op">+</span>
 <span class="st">    </span><span class="kw">geom_density_ridges</span>(<span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">bandwidth=</span><span class="dv">4</span>) <span class="op">+</span>
@@ -475,15 +480,15 @@ data <span class="op">%&gt;%</span>
 <h1>Going further</h1>
 <hr>
 <p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
+    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
   
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a>
+    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a>
   
   
   
