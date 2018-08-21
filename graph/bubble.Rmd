@@ -31,7 +31,7 @@ output:
 # Definition {#definition}
 ***
 
-A `bubble plot is a [scatterplot](http://www.data-to-viz.com/graph/scatter.html) where a `third dimension` is added: the value of an additional numeric variable is represented through the `size` of the dots.
+A `bubble plot` is a [scatterplot](http://www.data-to-viz.com/graph/scatter.html) where a `third dimension` is added: the value of an additional numeric variable is represented through the `size` of the dots.
 
 You need 3 numerical variables as input: one is represented by the X axis, one by the Y axis, and one by the dot size.
 
