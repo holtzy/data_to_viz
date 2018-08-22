@@ -42,7 +42,7 @@ library(hrbrthemes)
 library(fmsb)
 library(colormap)
 
-# Create data: note in High school for Jonathan:
+# Create data
 set.seed(1)
 data <- as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
 colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
@@ -66,10 +66,12 @@ radarchart( data, axistype=1,
 
 ```
 
+
+
 # Variation
 ***
 
-In the previous chart, only one series is plotted, showing how one student performed. A common task is to compare several individuals. With only a few series it is possible to show every group on the same chart. Here it is quite obvious that Shirley globally performed better than Sonia, except in sports.
+In the previous chart, only one series is plotted, showing how one student performed. A common task is to compare several individuals. With only a few series it is possible to show every group on the same chart. Here it is quite obvious that Shirley globally performed better than Sonia, except in sport, english and R-coding.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 # Create data: note in High school for Jonathan:
@@ -92,14 +94,14 @@ radarchart( data, axistype=1,
   pcol=colors_border , pfcol=colors_in , plwd=4, plty=1 , 
 
   #custom the grid
-  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=1.1,
 
   #custom labels
   vlcex=0.8 
   )
 
 # Legend
-legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colors_in , text.col = "grey", cex=0.9, pt.cex=1)
+legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colors_border , text.col = "black", cex=0.9, pt.cex=1.6)
 
 ```
 With more than two or three series, it is a good practice to use small multiples to avoid a cluttered figure. Each student is represented on their own radar chart. It is easy to understand the features of a specific individual, and looking for similarity in shapes allows you to find students with similar features.
