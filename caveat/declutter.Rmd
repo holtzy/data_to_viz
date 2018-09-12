@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/declutter_your_graphic.png"
-mytitle: "Decluterring your chart"
+mytitle: "Decluttering your chart"
 mydisqus: "declutter"
 output:
   html_document:
