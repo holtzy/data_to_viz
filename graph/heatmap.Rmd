@@ -56,7 +56,7 @@ data <- data %>%
 # Matrix format
 mat <- data
 rownames(mat) <- mat[,1]
-mat <- mat %>% select(-Country, -Group, -Continent)
+mat <- mat %>% dplyr::select(-Country, -Group, -Continent)
 mat <- as.matrix(mat)
 
 # Heatmap

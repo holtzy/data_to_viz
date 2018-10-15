@@ -56,7 +56,7 @@ colnames(data) <- c("Continent", "Region", "Country", "Pop")
 data <- data %>%
   filter(Continent != "") %>%
   mutate(path = paste(Continent, Region, Country, sep="-")) %>%
-  select(path, Pop)
+  dplyr::select(path, Pop)
 
 # Plot
 p <- sunburst(data, legend=FALSE)

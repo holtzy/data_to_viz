@@ -4,11 +4,24 @@
 
 <head>
 
+
+<title>Hexbin map &#8211; from Data to Viz</title>
+
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An extensive description of Hexbin map. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
+<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
+<meta name="author" content="Yan Holtz and Conor Healy">
 
 
+<!-- Control appearance when share by social media -->
+<meta property="og:title" content="Hexbin map" />
+<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapHexbinSmall.png" />
+<meta property="og:description" content="An extensive description of Hexbin map. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
+<meta property='og:url' content="www.data-to-viz.com/caveat/hexbinmap.html" />
+<meta property="og:type" content="website" />
 
 
 
@@ -60,7 +73,6 @@
 
 
 
-<title></title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -327,15 +339,15 @@ data <span class="op">%&gt;%</span>
 <p><br></p>
 </div>
 <div class="mycontent">
-<p><br> <em>Note on the first map</em>: You can learn more about this story <a href="file:///Users/yan/Dropbox/data_to_viz/story/RegionWithValue.html">here</a>. Data comes from <a href="https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map">here</a>. Code has been inspired from <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">this post</a> and <a href="https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/">that one</a>.</p>
-<p><em>Note on the second map</em>: This map shows the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>. Read more about it <a href="file:///Users/yan/Dropbox/data_to_viz/story/GPSCoordWithoutValue.html">here</a>.</p>
+<p><br> <em>Note on the first map</em>: You can learn more about this story <a href="https://www.data-to-viz.com/story/RegionWithValue.html">here</a>. Data comes from <a href="https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map">here</a>. Code has been inspired from <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">this post</a> and <a href="https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/">that one</a>.</p>
+<p><em>Note on the second map</em>: This map shows the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>. Read more about it <a href="https://www.data-to-viz.com/data-to-viz/story/GPSCoordWithoutValue.html">here</a>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
-<p>Hexbin or grid map has an <code>advantage</code> over usual <a href="https://www.data-to-vize.com/graph/choropleth.html">choropleth maps</a>. In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.</p>
+<p>Hexbin or grid map has an <code>advantage</code> over usual <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth maps</a>. In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.</p>
 <p>There’s a <code>drawback</code> to this format though. Map readers generally recognize a geographic area by it’s shape and orientation to other areas. For instance, the geography of the US is well known and people easily identify different regions. In hexbin maps, these landmarks do not exist anymore what can confuse the audience. One solution for this is to choose a basemap that uses labels on top of your data layer.</p>
 <h1 id="variation">Variation</h1>
 <hr />
-<p>Hexbin map uses hexagons to split the area in several parts and attribute a color to it. Note that it is possible to use square instead of hexagones, resulting in a <a href="file:///Users/yan/Dropbox/data_to_viz/graph/density2d.html">2D histogram map</a>.</p>
+<p>Hexbin map uses hexagons to split the area in several parts and attribute a color to it. Note that it is possible to use square instead of hexagones, resulting in a <a href="https://www.data-to-viz.com/graph/density2d.html">2D histogram map</a>.</p>
 <h1 id="mistake">Common mistakes</h1>
 <hr />
 <p>All the mistakes presented in the <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth</a> section apply</p>
@@ -397,7 +409,7 @@ The basis for any geographic data visualization is to build a good background ma
 
 <!-- Insert code for DISQUS comments  -->
 
-      <div class="container">
+      <div class="mycontent">
         <div id="disqus_thread"></div>
         <script>
 

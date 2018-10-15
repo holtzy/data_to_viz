@@ -4,11 +4,24 @@
 
 <head>
 
+
+<title>Sankey diagram &#8211; from Data to Viz</title>
+
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An extensive description of Sankey diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
+<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
+<meta name="author" content="Yan Holtz and Conor Healy">
 
 
+<!-- Control appearance when share by social media -->
+<meta property="og:title" content="Sankey diagram" />
+<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png" />
+<meta property="og:description" content="An extensive description of Sankey diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
+<meta property='og:url' content="www.data-to-viz.com/caveat/sankey.html" />
+<meta property="og:type" content="website" />
 
 
 
@@ -60,7 +73,6 @@
 
 
 
-<title></title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -72,7 +84,7 @@
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-0.9/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
 <script src="libs/d3-4.5.0/d3.min.js"></script>
 <script src="libs/sankey-1/sankey.js"></script>
 <script src="libs/sankeyNetwork-binding-0.4/sankeyNetwork.js"></script>
@@ -263,8 +275,8 @@ ColourScal =<span class="st">&#39;d3.scaleOrdinal() .range([&quot;#FDE725FF&quot
                      <span class="dt">Source =</span> <span class="st">&quot;IDsource&quot;</span>, <span class="dt">Target =</span> <span class="st">&quot;IDtarget&quot;</span>,
                      <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>, 
                      <span class="dt">sinksRight=</span><span class="ot">FALSE</span>, <span class="dt">colourScale=</span>ColourScal, <span class="dt">nodeWidth=</span><span class="dv">40</span>, <span class="dt">fontSize=</span><span class="dv">13</span>, <span class="dt">nodePadding=</span><span class="dv">20</span>)</code></pre></div>
-<div id="htmlwidget-afbe497d3c31429df924" style="width:960px;height:672px;" class="sankeyNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-afbe497d3c31429df924">{"x":{"links":{"source":[0,1,2,3,0,1,4,5,6,7,2,3,8,9,5,6,0,1,5,2,3,9,0,1,7,2,3,2,1,3,8,0,1,2,9],"target":[10,11,11,11,12,12,12,12,12,12,12,12,12,12,13,13,14,14,14,14,14,14,15,15,15,15,15,16,17,17,18,19,19,19,19],"value":[3.142471,1.630997,0.525881,0.145264,2.107883,0.601265,2.401476,1.762587,1.215929,0.17037,1.390272,0.468762,0.60923,0.449623,0.879198,0.276908,0.540887,0.97306,3.627847,1.508008,1.057904,0.169274,0.155988,0.333608,0.190706,0.34742,0.278746,1.307907,0.380388,0.781316,1.870501,0.673004,0.869311,4.902081,0.927243]},"nodes":{"name":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "],"group":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal() .range([\"#FDE725FF\",\"#B4DE2CFF\",\"#6DCD59FF\",\"#35B779FF\",\"#1F9E89FF\",\"#26828EFF\",\"#31688EFF\",\"#3E4A89FF\",\"#482878FF\",\"#440154FF\"])","fontSize":13,"fontFamily":null,"nodeWidth":40,"nodePadding":20,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-ad58c3f23ec4b345840c" style="width:960px;height:672px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-ad58c3f23ec4b345840c">{"x":{"links":{"source":[0,1,2,3,0,1,4,5,6,7,2,3,8,9,5,6,0,1,5,2,3,9,0,1,7,2,3,2,1,3,8,0,1,2,9],"target":[10,11,11,11,12,12,12,12,12,12,12,12,12,12,13,13,14,14,14,14,14,14,15,15,15,15,15,16,17,17,18,19,19,19,19],"value":[3.142471,1.630997,0.525881,0.145264,2.107883,0.601265,2.401476,1.762587,1.215929,0.17037,1.390272,0.468762,0.60923,0.449623,0.879198,0.276908,0.540887,0.97306,3.627847,1.508008,1.057904,0.169274,0.155988,0.333608,0.190706,0.34742,0.278746,1.307907,0.380388,0.781316,1.870501,0.673004,0.869311,4.902081,0.927243]},"nodes":{"name":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "],"group":["Africa","East Asia","South Asia","South East Asia","Europe","Latin America","North America","Oceania","Soviet Union","West Asia","Africa ","East.Asia ","Europe ","Latin.America ","North.America ","Oceania ","South.Asia ","South.East.Asia ","Soviet.Union ","West.Asia "]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal() .range([\"#FDE725FF\",\"#B4DE2CFF\",\"#6DCD59FF\",\"#35B779FF\",\"#1F9E89FF\",\"#26828EFF\",\"#31688EFF\",\"#3E4A89FF\",\"#482878FF\",\"#440154FF\"])","fontSize":13,"fontFamily":null,"nodeWidth":40,"nodePadding":20,"units":"","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":false}},"evals":[],"jsHooks":[]}</script>
 <p><em>Note</em>: an <em>Alluvial diagram</em> is a sub category of Sankey diagrams where nodes are grouped in vertical nodes (sometimes called steps). In many cases, these steps represent different time stamp. Note that there are confusions on this topic as illustrated in this <a href="https://twitter.com/visualisingdata/status/580742089484439552?lang=fr">twitter discussion</a>. Please reach me out if you have a better definition.</p>
 <h1 id="what-for">What for</h1>
 <hr />
@@ -286,8 +298,8 @@ Energy &lt;-<span class="st"> </span>jsonlite<span class="op">::</span><span cla
 <span class="kw">sankeyNetwork</span>(<span class="dt">Links =</span> Energy<span class="op">$</span>links, <span class="dt">Nodes =</span> Energy<span class="op">$</span>nodes, <span class="dt">Source =</span> <span class="st">&quot;source&quot;</span>,
               <span class="dt">Target =</span> <span class="st">&quot;target&quot;</span>, <span class="dt">Value =</span> <span class="st">&quot;value&quot;</span>, <span class="dt">NodeID =</span> <span class="st">&quot;name&quot;</span>,
               <span class="dt">units =</span> <span class="st">&quot;TWh&quot;</span>, <span class="dt">fontSize =</span> <span class="dv">12</span>, <span class="dt">nodeWidth =</span> <span class="dv">30</span>)</code></pre></div>
-<div id="htmlwidget-db26435c42daa0e755b8" style="width:864px;height:576px;" class="sankeyNetwork html-widget"></div>
-<script type="application/json" data-for="htmlwidget-db26435c42daa0e755b8">{"x":{"links":{"source":[0,1,1,1,1,6,7,8,10,9,11,11,11,15,15,15,15,15,15,15,15,15,15,15,23,25,5,5,5,5,5,27,17,17,28,29,2,2,2,2,2,2,2,2,34,24,35,36,38,37,39,39,40,40,41,42,43,43,4,4,4,26,26,26,44,45,46,47],"target":[1,2,3,4,5,2,4,9,9,4,12,13,14,16,14,17,12,18,19,13,3,20,21,22,24,24,13,3,26,19,12,15,28,3,18,15,12,30,18,31,32,19,33,20,1,5,26,37,37,2,4,1,14,13,15,14,42,41,19,26,12,15,3,11,15,1,15,15],"value":[124.729,0.597,26.862,280.322,81.144,35,35,11.606,63.965,75.571,10.639,22.505,46.184,104.453,113.726,27.14,342.165,37.797,4.412,40.858,56.691,7.863,90.008,93.494,40.719,82.233,0.129,1.401,151.891,2.096,48.58,7.013,20.897,6.242,20.897,6.995,121.066,128.69,135.835,14.458,206.267,3.64,33.218,4.413,4.375,122.952,839.978,504.287,107.703,611.99,56.587,77.81,193.026,70.672,59.901,19.263,19.263,59.901,0.882,400.12,46.477,525.531,787.129,79.329,9.452,182.01,19.013,289.366]},"nodes":{"name":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"],"group":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"TWh","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-e2b3fb7d28b6e6b2f99c" style="width:864px;height:576px;" class="sankeyNetwork html-widget"></div>
+<script type="application/json" data-for="htmlwidget-e2b3fb7d28b6e6b2f99c">{"x":{"links":{"source":[0,1,1,1,1,6,7,8,10,9,11,11,11,15,15,15,15,15,15,15,15,15,15,15,23,25,5,5,5,5,5,27,17,17,28,29,2,2,2,2,2,2,2,2,34,24,35,36,38,37,39,39,40,40,41,42,43,43,4,4,4,26,26,26,44,45,46,47],"target":[1,2,3,4,5,2,4,9,9,4,12,13,14,16,14,17,12,18,19,13,3,20,21,22,24,24,13,3,26,19,12,15,28,3,18,15,12,30,18,31,32,19,33,20,1,5,26,37,37,2,4,1,14,13,15,14,42,41,19,26,12,15,3,11,15,1,15,15],"value":[124.729,0.597,26.862,280.322,81.144,35,35,11.606,63.965,75.571,10.639,22.505,46.184,104.453,113.726,27.14,342.165,37.797,4.412,40.858,56.691,7.863,90.008,93.494,40.719,82.233,0.129,1.401,151.891,2.096,48.58,7.013,20.897,6.242,20.897,6.995,121.066,128.69,135.835,14.458,206.267,3.64,33.218,4.413,4.375,122.952,839.978,504.287,107.703,611.99,56.587,77.81,193.026,70.672,59.901,19.263,19.263,59.901,0.882,400.12,46.477,525.531,787.129,79.329,9.452,182.01,19.013,289.366]},"nodes":{"name":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"],"group":["Agricultural 'waste'","Bio-conversion","Liquid","Losses","Solid","Gas","Biofuel imports","Biomass imports","Coal imports","Coal","Coal reserves","District heating","Industry","Heating and cooling - commercial","Heating and cooling - homes","Electricity grid","Over generation / exports","H2 conversion","Road transport","Agriculture","Rail transport","Lighting & appliances - commercial","Lighting & appliances - homes","Gas imports","Ngas","Gas reserves","Thermal generation","Geothermal","H2","Hydro","International shipping","Domestic aviation","International aviation","National navigation","Marine algae","Nuclear","Oil imports","Oil","Oil reserves","Other waste","Pumped heat","Solar PV","Solar Thermal","Solar","Tidal","UK land based bioenergy","Wave","Wind"]},"options":{"NodeID":"name","NodeGroup":"name","LinkGroup":null,"colourScale":"d3.scaleOrdinal(d3.schemeCategory20);","fontSize":12,"fontFamily":null,"nodeWidth":30,"nodePadding":10,"units":"TWh","margin":{"top":null,"right":null,"bottom":null,"left":null},"iterations":32,"sinksRight":true}},"evals":[],"jsHooks":[]}</script>
 <h1 id="variation">Variation</h1>
 <hr />
 <p>Sankey diagram are prone to many visual variations, even if the underlying idea remain the same. Here is an example showing metal recovery and recycling in Australia (<a href="http://www.sankey-diagrams.com/tag/australia/">source</a>):</p>
@@ -361,7 +373,7 @@ Show connections between entities organized in a hierarchy.
 
 <!-- Insert code for DISQUS comments  -->
 
-      <div class="container">
+      <div class="mycontent">
         <div id="disqus_thread"></div>
         <script>
 

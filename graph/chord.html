@@ -4,11 +4,24 @@
 
 <head>
 
+
+<title>Chord diagram &#8211; from Data to Viz</title>
+
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An extensive description of Chord diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
+<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
+<meta name="author" content="Yan Holtz and Conor Healy">
 
 
+<!-- Control appearance when share by social media -->
+<meta property="og:title" content="Chord diagram" />
+<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png" />
+<meta property="og:description" content="An extensive description of Chord diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
+<meta property='og:url' content="www.data-to-viz.com/caveat/chord.html" />
+<meta property="og:type" content="website" />
 
 
 
@@ -60,7 +73,6 @@
 
 
 
-<title></title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -331,8 +343,8 @@ haircolors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="
 
 groupColors &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#FFDD89&quot;</span>, <span class="st">&quot;#957244&quot;</span>, <span class="st">&quot;#F26223&quot;</span>)
 <span class="kw">chorddiag</span>(m, <span class="dt">groupColors =</span> groupColors, <span class="dt">groupnamePadding =</span> <span class="dv">20</span>)</code></pre></div>
-<div id="htmlwidget-a7a8e51688377b542769" style="width:672px;height:672px;" class="chorddiag html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a7a8e51688377b542769">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-3307092def9474f79b62" style="width:672px;height:672px;" class="chorddiag html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3307092def9474f79b62">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.0349065850398866,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
 </center>
 <p><em>Note</em>: this example comes from the <a href="https://github.com/mattflor/chorddiag">chorddiag</a> package documentation.</p>
 <h1 id="mistake">Common mistakes</h1>
@@ -400,7 +412,7 @@ Show connections between entities organized in a hierarchy.
 
 <!-- Insert code for DISQUS comments  -->
 
-      <div class="container">
+      <div class="mycontent">
         <div id="disqus_thread"></div>
         <script>
 

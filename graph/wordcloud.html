@@ -4,11 +4,24 @@
 
 <head>
 
+
+<title>Wordcloud &#8211; from Data to Viz</title>
+
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="An extensive description of Wordcloud. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
+<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
+<meta name="author" content="Yan Holtz and Conor Healy">
 
 
+<!-- Control appearance when share by social media -->
+<meta property="og:title" content="Wordcloud" />
+<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png" />
+<meta property="og:description" content="An extensive description of Wordcloud. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
+<meta property='og:url' content="www.data-to-viz.com/caveat/wordcloud.html" />
+<meta property="og:type" content="website" />
 
 
 
@@ -60,7 +73,6 @@
 
 
 
-<title></title>
 
 <script src="libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -256,8 +268,8 @@ mywords &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="co"># Make the plot</span>
 <span class="kw">wordcloud2</span>(mywords,  <span class="dt">minRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>, <span class="dt">maxRotation =</span> <span class="op">-</span>pi<span class="op">/</span><span class="dv">2</span>,
          <span class="dt">backgroundColor =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
-<div id="htmlwidget-713196ca03bd75cca321" style="width:768px;height:768px;" class="wordcloud2 html-widget"></div>
-<script type="application/json" data-for="htmlwidget-713196ca03bd75cca321">{"x":{"word":["know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":7.2,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
+<div id="htmlwidget-3d2fcaf7342754239e88" style="width:768px;height:768px;" class="wordcloud2 html-widget"></div>
+<script type="application/json" data-for="htmlwidget-3d2fcaf7342754239e88">{"x":{"word":["know","vrais","noir","sais","tue","mère","veux","anneaux","ezflaun","planète","tuerait","d'un","homme","ouais","qu'on","saturne","tour","above","complete","faire","lyrics","showads","song","be","calling","i'll","j'ai","c'est","you","nekfeu"],"freq":[5,5,6,6,6,7,7,8,8,8,8,9,9,9,9,9,9,10,10,10,10,10,10,11,11,11,12,14,17,25],"fontFamily":"Segoe UI","fontWeight":"bold","color":"#69b3a2","minSize":0,"weightFactor":7.2,"backgroundColor":"white","gridSize":0,"minRotation":-1.5707963267949,"maxRotation":-1.5707963267949,"shuffle":true,"rotateRatio":0.4,"shape":"circle","ellipticity":0.65,"figBase64":null,"hover":null},"evals":[],"jsHooks":{"render":[{"code":"function(el,x){\n                        console.log(123);\n                        if(!iii){\n                          window.location.reload();\n                          iii = False;\n\n                        }\n  }","data":null}]}}</script>
 <h1 id="what-for">What for</h1>
 <hr />
 <p>Wordcloud is useful for quickly perceiving the most prominent terms and for locating a term alphabetically to determine its relative prominence. It is widely used in media and well understood by the public.</p>
@@ -378,7 +390,7 @@ Shows all possible logical relationships between a finite collection of differen
 
 <!-- Insert code for DISQUS comments  -->
 
-      <div class="container">
+      <div class="mycontent">
         <div id="disqus_thread"></div>
         <script>
 
