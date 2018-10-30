@@ -181,8 +181,8 @@ data %>%
 The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="http://google.com" class="btn btn-primary">R graph gallery</a>
-<a href="http://google.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/histogram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/histogram/" class="btn btn-primary">Python gallery</a>
 </p>
 
 
