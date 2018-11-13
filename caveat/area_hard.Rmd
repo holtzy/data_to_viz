@@ -20,7 +20,7 @@ output:
 <br><br><br><br>
 <div class="mycontent">
 
-The human eye is not performant when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.  
+The human eye does not perform well when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.  
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=1}
 # Libraries
@@ -64,7 +64,7 @@ That is much easier, is'nt it?
 
 #Conclusion
 ***
-This does not mean that area must never been used to represent a numeric variable. It means that other shapes and techniques must be used in priority. For instance, the [bubble chart](https://www.data-to-viz.com/graph/bubble.html) makes a really good job to represent the value of 3 numeric variables.
+This does not mean that area must never been used to represent a numeric variable. It means that other shapes and techniques must be before using area. For instance, the [bubble chart](https://www.data-to-viz.com/graph/bubble.html) does a good job representing the values of 3 numeric variables.
 
 
 
