@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-`Three dimensional` objects are very popular but negatively affect the `accuracy` and `speed` at which one can interpret a graphic in most cases. Here is a review of the main graphic types involving 3d, with a discussion wether they are considered as bad practice or not.
+`Three dimensional` objects are very popular but negatively affect the `accuracy` and `speed` at which one can interpret a graphic in most cases. Here is a review of the main graphic types involving 3d, with a discussion of whether or not they are considered bad practice.
 
 
 #3D Barplots: Don't
@@ -29,8 +29,8 @@ output:
 Here is a 3d barplot. You are probably familiar with this kind of figure since it is created with Excel, and thus widely used. Compared with a classic grouped barplot, this representation has several drawbacks:
 
 - it is more difficult to find the exact percentages of a bar
-- by construction, green bars in the bottom appear smaller than blue bars at the front for an equivalent value
-- green bars in the bottom are hidden
+- as contructed, for an equivalent value green bars in the back appear smaller than blue bars in the front
+- green bars in the back are hidden
 
 <br>
 
@@ -61,7 +61,7 @@ Adding 3D makes it even worse since it distorts reality. Indeed, the part at the
 
 <center>[source](http://www.e-tabs.com/data-viz-blog/3d-good-hd-bad-dv/)</center>
 
-<u>Workaround</u>: Don't do [pie charts](https://www.data-to-viz.com/caveat/pie.html).
+<u>Workaround</u>: Don't make [pie charts](https://www.data-to-viz.com/caveat/pie.html).
 
 
 
@@ -69,9 +69,9 @@ Adding 3D makes it even worse since it distorts reality. Indeed, the part at the
 
 # Static 3D scatterplots: Don't
 ***
-The 3d scatterplot is another common use of 3d in datavisualization. This kind of chart takes 3 numeric variables as input, and represents it on the X, Y and Z axis.
+The 3d scatterplot is another common use of 3d in data visualization. This kind of chart takes 3 numeric variables as inputs, and represents them on the X, Y and Z axes.
 
-The accuracy of 3D scatterplots is widely [discussed](https://www.gabrielaplucinska.com/blog/2017/8/7/3d-graphs). For instance, try to get the X, Y and Z coordinates of a specific point. You will realize that it is quite impossible since the human eye reads 3d badly. Thus, this graphic lacks accuracy.
+The accuracy of 3D scatterplots is widely [discussed](https://www.gabrielaplucinska.com/blog/2017/8/7/3d-graphs). For instance, try to determine the X, Y and Z coordinates of a specific point. You will realize that it is quite impossible since the human eye reads 3d poorly. Thus, this graphic lacks accuracy.
 
 <center>
 <img src="IMG/scatter3d.png" alt="img" width="500" height="500">
@@ -85,7 +85,7 @@ The accuracy of 3D scatterplots is widely [discussed](https://www.gabrielaplucin
 # Interactive 3D scatterplots: Perhaps
 ***
 
-In my opinion, the 3d scatterplot can make sense only if you can interact with the chart. On the following, you can use your mouse to change the orientation of the plot and zoom on it. It gives a real feeling of 3D that does not exist otherwise. It is still hard to get the accurate coordinates of points, but allows to efficiently explore the group structure.
+In my opinion, the 3d scatterplot can make sense only if you can interact with the chart. On the following, you can use your mouse to change the orientation of the plot and zoom on it. It gives a real feeling of 3D that does not exist otherwise. It is still hard to get the accurate coordinates of points, but allows one to efficiently explore the group structure.
 
 ```{r rgl-firstexample, webgl=TRUE, results='hide', warning=FALSE, message=FALSE, fig.width=9, fig.height=9}
 # library
@@ -115,7 +115,7 @@ plot3d(
 
 #Surface plot: Why not
 ***
-If you have grid coordinates with a numeric variable for each position, you can represent your data using a surface plot. This kind of representation makes sense especially if the numeric value represents an altitude. In this case, we are actually building a 3D element that is a real 3d object, what makes sense in my opinion.
+If you have grid coordinates with a numeric variable for each position, you can represent your data using a surface plot. This kind of representation makes sense especially if the numeric value represents an altitude. In this case, we are actually building a 3D element that is a real 3d object, which makes sense in my opinion.
 
 ```{r, message=FALSE, warning=FALSE}
 # Library
