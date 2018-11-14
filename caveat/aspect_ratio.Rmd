@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-`Aspect ratio` is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insight of your graphic, making it readable or not.  
+`Aspect ratio` is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insights gained from your graphic.  
 
 <br>
 
@@ -49,13 +49,13 @@ data %>%
 ```
 
 
-The [solar cycle](https://en.wikipedia.org/wiki/Solar_cycle) is quite obvious on this figure. The sunspot numbers follow this nearly periodic 11-year change in the sun's activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
+The [solar cycle](https://en.wikipedia.org/wiki/Solar_cycle) is quite obvious on this figure. The sunspot numbers follow this periodic 11-year change in the sun's activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
 
 
 
 #Playing with the aspect ratio
 ***
-Now let's change the aspect ratio of this figure, making it wider and less high. To exaggerate the effect, the graphic is even zoomed on the 1800 to 1900 period:
+Now let's change the aspect ratio of this figure, making it wider and less high. To exaggerate the effect, the graphic is zoomed to the 1800 to 1900 period:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=12, fig.height=3}
 
 # Plot
@@ -70,11 +70,11 @@ data %>%
     )
 ```
 
-The conclusion found using the first graphic are still true, but here a new pattern is visible. The sunspot number increases quicker than it decreases ([ref](http://adsabs.harvard.edu/full/1992SoPh..137...51H)). This is due to the fact that the sunspot decay rate is lower than the formation rate ([ref](http://www2.mps.mpg.de/dokumente/publikationen/solanki/r45.pdf)).
+The conclusions found using the first graphic are still true, but here a new pattern is visible. The sunspot number increases quicker than it decreases ([ref](http://adsabs.harvard.edu/full/1992SoPh..137...51H)). This is due to the fact that the sunspot decay rate is lower than the formation rate ([ref](http://www2.mps.mpg.de/dokumente/publikationen/solanki/r45.pdf)).
 
 <br>
 
-On the first chart this pattern was not visible since lines were almost vertical from the bottom to the top of the axis. Here, the slope being less steep, this pattern becomes visible.
+On the first chart this pattern was not visible since the lines were almost vertical from the bottom to the top of the axis. Here, with the slope being less steep, this pattern becomes visible.
 
 
 #Target 45 degrees
@@ -97,7 +97,7 @@ Here is a figure from [W.S. Cleveland](https://www.amazon.com/Visualizing-Data-W
 #Interactivity
 ***
 
-In this kind of situation, producing an interactive graphic allows the user to `zoom` on a specific part and thus to try several different aspect ratio. Allowing this kind of exploration greatly improves the value of your graphic:
+In this type of situation, producing an interactive graphic allows the user to `zoom` to a specific part and thus to try several different aspect ratio. Allowing this kind of exploration greatly improves the value of your graphic:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=9, fig.height=6}
 
@@ -121,7 +121,7 @@ ggplotly(p)
 ***
 
 - About the 45° rule: [W.S. Cleveland. 1993. Visualizing Data.](https://www.amazon.com/Visualizing-Data-William-S-Cleveland/dp/0963488406)
-- Doing line plots in [R](https://www.r-graph-gallery.com/line-plot/) and [Python](https://python-graph-gallery.com/line-chart/)
+- Making line plots in [R](https://www.r-graph-gallery.com/line-plot/) and [Python](https://python-graph-gallery.com/line-chart/)
 
 #Comments
 ***
