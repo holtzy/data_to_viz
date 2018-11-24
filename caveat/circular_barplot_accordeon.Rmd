@@ -55,11 +55,11 @@ data %>%
     ylim(0,15000) 
 ```
 
-The good thing about this kind of graphic is that it is quite eye-catching. However, because the bars are plotted on different radial points of the polar axis, they have different perimeters and cannot be compared by their lengths. A bar on the outside will be longer by construction than one on the inside, even with an equal value.
+The good thing about this kind of graphic is that it is quite eye-catching. However, because the bars are plotted on different radial points of the polar axis, they have different radii and cannot be compared by their lengths. A bar on the outside will be longer by construction than one on the inside, even with an equal value.
 <br><br>
 *note*: Other issues exist on this graphic, like the lack of a Y-axis. It is made for illustration purposes only.
 <br><br>
-This radial issue is very well illustrated on this post from [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-barc-charts/):
+This radial issue is well illustrated on this post from [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-barc-charts/):
 
 <br><br>
 
@@ -81,7 +81,7 @@ Source: [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-ba
 #Workaround
 ***
 
-Radial bar charts must be avoided. Instead, you can build a usual [bar chart](https://www.data-to-viz.com/graph/barplot) or [lollipop plot](https://www.data-to-viz.com/graph/lollipop) to display the information more accurately:
+Becauses of these issues, radial bar charts should be avoided. Instead, you can build a standard [bar chart](https://www.data-to-viz.com/graph/barplot) or [lollipop plot](https://www.data-to-viz.com/graph/lollipop) to display the information more accurately:
 
 ```{r, fig.align='center', fig.height=8, fig.width=6, warning=FALSE, message=FALSE}
 data %>%
@@ -109,7 +109,7 @@ You can see more ways to represent this dataset [here](http://www.data-to-viz.co
 
 - *The problems with B'Arc charts* by Andy Kirk on his blog [Visualising Data](http://www.visualisingdata.com/2017/09/problems-barc-charts/)
 - The [dataviz catalog](https://datavizcatalogue.com/methods/radial_bar_chart.html) has a page dedicated to radial bar charts.
-- Doing a barchart with [R](https://www.r-graph-gallery.com/barplot/) and [Python](https://python-graph-gallery.com/barplot/).
+- Making a barchart with [R](https://www.r-graph-gallery.com/barplot/) and [Python](https://python-graph-gallery.com/barplot/).
 
 #Comments
 ***
