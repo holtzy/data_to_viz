@@ -21,7 +21,7 @@ output:
 <div class="mycontent">
 A [histogram](https://www.data-to-viz.com/graph/histogram.html) takes as input a numeric variable and cuts it into several bins. The number of observations in each bin is represented by the height of the bar. It is a very common type of graphic and most tools select a bin size value by default. 
 <br><br>
-However, this bin size choice can have a strong impact on the chart insight. Let's have a look at the distribution of [Airbnb night prices on the French Riviera](http://www.data-to-viz.com/story/OneNum.html):
+However, this bin size choice can have a strong impact on the chart insight. Let's look at the distribution of [Airbnb night prices on the French Riviera](http://www.data-to-viz.com/story/OneNum.html):
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Libraries
@@ -49,7 +49,7 @@ The price ranges between 10 and 300 euros, with most of the apartments ranging b
 
 <br>
 
-Let’s check what happens when splitting prices by bins of 2 euros instead of 10:
+Let’s check what happens when prices are split into bins of 2 euros instead of 10:
 
 ```{r, fig.align="center"}
 data %>%
@@ -63,7 +63,7 @@ data %>%
     )
 ```
 
-There is a huge difference difference between these two histograms. Actually a few values are over-represented in the dataset (like 58, 64, 69, 75, 80..). This is definitely a signal that you want to understand when analyzing your dataset.
+There is a huge difference between these two histograms. A few values are over-represented in the dataset (like 58, 64, 69, 75, 80...). This is definitely a signal you want to understand when analyzing your data.
 
 
 
