@@ -28,7 +28,7 @@ output:
 
 <br>
 
-However, circular barplots are `less efficient` to represent data `accurately`. Indeed, it is harder to compare bar lengths since they are not on the same line anymore. Moreover, the inner base of the bar is often thinner than the outer part. This results in a bias: group with large values appear even larger than they are in reality.
+However, circular barplots are `less efficient` in representing data `accurately`. Indeed, it is harder to compare bar lengths since they are not on the same line anymore. Moreover, the inner base of the bar is often thinner than the outer part. This results in a bias: group with large values appear even larger than they are in reality.
 
 <br>
 
@@ -142,8 +142,8 @@ p1 + p2
 ***
 Circular barcharts can be a good option in very specific conditions. You need: 
 
-- a high number of bar
-- a clear pattern in the data: if all group have almost the same value, circular version is not accurate enough for comparison.
+- a large number of bars
+- a clear pattern in the data: if all groups have almost the same value, a circular version is not accurate enough for comparison.
 - to keep a large inner circle
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
