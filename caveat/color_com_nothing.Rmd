@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-`Colors` are one of the main mediums used to convey information in dataviz. They allow to highlight groups or variation when used appropriately, but are confusing or misleading otherwise.
+`Colors` are one of the main mediums used to convey information in a dataviz. They allow us to highlight groups or variation when used appropriately, but can be confusing or misleading otherwise.
 
 Here is an example showing the quantity of weapons exported by the top 20 largest exporters in 2017 (more info [here](http://www.data-to-viz.com/story/OneNumOneCat.html)):
 
@@ -61,7 +61,7 @@ Here, each country is represented using a random color. When looking at it, your
 
 #Color: if additionnal information only
 ***
-Here is the same graphic using a unique color for every country. In my opinion, it conveys the information better:
+Here is the same graphic using a single color for all countries. In my opinion, it conveys the information better:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Barplot
 data %>%
@@ -82,7 +82,7 @@ data %>%
     ylab("Weapon quantity (SIPRI trend-indicator value)")
 ```
 
-Note that you can use color to highlight the variation presented by the bar length. I'm personally not a big fan of it, but it is a common practice;
+Note that you can use color to highlight specific variation in selected bars. I'm personally not a big fan of it, but it is a common practice;
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Barplot
@@ -108,7 +108,7 @@ data %>%
 
 #Conclusion
 ***
-When adding color to your chart, always double check it adds insight to it. Usually colors are useful to:
+When adding color to your chart, double check that the colors add insight. Colors are often useful to:
 
 - Show groups
 - Highlight an item

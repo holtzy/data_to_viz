@@ -23,11 +23,11 @@ output:
 <div class="mycontent">
 
 
-This is probably the most obvious pitfall example of the collection, but is probably the most frequent one as well. Number inconsistencies on a graphic just make it completely useless.
+This is probably the most obvious pitfall example of the collection, but is probably the most frequent one as well. Number inconsistencies on a graphic make it completely useless.
 
 #Percentages don't add up to 100%
 ***
-When displaying percentages on the chart, always double-check that it sums up to 100%:
+For example, when displaying percentages on a pie chart, double-check that the percents sum to 100%:
 
 <br><br>
 
@@ -40,13 +40,13 @@ Source: [WTF Visualizations](http://viz.wtf/post/162907112938/i-guess-its-best-t
 </center>
 <br><br>
 
-Here, note as well that using an exploded 3D pie chart is probably the worst way to convey information ever invented. ([Read more about it](http://www.data-to-viz.com/caveat/pie.html))
+Here, alsoe note that using an exploded 3D pie chart is probably the worst way to convey information ever invented. ([Read more about it](http://www.data-to-viz.com/caveat/pie.html))
 
 
 
 #Values don't match visuals
 ***
-In the following example, the 45% annotation is linked with the biggest part of the donut chart, which is truly misleading.
+In the following example, the 45% annotation is linked with the biggest part of the donut chart; clearly something is incorrect.
 
 <br><br>
 
@@ -69,7 +69,7 @@ Source: [WTF Visualizations](http://viz.wtf/post/169392205697/fewer-people-would
 #Going further
 ***
 
-- The website [WTF Visualization](http://viz.wtf) reports visualizations that make no sense on a daily basis. Check it out or follow them on [twitter](https://twitter.com/WTFViz).
+- On a daily basis, the website [WTF Visualization](http://viz.wtf) shows visualizations that make no sense. Check it out or follow them on [twitter](https://twitter.com/WTFViz).
 
 
 #Comments

@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/connect_your_dot.png"
-mytitle: "Connect your dots when the X axis is ordered"
+mytitle: "Connect your dots when the X-axis is ordered"
 mydisqus: "connect_your_dot"
 output:
   html_document:
@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-Let's consider a dataset composed by two numeric variables. The X axis represents years, and the Y axis the yearly sunspot numbers from 1749 to 1983. ([Sunspots](https://en.wikipedia.org/wiki/Sunspot) are temporary phenomena on the Sun’s photosphere that appear as spots darker than the surrounding areas.). The dataset comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613) originally, related by [Andrews et al.](https://www.springer.com/gp/book/9781461295631).
+Let's consider a dataset composed by two numeric variables. The x-axis represents years, and the y-axis the yearly sunspot numbers from 1749 to 1983. ([Sunspots](https://en.wikipedia.org/wiki/Sunspot) are temporary phenomena on the Sun’s photosphere that appear as spots darker than the surrounding areas.). The original dataset comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613), related by [Andrews et al.](https://www.springer.com/gp/book/9781461295631).
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # Libraries
@@ -45,12 +45,12 @@ data %>%
     )
 ```
 
-Here, it is very hard to see any trend. It looks like no relationships exist between time and sunspot number.
+Here, it is hard to see any trend. It looks like no relationships exist between time and sunspot number.
 
 
 #Connect your lines
 ***
-If your X axis is ordered, like for time, you must connect dots.
+However, if your x-axis is ordered, like for time, you should connect dots.
 
 Let's take the exact same graphic, except that we connect dots together with segments. We switch from a [scatter plot](https://www.data-to-viz.com/graph/scatter.html) to a [line plot](https://www.data-to-viz.com/graph/line.html).
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
@@ -76,7 +76,7 @@ data %>%
     )
 ```
 
-Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly periodic 11-year change in the sun’s activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from 50 to 180.
+Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly periodic 11-year change in the sun’s activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from approximately 50 to 180.
 
 
 
@@ -84,7 +84,7 @@ Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly
 #Going further
 ***
 
-- Have a look to the article about [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html), it can have a strong effect on the [readability](https://www.data-to-viz.com/caveat/aspect_ratio.html) of your line plot.
+- Have a look at our page on [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html); aspect ratio can have a strong impact on the [readability](https://www.data-to-viz.com/caveat/aspect_ratio.html) of your line plot.
 
 
 
