@@ -100,7 +100,7 @@ Heatmap is really useful to display a `general view` of numerical data, not to e
 
 Heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks what countries tend to have the same features on their numeric variables, what countries are similar. The usual way to represent the result is to use [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn on top of the heatmap:
 
-```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 p <- heatmaply(mat, 
         #dendrogram = "row",
         xlab = "", ylab = "", 
