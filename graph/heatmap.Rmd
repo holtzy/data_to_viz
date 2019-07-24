@@ -118,6 +118,11 @@ p <- heatmaply(mat,
         labRow = rownames(mat),
         heatmap_layers = theme(axis.line=element_blank())
         )
+
+# save the widget
+# library(htmlwidgets)
+# saveWidget(p, file= "~/Desktop/R-graph-gallery/HtmlWidget/heatmapInter.html")
+
 ```
 
 
