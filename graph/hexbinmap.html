@@ -31,7 +31,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
+    min-height: 300px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -39,9 +39,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -50,7 +50,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -63,8 +63,8 @@
   <p class="mytitle">Hexbin map</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
+    <a href="#mistake">mistake</a> -
+    <a href="#related">related</a> -
     <a href="#code">code</a>
   </p>
 </div>
@@ -240,50 +240,50 @@ $(document).ready(function () {
 </ul>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library</span>
 <span class="kw">library</span>(tidyverse)
- 
+
 <span class="co"># Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:</span>
 <span class="kw">library</span>(rgdal)
 spdf &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span class="st">&quot;us_states_hexgrid.geojson.json&quot;</span>,  <span class="st">&quot;OGRGeoJSON&quot;</span>)
- 
+
 <span class="co"># I need to &#39;fortify&#39; the data to be able to show it with ggplot2 (we need a data frame format)</span>
 <span class="kw">library</span>(broom)
 spdf<span class="op">@</span>data =<span class="st"> </span>spdf<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">google_name =</span> <span class="kw">gsub</span>(<span class="st">&quot; </span><span class="ch">\\</span><span class="st">(United States</span><span class="ch">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, google_name))
 spdf_fortified &lt;-<span class="st"> </span><span class="kw">tidy</span>(spdf, <span class="dt">region =</span> <span class="st">&quot;google_name&quot;</span>)
- 
+
 <span class="co"># Calculate the centroid of each hexagon to add the label:</span>
 <span class="kw">library</span>(rgeos)
 centers &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(<span class="kw">data.frame</span>(<span class="kw">gCentroid</span>(spdf, <span class="dt">byid=</span><span class="ot">TRUE</span>), <span class="dt">id=</span>spdf<span class="op">@</span>data<span class="op">$</span>iso3166_<span class="dv">2</span>))
 
 <span class="co"># Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html</span>
 data=<span class="kw">read.table</span>(<span class="st">&quot;https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">na.strings=</span><span class="st">&quot;---&quot;</span>)
- 
+
 <span class="co"># Merge geospatial and numerical information</span>
 spdf_fortified =<span class="st"> </span>spdf_fortified <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">left_join</span>(. , data, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>=<span class="st">&quot;state&quot;</span>)) 
- 
+<span class="st">  </span><span class="kw">left_join</span>(. , data, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>=<span class="st">&quot;state&quot;</span>))
+
 <span class="co"># Prepare binning</span>
 spdf_fortified<span class="op">$</span>bin =<span class="st"> </span><span class="kw">cut</span>( spdf_fortified<span class="op">$</span>y_<span class="dv">2015</span> , <span class="dt">breaks=</span><span class="kw">c</span>(<span class="kw">seq</span>(<span class="dv">5</span>,<span class="dv">10</span>), <span class="ot">Inf</span>), <span class="dt">labels=</span><span class="kw">c</span>(<span class="st">&quot;5-6&quot;</span>, <span class="st">&quot;6-7&quot;</span>, <span class="st">&quot;7-8&quot;</span>, <span class="st">&quot;8-9&quot;</span>, <span class="st">&quot;9-10&quot;</span>, <span class="st">&quot;10+&quot;</span> ), <span class="dt">include.lowest =</span> <span class="ot">TRUE</span> )
- 
+
 <span class="co"># Prepare a color scale coming from the viridis color palette</span>
 <span class="kw">library</span>(viridis)
 my_palette=<span class="kw">rev</span>(<span class="kw">magma</span>(<span class="dv">8</span>))[<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">8</span>)]
- 
+
 <span class="co"># plot</span>
 <span class="kw">ggplot</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> spdf_fortified, <span class="kw">aes</span>(<span class="dt">fill =</span> bin, <span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group) , <span class="dt">size=</span><span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>centers, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">label=</span>id), <span class="dt">color=</span><span class="st">&quot;white&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>( 
-    <span class="dt">values=</span>my_palette, 
-    <span class="dt">name=</span><span class="st">&quot;Wedding per 1000 people in 2015&quot;</span>, 
-    <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
+<span class="st">  </span><span class="kw">scale_fill_manual</span>(
+    <span class="dt">values=</span>my_palette,
+    <span class="dt">name=</span><span class="st">&quot;Wedding per 1000 people in 2015&quot;</span>,
+    <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)
   ) <span class="op">+</span>
 <span class="st">  </span><span class="kw">ggtitle</span>( <span class="st">&quot;A map of marriage rates, state by state&quot;</span> ) <span class="op">+</span>
 <span class="st">  </span><span class="kw">theme</span>(
     <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>),
     <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
-    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
-    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
+    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
     <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
     <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
   )</code></pre></div>
@@ -320,18 +320,18 @@ data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">30</span>, <span class="dv">70</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">ylim</span>(<span class="dv">24</span>, <span class="dv">72</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_fill_viridis</span>(
-      <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>, 
+      <span class="dt">trans =</span> <span class="st">&quot;log&quot;</span>,
       <span class="dt">breaks =</span> <span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">7</span>,<span class="dv">54</span>,<span class="dv">403</span>,<span class="dv">3000</span>),
-      <span class="dt">name=</span><span class="st">&quot;Tweet # recorded in 8 months&quot;</span>, 
-      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="fl">2.5</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>) 
+      <span class="dt">name=</span><span class="st">&quot;Tweet # recorded in 8 months&quot;</span>,
+      <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="fl">2.5</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">10</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)
     )  <span class="op">+</span>
 <span class="st">    </span><span class="kw">ggtitle</span>( <span class="st">&quot;&quot;</span> ) <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme</span>(
       <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.8</span>, <span class="fl">0.09</span>),
       <span class="dt">legend.title=</span><span class="kw">element_text</span>(<span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">size=</span><span class="dv">8</span>),
       <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
-      <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
-      <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
+      <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
+      <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
       <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
       <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">13</span>, <span class="dt">hjust=</span><span class="fl">0.1</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
     ) </code></pre></div>
@@ -340,7 +340,7 @@ data <span class="op">%&gt;%</span>
 </div>
 <div class="mycontent">
 <p><br> <em>Note on the first map</em>: You can learn more about this story <a href="https://www.data-to-viz.com/story/RegionWithValue.html">here</a>. Data comes from <a href="https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map">here</a>. Code has been inspired from <a href="https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/">this post</a> and <a href="https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/">that one</a>.</p>
-<p><em>Note on the second map</em>: This map shows the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>. Read more about it <a href="https://www.data-to-viz.com/data-to-viz/story/GPSCoordWithoutValue.html">here</a>.</p>
+<p><em>Note on the second map</em>: This map shows the geographic position of about 200k tweets containing the hashtags <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>. Read more about it <a href="https://www.data-to-viz.com/story/GPSCoordWithoutValue.html">here</a>.</p>
 <h1 id="what-for">What for</h1>
 <hr />
 <p>Hexbin or grid map has an <code>advantage</code> over usual <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth maps</a>. In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.</p>
@@ -414,8 +414,8 @@ The basis for any geographic data visualization is to build a good background ma
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/hexbinmap.html;  
-        this.page.identifier = hexbinmap; 
+        this.page.url = www.data-to-viz.com/graph/hexbinmap.html;
+        this.page.identifier = hexbinmap;
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -428,7 +428,7 @@ The basis for any geographic data visualization is to build a good background ma
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
   <!-- Insert code for DISQUS comments  -->
-    
+
 
 
 &nbsp;

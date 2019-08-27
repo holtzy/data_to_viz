@@ -18,7 +18,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
+    min-height: 350px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -26,9 +26,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -37,7 +37,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -52,19 +52,19 @@
   <br><br>
 
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Line150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Area150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedArea150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Stream150.png></a>
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
 </div>
 
 
@@ -358,7 +358,7 @@ Linda
 <p>It is of importance to note that the following table provides exactly the same information, but in a different format. We call it ‘long’ and ‘wide’ format and most tools provide function to go from one to the other. In any case, we will apply the same kind of visualization to both format.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">wide &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">select</span>(year, name, n) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(name, n) 
+<span class="st">  </span><span class="kw">spread</span>(name, n)
 
 wide <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">head</span>(<span class="dv">3</span>) <span class="op">%&gt;%</span>
@@ -531,7 +531,7 @@ p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="
 <div id="a-lot-of-groups-pca" class="section level1">
 <h1>A lot of groups: PCA</h1>
 <hr />
-<p>This probably overtakes the topic of <a href="www.data-to-viz.com">data-to-viz.com</a> but one probably wants to clusterise groups based on their evolution. For instance, it would be of interest to automatically detect that Patricia and Linda have similar patterns: very frequent between 1930 and 1970, and almost no occurence otherwise.</p>
+<p>This probably overtakes the topic of <a href="https://www.data-to-viz.com">data-to-viz.com</a> but one probably wants to clusterise groups based on their evolution. For instance, it would be of interest to automatically detect that Patricia and Linda have similar patterns: very frequent between 1930 and 1970, and almost no occurence otherwise.</p>
 <p>PCA can be used to find that kind of clusters:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">fit &lt;-<span class="st"> </span>wide <span class="op">%&gt;%</span><span class="st"> </span>
 <span class="st">  </span><span class="kw">mutate_all</span>(<span class="kw">funs</span>(<span class="kw">replace</span>(., <span class="kw">is.na</span>(.), <span class="dv">0</span>))) <span class="op">%&gt;%</span>
@@ -558,19 +558,19 @@ data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span clas
 <hr>
 <p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
     <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Line150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Area150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedArea150.png></a>
-  
+
     <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Stream150.png></a>
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
 
 
 
@@ -585,8 +585,8 @@ data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span clas
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/OneCatSevOrderedNum.html;  
-        this.page.identifier = OneCatSevOrderedNum; 
+        this.page.url = www.data-to-viz.com/story/OneCatSevOrderedNum.html;
+        this.page.identifier = OneCatSevOrderedNum;
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE

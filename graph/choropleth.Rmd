@@ -91,7 +91,7 @@ p
 
 
 
-*Note*: Boundaries of city districts come from [here](https://github.com/gregoiredavid/france-geojson). Number of restaurant per district comes from [here](https://www.insee.fr/fr/statistiques/2410933).
+*Note*: Boundaries of city districts come from [here](https://github.com/gregoiredavid/france-geojson). Number of restaurant per district comes from [here](https://www.insee.fr/fr/statistiques).
 
 *Important Note*: Here, the absolute number of restaurant per district is shown. Keep in mind that an important bias is present: districts with large area and / or high number of inhabitants are more prone to have a lot of restaurants. 
 

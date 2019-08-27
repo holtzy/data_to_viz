@@ -8,7 +8,7 @@
     <meta name="A datavisualization tool that leads you from your data to the graphic you need." content="">
     <meta name="Yan Holtz & Conor Healy" content="">
 
-    <title>Data to Viz</title>
+    <title>About the Data to Viz Project</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -88,10 +88,10 @@
             <h2 class="section-heading text-uppercase">about data to viz</h2>
             <h3 class="section-subheading text-muted">How and why we built the project</h3>
             <p>
-              <a class="btn btn-primary js-scroll-trigger" href="#presentation" >Presentation</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#tools" >Tools</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#history" >History</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#acknowledgment" >Acknowledgment</a> 
+              <a class="btn btn-primary js-scroll-trigger" href="#presentation" >Presentation</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#tools" >Tools</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#history" >History</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#acknowledgment" >Acknowledgment</a>
             <p>
             <br>
           </div>
@@ -116,8 +116,8 @@
           <div class="col-lg-4">
             <p>Thus, our suggested method consists in identifying and trying all feasible chart types to find out which suits your data and idea best.</p>
             <p>Once this set of graphics is identified, <a href="https:///www.data-to-viz.com">data-to-viz.com</a> aims to guide you toward the best decision. It also provides a list of common caveats to avoid and always provides a reproducible code snippet in the <a href="https://www.r-graph-gallery.com">R programming language</a>.</p>
-            
-          </div> 
+
+          </div>
           <div class="col-lg-4">
             <p>Dataviz is a world with endless possibilities and this project does not claim to be exhaustive. However, it should provide you with a good starting point.</p>
             <center><img src="img/logo/tree-s.png" style="width:55%; height:55%"></center>
@@ -140,7 +140,7 @@
 
           <div class="row text-center" style="padding-top: 10%; text-align: center">
             <div class="col-lg-12 text-center">
-              <h3 class="section-subheading text-muted">How is built this website?</h3> 
+              <h3 class="section-subheading text-muted">How is built this website?</h3>
               <br>
             </div>
           </div>
@@ -165,7 +165,7 @@
         </div>
       </div>
     </section>
- 
+
 
 
 
@@ -217,17 +217,17 @@
         </div>
         <br>
         <div style="text-align:center">
-          <span class="dot" onclick="currentSlide(1)"></span> 
-          <span class="dot" onclick="currentSlide(2)"></span> 
-          <span class="dot" onclick="currentSlide(3)"></span> 
-          <span class="dot" onclick="currentSlide(4)"></span> 
-          <span class="dot" onclick="currentSlide(5)"></span> 
+          <span class="dot" onclick="currentSlide(1)"></span>
+          <span class="dot" onclick="currentSlide(2)"></span>
+          <span class="dot" onclick="currentSlide(3)"></span>
+          <span class="dot" onclick="currentSlide(4)"></span>
+          <span class="dot" onclick="currentSlide(5)"></span>
         </div>
         <br>
       </div>
 
     </section>
-   
+
     <script>
     var slideIndex = 1;
     showSlides(slideIndex);
@@ -244,15 +244,15 @@
       var i;
       var slides = document.getElementsByClassName("mySlides");
       var dots = document.getElementsByClassName("dot");
-      if (n > slides.length) {slideIndex = 1}    
+      if (n > slides.length) {slideIndex = 1}
       if (n < 1) {slideIndex = slides.length}
       for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";  
+          slides[i].style.display = "none";
       }
       for (i = 0; i < dots.length; i++) {
           dots[i].className = dots[i].className.replace(" active", "");
       }
-      slides[slideIndex-1].style.display = "block";  
+      slides[slideIndex-1].style.display = "block";
       dots[slideIndex-1].className += " active";
     }
     </script>
@@ -260,7 +260,7 @@
 
 
 
- 
+
 
  <!-- --------------------------- ACKNOWLEDGMENT ------------------------------------------------------------------- -->
 
@@ -273,7 +273,7 @@
            <br><br><br>
            <h2 class="section-heading text-uppercase" style="color: black">Acknowledgment</h2>
            <h3 class="section-subheading text-muted">This project would not exist without several blogs and website I consult on a daily basis. Even if they are not necessarily cited as sources, they are an essential source of inspiration.</h3>
-           <br>  
+           <br>
          </div>
        </div>
 
@@ -325,7 +325,7 @@
 
       </div>
     </section>
- 
+
 
 <!-- --------------------------------------------------------------------------------------------- -->
 
@@ -424,7 +424,7 @@ function w3RemoveClass(element, name) {
   arr2 = name.split(" ");
   for (i = 0; i < arr2.length; i++) {
     while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
     }
   }
   element.className = arr1.join(" ");
@@ -493,11 +493,11 @@ for (var i = 0; i < btns.length; i++) {
   	            queue: false
   	        }
   	    });
-  	 
+
   	    $('.portfolioFilter a').click(function(){
   	        $('.portfolioFilter .current').removeClass('current');
   	        $(this).addClass('current');
-  	 
+
   	        var selector = $(this).attr('data-filter');
   	        $container.isotope({
   	            filter: selector,
@@ -508,7 +508,7 @@ for (var i = 0; i < btns.length; i++) {
   	            }
   	         });
   	         return false;
-  	    }); 
+  	    });
   	});
 	</script>
 

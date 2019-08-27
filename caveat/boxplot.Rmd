@@ -13,7 +13,7 @@ output:
       number_sections: TRUE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -26,7 +26,7 @@ A boxplot gives a nice summary of one or more numeric variables. A boxplot is co
 - The line that divides the box into 2 parts represents the [median](https://en.wikipedia.org/wiki/Median) of the data. If the median is 10, it means that there are the same number of data points below and above 10.
 - The ends of the box shows the upper (Q3) and lower (Q1) [quartiles](https://en.wikipedia.org/wiki/Quartile). If the third quartile is 15, it means that 75% of the observation are lower than 15.
 - The difference between Quartiles 1 and 3 is called the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range) (IQR)
-- The extreme line shows Q3+1.5xIQR to Q1-1.5xIQR (the highest and lowest value excluding outliers). 
+- The extreme line shows Q3+1.5xIQR to Q1-1.5xIQR (the highest and lowest value excluding outliers).
 - Dots (or other markers) beyond the extreme line shows potntial outliers.  
 
 <br>
@@ -104,7 +104,7 @@ Here some new patterns appear clearly. Group `C` has a small sample size compare
 
 #Switching to violin plot
 ***
-If you have a large sample size, using `jitter` is not an option anymore since dots will overlap, making the figure uninterpretable. A alternative is the [violin plot](https://www_data-to-viz.com/violin.html), which describes the distribution of the data for each group:
+If you have a large sample size, using `jitter` is not an option anymore since dots will overlap, making the figure uninterpretable. A alternative is the [violin plot](https://www.data-to-viz.com/violin.html), which describes the distribution of the data for each group:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # sample size
@@ -169,7 +169,7 @@ GeomFlatViolin <-
           setup_data = function(data, params) {
             data$width <- data$width %||%
               params$width %||% (resolution(data$x, FALSE) * 0.9)
-            
+
             # ymin, ymax, xmin, and xmax define the bounding rectangle for each group
             data %>%
               group_by(group) %>%
@@ -177,30 +177,30 @@ GeomFlatViolin <-
                      ymax = max(y),
                      xmin = x,
                      xmax = x + width / 2)
-            
+
           },
-          
+
           draw_group = function(data, panel_scales, coord) {
             # Find the points for the line to go all the way around
             data <- transform(data, xminv = x,
                               xmaxv = x + violinwidth * (xmax - x))
-            
+
             # Make sure it's sorted properly to draw the outline
             newdata <- rbind(plyr::arrange(transform(data, x = xminv), y),
                              plyr::arrange(transform(data, x = xmaxv), -y))
-            
+
             # Close the polygon: set first and last point the same
             # Needed for coord_polar and such
             newdata <- rbind(newdata, newdata[1,])
-            
+
             ggplot2:::ggname("geom_flat_violin", GeomPolygon$draw_panel(newdata, panel_scales, coord))
           },
-          
+
           draw_key = draw_key_polygon,
-          
+
           default_aes = aes(weight = 1, colour = "grey20", fill = "white", size = 0.5,
                             alpha = NA, linetype = "solid"),
-          
+
           required_aes = c("x", "y")
 )
 
@@ -208,15 +208,15 @@ GeomFlatViolin <-
 # Final plot inspired from @jbburant: https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062
 data %>%
   sample_frac(0.4) %>%
-  ggplot(aes(x = name, y = value, fill = name)) + 
-    geom_flat_violin(scale = "count", trim = FALSE, width=2) + 
+  ggplot(aes(x = name, y = value, fill = name)) +
+    geom_flat_violin(scale = "count", trim = FALSE, width=2) +
     scale_fill_viridis(discrete = TRUE) +
-    stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "pointrange", position = position_nudge(4.9)) + 
-    geom_dotplot(binaxis = "y", dotsize = 0.8, stackdir = "down", binwidth = 0.3, position = position_nudge(-0.025)) + 
+    stat_summary(fun.data = mean_sdl, fun.args = list(mult = 1), geom = "pointrange", position = position_nudge(4.9)) +
+    geom_dotplot(binaxis = "y", dotsize = 0.8, stackdir = "down", binwidth = 0.3, position = position_nudge(-0.025)) +
     theme_ipsum() +
     theme(
       legend.position = "none"
-    ) + 
+    ) +
     ylab("value")
 ```
 
@@ -237,17 +237,3 @@ Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twi
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

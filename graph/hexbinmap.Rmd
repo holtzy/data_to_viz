@@ -16,7 +16,7 @@ output:
       number_sections: TRUE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -36,50 +36,50 @@ The term `hexbin map` refers to two different concepts:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8, eval=FALSE}
 # library
 library(tidyverse)
- 
+
 # Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:
 library(rgdal)
 spdf <- readOGR("us_states_hexgrid.geojson.json",  "OGRGeoJSON")
- 
+
 # I need to 'fortify' the data to be able to show it with ggplot2 (we need a data frame format)
 library(broom)
 spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
 spdf_fortified <- tidy(spdf, region = "google_name")
- 
+
 # Calculate the centroid of each hexagon to add the label:
 library(rgeos)
 centers <- cbind.data.frame(data.frame(gCentroid(spdf, byid=TRUE), id=spdf@data$iso3166_2))
 
 # Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html
 data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv", header=T, sep=",", na.strings="---")
- 
+
 # Merge geospatial and numerical information
 spdf_fortified = spdf_fortified %>%
-  left_join(. , data, by=c("id"="state")) 
- 
+  left_join(. , data, by=c("id"="state"))
+
 # Prepare binning
 spdf_fortified$bin = cut( spdf_fortified$y_2015 , breaks=c(seq(5,10), Inf), labels=c("5-6", "6-7", "7-8", "8-9", "9-10", "10+" ), include.lowest = TRUE )
- 
+
 # Prepare a color scale coming from the viridis color palette
 library(viridis)
 my_palette=rev(magma(8))[c(-1,-8)]
- 
+
 # plot
 ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
   geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
   theme_void() +
-  scale_fill_manual( 
-    values=my_palette, 
-    name="Wedding per 1000 people in 2015", 
-    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+  scale_fill_manual(
+    values=my_palette,
+    name="Wedding per 1000 people in 2015",
+    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)
   ) +
   ggtitle( "A map of marriage rates, state by state" ) +
   theme(
     legend.position = c(0.5, 0.9),
     text = element_text(color = "#22211d"),
-    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    plot.background = element_rect(fill = "#f5f5f2", color = NA),
+    panel.background = element_rect(fill = "#f5f5f2", color = NA),
     legend.background = element_rect(fill = "#f5f5f2", color = NA),
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
   )
@@ -119,7 +119,7 @@ data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/
 # plot
 data %>%
   filter(homecontinent=='Europe') %>%
-  ggplot( aes(x=homelon, y=homelat)) + 
+  ggplot( aes(x=homelon, y=homelat)) +
     geom_hex(bins=59) +
     ggplot2::annotate("text", x = -27, y = 72, label="Where people tweet about #Surf", colour = "black", size=5, alpha=1, hjust=0) +
     ggplot2::annotate("segment", x = -27, xend = 10, y = 70, yend = 70, colour = "black", size=0.2, alpha=1) +
@@ -127,21 +127,21 @@ data %>%
     xlim(-30, 70) +
     ylim(24, 72) +
     scale_fill_viridis(
-      trans = "log", 
+      trans = "log",
       breaks = c(1,7,54,403,3000),
-      name="Tweet # recorded in 8 months", 
-      guide = guide_legend( keyheight = unit(2.5, units = "mm"), keywidth=unit(10, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) 
+      name="Tweet # recorded in 8 months",
+      guide = guide_legend( keyheight = unit(2.5, units = "mm"), keywidth=unit(10, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)
     )  +
     ggtitle( "" ) +
     theme(
       legend.position = c(0.8, 0.09),
       legend.title=element_text(color="black", size=8),
       text = element_text(color = "#22211d"),
-      plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-      panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+      plot.background = element_rect(fill = "#f5f5f2", color = NA),
+      panel.background = element_rect(fill = "#f5f5f2", color = NA),
       legend.background = element_rect(fill = "#f5f5f2", color = NA),
       plot.title = element_text(size= 13, hjust=0.1, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
-    ) 
+    )
 ```
 
 
@@ -157,7 +157,7 @@ data %>%
 *Note on the first map*: You can learn more about this story [here](https://www.data-to-viz.com/story/RegionWithValue.html). Data comes from [here](https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map). Code has been inspired from [this post](https://timogrossenbacher.ch/2016/12/beautiful-thematic-maps-with-ggplot2-only/) and [that one](https://rud.is/b/2015/05/15/u-s-drought-monitoring-with-hexbin-state-maps-in-r/).
 
 
-*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](https://www.data-to-viz.com/data-to-viz/story/GPSCoordWithoutValue.html).
+*Note on the second map*: This map shows the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`. Read more about it [here](https://www.data-to-viz.com/story/GPSCoordWithoutValue.html).
 
 
 
@@ -248,17 +248,3 @@ Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twi
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

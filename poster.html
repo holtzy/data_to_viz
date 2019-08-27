@@ -8,7 +8,7 @@
     <meta name="A datavisualization tool that leads you from your data to the graphic you need." content="">
     <meta name="Yan Holtz & Conor Healy" content="">
 
-    <title>Data to Viz</title>
+    <title>Data to Viz | A classification of chart types</title>
 
     <!-- Bootstrap core CSS -->
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -88,10 +88,10 @@
             <h2 class="section-heading text-uppercase">POSTER</h2>
             <h3 class="section-subheading text-muted">Support the <a href="https://www.data-to-viz.com">Data to Viz</a> project by buying a high quality poster.</h3>
             <p>
-              <a class="btn btn-primary js-scroll-trigger" href="#presentation" >Presentation</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#feature" >Features</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#postage" >Postage</a> 
-              <a class="btn btn-primary js-scroll-trigger" href="#order" >Order</a> 
+              <a class="btn btn-primary js-scroll-trigger" href="#presentation" >Presentation</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#feature" >Features</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#postage" >Postage</a>
+              <a class="btn btn-primary js-scroll-trigger" href="#order" >Order</a>
             <p>
             <br>
           </div>
@@ -149,12 +149,12 @@
             <div class="col-lg-3 col-md-6 text-center">
               <h2 class="text-uppercase"  style="border-bottom: solid; border-width: 1px">Price</h2>
               <p style="color: grey">25 euros<br>(Plus shipping cost)</p>
-            </div>            
+            </div>
            </div>
         </div>
       </div>
     </section>
- 
+
 
 
 <!-- ============================ POSTAGE ======================================================================= -->
@@ -200,12 +200,12 @@
           </div>
           <div class="col-lg-4 text-center">
             <a data-toggle="modal" href="#poster_100_three"><img src="img/poster/poster_100_three.jpg" style="width:100%"></a>
-          </div>      
+          </div>
         </div>
 
      </div>
     </section>
- 
+
 
 <!-- ========================================================================= -->
 
@@ -213,7 +213,7 @@
 
 
 
- 
+
 
  <!-- ============================ ORDER ======================================================================= -->
 
@@ -233,7 +233,7 @@
 
         <!-- ============================ PAYPAL BUTTON ======================================================================= -->
       <div class="row justify-content-center" >
-        
+
         <div class="col-lg-3 col-md-12 col-sm-12" style="text-align: center">
         <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
         <input type="hidden" name="cmd" value="_s-xclick">
@@ -261,7 +261,7 @@
         </form>
         </div>
 
-      </div>        
+      </div>
 
 
 
@@ -269,7 +269,7 @@
 
       </div>
     </section>
- 
+
 
 <!-- ========================================================================= -->
 
@@ -289,7 +289,7 @@
     <!-- Poster FULL -->
     <div class="portfolio-modal modal fade" id="poster_full" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog h-100" style="max-width: 100vw;">
-        <div class="modal-content"> 
+        <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
             <div class="lr">
               <div class="rl"></div>
@@ -311,7 +311,7 @@
     <!-- Poster 100 ONE-->
     <div class="portfolio-modal modal fade" id="poster_100_one" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog h-100" style="max-width: 100vw;">
-        <div class="modal-content"> 
+        <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
             <div class="lr">
               <div class="rl"></div>
@@ -333,7 +333,7 @@
     <!-- Poster 100 TWO-->
     <div class="portfolio-modal modal fade" id="poster_100_two" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog h-100" style="max-width: 100vw;">
-        <div class="modal-content"> 
+        <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
             <div class="lr">
               <div class="rl"></div>
@@ -355,7 +355,7 @@
       <!-- Poster 100 THREE-->
     <div class="portfolio-modal modal fade" id="poster_100_three" tabindex="-1" role="dialog" aria-hidden="true">
       <div class="modal-dialog h-100" style="max-width: 100vw;">
-        <div class="modal-content"> 
+        <div class="modal-content">
           <div class="close-modal" data-dismiss="modal">
             <div class="lr">
               <div class="rl"></div>
@@ -458,7 +458,7 @@ function w3RemoveClass(element, name) {
   arr2 = name.split(" ");
   for (i = 0; i < arr2.length; i++) {
     while (arr1.indexOf(arr2[i]) > -1) {
-      arr1.splice(arr1.indexOf(arr2[i]), 1);     
+      arr1.splice(arr1.indexOf(arr2[i]), 1);
     }
   }
   element.className = arr1.join(" ");
@@ -527,11 +527,11 @@ for (var i = 0; i < btns.length; i++) {
   	            queue: false
   	        }
   	    });
-  	 
+
   	    $('.portfolioFilter a').click(function(){
   	        $('.portfolioFilter .current').removeClass('current');
   	        $(this).addClass('current');
-  	 
+
   	        var selector = $(this).attr('data-filter');
   	        $container.isotope({
   	            filter: selector,
@@ -542,7 +542,7 @@ for (var i = 0; i < btns.length; i++) {
   	            }
   	         });
   	         return false;
-  	    }); 
+  	    });
   	});
 	</script>
 

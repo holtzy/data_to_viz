@@ -19,7 +19,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -49,7 +49,7 @@ library(DT)
 library(plotly)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
   filter(sex=="F")
 
@@ -73,7 +73,7 @@ It is of importance to note that the following table provides exactly the same i
 ```{r }
 wide <- data %>%
   select(year, name, n) %>%
-  spread(name, n) 
+  spread(name, n)
 
 wide %>%
   head(3) %>%
@@ -142,7 +142,7 @@ data %>%
 Stack area chart can be used to have a more general overview of the dataset: the goal here is not to study the evolution of each group individually, but more to understand if any group had a huge prevalence at a specific period. Note that the use of interactivity is a real plus here. Instead of having a complex legend hardly linked with the areas, hovering a specific group reveals its name.
 
 ```{r, fig.align="center", fig.width=10}
-p <- data %>% 
+p <- data %>%
   ggplot( aes(x=year, y=n, fill=name, text=name)) +
     geom_area( ) +
     scale_fill_viridis(discrete = TRUE) +
@@ -156,7 +156,7 @@ ggplotly(p, tooltip="text")
 A variation of the stacked area graph is the `percent` stacked area graph. It is the same thing but value of each group are normalized at each time stamp. That allows to study the percentage of each group in the whole.
 ```{r, fig.align="center", fig.width=10}
 # Compute the proportions:
-p <- data %>% 
+p <- data %>%
   group_by(year) %>%
   mutate(freq = n / sum(n)) %>%
   ungroup() %>%
@@ -176,10 +176,10 @@ ggplotly(p, tooltip="text")
 
 # Streamgraph
 ***
-The [streamgraph]() is a variation fo the stacked area graph where edges are rounded, what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape. 
+The [streamgraph]() is a variation fo the stacked area graph where edges are rounded, what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape.
 
 ```{r, fig.align="center", fig.width=10, fig.height=3}
-data %>% 
+data %>%
   streamgraph(key="name", value="n", date="year")
 ```
 
@@ -188,11 +188,11 @@ data %>%
 
 # A lot of groups: PCA
 ***
-This probably overtakes the topic of [data-to-viz.com](www.data-to-viz.com) but one probably wants to clusterise groups based on their evolution. For instance, it would be of interest to automatically detect that Patricia and Linda have similar patterns: very frequent between 1930 and 1970, and almost no occurence otherwise.
+This probably overtakes the topic of [data-to-viz.com](https://www.data-to-viz.com) but one probably wants to clusterise groups based on their evolution. For instance, it would be of interest to automatically detect that Patricia and Linda have similar patterns: very frequent between 1930 and 1970, and almost no occurence otherwise.
 
 PCA can be used to find that kind of clusters:
 ```{r, fig.align="center"}
-fit <- wide %>% 
+fit <- wide %>%
   mutate_all(funs(replace(., is.na(.), 0))) %>%
   select(-1) %>%
   t() %>%
@@ -202,13 +202,10 @@ fit <- wide %>%
 data <- data.frame(obsnames=row.names(fit$x), fit$x)
 
 # Plot
-ggplot(data, aes(x=PC1, y=PC2)) + 
+ggplot(data, aes(x=PC1, y=PC2)) +
   geom_text(alpha=.4, size=3, aes(label=obsnames)) +
-  geom_hline(aes(yintercept=0), size=.2) + 
+  geom_hline(aes(yintercept=0), size=.2) +
   geom_vline(aes(xintercept=0), size=.2) +
   coord_equal() +
   theme_ipsum()
 ```
-
-
-

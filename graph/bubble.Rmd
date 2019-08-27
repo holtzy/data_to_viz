@@ -71,7 +71,7 @@ In this chart, the relationship between gdp per capita and life Expectancy is qu
 
 <br>
 
-This last variable is much more difficult to interpret than the one on the X and Y axis. Indeed, area is [hardly interpreted by the human eye](http://www.data-to-viz.com/caveat/bubble_hard.html). But the information is here, and if a clear relationship between population and gdp per capita or life expectancy existed, we would spot it.
+This last variable is much more difficult to interpret than the one on the X and Y axis. Indeed, area is [hardly interpreted by the human eye](http://www.data-to-viz.com/caveat/area_hard.html). But the information is here, and if a clear relationship between population and gdp per capita or life expectancy existed, we would spot it.
 
 
 

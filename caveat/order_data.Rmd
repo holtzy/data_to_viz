@@ -13,9 +13,9 @@ output:
       number_sections: TRUE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
- 
+
 ---
 
 <br><br>
@@ -27,7 +27,7 @@ By default, most of the data visualization tools will order the groups of your c
 
 #Unordered lollipop plot
 ***
-Let's start with a [lollipop plot]() showing the [quantity of weapons sold](https://www.data-to-viz.com/story/7_OneNumOneCat.html) by a few countries. Here each row represents a country and the X-axis shows how many weapons have been sold in 2017. Countries are ordered in alphabetical order by default.
+Let's start with a [lollipop plot]() showing the [quantity of weapons sold](https://www.data-to-viz.com/story/OneNumOneCat.html) by a few countries. Here each row represents a country and the X-axis shows how many weapons have been sold in 2017. Countries are ordered in alphabetical order by default.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7}
 # Libraries
@@ -39,7 +39,7 @@ options(knitr.table.format = "html")
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
 
-# Plot 
+# Plot
 data %>%
   filter(!is.na(Value)) %>%
   ggplot( aes(x=Country, y=Value) ) +
@@ -77,8 +77,8 @@ data %>%
       legend.position="none"
     ) +
     xlab("")
-``` 
-    
+```
+
 The figure is now way more insightful, with France being the third biggest exporting country, followed by Germany, Israel and the UK. Of course, note that it would make sense to normalize this graphic by the population of each country to have more comparable data.
 
 
@@ -86,7 +86,7 @@ The figure is now way more insightful, with France being the third biggest expor
 ***
 Reordering your data is an easy step you should always consider when building a chart. Of course, sometimes the order of groups must be set by their features and not their values, like the months of the year, but it's worth thinking about it.  
 <br>
-*Read more*: 
+*Read more*:
 
 - Have a look to this [#SWD challenge](http://www.storytellingwithdata.com/blog/2018/3/9/bring-on-the-bar-charts) by storytelling with data: you will see that most of the entry ordered their barplot.
 - Read more about [barplot]() and [lollipop plot]()
@@ -114,27 +114,3 @@ Any thoughts on this? Want to share another common dataviz pitfall? Disagree? Pl
 <br>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

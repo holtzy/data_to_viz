@@ -13,7 +13,7 @@ output:
       number_sections: TRUE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -59,18 +59,18 @@ to_add$group=rep(levels(data$group), each=empty_bar)
 data=rbind(data, to_add)
 data=data %>% arrange(group)
 data$id=seq(1, nrow(data))
- 
+
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
 angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
- 
+
 
 # Make the plot
 p1 = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
+
   geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
   scale_fill_viridis(discrete=TRUE) +
   ylim(-80,120) +
@@ -80,11 +80,11 @@ p1 = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
+    plot.margin = unit(rep(-1,4), "cm")
   ) +
-  coord_polar() + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
-  
+  coord_polar() +
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE )
+
 
 
 # Create dataset 2
@@ -103,18 +103,18 @@ to_add$group=rep(levels(data$group), each=empty_bar)
 data=rbind(data, to_add)
 data=data %>% arrange(group)
 data$id=seq(1, nrow(data))
- 
+
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
 angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
- 
+
 
 # Make the plot
 p2 <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
+
   geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
   scale_fill_viridis(discrete=TRUE) +
   ylim(-10,120) +
@@ -124,11 +124,11 @@ p2 <- ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note tha
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
+    plot.margin = unit(rep(-1,4), "cm")
   ) +
-  coord_polar() + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
-  
+  coord_polar() +
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE )
+
 
 p1 + p2
 ```
@@ -140,7 +140,7 @@ p1 + p2
 
 #Solving the issue
 ***
-Circular barcharts can be a good option in very specific conditions. You need: 
+Circular barcharts can be a good option in very specific conditions. You need:
 
 - a large number of bars
 - a clear pattern in the data: if all groups have almost the same value, a circular version is not accurate enough for comparison.
@@ -167,18 +167,18 @@ to_add$group=rep(levels(data$group), each=empty_bar)
 data=rbind(data, to_add)
 data=data %>% arrange(group)
 data$id=seq(1, nrow(data))
- 
+
 # Get the name and the y position of each label
 label_data=data
 number_of_bar=nrow(label_data)
 angle= 90 - 360 * (label_data$id-0.5) /number_of_bar     # I subtract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
 label_data$hjust<-ifelse( angle < -90, 1, 0)
 label_data$angle<-ifelse(angle < -90, angle+180, angle)
- 
+
 
 # Make the plot
 p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
-  
+
   geom_bar(aes(x=as.factor(id), y=value, fill=group), stat="identity", alpha=0.5) +
   scale_fill_viridis(discrete=TRUE) +
   ylim(-80,120) +
@@ -188,16 +188,16 @@ p = ggplot(data, aes(x=as.factor(id), y=value, fill=group)) +       # Note that 
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
+    plot.margin = unit(rep(-1,4), "cm")
   ) +
-  coord_polar() + 
-  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE ) 
-  
+  coord_polar() +
+  geom_text(data=label_data, aes(x=id, y=value+10, label=individual, hjust=hjust), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_data$angle, inherit.aes = FALSE )
+
 p
 ```
 
 
-*Note*: don't forget to add a `legend` or `annotation` for the colors and a `scale` for the bar height. See more in the [circular barplot section](file:///Users/y.holtz/Documents/data_to_viz/graph/circularbarplot.html).
+*Note*: don't forget to add a `legend` or `annotation` for the colors and a `scale` for the bar height. See more in the [circular barplot section](https://www.data-to-viz.com/graph/circularbarplot.html).
 
 
 
@@ -216,17 +216,3 @@ Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twi
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

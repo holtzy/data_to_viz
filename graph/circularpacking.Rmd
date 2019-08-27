@@ -69,7 +69,7 @@ circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max 
 # What for
 ***
 
-Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to [translate an area into an accurate number](https://www.data-to-viz.com/caveat/bubble_hard.html). If you need accuracy, use a [barplot](https://www.data-to-viz.com/graph/barplot.html) or a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot instead.  
+Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to [translate an area into an accurate number](https://www.data-to-viz.com/caveat/area_hard.html). If you need accuracy, use a [barplot](https://www.data-to-viz.com/graph/barplot.html) or a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot instead.  
 
 However, circular packing shows very well how groups are organised in subgroups. It uses the space a bit less efficiently than a [treemap](https://www.data-to-viz.com/graph/treemap.html), but the hierarchy gets very neat.
 

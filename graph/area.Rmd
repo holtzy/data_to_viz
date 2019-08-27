@@ -65,7 +65,7 @@ data %>%
 # What for
 ***
 
-Area chart is used to show the evolution of numeric variable. It is sometimes criticized for not optimizing the [data-ink ratio](https://www.infovis-wiki.net/index.php/Data-Ink_Ratio), a data visualization principle that checks that no inks is used for nothing on the chart. Indeed, removing the area under the curve would make a [line chart](https://www.data-to-viz.com/graph/line.html) that conveys the same information. In my opinion area chart make a very good work to show an evolution and the filled area makes the pattern even more obvious.
+Area chart is used to show the evolution of numeric variable. It is sometimes criticized for not optimizing the [data-ink ratio](https://thedoublethink.com/tuftes-principles-for-visualizing-quantitative-information/), a data visualization principle that checks that no inks is used for nothing on the chart. Indeed, removing the area under the curve would make a [line chart](https://www.data-to-viz.com/graph/line.html) that conveys the same information. In my opinion area chart make a very good work to show an evolution and the filled area makes the pattern even more obvious.
 
 
 Area chart can also be used to show the evolution of `several variables`. The most classic way is through a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html) that is discussed in another [section](https://www.data-to-viz.com/graph/stackedarea.html), but this can also be done using `small multiple`. Here is an example showing the evolution of a few baby name frequencies in the US between 1880 and 2015.

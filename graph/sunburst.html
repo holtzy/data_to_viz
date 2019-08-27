@@ -31,7 +31,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
+    min-height: 300px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -39,9 +39,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -50,7 +50,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -63,8 +63,8 @@
   <p class="mytitle">Sunburst</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
+    <a href="#mistake">mistake</a> -
+    <a href="#related">related</a> -
     <a href="#code">code</a>
   </p>
 </div>
@@ -237,7 +237,7 @@ $(document).ready(function () {
 <div class="mycontent">
 <h1 id="definition">Definition</h1>
 <hr />
-<p>A <code>sunburst diagram</code> displays a hierarchical structure. The origin of the organization is represented by the center of the circle, and each level of the organization by an aditional ring. The last level (leaves) are located at the extreme outer part of the circle. It is very similar to a <a href="https://www.data-to-viz.com/treemap.html">treemap</a>, except it uses a <code>radial layout</code>.</p>
+<p>A <code>sunburst diagram</code> displays a hierarchical structure. The origin of the organization is represented by the center of the circle, and each level of the organization by an aditional ring. The last level (leaves) are located at the extreme outer part of the circle. It is very similar to a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, except it uses a <code>radial layout</code>.</p>
 <p><br></p>
 <p>A sunburst diagram can be used in 2 situations:</p>
 <h1 id="part-of-a-whole">Part of a whole</h1>
@@ -281,7 +281,7 @@ p &lt;-<span class="st"> </span><span class="kw">sunburst</span>(data, <span cla
 <p><em>Note</em>: This figure is interactive: hover a region to show the country and its architecture.</p>
 <h1 id="flows">Flows</h1>
 <hr />
-<p>Sunburst diagrams can also be used to represent flows. In this case they are more comparable to a <a href="https://www.data-to-viz.com/sankey.html">Sankey diagram</a>. The following example describe the professional state evolution of a set of people:</p>
+<p>Sunburst diagrams can also be used to represent flows. In this case they are more comparable to a <a href="https://www.data-to-viz.com/graph/sankey.html">Sankey diagram</a>. The following example describe the professional state evolution of a set of people:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TraMineR)
 <span class="kw">library</span>(sunburstR)
 <span class="kw">library</span>(pipeR)
@@ -337,7 +337,7 @@ mvad.seq &lt;-<span class="st"> </span><span class="kw">seqdef</span>(mvad, <spa
 <hr />
 <ul>
 <li><em>Labels</em> - It is very hard to represent labels on sunburst charts. This is why using <code>interactivity</code> as above is often necessary to make the chart useful. This is an important downside though: it is hard to understand the figure in a glimpse.</li>
-<li><em>Angles are hard to read</em> - sunburst sufferst the same issue than <a href="file:///Users/yan/Desktop/data_to_viz/caveat/pie.html">pie</a> or <a href="file:///Users/yan/Desktop/data_to_viz/caveat/pie.html">donut</a> chart. The human eye is bad at reading angles. As a consequence, it is hard to deduce values behind items accurately.</li>
+<li><em>Angles are hard to read</em> - sunburst suffers the same issue than <a href="https://www.data-to-viz/caveat/pie.html">pie</a> or <a href="https://www.data-to-viz/caveat/pie.html">donut</a> chart. The human eye is bad at reading angles. As a consequence, it is hard to deduce values behind items accurately.</li>
 <li><em>Deeper slices are exagerated</em> - by construction, outer parts tend to get bigger than inner part for a same value. Indeed, the perimeter of the circle gets longer when you go further from the center of the circle!</li>
 </ul>
 <h1 id="related">Related</h1>
@@ -403,8 +403,8 @@ A network structure used to show a hierarchical organization.
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/sunburst.html;  
-        this.page.identifier = sunburst; 
+        this.page.url = www.data-to-viz.com/graph/sunburst.html;
+        this.page.identifier = sunburst;
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -417,7 +417,7 @@ A network structure used to show a hierarchical organization.
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
   <!-- Insert code for DISQUS comments  -->
-    
+
 
 
 &nbsp;

@@ -76,7 +76,7 @@ Wordcloud is useful for quickly perceiving the most prominent terms and for loca
 
 However, it is a highly criticized way to convey information due to its lack of accuracy. This is due to 2 main reasons:
 
-- [Area is a poor metaphor](http://www.data-to-viz.com/caveat/bubble_hard.html) of a numeric value that is hardly perceived by human eye. Thus readers struggle to translate word size to an accurate frequency. ([read more](http://www.data-to-viz.com/caveat/bubble_hard.html))
+- [Area is a poor metaphor](http://www.data-to-viz.com/caveat/area_hard.html) of a numeric value that is hardly perceived by human eye. Thus readers struggle to translate word size to an accurate frequency. ([read more](http://www.data-to-viz.com/caveat/area_hard.html))
 
 - Longer words appear bigger by construction, since they are composed by more letters. It creates a bias that makes wordcloud even less accurate.
 
@@ -172,7 +172,7 @@ webshot("tmp.html","IMG/fig_1.png", delay =5, vwidth = 700, vheight=700)
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/WordCloudSmall.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <a href="http://www.data-to-viz.com/graph/wordcloud.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
   <p class="mytitlerelated">Wordcloud</p>
   <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
