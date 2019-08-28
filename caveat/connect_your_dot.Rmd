@@ -4,6 +4,7 @@ mytitle: "Connect your dots when the X-axis is ordered"
 mydisqus: "connect_your_dot"
 output:
   html_document:
+      self_contained: FALSE
       template: template_caveat.html
       theme: "lumen"
       css: style.css

@@ -54,7 +54,7 @@
 
 <div class="myheader" style="text-align: center;">
   <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="../img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
+  <br><br>
   <br><br>
   <br><br>
   <p class="mytitle">$mytitle$</p>
@@ -181,6 +181,14 @@ $endfor$
 </head>
 
 <body>
+
+<!-- THIS ALLOWS TO INSERT THE MENU THAT IS STORED IN A MENU.HTML FILE-->
+<nav class="navbar navbar-expand-lg fixed-top" id="mainNav"></nav>
+<script>
+  $$(function(){
+    $$("#mainNav").load("../menu.html");
+  });
+</script>
 
 $if(theme)$
 <style type = "text/css">
