@@ -31,7 +31,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
+    min-height: 300px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -39,9 +39,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -50,7 +50,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -63,8 +63,8 @@
   <p class="mytitle">Bubble plot</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
+    <a href="#mistake">mistake</a> -
+    <a href="#related">related</a> -
     <a href="#code">code</a>
   </p>
 </div>
@@ -331,7 +331,7 @@ p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) 
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
 
 p3 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop=</span>pop<span class="op">/</span><span class="dv">1000000</span>) <span class="op">%&gt;%</span>
@@ -342,7 +342,7 @@ p3 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
 <span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
 <span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span>
 <span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) 
+<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
 
 <span class="kw">grid.arrange</span>(p2,p3, <span class="dt">ncol=</span><span class="dv">2</span>)</code></pre></div>
 <p><img src="bubble_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
@@ -414,8 +414,8 @@ One of the best way to avoid overplotting for big sample size
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/bubble.html;  
-        this.page.identifier = bubble; 
+        this.page.url = www.data-to-viz.com/graph/bubble.html;
+        this.page.identifier = bubble;
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -428,7 +428,7 @@ One of the best way to avoid overplotting for big sample size
         <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
   <!-- Insert code for DISQUS comments  -->
-    
+
 
 
 &nbsp;

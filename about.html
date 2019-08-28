@@ -567,7 +567,16 @@ for (var i = 0; i < btns.length; i++) {
 
   gtag('config', 'UA-79254642-3');
 </script>
-
+<script>
+var getOutboundLink = function(url) {
+  gtag('event', 'click', {
+    'event_category': 'outbound',
+    'event_label': url,
+    'transport_type': 'beacon',
+    'event_callback': function(){document.location = url;}
+  });
+}
+</script>
 
 
 <!----------------------------------------------------------------------------------------------- -->
