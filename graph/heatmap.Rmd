@@ -44,7 +44,7 @@ library(plotly)
 library(d3heatmap)
 
 # Load data 
-data <- read.table("../Example_dataset/multivariate.csv", header=T, sep=";")
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/multivariate.csv", header=T, sep=";")
 colnames(data) <- gsub("\\.", " ", colnames(data))
 
 # Select a few country
