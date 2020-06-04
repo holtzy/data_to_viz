@@ -30,7 +30,7 @@ output:
 
 
 
-Adjacency and incidence matrix provide relationship between several nodes. The information they contain can have different nature, thus this document will consider several examples:
+Adjacency and incidence matrices provide relationship between several nodes. The information they contain can have different nature, thus this document will consider several examples:
 
 
 - Relationships can be `directed` and `weighted`. Like the number of people migrating from one country to another. Data used comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) from [Gui J. Abel](http://guyabel.com).
@@ -79,11 +79,11 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
 # Chord diagram
 ***
 
-Chord diagram is a good way to represent the migration flows. It works well if your data are directed and weighted like for migration flows between country.  
+A chord diagram is a good way to represent migration flows. It works well if your data are directed and weighted like for migration flows between country.  
 
 Disclaimer: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com), who is also the author of the migration [dataset](https://www.oeaw.ac.at/fileadmin/subsites/Institute/VID/PDF/Publications/Working_Papers/WP2016_02.pdf) used here.
 
-Since this kind of graphic is used to display flows, it can be applied only on network where connection are `weighted`. It does not work for the other example on authors connections.
+Since this kind of graphic is used to display flows, it can be applied only on networks in which connections are `weighted`. It does not work for the other example on authors connections.
 
 ```{r, fig.align="center", fig.width=7, fig.height=7}
 # short names
@@ -147,9 +147,9 @@ circos.trackPlotRegion(
 )
   
 ```
-In my opinion this is a powerful way to display information. Major flows are easy to detect, like the migration from South Asia towars Westa Asia, or Africa to Europe. Moreover, for each continent it is quite easy to quantify the proportion of people leaving and arriving.
+In my opinion this is a powerful way to display information. Major flows are easy to detect, like the migration from South Asia towards Westa Asia, or Africa to Europe. Moreover, for each continent it is quite easy to quantify the proportion of people leaving and arriving.
 
-However chord diagram is not an usual way of displaying information. Thus, it is advised to give a good amount of explanation to educate your audience. A good way to do so is to draw just a few connections in a first step, before displaying the whole graphic. See this blog post by [Nadieh Bremer]() for more ideas on this topic.
+However chord diagram is not an usual way of displaying information. Thus, it is advised to give a good amount of explanation to educate your audience. A good way to do so is to draw just a few connections in a first step, before displaying the whole graphic. See this blog post by [Nadieh Bremer](https://www.visualcinnamon.com/2014/12/using-data-storytelling-with-chord.html) for more ideas on this topic.
 
 
 
@@ -163,7 +163,7 @@ However chord diagram is not an usual way of displaying information. Thus, it is
 # Sankey diagram
 ***
 
-[Sankey diagram]() is another option to display weighted connection. Intead of displaying regions on a circle, they are duplicated and represented on both side of the graphic. Origin is usually on the left, destination on the right.
+[Sankey diagram]() is another option to display weighted connection. Intead of displaying regions on a circle, they are duplicated and represented on both sides of the graphic. Origin is usually on the left, destination on the right.
 ```{r, fig.align="center", fig.width=10, fig.height=7, warning=FALSE}
 # Package
 library(networkD3)
@@ -202,7 +202,7 @@ sankeyNetwork(Links = data_long, Nodes = nodes,
 
 #Heatmap
 ***
-The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is another great alternative to represent an adjacency matrix. Here, all the origin countries are represented as row, and all the destination as columns. The diagonal pops out with a lot of yellow squares, what means that most of the migrations are intra continental.
+The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is another great alternative to represent an adjacency matrix. Here, all the origin countries are represented as row, and all the destination as columns. The diagonal pops out with a lot of yellow squares, which means that most of the migrations are intra continental.
 
 
 ```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
@@ -234,7 +234,7 @@ p
 
 <br><br>
 
-Note that if the matrix is `unweighted`, each connection can have only 2 values: 1  if there is a connection, 0 otherwise. It is the case for the co-authorship network example, where researchers are connected if they have already published a paper together. The heatmap below shows these connection and also apply a clustering algorithm to the data: researchers that tend to be involved in the same papers are grouped together.
+Note that if the matrix is `unweighted`, each connection can have only 2 values: 1  if there is a connection, 0 otherwise. It is the case for the co-authorship network example, where researchers are connected if they have already published a paper together. The heatmap below shows these connections and also applies a clustering algorithm to the data: researchers that tend to be involved in the same papers are grouped together.
 
 
 ```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
@@ -280,7 +280,7 @@ p
 ***
 Since an adjacency matrix is a `network structure`, it is possible to build a [network graph](https://www.data-to-viz.com/graph/network.html). In a network graph, each entity is represented as a `node`, and each connection as an `edge`.  
 
-In my opinion, this type of representation makes more sense when the connection are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
+In my opinion, this type of representation makes more sense when the connections are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
 
 Thus, here is an application of this chart type to the coauthor network. Researchers are the nodes, represented as dots. If 2 researchers have published at least one scientific paper together, they are connected. The node size is proportionnal to the number of coauthors.
 
@@ -353,11 +353,11 @@ ggraph(mygraph) +
 <div class="mycontent">
 
 
-[Network graphs](https://www.data-to-viz.com/graph/network.html) are very powerful to study the global structure of the network. Here, a few groups of researchers are isolated. Each actually represents one single paper where Vincent Ranwez was involved. In the middle a massive network of researchers appear: these are the people with Vincent published more often that are thus all linked together.
+[Network graphs](https://www.data-to-viz.com/graph/network.html) are very powerful to study the global structure of the network. Here, a few groups of researchers are isolated. Each actually represents one single paper where Vincent Ranwez was involved. In the middle a massive network of researchers appear: these are the people who Vincent published with most often, and are therefore all linked together.
 
 <br>
 
-However, network charts are very bad a annotating every single points: names tend to overlap edges making the figure unreadable. The arc diagram described below is a good alternative if you want to show labels.
+However, network charts are very bad at annotating every single points: names tend to overlap edges making the figure unreadable. The arc diagram described below is a good alternative if you want to show labels.
 
 
 
@@ -368,7 +368,7 @@ However, network charts are very bad a annotating every single points: names ten
 
 # Chord diagram (again)
 ***
-Instead of using a custom algorithm to position each nodes, it is possible to place them all around a circule, making a chord diagram. But this kind of chart makes sense only if the order of nodes around the circule is carefully chosen, to avoid having a cluttered and unreadable figure.
+Instead of using a custom algorithm to position each nodes, it is possible to place them all around a circle, making a chord diagram. But this kind of chart makes sense only if the order of nodes around the circle is carefully chosen, to avoid having a cluttered and unreadable figure.
 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=8}
