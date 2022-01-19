@@ -16,7 +16,7 @@ const inspirationList = [
         title: "Covid 19 Dashboard - India",
         author: "Group of dedicated volunteers",
         url: "https://www.covid19india.org/about",
-        img: "covid19India",
+        img: "covid19India.png",
         description: "A dashboard describing the spread of Covid 19 in india. Highly interactive with a pretty slick design. Dark mode support, many different types of viz with smooth transition between dataset.",
         tool: ["d3.js", "react"],
         code: "https://github.com/covid19india/covid19india-react",
