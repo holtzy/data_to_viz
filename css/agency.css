@@ -1226,7 +1226,43 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 
 
+/* ------------------------------------------------------------------------------------------------------------------- */
+/* PROMOTIONAL BANNER
+/* ------------------------------------------------------------------------------------------------------------------- */
 
+.promo-banner {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: linear-gradient(90deg, #FF007F, #f01cf3); /* Simulating bg-purple-100 gradient */
+  color: rgba(255, 255, 255, 0.9);
+  text-align: center;
+  padding: 10px 0;
+  font-size: 16px;
+  z-index: 1000;
+  font-weight: 300;
+  font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+  letter-spacing: 1px;
+  text-decoration: none !important;
+}
+
+
+
+.promo-banner:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.promo-banner-close-btn {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  border: none;
+  background-color: transparent;
+  color: rgba(255, 255, 255, .8);
+  font-size: 24px;
+  cursor: pointer;
+}
 
 
 

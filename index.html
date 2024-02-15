@@ -2788,12 +2788,21 @@
       </div>
     </footer>
 
+
 <!-- ======================================================================= -->
 
 
 
 
 
+<!-- ======================= PROMO BANNER SECTION ================================ -->
+<a href="https://rfortherestofus.com/3months?utm_source=datatoviz" id="promo-banner" class="promo-banner">
+    <div>
+      R in 3 Months is the program to help you finally learn R. Registration is open now!
+    <button onclick="closeBanner()" class="promo-banner-close-btn">&times;</button>
+  </div>
+</a>
+<!-- ======================================================================= -->
 
 
 
@@ -4692,7 +4701,13 @@ by the Y axis, and one by the dot size.</p>
     </script>
 
 
-
+ <script>
+  function closeBanner() {
+    event.stopPropagation(); // Stop the event from propagating to parent elements
+    event.preventDefault(); // Prevent the default action (link navigation) 
+    document.getElementById('promo-banner').style.display = 'none';
+  }
+ </script>
 
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
