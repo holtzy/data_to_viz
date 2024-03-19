@@ -1250,6 +1250,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 .promo-banner:hover {
   color: rgba(255, 255, 255, 1);
+  font-weight: 600;
 }
 
 .promo-banner-close-btn {
