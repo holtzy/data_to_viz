@@ -123,7 +123,7 @@ data %>%
       legend.position="none",
       plot.title = element_text(size=11)
     ) +
-    ggtitle("A boxplot with jitter") +
+    ggtitle("A violin plot") +
     xlab("")
 ```
 Here it is very clear that the groups have different distributions. The bimodal distribution of group `B` becomes obvious. Violin plots are a powerful way to display information--they are probably under-utilized compared to boxplots.
