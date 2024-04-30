@@ -1,7 +1,7 @@
 /* ---------- General ----------------- */
 body {
   overflow-x: hidden;
-  font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 p {
@@ -27,7 +27,7 @@ h4,
 h5,
 h6 {
   font-weight: 695;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 section {
@@ -46,7 +46,7 @@ section h3.section-subheading {
   font-style: italic;
   margin-bottom: 45px;
   text-transform: none;
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -55,12 +55,9 @@ section h3.section-subheading {
   }
 }
 
-
-
-
 /* ---------- Button ----------------- */
 .btn {
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
 }
 
@@ -77,16 +74,18 @@ section h3.section-subheading {
   margin-top: 5px;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
   background-color: #69b3a2 !important;
   border-color: #69b3a2 !important;
   color: white;
 }
 
-.btn-primary:active, .btn-primary:focus {
+.btn-primary:active,
+.btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }
-
 
 .btn-secondary {
   background-color: transparent;
@@ -95,13 +94,16 @@ section h3.section-subheading {
   border-width: small;
 }
 
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
   background-color: #69b3a2 !important;
   border-color: #69b3a2 !important;
   color: white;
 }
 
-.btn-secondary:active, .btn-secondary:focus {
+.btn-secondary:active,
+.btn-secondary:focus {
   background-color: #69b3a2 !important;
 }
 
@@ -110,8 +112,6 @@ section h3.section-subheading {
   border-color: #69b3a2 !important;
   color: white;
 }
-
-
 
 ::-moz-selection {
   background: #69b3a2;
@@ -143,28 +143,21 @@ img::-moz-selection {
   color: white;
   border: 0;
   background-color: #69b3a2;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
-
-
-
 
 /* Color of 'from data to viz' on the top left */
 #mainNav .navbar-brand {
   color: #69b3a2;
-  font-family: 'Kaushan Script', 'Helvetica Neue', Helvetica, Arial, cursive;
+  font-family: "Kaushan Script", "Helvetica Neue", Helvetica, Arial, cursive;
 }
 
-#mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
+#mainNav .navbar-brand.active,
+#mainNav .navbar-brand:active,
+#mainNav .navbar-brand:focus,
+#mainNav .navbar-brand:hover {
   color: #251667;
 }
-
-
-
-
-
-
 
 /* Color of the TEXT of the menu top right*/
 #mainNav .navbar-nav .nav-item .nav-link {
@@ -173,17 +166,15 @@ img::-moz-selection {
   padding: 0.75em 0;
   letter-spacing: 1px;
   color: black;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-#mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
+#mainNav .navbar-nav .nav-item .nav-link.active,
+#mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #69b3a2;
   background-color: white;
   border-bottom: 5px solid #69b3a2;
 }
-
-
 
 @media (min-width: 992px) {
   #mainNav {
@@ -223,65 +214,60 @@ img::-moz-selection {
 }
 
 .parallax {
-    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
-    background-image: url("../img/overview_RGG_faded.png");
+  /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+  background-image: url("../img/overview_RGG_faded.png");
 
-    /* Set a specific height */
-    min-height: 100px;
+  /* Set a specific height */
+  min-height: 100px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .parallaxstory {
-    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
-    background-image: url("../img/parallax/story_fading.png");
+  /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+  background-image: url("../img/parallax/story_fading.png");
 
-    /* Set a specific height */
-    min-height: 500px;
+  /* Set a specific height */
+  min-height: 500px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .parallaxcontact {
-    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
-    background-image: url("../img/parallax/surf_fading.png");
+  /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+  background-image: url("../img/parallax/surf_fading.png");
 
-    /* Set a specific height */
-    min-height: 500px;
+  /* Set a specific height */
+  min-height: 500px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-
 
 .parallaxposter {
-    /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
-    background-image: url("../img/parallax/poster_zoom_fadded.png");
+  /* The image used (faded with convert overview_RGG.png  -fill white -colorize 50%  overview_RGG_faded.png*/
+  background-image: url("../img/parallax/poster_zoom_fadded.png");
 
-    /* Set a specific height */
-    min-height: 500px;
+  /* Set a specific height */
+  min-height: 500px;
 
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
-
-
-
 
 header.masthead .intro-text {
   padding-top: 150px;
@@ -293,7 +279,7 @@ header.masthead .intro-text .intro-lead-in {
   font-style: italic;
   line-height: 22px;
   margin-bottom: 25px;
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 header.masthead .intro-text .intro-heading {
@@ -301,7 +287,7 @@ header.masthead .intro-text .intro-heading {
   font-weight: 700;
   line-height: 50px;
   margin-bottom: 25px;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 @media (min-width: 768px) {
@@ -317,14 +303,14 @@ header.masthead .intro-text .intro-heading {
     margin-bottom: 25px;
     margin-right: 20%;
     margin-left: 20%;
-    font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
   header.masthead .intro-text .intro-heading {
     font-size: 75px;
     font-weight: 700;
     line-height: 75px;
     margin-bottom: 50px;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 }
 
@@ -362,7 +348,11 @@ header.masthead .intro-text .intro-heading {
   opacity: 0.8;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content {
+#portfolio
+  .portfolio-item
+  .portfolio-link
+  .portfolio-hover
+  .portfolio-hover-content {
   font-size: 20px;
   position: absolute;
   top: 50%;
@@ -373,12 +363,27 @@ header.masthead .intro-text .intro-heading {
   color: white;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content i {
+#portfolio
+  .portfolio-item
+  .portfolio-link
+  .portfolio-hover
+  .portfolio-hover-content
+  i {
   margin-top: -12px;
 }
 
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h3,
-#portfolio .portfolio-item .portfolio-link .portfolio-hover .portfolio-hover-content h4 {
+#portfolio
+  .portfolio-item
+  .portfolio-link
+  .portfolio-hover
+  .portfolio-hover-content
+  h3,
+#portfolio
+  .portfolio-item
+  .portfolio-link
+  .portfolio-hover
+  .portfolio-hover-content
+  h4 {
   margin: 0;
 }
 
@@ -387,7 +392,7 @@ header.masthead .intro-text .intro-heading {
   margin: 0 auto;
   padding: 25px;
   text-align: center;
-  background-color: 'none';
+  background-color: "none";
 }
 
 #portfolio .portfolio-item .portfolio-caption h4 {
@@ -399,7 +404,7 @@ header.masthead .intro-text .intro-heading {
   font-size: 16px;
   font-style: italic;
   margin: 0;
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 #portfolio * {
@@ -412,76 +417,59 @@ header.masthead .intro-text .intro-heading {
   }
 }
 
-
-
-
-
-
-
-
-
-
 /* -------------------- MENU ------------------ */
 
+.dropdown-submenu {
+  position: relative;
+}
 
-    .dropdown-submenu {
-        position: relative;
-    }
+.dropdown-submenu > .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  -webkit-border-radius: 0 6px 6px 6px;
+  -moz-border-radius: 0 6px 6px;
+  border-radius: 0 6px 6px 6px;
+}
 
-    .dropdown-submenu>.dropdown-menu {
-        top: 0;
-        left: 100%;
-        margin-top: -6px;
-        margin-left: -1px;
-        -webkit-border-radius: 0 6px 6px 6px;
-        -moz-border-radius: 0 6px 6px;
-        border-radius: 0 6px 6px 6px;
-    }
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+}
 
-    .dropdown-submenu:hover>.dropdown-menu {
-        display: block;
-    }
+.dropdown-submenu > a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #ccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
 
-    .dropdown-submenu>a:after {
-        display: block;
-        content: " ";
-        float: right;
-        width: 0;
-        height: 0;
-        border-color: transparent;
-        border-style: solid;
-        border-width: 5px 0 5px 5px;
-        border-left-color: #ccc;
-        margin-top: 5px;
-        margin-right: -10px;
-    }
+.dropdown-submenu:hover > a:after {
+  border-left-color: #fff;
+}
 
-    .dropdown-submenu:hover>a:after {
-        border-left-color: #fff;
-    }
+.dropdown-submenu.pull-left {
+  float: none;
+}
 
-    .dropdown-submenu.pull-left {
-        float: none;
-    }
-
-    .dropdown-submenu.pull-left>.dropdown-menu {
-        left: -100%;
-        margin-left: 10px;
-        -webkit-border-radius: 6px 0 6px 6px;
-        -moz-border-radius: 6px 0 6px 6px;
-        border-radius: 6px 0 6px 6px;
-    }
-
-
-
-
-
-
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  -webkit-border-radius: 6px 0 6px 6px;
+  -moz-border-radius: 6px 0 6px 6px;
+  border-radius: 6px 0 6px 6px;
+}
 
 /* -------------------- TOOLTIP ------------------ */
 
-
-.data-tooltip{
+.data-tooltip {
   color: black;
   background-color: white;
   background: white;
@@ -491,22 +479,12 @@ header.masthead .intro-text .intro-heading {
 }
 
 .tooltip.show {
-    opacity: 1;
-    background-color: white;
-    border: green;
+  opacity: 1;
+  background-color: white;
+  border: green;
 }
 
-
-
-
-
-
-
-
-
-
 /* -------------------- MODAL ------------------ */
-
 
 .portfolio-modal {
   padding-right: 0px !important;
@@ -551,7 +529,7 @@ header.masthead .intro-text .intro-heading {
   font-size: 16px;
   font-style: italic;
   margin: 20px 0 30px;
-  font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Droid Serif", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .portfolio-modal .modal-content ul.list-inline {
@@ -567,16 +545,7 @@ header.masthead .intro-text .intro-heading {
   cursor: pointer;
 }
 
-
-
-
-
-
-
-
-
 /* -------------------- MODAL FULL SCREEN ------------------ */
-
 
 .fullScreen {
   max-width: 100vw;
@@ -588,18 +557,7 @@ header.masthead .intro-text .intro-heading {
   max-height: 100vh;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* -------------------- CLOSING MODAL ------------------ */
-
 
 .portfolio-modal .close-modal {
   position: absolute;
@@ -640,14 +598,6 @@ header.masthead .intro-text .intro-heading {
   background-color: #212529;
 }
 
-
-
-
-
-
-
-
-
 .timeline {
   position: relative;
   padding: 0;
@@ -661,7 +611,7 @@ header.masthead .intro-text .intro-heading {
   left: 40px;
   width: 2px;
   margin-left: -1.5px;
-  content: '';
+  content: "";
   background-color: #e9ecef;
 }
 
@@ -671,9 +621,10 @@ header.masthead .intro-text .intro-heading {
   margin-bottom: 50px;
 }
 
-.timeline > li:after, .timeline > li:before {
+.timeline > li:after,
+.timeline > li:before {
   display: table;
-  content: ' ';
+  content: " ";
 }
 
 .timeline > li:after {
@@ -855,65 +806,6 @@ header.masthead .intro-text .intro-heading {
   margin-top: 0;
 }
 
-section#contact {
-  background-color: #212529;
-  background-image: url("../img/map-image.png");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-section#contact .section-heading {
-  color: #fff;
-}
-
-section#contact .form-group {
-  margin-bottom: 25px;
-}
-
-section#contact .form-group input,
-section#contact .form-group textarea {
-  padding: 20px;
-}
-
-section#contact .form-group input.form-control {
-  height: auto;
-}
-
-section#contact .form-group textarea.form-control {
-  height: 248px;
-}
-
-section#contact .form-control:focus {
-  border-color: #fed136;
-  box-shadow: none;
-}
-
-section#contact ::-webkit-input-placeholder {
-  font-weight: 700;
-  color: #ced4da;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-section#contact :-moz-placeholder {
-  font-weight: 700;
-  color: #ced4da;
-  /* Firefox 18- */
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-section#contact ::-moz-placeholder {
-  font-weight: 700;
-  color: #ced4da;
-  /* Firefox 19+ */
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-section#contact :-ms-input-placeholder {
-  font-weight: 700;
-  color: #ced4da;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
 footer {
   padding: 25px 0;
   text-align: center;
@@ -923,7 +815,7 @@ footer span.copyright {
   font-size: 90%;
   line-height: 40px;
   text-transform: none;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 footer ul.quicklinks {
@@ -931,7 +823,7 @@ footer ul.quicklinks {
   line-height: 40px;
   margin-bottom: 0;
   text-transform: none;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 ul.social-buttons {
@@ -953,18 +845,11 @@ ul.social-buttons li a {
   background-color: #212529;
 }
 
-ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
+ul.social-buttons li a:active,
+ul.social-buttons li a:focus,
+ul.social-buttons li a:hover {
   background-color: #fed136;
 }
-
-
-
-
-
-
-
-
-
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 
@@ -974,116 +859,100 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
     .mySlides {display: none}
     img {vertical-align: middle;}*/
 
-    /* Slideshow container */
-    .slideshow-container {
-      max-width: 1000px;
-      position: relative;
-      margin: auto;
-    }
+/* Slideshow container */
+.slideshow-container {
+  max-width: 1000px;
+  position: relative;
+  margin: auto;
+}
 
-    /* Next & previous buttons */
-    .prev, .next {
-      cursor: pointer;
-      position: absolute;
-      top: 50%;
-      width: auto;
-      padding: 16px;
-      margin-top: -22px;
-      color: white;
-      font-weight: bold;
-      font-size: 18px;
-      transition: 0.6s ease;
-      border-radius: 0 3px 3px 0;
-    }
+/* Next & previous buttons */
+.prev,
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+}
 
-    /* Position the "next button" to the right */
-    .next {
-      right: 0;
-      border-radius: 3px 0 0 3px;
-    }
+/* Position the "next button" to the right */
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
 
-    /* On hover, add a black background color with a little bit see-through */
-    .prev:hover, .next:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
+/* On hover, add a black background color with a little bit see-through */
+.prev:hover,
+.next:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
 
-    /* Caption text */
-    .text {
-      color: #f2f2f2;
-      font-size: 15px;
-      padding: 8px 12px;
-      position: absolute;
-      bottom: 8px;
-      width: 100%;
-      text-align: center;
-    }
+/* Caption text */
+.text {
+  color: #f2f2f2;
+  font-size: 15px;
+  padding: 8px 12px;
+  position: absolute;
+  bottom: 8px;
+  width: 100%;
+  text-align: center;
+}
 
+/* The dots/bullets/indicators */
+.dot {
+  cursor: pointer;
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #69b3a2;
+  border-radius: 50%;
+  display: inline-block;
+  transition: background-color 0.6s ease;
+}
 
-    /* The dots/bullets/indicators */
-    .dot {
-      cursor: pointer;
-      height: 15px;
-      width: 15px;
-      margin: 0 2px;
-      background-color: #69b3a2;
-      border-radius: 50%;
-      display: inline-block;
-      transition: background-color 0.6s ease;
-    }
-
-    .active, .dot:hover {
-      background-color: white;
-    }
-
-/* ------------------------------------------------------------------------------------------------------------------- */
-
-
-
-
-
+.active,
+.dot:hover {
+  background-color: white;
+}
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 
-
-
-    /*Tree Style*/
-
-    .graphtypelogo:hover {
-      opacity: 0.5;
-    }
-
-
-    .graphtypelogo {
-      opacity: 1
-    }
-
-
-    #NumCat{
-      color: red;
-    }
-
-    .astext {
-    background:none;
-    border:none;
-    font-weight: 900;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    }
-
-
-    .mystory {
-      fill: #69b3a2;
-      font-size: 16px;
-      text-align: center;
-    }
 /* ------------------------------------------------------------------------------------------------------------------- */
 
+/*Tree Style*/
 
+.graphtypelogo:hover {
+  opacity: 0.5;
+}
 
+.graphtypelogo {
+  opacity: 1;
+}
 
+#NumCat {
+  color: red;
+}
 
+.astext {
+  background: none;
+  border: none;
+  font-weight: 900;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
-
-
+.mystory {
+  fill: #69b3a2;
+  font-size: 16px;
+  text-align: center;
+}
+/* ------------------------------------------------------------------------------------------------------------------- */
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* Customize the gallery of the portfolio section
@@ -1098,10 +967,10 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 
 /* Create three equal columns that floats next to each other */
 .column {
-    display: none; /* Hide all elements by default */
+  display: none; /* Hide all elements by default */
 }
 
-    /* The "show" class is added to the filtered elements */
+/* The "show" class is added to the filtered elements */
 .show {
   display: block;
 }
@@ -1132,67 +1001,52 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   opacity: 0;
 }
 
-
-
-
-
-
-
-
-
-
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* TOOLTIP WITH DATA EXAMPLE
 /* ------------------------------------------------------------------------------------------------------------------- */
 
 .tooltip {
-  max-width:510px;
-  padding:3px 8px;
-  color:white;
-  text-align:center;
-  background-color:white;
-  -webkit-border-radius:5px;
-  -moz-border-radius:5px;
-  border-radius:5px
+  max-width: 510px;
+  padding: 3px 8px;
+  color: white;
+  text-align: center;
+  background-color: white;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
 }
 
 .tooltip-inner {
-  max-width:510px;
-  color:black;
+  max-width: 510px;
+  color: black;
   background-color: white;
   border-style: solid;
   border-color: black;
   border-width: 1px;
 }
 
-
-
-
-
-
-
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* MISTAKE CAROUSSEL CUSTOM
 /* ------------------------------------------------------------------------------------------------------------------- */
 
-
-.carousel-control-next, .carousel-control-prev {
+.carousel-control-next,
+.carousel-control-prev {
   color: black;
 }
 
 .carousel-control-prev-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
 }
 
 .carousel-control-next-icon {
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='black' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
 }
 
 .carousel-control-prev {
-    left: -121px;
+  left: -121px;
 }
 .carousel-control-next {
-    right: -121px;
+  right: -121px;
 }
 
 .mytextrelated {
@@ -1212,9 +1066,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   padding-top: 24px;
 }
 
-
-
-
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* DROPDOWN BUTTON
 /* ------------------------------------------------------------------------------------------------------------------- */
@@ -1222,9 +1073,6 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 .dropdown-item {
   margin-left: 30px;
 }
-
-
-
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* PROMOTIONAL BANNER
@@ -1234,19 +1082,21 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   position: fixed;
   bottom: 0;
   width: 100%;
-  background: linear-gradient(90deg, #FF007F, #f01cf3); /* Simulating bg-purple-100 gradient */
+  background: linear-gradient(
+    90deg,
+    #ff007f,
+    #f01cf3
+  ); /* Simulating bg-purple-100 gradient */
   color: rgba(255, 255, 255, 0.9);
   text-align: center;
   padding: 10px 0;
   font-size: 16px;
   z-index: 1000;
   font-weight: 300;
-  font-family:  'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   letter-spacing: 1px;
   text-decoration: none !important;
 }
-
-
 
 .promo-banner:hover {
   color: rgba(255, 255, 255, 1);
@@ -1260,26 +1110,19 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   transform: translateY(-50%);
   border: none;
   background-color: transparent;
-  color: rgba(255, 255, 255, .8);
+  color: rgba(255, 255, 255, 0.8);
   font-size: 24px;
   cursor: pointer;
 }
-
-
-
-
-
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 /* LOST
 /* ------------------------------------------------------------------------------------------------------------------- */
 
-
-    .cardtitle {
-      color: orange;
-      text-align: left;
-    }
-
+.cardtitle {
+  color: orange;
+  text-align: left;
+}
 
 /* ------------------------------------------------------------------------------------------------------------------- */
 /*
