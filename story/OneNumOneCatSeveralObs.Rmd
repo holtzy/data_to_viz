@@ -165,7 +165,7 @@ data %>%
     facet_wrap(~text, scale="free_y")
 ```
 
-This is a good way to study the distribution of each group separately. However, it makes it hard to compare groups together since they do not all share the same X axis. All depends on what is the question you are trying to answer.
+This is a good way to study the distribution of each group separately. However, it makes it hard to compare groups together since they do not all share the same Y axis. All depends on what is the question you are trying to answer.
 
 
 
