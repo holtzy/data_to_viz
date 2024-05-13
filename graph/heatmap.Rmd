@@ -41,10 +41,11 @@ library(tidyverse)
 library(hrbrthemes)
 library(viridis)
 library(plotly)
+# d3heatmap is not on CRAN yet, but can be found here: https://github.com/talgalili/d3heatmap
 library(d3heatmap)
 
 # Load data 
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/multivariate.csv", header=T, sep=";")
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/multivariate.csv", header = T, sep = ";")
 colnames(data) <- gsub("\\.", " ", colnames(data))
 
 # Select a few country
@@ -78,7 +79,7 @@ p <- heatmaply(mat,
         fontsize_row = 5, fontsize_col = 5,
         labCol = colnames(mat),
         labRow = rownames(mat),
-        heatmap_layers = theme(axis.line=element_blank())
+        heatmap_layers = theme(axis.line = element_blank())
         )
 ```
 
@@ -94,11 +95,11 @@ p
 
 # What for
 ***
-Heatmap is really useful to display a `general view` of numerical data, not to extract specific data point. In the graphic above, the huge population size of China and India pops out for example.
+A heatmap is really useful to display a `general view` of numerical data, not to extract specific data point. In the graphic above, the huge population size of China and India pops out for example.
 
 <br>
 
-Heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks what countries tend to have the same features on their numeric variables, what countries are similar. The usual way to represent the result is to use [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn on top of the heatmap:
+A heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks which countries tend to have the same features on their numeric variables, and therefore which countries are similar. The usual way to represent the result is to use [dendrograms](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn around the heatmap:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 p <- heatmaply(mat, 
@@ -132,9 +133,9 @@ p
 ```        
 </center>
 
-Here, Afghanistan, India and Bolivia are grouped together. Indeed they are 3 countries in strong expansion, with a lot of children per woman but still a strong mortality rate.
+Here, Burundi and Angola are grouped together. Indeed they are two countries in strong expansion, with a lot of children per woman but still a strong mortality rate.
 
-*Note*: in this heatmap, features are also clusterised. For instance, life expectancy and mortality rate are grouped together since they are highly correlated.
+*Note*: in this heatmap, features are also clusterised. For instance, birth rate and children per woman are grouped together since they are highly correlated.
 
 *Note*: hierarchical clustering is a complex statistical method. You can learn more about it [here](https://en.wikipedia.org/wiki/Hierarchical_clustering).
 
@@ -144,7 +145,7 @@ Here, Afghanistan, India and Bolivia are grouped together. Indeed they are 3 cou
 # Variation
 ***
 
-- We've seen in the previous section that heatmap is often used to display the result of a clustering algorithm. A common task is to compare the result with expectations. For instance, we can check if the countries are clustering according to their continent using a `color bar`.
+- We've seen in the previous section that a heatmap is often used to display the result of a clustering algorithm. A common task is to compare the result with expectations. For instance, we can check if the countries are clustering according to their continent using a `color bar`.
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE, eval=FALSE}
 
 # Pick up 6 nice colors
@@ -186,11 +187,11 @@ p <- heatmaply(mat,
 
 
           
-- For static heatmap, a common practice is to display the exact value of each cell in numbers. Indeed, it is hard to translate a color in a precise number.
+- For a static heatmap, a common practice is to display the exact value of each cell in numbers. Indeed, it is hard to translate a color into a precise number.
 
 - Heatmaps can also be used for time series where there is a regular pattern in time.
 
-- Heatmaps can be applied to adjacency matrix.
+- Heatmaps can be applied to adjacency matrices.
 
 
 
@@ -257,23 +258,10 @@ The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-g
 
 
 
-#Comments
+# Comments
 ***
 Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 
