@@ -192,7 +192,7 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
   ) +
   coord_polar(start = 0) + 
   geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
-  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
+  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE, data = data.frame())
 ```
 
 
