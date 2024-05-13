@@ -497,6 +497,7 @@ header.masthead .intro-text .intro-heading {
   max-width: 100vw;
   max-height: 95vh;
   overflow-y: auto;
+  pointer-events: all;
 }
 
 @media (min-width: 1000px) {
@@ -567,6 +568,7 @@ header.masthead .intro-text .intro-heading {
   height: 75px;
   cursor: pointer;
   background-color: transparent;
+  z-index: 1;
 }
 
 .portfolio-modal .close-modal:hover {
