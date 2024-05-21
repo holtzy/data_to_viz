@@ -11,15 +11,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Arc diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
+<meta name="description" content="An extensive description of Arc
+diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
 <meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
 <meta name="author" content="Yan Holtz and Conor Healy">
+<link rel="icon" href="img/logo/data-to-viz.ico">
 
 
 <!-- Control appearance when share by social media -->
 <meta property="og:title" content="Arc diagram" />
 <meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png" />
-<meta property="og:description" content="An extensive description of Arc diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
+<meta property="og:description" content="An extensive description of Arc
+diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
 <meta property='og:url' content="www.data-to-viz.com/caveat/arc.html" />
 <meta property="og:type" content="website" />
 
@@ -31,7 +34,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
+    min-height: 300px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -39,9 +42,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -50,7 +53,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -63,8 +66,8 @@
   <p class="mytitle">Arc diagram</p>
   <p style="color: #D0D0D0;">
     <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
+    <a href="#mistake">mistake</a> -
+    <a href="#related">related</a> -
     <a href="#code">code</a>
   </p>
 </div>
@@ -74,12 +77,22 @@
 
 
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
@@ -88,41 +101,69 @@
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.sourceCode {
   overflow-x: visible;
 }
@@ -232,206 +273,252 @@ $(document).ready(function () {
 
 
 <div class="mycontent">
-<h1 id="definition">Definition</h1>
+<div id="definition" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Definition</h1>
 <hr />
-<p>An <code>arc diagram</code> is a special kind of <a href="https://www.data-to-viz.com/graph/network.html">network graph</a>. It is consituted by <code>nodes</code> that represent entities and by <code>links</code> that show relationships between entities. In arc diagrams, nodes are displayed along a <code>single axis</code> and links are represented with arcs.</p>
-<p>Here is a simple example. Five links between 6 nodes are represented using a <a href="https://www.data-to-viz.com/graph/network.html">2d network diagram</a> (left) and an arc diagram (right)</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(patchwork)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(igraph)
-<span class="kw">library</span>(ggraph)
-<span class="kw">library</span>(colormap)
-
-<span class="co"># A really simple edge list</span>
-links=<span class="kw">data.frame</span>(
-    <span class="dt">source=</span><span class="kw">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>),
-    <span class="dt">target=</span><span class="kw">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>, <span class="st">&quot;F&quot;</span>,<span class="st">&quot;E&quot;</span>)
-    )
-
-<span class="co"># Transform to a igraph object</span>
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>(links)
-
-<span class="co"># Make the usual network diagram</span>
-p1 &lt;-<span class="st">  </span><span class="kw">ggraph</span>(mygraph) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_link</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.3</span>, <span class="dt">edge_width=</span><span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">TRUE</span>, <span class="dt">size=</span><span class="dv">8</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
-  ) 
-
-<span class="co"># Make a cord diagram</span>
-p2 &lt;-<span class="st">  </span><span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_arc</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.3</span>, <span class="dt">edge_width=</span><span class="fl">0.2</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">size=</span><span class="dv">5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>( <span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">repel =</span> <span class="ot">FALSE</span>, <span class="dt">size=</span><span class="dv">8</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">nudge_y=</span><span class="op">-</span><span class="fl">0.1</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)
-  ) 
-
-p1 <span class="op">+</span><span class="st"> </span>p2</code></pre></div>
+<p>An <code>arc diagram</code> is a special kind of <a
+href="https://www.data-to-viz.com/graph/network.html">network graph</a>.
+It is consituted by <code>nodes</code> that represent entities and by
+<code>links</code> that show relationships between entities. In arc
+diagrams, nodes are displayed along a <code>single axis</code> and links
+are represented with arcs.</p>
+<p>Here is a simple example. Five links between 6 nodes are represented
+using a <a href="https://www.data-to-viz.com/graph/network.html">2d
+network diagram</a> (left) and an arc diagram (right)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(colormap)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># A really simple edge list</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>links<span class="ot">=</span><span class="fu">data.frame</span>(</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>    <span class="at">source=</span><span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>),</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    <span class="at">target=</span><span class="fu">c</span>(<span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>, <span class="st">&quot;F&quot;</span>,<span class="st">&quot;E&quot;</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    )</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="co"># Transform to a igraph object</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(links)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># Make the usual network diagram</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>p1 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph) <span class="sc">+</span> </span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.3</span>, <span class="at">edge_width=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">geom_node_point</span>( <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  <span class="fu">geom_node_text</span>( <span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">size=</span><span class="dv">8</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  ) </span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co"># Make a cord diagram</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>p2 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.3</span>, <span class="at">edge_width=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="fu">geom_node_point</span>( <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="fu">geom_node_text</span>( <span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">repel =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="dv">8</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">nudge_y=</span><span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  ) </span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<h1 id="what-for">What for</h1>
+</div>
+<div id="what-for" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> What for</h1>
 <hr />
-<p>Arc diagrams are not as good as 2d network charts to convey the overall node structure. It has 2 main advantages tough:</p>
+<p>Arc diagrams are not as good as 2d network charts to convey the
+overall node structure. It has 2 main advantages tough:</p>
 <ul>
-<li>it can highlight clusters and briges quite well if the node order is optimized</li>
-<li>it allows to display the label of each node, which is often impossible in 2d structure.</li>
+<li>it can highlight clusters and briges quite well if the node order is
+optimized</li>
+<li>it allows to display the label of each node, which is often
+impossible in 2d structure.</li>
 </ul>
 <p><br></p>
-<p>Here is an example showing the co-authorship network of a researcher. <a href="https://sites.google.com/site/ranwez/">Vincent Ranwez</a> is author of several scientific <a href="https://scholar.google.fr/citations?user=WLaQnegAAAAJ&amp;hl=en">publications</a> and counts more than 100 co-authors, all represented by a node on the following chart. If two people have already been on the same paper, they are linked by an arc.</p>
+<p>Here is an example showing the co-authorship network of a researcher.
+<a href="https://sites.google.com/site/ranwez/">Vincent Ranwez</a> is
+author of several scientific <a
+href="https://scholar.google.fr/citations?user=WLaQnegAAAAJ&amp;hl=en">publications</a>
+and counts more than 100 co-authors, all represented by a node on the
+following chart. If two people have already been on the same paper, they
+are linked by an arc.</p>
 </div>
-<div class="row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load data</span>
-dataUU &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
-
-<span class="co"># Transform the adjacency matrix in a long format</span>
-connect &lt;-<span class="st"> </span>dataUU <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;to&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">to =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>,to)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">na.omit</span>() 
-
-<span class="co"># Number of connection per person</span>
-<span class="kw">c</span>( <span class="kw">as.character</span>(connect<span class="op">$</span>from), <span class="kw">as.character</span>(connect<span class="op">$</span>to)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>()) -&gt;<span class="st"> </span>coauth
-<span class="kw">colnames</span>(coauth) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;n&quot;</span>)
-<span class="co">#dim(coauth)</span>
-
-<span class="co"># Create a graph object with igraph</span>
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( connect, <span class="dt">vertices =</span> coauth, <span class="dt">directed =</span> <span class="ot">FALSE</span> )
-
-<span class="co"># Find community</span>
-com &lt;-<span class="st"> </span><span class="kw">walktrap.community</span>(mygraph)
-<span class="co">#max(com$membership)</span>
-
-<span class="co">#Reorder dataset and make the graph</span>
-coauth &lt;-<span class="st"> </span>coauth <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>( <span class="dt">grp =</span> com<span class="op">$</span>membership) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(grp) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name=</span><span class="kw">factor</span>(name, name))
-
-<span class="co"># keep only 10 first communities</span>
-coauth &lt;-<span class="st"> </span>coauth <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">filter</span>(grp<span class="op">&lt;</span><span class="dv">16</span>)
-
-<span class="co"># keep only this people in edges</span>
-connect &lt;-<span class="st"> </span>connect <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(from <span class="op">%in%</span><span class="st"> </span>coauth<span class="op">$</span>name) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(to <span class="op">%in%</span><span class="st"> </span>coauth<span class="op">$</span>name)
-
-<span class="co"># Create a graph object with igraph</span>
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( connect, <span class="dt">vertices =</span> coauth, <span class="dt">directed =</span> <span class="ot">FALSE</span> )
-
-<span class="co"># prepare a vector of n color in the viridis scale</span>
-mycolor &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap=</span>colormaps<span class="op">$</span>viridis, <span class="dt">nshades=</span><span class="kw">max</span>(coauth<span class="op">$</span>grp))
-mycolor &lt;-<span class="st"> </span><span class="kw">sample</span>(mycolor, <span class="kw">length</span>(mycolor))
-
-<span class="co"># Make the graph</span>
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_arc</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.2</span>, <span class="dt">edge_width=</span><span class="fl">0.3</span>, <span class="dt">fold=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>n, <span class="dt">color=</span><span class="kw">as.factor</span>(grp), <span class="dt">fill=</span>grp), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span>mycolor) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">angle=</span><span class="dv">65</span>, <span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="op">-</span><span class="fl">1.1</span>, <span class="dt">size=</span><span class="fl">2.3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),
-    <span class="dt">panel.spacing=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </code></pre></div>
+</div>
+<div class="row"
+style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Load data</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>dataUU <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Transform the adjacency matrix in a long format</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>connect <span class="ot">&lt;-</span> dataUU <span class="sc">%&gt;%</span> </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span><span class="st">&quot;to&quot;</span>, <span class="at">value=</span><span class="st">&quot;value&quot;</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">to =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>,to)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">na.omit</span>() </span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Number of connection per person</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="fu">c</span>( <span class="fu">as.character</span>(connect<span class="sc">$</span>from), <span class="fu">as.character</span>(connect<span class="sc">$</span>to)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">group_by</span>(value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="ot">-&gt;</span> coauth</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">colnames</span>(coauth) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;name&quot;</span>, <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="co">#dim(coauth)</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co"># Create a graph object with igraph</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( connect, <span class="at">vertices =</span> coauth, <span class="at">directed =</span> <span class="cn">FALSE</span> )</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="co"># Find community</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>com <span class="ot">&lt;-</span> <span class="fu">walktrap.community</span>(mygraph)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#max(com$membership)</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#Reorder dataset and make the graph</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">grp =</span> com<span class="sc">$</span>membership) <span class="sc">%&gt;%</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="fu">arrange</span>(grp) <span class="sc">%&gt;%</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name=</span><span class="fu">factor</span>(name, name))</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co"># keep only 10 first communities</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="fu">filter</span>(grp<span class="sc">&lt;</span><span class="dv">16</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co"># keep only this people in edges</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>connect <span class="ot">&lt;-</span> connect <span class="sc">%&gt;%</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>  <span class="fu">filter</span>(from <span class="sc">%in%</span> coauth<span class="sc">$</span>name) <span class="sc">%&gt;%</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>  <span class="fu">filter</span>(to <span class="sc">%in%</span> coauth<span class="sc">$</span>name)</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a></span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a><span class="co"># Create a graph object with igraph</span></span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( connect, <span class="at">vertices =</span> coauth, <span class="at">directed =</span> <span class="cn">FALSE</span> )</span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a><span class="co"># prepare a vector of n color in the viridis scale</span></span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">colormap</span>(<span class="at">colormap=</span>colormaps<span class="sc">$</span>viridis, <span class="at">nshades=</span><span class="fu">max</span>(coauth<span class="sc">$</span>grp))</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">sample</span>(mycolor, <span class="fu">length</span>(mycolor))</span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a></span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co"># Make the graph</span></span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.2</span>, <span class="at">edge_width=</span><span class="fl">0.3</span>, <span class="at">fold=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>n, <span class="at">color=</span><span class="fu">as.factor</span>(grp), <span class="at">fill=</span>grp), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>mycolor) <span class="sc">+</span></span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">angle=</span><span class="dv">65</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">1.1</span>, <span class="at">size=</span><span class="fl">2.3</span>) <span class="sc">+</span></span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),</span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a>    <span class="at">panel.spacing=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)</span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-2-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 <div class="mycontent">
-<p><em>Note</em>: you can read more about this story in the <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">dedicated page</a>.</p>
-<h1 id="variation">Variation</h1>
+<p><em>Note</em>: you can read more about this story in the <a
+href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">dedicated
+page</a>.</p>
+<div id="variation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variation</h1>
 <hr />
-<p>A possible variation in arc diagrams consists to make the links wider when the connection is stronger. To do so you need a <code>weighted network</code> where each connection as a weight.</p>
+<p>A possible variation in arc diagrams consists to make the links wider
+when the connection is stronger. To do so you need a
+<code>weighted network</code> where each connection as a weight.</p>
 <p><br></p>
-<p>Since it is not the case in the previous autorship network, here is another one showing the character co-occurrence in the chapters of Victor Hugo’s classic novel Les Misérables. This example comes from <a href="http://www.gastonsanchez.com/blog">Gaston Sanchez</a> and is described more in depth <a href="https://www.r-bloggers.com/arc-diagrams-in-r-les-miserables/">here</a> (with R code).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># see code at https://www.r-bloggers.com/arc-diagrams-in-r-les-miserables/</span></code></pre></div>
+<p>Since it is not the case in the previous autorship network, here is
+another one showing the character co-occurrence in the chapters of
+Victor Hugo’s classic novel Les Misérables. This example comes from <a
+href="http://www.gastonsanchez.com/blog">Gaston Sanchez</a> and is
+described more in depth <a
+href="https://www.r-bloggers.com/arc-diagrams-in-r-les-miserables/">here</a>
+(with R code).</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># see code at https://www.r-bloggers.com/arc-diagrams-in-r-les-miserables/</span></span></code></pre></div>
 <br><br>
 <center>
 <img src="IMG/miserables_arcplot.png" alt="img" width="700" height="700">
 </center>
 <p><br><br></p>
-<h1 id="mistake">Common mistakes</h1>
-<hr />
-<p>The order of nodes is the key for arc diagrams. See the following figure showing the same arc diagram than above, but with nodes displayed in a random order. Harder to find any insight isn’t it?</p>
 </div>
-<div class="row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#Reorder dataset randomly</span>
-coauth &lt;-<span class="st"> </span>coauth <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">slice</span>( <span class="kw">sample</span>(<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(coauth)), <span class="kw">nrow</span>(coauth)))
-
-<span class="co"># Create a graph object with igraph</span>
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( connect, <span class="dt">vertices =</span> coauth, <span class="dt">directed =</span> <span class="ot">FALSE</span> )
-
-<span class="co"># prepare a vector of n color in the viridis scale</span>
-mycolor &lt;-<span class="st"> </span><span class="kw">colormap</span>(<span class="dt">colormap=</span>colormaps<span class="op">$</span>viridis, <span class="dt">nshades=</span><span class="kw">max</span>(coauth<span class="op">$</span>grp))
-mycolor &lt;-<span class="st"> </span><span class="kw">sample</span>(mycolor, <span class="kw">length</span>(mycolor))
-
-<span class="co"># Make the graph</span>
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_edge_arc</span>(<span class="dt">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="dt">edge_alpha=</span><span class="fl">0.2</span>, <span class="dt">edge_width=</span><span class="fl">0.3</span>, <span class="dt">fold=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_point</span>(<span class="kw">aes</span>(<span class="dt">size=</span>n, <span class="dt">color=</span><span class="kw">as.factor</span>(grp), <span class="dt">fill=</span>grp), <span class="dt">alpha=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_size_continuous</span>(<span class="dt">range=</span><span class="kw">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>(<span class="dt">values=</span>mycolor) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_text</span>(<span class="kw">aes</span>(<span class="dt">label=</span>name), <span class="dt">angle=</span><span class="dv">65</span>, <span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">nudge_y =</span> <span class="op">-</span><span class="fl">1.1</span>, <span class="dt">size=</span><span class="fl">2.3</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-    <span class="dt">plot.margin=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),
-    <span class="dt">panel.spacing=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">expand_limits</span>(<span class="dt">x =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="dt">y =</span> <span class="kw">c</span>(<span class="op">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </code></pre></div>
+<div id="mistake" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Common mistakes</h1>
+<hr />
+<p>The order of nodes is the key for arc diagrams. See the following
+figure showing the same arc diagram than above, but with nodes displayed
+in a random order. Harder to find any insight isn’t it?</p>
+</div>
+</div>
+<div class="row"
+style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#Reorder dataset randomly</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">slice</span>( <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(coauth)), <span class="fu">nrow</span>(coauth)))</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># Create a graph object with igraph</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( connect, <span class="at">vertices =</span> coauth, <span class="at">directed =</span> <span class="cn">FALSE</span> )</span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co"># prepare a vector of n color in the viridis scale</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">colormap</span>(<span class="at">colormap=</span>colormaps<span class="sc">$</span>viridis, <span class="at">nshades=</span><span class="fu">max</span>(coauth<span class="sc">$</span>grp))</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">sample</span>(mycolor, <span class="fu">length</span>(mycolor))</span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co"># Make the graph</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.2</span>, <span class="at">edge_width=</span><span class="fl">0.3</span>, <span class="at">fold=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>n, <span class="at">color=</span><span class="fu">as.factor</span>(grp), <span class="at">fill=</span>grp), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values=</span>mycolor) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">angle=</span><span class="dv">65</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">nudge_y =</span> <span class="sc">-</span><span class="fl">1.1</span>, <span class="at">size=</span><span class="fl">2.3</span>) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="at">panel.spacing=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-4-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 <div class="mycontent">
-<h1 id="related">Related</h1>
+<div id="related" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
+<a href="https://www.data-to-viz.com/graph/chord.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChordSmall.png">
 <p class="mytitlerelated">
 Chord diagram
 </p>
 <p class="mytextrelated">
-A circular layout used to display weighted relationships between entities through arcs.
+A circular layout used to display weighted relationships between
+entities through arcs.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
+<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
 <p class="mytitlerelated">
 Arc diagram
 </p>
 <p class="mytextrelated">
-A subset of the network diagram where nodes are aligned and edges are arcs.
+A subset of the network diagram where nodes are aligned and edges are
+arcs.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
+<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
 <p class="mytitlerelated">
 Sankey diagram
 </p>
 <p class="mytextrelated">
-A flow diagram in which the width of the arrows is shown proportionally to the flow quantity.
+A flow diagram in which the width of the arrows is shown proportionally
+to the flow quantity.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
+<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
 <p class="mytitlerelated">
 Edge bundling
 </p>
@@ -441,45 +528,43 @@ Show connections between entities organized in a hierarchy.
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a>, <a
+href="https://www.python-graph-gallery.com">Python</a>, <a
+href="https://www.react-graph-gallery.com/">React</a> and <a
+href="https://d3-graph-gallery.com/">D3</a> graph galleries are 4
+websites providing hundreds of chart example, always providing the
+reproducible code. Click the button below to see how to build the chart
+you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
+</div>
+<div id="comments" class="section level1" number="7">
+<h1><span class="header-section-number">7</span> Comments</h1>
 <hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a
+word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a>:
+<br></p>
+</div>
 </div>
 
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/arc.html;  
-        this.page.identifier = arc; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
 
 
 &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -500,7 +585,16 @@ Show connections between entities organized in a hierarchy.
 
   gtag('config', 'UA-79254642-3');
 </script>
-
+<script>
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
+}
+</script>
 
 &nbsp;
 
