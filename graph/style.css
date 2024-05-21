@@ -3,77 +3,70 @@ p.caption {
   font-style: italic;
   color: grey;
   margin-right: 10%;
-  margin-left: 10%;  
+  margin-left: 10%;
   text-align: justify;
 }
 
-h1, .h1, h2, .h2, h3, .h3 {
-    margin-top: 100px;
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3 {
+  margin-top: 100px;
 }
 
 h1 {
-    padding-top: 65px !important;
-    margin-top: 30px !important;
+  padding-top: 65px !important;
+  margin-top: 30px !important;
 }
 
 pre {
-    border: 0px solid #cccccc;
-    border-radius: 0px;
- }
+  border: 0px solid #cccccc;
+  border-radius: 0px;
+}
 
 a {
   color: #69b3a2;
 }
 
-
-
 .btn {
-    border-width: 0 0px 0px 0px;
-    font-weight: normal;
-    text-transform: ;
+  border-width: 0 0px 0px 0px;
+  font-weight: normal;
+  text-transform: ;
 }
 
 .btn-default {
-    color: #69b3a2;
-    background-color: #ffffff;
-    border-color: #69b3a2;
+  color: #69b3a2;
+  background-color: #ffffff;
+  border-color: #69b3a2;
 }
-
-
 
 .main-container {
-    max-width: 100% !important;
-    margin-left: auto;
-    margin-right: auto;
+  max-width: 100% !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.mycontent{
-      max-width: 900px !important;
-      margin-left: auto;
-      margin-right: auto;
-      font-family: 'Montserrat';
-      font-size: 130%;
-      line-height: 1.7;
-      padding-right: 15px;
-      padding-left: 15px;
+.mycontent {
+  max-width: 900px !important;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Montserrat";
+  font-size: 130%;
+  line-height: 1.7;
+  padding-right: 15px;
+  padding-left: 15px;
 }
 
-
-
-
-
-
-.mysubtitle{
-  color:grey;
-  font-family: 'Montserrat';
+.mysubtitle {
+  color: grey;
+  font-family: "Montserrat";
 }
-
-
-
 
 /* ---------- Button ----------------- */
 .btn {
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
 }
 
@@ -89,13 +82,16 @@ a {
   border-width: medium;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover {
   background-color: #69b3a2 !important;
   border-color: #69b3a2 !important;
   color: white;
 }
 
-.btn-primary:active, .btn-primary:focus {
+.btn-primary:active,
+.btn-primary:focus {
   box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
 }
 
@@ -104,8 +100,8 @@ a {
 }
 
 .mytextrelated {
-  text-transform: none; 
-  font-weight: normal !important; 
+  text-transform: none;
+  font-weight: normal !important;
   color: black;
 }
 
@@ -121,13 +117,16 @@ a {
   border-width: small;
 }
 
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
+.btn-secondary:active,
+.btn-secondary:focus,
+.btn-secondary:hover {
   background-color: #69b3a2 !important;
   border-color: #69b3a2 !important;
   color: white;
 }
 
-.btn-secondary:active, .btn-secondary:focus {
+.btn-secondary:active,
+.btn-secondary:focus {
   background-color: #69b3a2 !important;
 }
 
@@ -135,4 +134,9 @@ a {
   background-color: #69b3a2 !important;
   border-color: #69b3a2 !important;
   color: white;
+}
+
+/* Fix bug: Lumen style adds a -15px margin on both side of the code, triggering useless scrollbar. */
+.sourceCode .row {
+  margin: 0px;
 }
