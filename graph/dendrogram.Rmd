@@ -105,7 +105,7 @@ data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/
 colnames(data) <- gsub("\\.", " ", colnames(data))
 
 # show data
-tmp <- data %>% as.data.frame() %>% select(1,3,6) %>% .[c(1,3,6),]
+tmp <- data %>% as.data.frame() %>% select(1,3,6) %>% .[c(1,3,6),] %>% drop_na
 tmp[is.na(tmp)] <- "-"
 tmp %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
@@ -291,13 +291,13 @@ d3heatmap(mtcars, scale = "column", colors = "Blues")
 # Build your own {#code}
 ***
 
-The [R](https://r-graph-gallery.com/dendrogram.html), [Python](https:/python-graph-gallery.com/dendrogram/), [React](https://www.react-graph-gallery.com/barplot) and [D3](https://d3-graph-gallery.com/barplot.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/dendrogram.html), [Python](https:/python-graph-gallery.com/dendrogram/), [React](https://www.react-graph-gallery.com/dendrogram) and [D3](https://d3-graph-gallery.com/dendrogram.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://r-graph-gallery.com/dendrogram.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/dendrogram/" class="btn btn-primary">Python gallery</a>
-<a href="https://www.react-graph-gallery.com/barplot" class="btn btn-primary">React gallery</a>
-<a href="https://d3-graph-gallery.com/barplot.html" class="btn btn-primary">D3 gallery</a>
+<a href="https://www.react-graph-gallery.com/dendrogram" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/dendrogram.html" class="btn btn-primary">D3 gallery</a>
 </p>
 
 

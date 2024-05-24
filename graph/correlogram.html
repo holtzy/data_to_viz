@@ -1,292 +1,383 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Correlogram &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Correlogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Correlogram" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Correlogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/correlogram.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Correlogram &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Correlogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Correlogram" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png" />
-<meta property="og:description" content="An extensive description of Correlogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/correlogram.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Correlogram</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Correlogram</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Definition</h1>
 <hr />
-<p>A <code>correlogram</code> or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a <a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>, or a symbol that represents the correlation (bubble, line, number..).</p>
+<p>A <code>correlogram</code> or correlation matrix allows to analyse
+the relationship between each pair of numeric variables of a dataset.
+The relationship between each pair of variable is visualised through a
+<a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>,
+or a symbol that represents the correlation (bubble, line,
+number..).</p>
 <p><br></p>
-<p>The diagonal often represents the <code>distribution</code> of each variable, using an <a href="http://www.data-to-viz.com/graph/histogram.html">histogram</a> or a <a href="http://www.data-to-viz.com/graph/density.html">density plot</a>.</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># library &amp; dataset</span>
-<span class="im">import</span> seaborn <span class="im">as</span> sns
-df <span class="op">=</span> sns.load_dataset(<span class="st">&#39;iris&#39;</span>)
-<span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt
- 
-<span class="co"># Basic correlogram</span>
-sns_plot <span class="op">=</span> sns.pairplot(df)
-sns_plot.savefig(<span class="st">&quot;IMG/correlogram1.png&quot;</span>)</code></pre></div>
+<p>The diagonal often represents the <code>distribution</code> of each
+variable, using an <a
+href="http://www.data-to-viz.com/graph/histogram.html">histogram</a> or
+a <a href="http://www.data-to-viz.com/graph/density.html">density
+plot</a>.</p>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># library &amp; dataset</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">&#39;iris&#39;</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a> </span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Basic correlogram</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram1.png&quot;</span>)</span></code></pre></div>
+<p><img src="correlogram_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
 <br><br>
 <center>
 <img src="IMG/correlogram1.png" alt="img" width="500" height="500">
 </center>
 <p><br><br></p>
-<p><em>Note</em>: exceptionally, graphic provided in this page are made with <a href="https://python-graph-gallery.com/correlogram/">Python</a>, since I really like the <code>pairplot</code> function of the <a href="https://python-graph-gallery.com/correlogram/">seaborn library</a>.</p>
-<h1 id="what-for">What for</h1>
+<p><em>Note</em>: exceptionally, graphic provided in this page are made
+with <a href="https://python-graph-gallery.com/correlogram/">Python</a>,
+since I really like the <code>pairplot</code> function of the <a
+href="https://python-graph-gallery.com/correlogram/">seaborn
+library</a>.</p>
+</div>
+<div id="what-for" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> What for</h1>
 <hr />
-<p>Correlogram are really handy for <code>exploratory analysis</code>. It allows to visualize the relationships of the whole dataset in a glimpse. For instance, the linear relationship between petal length and petal width is obvious here, as the one concerning sepal.</p>
+<p>Correlogram are really handy for <code>exploratory analysis</code>.
+It allows to visualize the relationships of the whole dataset in a
+glimpse. For instance, the linear relationship between petal length and
+petal width is obvious here, as the one concerning sepal.</p>
 <p><br></p>
-<p>When you get a multivariate dataset, building a correlogram is one of the first step you should follow.</p>
-<h1 id="variation">Variation</h1>
+<p>When you get a multivariate dataset, building a correlogram is one of
+the first step you should follow.</p>
+</div>
+<div id="variation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variation</h1>
 <hr />
-<p>All the variations described in the <a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a> section are also available for correlogram. For example, why not applying a linear regression to each pair of variable:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># with regression</span>
-sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;reg&quot;</span>)
-sns_plot.savefig(<span class="st">&quot;IMG/correlogram2.png&quot;</span>)</code></pre></div>
+<p>All the variations described in the <a
+href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>
+section are also available for correlogram. For example, why not
+applying a linear regression to each pair of variable:</p>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># with regression</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;reg&quot;</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram2.png&quot;</span>)</span></code></pre></div>
+<p><img src="correlogram_files/figure-html/unnamed-chunk-3-3.png" width="960" /></p>
 <br><br>
 <center>
 <img src="IMG/correlogram2.png" alt="img" width="500" height="500">
 </center>
 <p><br><br></p>
-<p>As described in the scatterplot section, it is a good practice to display subgroups if a categoric variable is available as well:</p>
-<div class="sourceCode"><pre class="sourceCode python"><code class="sourceCode python"><span class="co"># with regression</span>
-sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;scatter&quot;</span>, hue<span class="op">=</span><span class="st">&quot;species&quot;</span>, markers<span class="op">=</span>[<span class="st">&quot;o&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;D&quot;</span>], palette<span class="op">=</span><span class="st">&quot;Set2&quot;</span>)
-sns_plot.savefig(<span class="st">&quot;IMG/correlogram3.png&quot;</span>)</code></pre></div>
+<p>As described in the scatterplot section, it is a good practice to
+display subgroups if a categoric variable is available as well:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># with regression</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;scatter&quot;</span>, hue<span class="op">=</span><span class="st">&quot;species&quot;</span>, markers<span class="op">=</span>[<span class="st">&quot;o&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;D&quot;</span>], palette<span class="op">=</span><span class="st">&quot;Set2&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram3.png&quot;</span>)</span></code></pre></div>
+<p><img src="correlogram_files/figure-html/unnamed-chunk-4-5.png" width="1073" /></p>
 <br><br>
 <center>
 <img src="IMG/correlogram3.png" alt="img" width="500" height="500">
 </center>
 <p><br><br></p>
-<h1 id="mistake">Common mistakes</h1>
+</div>
+<div id="mistake" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Common mistakes</h1>
 <hr />
 <ul>
-<li>Displaying the relationship between more than ~10 variables makes the plot very hard to read</li>
-<li>All the common caveats of <a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a> and <a href="http://www.data-to-viz.com/graph/histogram.html">histogram</a> apply</li>
+<li>Displaying the relationship between more than ~10 variables makes
+the plot very hard to read</li>
+<li>All the common caveats of <a
+href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a> and
+<a href="http://www.data-to-viz.com/graph/histogram.html">histogram</a>
+apply</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
+<a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
 <p class="mytitlerelated">
 Bubble plot
 </p>
@@ -296,7 +387,8 @@ Add a third dimension to your scatter: the circle size
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+<a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
 <p class="mytitlerelated">
 Scatter plot
 </p>
@@ -306,7 +398,8 @@ Display the relationship between 2 numeric variables
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+<a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
 <p class="mytitlerelated">
 Connected Scatterplot
 </p>
@@ -316,7 +409,8 @@ Very close from a scatterplot, but link data points with segments
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+<a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
 <p class="mytitlerelated">
 Density 2d
 </p>
@@ -326,45 +420,89 @@ One of the best way to avoid overplotting for big sample size
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://r-graph-gallery.com/correlogram.html">R</a>, <a
+href="https:/python-graph-gallery.com/correlogram/">Python</a>, <a
+href="https://www.react-graph-gallery.com/correlogram">React</a> and <a
+href="https://d3-graph-gallery.com/correlogram.html">D3</a> graph
+galleries are 4 websites providing hundreds of chart example, always
+providing the reproducible code. Click the button below to see how to
+build the chart you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/correlogram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/correlogram/" class="btn btn-primary">Python gallery</a>
+<a href="https://r-graph-gallery.com/correlogram.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/correlogram/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/correlogram" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/correlogram.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/correlogram.html;  
-        this.page.identifier = correlogram; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -385,28 +523,29 @@ One of the best way to avoid overplotting for big sample size
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>
