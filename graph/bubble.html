@@ -1,361 +1,464 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Bubble plot &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Bubble
+plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Bubble plot" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Bubble
+plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/bubble.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Bubble plot &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Bubble plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Bubble plot" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png" />
-<meta property="og:description" content="An extensive description of Bubble plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/bubble.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Bubble plot</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px;
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-    height: 100%;
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Bubble plot</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> -
-    <a href="#related">related</a> -
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Definition</h1>
 <hr />
-<p>A <code>bubble plot</code> is a <a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a> where a <code>third dimension</code> is added: the value of an additional numeric variable is represented through the <code>size</code> of the dots.</p>
-<p>You need 3 numerical variables as input: one is represented by the X axis, one by the Y axis, and one by the dot size.</p>
-<p>Here is an example using an abstract of the <a href="https://www.gapminder.org/data/">Gapminder dataset</a> made famous through the <a href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">Hans Rosling Ted Talk</a>. It provides the average life expectancy, gdp per capita and population size for more than 100 countries. This dataset is available through the gapminder <a href="https://github.com/jennybc/gapminder">R package</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(gridExtra)
-<span class="kw">library</span>(ggrepel)
-<span class="kw">library</span>(plotly)
-
-<span class="co"># The dataset is provided in the gapminder library</span>
-<span class="kw">library</span>(gapminder)
-data &lt;-<span class="st"> </span>gapminder <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(year<span class="op">==</span><span class="st">&quot;2007&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="op">-</span>year)
-
-<span class="co"># Show a bubbleplot</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop=</span>pop<span class="op">/</span><span class="dv">1000000</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> <span class="kw">factor</span>(country, country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>gdpPercap, <span class="dt">y=</span>lifeExp, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="dt">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>, <span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</code></pre></div>
+<p>A <code>bubble plot</code> is a <a
+href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>
+where a <code>third dimension</code> is added: the value of an
+additional numeric variable is represented through the <code>size</code>
+of the dots.</p>
+<p>You need 3 numerical variables as input: one is represented by the X
+axis, one by the Y axis, and one by the dot size.</p>
+<p>Here is an example using an abstract of the <a
+href="https://www.gapminder.org/data/">Gapminder dataset</a> made famous
+through the <a
+href="https://www.ted.com/talks/hans_rosling_shows_the_best_stats_you_ve_ever_seen">Hans
+Rosling Ted Talk</a>. It provides the average life expectancy, gdp per
+capita and population size for more than 100 countries. This dataset is
+available through the gapminder <a
+href="https://github.com/jennybc/gapminder">R package</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(gridExtra)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># The dataset is provided in the gapminder library</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">library</span>(gapminder)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> gapminder <span class="sc">%&gt;%</span> <span class="fu">filter</span>(year<span class="sc">==</span><span class="st">&quot;2007&quot;</span>) <span class="sc">%&gt;%</span> dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>year)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Show a bubbleplot</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span>pop<span class="sc">/</span><span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country, country)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp, <span class="at">size =</span> pop, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="at">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>, <span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;bottom&quot;</span>)</span></code></pre></div>
 <p><img src="bubble_files/figure-html/unnamed-chunk-1-1.png" width="768" style="display: block; margin: auto;" /></p>
-<h1 id="what-for">What for</h1>
+</div>
+<div id="what-for" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> What for</h1>
 <hr />
-<p>In this chart, the relationship between gdp per capita and life Expectancy is quite obvious: rich countries tend to live longuer, with a threshold effect when gdp per capita reaches ~10,000. This relationship could have been detected using a classic <a href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>, but the bubble size allows to nuance this result with a third level of information: the country population.</p>
+<p>In this chart, the relationship between gdp per capita and life
+Expectancy is quite obvious: rich countries tend to live longuer, with a
+threshold effect when gdp per capita reaches ~10,000. This relationship
+could have been detected using a classic <a
+href="http://www.data-to-viz.com/graph/scatter.html">scatterplot</a>,
+but the bubble size allows to nuance this result with a third level of
+information: the country population.</p>
 <p><br></p>
-<p>This last variable is much more difficult to interpret than the one on the X and Y axis. Indeed, area is <a href="http://www.data-to-viz.com/caveat/area_hard.html">hardly interpreted by the human eye</a>. But the information is here, and if a clear relationship between population and gdp per capita or life expectancy existed, we would spot it.</p>
-<h1 id="variation">Variation</h1>
+<p>This last variable is much more difficult to interpret than the one
+on the X and Y axis. Indeed, area is <a
+href="http://www.data-to-viz.com/caveat/area_hard.html">hardly
+interpreted by the human eye</a>. But the information is here, and if a
+clear relationship between population and gdp per capita or life
+expectancy existed, we would spot it.</p>
+</div>
+<div id="variation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variation</h1>
 <hr />
-<p>The previous graphic is quite interesting since it allows to understand the relationship between gdp per capita and life expectancy. However it can be frustrating not to know what are the countries in the extreme part of the graphic, or what are the one out of the general trend. As usual <code>annotating</code> the graphic is a crucial step to make it insightful:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Prepare data</span>
-tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st"> </span><span class="kw">mutate</span>(
-   <span class="dt">annotation =</span> <span class="kw">case_when</span>(
-    gdpPercap <span class="op">&gt;</span><span class="st"> </span><span class="dv">5000</span> <span class="op">&amp;</span><span class="st"> </span>lifeExp <span class="op">&lt;</span><span class="st"> </span><span class="dv">60</span> <span class="op">~</span><span class="st"> &quot;yes&quot;</span>,
-    lifeExp <span class="op">&lt;</span><span class="st"> </span><span class="dv">30</span> <span class="op">~</span><span class="st"> &quot;yes&quot;</span>,
-     gdpPercap <span class="op">&gt;</span><span class="st"> </span><span class="dv">40000</span> <span class="op">~</span><span class="st"> &quot;yes&quot;</span>
-    )
-) <span class="op">%&gt;%</span>
-<span class="kw">mutate</span>(<span class="dt">pop=</span>pop<span class="op">/</span><span class="dv">1000000</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> <span class="kw">factor</span>(country, country))
-
-<span class="co"># Plot</span>
-<span class="kw">ggplot</span>( tmp, <span class="kw">aes</span>(<span class="dt">x=</span>gdpPercap, <span class="dt">y=</span>lifeExp, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="dt">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_text_repel</span>(<span class="dt">data=</span>tmp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(annotation<span class="op">==</span><span class="st">&quot;yes&quot;</span>), <span class="kw">aes</span>(<span class="dt">label=</span>country), <span class="dt">size=</span><span class="dv">4</span> )</code></pre></div>
+<p>The previous graphic is quite interesting since it allows to
+understand the relationship between gdp per capita and life expectancy.
+However it can be frustrating not to know what are the countries in the
+extreme part of the graphic, or what are the one out of the general
+trend. As usual <code>annotating</code> the graphic is a crucial step to
+make it insightful:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Prepare data</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a> <span class="fu">mutate</span>(</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>   <span class="at">annotation =</span> <span class="fu">case_when</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    gdpPercap <span class="sc">&gt;</span> <span class="dv">5000</span> <span class="sc">&amp;</span> lifeExp <span class="sc">&lt;</span> <span class="dv">60</span> <span class="sc">~</span> <span class="st">&quot;yes&quot;</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    lifeExp <span class="sc">&lt;</span> <span class="dv">30</span> <span class="sc">~</span> <span class="st">&quot;yes&quot;</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>     gdpPercap <span class="sc">&gt;</span> <span class="dv">40000</span> <span class="sc">~</span> <span class="st">&quot;yes&quot;</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    )</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">mutate</span>(<span class="at">pop=</span>pop<span class="sc">/</span><span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country, country))</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">ggplot</span>( tmp, <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp, <span class="at">size =</span> pop, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="at">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    <span class="fu">geom_text_repel</span>(<span class="at">data=</span>tmp <span class="sc">%&gt;%</span> <span class="fu">filter</span>(annotation<span class="sc">==</span><span class="st">&quot;yes&quot;</span>), <span class="fu">aes</span>(<span class="at">label=</span>country), <span class="at">size=</span><span class="dv">4</span> )</span></code></pre></div>
 <p><img src="bubble_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>Following the same idea, bubble plot is probably the type of chart where using <code>interactivity</code> makes the more sense. In the following plot you can hover bubbles to get conutry name and zoom on a specific part of the graphic.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Interactive version</span>
-p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">gdpPercap=</span><span class="kw">round</span>(gdpPercap,<span class="dv">0</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop=</span><span class="kw">round</span>(pop<span class="op">/</span><span class="dv">1000000</span>,<span class="dv">2</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">lifeExp=</span><span class="kw">round</span>(lifeExp,<span class="dv">1</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> <span class="kw">factor</span>(country, country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">paste</span>(<span class="st">&quot;Country: &quot;</span>, country, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Population (M): &quot;</span>, pop, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Life Expectancy: &quot;</span>, lifeExp, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">Gdp per capita: &quot;</span>, gdpPercap, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>gdpPercap, <span class="dt">y=</span>lifeExp, <span class="dt">size =</span> pop, <span class="dt">color =</span> continent, <span class="dt">text=</span>text)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_size</span>(<span class="dt">range =</span> <span class="kw">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="dt">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>, <span class="dt">guide=</span><span class="ot">FALSE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
-
-<span class="kw">ggplotly</span>(p, <span class="dt">tooltip=</span><span class="st">&quot;text&quot;</span>)</code></pre></div>
-<div id="d78447c4b002" style="width:768px;height:672px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="d78447c4b002">{"x":{"data":[{"x":[2014,5581,691,278,9270,2602,1107,1463,3820,6223,1056,1328,824,1045,1545,2042,1217,759,620,4797,470,1712,1043,1271,7093,1704,943,926,863,430,1441,863,12057,883,641,706,3633,1803,415,4811,1569,753,12570,579,13206,10957,4513,7670,986,12154,2082,1598],"y":[46.9,71.3,52.9,46.5,49.3,58.6,52.5,54.1,71.2,72.3,51.5,60,42.1,59.4,48.3,50.4,52.3,48.3,56.9,42.7,43.5,63.1,54.5,42.4,73.9,50.7,56,48.2,46.2,49.6,56.7,42.6,74,58.4,58,44.7,55.3,64.2,45.7,52.9,42.6,59.4,50.7,46.4,56.7,72.8,39.6,76.4,65.2,51.6,54.8,65.5],"text":["Country: Nigeria<br />Population (M): 135.03<br />Life Expectancy: 46.9<br />Gdp per capita: 2014","Country: Egypt<br />Population (M): 80.26<br />Life Expectancy: 71.3<br />Gdp per capita: 5581","Country: Ethiopia<br />Population (M): 76.51<br />Life Expectancy: 52.9<br />Gdp per capita: 691","Country: Congo, Dem. Rep.<br />Population (M): 64.61<br />Life Expectancy: 46.5<br />Gdp per capita: 278","Country: South Africa<br />Population (M): 44<br />Life Expectancy: 49.3<br />Gdp per capita: 9270","Country: Sudan<br />Population (M): 42.29<br />Life Expectancy: 58.6<br />Gdp per capita: 2602","Country: Tanzania<br />Population (M): 38.14<br />Life Expectancy: 52.5<br />Gdp per capita: 1107","Country: Kenya<br />Population (M): 35.61<br />Life Expectancy: 54.1<br />Gdp per capita: 1463","Country: Morocco<br />Population (M): 33.76<br />Life Expectancy: 71.2<br />Gdp per capita: 3820","Country: Algeria<br />Population (M): 33.33<br />Life Expectancy: 72.3<br />Gdp per capita: 6223","Country: Uganda<br />Population (M): 29.17<br />Life Expectancy: 51.5<br />Gdp per capita: 1056","Country: Ghana<br />Population (M): 22.87<br />Life Expectancy: 60<br />Gdp per capita: 1328","Country: Mozambique<br />Population (M): 19.95<br />Life Expectancy: 42.1<br />Gdp per capita: 824","Country: Madagascar<br />Population (M): 19.17<br />Life Expectancy: 59.4<br />Gdp per capita: 1045","Country: Cote d'Ivoire<br />Population (M): 18.01<br />Life Expectancy: 48.3<br />Gdp per capita: 1545","Country: Cameroon<br />Population (M): 17.7<br />Life Expectancy: 50.4<br />Gdp per capita: 2042","Country: Burkina Faso<br />Population (M): 14.33<br />Life Expectancy: 52.3<br />Gdp per capita: 1217","Country: Malawi<br />Population (M): 13.33<br />Life Expectancy: 48.3<br />Gdp per capita: 759","Country: Niger<br />Population (M): 12.89<br />Life Expectancy: 56.9<br />Gdp per capita: 620","Country: Angola<br />Population (M): 12.42<br />Life Expectancy: 42.7<br />Gdp per capita: 4797","Country: Zimbabwe<br />Population (M): 12.31<br />Life Expectancy: 43.5<br />Gdp per capita: 470","Country: Senegal<br />Population (M): 12.27<br />Life Expectancy: 63.1<br />Gdp per capita: 1712","Country: Mali<br />Population (M): 12.03<br />Life Expectancy: 54.5<br />Gdp per capita: 1043","Country: Zambia<br />Population (M): 11.75<br />Life Expectancy: 42.4<br />Gdp per capita: 1271","Country: Tunisia<br />Population (M): 10.28<br />Life Expectancy: 73.9<br />Gdp per capita: 7093","Country: Chad<br />Population (M): 10.24<br />Life Expectancy: 50.7<br />Gdp per capita: 1704","Country: Guinea<br />Population (M): 9.95<br />Life Expectancy: 56<br />Gdp per capita: 943","Country: Somalia<br />Population (M): 9.12<br />Life Expectancy: 48.2<br />Gdp per capita: 926","Country: Rwanda<br />Population (M): 8.86<br />Life Expectancy: 46.2<br />Gdp per capita: 863","Country: Burundi<br />Population (M): 8.39<br />Life Expectancy: 49.6<br />Gdp per capita: 430","Country: Benin<br />Population (M): 8.08<br />Life Expectancy: 56.7<br />Gdp per capita: 1441","Country: Sierra Leone<br />Population (M): 6.14<br />Life Expectancy: 42.6<br />Gdp per capita: 863","Country: Libya<br />Population (M): 6.04<br />Life Expectancy: 74<br />Gdp per capita: 12057","Country: Togo<br />Population (M): 5.7<br />Life Expectancy: 58.4<br />Gdp per capita: 883","Country: Eritrea<br />Population (M): 4.91<br />Life Expectancy: 58<br />Gdp per capita: 641","Country: Central African Republic<br />Population (M): 4.37<br />Life Expectancy: 44.7<br />Gdp per capita: 706","Country: Congo, Rep.<br />Population (M): 3.8<br />Life Expectancy: 55.3<br />Gdp per capita: 3633","Country: Mauritania<br />Population (M): 3.27<br />Life Expectancy: 64.2<br />Gdp per capita: 1803","Country: Liberia<br />Population (M): 3.19<br />Life Expectancy: 45.7<br />Gdp per capita: 415","Country: Namibia<br />Population (M): 2.06<br />Life Expectancy: 52.9<br />Gdp per capita: 4811","Country: Lesotho<br />Population (M): 2.01<br />Life Expectancy: 42.6<br />Gdp per capita: 1569","Country: Gambia<br />Population (M): 1.69<br />Life Expectancy: 59.4<br />Gdp per capita: 753","Country: Botswana<br />Population (M): 1.64<br />Life Expectancy: 50.7<br />Gdp per capita: 12570","Country: Guinea-Bissau<br />Population (M): 1.47<br />Life Expectancy: 46.4<br />Gdp per capita: 579","Country: Gabon<br />Population (M): 1.45<br />Life Expectancy: 56.7<br />Gdp per capita: 13206","Country: Mauritius<br />Population (M): 1.25<br />Life Expectancy: 72.8<br />Gdp per capita: 10957","Country: Swaziland<br />Population (M): 1.13<br />Life Expectancy: 39.6<br />Gdp per capita: 4513","Country: Reunion<br />Population (M): 0.8<br />Life Expectancy: 76.4<br />Gdp per capita: 7670","Country: Comoros<br />Population (M): 0.71<br />Life Expectancy: 65.2<br />Gdp per capita: 986","Country: Equatorial Guinea<br />Population (M): 0.55<br />Life Expectancy: 51.6<br />Gdp per capita: 12154","Country: Djibouti<br />Population (M): 0.5<br />Life Expectancy: 54.8<br />Gdp per capita: 2082","Country: Sao Tome and Principe<br />Population (M): 0.2<br />Life Expectancy: 65.5<br />Gdp per capita: 1598"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","opacity":0.7,"size":[26.5632579599666,21.6829331622256,21.2944392740525,19.9938004143297,17.4154652854453,17.1764395058141,16.5753125182264,16.192590463441,15.9040019122885,15.8357933701799,15.1515825053379,14.0138022902219,13.4326986190869,13.2703130712363,13.0225112127084,12.954931641371,12.1776156427174,11.9294689004027,11.8172957965114,11.6953045311739,11.6664162865117,11.6558789607898,11.5922849554707,11.5172710153102,11.1075967729481,11.0960451067482,11.0115979227035,10.7627054760741,10.6823761356629,10.534042866767,10.4338648630504,9.75618612063666,9.71844370611506,9.58764012922975,9.26713249700575,9.0322845763593,8.76721767682081,8.50117277338926,8.45907476507337,7.78978409869391,7.75597407598601,7.52751748260185,7.48967754444852,7.3558404095865,7.3395199810551,7.16852784169065,7.05800634947773,6.71036028072039,6.59961194577444,6.37513430668847,6.29473844801438,5.29133858267716],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(68,1,84,1)"}},"hoveron":"points","name":"Africa","legendgroup":"Africa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[42952,9066,11978,7007,12779,36319,7409,11416,13172,6873,5186,8948,6025,3822,1202,3548,5728,4173,2749,9645,19329,10611,9809,7321,18009],"y":[78.2,72.4,76.2,72.9,75.3,80.7,71.4,73.7,78.6,75,70.3,78.3,72.2,65.6,60.9,70.2,71.9,71.8,72.9,78.8,78.7,76.4,75.5,72.6,69.8],"text":["Country: United States<br />Population (M): 301.14<br />Life Expectancy: 78.2<br />Gdp per capita: 42952","Country: Brazil<br />Population (M): 190.01<br />Life Expectancy: 72.4<br />Gdp per capita: 9066","Country: Mexico<br />Population (M): 108.7<br />Life Expectancy: 76.2<br />Gdp per capita: 11978","Country: Colombia<br />Population (M): 44.23<br />Life Expectancy: 72.9<br />Gdp per capita: 7007","Country: Argentina<br />Population (M): 40.3<br />Life Expectancy: 75.3<br />Gdp per capita: 12779","Country: Canada<br />Population (M): 33.39<br />Life Expectancy: 80.7<br />Gdp per capita: 36319","Country: Peru<br />Population (M): 28.67<br />Life Expectancy: 71.4<br />Gdp per capita: 7409","Country: Venezuela<br />Population (M): 26.08<br />Life Expectancy: 73.7<br />Gdp per capita: 11416","Country: Chile<br />Population (M): 16.28<br />Life Expectancy: 78.6<br />Gdp per capita: 13172","Country: Ecuador<br />Population (M): 13.76<br />Life Expectancy: 75<br />Gdp per capita: 6873","Country: Guatemala<br />Population (M): 12.57<br />Life Expectancy: 70.3<br />Gdp per capita: 5186","Country: Cuba<br />Population (M): 11.42<br />Life Expectancy: 78.3<br />Gdp per capita: 8948","Country: Dominican Republic<br />Population (M): 9.32<br />Life Expectancy: 72.2<br />Gdp per capita: 6025","Country: Bolivia<br />Population (M): 9.12<br />Life Expectancy: 65.6<br />Gdp per capita: 3822","Country: Haiti<br />Population (M): 8.5<br />Life Expectancy: 60.9<br />Gdp per capita: 1202","Country: Honduras<br />Population (M): 7.48<br />Life Expectancy: 70.2<br />Gdp per capita: 3548","Country: El Salvador<br />Population (M): 6.94<br />Life Expectancy: 71.9<br />Gdp per capita: 5728","Country: Paraguay<br />Population (M): 6.67<br />Life Expectancy: 71.8<br />Gdp per capita: 4173","Country: Nicaragua<br />Population (M): 5.68<br />Life Expectancy: 72.9<br />Gdp per capita: 2749","Country: Costa Rica<br />Population (M): 4.13<br />Life Expectancy: 78.8<br />Gdp per capita: 9645","Country: Puerto Rico<br />Population (M): 3.94<br />Life Expectancy: 78.7<br />Gdp per capita: 19329","Country: Uruguay<br />Population (M): 3.45<br />Life Expectancy: 76.4<br />Gdp per capita: 10611","Country: Panama<br />Population (M): 3.24<br />Life Expectancy: 75.5<br />Gdp per capita: 9809","Country: Jamaica<br />Population (M): 2.78<br />Life Expectancy: 72.6<br />Gdp per capita: 7321","Country: Trinidad and Tobago<br />Population (M): 1.06<br />Life Expectancy: 69.8<br />Gdp per capita: 18009"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(59,82,139,1)","opacity":0.7,"size":[37.0713002744935,30.5303857721087,24.3735314107934,17.4472563579937,16.8920760189102,15.8453373046612,15.0661220277517,14.6109015515,12.637431770969,12.0372907243022,11.7344888614139,11.4276845831058,10.8237036473367,10.7627054760741,10.5691328520658,10.234207584058,10.0473551557398,9.95112006708858,9.5798215576066,8.92303624297867,8.83415959786533,8.59393185247586,8.48545104201364,8.23388460473445,6.9902183206148],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(59,82,139,1)"}},"hoveron":"points","name":"Americas","legendgroup":"Americas","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4959,2452,3541,2606,1391,31656,3190,2442,11606,7458,23348,944,975,1091,21655,4471,12452,1593,28718,2281,3970,4185,1714,39725,25523,4519,47143,3025,10461,22316,3096,47307,29796],"y":[73,64.7,70.7,65.5,64.1,82.6,71.7,74.2,71,70.6,78.6,62.1,43.8,63.8,72.8,59.5,74.2,67.3,78.4,62.7,72.4,74.1,59.7,82.2,80.7,72.5,80,73.4,72,75.6,66.8,77.6,75.6],"text":["Country: China<br />Population (M): 1318.68<br />Life Expectancy: 73<br />Gdp per capita: 4959","Country: India<br />Population (M): 1110.4<br />Life Expectancy: 64.7<br />Gdp per capita: 2452","Country: Indonesia<br />Population (M): 223.55<br />Life Expectancy: 70.7<br />Gdp per capita: 3541","Country: Pakistan<br />Population (M): 169.27<br />Life Expectancy: 65.5<br />Gdp per capita: 2606","Country: Bangladesh<br />Population (M): 150.45<br />Life Expectancy: 64.1<br />Gdp per capita: 1391","Country: Japan<br />Population (M): 127.47<br />Life Expectancy: 82.6<br />Gdp per capita: 31656","Country: Philippines<br />Population (M): 91.08<br />Life Expectancy: 71.7<br />Gdp per capita: 3190","Country: Vietnam<br />Population (M): 85.26<br />Life Expectancy: 74.2<br />Gdp per capita: 2442","Country: Iran<br />Population (M): 69.45<br />Life Expectancy: 71<br />Gdp per capita: 11606","Country: Thailand<br />Population (M): 65.07<br />Life Expectancy: 70.6<br />Gdp per capita: 7458","Country: Korea, Rep.<br />Population (M): 49.04<br />Life Expectancy: 78.6<br />Gdp per capita: 23348","Country: Myanmar<br />Population (M): 47.76<br />Life Expectancy: 62.1<br />Gdp per capita: 944","Country: Afghanistan<br />Population (M): 31.89<br />Life Expectancy: 43.8<br />Gdp per capita: 975","Country: Nepal<br />Population (M): 28.9<br />Life Expectancy: 63.8<br />Gdp per capita: 1091","Country: Saudi Arabia<br />Population (M): 27.6<br />Life Expectancy: 72.8<br />Gdp per capita: 21655","Country: Iraq<br />Population (M): 27.5<br />Life Expectancy: 59.5<br />Gdp per capita: 4471","Country: Malaysia<br />Population (M): 24.82<br />Life Expectancy: 74.2<br />Gdp per capita: 12452","Country: Korea, Dem. Rep.<br />Population (M): 23.3<br />Life Expectancy: 67.3<br />Gdp per capita: 1593","Country: Taiwan<br />Population (M): 23.17<br />Life Expectancy: 78.4<br />Gdp per capita: 28718","Country: Yemen, Rep.<br />Population (M): 22.21<br />Life Expectancy: 62.7<br />Gdp per capita: 2281","Country: Sri Lanka<br />Population (M): 20.38<br />Life Expectancy: 72.4<br />Gdp per capita: 3970","Country: Syria<br />Population (M): 19.31<br />Life Expectancy: 74.1<br />Gdp per capita: 4185","Country: Cambodia<br />Population (M): 14.13<br />Life Expectancy: 59.7<br />Gdp per capita: 1714","Country: Hong Kong, China<br />Population (M): 6.98<br />Life Expectancy: 82.2<br />Gdp per capita: 39725","Country: Israel<br />Population (M): 6.43<br />Life Expectancy: 80.7<br />Gdp per capita: 25523","Country: Jordan<br />Population (M): 6.05<br />Life Expectancy: 72.5<br />Gdp per capita: 4519","Country: Singapore<br />Population (M): 4.55<br />Life Expectancy: 80<br />Gdp per capita: 47143","Country: West Bank and Gaza<br />Population (M): 4.02<br />Life Expectancy: 73.4<br />Gdp per capita: 3025","Country: Lebanon<br />Population (M): 3.92<br />Life Expectancy: 72<br />Gdp per capita: 10461","Country: Oman<br />Population (M): 3.2<br />Life Expectancy: 75.6<br />Gdp per capita: 22316","Country: Mongolia<br />Population (M): 2.87<br />Life Expectancy: 66.8<br />Gdp per capita: 3096","Country: Kuwait<br />Population (M): 2.51<br />Life Expectancy: 77.6<br />Gdp per capita: 47307","Country: Bahrain<br />Population (M): 0.71<br />Life Expectancy: 75.6<br />Gdp per capita: 29796"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","opacity":0.7,"size":[71.8110236220472,66.3312679702005,32.6696330004341,29.1116089953257,27.7467311262846,25.9582906920711,22.7554933015362,22.1870351064351,20.5361936509499,20.0462076509598,18.0940288457712,17.9251483724075,15.6040895529493,15.105526274666,14.8806780349699,14.8631632450937,14.3812036263875,14.0961366673253,14.0713263058573,13.8858943182557,13.5208488612076,13.2997016587141,12.1287068059873,10.0614470875801,9.86387775152596,9.72223241465908,9.11217143710847,8.87185024391516,8.82467411627829,8.46436756104899,8.28476813402003,8.07566021121476,6.59961194577444],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(33,144,140,1)"}},"hoveron":"points","name":"Asia","legendgroup":"Asia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[32170,8458,30470,33203,28570,28821,15390,10808,36798,27538,20510,33693,22833,9787,18009,33860,36126,37506,10681,35278,18678,33207,49357,7446,14619,40676,5937,25768,9254,36181],"y":[79.4,71.8,80.7,79.4,80.5,80.9,75.6,72.5,79.8,79.5,78.1,79.4,76.5,74,73.3,80.9,79.8,81.7,73,78.3,74.7,79.3,80.2,74.9,75.7,78.9,76.4,77.9,74.5,81.8],"text":["Country: Germany<br />Population (M): 82.4<br />Life Expectancy: 79.4<br />Gdp per capita: 32170","Country: Turkey<br />Population (M): 71.16<br />Life Expectancy: 71.8<br />Gdp per capita: 8458","Country: France<br />Population (M): 61.08<br />Life Expectancy: 80.7<br />Gdp per capita: 30470","Country: United Kingdom<br />Population (M): 60.78<br />Life Expectancy: 79.4<br />Gdp per capita: 33203","Country: Italy<br />Population (M): 58.15<br />Life Expectancy: 80.5<br />Gdp per capita: 28570","Country: Spain<br />Population (M): 40.45<br />Life Expectancy: 80.9<br />Gdp per capita: 28821","Country: Poland<br />Population (M): 38.52<br />Life Expectancy: 75.6<br />Gdp per capita: 15390","Country: Romania<br />Population (M): 22.28<br />Life Expectancy: 72.5<br />Gdp per capita: 10808","Country: Netherlands<br />Population (M): 16.57<br />Life Expectancy: 79.8<br />Gdp per capita: 36798","Country: Greece<br />Population (M): 10.71<br />Life Expectancy: 79.5<br />Gdp per capita: 27538","Country: Portugal<br />Population (M): 10.64<br />Life Expectancy: 78.1<br />Gdp per capita: 20510","Country: Belgium<br />Population (M): 10.39<br />Life Expectancy: 79.4<br />Gdp per capita: 33693","Country: Czech Republic<br />Population (M): 10.23<br />Life Expectancy: 76.5<br />Gdp per capita: 22833","Country: Serbia<br />Population (M): 10.15<br />Life Expectancy: 74<br />Gdp per capita: 9787","Country: Hungary<br />Population (M): 9.96<br />Life Expectancy: 73.3<br />Gdp per capita: 18009","Country: Sweden<br />Population (M): 9.03<br />Life Expectancy: 80.9<br />Gdp per capita: 33860","Country: Austria<br />Population (M): 8.2<br />Life Expectancy: 79.8<br />Gdp per capita: 36126","Country: Switzerland<br />Population (M): 7.55<br />Life Expectancy: 81.7<br />Gdp per capita: 37506","Country: Bulgaria<br />Population (M): 7.32<br />Life Expectancy: 73<br />Gdp per capita: 10681","Country: Denmark<br />Population (M): 5.47<br />Life Expectancy: 78.3<br />Gdp per capita: 35278","Country: Slovak Republic<br />Population (M): 5.45<br />Life Expectancy: 74.7<br />Gdp per capita: 18678","Country: Finland<br />Population (M): 5.24<br />Life Expectancy: 79.3<br />Gdp per capita: 33207","Country: Norway<br />Population (M): 4.63<br />Life Expectancy: 80.2<br />Gdp per capita: 49357","Country: Bosnia and Herzegovina<br />Population (M): 4.55<br />Life Expectancy: 74.9<br />Gdp per capita: 7446","Country: Croatia<br />Population (M): 4.49<br />Life Expectancy: 75.7<br />Gdp per capita: 14619","Country: Ireland<br />Population (M): 4.11<br />Life Expectancy: 78.9<br />Gdp per capita: 40676","Country: Albania<br />Population (M): 3.6<br />Life Expectancy: 76.4<br />Gdp per capita: 5937","Country: Slovenia<br />Population (M): 2.01<br />Life Expectancy: 77.9<br />Gdp per capita: 25768","Country: Montenegro<br />Population (M): 0.68<br />Life Expectancy: 74.5<br />Gdp per capita: 9254","Country: Iceland<br />Population (M): 0.3<br />Life Expectancy: 81.8<br />Gdp per capita: 36181"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(93,200,99,1)","opacity":0.7,"size":[21.9005617250729,20.7232675095569,19.5852383678433,19.5499766585459,19.2370325706099,16.9137529062718,16.6316808208336,13.8995504136118,12.7033785208117,11.2303583265306,11.210547388219,11.1392461978393,11.0931535964696,11.0699694277533,11.0145306372464,10.7350333110057,10.4728732067275,10.2579145258284,10.1795885705161,9.49684905388378,9.48886137246376,9.40405419014953,9.1471454647842,9.11217143710847,9.08572936955586,8.9137834950518,8.66928588105217,7.75597407598601,6.5605501740259,5.87065176503444],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(93,200,99,1)"}},"hoveron":"points","name":"Europe","legendgroup":"Europe","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[34435,25185],"y":[81.2,80.2],"text":["Country: Australia<br />Population (M): 20.43<br />Life Expectancy: 81.2<br />Gdp per capita: 34435","Country: New Zealand<br />Population (M): 4.12<br />Life Expectancy: 80.2<br />Gdp per capita: 25185"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","opacity":0.7,"size":[13.531037685561,8.91841281951244],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(253,231,37,1)"}},"hoveron":"points","name":"Oceania","legendgroup":"Oceania","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":61.5434975982921,"r":39.8505603985056,"b":76.5937259087944,"l":70.9007887090079},"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.2760481527605},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[-2175.95,51810.95],"tickmode":"array","ticktext":["0","10000","20000","30000","40000","50000"],"tickvals":[0,10000,20000,30000,40000,50000],"categoryorder":"array","categoryarray":["0","10000","20000","30000","40000","50000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.81901203819012,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.2760481527605},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":"gdpPercap","titlefont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.9551681195517},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[37.45,84.75],"tickmode":"array","ticktext":["40","50","60","70","80"],"tickvals":[40,50,60,70,80],"categoryorder":"array","categoryarray":["40","50","60","70","80"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.81901203819012,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.2760481527605},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"lifeExp","titlefont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.9551681195517},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.2208385222084}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"d7846c8bb3ba":{"x":{},"y":{},"size":{},"colour":{},"text":{},"type":"scatter"}},"cur_data":"d7846c8bb3ba","visdat":{"d7846c8bb3ba":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
-<h1 id="mistake">Common mistakes</h1>
+<p>Following the same idea, bubble plot is probably the type of chart
+where using <code>interactivity</code> makes the more sense. In the
+following plot you can hover bubbles to get conutry name and zoom on a
+specific part of the graphic.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Interactive version</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>p <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">gdpPercap=</span><span class="fu">round</span>(gdpPercap,<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span><span class="fu">round</span>(pop<span class="sc">/</span><span class="dv">1000000</span>,<span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lifeExp=</span><span class="fu">round</span>(lifeExp,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country, country)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">paste</span>(<span class="st">&quot;Country: &quot;</span>, country, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Population (M): &quot;</span>, pop, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Life Expectancy: &quot;</span>, lifeExp, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">Gdp per capita: &quot;</span>, gdpPercap, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>lifeExp, <span class="at">size =</span> pop, <span class="at">color =</span> continent, <span class="at">text=</span>text)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="fu">scale_size</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">1.4</span>, <span class="dv">19</span>), <span class="at">name=</span><span class="st">&quot;Population (M)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>, <span class="at">guide=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="fu">ggplotly</span>(p, <span class="at">tooltip=</span><span class="st">&quot;text&quot;</span>)</span></code></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-cea5f2a594753e0e2ab9" style="width:768px;height:672px;"></div>
+<script type="application/json" data-for="htmlwidget-cea5f2a594753e0e2ab9">{"x":{"data":[{"x":[2014,5581,691,278,9270,2602,1107,1463,3820,6223,1056,1328,824,1045,1545,2042,1217,759,620,4797,470,1712,1043,1271,7093,1704,943,926,863,430,1441,863,12057,883,641,706,3633,1803,415,4811,1569,753,12570,579,13206,10957,4513,7670,986,12154,2082,1598],"y":[46.899999999999999,71.299999999999997,52.899999999999999,46.5,49.299999999999997,58.600000000000001,52.5,54.100000000000001,71.200000000000003,72.299999999999997,51.5,60,42.100000000000001,59.399999999999999,48.299999999999997,50.399999999999999,52.299999999999997,48.299999999999997,56.899999999999999,42.700000000000003,43.5,63.100000000000001,54.5,42.399999999999999,73.900000000000006,50.700000000000003,56,48.200000000000003,46.200000000000003,49.600000000000001,56.700000000000003,42.600000000000001,74,58.399999999999999,58,44.700000000000003,55.299999999999997,64.200000000000003,45.700000000000003,52.899999999999999,42.600000000000001,59.399999999999999,50.700000000000003,46.399999999999999,56.700000000000003,72.799999999999997,39.600000000000001,76.400000000000006,65.200000000000003,51.600000000000001,54.799999999999997,65.5],"text":["Country: Nigeria<br />Population (M): 135.03<br />Life Expectancy: 46.9<br />Gdp per capita: 2014","Country: Egypt<br />Population (M): 80.26<br />Life Expectancy: 71.3<br />Gdp per capita: 5581","Country: Ethiopia<br />Population (M): 76.51<br />Life Expectancy: 52.9<br />Gdp per capita: 691","Country: Congo, Dem. Rep.<br />Population (M): 64.61<br />Life Expectancy: 46.5<br />Gdp per capita: 278","Country: South Africa<br />Population (M): 44<br />Life Expectancy: 49.3<br />Gdp per capita: 9270","Country: Sudan<br />Population (M): 42.29<br />Life Expectancy: 58.6<br />Gdp per capita: 2602","Country: Tanzania<br />Population (M): 38.14<br />Life Expectancy: 52.5<br />Gdp per capita: 1107","Country: Kenya<br />Population (M): 35.61<br />Life Expectancy: 54.1<br />Gdp per capita: 1463","Country: Morocco<br />Population (M): 33.76<br />Life Expectancy: 71.2<br />Gdp per capita: 3820","Country: Algeria<br />Population (M): 33.33<br />Life Expectancy: 72.3<br />Gdp per capita: 6223","Country: Uganda<br />Population (M): 29.17<br />Life Expectancy: 51.5<br />Gdp per capita: 1056","Country: Ghana<br />Population (M): 22.87<br />Life Expectancy: 60<br />Gdp per capita: 1328","Country: Mozambique<br />Population (M): 19.95<br />Life Expectancy: 42.1<br />Gdp per capita: 824","Country: Madagascar<br />Population (M): 19.17<br />Life Expectancy: 59.4<br />Gdp per capita: 1045","Country: Cote d'Ivoire<br />Population (M): 18.01<br />Life Expectancy: 48.3<br />Gdp per capita: 1545","Country: Cameroon<br />Population (M): 17.7<br />Life Expectancy: 50.4<br />Gdp per capita: 2042","Country: Burkina Faso<br />Population (M): 14.33<br />Life Expectancy: 52.3<br />Gdp per capita: 1217","Country: Malawi<br />Population (M): 13.33<br />Life Expectancy: 48.3<br />Gdp per capita: 759","Country: Niger<br />Population (M): 12.89<br />Life Expectancy: 56.9<br />Gdp per capita: 620","Country: Angola<br />Population (M): 12.42<br />Life Expectancy: 42.7<br />Gdp per capita: 4797","Country: Zimbabwe<br />Population (M): 12.31<br />Life Expectancy: 43.5<br />Gdp per capita: 470","Country: Senegal<br />Population (M): 12.27<br />Life Expectancy: 63.1<br />Gdp per capita: 1712","Country: Mali<br />Population (M): 12.03<br />Life Expectancy: 54.5<br />Gdp per capita: 1043","Country: Zambia<br />Population (M): 11.75<br />Life Expectancy: 42.4<br />Gdp per capita: 1271","Country: Tunisia<br />Population (M): 10.28<br />Life Expectancy: 73.9<br />Gdp per capita: 7093","Country: Chad<br />Population (M): 10.24<br />Life Expectancy: 50.7<br />Gdp per capita: 1704","Country: Guinea<br />Population (M): 9.95<br />Life Expectancy: 56<br />Gdp per capita: 943","Country: Somalia<br />Population (M): 9.12<br />Life Expectancy: 48.2<br />Gdp per capita: 926","Country: Rwanda<br />Population (M): 8.86<br />Life Expectancy: 46.2<br />Gdp per capita: 863","Country: Burundi<br />Population (M): 8.39<br />Life Expectancy: 49.6<br />Gdp per capita: 430","Country: Benin<br />Population (M): 8.08<br />Life Expectancy: 56.7<br />Gdp per capita: 1441","Country: Sierra Leone<br />Population (M): 6.14<br />Life Expectancy: 42.6<br />Gdp per capita: 863","Country: Libya<br />Population (M): 6.04<br />Life Expectancy: 74<br />Gdp per capita: 12057","Country: Togo<br />Population (M): 5.7<br />Life Expectancy: 58.4<br />Gdp per capita: 883","Country: Eritrea<br />Population (M): 4.91<br />Life Expectancy: 58<br />Gdp per capita: 641","Country: Central African Republic<br />Population (M): 4.37<br />Life Expectancy: 44.7<br />Gdp per capita: 706","Country: Congo, Rep.<br />Population (M): 3.8<br />Life Expectancy: 55.3<br />Gdp per capita: 3633","Country: Mauritania<br />Population (M): 3.27<br />Life Expectancy: 64.2<br />Gdp per capita: 1803","Country: Liberia<br />Population (M): 3.19<br />Life Expectancy: 45.7<br />Gdp per capita: 415","Country: Namibia<br />Population (M): 2.06<br />Life Expectancy: 52.9<br />Gdp per capita: 4811","Country: Lesotho<br />Population (M): 2.01<br />Life Expectancy: 42.6<br />Gdp per capita: 1569","Country: Gambia<br />Population (M): 1.69<br />Life Expectancy: 59.4<br />Gdp per capita: 753","Country: Botswana<br />Population (M): 1.64<br />Life Expectancy: 50.7<br />Gdp per capita: 12570","Country: Guinea-Bissau<br />Population (M): 1.47<br />Life Expectancy: 46.4<br />Gdp per capita: 579","Country: Gabon<br />Population (M): 1.45<br />Life Expectancy: 56.7<br />Gdp per capita: 13206","Country: Mauritius<br />Population (M): 1.25<br />Life Expectancy: 72.8<br />Gdp per capita: 10957","Country: Swaziland<br />Population (M): 1.13<br />Life Expectancy: 39.6<br />Gdp per capita: 4513","Country: Reunion<br />Population (M): 0.8<br />Life Expectancy: 76.4<br />Gdp per capita: 7670","Country: Comoros<br />Population (M): 0.71<br />Life Expectancy: 65.2<br />Gdp per capita: 986","Country: Equatorial Guinea<br />Population (M): 0.55<br />Life Expectancy: 51.6<br />Gdp per capita: 12154","Country: Djibouti<br />Population (M): 0.5<br />Life Expectancy: 54.8<br />Gdp per capita: 2082","Country: Sao Tome and Principe<br />Population (M): 0.2<br />Life Expectancy: 65.5<br />Gdp per capita: 1598"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(68,1,84,1)","opacity":0.69999999999999996,"size":[26.563257959966595,21.682933162225595,21.294439274052486,19.993800414329737,17.415465285445308,17.176439505814113,16.575312518226415,16.192590463440961,15.904001912288507,15.835793370179923,15.151582505337938,14.013802290221911,13.43269861908694,13.270313071236298,13.022511212708375,12.954931641370955,12.177615642717408,11.929468900402734,11.81729579651136,11.695304531173916,11.666416286511661,11.655878960789829,11.592284955470662,11.517271015310156,11.107596772948085,11.096045106748161,11.011597922703537,10.762705476074075,10.68237613566288,10.534042866766962,10.43386486305041,9.7561861206366629,9.7184437061150621,9.5876401292297544,9.2671324970057452,9.032284576359304,8.7672176768208097,8.5011727733892641,8.4590747650733693,7.7897840986939073,7.7559740759860061,7.527517482601854,7.4896775444485151,7.3558404095865013,7.3395199810551031,7.1685278416906453,7.0580063494777265,6.7103602807203897,6.5996119457744395,6.375134306688472,6.2947384480143782,5.2913385826771648],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(68,1,84,1)"}},"hoveron":"points","name":"Africa","legendgroup":"Africa","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[42952,9066,11978,7007,12779,36319,7409,11416,13172,6873,5186,8948,6025,3822,1202,3548,5728,4173,2749,9645,19329,10611,9809,7321,18009],"y":[78.200000000000003,72.400000000000006,76.200000000000003,72.900000000000006,75.299999999999997,80.700000000000003,71.400000000000006,73.700000000000003,78.599999999999994,75,70.299999999999997,78.299999999999997,72.200000000000003,65.599999999999994,60.899999999999999,70.200000000000003,71.900000000000006,71.799999999999997,72.900000000000006,78.799999999999997,78.700000000000003,76.400000000000006,75.5,72.599999999999994,69.799999999999997],"text":["Country: United States<br />Population (M): 301.14<br />Life Expectancy: 78.2<br />Gdp per capita: 42952","Country: Brazil<br />Population (M): 190.01<br />Life Expectancy: 72.4<br />Gdp per capita: 9066","Country: Mexico<br />Population (M): 108.7<br />Life Expectancy: 76.2<br />Gdp per capita: 11978","Country: Colombia<br />Population (M): 44.23<br />Life Expectancy: 72.9<br />Gdp per capita: 7007","Country: Argentina<br />Population (M): 40.3<br />Life Expectancy: 75.3<br />Gdp per capita: 12779","Country: Canada<br />Population (M): 33.39<br />Life Expectancy: 80.7<br />Gdp per capita: 36319","Country: Peru<br />Population (M): 28.67<br />Life Expectancy: 71.4<br />Gdp per capita: 7409","Country: Venezuela<br />Population (M): 26.08<br />Life Expectancy: 73.7<br />Gdp per capita: 11416","Country: Chile<br />Population (M): 16.28<br />Life Expectancy: 78.6<br />Gdp per capita: 13172","Country: Ecuador<br />Population (M): 13.76<br />Life Expectancy: 75<br />Gdp per capita: 6873","Country: Guatemala<br />Population (M): 12.57<br />Life Expectancy: 70.3<br />Gdp per capita: 5186","Country: Cuba<br />Population (M): 11.42<br />Life Expectancy: 78.3<br />Gdp per capita: 8948","Country: Dominican Republic<br />Population (M): 9.32<br />Life Expectancy: 72.2<br />Gdp per capita: 6025","Country: Bolivia<br />Population (M): 9.12<br />Life Expectancy: 65.6<br />Gdp per capita: 3822","Country: Haiti<br />Population (M): 8.5<br />Life Expectancy: 60.9<br />Gdp per capita: 1202","Country: Honduras<br />Population (M): 7.48<br />Life Expectancy: 70.2<br />Gdp per capita: 3548","Country: El Salvador<br />Population (M): 6.94<br />Life Expectancy: 71.9<br />Gdp per capita: 5728","Country: Paraguay<br />Population (M): 6.67<br />Life Expectancy: 71.8<br />Gdp per capita: 4173","Country: Nicaragua<br />Population (M): 5.68<br />Life Expectancy: 72.9<br />Gdp per capita: 2749","Country: Costa Rica<br />Population (M): 4.13<br />Life Expectancy: 78.8<br />Gdp per capita: 9645","Country: Puerto Rico<br />Population (M): 3.94<br />Life Expectancy: 78.7<br />Gdp per capita: 19329","Country: Uruguay<br />Population (M): 3.45<br />Life Expectancy: 76.4<br />Gdp per capita: 10611","Country: Panama<br />Population (M): 3.24<br />Life Expectancy: 75.5<br />Gdp per capita: 9809","Country: Jamaica<br />Population (M): 2.78<br />Life Expectancy: 72.6<br />Gdp per capita: 7321","Country: Trinidad and Tobago<br />Population (M): 1.06<br />Life Expectancy: 69.8<br />Gdp per capita: 18009"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(59,82,139,1)","opacity":0.69999999999999996,"size":[37.071300274493503,30.530385772108716,24.373531410793372,17.44725635799373,16.89207601891016,15.845337304661243,15.066122027751748,14.610901551499989,12.637431770969043,12.037290724302162,11.734488861413897,11.427684583105821,10.823703647336728,10.762705476074075,10.56913285206582,10.234207584058042,10.047355155739783,9.951120067088576,9.5798215576065981,8.9230362429786734,8.834159597865332,8.5939318524758619,8.4854510420136435,8.2338846047344489,6.9902183206147992],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(59,82,139,1)"}},"hoveron":"points","name":"Americas","legendgroup":"Americas","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[4959,2452,3541,2606,1391,31656,3190,2442,11606,7458,23348,944,975,1091,21655,4471,12452,1593,28718,2281,3970,4185,1714,39725,25523,4519,47143,3025,10461,22316,3096,47307,29796],"y":[73,64.700000000000003,70.700000000000003,65.5,64.099999999999994,82.599999999999994,71.700000000000003,74.200000000000003,71,70.599999999999994,78.599999999999994,62.100000000000001,43.799999999999997,63.799999999999997,72.799999999999997,59.5,74.200000000000003,67.299999999999997,78.400000000000006,62.700000000000003,72.400000000000006,74.099999999999994,59.700000000000003,82.200000000000003,80.700000000000003,72.5,80,73.400000000000006,72,75.599999999999994,66.799999999999997,77.599999999999994,75.599999999999994],"text":["Country: China<br />Population (M): 1318.68<br />Life Expectancy: 73<br />Gdp per capita: 4959","Country: India<br />Population (M): 1110.4<br />Life Expectancy: 64.7<br />Gdp per capita: 2452","Country: Indonesia<br />Population (M): 223.55<br />Life Expectancy: 70.7<br />Gdp per capita: 3541","Country: Pakistan<br />Population (M): 169.27<br />Life Expectancy: 65.5<br />Gdp per capita: 2606","Country: Bangladesh<br />Population (M): 150.45<br />Life Expectancy: 64.1<br />Gdp per capita: 1391","Country: Japan<br />Population (M): 127.47<br />Life Expectancy: 82.6<br />Gdp per capita: 31656","Country: Philippines<br />Population (M): 91.08<br />Life Expectancy: 71.7<br />Gdp per capita: 3190","Country: Vietnam<br />Population (M): 85.26<br />Life Expectancy: 74.2<br />Gdp per capita: 2442","Country: Iran<br />Population (M): 69.45<br />Life Expectancy: 71<br />Gdp per capita: 11606","Country: Thailand<br />Population (M): 65.07<br />Life Expectancy: 70.6<br />Gdp per capita: 7458","Country: Korea, Rep.<br />Population (M): 49.04<br />Life Expectancy: 78.6<br />Gdp per capita: 23348","Country: Myanmar<br />Population (M): 47.76<br />Life Expectancy: 62.1<br />Gdp per capita: 944","Country: Afghanistan<br />Population (M): 31.89<br />Life Expectancy: 43.8<br />Gdp per capita: 975","Country: Nepal<br />Population (M): 28.9<br />Life Expectancy: 63.8<br />Gdp per capita: 1091","Country: Saudi Arabia<br />Population (M): 27.6<br />Life Expectancy: 72.8<br />Gdp per capita: 21655","Country: Iraq<br />Population (M): 27.5<br />Life Expectancy: 59.5<br />Gdp per capita: 4471","Country: Malaysia<br />Population (M): 24.82<br />Life Expectancy: 74.2<br />Gdp per capita: 12452","Country: Korea, Dem. Rep.<br />Population (M): 23.3<br />Life Expectancy: 67.3<br />Gdp per capita: 1593","Country: Taiwan<br />Population (M): 23.17<br />Life Expectancy: 78.4<br />Gdp per capita: 28718","Country: Yemen, Rep.<br />Population (M): 22.21<br />Life Expectancy: 62.7<br />Gdp per capita: 2281","Country: Sri Lanka<br />Population (M): 20.38<br />Life Expectancy: 72.4<br />Gdp per capita: 3970","Country: Syria<br />Population (M): 19.31<br />Life Expectancy: 74.1<br />Gdp per capita: 4185","Country: Cambodia<br />Population (M): 14.13<br />Life Expectancy: 59.7<br />Gdp per capita: 1714","Country: Hong Kong, China<br />Population (M): 6.98<br />Life Expectancy: 82.2<br />Gdp per capita: 39725","Country: Israel<br />Population (M): 6.43<br />Life Expectancy: 80.7<br />Gdp per capita: 25523","Country: Jordan<br />Population (M): 6.05<br />Life Expectancy: 72.5<br />Gdp per capita: 4519","Country: Singapore<br />Population (M): 4.55<br />Life Expectancy: 80<br />Gdp per capita: 47143","Country: West Bank and Gaza<br />Population (M): 4.02<br />Life Expectancy: 73.4<br />Gdp per capita: 3025","Country: Lebanon<br />Population (M): 3.92<br />Life Expectancy: 72<br />Gdp per capita: 10461","Country: Oman<br />Population (M): 3.2<br />Life Expectancy: 75.6<br />Gdp per capita: 22316","Country: Mongolia<br />Population (M): 2.87<br />Life Expectancy: 66.8<br />Gdp per capita: 3096","Country: Kuwait<br />Population (M): 2.51<br />Life Expectancy: 77.6<br />Gdp per capita: 47307","Country: Bahrain<br />Population (M): 0.71<br />Life Expectancy: 75.6<br />Gdp per capita: 29796"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(33,144,140,1)","opacity":0.69999999999999996,"size":[71.811023622047244,66.331267970200471,32.669633000434082,29.111608995325685,27.746731126284608,25.958290692071074,22.755493301536205,22.187035106435133,20.536193650949933,20.046207650959818,18.094028845771181,17.92514837240746,15.604089552949251,15.105526274666035,14.880678034969902,14.863163245093681,14.381203626387496,14.096136667325258,14.071326305857303,13.885894318255705,13.520848861207575,13.299701658714087,12.12870680598726,10.061447087580115,9.8638777515259601,9.7222324146590786,9.1121714371084721,8.8718502439151585,8.8246741162782882,8.4643675610489932,8.2847681340200303,8.075660211214764,6.5996119457744395],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(33,144,140,1)"}},"hoveron":"points","name":"Asia","legendgroup":"Asia","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[32170,8458,30470,33203,28570,28821,15390,10808,36798,27538,20510,33693,22833,9787,18009,33860,36126,37506,10681,35278,18678,33207,49357,7446,14619,40676,5937,25768,9254,36181],"y":[79.400000000000006,71.799999999999997,80.700000000000003,79.400000000000006,80.5,80.900000000000006,75.599999999999994,72.5,79.799999999999997,79.5,78.099999999999994,79.400000000000006,76.5,74,73.299999999999997,80.900000000000006,79.799999999999997,81.700000000000003,73,78.299999999999997,74.700000000000003,79.299999999999997,80.200000000000003,74.900000000000006,75.700000000000003,78.900000000000006,76.400000000000006,77.900000000000006,74.5,81.799999999999997],"text":["Country: Germany<br />Population (M): 82.4<br />Life Expectancy: 79.4<br />Gdp per capita: 32170","Country: Turkey<br />Population (M): 71.16<br />Life Expectancy: 71.8<br />Gdp per capita: 8458","Country: France<br />Population (M): 61.08<br />Life Expectancy: 80.7<br />Gdp per capita: 30470","Country: United Kingdom<br />Population (M): 60.78<br />Life Expectancy: 79.4<br />Gdp per capita: 33203","Country: Italy<br />Population (M): 58.15<br />Life Expectancy: 80.5<br />Gdp per capita: 28570","Country: Spain<br />Population (M): 40.45<br />Life Expectancy: 80.9<br />Gdp per capita: 28821","Country: Poland<br />Population (M): 38.52<br />Life Expectancy: 75.6<br />Gdp per capita: 15390","Country: Romania<br />Population (M): 22.28<br />Life Expectancy: 72.5<br />Gdp per capita: 10808","Country: Netherlands<br />Population (M): 16.57<br />Life Expectancy: 79.8<br />Gdp per capita: 36798","Country: Greece<br />Population (M): 10.71<br />Life Expectancy: 79.5<br />Gdp per capita: 27538","Country: Portugal<br />Population (M): 10.64<br />Life Expectancy: 78.1<br />Gdp per capita: 20510","Country: Belgium<br />Population (M): 10.39<br />Life Expectancy: 79.4<br />Gdp per capita: 33693","Country: Czech Republic<br />Population (M): 10.23<br />Life Expectancy: 76.5<br />Gdp per capita: 22833","Country: Serbia<br />Population (M): 10.15<br />Life Expectancy: 74<br />Gdp per capita: 9787","Country: Hungary<br />Population (M): 9.96<br />Life Expectancy: 73.3<br />Gdp per capita: 18009","Country: Sweden<br />Population (M): 9.03<br />Life Expectancy: 80.9<br />Gdp per capita: 33860","Country: Austria<br />Population (M): 8.2<br />Life Expectancy: 79.8<br />Gdp per capita: 36126","Country: Switzerland<br />Population (M): 7.55<br />Life Expectancy: 81.7<br />Gdp per capita: 37506","Country: Bulgaria<br />Population (M): 7.32<br />Life Expectancy: 73<br />Gdp per capita: 10681","Country: Denmark<br />Population (M): 5.47<br />Life Expectancy: 78.3<br />Gdp per capita: 35278","Country: Slovak Republic<br />Population (M): 5.45<br />Life Expectancy: 74.7<br />Gdp per capita: 18678","Country: Finland<br />Population (M): 5.24<br />Life Expectancy: 79.3<br />Gdp per capita: 33207","Country: Norway<br />Population (M): 4.63<br />Life Expectancy: 80.2<br />Gdp per capita: 49357","Country: Bosnia and Herzegovina<br />Population (M): 4.55<br />Life Expectancy: 74.9<br />Gdp per capita: 7446","Country: Croatia<br />Population (M): 4.49<br />Life Expectancy: 75.7<br />Gdp per capita: 14619","Country: Ireland<br />Population (M): 4.11<br />Life Expectancy: 78.9<br />Gdp per capita: 40676","Country: Albania<br />Population (M): 3.6<br />Life Expectancy: 76.4<br />Gdp per capita: 5937","Country: Slovenia<br />Population (M): 2.01<br />Life Expectancy: 77.9<br />Gdp per capita: 25768","Country: Montenegro<br />Population (M): 0.68<br />Life Expectancy: 74.5<br />Gdp per capita: 9254","Country: Iceland<br />Population (M): 0.3<br />Life Expectancy: 81.8<br />Gdp per capita: 36181"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(93,200,99,1)","opacity":0.69999999999999996,"size":[21.900561725072897,20.723267509556869,19.585238367843317,19.549976658545916,19.237032570609877,16.913752906271775,16.631680820833648,13.8995504136118,12.703378520811723,11.230358326530613,11.210547388219004,11.139246197839341,11.093153596469584,11.069969427753252,11.014530637246384,10.735033311005727,10.472873206727549,10.257914525828445,10.179588570516099,9.4968490538837784,9.4888613724637647,9.4040541901495303,9.1471454647842041,9.1121714371084721,9.0857293695558621,8.9137834950518009,8.6692858810521738,7.7559740759860061,6.5605501740258969,5.8706517650344381],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(93,200,99,1)"}},"hoveron":"points","name":"Europe","legendgroup":"Europe","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[34435,25185],"y":[81.200000000000003,80.200000000000003],"text":["Country: Australia<br />Population (M): 20.43<br />Life Expectancy: 81.2<br />Gdp per capita: 34435","Country: New Zealand<br />Population (M): 4.12<br />Life Expectancy: 80.2<br />Gdp per capita: 25185"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(253,231,37,1)","opacity":0.69999999999999996,"size":[13.531037685560968,8.9184128195124366],"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(253,231,37,1)"}},"hoveron":"points","name":"Oceania","legendgroup":"Oceania","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":61.54349759829212,"r":39.850560398505614,"b":76.593725908794411,"l":70.900788709007898},"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.276048152760483},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-2175.9500000000003,51810.949999999997],"tickmode":"array","ticktext":["0","10000","20000","30000","40000","50000"],"tickvals":[0,10000,20000,30000,40000,50000],"categoryorder":"array","categoryarray":["0","10000","20000","30000","40000","50000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"y","title":{"text":"gdpPercap","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[37.450000000000003,84.75],"tickmode":"array","ticktext":["40","50","60","70","80"],"tickvals":[40,50,60,70,80],"categoryorder":"array","categoryarray":["40","50","60","70","80"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"lifeExp","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.220838522208389}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"73d04051c5b0":{"x":{},"y":{},"size":{},"colour":{},"text":{},"type":"scatter"}},"cur_data":"73d04051c5b0","visdat":{"73d04051c5b0":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="mistake" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Common mistakes</h1>
 <hr />
 <ul>
-<li>The problem with bubble plot is that the relationship between the variable of the X and Y axis is much more obvious than the relationship with the third variable. Thus you must <code>prioritize</code> your variables and be sure of what you want to show. Before doing that kind of chart, I believe it is a good practice to try other combinations:</li>
+<li>The problem with bubble plot is that the relationship between the
+variable of the X and Y axis is much more obvious than the relationship
+with the third variable. Thus you must <code>prioritize</code> your
+variables and be sure of what you want to show. Before doing that kind
+of chart, I believe it is a good practice to try other
+combinations:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p2 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop=</span>pop<span class="op">/</span><span class="dv">1000000</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> <span class="kw">factor</span>(country, country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>gdpPercap, <span class="dt">y=</span>pop, <span class="dt">size =</span> lifeExp, <span class="dt">color =</span> continent)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
-
-p3 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">pop=</span>pop<span class="op">/</span><span class="dv">1000000</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(pop)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">country =</span> <span class="kw">factor</span>(country, country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>lifeExp, <span class="dt">y=</span>pop, <span class="dt">size =</span> gdpPercap, <span class="dt">color =</span> continent)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">alpha=</span><span class="fl">0.7</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_y_log10</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)
-
-<span class="kw">grid.arrange</span>(p2,p3, <span class="dt">ncol=</span><span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span>pop<span class="sc">/</span><span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country, country)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>gdpPercap, <span class="at">y=</span>pop, <span class="at">size =</span> lifeExp, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">pop=</span>pop<span class="sc">/</span><span class="dv">1000000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(pop)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">country =</span> <span class="fu">factor</span>(country, country)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>lifeExp, <span class="at">y=</span>pop, <span class="at">size =</span> gdpPercap, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>    <span class="fu">scale_y_log10</span>() <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) </span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a><span class="fu">grid.arrange</span>(p2,p3, <span class="at">ncol=</span><span class="dv">2</span>)</span></code></pre></div>
 <p><img src="bubble_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
 <ul>
-<li>Use bubble <code>area</code> as metrics, <a href="http://www.data-to-viz.com/caveat/radius_or_area.html">not diameter</a>.</li>
-<li>As for scatter, bubble plot suffers <a href="http://www.data-to-viz.com/caveat/overplotting.html">overplotting</a> if sample size is too big.</li>
+<li>Use bubble <code>area</code> as metrics, <a
+href="http://www.data-to-viz.com/caveat/radius_or_area.html">not
+diameter</a>.</li>
+<li>As for scatter, bubble plot suffers <a
+href="http://www.data-to-viz.com/caveat/overplotting.html">overplotting</a>
+if sample size is too big.</li>
 <li>Show a legend for bubble size.</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+<a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
 <p class="mytitlerelated">
 Scatter plot
 </p>
@@ -365,7 +468,8 @@ Display the relationship between 2 numeric variables
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+<a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
 <p class="mytitlerelated">
 Correlogram
 </p>
@@ -375,7 +479,8 @@ Shows the relationship between each pair of numeric variables
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
+<a href="http://www.data-to-viz.com/graph/connectedscatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterConnectedSmall.png">
 <p class="mytitlerelated">
 Connected Scatterplot
 </p>
@@ -385,7 +490,8 @@ Very close from a scatterplot, but link data points with segments
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+<a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
 <p class="mytitlerelated">
 Density 2d
 </p>
@@ -395,45 +501,89 @@ One of the best way to avoid overplotting for big sample size
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://r-graph-gallery.com/bubble-chart.html">R</a>, <a
+href="https://python-graph-gallery.com/bubble-plot/">Python</a>, <a
+href="https://www.react-graph-gallery.com/bubble-plot">React</a> and <a
+href="https://d3-graph-gallery.com/bubble.html">D3</a> graph galleries
+are 4 websites providing hundreds of chart example, always providing the
+reproducible code. Click the button below to see how to build the chart
+you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/bubble-chart/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/bubble-plot/" class="btn btn-primary">Python gallery</a>
+<a href="https://r-graph-gallery.com/bubble-chart.html/" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com//bubble-plot/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/bubble-plot" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/bubble.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/bubble.html;
-        this.page.identifier = bubble;
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -454,28 +604,29 @@ One of the best way to avoid overplotting for big sample size
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>
