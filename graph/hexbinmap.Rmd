@@ -33,7 +33,7 @@ The term `hexbin map` refers to two different concepts:
 
 - The first definition is based on an unusual geospatial object where all regions of the map are represented as hexagons. Here is an example representing the US states, each represented as an hexagon. Note that here the data input provides `one value per state` and a `specific shape file` with hexagone boundaries.
 
-```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8, eval=FALSE}
+```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8}
 # library
 library(tidyverse)
 
@@ -230,13 +230,13 @@ All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph
 # Build your own {#code}
 ***
 
-The [R](https://r-graph-gallery.com/hexbin-map.html), [Python](https:/python-graph-gallery.com/hexbin-map/), [React](https://www.react-graph-gallery.com/barplot) and [D3](https://d3-graph-gallery.com/barplot.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/hexbin-map.html), [Python](https:/python-graph-gallery.com/hexbin-map/), [React](https://www.react-graph-gallery.com/hexbin-map) and [D3](https://d3-graph-gallery.com/hexbinmap.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://r-graph-gallery.com/hexbin-map.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/hexbin-map/" class="btn btn-primary">Python gallery</a>
-<a href="https://www.react-graph-gallery.com/barplot" class="btn btn-primary">React gallery</a>
-<a href="https://d3-graph-gallery.com/barplot.html" class="btn btn-primary">D3 gallery</a>
+<a href="https://www.react-graph-gallery.com/hexbin-map" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/hexbinmap.html" class="btn btn-primary">D3 gallery</a>
 </p>
 
 

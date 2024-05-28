@@ -44,11 +44,11 @@ Here is an overview of these different possibilities
 library(reticulate)
 ```
 
-```{python, engine.path="/Users/y.holtz/anaconda3/bin/python", fig.width=1, fig.height=1}
+```{python, fig.width=1, fig.height=1}
 # Libraries
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.stats import kde
+from scipy.stats import gaussian_kde as kde
  
 # Create data: 200 points
 data = np.random.multivariate_normal([0, 0], [[1, 0.5], [0.5, 3]], 200)
@@ -71,7 +71,7 @@ axes[2].set_title('2D Histogram')
 axes[2].hist2d(x, y, bins=nbins, cmap=plt.cm.BuGn_r)
  
 # Evaluate a gaussian kde on a regular grid of nbins x nbins over data extents
-k = kde.gaussian_kde(data.T)
+k = kde(data.T)
 xi, yi = np.mgrid[x.min():x.max():nbins*1j, y.min():y.max():nbins*1j]
 zi = k(np.vstack([xi.flatten(), yi.flatten()]))
  
@@ -90,15 +90,10 @@ axes[5].contour(xi, yi, zi.reshape(xi.shape) )
 
 # save
 plt.savefig("IMG/density2d.png")
+plt.show()
 ```
 
 </div>
-
-
-<br><br>
-<center>
-<img src="IMG/density2d.png" alt="img" width="1800" height="900">
-</center>
 
 <br><br>
 
@@ -218,13 +213,13 @@ plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
 # Build your own {#code}
 ***
 
-The [R](https://r-graph-gallery.com/2d-density-chart.html), [Python](https:/python-graph-gallery.com/2d-density-plot/), [React](https://www.react-graph-gallery.com/barplot) and [D3](https://d3-graph-gallery.com/barplot.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/2d-density-chart.html), [Python](https:/python-graph-gallery.com/2d-density-plot/), [React](https://www.react-graph-gallery.com/2d-density-plot) and [D3](https://d3-graph-gallery.com/density2d.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://r-graph-gallery.com/2d-density-chart.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/2d-density-plot/" class="btn btn-primary">Python gallery</a>
-<a href="https://www.react-graph-gallery.com/barplot" class="btn btn-primary">React gallery</a>
-<a href="https://d3-graph-gallery.com/barplot.html" class="btn btn-primary">D3 gallery</a>
+<a href="https://www.react-graph-gallery.com/2d-density-plot" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/density2d.html" class="btn btn-primary">D3 gallery</a>
 </p>
 
 

@@ -37,6 +37,7 @@ A dendrogram is a `network structure`. It is constituted of a `root node` that g
 library(ggraph)
 library(igraph)
 library(tidyverse)
+library(dplyr)
 library(dendextend)
 library(colormap)
 library(kableExtra)
@@ -79,7 +80,7 @@ Two type of dendrogram exist, resulting from 2 types of dataset:
 
 
 
-#Dendrogram from hierarchic data
+# Dendrogram from hierarchic data
 ***
 
 
@@ -87,7 +88,7 @@ Two type of dendrogram exist, resulting from 2 types of dataset:
 
 
 
-#Dendrogram from clustering
+# Dendrogram from clustering
 ***
 
 <div class = "row">
@@ -102,10 +103,17 @@ Let's consider a `distance matrix` that provides the distance between all pairs 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Load the data
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, row.names="Cities.", sep=",") %>% as.matrix
+data <- read.table("../Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, sep=",") %>% as.matrix
 colnames(data) <- gsub("\\.", " ", colnames(data))
+data <- data %>%
+  as.data.frame() %>%
+  mutate_all(~ gsub(" ", "", .)) %>%
+  as.matrix()
+data <- apply(data, 2, as.numeric)
+data <- data[,-1] # remove the first column (city names)
 
 # show data
-tmp <- data %>% as.data.frame() %>% select(1,3,6) %>% .[c(1,3,6),] %>% drop_na
+tmp <- data %>% as.data.frame() %>% select(1,3,6) %>% .[c(1,3,6),]
 tmp[is.na(tmp)] <- "-"
 tmp %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
@@ -122,8 +130,8 @@ The result can be seen as a dendrogram:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Perform hierarchical cluster analysis.
-dend <- as.dist(data) %>% 
-  hclust(method="ward.D") %>% 
+dend <- as.dist(data) %>%
+  hclust(method="ward.D") %>%
   as.dendrogram()
 
 # Plot with Color in function of the cluster
@@ -304,17 +312,4 @@ The [R](https://r-graph-gallery.com/dendrogram.html), [Python](https:/python-gra
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 

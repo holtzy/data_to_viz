@@ -30,56 +30,125 @@ output:
 
 # Definition {#definition}
 ***
-Work in progress, sorry for the inconvenience.
 
+A donut plot is a pie chart with a hole in the center. It's a way to show the distribution of a categorical variable, but it can be a little bit tricky to read. It's not recommended to use it if you have a large number of categories.
+
+It's similar to a pie chart, but it's easier to compare the size of the slices. It's also possible to add a number inside each slice to show the exact proportion.
+
+```{r, warning=FALSE, message=FALSE, fig.align="center"}
+# load library
+library(ggplot2)
+
+# Create test data.
+data <- data.frame(
+  category=c("A", "B", "C"),
+  count=c(10, 60, 30)
+)
+ 
+# Compute percentages
+data$fraction <- data$count / sum(data$count)
+
+# Compute the cumulative percentages (top of each rectangle)
+data$ymax <- cumsum(data$fraction)
+
+# Compute the bottom of each rectangle
+data$ymin <- c(0, head(data$ymax, n=-1))
+
+# Compute label position
+data$labelPosition <- (data$ymax + data$ymin) / 2
+
+# Compute a good label
+data$label <- paste0(data$category, "\n value: ", data$count)
+
+# Make the plot
+ggplot(data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=category)) +
+  geom_rect() +
+  geom_label( x=3.5, aes(y=labelPosition, label=label), size=6) +
+  scale_fill_brewer(palette=4) +
+  coord_polar(theta="y") +
+  xlim(c(2, 4)) +
+  theme_void() +
+  theme(legend.position = "none")
+```
+
+
+
+# What for?
+***
+
+**Donut plots** are used to visualize the *distribution* of **categorical data**. They are particularly useful when you want to highlight the *proportions* of different categories within a dataset. The central hole of the donut plot can be used to display additional information, such as `total values` or `percentages`, making it easier to interpret the data at a glance.
+
+Compared to **pie charts**, donut plots provide a more effective visual comparison of *category sizes* due to the space in the center, which allows for a better understanding of the proportions. However, they are best suited for datasets with a limited number of categories, as too many slices can make the plot difficult to read.
+
+**Key purposes** of using a **donut plot** include:
+
+- Highlighting the proportional distribution of categories within a dataset.
+- Comparing the relative sizes of different categories.
+- Displaying `additional information` in the center of the plot for enhanced data interpretation.
+- Providing a visually appealing alternative to pie charts for presentations and reports.
+
+
+
+
+# Variation {#variation}
+***
+
+The donut plot is a variation of different charts. Here are some examples:
+
+- [Pie chart](https://www.data-to-viz.com/caveat/pie.html): The most basic form of a donut plot. It's a circle divided into slices to illustrate numerical proportions.
+- [Bar chart](https://www.data-to-viz.com/graph/barplot.html): A bar chart is a chart with rectangular bars with lengths proportional to the values they represent.
 
 
 
 # Related {#related}
 ***
 
+# Related {#related}
+***
+
 <div class="row">
-  <div class="col-sm-3">
-  <a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
-  <p class="mytitlerelated">Density</p>
-  <p class="mytextrelated">Very close from an histogram. Show a density of distribution instead of bars</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Try it and adopt it.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+  <p class="mytitlerelated">Lollipop plot</p>
+  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/graph/wordcloud.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+  <p class="mytitlerelated">Wordcloud</p>
+  <p class="mytextrelated">A visual representation of text data, where word size is relative to their frequency.</p>
+  </a>
+  </div>
+  <div class="col-lg-3 col-md-6 col-sm-6">
+  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
   <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
   <p class="mytitlerelated">Boxplot</p>
   <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
   </a>
   </div>
-  <div class="col-sm-3">
-  <a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
-  <p class="mytitlerelated">Violin</p>
-  <p class="mytextrelated">Show the density of several numeric variables. Use it with a large amount of data</p>
-  </a>
-  </div>
 </div>
+
 
 
 # Build your own {#code}
 ***
 
-The [R](https://r-graph-gallery.com/doughnut-plot.html), [Python](https:/python-graph-gallery.com/donut-plot/), [React](https://www.react-graph-gallery.com/barplot) and [D3](https://d3-graph-gallery.com/barplot.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/doughnut-plot.html), [Python](https:/python-graph-gallery.com/donut-plot/), [React](https://www.react-graph-gallery.com/donut) and [D3](https://d3-graph-gallery.com/donut.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://r-graph-gallery.com/doughnut-plot.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/donut-plot/" class="btn btn-primary">Python gallery</a>
-<a href="https://www.react-graph-gallery.com/barplot" class="btn btn-primary">React gallery</a>
-<a href="https://d3-graph-gallery.com/barplot.html" class="btn btn-primary">D3 gallery</a>
+<a href="https://www.react-graph-gallery.com/donut" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/donut.html" class="btn btn-primary">D3 gallery</a>
 </p>
 
 </div>
