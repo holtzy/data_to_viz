@@ -36,7 +36,7 @@ Here is an example describing the distribution of restaurants in the south of fr
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 # Libraries
-library(maptools)
+library(sf)
 library(cartogram)
 library(tidyverse)
 library(broom)
@@ -46,26 +46,28 @@ library(geojsonio)
 
 # Import region boundaries
 spdf <- geojson_read("https://raw.githubusercontent.com/gregoiredavid/france-geojson/master/communes.geojson",  what = "sp")
- 
-# Since it is a bit to much data, I select only a subset of it:
-spdf = spdf[ substr(spdf@data$code,1,2)  %in% c("06", "83", "13", "30", "34", "11", "66") , ]
- 
-# I need to fortify the data AND keep trace of the commune code! (Takes 2 minutes)
-library(broom)
-spdf_fortified <- tidy(spdf, region = "code")
- 
-# read data
-data=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/data_on_french_states.csv", header=T, sep=";")
 
-# Make the merge
-spdf_fortified = spdf_fortified %>%
-  left_join(. , data, by=c("id"="depcom")) 
+# Select a subset of the data
+spdf <- spdf[substr(spdf@data$code, 1, 2) %in% c("06", "83", "13", "30", "34", "11", "66"), ]
+
+# Convert the spatial data to an sf object
+spdf_sf <- st_as_sf(spdf)
+
+# Read the additional data
+data <- read.table("https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/data_on_french_states.csv", header = TRUE, sep = ";")
+
+# Make sure the column names match for the join
+names(spdf_sf)[names(spdf_sf) == "code"] <- "id"
+
+# Merge the fortified data with the additional data
+spdf_fortified <- spdf_sf %>%
+  left_join(data, by = c("id" = "depcom"))
 # Note that if the number of restaurant is NA, it is in fact 0
 spdf_fortified$nb_equip[ is.na(spdf_fortified$nb_equip)] = NA
 
 # Plot
-p <- ggplot() +
-  geom_polygon(data = spdf_fortified, aes(fill = nb_equip, x = long, y = lat, group = group) , size=0, alpha=0.9) +
+p <- ggplot(spdf_fortified) +
+  geom_sf(aes(fill = nb_equip), linewidth=0, alpha=0.9) +
   theme_void() +
   scale_fill_viridis(direction=-1, trans = "log", breaks=c(1,5,10,20,50,100), name="Number of restaurant", guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) ) +
   labs(
@@ -85,7 +87,7 @@ p <- ggplot() +
     
     legend.position = c(0.7, 0.09)
   ) +
-  coord_map()
+  coord_sf(datum = NA)
 p
 ```
 
@@ -101,12 +103,26 @@ p
 # What for
 ***
 
+Choropleth maps are used to represent a variable on a map. It is a great way to show the distribution of a variable across a territory. It is often used in the field of demography, sociology, economy, etc.
+Here is a more concise version of the "What for" section:
+
+They offer several key benefits:
+
+- **Highlight Spatial Patterns**: Easily identify trends and outliers across regions.
+- **Facilitate Comparison**: Use color gradients to compare data values between areas.
+- **Integrate Data**: Combine various data sources for a comprehensive geographical analysis.
+- **Scalability**: Adapt to different geographical levels, from global to local.
+- **Customization**: Adjust colors, classification methods, and add interactivity.
+- **Bias Mitigation**: Normalize data and consider alternatives like cartograms to reduce biases from region size or population density.
+
+
 
 
 # Variation {#variation}
 ***
 
-- Bi-color scale
+- [Hexbin map](https://www.data-to-viz.com/graph/hexbinmap.html): A hexbin map is a variation of the choropleth map where the regions are replaced by hexagons. It is useful when the regions have a broad range of sizes.
+- [Cartogram](https://www.data-to-viz.com/graph/cartogram.html): A cartogram is a variation of the choropleth map where the regions are resized according to the variable of interest. It is useful to avoid the biais introduced by the size of the regions, or to illustrate this biais.
 
 
 
@@ -172,17 +188,4 @@ The [R](https://r-graph-gallery.com/choropleth-map.html), [Python](https:/python
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
 

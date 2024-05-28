@@ -39,7 +39,7 @@ Here is an example showing the [repartition of the world population](https://www
 # Libraries
 library(tidyverse)
 library(hrbrthemes)
-library(circlepackeR)  
+library(circlepackeR)
 
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv", header=T, sep=";")
@@ -93,7 +93,7 @@ vertices = flare$vertices
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
  
 # Second one: add 2 first levels
-ggraph(mygraph, layout = 'circlepack', weight="size") + 
+ggraph(mygraph, layout = 'circlepack', weight=size) + 
   geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth) )) +
   scale_fill_manual(values=c("0" = "white", "1" = "white", "2" = magma(4)[2], "3" = magma(4)[3], "4"=magma(4)[4])) +
   scale_color_manual( values=c("0" = "white", "1" = "white", "2" = "black", "3" = "black", "4"="black") ) +

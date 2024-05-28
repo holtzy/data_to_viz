@@ -87,7 +87,7 @@
       </p>
     </div>
 
-         <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -307,10 +307,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a hr
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df)</span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram1.png&quot;</span>)</span></code></pre></div>
 <p><img src="correlogram_files/figure-html/unnamed-chunk-2-1.png" width="960" /></p>
-<br><br>
-<center>
-<img src="IMG/correlogram1.png" alt="img" width="500" height="500">
-</center>
 <p><br><br></p>
 <p><em>Note</em>: exceptionally, graphic provided in this page are made
 with <a href="https://python-graph-gallery.com/correlogram/">Python</a>,
@@ -341,10 +337,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a hr
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;reg&quot;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram2.png&quot;</span>)</span></code></pre></div>
 <p><img src="correlogram_files/figure-html/unnamed-chunk-3-3.png" width="960" /></p>
-<br><br>
-<center>
-<img src="IMG/correlogram2.png" alt="img" width="500" height="500">
-</center>
 <p><br><br></p>
 <p>As described in the scatterplot section, it is a good practice to
 display subgroups if a categoric variable is available as well:</p>
@@ -353,10 +345,6 @@ class="sourceCode python"><code class="sourceCode python"><span id="cb3-1"><a hr
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>sns_plot <span class="op">=</span> sns.pairplot(df, kind<span class="op">=</span><span class="st">&quot;scatter&quot;</span>, hue<span class="op">=</span><span class="st">&quot;species&quot;</span>, markers<span class="op">=</span>[<span class="st">&quot;o&quot;</span>, <span class="st">&quot;s&quot;</span>, <span class="st">&quot;D&quot;</span>], palette<span class="op">=</span><span class="st">&quot;Set2&quot;</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>sns_plot.savefig(<span class="st">&quot;IMG/correlogram3.png&quot;</span>)</span></code></pre></div>
 <p><img src="correlogram_files/figure-html/unnamed-chunk-4-5.png" width="1073" /></p>
-<br><br>
-<center>
-<img src="IMG/correlogram3.png" alt="img" width="500" height="500">
-</center>
 <p><br><br></p>
 </div>
 <div id="mistake" class="section level1" number="4">

@@ -54,10 +54,6 @@ sns_plot = sns.pairplot(df)
 sns_plot.savefig("IMG/correlogram1.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram1.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
@@ -89,10 +85,6 @@ sns_plot = sns.pairplot(df, kind="reg")
 sns_plot.savefig("IMG/correlogram2.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram2.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
@@ -103,10 +95,6 @@ sns_plot = sns.pairplot(df, kind="scatter", hue="species", markers=["o", "s", "D
 sns_plot.savefig("IMG/correlogram3.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram3.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
