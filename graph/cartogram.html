@@ -1,297 +1,354 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Cartogram &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Cartogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Cartogram" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Cartogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/cartogram.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Cartogram &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Cartogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Cartogram" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png" />
-<meta property="og:description" content="An extensive description of Cartogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/cartogram.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Cartogram</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Cartogram</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Definition</h1>
 <hr />
-<p>A <code>cartogram</code> is a map in which the geometry of regions is <code>distorted</code> in order to convey the information of an alternate variable. The region area will be inflated or deflated according to its numeric value.</p>
-<p>Most of the time, a cartogram is also a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a> where regions are colored according to a numeric variable (not necessarily the one use to build the cartogram).</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(maptools)
-<span class="kw">library</span>(cartogram)
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(broom)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(patchwork)
-
-<span class="co"># Get the shape file of Africa</span>
-<span class="kw">data</span>(wrld_simpl)
-afr=wrld_simpl[wrld_simpl<span class="op">$</span>REGION<span class="op">==</span><span class="dv">2</span>,]
-
-<span class="co"># Usual choropleth map:</span>
-spdf_fortified &lt;-<span class="st"> </span><span class="kw">tidy</span>(afr)
-spdf_fortified =<span class="st"> </span>spdf_fortified <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(. , afr<span class="op">@</span>data, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>=<span class="st">&quot;ISO3&quot;</span>)) 
-p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> spdf_fortified, <span class="kw">aes</span>(<span class="dt">fill =</span> POP2005<span class="op">/</span><span class="dv">1000000</span>, <span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group) , <span class="dt">size=</span><span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">name=</span><span class="st">&quot;Population (M)&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">50</span>,<span class="dv">100</span>, <span class="dv">140</span>), <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>( <span class="dt">title =</span> <span class="st">&quot;Real boundaries&quot;</span> ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">35</span>,<span class="dv">35</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>), 
-    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
-    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.26</span>)
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_map</span>()
-
-<span class="co"># construct a cartogram using the population in 2005</span>
-afr_cartogram &lt;-<span class="st"> </span><span class="kw">cartogram</span>(afr, <span class="st">&quot;POP2005&quot;</span>, <span class="dt">itermax=</span><span class="dv">5</span>)
- 
-<span class="co"># It is a new geospatial object: we can use all the usual techniques on it! Let&#39;s start with a basic ggplot2 chloropleth map:</span>
-spdf_fortified &lt;-<span class="st"> </span><span class="kw">tidy</span>(afr_cartogram)
-spdf_fortified =<span class="st"> </span>spdf_fortified <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(. , afr_cartogram<span class="op">@</span>data, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>=<span class="st">&quot;ISO3&quot;</span>)) 
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> spdf_fortified, <span class="kw">aes</span>(<span class="dt">fill =</span> POP2005, <span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group) , <span class="dt">size=</span><span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_map</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>()
- 
-<span class="co"># As seen before, we can do better with a bit of customization</span>
-p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> spdf_fortified, <span class="kw">aes</span>(<span class="dt">fill =</span> POP2005<span class="op">/</span><span class="dv">1000000</span>, <span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group) , <span class="dt">size=</span><span class="dv">0</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">name=</span><span class="st">&quot;Population (M)&quot;</span>, <span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">50</span>,<span class="dv">100</span>, <span class="dv">140</span>), <span class="dt">guide =</span> <span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">nrow=</span><span class="dv">1</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>( <span class="dt">title =</span> <span class="st">&quot;Cartogram&quot;</span> ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">35</span>,<span class="dv">35</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>), 
-    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
-    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.26</span>)
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_map</span>()
-
-<span class="co"># Save them</span>
-<span class="kw">ggsave</span>(p1, <span class="dt">filename=</span><span class="st">&quot;IMG/cartogram1.png&quot;</span>, <span class="dt">dpi=</span><span class="dv">100</span>, <span class="dt">width=</span><span class="dv">7</span>, <span class="dt">height=</span><span class="dv">7</span>)
-<span class="kw">ggsave</span>(p2, <span class="dt">filename=</span><span class="st">&quot;IMG/cartogram2.png&quot;</span>, <span class="dt">dpi=</span><span class="dv">100</span>, <span class="dt">width=</span><span class="dv">7</span>, <span class="dt">height=</span><span class="dv">7</span>)</code></pre></div>
+<p>A <code>cartogram</code> is a map in which the geometry of regions is
+<code>distorted</code> in order to convey the information of an
+alternate variable. The region area will be inflated or deflated
+according to its numeric value.</p>
+<p>Most of the time, a cartogram is also a <a
+href="https://www.data-to-viz.com/graph/choropleth.html">choropleth
+map</a> where regions are colored according to a numeric variable (not
+necessarily the one use to build the cartogram).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(maptools)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(cartogram)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Get the shape file of Africa</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">data</span>(wrld_simpl)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>afr<span class="ot">=</span>wrld_simpl[wrld_simpl<span class="sc">$</span>REGION<span class="sc">==</span><span class="dv">2</span>,]</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Usual choropleth map:</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>spdf_fortified <span class="ot">&lt;-</span> <span class="fu">tidy</span>(afr)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>spdf_fortified <span class="ot">=</span> spdf_fortified <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(. , afr<span class="sc">@</span>data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;id&quot;</span><span class="ot">=</span><span class="st">&quot;ISO3&quot;</span>)) </span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> spdf_fortified, <span class="fu">aes</span>(<span class="at">fill =</span> POP2005<span class="sc">/</span><span class="dv">1000000</span>, <span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group) , <span class="at">size=</span><span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">name=</span><span class="st">&quot;Population (M)&quot;</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">50</span>,<span class="dv">100</span>, <span class="dv">140</span>), <span class="at">guide =</span> <span class="fu">guide_legend</span>( <span class="at">keyheight =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">keywidth=</span><span class="fu">unit</span>(<span class="dv">12</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="at">nrow=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Real boundaries&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">35</span>,<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#22211d&quot;</span>), </span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">22</span>, <span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">t =</span> <span class="fl">0.4</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">unit =</span> <span class="st">&quot;cm&quot;</span>)),</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.26</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="fu">coord_map</span>()</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a><span class="co"># construct a cartogram using the population in 2005</span></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>afr_cartogram <span class="ot">&lt;-</span> <span class="fu">cartogram</span>(afr, <span class="st">&quot;POP2005&quot;</span>, <span class="at">itermax=</span><span class="dv">5</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a> </span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="co"># It is a new geospatial object: we can use all the usual techniques on it! Let&#39;s start with a basic ggplot2 chloropleth map:</span></span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>spdf_fortified <span class="ot">&lt;-</span> <span class="fu">tidy</span>(afr_cartogram)</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>spdf_fortified <span class="ot">=</span> spdf_fortified <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(. , afr_cartogram<span class="sc">@</span>data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;id&quot;</span><span class="ot">=</span><span class="st">&quot;ISO3&quot;</span>)) </span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> spdf_fortified, <span class="fu">aes</span>(<span class="at">fill =</span> POP2005, <span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group) , <span class="at">size=</span><span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>  <span class="fu">coord_map</span>() <span class="sc">+</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a> </span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a><span class="co"># As seen before, we can do better with a bit of customization</span></span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> spdf_fortified, <span class="fu">aes</span>(<span class="at">fill =</span> POP2005<span class="sc">/</span><span class="dv">1000000</span>, <span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group) , <span class="at">size=</span><span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">name=</span><span class="st">&quot;Population (M)&quot;</span>, <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">50</span>,<span class="dv">100</span>, <span class="dv">140</span>), <span class="at">guide =</span> <span class="fu">guide_legend</span>( <span class="at">keyheight =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">keywidth=</span><span class="fu">unit</span>(<span class="dv">12</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="at">nrow=</span><span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a>  <span class="fu">labs</span>( <span class="at">title =</span> <span class="st">&quot;Cartogram&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">35</span>,<span class="dv">35</span>) <span class="sc">+</span></span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#22211d&quot;</span>), </span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">22</span>, <span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">t =</span> <span class="fl">0.4</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">unit =</span> <span class="st">&quot;cm&quot;</span>)),</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.26</span>)</span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a>  <span class="fu">coord_map</span>()</span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a><span class="co"># Save them</span></span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a><span class="fu">ggsave</span>(p1, <span class="at">filename=</span><span class="st">&quot;IMG/cartogram1.png&quot;</span>, <span class="at">dpi=</span><span class="dv">100</span>, <span class="at">width=</span><span class="dv">7</span>, <span class="at">height=</span><span class="dv">7</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a><span class="fu">ggsave</span>(p2, <span class="at">filename=</span><span class="st">&quot;IMG/cartogram2.png&quot;</span>, <span class="at">dpi=</span><span class="dv">100</span>, <span class="at">width=</span><span class="dv">7</span>, <span class="at">height=</span><span class="dv">7</span>)</span></code></pre></div>
 <div class="row">
 <div class="col-md-6">
 <center>
@@ -304,87 +361,120 @@ p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="o
 </center>
 </div>
 </div>
-<p>The above maps illustrate the difference between real african country boundaries (left), and a cartogram (right). Each country area is inflated or deflated according to their population in 2005. (<a href="https://cran.r-project.org/web/packages/maptools/maptools.pdf">data</a>). For instance, Nigeria (in yellow) appears much bigger in the cartogram than in the classic map, according to its huge population.</p>
-<h1 id="what-for">What for</h1>
+<p>The above maps illustrate the difference between real african country
+boundaries (left), and a cartogram (right). Each country area is
+inflated or deflated according to their population in 2005. (<a
+href="https://cran.r-project.org/web/packages/maptools/maptools.pdf">data</a>).
+For instance, Nigeria (in yellow) appears much bigger in the cartogram
+than in the classic map, according to its huge population.</p>
+</div>
+<div id="what-for" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> What for</h1>
 <hr />
-<p>Cartogram aims to correct the bias that can be observed in a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a>: when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points.</p>
-<p>For instance, imagine you display the average salary per region on your choropleth map. A region with 3 inhabitants with a huge area will have more importance on your map than a small one with 3,000 inhabitants, what induces a strong bias. The cartogram aims to reduce this bias.</p>
-<h1 id="variation">Variation</h1>
+<p>Cartogram aims to correct the bias that can be observed in a <a
+href="https://www.data-to-viz.com/graph/choropleth.html">choropleth
+map</a>: when a variable is aggregated per region, a region with very
+few data points will look as important as a region with many data
+points.</p>
+<p>For instance, imagine you display the average salary per region on
+your choropleth map. A region with 3 inhabitants with a huge area will
+have more importance on your map than a small one with 3,000
+inhabitants, what induces a strong bias. The cartogram aims to reduce
+this bias.</p>
+</div>
+<div id="variation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variation</h1>
 <hr />
-<p><a href="https://www.data-to-viz.com/graph/hexbinmap.html">Hexbin map</a> represents every region of the map as hexagons. It is possible to build a cartogram to hexbin map following the same strategy. Here is an example with the population in the US states:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># library</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(geojsonio)
-<span class="kw">library</span>(RColorBrewer)
- 
-<span class="co"># Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and load it in R:</span>
-spdf &lt;-<span class="st"> </span><span class="kw">geojson_read</span>(<span class="st">&quot;us_states_hexgrid.geojson.json&quot;</span>,  <span class="dt">what =</span> <span class="st">&quot;sp&quot;</span>)
-spdf<span class="op">@</span>data =<span class="st"> </span>spdf<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">google_name =</span> <span class="kw">gsub</span>(<span class="st">&quot; </span><span class="ch">\\</span><span class="st">(United States</span><span class="ch">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, google_name))
- 
-<span class="co"># Load the population per states (source: https://www.census.gov/data/tables/2017/demo/popest/nation-total.html)</span>
-pop=<span class="kw">read.table</span>(<span class="st">&quot;https://www.r-graph-gallery.com/wp-content/uploads/2018/01/pop_US.csv&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>, <span class="dt">header=</span>T)
-pop<span class="op">$</span>pop =<span class="st"> </span>pop<span class="op">$</span>pop <span class="op">/</span><span class="st"> </span><span class="dv">1000000</span>
- 
-<span class="co"># merge both</span>
-spdf<span class="op">@</span>data =<span class="st"> </span>spdf<span class="op">@</span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(., pop, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;google_name&quot;</span>=<span class="st">&quot;state&quot;</span>))
- 
-<span class="co"># Compute the cartogram, using this population information</span>
-cartogram &lt;-<span class="st"> </span><span class="kw">cartogram</span>(spdf, <span class="st">&#39;pop&#39;</span>)
- 
-<span class="co"># First look!</span>
-<span class="kw">plot</span>(cartogram)
- 
-<span class="co"># tidy data to be drawn by ggplot2 (broom library of the tidyverse)</span>
-carto_fortified &lt;-<span class="st"> </span><span class="kw">tidy</span>(cartogram, <span class="dt">region =</span> <span class="st">&quot;google_name&quot;</span>)
-carto_fortified =<span class="st"> </span>carto_fortified <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">left_join</span>(. , cartogram<span class="op">@</span>data, <span class="dt">by=</span><span class="kw">c</span>(<span class="st">&quot;id&quot;</span>=<span class="st">&quot;google_name&quot;</span>)) 
- 
-<span class="co"># Calculate the position of state labels</span>
-centers &lt;-<span class="st"> </span><span class="kw">cbind.data.frame</span>(<span class="kw">data.frame</span>(<span class="kw">gCentroid</span>(cartogram, <span class="dt">byid=</span><span class="ot">TRUE</span>), <span class="dt">id=</span>cartogram<span class="op">@</span>data<span class="op">$</span>iso3166_<span class="dv">2</span>))
- 
-<span class="co"># plot</span>
-<span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_polygon</span>(<span class="dt">data =</span> carto_fortified, <span class="kw">aes</span>(<span class="dt">fill =</span> pop, <span class="dt">x =</span> long, <span class="dt">y =</span> lat, <span class="dt">group =</span> group) , <span class="dt">size=</span><span class="fl">0.05</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>, <span class="dt">color=</span><span class="st">&quot;black&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_gradientn</span>(<span class="dt">colours=</span><span class="kw">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;BuPu&quot;</span>), <span class="dt">name=</span><span class="st">&quot;population (in M)&quot;</span>, <span class="dt">guide=</span><span class="kw">guide_legend</span>( <span class="dt">keyheight =</span> <span class="kw">unit</span>(<span class="dv">3</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">keywidth=</span><span class="kw">unit</span>(<span class="dv">12</span>, <span class="dt">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="dt">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="dt">label.position =</span> <span class="st">&quot;bottom&quot;</span>) ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>centers, <span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y, <span class="dt">label=</span>id), <span class="dt">color=</span><span class="st">&quot;white&quot;</span>, <span class="dt">size=</span><span class="dv">3</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">ggtitle</span>( <span class="st">&quot;Another look on the US population&quot;</span> ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>),
-    <span class="dt">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>,
-    <span class="dt">text =</span> <span class="kw">element_text</span>(<span class="dt">color =</span> <span class="st">&quot;#22211d&quot;</span>),
-    <span class="dt">plot.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
-    <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>), 
-    <span class="dt">legend.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="dt">color =</span> <span class="ot">NA</span>),
-    <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span> <span class="dv">22</span>, <span class="dt">hjust=</span><span class="fl">0.5</span>, <span class="dt">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="dt">margin =</span> <span class="kw">margin</span>(<span class="dt">b =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">t =</span> <span class="fl">0.4</span>, <span class="dt">l =</span> <span class="dv">2</span>, <span class="dt">unit =</span> <span class="st">&quot;cm&quot;</span>)),
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_map</span>()</code></pre></div>
+<p><a href="https://www.data-to-viz.com/graph/hexbinmap.html">Hexbin
+map</a> represents every region of the map as hexagons. It is possible
+to build a cartogram to hexbin map following the same strategy. Here is
+an example with the population in the US states:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(geojsonio)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a> </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and load it in R:</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>spdf <span class="ot">&lt;-</span> <span class="fu">geojson_read</span>(<span class="st">&quot;us_states_hexgrid.geojson.json&quot;</span>,  <span class="at">what =</span> <span class="st">&quot;sp&quot;</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>spdf<span class="sc">@</span>data <span class="ot">=</span> spdf<span class="sc">@</span>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">google_name =</span> <span class="fu">gsub</span>(<span class="st">&quot; </span><span class="sc">\\</span><span class="st">(United States</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, google_name))</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a> </span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Load the population per states (source: https://www.census.gov/data/tables/2017/demo/popest/nation-total.html)</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>pop<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">&quot;https://www.r-graph-gallery.com/wp-content/uploads/2018/01/pop_US.csv&quot;</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>pop<span class="sc">$</span>pop <span class="ot">=</span> pop<span class="sc">$</span>pop <span class="sc">/</span> <span class="dv">1000000</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a> </span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co"># merge both</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>spdf<span class="sc">@</span>data <span class="ot">=</span> spdf<span class="sc">@</span>data <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(., pop, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;google_name&quot;</span><span class="ot">=</span><span class="st">&quot;state&quot;</span>))</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a> </span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co"># Compute the cartogram, using this population information</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>cartogram <span class="ot">&lt;-</span> <span class="fu">cartogram</span>(spdf, <span class="st">&#39;pop&#39;</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a> </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co"># First look!</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="fu">plot</span>(cartogram)</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a> </span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co"># tidy data to be drawn by ggplot2 (broom library of the tidyverse)</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>carto_fortified <span class="ot">&lt;-</span> <span class="fu">tidy</span>(cartogram, <span class="at">region =</span> <span class="st">&quot;google_name&quot;</span>)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>carto_fortified <span class="ot">=</span> carto_fortified <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(. , cartogram<span class="sc">@</span>data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;id&quot;</span><span class="ot">=</span><span class="st">&quot;google_name&quot;</span>)) </span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a> </span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co"># Calculate the position of state labels</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>centers <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(<span class="fu">data.frame</span>(<span class="fu">gCentroid</span>(cartogram, <span class="at">byid=</span><span class="cn">TRUE</span>), <span class="at">id=</span>cartogram<span class="sc">@</span>data<span class="sc">$</span>iso3166_2))</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a> </span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> carto_fortified, <span class="fu">aes</span>(<span class="at">fill =</span> pop, <span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group) , <span class="at">size=</span><span class="fl">0.05</span>, <span class="at">alpha=</span><span class="fl">0.9</span>, <span class="at">color=</span><span class="st">&quot;black&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="fu">scale_fill_gradientn</span>(<span class="at">colours=</span><span class="fu">brewer.pal</span>(<span class="dv">7</span>,<span class="st">&quot;BuPu&quot;</span>), <span class="at">name=</span><span class="st">&quot;population (in M)&quot;</span>, <span class="at">guide=</span><span class="fu">guide_legend</span>( <span class="at">keyheight =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">keywidth=</span><span class="fu">unit</span>(<span class="dv">12</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="at">label.position =</span> <span class="st">&quot;bottom&quot;</span>) ) <span class="sc">+</span></span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>centers, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>id), <span class="at">color=</span><span class="st">&quot;white&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>  <span class="fu">ggtitle</span>( <span class="st">&quot;Another look on the US population&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>),</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>    <span class="at">legend.direction =</span> <span class="st">&quot;horizontal&quot;</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#22211d&quot;</span>),</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>), </span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>), </span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f9&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">22</span>, <span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">t =</span> <span class="fl">0.4</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">unit =</span> <span class="st">&quot;cm&quot;</span>)),</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a>  <span class="fu">coord_map</span>()</span></code></pre></div>
 <center>
 <img src="IMG/hexbin_cartogram.png" alt="img" width="600" height="700">
 </center>
-<h1 id="mistake">Common mistakes</h1>
+</div>
+<div id="mistake" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Common mistakes</h1>
 <hr />
-<p>Since a cartogram is often used as a <a href="https://www.data-to-viz.com/graph/choropleth.html">choropleth map</a>, all the related pitfalls apply:</p>
+<p>Since a cartogram is often used as a <a
+href="https://www.data-to-viz.com/graph/choropleth.html">choropleth
+map</a>, all the related pitfalls apply:</p>
 <ul>
-<li>Normalize your variable: you cannot compare raw numbers between regions of distinct size or population.</li>
+<li>Normalize your variable: you cannot compare raw numbers between
+regions of distinct size or population.</li>
 <li>Take a huge care when choosing the continuous color palette.</li>
 <li>Don’t forget the legend.</li>
 </ul>
-<p>Moreover, note that a cartogram distorts real boundaries and thus make the map harder to identify. Be carefull not to confuse your audience: you need to introduce it with good explanations and showing the initial map is probably a good practice.</p>
-<h1 id="related">Related</h1>
+<p>Moreover, note that a cartogram distorts real boundaries and thus
+make the map harder to identify. Be carefull not to confuse your
+audience: you need to introduce it with good explanations and showing
+the initial map is probably a good practice.</p>
+</div>
+<div id="related" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-3 col-sm-3">
-<a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
+<a href="https://www.data-to-viz.com/graph/choropleth.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ChoroplethSmall.png">
 <p class="mytitlerelated">
 Choropleth
 </p>
 <p class="mytextrelated">
-Display a aggregated value for each region of the map using color gradients.
+Display a aggregated value for each region of the map using color
+gradients.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-3">
-<a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
+<a href="https://www.data-to-viz.com/graph/cartogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CartogramSmall.png">
 <p class="mytitlerelated">
 Cartogram
 </p>
@@ -394,65 +484,113 @@ A circular version of a Treemap to visualize a hierarchical organization
 </a>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-3">
-<a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
+<a href="https://www.data-to-viz.com/graph/bubblemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubbleMapSmall.png">
 <p class="mytitlerelated">
 Bubble map
 </p>
 <p class="mytextrelated">
-Display bubble on a map background to represent the value of a numeric variable.
+Display bubble on a map background to represent the value of a numeric
+variable.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-3 col-sm-3">
-<a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
+<a href="https://www.data-to-viz.com/graph/map.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/MapSmall.png">
 <p class="mytitlerelated">
 Background Map
 </p>
 <p class="mytextrelated">
-The basis for any geographic data visualization is to build a good background map.
+The basis for any geographic data visualization is to build a good
+background map.
 </p>
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://r-graph-gallery.com/cartogram.html">R</a>, <a
+href="https:/python-graph-gallery.com/cartogram/">Python</a>, <a
+href="https://www.react-graph-gallery.com/cartogram">React</a> and <a
+href="https://d3-graph-gallery.com/cartogram.html">D3</a> graph
+galleries are 4 websites providing hundreds of chart example, always
+providing the reproducible code. Click the button below to see how to
+build the chart you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/cartogram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/choropleth-map/" class="btn btn-primary">Python gallery</a>
+<a href="https://r-graph-gallery.com/cartogram.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/cartogram/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/cartogram" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/cartogram.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/cartogram.html;  
-        this.page.identifier = cartogram; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -473,28 +611,29 @@ The basis for any geographic data visualization is to build a good background ma
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

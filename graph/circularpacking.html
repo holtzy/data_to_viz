@@ -1,306 +1,400 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Circular Packing &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Circular
+Packing. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Circular Packing" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Circular
+Packing. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/circularpacking.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Circular Packing &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Circular Packing. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Circular Packing" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png" />
-<meta property="og:description" content="An extensive description of Circular Packing. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/circularpacking.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Circular Packing</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Circular Packing</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <script src="libs/d3-3.5.6/./d3.min.js"></script>
 <link href="libs/circlepackeR-0.1/./style.css" rel="stylesheet" />
-<script src="libs/circlepackeR-binding-0.0.0.9000/circlepackeR.js"></script>
+<script src="libs/circlepackeR-binding-0.0.0.9000/circlepackeR.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Definition</h1>
 <hr />
-<p><code>Circular packing</code> or circular treemap allows to visualize a hierarchic organization. It is an equivalent of a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a> or a <a href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a>, where each node of the tree is represented as a circle and its sub-nodes are represented as circles inside of it. The size of each circle can be proportional to a specific value, what gives more insight to the plot.</p>
-<p>Here is an example showing the <a href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">repartition of the world population</a> of 250 countries. The world is divided in continent (group), regions (subgroup), and countries. Countries are considered as leaves: they are at the end of the branches.</p>
+<p><code>Circular packing</code> or circular treemap allows to visualize
+a hierarchic organization. It is an equivalent of a <a
+href="https://www.data-to-viz.com/graph/treemap.html">treemap</a> or a
+<a
+href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a>,
+where each node of the tree is represented as a circle and its sub-nodes
+are represented as circles inside of it. The size of each circle can be
+proportional to a specific value, what gives more insight to the
+plot.</p>
+<p>Here is an example showing the <a
+href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">repartition
+of the world population</a> of 250 countries. The world is divided in
+continent (group), regions (subgroup), and countries. Countries are
+considered as leaves: they are at the end of the branches.</p>
 <center>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(circlepackeR)  
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;;&quot;</span>)
-data[ <span class="kw">which</span>(data<span class="op">$</span>value<span class="op">==-</span><span class="dv">1</span>),<span class="st">&quot;value&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
-<span class="kw">colnames</span>(data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Continent&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Pop&quot;</span>)
-
-<span class="co"># Remove a few problematic lines</span>
-data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(Continent<span class="op">!=</span><span class="st">&quot;&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">droplevels</span>()
-
-<span class="co"># Change the format. This use the data.tree library. This library needs a column that looks like root/group/subgroup/..., so I build it</span>
-<span class="kw">library</span>(data.tree)
-data<span class="op">$</span>pathString &lt;-<span class="st"> </span><span class="kw">paste</span>(<span class="st">&quot;world&quot;</span>, data<span class="op">$</span>Continent, data<span class="op">$</span>Region, data<span class="op">$</span>Country, <span class="dt">sep =</span> <span class="st">&quot;/&quot;</span>)
-population &lt;-<span class="st"> </span><span class="kw">as.Node</span>(data)
- 
-<span class="co"># You can custom the minimum and maximum value of the color range.</span>
-<span class="kw">circlepackeR</span>(population, <span class="dt">size =</span> <span class="st">&quot;Pop&quot;</span>, <span class="dt">color_min =</span> <span class="st">&quot;hsl(56,80%,80%)&quot;</span>, <span class="dt">color_max =</span> <span class="st">&quot;hsl(341,30%,40%)&quot;</span>)</code></pre></div>
-<div id="htmlwidget-ecf422bd327f04a5f51f" style="width:672px;height:576px;" class="circlepackeR html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ecf422bd327f04a5f51f">{"x":{"data":{"name":"world","children":[{"name":"Asia","children":[{"name":"Southern Asia","children":[{"name":"Afghanistan","Continent":"Asia","Country":"Afghanistan","Pop":25500100,"Region":"Southern Asia"},{"name":"Bangladesh","Continent":"Asia","Country":"Bangladesh","Pop":152518015,"Region":"Southern Asia"},{"name":"Bhutan","Continent":"Asia","Country":"Bhutan","Pop":740990,"Region":"Southern Asia"},{"name":"India","Continent":"Asia","Country":"India","Pop":1236670000,"Region":"Southern Asia"},{"name":"Iran","Continent":"Asia","Country":"Iran","Pop":77068000,"Region":"Southern Asia"},{"name":"Maldives","Continent":"Asia","Country":"Maldives","Pop":317280,"Region":"Southern Asia"},{"name":"Nepal","Continent":"Asia","Country":"Nepal","Pop":26494504,"Region":"Southern Asia"},{"name":"Pakistan","Continent":"Asia","Country":"Pakistan","Pop":184845000,"Region":"Southern Asia"},{"name":"Sri Lanka","Continent":"Asia","Country":"Sri Lanka","Pop":20277597,"Region":"Southern Asia"}]},{"name":"Western Asia","children":[{"name":"Armenia","Continent":"Asia","Country":"Armenia","Pop":3024100,"Region":"Western Asia"},{"name":"Azerbaijan","Continent":"Asia","Country":"Azerbaijan","Pop":9235100,"Region":"Western Asia"},{"name":"Bahrain","Continent":"Asia","Country":"Bahrain","Pop":1234571,"Region":"Western Asia"},{"name":"Cyprus","Continent":"Asia","Country":"Cyprus","Pop":865878,"Region":"Western Asia"},{"name":"Georgia","Continent":"Asia","Country":"Georgia","Pop":1,"Region":"Western Asia"},{"name":"Iraq","Continent":"Asia","Country":"Iraq","Pop":34035000,"Region":"Western Asia"},{"name":"Israel","Continent":"Asia","Country":"Israel","Pop":8092700,"Region":"Western Asia"},{"name":"Jordan","Continent":"Asia","Country":"Jordan","Pop":6512600,"Region":"Western Asia"},{"name":"Kuwait","Continent":"Asia","Country":"Kuwait","Pop":3582054,"Region":"Western Asia"},{"name":"Lebanon","Continent":"Asia","Country":"Lebanon","Pop":4822000,"Region":"Western Asia"},{"name":"Oman","Continent":"Asia","Country":"Oman","Pop":3929000,"Region":"Western Asia"},{"name":"Palestine","Continent":"Asia","Country":"Palestine","Pop":1,"Region":"Western Asia"},{"name":"Qatar","Continent":"Asia","Country":"Qatar","Pop":2024707,"Region":"Western Asia"},{"name":"Saudi Arabia","Continent":"Asia","Country":"Saudi Arabia","Pop":29994272,"Region":"Western Asia"},{"name":"Syria","Continent":"Asia","Country":"Syria","Pop":21898000,"Region":"Western Asia"},{"name":"Turkey","Continent":"Asia","Country":"Turkey","Pop":75627384,"Region":"Western Asia"},{"name":"United Arab Emirates","Continent":"Asia","Country":"United Arab Emirates","Pop":8264070,"Region":"Western Asia"},{"name":"Yemen","Continent":"Asia","Country":"Yemen","Pop":24527000,"Region":"Western Asia"}]},{"name":"South-Eastern Asia","children":[{"name":"Brunei","Continent":"Asia","Country":"Brunei","Pop":393162,"Region":"South-Eastern Asia"},{"name":"Cambodia","Continent":"Asia","Country":"Cambodia","Pop":15135000,"Region":"South-Eastern Asia"},{"name":"Indonesia","Continent":"Asia","Country":"Indonesia","Pop":237641326,"Region":"South-Eastern Asia"},{"name":"Laos","Continent":"Asia","Country":"Laos","Pop":6580800,"Region":"South-Eastern Asia"},{"name":"Malaysia","Continent":"Asia","Country":"Malaysia","Pop":29793600,"Region":"South-Eastern Asia"},{"name":"Myanmar","Continent":"Asia","Country":"Myanmar","Pop":1,"Region":"South-Eastern Asia"},{"name":"Philippines","Continent":"Asia","Country":"Philippines","Pop":98678000,"Region":"South-Eastern Asia"},{"name":"Singapore","Continent":"Asia","Country":"Singapore","Pop":5399200,"Region":"South-Eastern Asia"},{"name":"Thailand","Continent":"Asia","Country":"Thailand","Pop":65926261,"Region":"South-Eastern Asia"},{"name":"Timor-Leste","Continent":"Asia","Country":"Timor-Leste","Pop":1,"Region":"South-Eastern Asia"},{"name":"Vietnam","Continent":"Asia","Country":"Vietnam","Pop":90388000,"Region":"South-Eastern Asia"}]},{"name":"Eastern Asia","children":[{"name":"China","Continent":"Asia","Country":"China","Pop":1361170000,"Region":"Eastern Asia"},{"name":"Hong Kong","Continent":"Asia","Country":"Hong Kong","Pop":7184000,"Region":"Eastern Asia"},{"name":"Japan","Continent":"Asia","Country":"Japan","Pop":127290000,"Region":"Eastern Asia"},{"name":"Macau","Continent":"Asia","Country":"Macau","Pop":1,"Region":"Eastern Asia"},{"name":"Mongolia","Continent":"Asia","Country":"Mongolia","Pop":2754685,"Region":"Eastern Asia"},{"name":"North Korea","Continent":"Asia","Country":"North Korea","Pop":24895000,"Region":"Eastern Asia"},{"name":"South Korea","Continent":"Asia","Country":"South Korea","Pop":50219669,"Region":"Eastern Asia"},{"name":"Taiwan","Continent":"Asia","Country":"Taiwan","Pop":23361147,"Region":"Eastern Asia"}]},{"name":"Central Asia","children":[{"name":"Kazakhstan","Continent":"Asia","Country":"Kazakhstan","Pop":17099000,"Region":"Central Asia"},{"name":"Kyrgyzstan","Continent":"Asia","Country":"Kyrgyzstan","Pop":5551900,"Region":"Central Asia"},{"name":"Tajikistan","Continent":"Asia","Country":"Tajikistan","Pop":8000000,"Region":"Central Asia"},{"name":"Turkmenistan","Continent":"Asia","Country":"Turkmenistan","Pop":5240000,"Region":"Central Asia"},{"name":"Uzbekistan","Continent":"Asia","Country":"Uzbekistan","Pop":30183400,"Region":"Central Asia"}]}]},{"name":"Europe","children":[{"name":"Northern Europe","children":[{"name":"Åland Islands","Continent":"Europe","Country":"Åland Islands","Pop":28502,"Region":"Northern Europe"},{"name":"Denmark","Continent":"Europe","Country":"Denmark","Pop":5623501,"Region":"Northern Europe"},{"name":"Estonia","Continent":"Europe","Country":"Estonia","Pop":1286540,"Region":"Northern Europe"},{"name":"Faroe Islands","Continent":"Europe","Country":"Faroe Islands","Pop":48509,"Region":"Northern Europe"},{"name":"Finland","Continent":"Europe","Country":"Finland","Pop":5445883,"Region":"Northern Europe"},{"name":"Guernsey","Continent":"Europe","Country":"Guernsey","Pop":62431,"Region":"Northern Europe"},{"name":"Iceland","Continent":"Europe","Country":"Iceland","Pop":325010,"Region":"Northern Europe"},{"name":"Ireland","Continent":"Europe","Country":"Ireland","Pop":1,"Region":"Northern Europe"},{"name":"Isle of Man","Continent":"Europe","Country":"Isle of Man","Pop":84497,"Region":"Northern Europe"},{"name":"Jersey","Continent":"Europe","Country":"Jersey","Pop":97857,"Region":"Northern Europe"},{"name":"Latvia","Continent":"Europe","Country":"Latvia","Pop":2014000,"Region":"Northern Europe"},{"name":"Lithuania","Continent":"Europe","Country":"Lithuania","Pop":2950684,"Region":"Northern Europe"},{"name":"Norway","Continent":"Europe","Country":"Norway","Pop":5077798,"Region":"Northern Europe"},{"name":"Svalbard and Jan Mayen","Continent":"Europe","Country":"Svalbard and Jan Mayen","Pop":2655,"Region":"Northern Europe"},{"name":"Sweden","Continent":"Europe","Country":"Sweden","Pop":9625444,"Region":"Northern Europe"},{"name":"United Kingdom","Continent":"Europe","Country":"United Kingdom","Pop":63705000,"Region":"Northern Europe"}]},{"name":"Southern Europe","children":[{"name":"Albania","Continent":"Europe","Country":"Albania","Pop":2821977,"Region":"Southern Europe"},{"name":"Andorra","Continent":"Europe","Country":"Andorra","Pop":76246,"Region":"Southern Europe"},{"name":"Bosnia and Herzegovina","Continent":"Europe","Country":"Bosnia and Herzegovina","Pop":3791622,"Region":"Southern Europe"},{"name":"Croatia","Continent":"Europe","Country":"Croatia","Pop":4290612,"Region":"Southern Europe"},{"name":"Gibraltar","Continent":"Europe","Country":"Gibraltar","Pop":29752,"Region":"Southern Europe"},{"name":"Greece","Continent":"Europe","Country":"Greece","Pop":10815197,"Region":"Southern Europe"},{"name":"Vatican City","Continent":"Europe","Country":"Vatican City","Pop":800,"Region":"Southern Europe"},{"name":"Italy","Continent":"Europe","Country":"Italy","Pop":59829079,"Region":"Southern Europe"},{"name":"Macedonia","Continent":"Europe","Country":"Macedonia","Pop":1,"Region":"Southern Europe"},{"name":"Malta","Continent":"Europe","Country":"Malta","Pop":416055,"Region":"Southern Europe"},{"name":"Montenegro","Continent":"Europe","Country":"Montenegro","Pop":620029,"Region":"Southern Europe"},{"name":"Portugal","Continent":"Europe","Country":"Portugal","Pop":10562178,"Region":"Southern Europe"},{"name":"San Marino","Continent":"Europe","Country":"San Marino","Pop":32509,"Region":"Southern Europe"},{"name":"Serbia","Continent":"Europe","Country":"Serbia","Pop":7181505,"Region":"Southern Europe"},{"name":"Slovenia","Continent":"Europe","Country":"Slovenia","Pop":2061405,"Region":"Southern Europe"},{"name":"Spain","Continent":"Europe","Country":"Spain","Pop":46704314,"Region":"Southern Europe"}]},{"name":"Western Europe","children":[{"name":"Austria","Continent":"Europe","Country":"Austria","Pop":8501502,"Region":"Western Europe"},{"name":"Belgium","Continent":"Europe","Country":"Belgium","Pop":11175653,"Region":"Western Europe"},{"name":"France","Continent":"Europe","Country":"France","Pop":65806000,"Region":"Western Europe"},{"name":"Germany","Continent":"Europe","Country":"Germany","Pop":80523700,"Region":"Western Europe"},{"name":"Liechtenstein","Continent":"Europe","Country":"Liechtenstein","Pop":36842,"Region":"Western Europe"},{"name":"Luxembourg","Continent":"Europe","Country":"Luxembourg","Pop":537000,"Region":"Western Europe"},{"name":"Monaco","Continent":"Europe","Country":"Monaco","Pop":36136,"Region":"Western Europe"},{"name":"Netherlands","Continent":"Europe","Country":"Netherlands","Pop":16807300,"Region":"Western Europe"},{"name":"Switzerland","Continent":"Europe","Country":"Switzerland","Pop":8085300,"Region":"Western Europe"}]},{"name":"Eastern Europe","children":[{"name":"Belarus","Continent":"Europe","Country":"Belarus","Pop":9465500,"Region":"Eastern Europe"},{"name":"Bulgaria","Continent":"Europe","Country":"Bulgaria","Pop":7282041,"Region":"Eastern Europe"},{"name":"Czech Republic","Continent":"Europe","Country":"Czech Republic","Pop":10512900,"Region":"Eastern Europe"},{"name":"Hungary","Continent":"Europe","Country":"Hungary","Pop":9906000,"Region":"Eastern Europe"},{"name":"Moldova","Continent":"Europe","Country":"Moldova","Pop":3559500,"Region":"Eastern Europe"},{"name":"Poland","Continent":"Europe","Country":"Poland","Pop":38533299,"Region":"Eastern Europe"},{"name":"Republic of Kosovo","Continent":"Europe","Country":"Republic of Kosovo","Pop":1733842,"Region":"Eastern Europe"},{"name":"Romania","Continent":"Europe","Country":"Romania","Pop":20121641,"Region":"Eastern Europe"},{"name":"Russia","Continent":"Europe","Country":"Russia","Pop":143500000,"Region":"Eastern Europe"},{"name":"Slovakia","Continent":"Europe","Country":"Slovakia","Pop":5412008,"Region":"Eastern Europe"},{"name":"Ukraine","Continent":"Europe","Country":"Ukraine","Pop":45461627,"Region":"Eastern Europe"}]}]},{"name":"Africa","children":[{"name":"Northern Africa","children":[{"name":"Algeria","Continent":"Africa","Country":"Algeria","Pop":37900000,"Region":"Northern Africa"},{"name":"Egypt","Continent":"Africa","Country":"Egypt","Pop":83661000,"Region":"Northern Africa"},{"name":"Libya","Continent":"Africa","Country":"Libya","Pop":6202000,"Region":"Northern Africa"},{"name":"Morocco","Continent":"Africa","Country":"Morocco","Pop":33087700,"Region":"Northern Africa"},{"name":"Sudan","Continent":"Africa","Country":"Sudan","Pop":37964000,"Region":"Northern Africa"},{"name":"Tunisia","Continent":"Africa","Country":"Tunisia","Pop":10833431,"Region":"Northern Africa"},{"name":"Western Sahara","Continent":"Africa","Country":"Western Sahara","Pop":567000,"Region":"Northern Africa"}]},{"name":"Middle Africa","children":[{"name":"Angola","Continent":"Africa","Country":"Angola","Pop":20609294,"Region":"Middle Africa"},{"name":"Cameroon","Continent":"Africa","Country":"Cameroon","Pop":20386799,"Region":"Middle Africa"},{"name":"Central African Republic","Continent":"Africa","Country":"Central African Republic","Pop":4616000,"Region":"Middle Africa"},{"name":"Chad","Continent":"Africa","Country":"Chad","Pop":12825000,"Region":"Middle Africa"},{"name":"Republic of the Congo","Continent":"Africa","Country":"Republic of the Congo","Pop":4448000,"Region":"Middle Africa"},{"name":"Democratic Republic of the Congo","Continent":"Africa","Country":"Democratic Republic of the Congo","Pop":67514000,"Region":"Middle Africa"},{"name":"Equatorial Guinea","Continent":"Africa","Country":"Equatorial Guinea","Pop":1622000,"Region":"Middle Africa"},{"name":"Gabon","Continent":"Africa","Country":"Gabon","Pop":1672000,"Region":"Middle Africa"},{"name":"São Tomé and Príncipe","Continent":"Africa","Country":"São Tomé and Príncipe","Pop":187356,"Region":"Middle Africa"},{"name":"South Sudan","Continent":"Africa","Country":"South Sudan","Pop":11296000,"Region":"Middle Africa"}]},{"name":"Western Africa","children":[{"name":"Benin","Continent":"Africa","Country":"Benin","Pop":10323000,"Region":"Western Africa"},{"name":"Burkina Faso","Continent":"Africa","Country":"Burkina Faso","Pop":17322796,"Region":"Western Africa"},{"name":"Cape Verde","Continent":"Africa","Country":"Cape Verde","Pop":491875,"Region":"Western Africa"},{"name":"Côte d'Ivoire","Continent":"Africa","Country":"Côte d'Ivoire","Pop":1,"Region":"Western Africa"},{"name":"Gambia","Continent":"Africa","Country":"Gambia","Pop":1,"Region":"Western Africa"},{"name":"Ghana","Continent":"Africa","Country":"Ghana","Pop":24658823,"Region":"Western Africa"},{"name":"Guinea","Continent":"Africa","Country":"Guinea","Pop":10824200,"Region":"Western Africa"},{"name":"Guinea-Bissau","Continent":"Africa","Country":"Guinea-Bissau","Pop":1704000,"Region":"Western Africa"},{"name":"Liberia","Continent":"Africa","Country":"Liberia","Pop":4294000,"Region":"Western Africa"},{"name":"Mali","Continent":"Africa","Country":"Mali","Pop":15302000,"Region":"Western Africa"},{"name":"Mauritania","Continent":"Africa","Country":"Mauritania","Pop":3461041,"Region":"Western Africa"},{"name":"Niger","Continent":"Africa","Country":"Niger","Pop":17129076,"Region":"Western Africa"},{"name":"Nigeria","Continent":"Africa","Country":"Nigeria","Pop":173615000,"Region":"Western Africa"},{"name":"Saint Helena","Continent":"Africa","Country":"Saint Helena","Pop":1,"Region":"Western Africa"},{"name":"Senegal","Continent":"Africa","Country":"Senegal","Pop":13567338,"Region":"Western Africa"},{"name":"Sierra Leone","Continent":"Africa","Country":"Sierra Leone","Pop":6190280,"Region":"Western Africa"},{"name":"Togo","Continent":"Africa","Country":"Togo","Pop":6191155,"Region":"Western Africa"}]},{"name":"Southern Africa","children":[{"name":"Botswana","Continent":"Africa","Country":"Botswana","Pop":2024904,"Region":"Southern Africa"},{"name":"Lesotho","Continent":"Africa","Country":"Lesotho","Pop":2074000,"Region":"Southern Africa"},{"name":"Namibia","Continent":"Africa","Country":"Namibia","Pop":2113077,"Region":"Southern Africa"},{"name":"South Africa","Continent":"Africa","Country":"South Africa","Pop":52981991,"Region":"Southern Africa"},{"name":"Swaziland","Continent":"Africa","Country":"Swaziland","Pop":1250000,"Region":"Southern Africa"}]},{"name":"Eastern Africa","children":[{"name":"British Indian Ocean Territory","Continent":"Africa","Country":"British Indian Ocean Territory","Pop":1,"Region":"Eastern Africa"},{"name":"Burundi","Continent":"Africa","Country":"Burundi","Pop":10163000,"Region":"Eastern Africa"},{"name":"Comoros","Continent":"Africa","Country":"Comoros","Pop":724300,"Region":"Eastern Africa"},{"name":"Djibouti","Continent":"Africa","Country":"Djibouti","Pop":864618,"Region":"Eastern Africa"},{"name":"Eritrea","Continent":"Africa","Country":"Eritrea","Pop":6333000,"Region":"Eastern Africa"},{"name":"Ethiopia","Continent":"Africa","Country":"Ethiopia","Pop":86613986,"Region":"Eastern Africa"},{"name":"Kenya","Continent":"Africa","Country":"Kenya","Pop":44354000,"Region":"Eastern Africa"},{"name":"Madagascar","Continent":"Africa","Country":"Madagascar","Pop":20696070,"Region":"Eastern Africa"},{"name":"Malawi","Continent":"Africa","Country":"Malawi","Pop":16363000,"Region":"Eastern Africa"},{"name":"Mauritius","Continent":"Africa","Country":"Mauritius","Pop":1257900,"Region":"Eastern Africa"},{"name":"Mayotte","Continent":"Africa","Country":"Mayotte","Pop":212600,"Region":"Eastern Africa"},{"name":"Mozambique","Continent":"Africa","Country":"Mozambique","Pop":23700715,"Region":"Eastern Africa"},{"name":"Réunion","Continent":"Africa","Country":"Réunion","Pop":821136,"Region":"Eastern Africa"},{"name":"Rwanda","Continent":"Africa","Country":"Rwanda","Pop":10537222,"Region":"Eastern Africa"},{"name":"Seychelles","Continent":"Africa","Country":"Seychelles","Pop":90945,"Region":"Eastern Africa"},{"name":"Somalia","Continent":"Africa","Country":"Somalia","Pop":10496000,"Region":"Eastern Africa"},{"name":"Tanzania","Continent":"Africa","Country":"Tanzania","Pop":44928923,"Region":"Eastern Africa"},{"name":"Uganda","Continent":"Africa","Country":"Uganda","Pop":35357000,"Region":"Eastern Africa"},{"name":"Zambia","Continent":"Africa","Country":"Zambia","Pop":13092666,"Region":"Eastern Africa"},{"name":"Zimbabwe","Continent":"Africa","Country":"Zimbabwe","Pop":12973808,"Region":"Eastern Africa"}]}]},{"name":"Oceania","children":[{"name":"Polynesia","children":[{"name":"American Samoa","Continent":"Oceania","Country":"American Samoa","Pop":55519,"Region":"Polynesia"},{"name":"Cook Islands","Continent":"Oceania","Country":"Cook Islands","Pop":14974,"Region":"Polynesia"},{"name":"French Polynesia","Continent":"Oceania","Country":"French Polynesia","Pop":268270,"Region":"Polynesia"},{"name":"Niue","Continent":"Oceania","Country":"Niue","Pop":1613,"Region":"Polynesia"},{"name":"Pitcairn Islands","Continent":"Oceania","Country":"Pitcairn Islands","Pop":56,"Region":"Polynesia"},{"name":"Samoa","Continent":"Oceania","Country":"Samoa","Pop":187820,"Region":"Polynesia"},{"name":"Tokelau","Continent":"Oceania","Country":"Tokelau","Pop":1411,"Region":"Polynesia"},{"name":"Tonga","Continent":"Oceania","Country":"Tonga","Pop":103036,"Region":"Polynesia"},{"name":"Tuvalu","Continent":"Oceania","Country":"Tuvalu","Pop":11323,"Region":"Polynesia"},{"name":"Wallis and Futuna","Continent":"Oceania","Country":"Wallis and Futuna","Pop":13135,"Region":"Polynesia"}]},{"name":"Australia and New Zealand","children":[{"name":"Australia","Continent":"Oceania","Country":"Australia","Pop":23254142,"Region":"Australia and New Zealand"},{"name":"Christmas Island","Continent":"Oceania","Country":"Christmas Island","Pop":2072,"Region":"Australia and New Zealand"},{"name":"Cocos (Keeling) Islands","Continent":"Oceania","Country":"Cocos (Keeling) Islands","Pop":550,"Region":"Australia and New Zealand"},{"name":"New Zealand","Continent":"Oceania","Country":"New Zealand","Pop":4478810,"Region":"Australia and New Zealand"},{"name":"Norfolk Island","Continent":"Oceania","Country":"Norfolk Island","Pop":2302,"Region":"Australia and New Zealand"}]},{"name":"Melanesia","children":[{"name":"Fiji","Continent":"Oceania","Country":"Fiji","Pop":858038,"Region":"Melanesia"},{"name":"New Caledonia","Continent":"Oceania","Country":"New Caledonia","Pop":258958,"Region":"Melanesia"},{"name":"Papua New Guinea","Continent":"Oceania","Country":"Papua New Guinea","Pop":7059653,"Region":"Melanesia"},{"name":"Solomon Islands","Continent":"Oceania","Country":"Solomon Islands","Pop":561000,"Region":"Melanesia"},{"name":"Vanuatu","Continent":"Oceania","Country":"Vanuatu","Pop":264652,"Region":"Melanesia"}]},{"name":"Micronesia","children":[{"name":"Guam","Continent":"Oceania","Country":"Guam","Pop":159358,"Region":"Micronesia"},{"name":"Kiribati","Continent":"Oceania","Country":"Kiribati","Pop":106461,"Region":"Micronesia"},{"name":"Marshall Islands","Continent":"Oceania","Country":"Marshall Islands","Pop":56086,"Region":"Micronesia"},{"name":"Micronesia","Continent":"Oceania","Country":"Micronesia","Pop":1,"Region":"Micronesia"},{"name":"Nauru","Continent":"Oceania","Country":"Nauru","Pop":9945,"Region":"Micronesia"},{"name":"Northern Mariana Islands","Continent":"Oceania","Country":"Northern Mariana Islands","Pop":53883,"Region":"Micronesia"},{"name":"Palau","Continent":"Oceania","Country":"Palau","Pop":20901,"Region":"Micronesia"}]}]},{"name":"Americas","children":[{"name":"Caribbean","children":[{"name":"Anguilla","Continent":"Americas","Country":"Anguilla","Pop":13452,"Region":"Caribbean"},{"name":"Antigua and Barbuda","Continent":"Americas","Country":"Antigua and Barbuda","Pop":86295,"Region":"Caribbean"},{"name":"Aruba","Continent":"Americas","Country":"Aruba","Pop":101484,"Region":"Caribbean"},{"name":"Bahamas","Continent":"Americas","Country":"Bahamas","Pop":1,"Region":"Caribbean"},{"name":"Barbados","Continent":"Americas","Country":"Barbados","Pop":274200,"Region":"Caribbean"},{"name":"Bonaire","Continent":"Americas","Country":"Bonaire","Pop":1,"Region":"Caribbean"},{"name":"British Virgin Islands","Continent":"Americas","Country":"British Virgin Islands","Pop":29537,"Region":"Caribbean"},{"name":"Cayman Islands","Continent":"Americas","Country":"Cayman Islands","Pop":55456,"Region":"Caribbean"},{"name":"Cuba","Continent":"Americas","Country":"Cuba","Pop":11167325,"Region":"Caribbean"},{"name":"Curaçao","Continent":"Americas","Country":"Curaçao","Pop":150563,"Region":"Caribbean"},{"name":"Dominica","Continent":"Americas","Country":"Dominica","Pop":71293,"Region":"Caribbean"},{"name":"Dominican Republic","Continent":"Americas","Country":"Dominican Republic","Pop":9445281,"Region":"Caribbean"},{"name":"Grenada","Continent":"Americas","Country":"Grenada","Pop":103328,"Region":"Caribbean"},{"name":"Guadeloupe","Continent":"Americas","Country":"Guadeloupe","Pop":403355,"Region":"Caribbean"},{"name":"Haiti","Continent":"Americas","Country":"Haiti","Pop":10413211,"Region":"Caribbean"},{"name":"Jamaica","Continent":"Americas","Country":"Jamaica","Pop":2711476,"Region":"Caribbean"},{"name":"Martinique","Continent":"Americas","Country":"Martinique","Pop":394173,"Region":"Caribbean"},{"name":"Montserrat","Continent":"Americas","Country":"Montserrat","Pop":4922,"Region":"Caribbean"},{"name":"Puerto Rico","Continent":"Americas","Country":"Puerto Rico","Pop":3667084,"Region":"Caribbean"},{"name":"Saint Barthélemy","Continent":"Americas","Country":"Saint Barthélemy","Pop":8938,"Region":"Caribbean"},{"name":"Saint Kitts and Nevis","Continent":"Americas","Country":"Saint Kitts and Nevis","Pop":54000,"Region":"Caribbean"},{"name":"Saint Lucia","Continent":"Americas","Country":"Saint Lucia","Pop":166526,"Region":"Caribbean"},{"name":"Saint Martin","Continent":"Americas","Country":"Saint Martin","Pop":1,"Region":"Caribbean"},{"name":"Saint Vincent and the Grenadines","Continent":"Americas","Country":"Saint Vincent and the Grenadines","Pop":109000,"Region":"Caribbean"},{"name":"Sint Maarten","Continent":"Americas","Country":"Sint Maarten","Pop":37429,"Region":"Caribbean"},{"name":"Trinidad and Tobago","Continent":"Americas","Country":"Trinidad and Tobago","Pop":1328019,"Region":"Caribbean"},{"name":"Turks and Caicos Islands","Continent":"Americas","Country":"Turks and Caicos Islands","Pop":31458,"Region":"Caribbean"},{"name":"United States Virgin Islands","Continent":"Americas","Country":"United States Virgin Islands","Pop":106405,"Region":"Caribbean"}]},{"name":"South America","children":[{"name":"Argentina","Continent":"Americas","Country":"Argentina","Pop":40117096,"Region":"South America"},{"name":"Bolivia","Continent":"Americas","Country":"Bolivia","Pop":10027254,"Region":"South America"},{"name":"Brazil","Continent":"Americas","Country":"Brazil","Pop":201032714,"Region":"South America"},{"name":"Chile","Continent":"Americas","Country":"Chile","Pop":16634603,"Region":"South America"},{"name":"Colombia","Continent":"Americas","Country":"Colombia","Pop":47330000,"Region":"South America"},{"name":"Ecuador","Continent":"Americas","Country":"Ecuador","Pop":15617900,"Region":"South America"},{"name":"Falkland Islands","Continent":"Americas","Country":"Falkland Islands","Pop":2563,"Region":"South America"},{"name":"French Guiana","Continent":"Americas","Country":"French Guiana","Pop":229040,"Region":"South America"},{"name":"Guyana","Continent":"Americas","Country":"Guyana","Pop":784894,"Region":"South America"},{"name":"Paraguay","Continent":"Americas","Country":"Paraguay","Pop":6783374,"Region":"South America"},{"name":"Peru","Continent":"Americas","Country":"Peru","Pop":30475144,"Region":"South America"},{"name":"South Georgia","Continent":"Americas","Country":"South Georgia","Pop":1,"Region":"South America"},{"name":"Suriname","Continent":"Americas","Country":"Suriname","Pop":534189,"Region":"South America"},{"name":"Uruguay","Continent":"Americas","Country":"Uruguay","Pop":3286314,"Region":"South America"},{"name":"Venezuela","Continent":"Americas","Country":"Venezuela","Pop":28946101,"Region":"South America"}]},{"name":"Central America","children":[{"name":"Belize","Continent":"Americas","Country":"Belize","Pop":312971,"Region":"Central America"},{"name":"Costa Rica","Continent":"Americas","Country":"Costa Rica","Pop":4667096,"Region":"Central America"},{"name":"El Salvador","Continent":"Americas","Country":"El Salvador","Pop":6340000,"Region":"Central America"},{"name":"Guatemala","Continent":"Americas","Country":"Guatemala","Pop":15438384,"Region":"Central America"},{"name":"Honduras","Continent":"Americas","Country":"Honduras","Pop":8555072,"Region":"Central America"},{"name":"Mexico","Continent":"Americas","Country":"Mexico","Pop":118395054,"Region":"Central America"},{"name":"Nicaragua","Continent":"Americas","Country":"Nicaragua","Pop":6071045,"Region":"Central America"},{"name":"Panama","Continent":"Americas","Country":"Panama","Pop":3405813,"Region":"Central America"}]},{"name":"Northern America","children":[{"name":"Bermuda","Continent":"Americas","Country":"Bermuda","Pop":64237,"Region":"Northern America"},{"name":"Canada","Continent":"Americas","Country":"Canada","Pop":35158304,"Region":"Northern America"},{"name":"Greenland","Continent":"Americas","Country":"Greenland","Pop":56370,"Region":"Northern America"},{"name":"Saint Pierre and Miquelon","Continent":"Americas","Country":"Saint Pierre and Miquelon","Pop":6081,"Region":"Northern America"},{"name":"United States","Continent":"Americas","Country":"United States","Pop":317101000,"Region":"Northern America"},{"name":"United States Minor Outlying Islands","Continent":"Americas","Country":"United States Minor Outlying Islands","Pop":1,"Region":"Northern America"}]}]}]},"options":{"size":"Pop","color_min":"hsl(56,80%,80%)","color_max":"hsl(341,30%,40%)"}},"evals":[],"jsHooks":[]}</script>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(circlepackeR)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data[ <span class="fu">which</span>(data<span class="sc">$</span>value<span class="sc">==-</span><span class="dv">1</span>),<span class="st">&quot;value&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Continent&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Pop&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Remove a few problematic lines</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Continent<span class="sc">!=</span><span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">droplevels</span>()</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># Change the format. This use the data.tree library. This library needs a column that looks like root/group/subgroup/..., so I build it</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">library</span>(data.tree)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>data<span class="sc">$</span>pathString <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="st">&quot;world&quot;</span>, data<span class="sc">$</span>Continent, data<span class="sc">$</span>Region, data<span class="sc">$</span>Country, <span class="at">sep =</span> <span class="st">&quot;/&quot;</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>population <span class="ot">&lt;-</span> <span class="fu">as.Node</span>(data)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a> </span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># You can custom the minimum and maximum value of the color range.</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="fu">circlepackeR</span>(population, <span class="at">size =</span> <span class="st">&quot;Pop&quot;</span>, <span class="at">color_min =</span> <span class="st">&quot;hsl(56,80%,80%)&quot;</span>, <span class="at">color_max =</span> <span class="st">&quot;hsl(341,30%,40%)&quot;</span>)</span></code></pre></div>
+<div class="circlepackeR html-widget html-fill-item" id="htmlwidget-04e0fccde6a0f3a8bf78" style="width:672px;height:576px;"></div>
+<script type="application/json" data-for="htmlwidget-04e0fccde6a0f3a8bf78">{"x":{"data":{"name":"world","children":[{"name":"Asia","children":[{"name":"Southern Asia","children":[{"name":"Afghanistan","Continent":"Asia","Country":"Afghanistan","Pop":25500100,"Region":"Southern Asia"},{"name":"Bangladesh","Continent":"Asia","Country":"Bangladesh","Pop":152518015,"Region":"Southern Asia"},{"name":"Bhutan","Continent":"Asia","Country":"Bhutan","Pop":740990,"Region":"Southern Asia"},{"name":"India","Continent":"Asia","Country":"India","Pop":1236670000,"Region":"Southern Asia"},{"name":"Iran","Continent":"Asia","Country":"Iran","Pop":77068000,"Region":"Southern Asia"},{"name":"Maldives","Continent":"Asia","Country":"Maldives","Pop":317280,"Region":"Southern Asia"},{"name":"Nepal","Continent":"Asia","Country":"Nepal","Pop":26494504,"Region":"Southern Asia"},{"name":"Pakistan","Continent":"Asia","Country":"Pakistan","Pop":184845000,"Region":"Southern Asia"},{"name":"Sri Lanka","Continent":"Asia","Country":"Sri Lanka","Pop":20277597,"Region":"Southern Asia"}]},{"name":"Western Asia","children":[{"name":"Armenia","Continent":"Asia","Country":"Armenia","Pop":3024100,"Region":"Western Asia"},{"name":"Azerbaijan","Continent":"Asia","Country":"Azerbaijan","Pop":9235100,"Region":"Western Asia"},{"name":"Bahrain","Continent":"Asia","Country":"Bahrain","Pop":1234571,"Region":"Western Asia"},{"name":"Cyprus","Continent":"Asia","Country":"Cyprus","Pop":865878,"Region":"Western Asia"},{"name":"Georgia","Continent":"Asia","Country":"Georgia","Pop":1,"Region":"Western Asia"},{"name":"Iraq","Continent":"Asia","Country":"Iraq","Pop":34035000,"Region":"Western Asia"},{"name":"Israel","Continent":"Asia","Country":"Israel","Pop":8092700,"Region":"Western Asia"},{"name":"Jordan","Continent":"Asia","Country":"Jordan","Pop":6512600,"Region":"Western Asia"},{"name":"Kuwait","Continent":"Asia","Country":"Kuwait","Pop":3582054,"Region":"Western Asia"},{"name":"Lebanon","Continent":"Asia","Country":"Lebanon","Pop":4822000,"Region":"Western Asia"},{"name":"Oman","Continent":"Asia","Country":"Oman","Pop":3929000,"Region":"Western Asia"},{"name":"Palestine","Continent":"Asia","Country":"Palestine","Pop":1,"Region":"Western Asia"},{"name":"Qatar","Continent":"Asia","Country":"Qatar","Pop":2024707,"Region":"Western Asia"},{"name":"Saudi Arabia","Continent":"Asia","Country":"Saudi Arabia","Pop":29994272,"Region":"Western Asia"},{"name":"Syria","Continent":"Asia","Country":"Syria","Pop":21898000,"Region":"Western Asia"},{"name":"Turkey","Continent":"Asia","Country":"Turkey","Pop":75627384,"Region":"Western Asia"},{"name":"United Arab Emirates","Continent":"Asia","Country":"United Arab Emirates","Pop":8264070,"Region":"Western Asia"},{"name":"Yemen","Continent":"Asia","Country":"Yemen","Pop":24527000,"Region":"Western Asia"}]},{"name":"South-Eastern Asia","children":[{"name":"Brunei","Continent":"Asia","Country":"Brunei","Pop":393162,"Region":"South-Eastern Asia"},{"name":"Cambodia","Continent":"Asia","Country":"Cambodia","Pop":15135000,"Region":"South-Eastern Asia"},{"name":"Indonesia","Continent":"Asia","Country":"Indonesia","Pop":237641326,"Region":"South-Eastern Asia"},{"name":"Laos","Continent":"Asia","Country":"Laos","Pop":6580800,"Region":"South-Eastern Asia"},{"name":"Malaysia","Continent":"Asia","Country":"Malaysia","Pop":29793600,"Region":"South-Eastern Asia"},{"name":"Myanmar","Continent":"Asia","Country":"Myanmar","Pop":1,"Region":"South-Eastern Asia"},{"name":"Philippines","Continent":"Asia","Country":"Philippines","Pop":98678000,"Region":"South-Eastern Asia"},{"name":"Singapore","Continent":"Asia","Country":"Singapore","Pop":5399200,"Region":"South-Eastern Asia"},{"name":"Thailand","Continent":"Asia","Country":"Thailand","Pop":65926261,"Region":"South-Eastern Asia"},{"name":"Timor-Leste","Continent":"Asia","Country":"Timor-Leste","Pop":1,"Region":"South-Eastern Asia"},{"name":"Vietnam","Continent":"Asia","Country":"Vietnam","Pop":90388000,"Region":"South-Eastern Asia"}]},{"name":"Eastern Asia","children":[{"name":"China","Continent":"Asia","Country":"China","Pop":1361170000,"Region":"Eastern Asia"},{"name":"Hong Kong","Continent":"Asia","Country":"Hong Kong","Pop":7184000,"Region":"Eastern Asia"},{"name":"Japan","Continent":"Asia","Country":"Japan","Pop":127290000,"Region":"Eastern Asia"},{"name":"Macau","Continent":"Asia","Country":"Macau","Pop":1,"Region":"Eastern Asia"},{"name":"Mongolia","Continent":"Asia","Country":"Mongolia","Pop":2754685,"Region":"Eastern Asia"},{"name":"North Korea","Continent":"Asia","Country":"North Korea","Pop":24895000,"Region":"Eastern Asia"},{"name":"South Korea","Continent":"Asia","Country":"South Korea","Pop":50219669,"Region":"Eastern Asia"},{"name":"Taiwan","Continent":"Asia","Country":"Taiwan","Pop":23361147,"Region":"Eastern Asia"}]},{"name":"Central Asia","children":[{"name":"Kazakhstan","Continent":"Asia","Country":"Kazakhstan","Pop":17099000,"Region":"Central Asia"},{"name":"Kyrgyzstan","Continent":"Asia","Country":"Kyrgyzstan","Pop":5551900,"Region":"Central Asia"},{"name":"Tajikistan","Continent":"Asia","Country":"Tajikistan","Pop":8000000,"Region":"Central Asia"},{"name":"Turkmenistan","Continent":"Asia","Country":"Turkmenistan","Pop":5240000,"Region":"Central Asia"},{"name":"Uzbekistan","Continent":"Asia","Country":"Uzbekistan","Pop":30183400,"Region":"Central Asia"}]}]},{"name":"Europe","children":[{"name":"Northern Europe","children":[{"name":"Åland Islands","Continent":"Europe","Country":"Åland Islands","Pop":28502,"Region":"Northern Europe"},{"name":"Denmark","Continent":"Europe","Country":"Denmark","Pop":5623501,"Region":"Northern Europe"},{"name":"Estonia","Continent":"Europe","Country":"Estonia","Pop":1286540,"Region":"Northern Europe"},{"name":"Faroe Islands","Continent":"Europe","Country":"Faroe Islands","Pop":48509,"Region":"Northern Europe"},{"name":"Finland","Continent":"Europe","Country":"Finland","Pop":5445883,"Region":"Northern Europe"},{"name":"Guernsey","Continent":"Europe","Country":"Guernsey","Pop":62431,"Region":"Northern Europe"},{"name":"Iceland","Continent":"Europe","Country":"Iceland","Pop":325010,"Region":"Northern Europe"},{"name":"Ireland","Continent":"Europe","Country":"Ireland","Pop":1,"Region":"Northern Europe"},{"name":"Isle of Man","Continent":"Europe","Country":"Isle of Man","Pop":84497,"Region":"Northern Europe"},{"name":"Jersey","Continent":"Europe","Country":"Jersey","Pop":97857,"Region":"Northern Europe"},{"name":"Latvia","Continent":"Europe","Country":"Latvia","Pop":2014000,"Region":"Northern Europe"},{"name":"Lithuania","Continent":"Europe","Country":"Lithuania","Pop":2950684,"Region":"Northern Europe"},{"name":"Norway","Continent":"Europe","Country":"Norway","Pop":5077798,"Region":"Northern Europe"},{"name":"Svalbard and Jan Mayen","Continent":"Europe","Country":"Svalbard and Jan Mayen","Pop":2655,"Region":"Northern Europe"},{"name":"Sweden","Continent":"Europe","Country":"Sweden","Pop":9625444,"Region":"Northern Europe"},{"name":"United Kingdom","Continent":"Europe","Country":"United Kingdom","Pop":63705000,"Region":"Northern Europe"}]},{"name":"Southern Europe","children":[{"name":"Albania","Continent":"Europe","Country":"Albania","Pop":2821977,"Region":"Southern Europe"},{"name":"Andorra","Continent":"Europe","Country":"Andorra","Pop":76246,"Region":"Southern Europe"},{"name":"Bosnia and Herzegovina","Continent":"Europe","Country":"Bosnia and Herzegovina","Pop":3791622,"Region":"Southern Europe"},{"name":"Croatia","Continent":"Europe","Country":"Croatia","Pop":4290612,"Region":"Southern Europe"},{"name":"Gibraltar","Continent":"Europe","Country":"Gibraltar","Pop":29752,"Region":"Southern Europe"},{"name":"Greece","Continent":"Europe","Country":"Greece","Pop":10815197,"Region":"Southern Europe"},{"name":"Vatican City","Continent":"Europe","Country":"Vatican City","Pop":800,"Region":"Southern Europe"},{"name":"Italy","Continent":"Europe","Country":"Italy","Pop":59829079,"Region":"Southern Europe"},{"name":"Macedonia","Continent":"Europe","Country":"Macedonia","Pop":1,"Region":"Southern Europe"},{"name":"Malta","Continent":"Europe","Country":"Malta","Pop":416055,"Region":"Southern Europe"},{"name":"Montenegro","Continent":"Europe","Country":"Montenegro","Pop":620029,"Region":"Southern Europe"},{"name":"Portugal","Continent":"Europe","Country":"Portugal","Pop":10562178,"Region":"Southern Europe"},{"name":"San Marino","Continent":"Europe","Country":"San Marino","Pop":32509,"Region":"Southern Europe"},{"name":"Serbia","Continent":"Europe","Country":"Serbia","Pop":7181505,"Region":"Southern Europe"},{"name":"Slovenia","Continent":"Europe","Country":"Slovenia","Pop":2061405,"Region":"Southern Europe"},{"name":"Spain","Continent":"Europe","Country":"Spain","Pop":46704314,"Region":"Southern Europe"}]},{"name":"Western Europe","children":[{"name":"Austria","Continent":"Europe","Country":"Austria","Pop":8501502,"Region":"Western Europe"},{"name":"Belgium","Continent":"Europe","Country":"Belgium","Pop":11175653,"Region":"Western Europe"},{"name":"France","Continent":"Europe","Country":"France","Pop":65806000,"Region":"Western Europe"},{"name":"Germany","Continent":"Europe","Country":"Germany","Pop":80523700,"Region":"Western Europe"},{"name":"Liechtenstein","Continent":"Europe","Country":"Liechtenstein","Pop":36842,"Region":"Western Europe"},{"name":"Luxembourg","Continent":"Europe","Country":"Luxembourg","Pop":537000,"Region":"Western Europe"},{"name":"Monaco","Continent":"Europe","Country":"Monaco","Pop":36136,"Region":"Western Europe"},{"name":"Netherlands","Continent":"Europe","Country":"Netherlands","Pop":16807300,"Region":"Western Europe"},{"name":"Switzerland","Continent":"Europe","Country":"Switzerland","Pop":8085300,"Region":"Western Europe"}]},{"name":"Eastern Europe","children":[{"name":"Belarus","Continent":"Europe","Country":"Belarus","Pop":9465500,"Region":"Eastern Europe"},{"name":"Bulgaria","Continent":"Europe","Country":"Bulgaria","Pop":7282041,"Region":"Eastern Europe"},{"name":"Czech Republic","Continent":"Europe","Country":"Czech Republic","Pop":10512900,"Region":"Eastern Europe"},{"name":"Hungary","Continent":"Europe","Country":"Hungary","Pop":9906000,"Region":"Eastern Europe"},{"name":"Moldova","Continent":"Europe","Country":"Moldova","Pop":3559500,"Region":"Eastern Europe"},{"name":"Poland","Continent":"Europe","Country":"Poland","Pop":38533299,"Region":"Eastern Europe"},{"name":"Republic of Kosovo","Continent":"Europe","Country":"Republic of Kosovo","Pop":1733842,"Region":"Eastern Europe"},{"name":"Romania","Continent":"Europe","Country":"Romania","Pop":20121641,"Region":"Eastern Europe"},{"name":"Russia","Continent":"Europe","Country":"Russia","Pop":143500000,"Region":"Eastern Europe"},{"name":"Slovakia","Continent":"Europe","Country":"Slovakia","Pop":5412008,"Region":"Eastern Europe"},{"name":"Ukraine","Continent":"Europe","Country":"Ukraine","Pop":45461627,"Region":"Eastern Europe"}]}]},{"name":"Africa","children":[{"name":"Northern Africa","children":[{"name":"Algeria","Continent":"Africa","Country":"Algeria","Pop":37900000,"Region":"Northern Africa"},{"name":"Egypt","Continent":"Africa","Country":"Egypt","Pop":83661000,"Region":"Northern Africa"},{"name":"Libya","Continent":"Africa","Country":"Libya","Pop":6202000,"Region":"Northern Africa"},{"name":"Morocco","Continent":"Africa","Country":"Morocco","Pop":33087700,"Region":"Northern Africa"},{"name":"Sudan","Continent":"Africa","Country":"Sudan","Pop":37964000,"Region":"Northern Africa"},{"name":"Tunisia","Continent":"Africa","Country":"Tunisia","Pop":10833431,"Region":"Northern Africa"},{"name":"Western Sahara","Continent":"Africa","Country":"Western Sahara","Pop":567000,"Region":"Northern Africa"}]},{"name":"Middle Africa","children":[{"name":"Angola","Continent":"Africa","Country":"Angola","Pop":20609294,"Region":"Middle Africa"},{"name":"Cameroon","Continent":"Africa","Country":"Cameroon","Pop":20386799,"Region":"Middle Africa"},{"name":"Central African Republic","Continent":"Africa","Country":"Central African Republic","Pop":4616000,"Region":"Middle Africa"},{"name":"Chad","Continent":"Africa","Country":"Chad","Pop":12825000,"Region":"Middle Africa"},{"name":"Republic of the Congo","Continent":"Africa","Country":"Republic of the Congo","Pop":4448000,"Region":"Middle Africa"},{"name":"Democratic Republic of the Congo","Continent":"Africa","Country":"Democratic Republic of the Congo","Pop":67514000,"Region":"Middle Africa"},{"name":"Equatorial Guinea","Continent":"Africa","Country":"Equatorial Guinea","Pop":1622000,"Region":"Middle Africa"},{"name":"Gabon","Continent":"Africa","Country":"Gabon","Pop":1672000,"Region":"Middle Africa"},{"name":"São Tomé and Príncipe","Continent":"Africa","Country":"São Tomé and Príncipe","Pop":187356,"Region":"Middle Africa"},{"name":"South Sudan","Continent":"Africa","Country":"South Sudan","Pop":11296000,"Region":"Middle Africa"}]},{"name":"Western Africa","children":[{"name":"Benin","Continent":"Africa","Country":"Benin","Pop":10323000,"Region":"Western Africa"},{"name":"Burkina Faso","Continent":"Africa","Country":"Burkina Faso","Pop":17322796,"Region":"Western Africa"},{"name":"Cape Verde","Continent":"Africa","Country":"Cape Verde","Pop":491875,"Region":"Western Africa"},{"name":"Côte d'Ivoire","Continent":"Africa","Country":"Côte d'Ivoire","Pop":1,"Region":"Western Africa"},{"name":"Gambia","Continent":"Africa","Country":"Gambia","Pop":1,"Region":"Western Africa"},{"name":"Ghana","Continent":"Africa","Country":"Ghana","Pop":24658823,"Region":"Western Africa"},{"name":"Guinea","Continent":"Africa","Country":"Guinea","Pop":10824200,"Region":"Western Africa"},{"name":"Guinea-Bissau","Continent":"Africa","Country":"Guinea-Bissau","Pop":1704000,"Region":"Western Africa"},{"name":"Liberia","Continent":"Africa","Country":"Liberia","Pop":4294000,"Region":"Western Africa"},{"name":"Mali","Continent":"Africa","Country":"Mali","Pop":15302000,"Region":"Western Africa"},{"name":"Mauritania","Continent":"Africa","Country":"Mauritania","Pop":3461041,"Region":"Western Africa"},{"name":"Niger","Continent":"Africa","Country":"Niger","Pop":17129076,"Region":"Western Africa"},{"name":"Nigeria","Continent":"Africa","Country":"Nigeria","Pop":173615000,"Region":"Western Africa"},{"name":"Saint Helena","Continent":"Africa","Country":"Saint Helena","Pop":1,"Region":"Western Africa"},{"name":"Senegal","Continent":"Africa","Country":"Senegal","Pop":13567338,"Region":"Western Africa"},{"name":"Sierra Leone","Continent":"Africa","Country":"Sierra Leone","Pop":6190280,"Region":"Western Africa"},{"name":"Togo","Continent":"Africa","Country":"Togo","Pop":6191155,"Region":"Western Africa"}]},{"name":"Southern Africa","children":[{"name":"Botswana","Continent":"Africa","Country":"Botswana","Pop":2024904,"Region":"Southern Africa"},{"name":"Lesotho","Continent":"Africa","Country":"Lesotho","Pop":2074000,"Region":"Southern Africa"},{"name":"Namibia","Continent":"Africa","Country":"Namibia","Pop":2113077,"Region":"Southern Africa"},{"name":"South Africa","Continent":"Africa","Country":"South Africa","Pop":52981991,"Region":"Southern Africa"},{"name":"Swaziland","Continent":"Africa","Country":"Swaziland","Pop":1250000,"Region":"Southern Africa"}]},{"name":"Eastern Africa","children":[{"name":"British Indian Ocean Territory","Continent":"Africa","Country":"British Indian Ocean Territory","Pop":1,"Region":"Eastern Africa"},{"name":"Burundi","Continent":"Africa","Country":"Burundi","Pop":10163000,"Region":"Eastern Africa"},{"name":"Comoros","Continent":"Africa","Country":"Comoros","Pop":724300,"Region":"Eastern Africa"},{"name":"Djibouti","Continent":"Africa","Country":"Djibouti","Pop":864618,"Region":"Eastern Africa"},{"name":"Eritrea","Continent":"Africa","Country":"Eritrea","Pop":6333000,"Region":"Eastern Africa"},{"name":"Ethiopia","Continent":"Africa","Country":"Ethiopia","Pop":86613986,"Region":"Eastern Africa"},{"name":"Kenya","Continent":"Africa","Country":"Kenya","Pop":44354000,"Region":"Eastern Africa"},{"name":"Madagascar","Continent":"Africa","Country":"Madagascar","Pop":20696070,"Region":"Eastern Africa"},{"name":"Malawi","Continent":"Africa","Country":"Malawi","Pop":16363000,"Region":"Eastern Africa"},{"name":"Mauritius","Continent":"Africa","Country":"Mauritius","Pop":1257900,"Region":"Eastern Africa"},{"name":"Mayotte","Continent":"Africa","Country":"Mayotte","Pop":212600,"Region":"Eastern Africa"},{"name":"Mozambique","Continent":"Africa","Country":"Mozambique","Pop":23700715,"Region":"Eastern Africa"},{"name":"Réunion","Continent":"Africa","Country":"Réunion","Pop":821136,"Region":"Eastern Africa"},{"name":"Rwanda","Continent":"Africa","Country":"Rwanda","Pop":10537222,"Region":"Eastern Africa"},{"name":"Seychelles","Continent":"Africa","Country":"Seychelles","Pop":90945,"Region":"Eastern Africa"},{"name":"Somalia","Continent":"Africa","Country":"Somalia","Pop":10496000,"Region":"Eastern Africa"},{"name":"Tanzania","Continent":"Africa","Country":"Tanzania","Pop":44928923,"Region":"Eastern Africa"},{"name":"Uganda","Continent":"Africa","Country":"Uganda","Pop":35357000,"Region":"Eastern Africa"},{"name":"Zambia","Continent":"Africa","Country":"Zambia","Pop":13092666,"Region":"Eastern Africa"},{"name":"Zimbabwe","Continent":"Africa","Country":"Zimbabwe","Pop":12973808,"Region":"Eastern Africa"}]}]},{"name":"Oceania","children":[{"name":"Polynesia","children":[{"name":"American Samoa","Continent":"Oceania","Country":"American Samoa","Pop":55519,"Region":"Polynesia"},{"name":"Cook Islands","Continent":"Oceania","Country":"Cook Islands","Pop":14974,"Region":"Polynesia"},{"name":"French Polynesia","Continent":"Oceania","Country":"French Polynesia","Pop":268270,"Region":"Polynesia"},{"name":"Niue","Continent":"Oceania","Country":"Niue","Pop":1613,"Region":"Polynesia"},{"name":"Pitcairn Islands","Continent":"Oceania","Country":"Pitcairn Islands","Pop":56,"Region":"Polynesia"},{"name":"Samoa","Continent":"Oceania","Country":"Samoa","Pop":187820,"Region":"Polynesia"},{"name":"Tokelau","Continent":"Oceania","Country":"Tokelau","Pop":1411,"Region":"Polynesia"},{"name":"Tonga","Continent":"Oceania","Country":"Tonga","Pop":103036,"Region":"Polynesia"},{"name":"Tuvalu","Continent":"Oceania","Country":"Tuvalu","Pop":11323,"Region":"Polynesia"},{"name":"Wallis and Futuna","Continent":"Oceania","Country":"Wallis and Futuna","Pop":13135,"Region":"Polynesia"}]},{"name":"Australia and New Zealand","children":[{"name":"Australia","Continent":"Oceania","Country":"Australia","Pop":23254142,"Region":"Australia and New Zealand"},{"name":"Christmas Island","Continent":"Oceania","Country":"Christmas Island","Pop":2072,"Region":"Australia and New Zealand"},{"name":"Cocos (Keeling) Islands","Continent":"Oceania","Country":"Cocos (Keeling) Islands","Pop":550,"Region":"Australia and New Zealand"},{"name":"New Zealand","Continent":"Oceania","Country":"New Zealand","Pop":4478810,"Region":"Australia and New Zealand"},{"name":"Norfolk Island","Continent":"Oceania","Country":"Norfolk Island","Pop":2302,"Region":"Australia and New Zealand"}]},{"name":"Melanesia","children":[{"name":"Fiji","Continent":"Oceania","Country":"Fiji","Pop":858038,"Region":"Melanesia"},{"name":"New Caledonia","Continent":"Oceania","Country":"New Caledonia","Pop":258958,"Region":"Melanesia"},{"name":"Papua New Guinea","Continent":"Oceania","Country":"Papua New Guinea","Pop":7059653,"Region":"Melanesia"},{"name":"Solomon Islands","Continent":"Oceania","Country":"Solomon Islands","Pop":561000,"Region":"Melanesia"},{"name":"Vanuatu","Continent":"Oceania","Country":"Vanuatu","Pop":264652,"Region":"Melanesia"}]},{"name":"Micronesia","children":[{"name":"Guam","Continent":"Oceania","Country":"Guam","Pop":159358,"Region":"Micronesia"},{"name":"Kiribati","Continent":"Oceania","Country":"Kiribati","Pop":106461,"Region":"Micronesia"},{"name":"Marshall Islands","Continent":"Oceania","Country":"Marshall Islands","Pop":56086,"Region":"Micronesia"},{"name":"Micronesia","Continent":"Oceania","Country":"Micronesia","Pop":1,"Region":"Micronesia"},{"name":"Nauru","Continent":"Oceania","Country":"Nauru","Pop":9945,"Region":"Micronesia"},{"name":"Northern Mariana Islands","Continent":"Oceania","Country":"Northern Mariana Islands","Pop":53883,"Region":"Micronesia"},{"name":"Palau","Continent":"Oceania","Country":"Palau","Pop":20901,"Region":"Micronesia"}]}]},{"name":"Americas","children":[{"name":"Caribbean","children":[{"name":"Anguilla","Continent":"Americas","Country":"Anguilla","Pop":13452,"Region":"Caribbean"},{"name":"Antigua and Barbuda","Continent":"Americas","Country":"Antigua and Barbuda","Pop":86295,"Region":"Caribbean"},{"name":"Aruba","Continent":"Americas","Country":"Aruba","Pop":101484,"Region":"Caribbean"},{"name":"Bahamas","Continent":"Americas","Country":"Bahamas","Pop":1,"Region":"Caribbean"},{"name":"Barbados","Continent":"Americas","Country":"Barbados","Pop":274200,"Region":"Caribbean"},{"name":"Bonaire","Continent":"Americas","Country":"Bonaire","Pop":1,"Region":"Caribbean"},{"name":"British Virgin Islands","Continent":"Americas","Country":"British Virgin Islands","Pop":29537,"Region":"Caribbean"},{"name":"Cayman Islands","Continent":"Americas","Country":"Cayman Islands","Pop":55456,"Region":"Caribbean"},{"name":"Cuba","Continent":"Americas","Country":"Cuba","Pop":11167325,"Region":"Caribbean"},{"name":"Curaçao","Continent":"Americas","Country":"Curaçao","Pop":150563,"Region":"Caribbean"},{"name":"Dominica","Continent":"Americas","Country":"Dominica","Pop":71293,"Region":"Caribbean"},{"name":"Dominican Republic","Continent":"Americas","Country":"Dominican Republic","Pop":9445281,"Region":"Caribbean"},{"name":"Grenada","Continent":"Americas","Country":"Grenada","Pop":103328,"Region":"Caribbean"},{"name":"Guadeloupe","Continent":"Americas","Country":"Guadeloupe","Pop":403355,"Region":"Caribbean"},{"name":"Haiti","Continent":"Americas","Country":"Haiti","Pop":10413211,"Region":"Caribbean"},{"name":"Jamaica","Continent":"Americas","Country":"Jamaica","Pop":2711476,"Region":"Caribbean"},{"name":"Martinique","Continent":"Americas","Country":"Martinique","Pop":394173,"Region":"Caribbean"},{"name":"Montserrat","Continent":"Americas","Country":"Montserrat","Pop":4922,"Region":"Caribbean"},{"name":"Puerto Rico","Continent":"Americas","Country":"Puerto Rico","Pop":3667084,"Region":"Caribbean"},{"name":"Saint Barthélemy","Continent":"Americas","Country":"Saint Barthélemy","Pop":8938,"Region":"Caribbean"},{"name":"Saint Kitts and Nevis","Continent":"Americas","Country":"Saint Kitts and Nevis","Pop":54000,"Region":"Caribbean"},{"name":"Saint Lucia","Continent":"Americas","Country":"Saint Lucia","Pop":166526,"Region":"Caribbean"},{"name":"Saint Martin","Continent":"Americas","Country":"Saint Martin","Pop":1,"Region":"Caribbean"},{"name":"Saint Vincent and the Grenadines","Continent":"Americas","Country":"Saint Vincent and the Grenadines","Pop":109000,"Region":"Caribbean"},{"name":"Sint Maarten","Continent":"Americas","Country":"Sint Maarten","Pop":37429,"Region":"Caribbean"},{"name":"Trinidad and Tobago","Continent":"Americas","Country":"Trinidad and Tobago","Pop":1328019,"Region":"Caribbean"},{"name":"Turks and Caicos Islands","Continent":"Americas","Country":"Turks and Caicos Islands","Pop":31458,"Region":"Caribbean"},{"name":"United States Virgin Islands","Continent":"Americas","Country":"United States Virgin Islands","Pop":106405,"Region":"Caribbean"}]},{"name":"South America","children":[{"name":"Argentina","Continent":"Americas","Country":"Argentina","Pop":40117096,"Region":"South America"},{"name":"Bolivia","Continent":"Americas","Country":"Bolivia","Pop":10027254,"Region":"South America"},{"name":"Brazil","Continent":"Americas","Country":"Brazil","Pop":201032714,"Region":"South America"},{"name":"Chile","Continent":"Americas","Country":"Chile","Pop":16634603,"Region":"South America"},{"name":"Colombia","Continent":"Americas","Country":"Colombia","Pop":47330000,"Region":"South America"},{"name":"Ecuador","Continent":"Americas","Country":"Ecuador","Pop":15617900,"Region":"South America"},{"name":"Falkland Islands","Continent":"Americas","Country":"Falkland Islands","Pop":2563,"Region":"South America"},{"name":"French Guiana","Continent":"Americas","Country":"French Guiana","Pop":229040,"Region":"South America"},{"name":"Guyana","Continent":"Americas","Country":"Guyana","Pop":784894,"Region":"South America"},{"name":"Paraguay","Continent":"Americas","Country":"Paraguay","Pop":6783374,"Region":"South America"},{"name":"Peru","Continent":"Americas","Country":"Peru","Pop":30475144,"Region":"South America"},{"name":"South Georgia","Continent":"Americas","Country":"South Georgia","Pop":1,"Region":"South America"},{"name":"Suriname","Continent":"Americas","Country":"Suriname","Pop":534189,"Region":"South America"},{"name":"Uruguay","Continent":"Americas","Country":"Uruguay","Pop":3286314,"Region":"South America"},{"name":"Venezuela","Continent":"Americas","Country":"Venezuela","Pop":28946101,"Region":"South America"}]},{"name":"Central America","children":[{"name":"Belize","Continent":"Americas","Country":"Belize","Pop":312971,"Region":"Central America"},{"name":"Costa Rica","Continent":"Americas","Country":"Costa Rica","Pop":4667096,"Region":"Central America"},{"name":"El Salvador","Continent":"Americas","Country":"El Salvador","Pop":6340000,"Region":"Central America"},{"name":"Guatemala","Continent":"Americas","Country":"Guatemala","Pop":15438384,"Region":"Central America"},{"name":"Honduras","Continent":"Americas","Country":"Honduras","Pop":8555072,"Region":"Central America"},{"name":"Mexico","Continent":"Americas","Country":"Mexico","Pop":118395054,"Region":"Central America"},{"name":"Nicaragua","Continent":"Americas","Country":"Nicaragua","Pop":6071045,"Region":"Central America"},{"name":"Panama","Continent":"Americas","Country":"Panama","Pop":3405813,"Region":"Central America"}]},{"name":"Northern America","children":[{"name":"Bermuda","Continent":"Americas","Country":"Bermuda","Pop":64237,"Region":"Northern America"},{"name":"Canada","Continent":"Americas","Country":"Canada","Pop":35158304,"Region":"Northern America"},{"name":"Greenland","Continent":"Americas","Country":"Greenland","Pop":56370,"Region":"Northern America"},{"name":"Saint Pierre and Miquelon","Continent":"Americas","Country":"Saint Pierre and Miquelon","Pop":6081,"Region":"Northern America"},{"name":"United States","Continent":"Americas","Country":"United States","Pop":317101000,"Region":"Northern America"},{"name":"United States Minor Outlying Islands","Continent":"Americas","Country":"United States Minor Outlying Islands","Pop":1,"Region":"Northern America"}]}]}]},"options":{"size":"Pop","color_min":"hsl(56,80%,80%)","color_max":"hsl(341,30%,40%)"}},"evals":[],"jsHooks":[]}</script>
 </center>
-<p><em>Note</em>: this figure is <code>interactive</code>, click on a continent to explore its regions and so on. Learn more on this world distribution story <a href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">here</a>.</p>
-<h1 id="what-for">What for</h1>
+<p><em>Note</em>: this figure is <code>interactive</code>, click on a
+continent to explore its regions and so on. Learn more on this world
+distribution story <a
+href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">here</a>.</p>
+</div>
+<div id="what-for" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> What for</h1>
 <hr />
-<p>Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to <a href="https://www.data-to-viz.com/caveat/area_hard.html">translate an area into an accurate number</a>. If you need accuracy, use a <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> or a <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> plot instead.</p>
-<p>However, circular packing shows very well how groups are organised in subgroups. It uses the space a bit less efficiently than a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, but the hierarchy gets very neat.</p>
-<h1 id="variation">Variation</h1>
+<p>Circle packing is not recommended if you need to precisely compare
+values of group. Indeed, it is hard for the human eye to <a
+href="https://www.data-to-viz.com/caveat/area_hard.html">translate an
+area into an accurate number</a>. If you need accuracy, use a <a
+href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> or a
+<a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a>
+plot instead.</p>
+<p>However, circular packing shows very well how groups are organised in
+subgroups. It uses the space a bit less efficiently than a <a
+href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, but
+the hierarchy gets very neat.</p>
+</div>
+<div id="variation" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Variation</h1>
 <hr />
-<p>When using circular packing I really like to remove the first or two first levels of the hierarchy on the plot. I believe it improves the appearance of the graphic but this is purely an aesthetic point of view:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(ggraph)
-<span class="kw">library</span>(igraph)
-<span class="kw">library</span>(viridis)
- 
-<span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span>
-edges=flare<span class="op">$</span>edges
-vertices =<span class="st"> </span>flare<span class="op">$</span>vertices
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
- 
-<span class="co"># Second one: add 2 first levels</span>
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="dt">weight=</span><span class="st">&quot;size&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_circle</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> <span class="kw">as.factor</span>(depth), <span class="dt">color =</span> <span class="kw">as.factor</span>(depth) )) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">2</span>], <span class="st">&quot;3&quot;</span> =<span class="st"> </span><span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">3</span>], <span class="st">&quot;4&quot;</span>=<span class="kw">magma</span>(<span class="dv">4</span>)[<span class="dv">4</span>])) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_manual</span>( <span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;0&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> =<span class="st"> &quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;3&quot;</span> =<span class="st"> &quot;black&quot;</span>, <span class="st">&quot;4&quot;</span>=<span class="st">&quot;black&quot;</span>) ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;FALSE&quot;</span>)</code></pre></div>
+<p>When using circular packing I really like to remove the first or two
+first levels of the hierarchy on the plot. I believe it improves the
+appearance of the graphic but this is purely an aesthetic point of
+view:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a> </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>edges<span class="ot">=</span>flare<span class="sc">$</span>edges</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>vertices <span class="ot">=</span> flare<span class="sc">$</span>vertices</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( edges, <span class="at">vertices=</span>vertices )</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a> </span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># Second one: add 2 first levels</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="at">weight=</span>size) <span class="sc">+</span> </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">geom_node_circle</span>(<span class="fu">aes</span>(<span class="at">fill =</span> <span class="fu">as.factor</span>(depth), <span class="at">color =</span> <span class="fu">as.factor</span>(depth) )) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;0&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="fu">magma</span>(<span class="dv">4</span>)[<span class="dv">2</span>], <span class="st">&quot;3&quot;</span> <span class="ot">=</span> <span class="fu">magma</span>(<span class="dv">4</span>)[<span class="dv">3</span>], <span class="st">&quot;4&quot;</span><span class="ot">=</span><span class="fu">magma</span>(<span class="dv">4</span>)[<span class="dv">4</span>])) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>( <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;0&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>, <span class="st">&quot;1&quot;</span> <span class="ot">=</span> <span class="st">&quot;white&quot;</span>, <span class="st">&quot;2&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>, <span class="st">&quot;3&quot;</span> <span class="ot">=</span> <span class="st">&quot;black&quot;</span>, <span class="st">&quot;4&quot;</span><span class="ot">=</span><span class="st">&quot;black&quot;</span>) ) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span> </span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;FALSE&quot;</span>)</span></code></pre></div>
 <p><img src="circularpacking_files/figure-html/unnamed-chunk-2-1.png" width="576" style="display: block; margin: auto;" /></p>
-<p>Note that if only one level of hierarchy is displayed (no encapsulation), it becomes equivalent to a barplot. Instead of showing the value of each individual as a bar, it uses a circle.</p>
-<h1 id="mistake">Common mistakes</h1>
+<p>Note that if only one level of hierarchy is displayed (no
+encapsulation), it becomes equivalent to a barplot. Instead of showing
+the value of each individual as a bar, it uses a circle.</p>
+</div>
+<div id="mistake" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Common mistakes</h1>
 <hr />
 <ul>
-<li>If many levels in the hierarchy, using an interactive version is advised. Indeed adding to many labels could make the graphic unreadable.</li>
+<li>If many levels in the hierarchy, using an interactive version is
+advised. Indeed adding to many labels could make the graphic
+unreadable.</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
 Barplot
 </p>
@@ -310,27 +404,32 @@ Represents the value of entities using bar of various length.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
 <p class="mytitlerelated">
 Lollipop plot
 </p>
 <p class="mytextrelated">
-A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.
+A fancy barplot where bars are replaced with a dot and a segment. Allows
+even more options when it comes to stacking.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/treemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/TreeSmall.png">
+<a href="http://www.data-to-viz.com/graph/treemap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/TreeSmall.png">
 <p class="mytitlerelated">
 Treemap
 </p>
 <p class="mytextrelated">
-Displays hierarchical data as a set of nested rectangles. Perfect to show how the whole is divided.
+Displays hierarchical data as a set of nested rectangles. Perfect to
+show how the whole is divided.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
 <p class="mytitlerelated">
 Dendrogram
 </p>
@@ -340,45 +439,90 @@ A network structure used to show a hierarchical organization.
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://r-graph-gallery.com/circle-packing.html">R</a>,
+<a href="https:/python-graph-gallery.com/circular-packing/">Python</a>,
+<a href="https://www.react-graph-gallery.com/circular-packing">React</a>
+and <a href="https://d3-graph-gallery.com/circularpacking.html">D3</a>
+graph galleries are 4 websites providing hundreds of chart example,
+always providing the reproducible code. Click the button below to see
+how to build the chart you need with your favorite programing
+language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/circle-packing/" class="btn btn-primary">R graph gallery</a>
+<a href="https://r-graph-gallery.com/circle-packing.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/circular-packing/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/circular-packing" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/circularpacking.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/circularpacking.html;  
-        this.page.identifier = circularpacking; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -399,28 +543,29 @@ A network structure used to show a hierarchical organization.
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

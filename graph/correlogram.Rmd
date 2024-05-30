@@ -43,7 +43,7 @@ The diagonal often represents the `distribution` of each variable, using an [his
 library(reticulate)
 ```
 
-```{python, engine.path="/Users/y.holtz/anaconda3/bin/python", fig.width=1, fig.height=1}
+```{python, fig.width=1, fig.height=1}
 # library & dataset
 import seaborn as sns
 df = sns.load_dataset('iris')
@@ -54,10 +54,6 @@ sns_plot = sns.pairplot(df)
 sns_plot.savefig("IMG/correlogram1.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram1.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
@@ -83,30 +79,22 @@ When you get a multivariate dataset, building a correlogram is one of the first 
 
 All the variations described in the [scatterplot](http://www.data-to-viz.com/graph/scatter.html) section are also available for correlogram. For example, why not applying a linear regression to each pair of variable:
 
-```{python, engine.path="/Users/y.holtz/anaconda3/bin/python"}
+```{python}
 # with regression
 sns_plot = sns.pairplot(df, kind="reg")
 sns_plot.savefig("IMG/correlogram2.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram2.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
 As described in the scatterplot section, it is a good practice to display subgroups if a categoric variable is available as well:
-```{python, engine.path="/Users/y.holtz/anaconda3/bin/python"}
+```{python}
 # with regression
 sns_plot = sns.pairplot(df, kind="scatter", hue="species", markers=["o", "s", "D"], palette="Set2")
 sns_plot.savefig("IMG/correlogram3.png")
 ```
 
-<br><br>
-<center>
-<img src="IMG/correlogram3.png" alt="img" width="500" height="500">
-</center>
 
 <br><br>
 
@@ -159,22 +147,18 @@ sns_plot.savefig("IMG/correlogram3.png")
 
 
 
+
 # Build your own {#code}
 ***
 
-The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/correlogram.html), [Python](https:/python-graph-gallery.com/correlogram/), [React](https://www.react-graph-gallery.com/correlogram) and [D3](https://d3-graph-gallery.com/correlogram.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/correlogram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://r-graph-gallery.com/correlogram.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/correlogram/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.react-graph-gallery.com/correlogram" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/correlogram.html" class="btn btn-primary">D3 gallery</a>
 </p>
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 
 
