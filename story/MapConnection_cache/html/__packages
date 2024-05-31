@@ -1,4 +1,3 @@
-base
 tidyverse
 ggplot2
 tibble
@@ -26,3 +25,4 @@ networkD3
 plotly
 mapdata
 hexbin
+lubridate
