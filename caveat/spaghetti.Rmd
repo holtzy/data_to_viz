@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/spaghetti.png"
 mytitle: "The Spaghetti plot"
-mydisqus: "spaghetti"
+pathSlug: "spaghetti"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -35,7 +35,7 @@ library(DT)
 library(plotly)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Mary","Emma", "Ida", "Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
   filter(sex=="F")
 

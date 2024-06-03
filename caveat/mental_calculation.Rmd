@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/mental_workout.png"
 mytitle: "Mental arithmetic in dataviz"
-mydisqus: "mental_calculation"
+pathSlug: "mental_calculation"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -54,7 +54,7 @@ data %>%
       panel.grid.minor = element_blank(),
       legend.position = c(0.9, 0.9),
     ) +
-    ylab("# of people") + 
+    ylab("# of people") +
     xlab("Hour of day")
 ```
 
@@ -71,8 +71,8 @@ Now, what if somebody asks you:
 ***
 To answer these questions, your audience must think hard and will probably be confused.
 
-- Is it where the marker `A` is, when the number of people entering the shop starts decreasing? 
-- Or marker `B` where more people are leaving than entering? 
+- Is it where the marker `A` is, when the number of people entering the shop starts decreasing?
+- Or marker `B` where more people are leaving than entering?
 - Or `C` where the number of people leaving decreases?
 
 Instead of forcing the reader to make the calculation, it is probably better to represent the number of people in the shop directly:
@@ -91,7 +91,7 @@ data %>%
     theme(
       panel.grid.minor = element_blank()
     ) +
-    ylab("# of people") + 
+    ylab("# of people") +
     xlab("Hour of day")
 ```
 

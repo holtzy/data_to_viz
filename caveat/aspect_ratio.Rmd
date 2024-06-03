@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/aspect_ratio.png"
 mytitle: "Mind the aspect ratio"
-mydisqus: "aspect_ratio"
+pathSlug: "aspect_ratio"
 output:
   html_document:
       template: template_caveat.html
@@ -13,14 +13,14 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
 <br><br>
 <div class="mycontent">
 
-`Aspect ratio` is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insights gained from your graphic.  
+`Aspect ratio` is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insights gained from your graphic.
 
 <br>
 

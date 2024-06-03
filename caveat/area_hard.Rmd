@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/bubble_hard.png"
 mytitle: "Area is a poor metaphor"
-mydisqus: "area_hard"
+pathSlug: "area_hard"
 output:
   html_document:
       template: template_caveat.html
@@ -13,14 +13,14 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
 <br><br><br><br>
 <div class="mycontent">
 
-The human eye does not perform well when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.  
+The human eye does not perform well when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=1}
 # Libraries
@@ -71,7 +71,7 @@ This does not mean that area must never been used to represent a numeric variabl
 
 #Going further
 ***
-- Using bubbles: [scaling to radius or area](https://www.data-to-viz.com/caveat/radius_or_area.html)? 
+- Using bubbles: [scaling to radius or area](https://www.data-to-viz.com/caveat/radius_or_area.html)?
 - Data visualization: basic principles. [link](http://paldhous.github.io/ucb/2016/dataviz/week2.html)
 
 

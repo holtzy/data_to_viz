@@ -1,10 +1,10 @@
 ---
 myimage: "AreaSmall.png"
-mydisqus: "area"
+pathSlug: "area"
 mytitle: "Area chart"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -27,12 +27,12 @@ output:
 
 # Definition {#definition}
 ***
-An `area chart` is really similar to a [line chart](https://www.data-to-viz.com/graph/line.html) and represents the evolution of a numeric variable. Basically, the X axis represents time or an ordered variable, and the Y axis gives the value of another variable. Data points are connected by straight line segments and the area between the x axis and the line is filled in with color or shading. 
+An `area chart` is really similar to a [line chart](https://www.data-to-viz.com/graph/line.html) and represents the evolution of a numeric variable. Basically, the X axis represents time or an ordered variable, and the Y axis gives the value of another variable. Data points are connected by straight line segments and the area between the x axis and the line is filled in with color or shading.
 
 
 <br>
 
-The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) between April 2013 and April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website. 
+The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) between April 2013 and April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
 # Libraries
@@ -72,7 +72,7 @@ Area chart can also be used to show the evolution of `several variables`. The mo
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8}
 # Load dataset from github
-don <- babynames %>% 
+don <- babynames %>%
   filter(name %in% c("Ashley", "Amanda", "Mary", "Deborah",   "Dorothy", "Betty", "Helen", "Jennifer", "Shirley")) %>%
   filter(sex=="F")
 

@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/cut_y_axis.png"
-mydisqus: "cut_y_axis"
+pathSlug: "cut_y_axis"
 mytitle: "To cut or not to cut (the Y axis)"
 output:
   html_document:
@@ -13,9 +13,9 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
- 
+
 ---
 
 <br><br>
@@ -61,7 +61,7 @@ By its design, a bar graph emphasizes the absolute magnitude of values associate
 
 
 <br>
-*Read more*: 
+*Read more*:
 
 - Have a look to this [#SWD challenge](http://www.storytellingwithdata.com/blog/2018/3/9/bring-on-the-bar-charts) by storytelling with data: you will see that most of the entry ordered their barplot.
 - Read more about [barplot]() and [lollipop plot]()

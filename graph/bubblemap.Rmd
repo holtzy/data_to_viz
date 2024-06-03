@@ -1,10 +1,10 @@
 ---
 myimage: "BubbleMapSmall.png"
-mydisqus: "bubblemap"
+pathSlug: "bubblemap"
 mytitle: "Bubble map"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -29,7 +29,7 @@ output:
 # Definition {#definition}
 ***
 
-A `bubble map` uses circles of different size to represent a numeric value on a territory. It displays one bubble per geographic coordinate, or one bubble per region (in this case the bubble is usually displayed in the baricentre of the region).  
+A `bubble map` uses circles of different size to represent a numeric value on a territory. It displays one bubble per geographic coordinate, or one bubble per region (in this case the bubble is usually displayed in the baricentre of the region).
 
 Here is an example showing the geographic position of about [200k tweets](https://www.data-to-viz.com/story/GPSCoordWithoutValue.html) containing the hashtags #surf, #windsurf or #kitesurf. See more about this project [here](https://www.data-to-viz.com/story/GPSCoordWithoutValue.html).
 
@@ -72,7 +72,7 @@ p <- data %>%
     xlim(-180,180) +
     ylim(-60,80) +
     scale_x_continuous(expand = c(0.006, 0.006)) +
-    coord_equal() 
+    coord_equal()
 
 # Save at PNG
 ggsave("IMG/Surfer_bubble.png", width = 36, height = 15.22, units = "in", dpi = 90)
@@ -111,25 +111,25 @@ Interactivity is appreciated for bubble maps. It allows to zoom on a specific pa
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=9, cache=TRUE}
 # Library
 library(leaflet)
- 
+
 # load example data (Fiji Earthquakes) + keep only 100 first lines
 data(quakes)
 quakes =  head(quakes, 100)
- 
+
 # Create a color palette with handmade bins.
 mybins=seq(4, 6.5, by=0.5)
 mypalette = colorBin( palette="YlOrBr", domain=quakes$mag, na.color="transparent", bins=mybins)
- 
+
 # Prepare the text for the tooltip:
 mytext=paste("Depth: ", quakes$depth, "<br/>", "Stations: ", quakes$stations, "<br/>", "Magnitude: ", quakes$mag, sep="") %>%
   lapply(htmltools::HTML)
- 
+
 # Final Map
-leaflet(quakes) %>% 
-  addTiles()  %>% 
+leaflet(quakes) %>%
+  addTiles()  %>%
   setView( lat=-27, lng=170 , zoom=4) %>%
   addProviderTiles("Esri.WorldImagery") %>%
-  addCircles(~long, ~lat, 
+  addCircles(~long, ~lat,
     fillColor = ~mypalette(mag), fillOpacity = 0.7, color="white", radius=~sqrt(depth)*3000, stroke=FALSE, weight = 1,
     label = mytext,
     labelOptions = labelOptions( style = list("font-weight" = "normal", padding = "3px 8px"), textsize = "13px", direction = "auto")

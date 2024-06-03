@@ -5,10 +5,10 @@ myimage3: "Box1Small.png"
 myimage4: "ViolinSmall.png"
 myimage5: "JoyplotSmall.png"
 mytitle: "Perception of probability"
-mydisqus: "OneNumOneCatSeveralObs"
+pathSlug: "OneNumOneCatSeveralObs"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -20,7 +20,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -52,11 +52,11 @@ library(viridis)
 
 # Load dataset from github
 data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
-data <- data %>% 
+data <- data %>%
   gather(key="text", value="value") %>%
   mutate(text = gsub("\\.", " ",text)) %>%
   mutate(value = round(as.numeric(value),0))
-  
+
 
 # show data
 data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
@@ -146,7 +146,7 @@ data %>%
 ```
 
 
-However if you have more than ~4 groups this technique does not work: the graphic would become too cluttered. Thus it is a better practice to use small multiple: 
+However if you have more than ~4 groups this technique does not work: the graphic would become too cluttered. Thus it is a better practice to use small multiple:
 ```{r, fig.align='center', fig.height=7, fig.width=8, warning=FALSE}
 data %>%
   mutate(text = fct_reorder(text, value)) %>%

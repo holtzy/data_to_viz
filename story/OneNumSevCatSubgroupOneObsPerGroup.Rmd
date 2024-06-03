@@ -4,10 +4,10 @@ myimage2: "Parallel1Small.png"
 myimage3: "SpiderSmall.png"
 myimage4: "ScatterPlotSmall.png"
 mytitle: "The gender wage gap"
-mydisqus: "OneNumSevCatSubgroupOneObsPerGroup"
+pathSlug: "OneNumSevCatSubgroupOneObsPerGroup"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -19,7 +19,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -79,7 +79,7 @@ data %>%
   filter(Country %in% with4$Country) %>%
   mutate(Country = fct_reorder(Country, Value)) %>%
   mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
-  ggplot(aes(fill=as.factor(TIME), y=Value, x=Country)) + 
+  ggplot(aes(fill=as.factor(TIME), y=Value, x=Country)) +
     geom_bar(position="dodge", stat="identity") +
     scale_fill_viridis(discrete=T, name="") +
     coord_flip() +
@@ -97,7 +97,7 @@ data %>%
   filter(Country %in% with4$Country) %>%
   mutate(Country = fct_reorder(Country, Value)) %>%
   mutate(TIME=factor(TIME, levels = c("2000", "2005", "2010", "2015"))) %>%
-  ggplot(aes(fill=Country, y=Value, x=as.factor(TIME))) + 
+  ggplot(aes(fill=Country, y=Value, x=as.factor(TIME))) +
     geom_bar(position="dodge", stat="identity") +
     scale_fill_viridis(discrete=T, name="") +
     coord_flip() +
@@ -125,7 +125,7 @@ data %>%
   filter(Country != "OECD - Average") %>%
   mutate(label = if_else(TIME == max(TIME) & Country %in% grp1, as.character(Country), NA_character_)) %>%
   mutate(label2 = if_else(TIME == min(TIME) & Country %in% grp2, as.character(Country), NA_character_)) %>%
-  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) + 
+  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) +
     geom_point() +
     geom_line() +
     geom_label_repel( aes(label=label), nudge_x = 0.3, hjust=0, na.rm = TRUE, segment.colour="grey") +
@@ -167,7 +167,7 @@ data %>%
   filter(TIME %in% c(2000, 2015)) %>%
   mutate(label = if_else(TIME == max(TIME) & Country %in% grp1, as.character(Country), NA_character_)) %>%
   mutate(label2 = if_else(TIME == min(TIME) & Country %in% grp2, as.character(Country), NA_character_)) %>%
-  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) + 
+  ggplot( aes(x=as.factor(TIME), y=Value, color=Country, group=Country)) +
     geom_point() +
     geom_line() +
     geom_label_repel( aes(label=label), nudge_x = 0.3, hjust=0, na.rm = TRUE, segment.colour="grey") +
@@ -202,7 +202,7 @@ p <- data %>%
     theme(legend.position="none") +
     xlab("Gender wage gap in 2000 (%)") +
     ylab("Gender wage gap in 2015 (%)")
-  
+
 
 ggplotly(p, tooltip="text")
 ```

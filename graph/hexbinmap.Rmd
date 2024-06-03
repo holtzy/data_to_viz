@@ -1,10 +1,10 @@
 ---
 myimage: "MapHexbinSmall.png"
-mydisqus: "hexbinmap"
+pathSlug: "hexbinmap"
 mytitle: "Hexbin map"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -170,7 +170,7 @@ data %>%
 # What for
 ***
 
-Hexbin or grid map has an `advantage` over usual [choropleth maps](https://www.data-to-viz.com/graph/choropleth.html). In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.  
+Hexbin or grid map has an `advantage` over usual [choropleth maps](https://www.data-to-viz.com/graph/choropleth.html). In choropleths, a large polygon’s data looks more emphasized just because of its size, what introduces a bias. Here with hexbin, each region is represented equally dismissing the bias.
 
 There’s a `drawback` to this format though. Map readers generally recognize a geographic area by it’s shape and orientation to other areas. For instance, the geography of the US is well known and people easily identify different regions. In hexbin maps, these landmarks do not exist anymore what can confuse the audience. One solution for this is to choose a basemap that uses labels on top of your data layer.
 

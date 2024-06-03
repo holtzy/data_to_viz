@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/error_bar.png"
 mytitle: "The issue with error bars"
-mydisqus: "error_bar"
+pathSlug: "error_bar"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -37,7 +37,7 @@ data <- data.frame(
   value=sample(seq(4,15),5),
   sd=c(1,0.2,3,2,4)
 )
- 
+
 # Plot
 ggplot(data) +
     geom_bar( aes(x=name, y=value), stat="identity", fill="#69b3a2", alpha=0.7, width=0.5) +
@@ -49,7 +49,7 @@ ggplot(data) +
     ) +
     ggtitle("A barplot with error bar") +
     xlab("")
-  
+
 ```
 
 
@@ -84,7 +84,7 @@ Thus, the same barplot with error bars can in fact tell very different stories, 
 
 #What is an error bar?
 ***
-The second issue with error bars is that they are used to show `different metrics`, and it is not always clear which one is being shown. Three different types of values are commonly used for error bars, sometimes giving very different results. Here is an overview of their definitions and how to calculate them on a simple vector in R. 
+The second issue with error bars is that they are used to show `different metrics`, and it is not always clear which one is being shown. Three different types of values are commonly used for error bars, sometimes giving very different results. Here is an overview of their definitions and how to calculate them on a simple vector in R.
 
 - [Standard Deviation](https://en.wikipedia.org/wiki/Standard_deviation) (SD) represents the amount of  dispersion of the variable. Calculated as the root square of the variance
 ```{r, eval=FALSE}
@@ -110,22 +110,22 @@ Here is an application of these 3 metrics to the famous [Iris dataset](https://s
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10, fig.height=4}
 # Data
-data <- iris %>% select(Species, Sepal.Length) 
- 
+data <- iris %>% select(Species, Sepal.Length)
+
 # Calculates mean, sd, se and ci
 my_sum <- data %>%
   group_by(Species) %>%
-  summarise( 
+  summarise(
     n=n(),
     mean=mean(Sepal.Length),
     sd=sd(Sepal.Length)
   ) %>%
   mutate( se=sd/sqrt(n))  %>%
   mutate( ic=se * qt((1-0.05)/2 + .5, n-1))
- 
+
 # Standard deviation
 p1 <- ggplot(my_sum) +
-  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) +
   geom_errorbar( aes(x=Species, ymin=mean-sd, ymax=mean+sd), width=0.4, colour="black", alpha=0.9, size=1) +
   ggtitle("standard deviation") +
   theme(
@@ -134,10 +134,10 @@ p1 <- ggplot(my_sum) +
   theme_ipsum() +
   xlab("") +
   ylab("Sepal Length")
- 
+
 # Standard Error
 p2 <- ggplot(my_sum) +
-  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) +
   geom_errorbar( aes(x=Species, ymin=mean-se, ymax=mean+se),width=0.4, colour="black", alpha=0.9, size=1) +
   ggtitle("standard error") +
   theme(
@@ -146,10 +146,10 @@ p2 <- ggplot(my_sum) +
   theme_ipsum() +
   xlab("") +
   ylab("Sepal Length")
- 
+
 # Confidence Interval
 p3 <- ggplot(my_sum) +
-  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) + 
+  geom_bar( aes(x=Species, y=mean), stat="identity", fill="#69b3a2", alpha=0.7, width=0.6) +
   geom_errorbar( aes(x=Species, ymin=mean-ic, ymax=mean+ic), width=0.4, colour="black", alpha=0.9, size=1) +
   ggtitle("confidence interval") +
   theme(
@@ -172,7 +172,7 @@ It is quite obvious that the 3 metrics report very different visualizations and 
 ***
 
 It is better to avoid error bars as much as you can. Of course it is not possible if you only have summary statistics. But if you know the individual data points, show them. Several workarounds are possible. The [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html) is a good one for a relatively small amount of data. The [violin plot](https://www.data-to-viz.com/graph/violin.html) is another possibility if you have a large sample size to display.
-  
+
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 data %>%
   ggplot( aes(x=Species, y=Sepal.Length)) +
@@ -185,7 +185,7 @@ data %>%
     theme_ipsum() +
     xlab("") +
     ylab("Sepal Length")
-```  
+```
 
 
 

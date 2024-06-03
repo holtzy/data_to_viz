@@ -1,10 +1,10 @@
 ---
 myimage: "VennSmall.png"
-mydisqus: "venn"
+pathSlug: "venn"
 mytitle: "Venn Diagram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -45,26 +45,26 @@ library(tm)
 library(proustr)
 
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv", header=TRUE) 
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv", header=TRUE)
 to_remove <- c("_|[0-9]|\\.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist")
 data <- data %>% filter(!grepl(to_remove, word)) %>% filter(!word %in% stopwords('fr')) %>% filter(!word %in% proust_stopwords()$word)
 
 # library
 library(VennDiagram)
- 
+
 #cMake the plot
 venn.diagram(
   x = list(
-    data %>% filter(artist=="booba") %>% select(word) %>% unlist() , 
-    data %>% filter(artist=="nekfeu") %>% select(word) %>% unlist() , 
+    data %>% filter(artist=="booba") %>% select(word) %>% unlist() ,
+    data %>% filter(artist=="nekfeu") %>% select(word) %>% unlist() ,
     data %>% filter(artist=="georges-brassens") %>% select(word) %>% unlist()
     ),
   category.names = c("Booba (1995)" , "Nekfeu (663)" , "Brassens (471)"),
   filename = 'IMG/venn.png',
   output = TRUE ,
           imagetype="png" ,
-          height = 480 , 
-          width = 480 , 
+          height = 480 ,
+          width = 480 ,
           resolution = 300,
           compression = "lzw",
           lwd = 1,
@@ -89,7 +89,7 @@ venn.diagram(
 
 <br>
 
-Here, it is easy to understand that Booba used 1995 unique words in the dataset. 44 of them were also used by Brassens *and* Nekfeu, 126 only shared with Nekfeu only. 
+Here, it is easy to understand that Booba used 1995 unique words in the dataset. 44 of them were also used by Brassens *and* Nekfeu, 126 only shared with Nekfeu only.
 
 
 
@@ -98,7 +98,7 @@ Here, it is easy to understand that Booba used 1995 unique words in the dataset.
 
 # What for
 ***
-A venn diagram makes a really good work to study the intersection between 2 or 3 sets. It becomes very hard to read with more groups than that and thus must be avoided.  
+A venn diagram makes a really good work to study the intersection between 2 or 3 sets. It becomes very hard to read with more groups than that and thus must be avoided.
 
 Here is a famous example: a six-set venn diagram published in [Nature](https://www.nature.com/articles/nature11241) that shows the relationship between the banana’s genome and the genome of five other species.
 
@@ -121,7 +121,7 @@ Even if this figure is quite attractive, it is really hard to extract any inform
 # Variation {#variation}
 ***
 
-To visualize the intersection between more than 3 sets, the best option is to use a [UpSet plot](http://caleydo.org/tools/upset/).  
+To visualize the intersection between more than 3 sets, the best option is to use a [UpSet plot](http://caleydo.org/tools/upset/).
 
 Here is an example provided by the [UpsetR](https://github.com/hms-dbmi/UpSetR) R library that displays the banana genome information seen before. The total size of each set is represented on the left barplot. Every possible intersection is represented by the bottom plot, and their occurence is shown on the top barplot.
 

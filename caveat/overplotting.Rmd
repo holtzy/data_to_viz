@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/overplotting.png"
 mytitle: "How to avoid overplotting"
-mydisqus: "overplotting"
+pathSlug: "overplotting"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -40,7 +40,7 @@ library(patchwork)
 a <- data.frame( x=rnorm(20000, 10, 1.2), y=rnorm(20000, 10, 1.2), group=rep("A",20000))
 b <- data.frame( x=rnorm(20000, 14.5, 1.2), y=rnorm(20000, 14.5, 1.2), group=rep("B",20000))
 c <- data.frame( x=rnorm(20000, 9.5, 1.5), y=rnorm(20000, 15.5, 1.5), group=rep("C",20000))
-data <- do.call(rbind, list(a,b,c))               
+data <- do.call(rbind, list(a,b,c))
 
 data %>%
   ggplot( aes(x=x, y=y)) +
@@ -157,7 +157,7 @@ data %>%
       legend.position="none",
       plot.title = element_text(size=12)
     ) +
-    ggtitle('Behavior of the group B') 
+    ggtitle('Behavior of the group B')
 ```
 
 

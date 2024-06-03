@@ -4,10 +4,10 @@ myimage2: "Box1Small.png"
 myimage3: "ScatterPlotSmall.png"
 myimage4: "2dDensitySmall.png"
 mytitle: "Apartment price vs ground living area."
-mydisqus: "TwoNum"
+pathSlug: "TwoNum"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -19,7 +19,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -65,7 +65,7 @@ data %>% head(6) %>% kable() %>%
 As usual when working with numeric variables, it is always a good practice to check their distributions. Here Prices and Ground living areas are on two different scales so it makes sense to study them in two different graphics. This can be done using a [histogram]() or a [density plot]().
 
 ```{r, fig.align="center", out.width = '90%', fig.height=3}
-p1 <- data %>% 
+p1 <- data %>%
   ggplot( aes(x=GrLivArea)) +
     geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.9, bins=50) +
     ggtitle("Ground living area distribution") +
@@ -75,7 +75,7 @@ p1 <- data %>%
     ) +
     xlab('area')
 
-p2 <- data %>% 
+p2 <- data %>%
   ggplot( aes(x=SalePrice/1000)) +
     geom_histogram(fill="#69b3a2", color="#e9ecef", alpha=0.9, bins=50) +
     ggtitle("Sale price distribution") +
@@ -98,7 +98,7 @@ This allows to understand that most of the prices range between 100 and 300 k\$ 
 ***
 The next step is to study the relationship between the 2 variables. Basically to explore if there is a correlation between sale price and living area. The first chart type to try in this case is the [scatterplot]().
 ```{r, fig.align="center"}
-data %>% 
+data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
     geom_point(color="#69b3a2", alpha=0.8) +
     ggtitle("Ground living area partially explains sale price of apartments") +
@@ -114,7 +114,7 @@ It is quite obvious that there is a relationship between prices and ground livin
 
 #Improving the scatter plot {.tabset}
 ***
-The previous graphic convey most of the information efficiently. Still, there are a few customizations that can be done to make the chart even more insightful:  
+The previous graphic convey most of the information efficiently. Still, there are a few customizations that can be done to make the chart even more insightful:
 
 - Adding a `trend line` with confidence interval to illustrate and clarify the relationship
 - Using an `interactive` version to get more information concerning each data point.
@@ -125,7 +125,7 @@ The previous graphic convey most of the information efficiently. Still, there ar
 ##Trend
 Help the reader seing the trend on the chart by showing it explicitely. Several models exist to show a trend. A [linear regression](https://en.wikipedia.org/wiki/Linear_regression) is used on the left plot, and a  [local regression](https://en.wikipedia.org/wiki/Local_regression) is used on the right. Showing the confindence interval is a good practice as well.
 ```{r, fig.align="center", out.width = '90%', fig.height=3}
-p <- data %>% 
+p <- data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
     geom_point(color="#69b3a2", alpha=0.8) +
     theme_ipsum() +
@@ -151,7 +151,7 @@ Scatter plot is probably the chart type for which it makes the most sense to use
 # Plotly allows to turn any ggplot2 graphic interactive
 library(plotly)
 
-p <- data %>% 
+p <- data %>%
   mutate(text=paste("Apartment Number: ", seq(1:nrow(data)), "\nLocation: New York\nAny other information you need..", sep="")) %>%
   ggplot( aes(x=GrLivArea, y=SalePrice/1000, text=text)) +
     geom_point(color="#69b3a2", alpha=0.8) +
@@ -170,7 +170,7 @@ ggplotly(p, tooltip="text")
 ##Marginal distribution
 If the number of data points on the scatterplot is high, it is a good practice to display the marginal distributions arount the graphic.
 ```{r}
-data %>% 
+data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice)) +
     geom_point() #%>%
     #ggMarginal(type="histogram")
@@ -184,20 +184,20 @@ The most common pitfall with scatterplot is overplotting: when the sample size g
 
 ```{r, fig.width=8, fig.height=8, fig.align="center", warning=FALSE, message=FALSE}
 # code for all graphics:
-p <- data %>% 
+p <- data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
     theme_ipsum() +
     theme(
       plot.title = element_text(size=12)
     ) +
     ylab('Sale price (k$)') +
-    xlab('Ground living area') 
+    xlab('Ground living area')
 
 # Reduce dot size
-p1 <- p + geom_point(color="#69b3a2", alpha=0.8, size=0.2) + ggtitle("Dot size") 
+p1 <- p + geom_point(color="#69b3a2", alpha=0.8, size=0.2) + ggtitle("Dot size")
 
 # Use density estimate
-p2 <- p + geom_density2d(color="#69b3a2") + ggtitle("Density 2d: contour") 
+p2 <- p + geom_density2d(color="#69b3a2") + ggtitle("Density 2d: contour")
 
 # Use density estimate (area)
 p3 <- p + stat_density_2d(aes(fill = ..level..), geom = "polygon") + ggtitle("Density 2d: area") + theme(legend.position="none")
@@ -218,14 +218,14 @@ p4 <- p +
 # Hexbin
 p5 <- p + geom_hex() +
     scale_fill_viridis() +
-    theme(legend.position="none") + 
+    theme(legend.position="none") +
     ggtitle("Hexbin")
 
 # 2d histogram
 p6 <- p + geom_bin2d( ) +
     scale_fill_viridis( ) +
-    theme(legend.position="none")  + 
-    ggtitle("2d histogram") 
+    theme(legend.position="none")  +
+    ggtitle("2d histogram")
 
 p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 2)
 ```

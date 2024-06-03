@@ -1,10 +1,10 @@
 ---
 myimage: "HeatmapSmall.png"
-mydisqus: "heatmap"
+pathSlug: "heatmap"
 mytitle: "Heatmap"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -31,7 +31,7 @@ output:
 # Definition {#definition}
 ***
 
-A `heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above. 
+A `heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.
 
 Here is an example showing 8 general features like population or life expectancy for about 30 countries in 2015. Data come from the French National Institute of [Demographic Studies](https://www.ined.fr/en/everything_about_population/data/all-countries/?lst_continent=908&lst_pays=926).
 
@@ -44,12 +44,12 @@ library(plotly)
 # d3heatmap is not on CRAN yet, but can be found here: https://github.com/talgalili/d3heatmap
 library(d3heatmap)
 
-# Load data 
+# Load data
 data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/multivariate.csv", header = T, sep = ";")
 colnames(data) <- gsub("\\.", " ", colnames(data))
 
 # Select a few country
-data <- data %>% 
+data <- data %>%
   filter(Country %in% c("France", "Sweden", "Italy", "Spain", "England", "Portugal", "Greece", "Peru", "Chile", "Brazil", "Argentina", "Bolivia", "Venezuela", "Australia", "New Zealand", "Fiji", "China", "India", "Thailand", "Afghanistan", "Bangladesh", "United States of America", "Canada", "Burundi", "Angola", "Kenya", "Togo")) %>%
   arrange(Country) %>%
   mutate(Country = factor(Country, Country))
@@ -64,9 +64,9 @@ mat <- as.matrix(mat)
 #d3heatmap(mat, scale="column", dendrogram = "none", width="800px", height="80Opx", colors = "Blues")
 
 library(heatmaply)
-p <- heatmaply(mat, 
+p <- heatmaply(mat,
         dendrogram = "none",
-        xlab = "", ylab = "", 
+        xlab = "", ylab = "",
         main = "",
         scale = "column",
         margins = c(60,100,40,20),
@@ -102,9 +102,9 @@ A heatmap is really useful to display a `general view` of numerical data, not to
 A heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks which countries tend to have the same features on their numeric variables, and therefore which countries are similar. The usual way to represent the result is to use [dendrograms](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn around the heatmap:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
-p <- heatmaply(mat, 
+p <- heatmaply(mat,
         #dendrogram = "row",
-        xlab = "", ylab = "", 
+        xlab = "", ylab = "",
         main = "",
         scale = "column",
         margins = c(60,100,40,20),
@@ -130,7 +130,7 @@ p <- heatmaply(mat,
 <center>
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6, echo=FALSE}
 p
-```        
+```
 </center>
 
 Here, Burundi and Angola are grouped together. Indeed they are two countries in strong expansion, with a lot of children per woman but still a strong mortality rate.
@@ -159,10 +159,10 @@ my_color <- my_color[as.numeric(as.factor(cont))]
 # NOTE: this does not work:
 #my_color <- my_color[as.numeric(as.factor(data$Continent))]
 
-# 
-p <- heatmaply(mat, 
+#
+p <- heatmaply(mat,
         dendrogram = "row",
-        xlab = "", ylab = "", 
+        xlab = "", ylab = "",
         main = "",
         scale = "column",
         margins = c(60,100,40,20),
@@ -186,7 +186,7 @@ p <- heatmaply(mat,
 
 
 
-          
+
 - For a static heatmap, a common practice is to display the exact value of each cell in numbers. Indeed, it is hard to translate a color into a precise number.
 
 - Heatmaps can also be used for time series where there is a regular pattern in time.

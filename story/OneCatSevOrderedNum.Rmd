@@ -3,11 +3,11 @@ myimage1: "Line150.png"
 myimage2: "Area150.png"
 myimage3: "StackedArea150.png"
 myimage4: "Stream150.png"
-mydisqus: "OneCatSevOrderedNum"
+pathSlug: "OneCatSevOrderedNum"
 mytitle: "Evolution of baby names in the US"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html

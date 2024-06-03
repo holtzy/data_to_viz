@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/pie.png"
 mytitle: "The issue with pie chart"
-mydisqus: "pie"
+pathSlug: "pie"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -52,7 +52,7 @@ plot_pie <- function(data, vec){
 ggplot(data, aes(x="name", y=value, fill=name)) +
   geom_bar(width = 1, stat = "identity") +
   coord_polar("y", start=0, direction = -1) +
-  scale_fill_viridis(discrete = TRUE,  direction=-1) + 
+  scale_fill_viridis(discrete = TRUE,  direction=-1) +
   geom_text(aes(y = vec, label = rev(name), size=4, color=c( "white", rep("black", 4)))) +
   scale_color_manual(values=c("black", "white")) +
   theme_ipsum() +
@@ -65,7 +65,7 @@ ggplot(data, aes(x="name", y=value, fill=name)) +
   ) +
   xlab("") +
   ylab("")
-  
+
 }
 
 plot_pie(data1, c(10,35,55,75,93))
@@ -90,7 +90,7 @@ Now, let's represent exactly the same data using a [barplot](https://www.data-to
 plot_bar <- function(data){
   ggplot(data, aes(x=name, y=value, fill=name)) +
     geom_bar( stat = "identity") +
-    scale_fill_viridis(discrete = TRUE, direction=-1) + 
+    scale_fill_viridis(discrete = TRUE, direction=-1) +
     scale_color_manual(values=c("black", "white")) +
     theme_ipsum() +
     theme(
@@ -112,7 +112,7 @@ c <- plot_bar(data3)
 a + b + c
 ```
 
-As you can see on this barplot, there is a heavy difference between the three pie plots with a hidden pattern that you definitely don't want to miss when you tell your story. 
+As you can see on this barplot, there is a heavy difference between the three pie plots with a hidden pattern that you definitely don't want to miss when you tell your story.
 
 
 #And often made even worse
@@ -162,30 +162,30 @@ library(treemap)
 
 # Plot
 treemap(data,
-            
+
             # data
             index="Country",
             vSize="Value",
             type="index",
-            
+
             # Main
             title="",
             palette="Dark2",
 
             # Borders:
-            border.col=c("black"),             
-            border.lwds=1,                         
-        
+            border.col=c("black"),
+            border.lwds=1,
+
             # Labels
             fontsize.labels=0.5,
             fontcolor.labels="white",
-            fontface.labels=1,            
-            bg.labels=c("transparent"),              
-            align.labels=c("left", "top"),                                  
+            fontface.labels=1,
+            bg.labels=c("transparent"),
+            align.labels=c("left", "top"),
             overlap.labels=0.5,
             inflate.labels=T                        # If true, labels are bigger when rectangle is bigger.
 
-            
+
             )
 ```
 

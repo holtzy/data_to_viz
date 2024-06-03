@@ -1,10 +1,10 @@
 ---
 myimage: "LollipopSmall.png"
-mydisqus: "lollipop"
+pathSlug: "lollipop"
 mytitle: "Lollipop chart"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -131,15 +131,15 @@ The `Cleveland dotplot` is a handy variation, allowing to compare the value of 2
 # Create data (could be way easier but it's late)
 value1 <- abs(rnorm(26))*2
 don <- data.frame(
-  x=LETTERS[1:26], 
-  value1=value1, 
-  value2=value1+1+rnorm(26, sd=1) 
+  x=LETTERS[1:26],
+  value1=value1,
+  value2=value1+1+rnorm(26, sd=1)
   ) %>%
-  rowwise() %>% 
-  mutate( mymean = mean(c(value1,value2) )) %>% 
-  arrange(mymean) %>% 
+  rowwise() %>%
+  mutate( mymean = mean(c(value1,value2) )) %>%
+  arrange(mymean) %>%
   mutate(x=factor(x, x))
- 
+
 
 # With a bit more style
 ggplot(don) +
@@ -164,7 +164,7 @@ Note that with a number of subgroups between 3 and ~7 this type of lollipop plot
 # Create data (could be way easier but it's late)
 value1 <- abs(rnorm(6))*2
 don <- data.frame(
-  x=LETTERS[1:24], 
+  x=LETTERS[1:24],
   val=c( value1, value1+1+rnorm(6, 14,1) ,value1+1+rnorm(6, sd=1) ,value1+1+rnorm(6, 12, 1) ),
   grp=rep(c("grp1", "grp2", "grp3", "grp4"), each=6)
   ) %>%
@@ -199,7 +199,7 @@ ggplot(don) +
 # Common mistakes {#mistake}
 ***
 
-- [Order your groups](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
+- [Order your groups](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values.
 
 - If for whatever reason your bars must remain unsorted, it is probably better to use a barplot instead. Lollipop would be harder to read.
 

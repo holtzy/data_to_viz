@@ -1,10 +1,10 @@
 ---
 myimage: "SunburstSmall.png"
-mydisqus: "sunburst"
+pathSlug: "sunburst"
 mytitle: "Sunburst"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html

@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/simpson.png"
 mytitle: "The simpson's paradox"
-mydisqus: "simpson"
+pathSlug: "simpson"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -79,7 +79,7 @@ ggplot(data, aes(x=x, y=y, color=group)) +
   theme_ipsum()
 ```
 
-Here, we understand that the positive correlation was due to a difference `between groups`. Actually, the correlation coefficient is even negative if each group is considered separately. 
+Here, we understand that the positive correlation was due to a difference `between groups`. Actually, the correlation coefficient is even negative if each group is considered separately.
 
 This is the Sympson's paradox: the trend between two different variables reverses when a third variable is included.
 

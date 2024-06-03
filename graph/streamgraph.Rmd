@@ -1,10 +1,10 @@
 ---
 myimage: "StreamSmall.png"
-mydisqus: "streamgraph"
+pathSlug: "streamgraph"
 mytitle: "Streamgraph"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -27,13 +27,13 @@ output:
 
 # Definition {#definition}
 ***
-A Stream graph is a type of [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This evolution is represented for several groups, all with a distinct color.  
+A Stream graph is a type of [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This evolution is represented for several groups, all with a distinct color.
 
 Contrary to a stacked area, there is no corner: edges are rounded what gives this nice impression of flow. Moreover, areas are usually displaced around a central axis, resulting in a flowing and organic shape.
 
 <br>
 
-The following example shows the evolution of baby name frequencies in the US between 1880 and 2015. 
+The following example shows the evolution of baby name frequencies in the US between 1880 and 2015.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
 # Libraries
@@ -43,12 +43,12 @@ library(streamgraph)
 
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
   filter(sex=="F")
 
 # Plot
-data %>% 
+data %>%
   streamgraph(key="name", value="n", date="year") %>%
   sg_fill_brewer("BuPu")
 
@@ -61,7 +61,7 @@ data %>%
 
 # What for
 ***
-Streamchart are good to study the `relative proportions` of the whole. However they are bad to study the evolution of each `individual group`: it is very hard to substract the height of other groups at each time point. For a more accurate but less attractive figure, consider a [line chart](https://www.data-to-viz.com/graph/line.html) or [area chart](https://www.data-to-viz.com/graph/area.html) using small multiple.  
+Streamchart are good to study the `relative proportions` of the whole. However they are bad to study the evolution of each `individual group`: it is very hard to substract the height of other groups at each time point. For a more accurate but less attractive figure, consider a [line chart](https://www.data-to-viz.com/graph/line.html) or [area chart](https://www.data-to-viz.com/graph/area.html) using small multiple.
 
 Stream chart gets really useful when displayed in an interactive mode: highlighting a group gives you directly an insight of its evolution.
 
@@ -74,7 +74,7 @@ Even if areas are usually displaced around a central axis, it is possible to dis
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
 # Plot
-data %>% 
+data %>%
   streamgraph(key="name", value="n", date="year", offset="zero") %>%
   sg_fill_brewer("BuPu")
 ```
@@ -85,7 +85,7 @@ It also possible to create a percent streamchart where the proportion of each gr
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=3, fig.width=10}
 # Plot
-data %>% 
+data %>%
   streamgraph(key="name", value="n", date="year", offset="expand") %>%
   sg_fill_brewer("BuPu")
 ```

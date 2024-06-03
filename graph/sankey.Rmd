@@ -1,10 +1,10 @@
 ---
 myimage: "SankeySmall.png"
-mydisqus: "sankey"
+pathSlug: "sankey"
 mytitle: "Sankey diagram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -28,7 +28,7 @@ output:
 # Definition {#definition}
 ***
 
-A `Sankey Diagram` is a visualisation technique that allows to display flows. Several entities (`nodes`) are represented by rectangles or text. Their links are represented with arrow or arcs that have a width proportional to the importance of the flow. 
+A `Sankey Diagram` is a visualisation technique that allows to display flows. Several entities (`nodes`) are represented by rectangles or text. Their links are represented with arrow or arcs that have a width proportional to the importance of the flow.
 
 Here is an example displaying the number of people migrating from one country (left) to another (right). Data used comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327).
 
@@ -55,9 +55,9 @@ data_long$target <- paste(data_long$target, " ", sep="")
 
 # From these flows we need to create a node data frame: it lists every entities involved in the flow
 nodes <- data.frame(name=c(as.character(data_long$source), as.character(data_long$target)) %>% unique())
- 
+
 # With networkD3, connection must be provided using id, not using real name like in the links dataframe.. So we need to reformat it.
-data_long$IDsource=match(data_long$source, nodes$name)-1 
+data_long$IDsource=match(data_long$source, nodes$name)-1
 data_long$IDtarget=match(data_long$target, nodes$name)-1
 
 # prepare colour scale
@@ -66,7 +66,7 @@ ColourScal ='d3.scaleOrdinal() .range(["#FDE725FF","#B4DE2CFF","#6DCD59FF","#35B
 # Make the Network
 sankeyNetwork(Links = data_long, Nodes = nodes,
                      Source = "IDsource", Target = "IDtarget",
-                     Value = "value", NodeID = "name", 
+                     Value = "value", NodeID = "name",
                      sinksRight=FALSE, colourScale=ColourScal, nodeWidth=40, fontSize=13, nodePadding=20)
 ```
 
@@ -90,18 +90,18 @@ Sankey diagrams are used to show weighted networks, i.e. flows. It can happen wi
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Load package
 library(networkD3)
- 
+
 # Load energy projection data
 URL <- "https://cdn.rawgit.com/christophergandrud/networkD3/master/JSONdata/energy.json"
 Energy <- jsonlite::fromJSON(URL)
- 
+
 # Now we have 2 data frames: a 'links' data frame with 3 columns (from, to, value), and a 'nodes' data frame that gives the name of each node.
 
 # Thus we can plot it
 sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
               Target = "target", Value = "value", NodeID = "name",
               units = "TWh", fontSize = 12, nodeWidth = 30)
- 
+
 ```
 
 
@@ -164,7 +164,7 @@ If you're interested to see more examples, there is a [whole website about it](h
   <p class="mytitlerelated">Edge bundling</p>
   <p class="mytextrelated">Show connections between entities organized in a hierarchy.</p>
   </a>
-  </div>  
+  </div>
 </div>
 
 

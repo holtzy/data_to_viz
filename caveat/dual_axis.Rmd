@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/dual_axis.png"
-mydisqus: "dual_axis"
+pathSlug: "dual_axis"
 mytitle: "The issue with dual axis"
 output:
   html_document:
@@ -13,9 +13,9 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
- 
+
 ---
 
 <br><br>
@@ -28,10 +28,10 @@ output:
  http://emschuch.github.io/Planned-Parenthood/
  and from
  http://www.politifact.com/truth-o-meter/statements/2015/oct/01/jason-chaffetz/chart-shown-planned-parenthood-hearing-misleading-/
- 
+
  initially published on http://www.aul.org
- 
- 
+
+
  Data here
  https://docs.google.com/spreadsheets/d/1vzkuzSi2S-JO0m0VolflzxaMN9wUfjw6Slek97_6L4s/edit#gid=0
 
@@ -84,15 +84,15 @@ aval
 steps <- list()
 p <- plot_ly()
 for (i in 1:11) {
-  p <- add_lines(p,x=aval[i][[1]]$x,  y=aval[i][[1]]$y, visible = aval[i][[1]]$visible, 
-                 name = aval[i][[1]]$name, type = 'scatter', mode = 'lines', hoverinfo = 'name', 
+  p <- add_lines(p,x=aval[i][[1]]$x,  y=aval[i][[1]]$y, visible = aval[i][[1]]$visible,
+                 name = aval[i][[1]]$name, type = 'scatter', mode = 'lines', hoverinfo = 'name',
                  line=list(color='00CED1'), showlegend = FALSE)
 
   step <- list(args = list('visible', rep(FALSE, length(aval))),
                method = 'restyle')
-  step$args[[2]][i] = TRUE  
-  steps[[i]] = step 
-}  
+  step$args[[2]][i] = TRUE
+  steps[[i]] = step
+}
 
 # add slider control to plot
 p <- p %>%

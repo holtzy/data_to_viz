@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/3d.png"
 mytitle: "The issue with 3D in data visualization"
-mydisqus: "3d"
+pathSlug: "3d"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -51,7 +51,7 @@ Here is a 3d barplot. You are probably familiar with this kind of figure since i
 
 # 3D Pie charts: Don't
 ***
-Nothing is worse than a [pie chart](https://www.data-to-viz.com/caveat/pie.html) in dataviz, except a 3D pie chart. Data to viz offers a whole post on [pie chart issues](https://www.data-to-viz.com/caveat/pie.html).  
+Nothing is worse than a [pie chart](https://www.data-to-viz.com/caveat/pie.html) in dataviz, except a 3D pie chart. Data to viz offers a whole post on [pie chart issues](https://www.data-to-viz.com/caveat/pie.html).
 
 Adding 3D makes it even worse since it distorts reality. Indeed, the part at the back looks smaller than the one at the front, which is not the case.
 
@@ -104,10 +104,10 @@ data$color <- mycolors[ as.numeric(data$Species) ]
 
 # Plot
 par(mar=c(0,0,0,0))
-plot3d( 
-  x=data$`Sepal.Length`, y=data$`Sepal.Width`, z=data$`Petal.Length`, 
-  col = data$color, 
-  type = 's', 
+plot3d(
+  x=data$`Sepal.Length`, y=data$`Sepal.Width`, z=data$`Petal.Length`,
+  col = data$color,
+  type = 's',
   radius = .1,
   xlab="Sepal Length", ylab="Sepal Width", zlab="Petal Length")
 ```

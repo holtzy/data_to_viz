@@ -1,10 +1,10 @@
 ---
 myimage: "LineSmall.png"
-mydisqus: "line"
+pathSlug: "line"
 mytitle: "Line chart"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -31,7 +31,7 @@ A `line chart` or line graph displays the evolution of one or several numeric va
 
 <br>
 
-The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) between April 2013 and April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website. 
+The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) between April 2013 and April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
 # Libraries
@@ -67,10 +67,10 @@ Line chart can be used to show the evolution of one (like above) or several vari
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=5, fig.width=10}
 # Load dataset from github
-don <- babynames %>% 
+don <- babynames %>%
   filter(name %in% c("Ashley", "Patricia", "Helen")) %>%
   filter(sex=="F")
-  
+
 # Plot
 don %>%
   ggplot( aes(x=year, y=n, group=name, color=name)) +
@@ -144,7 +144,7 @@ p1 + p2
 ```
 
 
-    
+
 - If you need to compare the evolution of 2 different variables, do not use [dual axis](https://www.data-to-viz.com/caveat/dual_axis.html). Indeed dual axis can show very different results depending on what range you apply to the axis. [Read more about it](https://www.data-to-viz.com/caveat/dual_axis.html).
 - Mind the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html): too many lines make the chart unreadable.
 - Think about the [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html) of the graphic, extreme ratio make the chart unreadable.

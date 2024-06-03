@@ -4,11 +4,11 @@ myimage2: "CircularBarplot150.png"
 myimage3: "Lollipop150.png"
 myimage4: "Tree150.png"
 myimage5: "CircularPacking150.png"
-mydisqus: "OneNumOneCat"
+pathSlug: "OneNumOneCat"
 mytitle: "Who sells more weapons?"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -20,7 +20,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -155,9 +155,9 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
+    plot.margin = unit(rep(-1,4), "cm")
   ) +
-  coord_polar(start = 0) + 
+  coord_polar(start = 0) +
   geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
   geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE)
 ```
@@ -169,7 +169,7 @@ Please note that in this case the [circular barplot](https://www.data-to-viz.com
 
 #Treemap
 ***
-A [treemap](https://www.data-to-viz.com/graph/treemap.html) represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.  
+A [treemap](https://www.data-to-viz.com/graph/treemap.html) represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.
 It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.
 ```{r, fig.align="center", fig.width=9}
 # Package
@@ -177,30 +177,30 @@ library(treemap)
 
 # Plot
 treemap(data,
-            
+
             # data
             index="Country",
             vSize="Value",
             type="index",
-            
+
             # Main
             title="",
             palette="Dark2",
 
             # Borders:
-            border.col=c("black"),             
-            border.lwds=1,                         
-        
+            border.col=c("black"),
+            border.lwds=1,
+
             # Labels
             fontsize.labels=0.5,
             fontcolor.labels="white",
-            fontface.labels=1,            
-            bg.labels=c("transparent"),              
-            align.labels=c("left", "top"),                                  
+            fontface.labels=1,
+            bg.labels=c("transparent"),
+            align.labels=c("left", "top"),
             overlap.labels=0.5,
             inflate.labels=T                        # If true, labels are bigger when rectangle is bigger.
 
-            
+
             )
 ```
 
@@ -216,7 +216,7 @@ library(ggraph)
 library(igraph)
 library(tidyverse)
 library(viridis)
- 
+
 # We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
 tmp <- data %>% filter(!is.na(Value))
 edges <- data.frame(
@@ -226,7 +226,7 @@ edges <- data.frame(
 vertices = rbind(tmp, data.frame(Country="o", Value=1)) %>% mutate(name=Country)
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
 
-ggraph(mygraph, layout = 'circlepack', weight="Value") + 
+ggraph(mygraph, layout = 'circlepack', weight="Value") +
   geom_node_circle( aes(fill=name)) +
   scale_fill_viridis(discrete=TRUE) +
   geom_node_label(aes(label=name, size=Value)) +

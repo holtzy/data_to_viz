@@ -4,11 +4,11 @@ myimage2: "Network150.png"
 myimage3: "Heatmap150.png"
 myimage4: "Sankey150.png"
 myimage5: "Chord150.png"
-mydisqus: "AdjacencyMatrix"
+pathSlug: "AdjacencyMatrix"
 mytitle: "Researchers network and migration flows"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -20,7 +20,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -79,7 +79,7 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
 # Chord diagram
 ***
 
-A chord diagram is a good way to represent migration flows. It works well if your data are directed and weighted like for migration flows between country.  
+A chord diagram is a good way to represent migration flows. It works well if your data are directed and weighted like for migration flows between country.
 
 Disclaimer: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com), who is also the author of the migration [dataset](https://www.oeaw.ac.at/fileadmin/subsites/Institute/VID/PDF/Publications/Working_Papers/WP2016_02.pdf) used here.
 
@@ -106,46 +106,46 @@ mycolor <- mycolor[sample(1:10)]
 
 # Base plot
 chordDiagram(
-  x = data_long, 
+  x = data_long,
   grid.col = mycolor,
   transparency = 0.25,
   directional = 1,
-  direction.type = c("arrows", "diffHeight"), 
+  direction.type = c("arrows", "diffHeight"),
   diffHeight  = -0.04,
-  annotationTrack = "grid", 
+  annotationTrack = "grid",
   annotationTrackHeight = c(0.05, 0.1),
-  link.arr.type = "big.arrow", 
-  link.sort = TRUE, 
+  link.arr.type = "big.arrow",
+  link.sort = TRUE,
   link.largest.ontop = TRUE)
 
 # Add text and axis
 circos.trackPlotRegion(
-  track.index = 1, 
-  bg.border = NA, 
+  track.index = 1,
+  bg.border = NA,
   panel.fun = function(x, y) {
-    
+
     xlim = get.cell.meta.data("xlim")
     sector.index = get.cell.meta.data("sector.index")
-    
-    # Add names to the sector. 
+
+    # Add names to the sector.
     circos.text(
-      x = mean(xlim), 
-      y = 3.2, 
-      labels = sector.index, 
-      facing = "bending", 
+      x = mean(xlim),
+      y = 3.2,
+      labels = sector.index,
+      facing = "bending",
       cex = 0.8
       )
 
     # Add graduation on axis
     circos.axis(
-      h = "top", 
-      major.at = seq(from = 0, to = xlim[2], by = ifelse(test = xlim[2]>10, yes = 2, no = 1)), 
-      minor.ticks = 1, 
+      h = "top",
+      major.at = seq(from = 0, to = xlim[2], by = ifelse(test = xlim[2]>10, yes = 2, no = 1)),
+      minor.ticks = 1,
       major.tick.percentage = 0.5,
       labels.niceFacing = FALSE)
   }
 )
-  
+
 ```
 In my opinion this is a powerful way to display information. Major flows are easy to detect, like the migration from South Asia towards Westa Asia, or Africa to Europe. Moreover, for each continent it is quite easy to quantify the proportion of people leaving and arriving.
 
@@ -178,9 +178,9 @@ data_long$target <- paste(data_long$target, " ", sep="")
 
 # From these flows we need to create a node data frame: it lists every entities involved in the flow
 nodes <- data.frame(name=c(as.character(data_long$source), as.character(data_long$target)) %>% unique())
- 
+
 # With networkD3, connection must be provided using id, not using real name like in the links dataframe.. So we need to reformat it.
-data_long$IDsource=match(data_long$source, nodes$name)-1 
+data_long$IDsource=match(data_long$source, nodes$name)-1
 data_long$IDtarget=match(data_long$target, nodes$name)-1
 
 # prepare colour scale
@@ -189,7 +189,7 @@ ColourScal ='d3.scaleOrdinal() .range(["#FDE725FF","#B4DE2CFF","#6DCD59FF","#35B
 # Make the Network
 sankeyNetwork(Links = data_long, Nodes = nodes,
                      Source = "IDsource", Target = "IDtarget",
-                     Value = "value", NodeID = "name", 
+                     Value = "value", NodeID = "name",
                      sinksRight=FALSE, colourScale=ColourScal, nodeWidth=40, fontSize=13, nodePadding=20)
 ```
 
@@ -207,9 +207,9 @@ The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is another great a
 
 ```{r, fig.align="center", fig.width=6, fig.height=6, warning=FALSE, message=FALSE}
 library(heatmaply)
-p <- heatmaply(data, 
+p <- heatmaply(data,
         dendrogram = "none",
-        xlab = "", ylab = "", 
+        xlab = "", ylab = "",
         main = "",
         scale = "column",
         margins = c(60,100,40,20),
@@ -250,7 +250,7 @@ tmp <- tmp[which(rowSums(tmp)>3), which(colSums(tmp)>3)]
 # Heatmap
 p <- heatmaply(tmp,
         dendrogram = "both",
-        xlab = "", ylab = "", 
+        xlab = "", ylab = "",
         main = "",
         scale = "none",
         margins = c(60,100,40,20),
@@ -278,9 +278,9 @@ p
 
 # Network
 ***
-Since an adjacency matrix is a `network structure`, it is possible to build a [network graph](https://www.data-to-viz.com/graph/network.html). In a network graph, each entity is represented as a `node`, and each connection as an `edge`.  
+Since an adjacency matrix is a `network structure`, it is possible to build a [network graph](https://www.data-to-viz.com/graph/network.html). In a network graph, each entity is represented as a `node`, and each connection as an `edge`.
 
-In my opinion, this type of representation makes more sense when the connections are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.  
+In my opinion, this type of representation makes more sense when the connections are `unweighted`, since drawing edges with different sizes tends to clutter the figure and make it unreadable.
 
 Thus, here is an application of this chart type to the coauthor network. Researchers are the nodes, represented as dots. If 2 researchers have published at least one scientific paper together, they are connected. The node size is proportionnal to the number of coauthors.
 
@@ -291,10 +291,10 @@ Thus, here is an application of this chart type to the coauthor network. Researc
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=12, fig.height=9}
 # Transform the adjacency matrix in a long format
-connect <- dataUU %>% 
+connect <- dataUU %>%
   gather(key="to", value="value", -1) %>%
   mutate(to = gsub("\\.", " ",to)) %>%
-  na.omit() 
+  na.omit()
 
 # Number of connection per person
 c( as.character(connect$from), as.character(connect$to)) %>%
@@ -310,13 +310,13 @@ mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
 com <- walktrap.community(mygraph)
 
 #Reorder dataset and make the graph
-coauth <- coauth %>% 
+coauth <- coauth %>%
   mutate( grp = com$membership) %>%
   arrange(grp) %>%
   mutate(name=factor(name, name))
 
 # keep only 10 first communities
-coauth <- coauth %>% 
+coauth <- coauth %>%
   filter(grp<16)
 
 # keep only this people in edges
@@ -332,7 +332,7 @@ mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
 mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
-ggraph(mygraph) + 
+ggraph(mygraph) +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
   geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.9) +
   scale_size_continuous(range=c(0.5,8)) +
@@ -344,7 +344,7 @@ ggraph(mygraph) +
     plot.margin=unit(c(0,0,0,0), "null"),
     panel.spacing=unit(c(0,0,0,0), "null")
   ) +
-  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2)) 
+  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
 ```
 
 
@@ -373,10 +373,10 @@ Instead of using a custom algorithm to position each nodes, it is possible to pl
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=8, fig.height=8}
 # Transform the adjacency matrix in a long format
-connect <- dataUU %>% 
+connect <- dataUU %>%
   gather(key="to", value="value", -1) %>%
   mutate(to = gsub("\\.", " ",to)) %>%
-  na.omit() 
+  na.omit()
 
 # Number of connection per person
 c( as.character(connect$from), as.character(connect$to)) %>%
@@ -392,13 +392,13 @@ mygraph <- graph_from_data_frame( connect, vertices = coauth, directed = FALSE )
 com <- walktrap.community(mygraph)
 
 #Reorder dataset and make the graph
-coauth <- coauth %>% 
+coauth <- coauth %>%
   mutate( grp = com$membership) %>%
   arrange(grp) %>%
   mutate(name=factor(name, name))
 
 # keep only 10 first communities
-coauth <- coauth %>% 
+coauth <- coauth %>%
   filter(grp<16)
 
 # keep only this people in edges
@@ -421,7 +421,7 @@ mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
 mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
-ggraph(mygraph, layout="circle") + 
+ggraph(mygraph, layout="circle") +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=FALSE) +
   geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.9) +
   scale_size_continuous(range=c(0.5,8)) +
@@ -433,7 +433,7 @@ ggraph(mygraph, layout="circle") +
     plot.margin=unit(c(0,0,0,0), "null"),
     panel.spacing=unit(c(0,0,0,0), "null")
   ) +
-  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2)) 
+  expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
 ```
 
 
@@ -452,7 +452,7 @@ An arc diagram follows the same concept, but displays nodes along a single axis 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=15, fig.height=7}
 # Make the graph
-ggraph(mygraph, layout="linear") + 
+ggraph(mygraph, layout="linear") +
   geom_edge_arc(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
   geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.5) +
   scale_size_continuous(range=c(0.5,8)) +
@@ -464,7 +464,7 @@ ggraph(mygraph, layout="linear") +
     plot.margin=unit(c(0,0,0.4,0), "null"),
     panel.spacing=unit(c(0,0,3.4,0), "null")
   ) +
-  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2)) 
+  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2))
 
 
 ```
@@ -481,7 +481,7 @@ ggraph(mygraph, layout="linear") +
 
 
 
- 
+
 
 
 

@@ -1,10 +1,10 @@
 ---
 myimage: "BundleSmall.png"
-mydisqus: "edge_bundling"
+pathSlug: "edge_bundling"
 mytitle: "Hierarchical edge bundling"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -31,7 +31,7 @@ output:
 
 <br>
 
-<u>Step 1</u>: Let's consider the hierarchy of the [Flare](http://flare.prefuse.org) ActionScript visualization library. The elements of its library are organized in several folder, like query, data, scale... Each folder is then subdivided in subfolders and so on. The hierarchy can be visualized as a [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html) as follow: 
+<u>Step 1</u>: Let's consider the hierarchy of the [Flare](http://flare.prefuse.org) ActionScript visualization library. The elements of its library are organized in several folder, like query, data, scale... Each folder is then subdivided in subfolders and so on. The hierarchy can be visualized as a [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html) as follow:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 # Libraries
@@ -62,9 +62,9 @@ mygraph <- graph_from_data_frame(edges, vertices = vertices)
 # The connection object must refer to the ids of the leaves:
 from = match( connections$from, vertices$name)
 to = match( connections$to, vertices$name)
- 
+
 # Basic dendrogram
-ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
     geom_edge_link(size=0.4, alpha=0.1) +
     geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
     coord_fixed() +
@@ -76,7 +76,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
     expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
 ```
 
-<u>Step 2</u>: now consider another level of information. Some elements of the library have dependencies: basically they call other elements when they are used. A naive approach to represent this connection would be to draw a straight line (left). Instead, hierarchical edge bundling uses a curve that follows the hierarchy link between the 2 elements (right). 
+<u>Step 2</u>: now consider another level of information. Some elements of the library have dependencies: basically they call other elements when they are used. A naive approach to represent this connection would be to draw a straight line (left). Instead, hierarchical edge bundling uses a curve that follows the hierarchy link between the 2 elements (right).
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 
@@ -85,9 +85,9 @@ from_head = match( connections$from, vertices$name) %>% head(1)
 to_head = match( connections$to, vertices$name) %>% head(1)
 
 # Basic dendrogram
-p1 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+p1 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
     geom_edge_link(size=0.4, alpha=0.1) +
-    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0) + 
+    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0) +
     geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
     coord_fixed() +
     theme_void() +
@@ -97,9 +97,9 @@ p1 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
     ) +
     expand_limits(x = c(-1.2, 1.2), y = c(-1.2, 1.2))
 
-p2 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+p2 <- ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
     geom_edge_link(size=0.4, alpha=0.1) +
-    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0.9) + 
+    geom_conn_bundle(data = get_con(from = from_head, to = to_head), alpha = 1, colour="#69b3a2", width=2, tension=0.9) +
     geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
     coord_fixed() +
     theme_void() +
@@ -119,8 +119,8 @@ p1 + p2
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=7}
 # Make the plot
-ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
-    geom_conn_bundle(data = get_con(from = from, to = to), alpha = 0.1, colour="#69b3a2") + 
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
+    geom_conn_bundle(data = get_con(from = from, to = to), alpha = 0.1, colour="#69b3a2") +
     geom_node_text(aes(x = x*1.01, y=y*1.01, filter = leaf, label=shortName, angle = angle, hjust=hjust), size=1.5, alpha=1) +
     coord_fixed() +
     theme_void() +
@@ -144,7 +144,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
 # What for
 ***
 
-Hierarchical edge bundling reduces visual clutter and also visualizes implicit adjacency edges between parent nodes that are the result of explicit adjacency edges between their respective child nodes. Furthermore, hierarchical edge bundling is a generic method which can be used in conjunction with existing tree visualization techniques.   
+Hierarchical edge bundling reduces visual clutter and also visualizes implicit adjacency edges between parent nodes that are the result of explicit adjacency edges between their respective child nodes. Furthermore, hierarchical edge bundling is a generic method which can be used in conjunction with existing tree visualization techniques.
 
 Here is an example showing the same dataset with and without the use of bundling. The use of straight line on the left results in a cluttered figure that makes impossible to read the connection. The use of bundling on the right makes a neat figure:
 
@@ -218,7 +218,7 @@ Because I love this kind of graphic so much, I feel like displaying a few exampl
   <p class="mytitlerelated">Chord diagram</p>
   <p class="mytextrelated">A circular layout used to display weighted relationships between entities through arcs.</p>
   </a>
-  </div>  
+  </div>
 </div>
 
 

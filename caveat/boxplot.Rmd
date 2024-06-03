@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/boxplot.png"
 mytitle: "The Boxplot and its pitfalls"
-mydisqus: "boxplot"
+pathSlug: "boxplot"
 output:
   html_document:
       template: template_caveat.html
@@ -27,7 +27,7 @@ A boxplot gives a nice summary of one or more numeric variables. A boxplot is co
 - The ends of the box shows the upper (Q3) and lower (Q1) [quartiles](https://en.wikipedia.org/wiki/Quartile). If the third quartile is 15, it means that 75% of the observation are lower than 15.
 - The difference between Quartiles 1 and 3 is called the [interquartile range](https://en.wikipedia.org/wiki/Interquartile_range) (IQR)
 - The extreme line shows Q3+1.5xIQR to Q1-1.5xIQR (the highest and lowest value excluding outliers).
-- Dots (or other markers) beyond the extreme line shows potntial outliers.  
+- Dots (or other markers) beyond the extreme line shows potntial outliers.
 
 <br>
 

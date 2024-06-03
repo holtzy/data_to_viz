@@ -3,11 +3,11 @@ myimage1: "DensitySmall.png"
 myimage2: "Box1Small.png"
 myimage3: "ViolinSmall.png"
 myimage4: "HistogramSmall.png"
-mydisqus: "OneNumSevCatSubgroupSevObsPerGroup"
+pathSlug: "OneNumSevCatSubgroupSevObsPerGroup"
 mytitle: "How much do people tip?"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -19,7 +19,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -73,8 +73,8 @@ The most common way to represent that kind of dataset is probably the grouped [b
 Here, it looks like there is not much difference in tip values from one day to the other in average, except a slight increase on sunday. Moreover, it looks like females tend to tip more than males on friday. Note that individual data points are presented using `jittering`, what allows to detect more particular pattern and assess the sample size of each group.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
 # Counts the number of value per group and subgroup
-counts = data %>% 
-  group_by(day, sex) %>% 
+counts = data %>%
+  group_by(day, sex) %>%
   summarize(
     n=n(),
     median=median(tip)
@@ -84,7 +84,7 @@ counts = data %>%
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
   mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
-  ggplot(aes(fill=sex, y=tip, x=day)) + 
+  ggplot(aes(fill=sex, y=tip, x=day)) +
     geom_boxplot(position=position_dodge2(preserve = "total"), alpha=0.5, outlier.colour="transparent", varwidth = TRUE) +
     geom_point(color="grey", size=1, width=0.1, position=position_jitterdodge() , alpha=0.4) +
     scale_fill_viridis(discrete=T, name="") +
@@ -103,7 +103,7 @@ In the above chart categories are grouped by day. It is possible to build the sa
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
   mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
-  ggplot(aes(fill=day, y=tip, x=sex)) + 
+  ggplot(aes(fill=day, y=tip, x=sex)) +
     geom_boxplot(position="dodge", alpha=0.5, outlier.colour="transparent") +
     geom_point(color="grey", size=1, width=0.1, position=position_jitterdodge() , alpha=0.4) +
     scale_fill_viridis(discrete=T, name="") +
@@ -125,7 +125,7 @@ The [violin plot](https://www.data-to-viz.com/graph/violin.html) can be used exa
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
   mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
-  ggplot(aes(fill=sex, y=tip, x=day)) + 
+  ggplot(aes(fill=sex, y=tip, x=day)) +
     geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") +
     scale_fill_viridis(discrete=T, name="") +
     theme_ipsum()  +
@@ -147,7 +147,7 @@ Small multiple is a powerful technique that can be used with that kind of data. 
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
   mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
-  ggplot(aes(x=tip)) + 
+  ggplot(aes(x=tip)) +
     geom_histogram(bins=20, fill="#69b3a2", color="white") +
     facet_grid(sex~time) +
     theme_ipsum()  +

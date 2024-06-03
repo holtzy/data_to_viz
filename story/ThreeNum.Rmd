@@ -3,11 +3,11 @@ myimage1: "Density150.png"
 myimage2: "Box1150.png"
 myimage3: "BubblePlot150.png"
 myimage4: "3d150.png"
-mydisqus: "ThreeNum"
+pathSlug: "ThreeNum"
 mytitle: "Life expectancy, gdp per capita and population size"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -19,7 +19,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -46,7 +46,7 @@ library(gapminder)
 data <- gapminder %>% filter(year=="2007") %>% select(-year)
 
 # show data
-data %>% head(6) %>% 
+data %>% head(6) %>%
   mutate(gdpPercap=round(gdpPercap,0)) %>%
   mutate(pop=round(pop/1000000,2)) %>%
   mutate(lifeExp=round(lifeExp,1)) %>%
@@ -89,7 +89,7 @@ p2 <- data %>%
     scale_color_viridis(discrete=TRUE) +
     scale_y_log10() +
     theme_ipsum() +
-    theme(legend.position="none") 
+    theme(legend.position="none")
 
 p3 <- data %>%
   mutate(pop=pop/1000000) %>%
@@ -100,7 +100,7 @@ p3 <- data %>%
     scale_color_viridis(discrete=TRUE) +
     scale_y_log10() +
     theme_ipsum() +
-    theme(legend.position="none") 
+    theme(legend.position="none")
 
 
 grid.arrange(p2,p3, ncol=2)
@@ -173,12 +173,12 @@ A specific use case where three numeric columns are displayed is the grid system
 
 ```{r, warning=FALSE, message=FALSE}
 # prepare the dataset:
-don <- volcano 
+don <- volcano
 colnames(don) <- seq(1,ncol(don))
 don <- don %>%
   as.tibble() %>%
   mutate(lat=seq(1,nrow(don)) ) %>%
-  gather(key="long", value="altitude", -lat) 
+  gather(key="long", value="altitude", -lat)
 
 # show data
 don %>% head(6) %>% kable() %>%

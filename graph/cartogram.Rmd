@@ -1,10 +1,10 @@
 ---
 myimage: "CartogramSmall.png"
-mydisqus: "cartogram"
+pathSlug: "cartogram"
 mytitle: "Cartogram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -28,7 +28,7 @@ output:
 
 # Definition {#definition}
 ***
-A `cartogram` is a map in which the geometry of regions is `distorted` in order to convey the information of an alternate variable. The region area will be inflated or deflated according to its numeric value.  
+A `cartogram` is a map in which the geometry of regions is `distorted` in order to convey the information of an alternate variable. The region area will be inflated or deflated according to its numeric value.
 
 Most of the time, a cartogram is also a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html) where regions are colored according to a numeric variable (not necessarily the one use to build the cartogram).
 
@@ -47,7 +47,7 @@ afr=wrld_simpl[wrld_simpl$REGION==2,]
 
 # Usual choropleth map:
 spdf_fortified <- tidy(afr)
-spdf_fortified = spdf_fortified %>% left_join(. , afr@data, by=c("id"="ISO3")) 
+spdf_fortified = spdf_fortified %>% left_join(. , afr@data, by=c("id"="ISO3"))
 p1 <- ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = POP2005/1000000, x = long, y = lat, group = group) , size=0, alpha=0.9) +
   theme_void() +
@@ -55,7 +55,7 @@ p1 <- ggplot() +
   labs( title = "Real boundaries" ) +
   ylim(-35,35) +
   theme(
-    text = element_text(color = "#22211d"), 
+    text = element_text(color = "#22211d"),
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
     legend.position = c(0.2, 0.26)
   ) +
@@ -63,15 +63,15 @@ p1 <- ggplot() +
 
 # construct a cartogram using the population in 2005
 afr_cartogram <- cartogram(afr, "POP2005", itermax=5)
- 
+
 # It is a new geospatial object: we can use all the usual techniques on it! Let's start with a basic ggplot2 chloropleth map:
 spdf_fortified <- tidy(afr_cartogram)
-spdf_fortified = spdf_fortified %>% left_join(. , afr_cartogram@data, by=c("id"="ISO3")) 
+spdf_fortified = spdf_fortified %>% left_join(. , afr_cartogram@data, by=c("id"="ISO3"))
 ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = POP2005, x = long, y = lat, group = group) , size=0, alpha=0.9) +
   coord_map() +
   theme_void()
- 
+
 # As seen before, we can do better with a bit of customization
 p2 <- ggplot() +
   geom_polygon(data = spdf_fortified, aes(fill = POP2005/1000000, x = long, y = lat, group = group) , size=0, alpha=0.9) +
@@ -80,7 +80,7 @@ p2 <- ggplot() +
   labs( title = "Cartogram" ) +
   ylim(-35,35) +
   theme(
-    text = element_text(color = "#22211d"), 
+    text = element_text(color = "#22211d"),
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
     legend.position = c(0.2, 0.26)
   ) +
@@ -92,7 +92,7 @@ ggsave(p2, filename="IMG/cartogram2.png", dpi=100, width=7, height=7)
 ```
 
 <div class = "row">
-  
+
 <div class = "col-md-6">
 <center>
 <img src="IMG/cartogram1.png" alt="img" width="600" height="700">
@@ -116,7 +116,7 @@ The above maps illustrate the difference between real african country boundaries
 # What for
 ***
 
-Cartogram aims to correct the bias that can be observed in a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html): when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points.  
+Cartogram aims to correct the bias that can be observed in a [choropleth map](https://www.data-to-viz.com/graph/choropleth.html): when a variable is aggregated per region, a region with very few data points will look as important as a region with many data points.
 
 For instance, imagine you display the average salary per region on your choropleth map. A region with 3 inhabitants with a huge area will have more importance on your map than a small one with 3,000 inhabitants, what induces a strong bias. The cartogram aims to reduce this bias.
 
@@ -132,31 +132,31 @@ For instance, imagine you display the average salary per region on your chorople
 library(tidyverse)
 library(geojsonio)
 library(RColorBrewer)
- 
+
 # Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and load it in R:
 spdf <- geojson_read("us_states_hexgrid.geojson.json",  what = "sp")
 spdf@data = spdf@data %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
- 
+
 # Load the population per states (source: https://www.census.gov/data/tables/2017/demo/popest/nation-total.html)
 pop=read.table("https://www.r-graph-gallery.com/wp-content/uploads/2018/01/pop_US.csv", sep=",", header=T)
 pop$pop = pop$pop / 1000000
- 
+
 # merge both
 spdf@data = spdf@data %>% left_join(., pop, by=c("google_name"="state"))
- 
+
 # Compute the cartogram, using this population information
 cartogram <- cartogram(spdf, 'pop')
- 
+
 # First look!
 plot(cartogram)
- 
+
 # tidy data to be drawn by ggplot2 (broom library of the tidyverse)
 carto_fortified <- tidy(cartogram, region = "google_name")
-carto_fortified = carto_fortified %>% left_join(. , cartogram@data, by=c("id"="google_name")) 
- 
+carto_fortified = carto_fortified %>% left_join(. , cartogram@data, by=c("id"="google_name"))
+
 # Calculate the position of state labels
 centers <- cbind.data.frame(data.frame(gCentroid(cartogram, byid=TRUE), id=cartogram@data$iso3166_2))
- 
+
 # plot
 ggplot() +
   geom_polygon(data = carto_fortified, aes(fill = pop, x = long, y = lat, group = group) , size=0.05, alpha=0.9, color="black") +
@@ -168,8 +168,8 @@ ggplot() +
     legend.position = c(0.5, 0.9),
     legend.direction = "horizontal",
     text = element_text(color = "#22211d"),
-    plot.background = element_rect(fill = "#f5f5f9", color = NA), 
-    panel.background = element_rect(fill = "#f5f5f9", color = NA), 
+    plot.background = element_rect(fill = "#f5f5f9", color = NA),
+    panel.background = element_rect(fill = "#f5f5f9", color = NA),
     legend.background = element_rect(fill = "#f5f5f9", color = NA),
     plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
   ) +

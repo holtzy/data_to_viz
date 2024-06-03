@@ -1,10 +1,10 @@
 ---
 myimage: "DendrogramSmall.png"
-mydisqus: "dendrogram"
+pathSlug: "dendrogram"
 mytitle: "Dendrogram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -43,37 +43,37 @@ library(colormap)
 library(kableExtra)
 options(knitr.table.format = "html")
 
-# create a data frame 
+# create a data frame
 data=data.frame(
   level1="CEO",
   level2=c( rep("boss1",4), rep("boss2",4)),
   level3=paste0("mister_", letters[1:8])
 )
- 
+
 # transform it to a edge list!
 edges_level1_2 = data %>% select(level1, level2) %>% unique %>% rename(from=level1, to=level2)
 edges_level2_3 = data %>% select(level2, level3) %>% unique %>% rename(from=level2, to=level3)
 edge_list=rbind(edges_level1_2, edges_level2_3)
- 
+
 # Now we can plot that
 mygraph <- graph_from_data_frame( edge_list )
-ggraph(mygraph, layout = 'dendrogram', circular = FALSE) + 
+ggraph(mygraph, layout = 'dendrogram', circular = FALSE) +
   geom_edge_diagonal() +
   geom_node_point(color="#69b3a2", size=3) +
   geom_node_text(
-    aes(  label=c("CEO", "Manager", "Manager", LETTERS[8:1]) ), 
-    hjust=c(1,0.5, 0.5, rep(0,8)), 
+    aes(  label=c("CEO", "Manager", "Manager", LETTERS[8:1]) ),
+    hjust=c(1,0.5, 0.5, rep(0,8)),
     nudge_y = c(-.02, 0, 0, rep(.02,8)),
     nudge_x = c(0, .3, .3, rep(0,8))
   ) +
   theme_void() +
   coord_flip() +
-  scale_y_reverse() 
+  scale_y_reverse()
 ```
 
 <br>
 
-Two type of dendrogram exist, resulting from 2 types of dataset: 
+Two type of dendrogram exist, resulting from 2 types of dataset:
 
 - A `hierarchic` dataset provides the links between nodes explicitely. Like above.
 - The result of a `clustering` algorythm can be visualized as a dendrogram.
@@ -92,14 +92,14 @@ The following example shows the hierarchy of a company. The CEO is the **root no
 library(ggraph)
 library(igraph)
 library(tidyverse)
- 
-# create a data frame 
+
+# create a data frame
 data <- data.frame(
   level1="CEO",
   level2=c( rep("boss1",4), rep("boss2",4)),
   level3=paste0("mister_", letters[1:8])
 )
- 
+
 # transform it to a edge list!
 edges_level1_2 <- data %>% select(level1, level2) %>% unique %>% rename(from=level1, to=level2)
 edges_level2_3 <- data %>% select(level2, level3) %>% unique %>% rename(from=level2, to=level3)
@@ -107,7 +107,7 @@ edge_list <- rbind(edges_level1_2, edges_level2_3)
 
 # Now we can plot that
 mygraph <- graph_from_data_frame( edge_list )
-ggraph(mygraph, layout = 'dendrogram', circular = FALSE) + 
+ggraph(mygraph, layout = 'dendrogram', circular = FALSE) +
   geom_edge_diagonal() +
   geom_node_point() +
   theme_void()
@@ -152,7 +152,7 @@ tmp %>% kable() %>%
 
 <br>
 
-It is possible to perform [hierarchical cluster analysis](https://en.wikipedia.org/wiki/Hierarchical_clustering) on this set of dissimilarities. Basically, this statistical method seeks to build a `hierarchy` of clusters: it tries to group sample that are close one from another.  
+It is possible to perform [hierarchical cluster analysis](https://en.wikipedia.org/wiki/Hierarchical_clustering) on this set of dissimilarities. Basically, this statistical method seeks to build a `hierarchy` of clusters: it tries to group sample that are close one from another.
 
 The result can be seen as a dendrogram:
 
@@ -179,7 +179,7 @@ As expected, cities that are in same geographic area tend to be `clusterized` to
 A common task consists to compare the result of a clustering with an expected result. For instance, we can check if the countries are indeed grouped in continent using a color bar:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Create a color vector with continent
-continent <- c("Europe", "South America", "Africa", "Asia", "Africa", "South America", "North America", "Asia", "North America", 
+continent <- c("Europe", "South America", "Africa", "Asia", "Africa", "South America", "North America", "Asia", "North America",
                "Europe", "Europe","Europe", "North America", "Asia", "South America", "North America", "Europe", "North America",
                "Europe", "South America", "Europe", "North America", "Asia", "Europe", "Asia", "Asia", "Europe",
                "North America"
@@ -214,23 +214,23 @@ Many variations exist for dendrogram. It can be horizontal or vertical as shown 
 library(ggraph)
 library(igraph)
 library(tidyverse)
-library(RColorBrewer) 
+library(RColorBrewer)
 set.seed(1)
 
 # create a data frame giving the hierarchical structure of your individuals
 d1=data.frame(from="origin", to=paste("group", seq(1,10), sep=""))
 d2=data.frame(from=rep(d1$to, each=10), to=paste("group", seq(1,100), sep="_"))
 edges=rbind(d1, d2)
- 
+
 # create a vertices data.frame. One line per object of our hierarchy
 vertices = data.frame(
-  name = unique(c(as.character(edges$from), as.character(edges$to))) , 
+  name = unique(c(as.character(edges$from), as.character(edges$to))) ,
   value = runif(111)
-) 
+)
 # Let's add a column with the group of each name. It will be useful later to color points
 vertices$group = edges$from[ match( vertices$name, edges$to ) ]
- 
- 
+
+
 #Let's add information concerning the label we are going to add: angle, horizontal adjustement and potential flip
 #calculate the ANGLE of the labels
 vertices$id=NA
@@ -238,14 +238,14 @@ myleaves=which(is.na( match(vertices$name, edges$from) ))
 nleaves=length(myleaves)
 vertices$id[ myleaves ] = seq(1:nleaves)
 vertices$angle= 90 - 360 * vertices$id / nleaves
- 
+
 # calculate the alignment of labels: right or left
 # If I am on the left part of the plot, my labels have currently an angle < -90
 vertices$hjust<-ifelse( vertices$angle < -90, 1, 0)
- 
+
 # flip angle BY to make them readable
 vertices$angle<-ifelse(vertices$angle < -90, vertices$angle+180, vertices$angle)
- 
+
 # Create a graph object
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
 
@@ -253,7 +253,7 @@ mygraph <- graph_from_data_frame( edges, vertices=vertices )
 mycolor <- colormap(colormap = colormaps$viridis, nshades = 6, format = "hex", alpha = 1, reverse = FALSE)[sample(c(1:6), 10, replace=TRUE)]
 
 # Make the plot
-ggraph(mygraph, layout = 'dendrogram', circular = TRUE) + 
+ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
   geom_edge_diagonal(colour="grey") +
   scale_edge_colour_distiller(palette = "RdPu") +
   geom_node_text(aes(x = x*1.15, y=y*1.15, filter = leaf, label=name, angle = angle, hjust=hjust, colour=group), size=2.7, alpha=1) +

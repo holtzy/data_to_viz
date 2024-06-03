@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/counter_intuitive.png"
 mytitle: "Don't be counter intuitive"
-mydisqus: "counter_intuitive"
+pathSlug: "counter_intuitive"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -25,7 +25,7 @@ People are used to seeing data displayed in a usual and logical way. Not respect
 
 #Reversing axis
 ***
-The Y-axis almost always rises from the bottom to the top of the graphic. Here is an example with a reverse Y-axis. It comes from an article in [business insider](https://www.businessinsider.in/This-Chart-Shows-What-Happened-To-Gun-Deaths-In-Florida-After-Stand-Your-Ground-Was-Enacted/articleshow/30635752.cms) and describes the evolution of gun deaths in Florida.  
+The Y-axis almost always rises from the bottom to the top of the graphic. Here is an example with a reverse Y-axis. It comes from an article in [business insider](https://www.businessinsider.in/This-Chart-Shows-What-Happened-To-Gun-Deaths-In-Florida-After-Stand-Your-Ground-Was-Enacted/articleshow/30635752.cms) and describes the evolution of gun deaths in Florida.
 
 *Disclaimer*: I found this image on [KD Nuggets](https://www.kdnuggets.com/2016/02/common-data-visualization-mistakes.html)
 

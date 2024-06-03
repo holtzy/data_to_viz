@@ -1,10 +1,10 @@
 ---
 myimage: "CircularPackingSmall.png"
-mydisqus: "circularpacking"
+pathSlug: "circularpacking"
 mytitle: "Circular Packing"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -29,7 +29,7 @@ output:
 # Definition {#definition}
 ***
 
-`Circular packing` or circular treemap allows to visualize a hierarchic organization. It is an equivalent of a [treemap](https://www.data-to-viz.com/graph/treemap.html) or a [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html), where each node of the tree is represented as a circle and its sub-nodes are represented as circles inside of it. The size of each circle can be proportional to a specific value, what gives more insight to the plot.  
+`Circular packing` or circular treemap allows to visualize a hierarchic organization. It is an equivalent of a [treemap](https://www.data-to-viz.com/graph/treemap.html) or a [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html), where each node of the tree is represented as a circle and its sub-nodes are represented as circles inside of it. The size of each circle can be proportional to a specific value, what gives more insight to the plot.
 
 Here is an example showing the [repartition of the world population](https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html) of 250 countries. The world is divided in continent (group), regions (subgroup), and countries. Countries are considered as leaves: they are at the end of the branches.
 
@@ -53,7 +53,7 @@ data <- data %>% filter(Continent!="") %>% droplevels()
 library(data.tree)
 data$pathString <- paste("world", data$Continent, data$Region, data$Country, sep = "/")
 population <- as.Node(data)
- 
+
 # You can custom the minimum and maximum value of the color range.
 circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max = "hsl(341,30%,40%)")
 ```
@@ -69,7 +69,7 @@ circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max 
 # What for
 ***
 
-Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to [translate an area into an accurate number](https://www.data-to-viz.com/caveat/area_hard.html). If you need accuracy, use a [barplot](https://www.data-to-viz.com/graph/barplot.html) or a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot instead.  
+Circle packing is not recommended if you need to precisely compare values of group. Indeed, it is hard for the human eye to [translate an area into an accurate number](https://www.data-to-viz.com/caveat/area_hard.html). If you need accuracy, use a [barplot](https://www.data-to-viz.com/graph/barplot.html) or a [lollipop](https://www.data-to-viz.com/graph/lollipop.html) plot instead.
 
 However, circular packing shows very well how groups are organised in subgroups. It uses the space a bit less efficiently than a [treemap](https://www.data-to-viz.com/graph/treemap.html), but the hierarchy gets very neat.
 
@@ -86,18 +86,18 @@ When using circular packing I really like to remove the first or two first level
 library(ggraph)
 library(igraph)
 library(viridis)
- 
+
 # We need a data frame giving a hierarchical structure. Let's consider the flare dataset:
 edges=flare$edges
 vertices = flare$vertices
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
- 
+
 # Second one: add 2 first levels
-ggraph(mygraph, layout = 'circlepack', weight=size) + 
+ggraph(mygraph, layout = 'circlepack', weight=size) +
   geom_node_circle(aes(fill = as.factor(depth), color = as.factor(depth) )) +
   scale_fill_manual(values=c("0" = "white", "1" = "white", "2" = magma(4)[2], "3" = magma(4)[3], "4"=magma(4)[4])) +
   scale_color_manual( values=c("0" = "white", "1" = "white", "2" = "black", "3" = "black", "4"="black") ) +
-  theme_void() + 
+  theme_void() +
   theme(legend.position="FALSE")
 ```
 

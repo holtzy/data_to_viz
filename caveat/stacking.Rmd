@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/stacking.png"
 mytitle: "The issue with stacking"
-mydisqus: "stacking"
+pathSlug: "stacking"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -22,7 +22,7 @@ output:
 
 #What is stacking
 ***
-`Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.  
+`Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.
 
 Here is an example with a [stacked area chart](https://www.data-to-viz.com/graph/stackedarea.html). It shows the evolution of baby name occurence in the US between 1880 and 2015. Six first names are represented on top of one another.
 
@@ -36,12 +36,12 @@ library(hrbrthemes)
 library(plotly)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Amanda", "Jessica",    "Patricia", "Deborah",   "Dorothy",  "Helen")) %>%
   filter(sex=="F")
 
 # Plot
-p <- data %>% 
+p <- data %>%
   ggplot( aes(x=year, y=n, fill=name, text=name)) +
     geom_area( ) +
     scale_fill_viridis(discrete = TRUE) +
@@ -52,7 +52,7 @@ p <- data %>%
 ggplotly(p, tooltip="text")
 ```
 
-<u>*Note*</u>: This graphic is interactive: hover an area to know the underlying name.  
+<u>*Note*</u>: This graphic is interactive: hover an area to know the underlying name.
 
 
 `Stacking` is a common practice in dataviz. It occurs on three main types of graphic that are highly related: area charts, barplots and streamcharts:
@@ -93,7 +93,7 @@ The efficiency of stacked area graph is discussed and it must be used with care.
 
 #Example: mental arithmetic
 ***
-In the previous graphic, try to find out how many times the name Dorothy was given in 1920.  
+In the previous graphic, try to find out how many times the name Dorothy was given in 1920.
 
 It is not trivial to find it out using the previous chart. You have to mentally do 75000 - 37000 which is hard. If you want to convey a message efficiently, you don't want the audience to perform mental arithmetic.
 
@@ -115,7 +115,7 @@ don <- data.frame(
 )
 
 #plot
-don %>% 
+don %>%
   ggplot( aes(x=x, y=value, fill=group)) +
     geom_area( ) +
     scale_fill_viridis(discrete = TRUE) +
@@ -131,7 +131,7 @@ Now let's plot just the green group to find out:
 
 ```{r, fig.align="center", message=FALSE, warning=FALSE, fig.width=6}
 #plot
-don %>% 
+don %>%
   filter(group=="B") %>%
   ggplot( aes(x=x, y=value, fill=group)) +
     geom_area( fill="#22908C") +

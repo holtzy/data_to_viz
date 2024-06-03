@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/ungrouped_grouped_barplot.png"
 mytitle: "Grouped barplot must be grouped"
-mydisqus: "grouped_bar"
+pathSlug: "grouped_bar"
 output:
   html_document:
       template: template_caveat.html
@@ -13,7 +13,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -37,12 +37,12 @@ library(babynames)
 library(viridis)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Anna", "Mary")) %>%
   filter(sex=="F")
 
 # A grouped barplot
-data  %>% 
+data  %>%
   filter(year %in% c(1950, 1960, 1970, 1980, 1990, 2000)) %>%
   mutate(year=as.factor(year)) %>%
   mutate( nameYear = paste(year, name, sep=" - ")) %>%
@@ -70,12 +70,12 @@ library(babynames)
 library(viridis)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Anna", "Mary")) %>%
   filter(sex=="F")
 
 # A grouped barplot
-data  %>% 
+data  %>%
   filter(year %in% c(1950, 1960, 1970, 1980, 1990, 2000)) %>%
   mutate(year=as.factor(year)) %>%
   ggplot( aes(x=year, y=n, fill=name)) +

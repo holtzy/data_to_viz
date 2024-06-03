@@ -1,6 +1,6 @@
 ---
 myimage1: "../img/mistake/order_data.png"
-mydisqus: "order_data"
+pathSlug: "order_data"
 mytitle: "Why you should order your data"
 output:
   html_document:
@@ -84,7 +84,7 @@ The figure is now way more insightful, with France being the third biggest expor
 
 #Conclusion
 ***
-Reordering your data is an easy step you should always consider when building a chart. Of course, sometimes the order of groups must be set by their features and not their values, like the months of the year, but it's worth thinking about it.  
+Reordering your data is an easy step you should always consider when building a chart. Of course, sometimes the order of groups must be set by their features and not their values, like the months of the year, but it's worth thinking about it.
 <br>
 *Read more*:
 

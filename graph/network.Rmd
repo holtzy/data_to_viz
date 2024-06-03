@@ -1,10 +1,10 @@
 ---
 myimage: "NetworkSmall.png"
-mydisqus: "network"
+pathSlug: "network"
 mytitle: "Network diagram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -28,7 +28,7 @@ output:
 # Definition {#definition}
 ***
 
-`Network diagrams` (also called Graphs) show interconnections between a set of entities. Each entity is represented by a `Node` (or vertice). Connections between nodes are represented through `links` (or edges).  
+`Network diagrams` (also called Graphs) show interconnections between a set of entities. Each entity is represented by a `Node` (or vertice). Connections between nodes are represented through `links` (or edges).
 
 Here is an example showing the co-authors network of [Vincent Ranwez](https://sites.google.com/site/ranwez/), a researcher who's my previous supervisor. Basically, people having published at least one research paper with him are represented by a node. If two people have been listed on the same publication at least once, they are connected by a link.
 
@@ -46,7 +46,7 @@ library(networkD3)
 dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
 
 # Transform the adjacency matrix in a long format
-connect <- dataUU %>% 
+connect <- dataUU %>%
   gather(key="to", value="value", -1) %>%
   na.omit()
 
@@ -61,7 +61,7 @@ colnames(coauth) <- c("name", "n")
 graph=simpleNetwork(connect)
 
 # Plot
-simpleNetwork(connect,     
+simpleNetwork(connect,
         Source = 1,                 # column number of source
         Target = 2,                 # column number of target
         height = 880,               # height of frame area in pixels
@@ -97,7 +97,7 @@ Four main types of network diagram exist, according to the features of data inpu
 <div class = "row" style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
 <div class = "col-md-3 col-sm-6">
 <br>
-<h4>`Undirected and Unweighted`</h4>  
+<h4>`Undirected and Unweighted`</h4>
 Tom, Cherelle and Melanie live in the same house. They are connected but no direction and no weight.
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Create data
@@ -111,7 +111,7 @@ network=graph_from_adjacency_matrix(data)
 
 # Plot it
 # Make the graph
-ggraph(network) + 
+ggraph(network) +
   geom_edge_link(edge_colour="black", edge_alpha=0.3, edge_width=0.2) +
   geom_node_point( color="#69b3a2", size=5) +
   geom_node_text( aes(label=name), repel = TRUE, size=8, color="#69b3a2") +
@@ -119,7 +119,7 @@ ggraph(network) +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 
 ```
 </div>
@@ -136,12 +136,12 @@ set.seed(1)
 data=matrix(sample(0:3, 25, replace=TRUE), nrow=5)
 data[lower.tri(data)] <- NA
 colnames(data)=rownames(data)=LETTERS[1:5]
- 
+
 # Transform it in a graph format
 network=graph_from_adjacency_matrix(data, weighted = TRUE)
 
 # Make the graph
-ggraph(network) + 
+ggraph(network) +
   geom_edge_link( aes(edge_width=E(network)$weight), edge_colour="black", edge_alpha=0.3) +
   geom_node_point( color="#69b3a2", size=5) +
   geom_node_text( aes(label=name), repel = TRUE, size=8, color="#69b3a2") +
@@ -149,7 +149,7 @@ ggraph(network) +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 
 ```
 </div>
@@ -166,12 +166,12 @@ set.seed(10)
 data=matrix(sample(0:1, 25, replace=TRUE), nrow=5)
 diag(data) = NA
 colnames(data)=rownames(data)=LETTERS[1:5]
- 
+
 # Transform it in a graph format
 network=graph_from_adjacency_matrix(data)
 
 # Make the graph
-ggraph(network) + 
+ggraph(network) +
   geom_edge_link(edge_colour="black", edge_alpha=0.8, edge_width=0.2, arrow = arrow(angle=20)) +
   geom_node_point( color="#69b3a2", size=3) +
   geom_node_text( aes(label=name), repel = TRUE, size=6, color="#69b3a2") +
@@ -179,7 +179,7 @@ ggraph(network) +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 
 ```
 </div>
@@ -196,12 +196,12 @@ set.seed(10)
 data=matrix(sample(0:3, 16, replace=TRUE), nrow=4)
 diag(data) <- NA
 colnames(data)=rownames(data)=LETTERS[1:4]
- 
+
 # Transform it in a graph format
 network=graph_from_adjacency_matrix(data, weighted=TRUE)
 
 # Make the graph
-ggraph(network) + 
+ggraph(network) +
   geom_edge_link(edge_colour="black", edge_alpha=0.3, aes(edge_width=E(network)$weight) , arrow=arrow()) +
   scale_edge_width(range=c(1,3)) +
   geom_node_point( color="#69b3a2", size=3) +
@@ -210,7 +210,7 @@ ggraph(network) +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 
 ```
 </div>
@@ -221,7 +221,7 @@ ggraph(network) +
 
 <br><br>
 
-*Note*: as you can observe on the examples above, directed graphs are quite hard to represent using this type of visualization. More appropriate techniques exist to represent flows, like [Sankey diagram](https://www.data-to-viz.com/graph/sankey.html) or [chord diagram](https://www.data-to-viz.com/graph/chord.html). 
+*Note*: as you can observe on the examples above, directed graphs are quite hard to represent using this type of visualization. More appropriate techniques exist to represent flows, like [Sankey diagram](https://www.data-to-viz.com/graph/sankey.html) or [chord diagram](https://www.data-to-viz.com/graph/chord.html).
 
 
 
@@ -253,7 +253,7 @@ Probably the most widely used algorithm, using a force-directed method.
 dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
 
 # Transform the adjacency matrix in a long format
-connect <- dataUU %>% 
+connect <- dataUU %>%
   gather(key="to", value="value", -1) %>%
   na.omit()
 
@@ -268,7 +268,7 @@ colnames(coauth) <- c("name", "n")
 mygraph <- graph_from_data_frame( connect, vertices = coauth )
 
 # Make the graph
-ggraph(mygraph, layout="fr") + 
+ggraph(mygraph, layout="fr") +
   #geom_edge_density(edge_fill="#69b3a2") +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
   geom_node_point(aes(size=n, alpha=n)) +
@@ -276,7 +276,7 @@ ggraph(mygraph, layout="fr") +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 ```
 </div>
 
@@ -288,7 +288,7 @@ ggraph(mygraph, layout="fr") +
 A force-directed graph layout toolbox focused on real-world large-scale graphs
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
 # Make the graph
-ggraph(mygraph, layout="drl") + 
+ggraph(mygraph, layout="drl") +
   #geom_edge_density(edge_fill="#69b3a2") +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
   geom_node_point(aes(size=n, alpha=n)) +
@@ -296,7 +296,7 @@ ggraph(mygraph, layout="drl") +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 ```
 </div>
 
@@ -306,7 +306,7 @@ ggraph(mygraph, layout="drl") +
 <hr>
 This is what happens if node positions is set up randomly
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
-ggraph(mygraph, layout="igraph", algorithm="randomly") + 
+ggraph(mygraph, layout="igraph", algorithm="randomly") +
   #geom_edge_density(edge_fill="#69b3a2") +
   geom_edge_link(edge_colour="black", edge_alpha=0.2, edge_width=0.3) +
   geom_node_point(aes(size=n, alpha=n)) +
@@ -314,7 +314,7 @@ ggraph(mygraph, layout="igraph", algorithm="randomly") +
   theme(
     legend.position="none",
     plot.margin=unit(rep(1,4), "cm")
-  ) 
+  )
 ```
 
 </div>
@@ -365,7 +365,7 @@ ggraph(mygraph, layout="igraph", algorithm="randomly") +
   <p class="mytitlerelated">Edge bundling</p>
   <p class="mytextrelated">Show connections between entities organized in a hierarchy.</p>
   </a>
-  </div>  
+  </div>
 </div>
 
 

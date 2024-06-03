@@ -1,10 +1,10 @@
 ---
 myimage: "HistogramSmall.png"
-mydisqus: "histogram"
+pathSlug: "histogram"
 mytitle: "Histogram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -30,7 +30,7 @@ output:
 
 # Definition {#definition}
 ***
-A histogram is an accurate graphical representation of the distribution of a numeric variable. It takes as input numeric variables only. The variable is cut into several bins, and the number of observation per bin is represented by the height of the bar.  
+A histogram is an accurate graphical representation of the distribution of a numeric variable. It takes as input numeric variables only. The variable is cut into several bins, and the number of observation per bin is represented by the height of the bar.
 
 Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
@@ -110,13 +110,13 @@ A common variation of the histogram is the mirror histogram: it puts face to fac
 
 ```{r, fig.align="center", fig.width=7, warning=FALSE, message=FALSE}
 data <- data.frame(
-  x = rnorm(1000), 
+  x = rnorm(1000),
   y = rnorm(1000, mean=2)
 )
- 
-data %>% 
-  ggplot( aes(x) ) + 
-    geom_histogram( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) + 
+
+data %>%
+  ggplot( aes(x) ) +
+    geom_histogram( aes(x = x, y = ..density..), binwidth = diff(range(data$x))/30, fill="#69b3a2" ) +
     geom_label( aes(x=4.8, y=0.25, label="variable1"), color="#69b3a2") +
     geom_histogram( aes(x = y, y = -..density..), binwidth = diff(range(data$x))/30, fill= "#404080") +
     geom_label( aes(x=4.8, y=-0.25, label="variable2"), color="#404080") +

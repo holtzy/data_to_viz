@@ -1,10 +1,10 @@
 ---
 myimage: "ChoroplethSmall.png"
-mydisqus: "choropleth"
+pathSlug: "choropleth"
 mytitle: "Choropleth map"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -32,7 +32,7 @@ A `choropleth map` displays divided geographical areas or regions that are colou
 
 <br>
 
-Here is an example describing the distribution of restaurants in the south of france. 
+Here is an example describing the distribution of restaurants in the south of france.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=10}
 # Libraries
@@ -72,19 +72,19 @@ p <- ggplot(spdf_fortified) +
   scale_fill_viridis(direction=-1, trans = "log", breaks=c(1,5,10,20,50,100), name="Number of restaurant", guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1) ) +
   labs(
     title = "South of France Restaurant concentration",
-    subtitle = "Number of restaurant per city district", 
+    subtitle = "Number of restaurant per city district",
     caption = "Data: INSEE | Creation: Yan Holtz | r-graph-gallery.com"
   ) +
   theme(
-    text = element_text(color = "#22211d"), 
-    plot.background = element_rect(fill = "#f5f5f2", color = NA), 
-    panel.background = element_rect(fill = "#f5f5f2", color = NA), 
+    text = element_text(color = "#22211d"),
+    plot.background = element_rect(fill = "#f5f5f2", color = NA),
+    panel.background = element_rect(fill = "#f5f5f2", color = NA),
     legend.background = element_rect(fill = "#f5f5f2", color = NA),
-    
+
     plot.title = element_text(size= 15, hjust=0.01, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
     plot.subtitle = element_text(size= 12, hjust=0.01, color = "#4e4d47", margin = margin(b = -0.1, t = 0.43, l = 2, unit = "cm")),
     plot.caption = element_text( size=8, color = "#4e4d47", margin = margin(b = 0.3, r=-99, unit = "cm") ),
-    
+
     legend.position = c(0.7, 0.09)
   ) +
   coord_sf(datum = NA)
@@ -95,7 +95,7 @@ p
 
 *Note*: Boundaries of city districts come from [here](https://github.com/gregoiredavid/france-geojson). Number of restaurant per district comes from [here](https://www.insee.fr/fr/statistiques).
 
-*Important Note*: Here, the absolute number of restaurant per district is shown. Keep in mind that an important bias is present: districts with large area and / or high number of inhabitants are more prone to have a lot of restaurants. 
+*Important Note*: Here, the absolute number of restaurant per district is shown. Keep in mind that an important bias is present: districts with large area and / or high number of inhabitants are more prone to have a lot of restaurants.
 
 
 

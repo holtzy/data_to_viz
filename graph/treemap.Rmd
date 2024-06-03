@@ -1,10 +1,10 @@
 ---
 myimage: "TreeSmall.png"
-mydisqus: "treemap"
+pathSlug: "treemap"
 mytitle: "Treemap"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -29,9 +29,9 @@ output:
 # Definition {#definition}
 ***
 
-A `Treemap` displays `hierarchical` data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. Using color schemes and or interactivity, it is possible to represent several dimensions: groups, subgroups etc.  
+A `Treemap` displays `hierarchical` data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value. Using color schemes and or interactivity, it is possible to represent several dimensions: groups, subgroups etc.
 
-Here is an example describing the [world population](https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html) of 250 countries. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.  
+Here is an example describing the [world population](https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html) of 250 countries. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4}
 # libraries
@@ -45,28 +45,28 @@ colnames(data) <- c("Continent", "Region", "Country", "Pop")
 
 # Plot
 p <- treemap(data,
-            
+
             # data
             index=c("Continent", "Region", "Country"),
             vSize="Pop",
             type="index",
-            
+
             # Main
             title="",
             palette="Dark2",
 
             # Borders:
-            border.col=c("black", "grey", "grey"),             
-            border.lwds=c(1,0.5,0.1),                         
-        
+            border.col=c("black", "grey", "grey"),
+            border.lwds=c(1,0.5,0.1),
+
             # Labels
             fontsize.labels=c(0.7, 0.4, 0.3),
             fontcolor.labels=c("white", "white", "black"),
-            fontface.labels=1,            
-            bg.labels=c("transparent"),              
-            align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),                                  
-            overlap.labels=0.5#, inflate.labels=T   
-            
+            fontface.labels=1,
+            bg.labels=c("transparent"),
+            align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),
+            overlap.labels=0.5#, inflate.labels=T
+
 )
 ```
 
@@ -94,7 +94,7 @@ Treemaps have the advantage to make efficient use of space, what makes them usef
 # Variation {#variation}
 ***
 
-The main variation of treemaps concerns the use of interactivity. It is advised to use it if you have more than 2 or 3 levels of organization to display. Indeed, treemap get cluttered in this situation otherwise.  
+The main variation of treemaps concerns the use of interactivity. It is advised to use it if you have more than 2 or 3 levels of organization to display. Indeed, treemap get cluttered in this situation otherwise.
 
 In the figure below, clicking on a group zooms on it a reveals the underlying structure. Hint: click on the title to come back to the previous level of the hierarchy.
 

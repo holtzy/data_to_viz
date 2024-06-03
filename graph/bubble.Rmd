@@ -1,10 +1,10 @@
 ---
 myimage: "BubblePlotSmall.png"
-mydisqus: "bubble"
+pathSlug: "bubble"
 mytitle: "Bubble plot"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -147,7 +147,7 @@ p2 <- data %>%
     scale_color_viridis(discrete=TRUE) +
     scale_y_log10() +
     theme_ipsum() +
-    theme(legend.position="none") 
+    theme(legend.position="none")
 
 p3 <- data %>%
   mutate(pop=pop/1000000) %>%
@@ -158,7 +158,7 @@ p3 <- data %>%
     scale_color_viridis(discrete=TRUE) +
     scale_y_log10() +
     theme_ipsum() +
-    theme(legend.position="none") 
+    theme(legend.position="none")
 
 grid.arrange(p2,p3, ncol=2)
 ```

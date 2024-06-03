@@ -2,10 +2,10 @@
 myimage1: "DensitySmall.png"
 myimage2: "HistogramSmall.png"
 mytitle: "Airbnb prices on the french riviera"
-mydisqus: "OneNum"
+pathSlug: "OneNum"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_story.html
@@ -17,7 +17,7 @@ output:
       number_sections: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -63,7 +63,7 @@ data %>% head(6) %>% kable() %>%
 #Histogram
 ***
 
-The most common way to represent a unique numeric variable is with a histogram. Basically, the numeric variable is cut in several `bins`: between 0 and 10 euros a night, between 10 and 20 and so on. This is represented on the X axis. Then, the number of apartments per bin is counted and represented on the Y axis.  
+The most common way to represent a unique numeric variable is with a histogram. Basically, the numeric variable is cut in several `bins`: between 0 and 10 euros a night, between 10 and 20 and so on. This is represented on the X axis. Then, the number of apartments per bin is counted and represented on the Y axis.
 
 Here, it appears that about 500 appartments have a price between 80 and 90 euros. A histogram is a convenient way to visualize the data: it allows us to understand its `distribution`.
 
@@ -106,7 +106,7 @@ There is a huge difference difference between these 2 histograms. Actually a few
 A variation of the histogram is the density plot, which is basically a smoothed version of the histogram. It represents a `kernel density estimate` of the variable. As seen for the bin size of the histogram, it is important to try several values for the `bandwidth` argument for the same reason:
 
 <div class = "row">
-  
+
 <div class = "col-md-6">
 ```{r, fig.align="center"}
 data %>%

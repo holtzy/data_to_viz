@@ -1,10 +1,10 @@
 ---
 myimage: "ArcSmal.png"
-mydisqus: "arc"
+pathSlug: "arc"
 mytitle: "Arc diagram"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -28,8 +28,8 @@ output:
 
 # Definition {#definition}
 ***
-An `arc diagram` is a special kind of [network graph](https://www.data-to-viz.com/graph/network.html). It is consituted by `nodes` that represent entities and by `links` that show relationships between entities. In arc diagrams, nodes are displayed along a `single axis` and links are represented with arcs.              
-                  
+An `arc diagram` is a special kind of [network graph](https://www.data-to-viz.com/graph/network.html). It is consituted by `nodes` that represent entities and by `links` that show relationships between entities. In arc diagrams, nodes are displayed along a `single axis` and links are represented with arcs.
+
 
 Here is a simple example. Five links between 6 nodes are represented using a [2d network diagram](https://www.data-to-viz.com/graph/network.html) (left) and an arc diagram (right)
 
@@ -53,7 +53,7 @@ links=data.frame(
 mygraph <- graph_from_data_frame(links)
 
 # Make the usual network diagram
-p1 <-  ggraph(mygraph) + 
+p1 <-  ggraph(mygraph) +
   geom_edge_link(edge_colour="black", edge_alpha=0.3, edge_width=0.2) +
   geom_node_point( color="#69b3a2", size=5) +
   geom_node_text( aes(label=name), repel = TRUE, size=8, color="#69b3a2") +
@@ -61,10 +61,10 @@ p1 <-  ggraph(mygraph) +
   theme(
     legend.position="none",
     plot.margin=unit(rep(2,4), "cm")
-  ) 
+  )
 
 # Make a cord diagram
-p2 <-  ggraph(mygraph, layout="linear") + 
+p2 <-  ggraph(mygraph, layout="linear") +
   geom_edge_arc(edge_colour="black", edge_alpha=0.3, edge_width=0.2) +
   geom_node_point( color="#69b3a2", size=5) +
   geom_node_text( aes(label=name), repel = FALSE, size=8, color="#69b3a2", nudge_y=-0.1) +
@@ -72,7 +72,7 @@ p2 <-  ggraph(mygraph, layout="linear") +
   theme(
     legend.position="none",
     plot.margin=unit(rep(2,4), "cm")
-  ) 
+  )
 
 p1 + p2
 ```
@@ -106,10 +106,10 @@ Here is an example showing the co-authorship network of a researcher. [Vincent R
 dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
 
 # Transform the adjacency matrix in a long format
-connect <- dataUU %>% 
+connect <- dataUU %>%
   gather(key="to", value="value", -1) %>%
   mutate(to = gsub("\\.", " ",to)) %>%
-  na.omit() 
+  na.omit()
 
 # Number of connection per person
 c( as.character(connect$from), as.character(connect$to)) %>%
@@ -127,13 +127,13 @@ com <- walktrap.community(mygraph)
 #max(com$membership)
 
 #Reorder dataset and make the graph
-coauth <- coauth %>% 
+coauth <- coauth %>%
   mutate( grp = com$membership) %>%
   arrange(grp) %>%
   mutate(name=factor(name, name))
 
 # keep only 10 first communities
-coauth <- coauth %>% 
+coauth <- coauth %>%
   filter(grp<16)
 
 # keep only this people in edges
@@ -149,7 +149,7 @@ mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
 mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
-ggraph(mygraph, layout="linear") + 
+ggraph(mygraph, layout="linear") +
   geom_edge_arc(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
   geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.5) +
   scale_size_continuous(range=c(0.5,8)) +
@@ -161,7 +161,7 @@ ggraph(mygraph, layout="linear") +
     plot.margin=unit(c(0,0,0.4,0), "null"),
     panel.spacing=unit(c(0,0,3.4,0), "null")
   ) +
-  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2)) 
+  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2))
 
 ```
 
@@ -175,7 +175,7 @@ ggraph(mygraph, layout="linear") +
 # Variation {#variation}
 ***
 
-A possible variation in arc diagrams consists to make the links wider when the connection is stronger. To do so you need a `weighted network` where each connection as a weight.  
+A possible variation in arc diagrams consists to make the links wider when the connection is stronger. To do so you need a `weighted network` where each connection as a weight.
 
 <br>
 
@@ -208,7 +208,7 @@ The order of nodes is the key for arc diagrams. See the following figure showing
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=15, fig.height=7}
 
 #Reorder dataset randomly
-coauth <- coauth %>% 
+coauth <- coauth %>%
   slice( sample(c(1:nrow(coauth)), nrow(coauth)))
 
 # Create a graph object with igraph
@@ -219,7 +219,7 @@ mycolor <- colormap(colormap=colormaps$viridis, nshades=max(coauth$grp))
 mycolor <- sample(mycolor, length(mycolor))
 
 # Make the graph
-ggraph(mygraph, layout="linear") + 
+ggraph(mygraph, layout="linear") +
   geom_edge_arc(edge_colour="black", edge_alpha=0.2, edge_width=0.3, fold=TRUE) +
   geom_node_point(aes(size=n, color=as.factor(grp), fill=grp), alpha=0.5) +
   scale_size_continuous(range=c(0.5,8)) +
@@ -231,7 +231,7 @@ ggraph(mygraph, layout="linear") +
     plot.margin=unit(c(0,0,0.4,0), "null"),
     panel.spacing=unit(c(0,0,3.4,0), "null")
   ) +
-  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2)) 
+  expand_limits(x = c(-1.2, 1.2), y = c(-5.6, 1.2))
 
 ```
 
@@ -277,7 +277,7 @@ ggraph(mygraph, layout="linear") +
   <p class="mytitlerelated">Edge bundling</p>
   <p class="mytextrelated">Show connections between entities organized in a hierarchy.</p>
   </a>
-  </div>  
+  </div>
 </div>
 
 

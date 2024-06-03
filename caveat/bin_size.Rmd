@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/bin_size.png"
 mytitle: "Play with your histogram bin size"
-mydisqus: "bin_size"
+pathSlug: "bin_size"
 output:
   html_document:
       template: template_caveat.html
@@ -13,13 +13,13 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
 <br><br>
 <div class="mycontent">
-A [histogram](https://www.data-to-viz.com/graph/histogram.html) takes as input a numeric variable and cuts it into several bins. The number of observations in each bin is represented by the height of the bar. It is a very common type of graphic and most tools select a bin size value by default. 
+A [histogram](https://www.data-to-viz.com/graph/histogram.html) takes as input a numeric variable and cuts it into several bins. The number of observations in each bin is represented by the height of the bar. It is a very common type of graphic and most tools select a bin size value by default.
 <br><br>
 However, this bin size choice can have a strong impact on the chart insight. Let's look at the distribution of [Airbnb night prices on the French Riviera](http://www.data-to-viz.com/story/OneNum.html):
 
@@ -45,7 +45,7 @@ data %>%
     )
 ```
 
-The price ranges between 10 and 300 euros, with most of the apartments ranging between 60 and 150 euros per night. In this chart, prices are cut in several 10 euro bins: between 0 and 10 euros a night, between 10 and 20, and so on. This is represented on the X-axis. Then, the number of apartments per bin is counted and represented by the Y-axis.  
+The price ranges between 10 and 300 euros, with most of the apartments ranging between 60 and 150 euros per night. In this chart, prices are cut in several 10 euro bins: between 0 and 10 euros a night, between 10 and 20, and so on. This is represented on the X-axis. Then, the number of apartments per bin is counted and represented by the Y-axis.
 
 <br>
 

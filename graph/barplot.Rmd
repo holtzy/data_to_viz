@@ -1,10 +1,10 @@
 ---
 myimage: "BarSmall.png"
-mydisqus: "barplot"
+pathSlug: "barplot"
 mytitle: "Barplot"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -86,12 +86,12 @@ library(babynames)
 library(viridis)
 
 # Load dataset from github
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
   filter(sex=="F")
 
 # A grouped barplot
-data  %>% 
+data  %>%
   filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
   filter(year %in% c(1920, 1960, 2000)) %>%
   mutate(year=as.factor(year)) %>%
@@ -100,7 +100,7 @@ data  %>%
     scale_fill_viridis(discrete=TRUE, name="") +
     theme_ipsum() +
     ylab("Number of baby")
-  
+
 
 ```
 
@@ -108,7 +108,7 @@ Instead of puting the bars one beside each other it is possible to stack them, r
 
 ```{r, warning=FALSE, message=FALSE, fig.width=8, fig.align="center" }
 # A grouped barplot
-data  %>% 
+data  %>%
   filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
   filter(year %in% c(1920, 1960, 2000)) %>%
   mutate(year=as.factor(year)) %>%
@@ -188,9 +188,9 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
     axis.text = element_blank(),
     axis.title = element_blank(),
     panel.grid = element_blank(),
-    plot.margin = unit(rep(-1,4), "cm") 
+    plot.margin = unit(rep(-1,4), "cm")
   ) +
-  coord_polar(start = 0) + 
+  coord_polar(start = 0) +
   geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
   geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE, data = data.frame())
 ```
@@ -204,9 +204,9 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
 # Common mistakes {#mistake}
 ***
 
-- Do not confound barchart with [histogram](https://www.data-to-viz.com/graph/histogram.html). A histogram has only a numeric variable as input and shows its distribution. 
+- Do not confound barchart with [histogram](https://www.data-to-viz.com/graph/histogram.html). A histogram has only a numeric variable as input and shows its distribution.
 
-- [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values. 
+- [Order your bars](http://www.data-to-viz.com/caveat/order_data.html). If the levels of your categoric variable have no obvious order, order the bars following their values.
 
 - Several values per group? [Don't use a barplot](http://www.data-to-viz.com/caveat/error_bar.html). Even with error bars, it hides information and other type of graphic like [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or [violin](https://www.data-to-viz.com/graph/violin.html) are much more appropriate.
 

@@ -1,10 +1,10 @@
 ---
 myimage: "Parallel1Small.png"
-mydisqus: "parallel"
+pathSlug: "parallel"
 mytitle: "Parallel coordinates plot"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -29,7 +29,7 @@ output:
 # Definition {#definition}
 ***
 
-`Parallel plot` or parallel coordinates plot allows to compare the feature of several individual observations (`series`) on a set of numeric variables. Each vertical bar represents a variable and often has its own scale. (The units can even be different). Values are then plotted as series of lines connected across each axis.  
+`Parallel plot` or parallel coordinates plot allows to compare the feature of several individual observations (`series`) on a set of numeric variables. Each vertical bar represents a variable and often has its own scale. (The units can even be different). Values are then plotted as series of lines connected across each axis.
 
 <br>
 
@@ -47,13 +47,13 @@ library(viridis)
 data <- iris
 
 # Plot
-data %>% 
+data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Parallel Coordinate Plot for the Iris Data",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -77,16 +77,16 @@ A parallel plot allows to study the features of samples for `several quantitativ
 In the graphic above flower features were grouped in species, and all variables were normalized and sharing the same unit (cm). Here is another example where diamonds are compared for 4 variables that share different units, like the price in $ or depth in %. Note the use of scaling to be able to compare them.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
-diamonds %>% 
+diamonds %>%
   sample_n(10) %>%
     ggparcoord(
-      columns = c(1,5:7), 
-      groupColumn = 2, 
+      columns = c(1,5:7),
+      groupColumn = 2,
       #order = "anyClass",
-      showPoints = TRUE, 
+      showPoints = TRUE,
       title = "Diamonds features",
       alphaLines = 0.3
-      ) + 
+      ) +
     scale_color_viridis(discrete=TRUE) +
     theme_ipsum()+
     theme(
@@ -105,14 +105,14 @@ Here is an overview of the parallel coordinates features you can play with:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=7, fig.width=10}
 # Plot
-p1 <- data %>% 
+p1 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
     scale="globalminmax",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "No scaling",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -120,15 +120,15 @@ p1 <- data %>%
     plot.title = element_text(size=10)
   ) +
   xlab("")
-  
-p2 <- data %>% 
+
+p2 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
     scale="uniminmax",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Standardize to Min = 0 and Max = 1",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -138,14 +138,14 @@ p2 <- data %>%
   xlab("")
 
 
-p3 <- data %>% 
+p3 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
     scale="std",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Normalize univariately (substract mean & divide by sd)",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -155,14 +155,14 @@ p3 <- data %>%
   xlab("")
 
 
-p4 <- data %>% 
+p4 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
     scale="center",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Standardize and center variables",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -180,13 +180,13 @@ p1 + p2 + p3 + p4 + plot_layout(ncol = 2)
 - *Axis order* - optimizing the order of vertical axis can decrease the `clutter` of your parallel plot. Basically, the goal is to minimize the number of cross between series. On the next figure, the left plot is much harder to understand the the right one. Only variable order is different.
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=9}
 # Plot
-p1 <- data %>% 
+p1 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = c(1:4),
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Original",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -194,14 +194,14 @@ p1 <- data %>%
     plot.title = element_text(size=10)
   ) +
   xlab("")
-  
-p2 <- data %>% 
+
+p2 <- data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Re-ordered",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_viridis(discrete=TRUE) +
   theme_ipsum()+
   theme(
@@ -210,7 +210,7 @@ p2 <- data %>%
   ) +
   xlab("")
 
-p1 + p2 
+p1 + p2
 ```
 
 
@@ -220,13 +220,13 @@ p1 + p2
 - *Highlighting* - a parallel plot being a [line plot](https://www.data-to-viz.com/graph/line.html), the main caveat is the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html) where too many lines overlap, making the chart unreadable. Several workaround exist as described in [this page](https://www.data-to-viz.com/caveat/spaghetti.html). A solution is to highlight a specific sample or a specific group of interest:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=7}
 # Plot
-data %>% 
+data %>%
   ggparcoord(
     columns = 1:4, groupColumn = 5, order = "anyClass",
-    showPoints = TRUE, 
+    showPoints = TRUE,
     title = "Original",
     alphaLines = 0.3
-    ) + 
+    ) +
   scale_color_manual(values=c( "#69b3a2", "grey", "grey") ) +
   theme_ipsum()+
   theme(
@@ -234,7 +234,7 @@ data %>%
     plot.title = element_text(size=10)
   ) +
   xlab("")
- 
+
 ```
 
 

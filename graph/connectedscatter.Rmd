@@ -1,10 +1,10 @@
 ---
 myimage: "ScatterConnectedSmall.png"
-mydisqus: "connectedscatter"
+pathSlug: "connectedscatter"
 mytitle: "Connected Scatterplot"
 output:
   html_document:
-      self_contained: false    
+      self_contained: false
       mathjax: default
       lib_dir: libs
       template: template_datatoviz.html
@@ -16,7 +16,7 @@ output:
       number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
-      includes: 
+      includes:
         after_body: footer.html
 ---
 
@@ -29,9 +29,9 @@ output:
 # Definition {#definition}
 ***
 
-A `connected scatterplot` displays the evolution of a numeric variable. Data points are represented by a dot and connected by straight line segments. It often shows a trend in data over intervals of time: a time series. Basically it is the same as a [line plot](https://www.data-to-viz.com/graph/line.html) in most of the cases, except that individual observation are highlighted.  
+A `connected scatterplot` displays the evolution of a numeric variable. Data points are represented by a dot and connected by straight line segments. It often shows a trend in data over intervals of time: a time series. Basically it is the same as a [line plot](https://www.data-to-viz.com/graph/line.html) in most of the cases, except that individual observation are highlighted.
 
-The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) in April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website. 
+The following example shows the evolution of the [bitcoin price](https://www.data-to-viz.com/story/TwoNumOrdered.html) in April 2018. Data comes from the [CoinMarketCap](https://www.data-to-viz.com/story/TwoNumOrdered.html) website.
 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=4, fig.width=7}
@@ -127,7 +127,7 @@ We can first visualize the evolution of both names using a usual line plot with 
 library(babynames)
 
 # Load dataset
-data <- babynames %>% 
+data <- babynames %>%
   filter(name %in% c("Ashley", "Amanda")) %>%
   filter(sex=="F")
 
@@ -141,7 +141,7 @@ data %>%
     theme_ipsum()
 ```
 
-This is an accurate way to visualize the information. However, it would be much harder to build it if both variables would not share the same unit. In this case, it would require a dual axis line chart that is known to be very misleading.  
+This is an accurate way to visualize the information. However, it would be much harder to build it if both variables would not share the same unit. In this case, it would require a dual axis line chart that is known to be very misleading.
 
 The connected scatterplot can be a good workaround in this situation:
 
@@ -158,13 +158,13 @@ tmp <- data %>%
 # data for date
 tmp_date <- tmp %>% sample_frac(0.3)
 
-tmp%>% 
+tmp%>%
   ggplot(aes(x=Amanda, y=Ashley, label=year)) +
      geom_point(color="#69b3a2") +
      geom_text_repel(data=tmp_date) +
-     geom_segment(color="#69b3a2", 
+     geom_segment(color="#69b3a2",
                   aes(
-                    xend=c(tail(Amanda, n=-1), NA), 
+                    xend=c(tail(Amanda, n=-1), NA),
                     yend=c(tail(Ashley, n=-1), NA)
                   ),
                   arrow=arrow(length=unit(0.3,"cm"))
@@ -181,7 +181,7 @@ Here the history of both names is obvious. They were not popular at all in 1972 
 - This graph is not adapted for all audience. At least, you need to educate the audience with progressive explanation to make it impactful.
 
 
-*Going further*: 
+*Going further*:
 
 - *The Connected Scatterplot for Presenting Paired Time Series* by [Haroz et al](http://steveharoz.com/research/connected_scatterplot/).
 - A nice and famous example of story telling by the [New York Times](https://archive.nytimes.com/www.nytimes.com/interactive/2012/09/17/science/driving-safety-in-fits-and-starts.html?smid=tw-share)
@@ -223,7 +223,7 @@ p1 + p2
 ```
 
 
-    
+
 - If you need to compare the evolution of 2 different variables, do not use [dual axis](https://www.data-to-viz.com/caveat/dual_axis.html). Indeed dual axis can show very different results depending on what range you apply to the axis. [Read more about it](https://www.data-to-viz.com/caveat/dual_axis.html).
 - Mind the [spaghetti chart](https://www.data-to-viz.com/caveat/spaghetti.html): too many lines make the chart unreadable.
 - Think about the [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html) of the graphic, extreme ratio make the chart unreadable.

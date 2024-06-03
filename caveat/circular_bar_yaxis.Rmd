@@ -1,7 +1,7 @@
 ---
 myimage1: "../img/mistake/circular_bar_yaxis.png"
 mytitle: "Circular barplot and distortion"
-mydisqus: "circular_bar_yaxis"
+pathSlug: "circular_bar_yaxis"
 output:
   html_document:
       template: template_caveat.html
