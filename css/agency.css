@@ -1125,14 +1125,3 @@ ul.social-buttons li a:hover {
   color: orange;
   text-align: left;
 }
-
-/* ------------------------------------------------------------------------------------------------------------------- */
-/*
-Disqus is displaying ads without my consent.
-But removing it is some work since I would have to run all the rmd file again
-so let's try to just hide it for now
-/* ------------------------------------------------------------------------------------------------------------------- */
-
-#disqus_thread {
-  display: none;
-}
