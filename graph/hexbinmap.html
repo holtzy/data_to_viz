@@ -283,9 +283,8 @@ map. Definition, examples, input data, common caveats, tool to build it and pote
 
                          </div>
 
-              <div id="definition" class="section level1 mycontent"
-number="1">
-<h1><span class="header-section-number">1</span> Definition</h1>
+              <div id="definition" class="section level1 mycontent">
+<h1>Definition</h1>
 <hr />
 <p>The term <code>hexbin map</code> refers to two different
 concepts:</p>
@@ -298,57 +297,64 @@ here the data input provides <code>one value per state</code> and a
 </ul>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># library</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co"># Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>spdf <span class="ot">&lt;-</span> <span class="fu">readOGR</span>(<span class="st">&quot;us_states_hexgrid.geojson.json&quot;</span>,  <span class="st">&quot;OGRGeoJSON&quot;</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Download the Hexagon boundaries at geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.</span></span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># I need to &#39;fortify&#39; the data to be able to show it with ggplot2 (we need a data frame format)</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>spdf<span class="sc">@</span>data <span class="ot">=</span> spdf<span class="sc">@</span>data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">google_name =</span> <span class="fu">gsub</span>(<span class="st">&quot; </span><span class="sc">\\</span><span class="st">(United States</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, google_name))</span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>spdf_fortified <span class="ot">&lt;-</span> <span class="fu">tidy</span>(spdf, <span class="at">region =</span> <span class="st">&quot;google_name&quot;</span>)</span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># Calculate the centroid of each hexagon to add the label:</span></span>
-<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">library</span>(rgeos)</span>
-<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>centers <span class="ot">&lt;-</span> <span class="fu">cbind.data.frame</span>(<span class="fu">data.frame</span>(<span class="fu">gCentroid</span>(spdf, <span class="at">byid=</span><span class="cn">TRUE</span>), <span class="at">id=</span>spdf<span class="sc">@</span>data<span class="sc">$</span>iso3166_2))</span>
-<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html</span></span>
-<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">read.table</span>(<span class="st">&quot;https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>, <span class="at">na.strings=</span><span class="st">&quot;---&quot;</span>)</span>
-<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co"># Merge geospatial and numerical information</span></span>
-<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>spdf_fortified <span class="ot">=</span> spdf_fortified <span class="sc">%&gt;%</span></span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">left_join</span>(. , data, <span class="at">by=</span><span class="fu">c</span>(<span class="st">&quot;id&quot;</span><span class="ot">=</span><span class="st">&quot;state&quot;</span>))</span>
-<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a></span>
-<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a><span class="co"># Prepare binning</span></span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>spdf_fortified<span class="sc">$</span>bin <span class="ot">=</span> <span class="fu">cut</span>( spdf_fortified<span class="sc">$</span>y_2015 , <span class="at">breaks=</span><span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">5</span>,<span class="dv">10</span>), <span class="cn">Inf</span>), <span class="at">labels=</span><span class="fu">c</span>(<span class="st">&quot;5-6&quot;</span>, <span class="st">&quot;6-7&quot;</span>, <span class="st">&quot;7-8&quot;</span>, <span class="st">&quot;8-9&quot;</span>, <span class="st">&quot;9-10&quot;</span>, <span class="st">&quot;10+&quot;</span> ), <span class="at">include.lowest =</span> <span class="cn">TRUE</span> )</span>
-<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a><span class="co"># Prepare a color scale coming from the viridis color palette</span></span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>my_palette<span class="ot">=</span><span class="fu">rev</span>(<span class="fu">magma</span>(<span class="dv">8</span>))[<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="dv">8</span>)]</span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="co"># plot</span></span>
-<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> spdf_fortified, <span class="fu">aes</span>(<span class="at">fill =</span> bin, <span class="at">x =</span> long, <span class="at">y =</span> lat, <span class="at">group =</span> group) , <span class="at">size=</span><span class="dv">0</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
-<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>centers, <span class="fu">aes</span>(<span class="at">x=</span>x, <span class="at">y=</span>y, <span class="at">label=</span>id), <span class="at">color=</span><span class="st">&quot;white&quot;</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
-<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="at">values=</span>my_palette,</span>
-<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>    <span class="at">name=</span><span class="st">&quot;Wedding per 1000 people in 2015&quot;</span>,</span>
-<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>    <span class="at">guide =</span> <span class="fu">guide_legend</span>( <span class="at">keyheight =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">keywidth=</span><span class="fu">unit</span>(<span class="dv">12</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>), <span class="at">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">title.position =</span> <span class="st">&#39;top&#39;</span>, <span class="at">nrow=</span><span class="dv">1</span>)</span>
-<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>  <span class="fu">ggtitle</span>( <span class="st">&quot;A map of marriage rates, state by state&quot;</span> ) <span class="sc">+</span></span>
-<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>),</span>
-<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#22211d&quot;</span>),</span>
-<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
-<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span> <span class="dv">22</span>, <span class="at">hjust=</span><span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#4e4d47&quot;</span>, <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">t =</span> <span class="fl">0.4</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">unit =</span> <span class="st">&quot;cm&quot;</span>)),</span>
-<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a>  )</span></code></pre></div>
-<p><br><br></p>
-<center>
-<img src="https://www.r-graph-gallery.com/wp-content/uploads/2017/12/328_Hexbin_map_USA_4.png" alt="img" width="600" height="700">
-</center>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="co"># Load this file. (Note: I stored in a folder called DATA)</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>my_sf <span class="ot">&lt;-</span> <span class="fu">read_sf</span>(<span class="st">&quot;us_states_hexgrid.geojson.json&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Bit of reformatting</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>my_sf <span class="ot">&lt;-</span> my_sf <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">google_name =</span> <span class="fu">gsub</span>(<span class="st">&quot; </span><span class="sc">\\</span><span class="st">(United States</span><span class="sc">\\</span><span class="st">)&quot;</span>, <span class="st">&quot;&quot;</span>, google_name))</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/State_mariage_rate.csv&quot;</span>,</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  <span class="at">header =</span> T, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>, <span class="at">na.strings =</span> <span class="st">&quot;---&quot;</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>)</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># Show it</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>my_sf_wed <span class="ot">&lt;-</span> my_sf <span class="sc">%&gt;%</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="fu">left_join</span>(data, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;google_name&quot;</span> <span class="ot">=</span> <span class="st">&quot;state&quot;</span>))</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co"># Prepare binning</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>my_sf_wed<span class="sc">$</span>bin <span class="ot">&lt;-</span> <span class="fu">cut</span>(my_sf_wed<span class="sc">$</span>y_2015,</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="at">breaks =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">10</span>), <span class="cn">Inf</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;5-6&quot;</span>, <span class="st">&quot;6-7&quot;</span>, <span class="st">&quot;7-8&quot;</span>, <span class="st">&quot;8-9&quot;</span>, <span class="st">&quot;9-10&quot;</span>, <span class="st">&quot;10+&quot;</span>),</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="at">include.lowest =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>)</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co"># Prepare a color scale coming from the viridis color palette</span></span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>my_palette <span class="ot">&lt;-</span> <span class="fu">rev</span>(<span class="fu">magma</span>(<span class="dv">8</span>))[<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">8</span>)]</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a></span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a><span class="fu">ggplot</span>(my_sf_wed) <span class="sc">+</span></span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">fill =</span> bin), <span class="at">linewidth =</span> <span class="dv">0</span>, <span class="at">alpha =</span> <span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>  <span class="fu">geom_sf_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> iso3166_2), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">size =</span> <span class="dv">3</span>, <span class="at">alpha =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>    <span class="at">values =</span> my_palette,</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>    <span class="at">name =</span> <span class="st">&quot;Wedding per 1000 people in 2015&quot;</span>,</span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>    <span class="at">guide =</span> <span class="fu">guide_legend</span>(</span>
+<span id="cb1-43"><a href="#cb1-43" tabindex="-1"></a>      <span class="at">keyheight =</span> <span class="fu">unit</span>(<span class="dv">3</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>),</span>
+<span id="cb1-44"><a href="#cb1-44" tabindex="-1"></a>      <span class="at">keywidth =</span> <span class="fu">unit</span>(<span class="dv">12</span>, <span class="at">units =</span> <span class="st">&quot;mm&quot;</span>),</span>
+<span id="cb1-45"><a href="#cb1-45" tabindex="-1"></a>      <span class="at">label.position =</span> <span class="st">&quot;bottom&quot;</span>, <span class="at">title.position =</span> <span class="st">&quot;top&quot;</span>, <span class="at">nrow =</span> <span class="dv">1</span></span>
+<span id="cb1-46"><a href="#cb1-46" tabindex="-1"></a>    )</span>
+<span id="cb1-47"><a href="#cb1-47" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-48"><a href="#cb1-48" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;A map of marriage rates, state by state&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-50"><a href="#cb1-50" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.9</span>),</span>
+<span id="cb1-51"><a href="#cb1-51" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;#22211d&quot;</span>),</span>
+<span id="cb1-52"><a href="#cb1-52" tabindex="-1"></a>    <span class="at">plot.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb1-53"><a href="#cb1-53" tabindex="-1"></a>    <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb1-54"><a href="#cb1-54" tabindex="-1"></a>    <span class="at">legend.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;#f5f5f2&quot;</span>, <span class="at">color =</span> <span class="cn">NA</span>),</span>
+<span id="cb1-55"><a href="#cb1-55" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(</span>
+<span id="cb1-56"><a href="#cb1-56" tabindex="-1"></a>      <span class="at">size =</span> <span class="dv">22</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">color =</span> <span class="st">&quot;#4e4d47&quot;</span>,</span>
+<span id="cb1-57"><a href="#cb1-57" tabindex="-1"></a>      <span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">b =</span> <span class="sc">-</span><span class="fl">0.1</span>, <span class="at">t =</span> <span class="fl">0.4</span>, <span class="at">l =</span> <span class="dv">2</span>, <span class="at">unit =</span> <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" tabindex="-1"></a>    )</span>
+<span id="cb1-59"><a href="#cb1-59" tabindex="-1"></a>  )</span></code></pre></div>
+<p><img src="hexbinmap_files/figure-html/unnamed-chunk-1-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <ul>
 <li>The second definition refers to the utilisation of <a
@@ -420,8 +426,8 @@ position of about 200k tweets containing the hashtags
 <code>#surf</code>, <code>#windsurf</code> or <code>#kitesurf</code>.
 Read more about it <a
 href="https://www.data-to-viz.com/story/GPSCoordWithoutValue.html">here</a>.</p>
-<div id="what-for" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> What for</h1>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
 <p>Hexbin or grid map has an <code>advantage</code> over usual <a
 href="https://www.data-to-viz.com/graph/choropleth.html">choropleth
@@ -436,8 +442,8 @@ landmarks do not exist anymore what can confuse the audience. One
 solution for this is to choose a basemap that uses labels on top of your
 data layer.</p>
 </div>
-<div id="variation" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Variation</h1>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
 <p>Hexbin map uses hexagons to split the area in several parts and
 attribute a color to it. Note that it is possible to use square instead
@@ -445,15 +451,15 @@ of hexagones, resulting in a <a
 href="https://www.data-to-viz.com/graph/density2d.html">2D histogram
 map</a>.</p>
 </div>
-<div id="mistake" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Common mistakes</h1>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <p>All the mistakes presented in the <a
 href="https://www.data-to-viz.com/graph/choropleth.html">choropleth</a>
 section apply</p>
 </div>
-<div id="related" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Related</h1>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -505,8 +511,8 @@ background map.
 </div>
 </div>
 </div>
-<div id="code" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Build your own</h1>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
 <p>The <a href="https://r-graph-gallery.com/hexbin-map.html">R</a>, <a
 href="https:/python-graph-gallery.com/hexbin-map/">Python</a>, <a

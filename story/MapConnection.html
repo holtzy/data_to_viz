@@ -7,6 +7,7 @@
 <meta charset="utf-8" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="generator" content="pandoc" />
+<link rel="icon" href="img/logo/data-to-viz.ico">
 
 
 
@@ -18,7 +19,7 @@
 <style>
 .myheader {
   background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
+    min-height: 350px;
     background-size: 100% 100%;
 
     /* Create the parallax scrolling effect */
@@ -26,9 +27,9 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-  
-  
-    height: 100%; 
+
+
+    height: 100%;
     width: 100% !important;
   }
 .mytitle{
@@ -37,7 +38,7 @@
   font-size: 200%;
   font-weight: 500;
   letter-spacing: 4px;
-  }   
+  }
 </style>
 
 <div class="myheader" style="text-align: center;">
@@ -68,57 +69,97 @@
 
 
 
-<title></title>
+<title>MapConnection.knit</title>
 
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
 
 
 <style type="text/css">code{white-space: pre;}</style>
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 div.sourceCode {
   overflow-x: visible;
 }
@@ -229,41 +270,54 @@ $(document).ready(function () {
 
 <br><br>
 <div class="mycontent">
-<p>This document provides a few suggestions for the visualization of geographical connections.</p>
-<p>The dataset considered here is available on <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github</a>. It is based on about 13,000 tweets containing the <a href="https://twitter.com/search?q=%23surf&amp;src=typd&amp;lang=en">#surf</a> hashtag. These tweets have been recovered on a 10 months period, and those with both current geo location and correct city of origin have been kept. You can learn more on this project in this dedicated <a href="https://github.com/holtzy/About-Surfers-On-Twitter">github repository</a>.</p>
-<p>The dataset provides longitude and latitude for both the home location of tweeters, and their instant geolocation as well. Basically it looks like that:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(DT)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
-<span class="kw">library</span>(jpeg)
-<span class="kw">library</span>(maps)
-<span class="kw">library</span>(geosphere)
-<span class="kw">library</span>(grid)
-
-<span class="co">#load(url(&quot;https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata&quot;))</span>
-<span class="co">#data &lt;- data %&gt;% select(homename, homecontinent, homecountry, homelat, homelon, travelcontinent, travelcountry, travellat, travellon) %&gt;% na.omit()</span>
-<span class="co">#write.table(data, file=&quot;/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/19_MapConnection.csv&quot;, quote=TRUE, row.names=FALSE, sep=&quot;,&quot;)  </span>
-
-<span class="co"># Load dataset from github (Surfer project)</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)
-
-<span class="co"># Show long format</span>
-tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">tail</span>(<span class="dv">5</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homename =</span> <span class="kw">gsub</span>( <span class="st">&quot;, Western Australia&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homename =</span> <span class="kw">gsub</span>( <span class="st">&quot;, France&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homename =</span> <span class="kw">gsub</span>( <span class="st">&quot; - Bali - Indonesia&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">homelat=</span><span class="kw">round</span>(homelat,<span class="dv">1</span>), <span class="dt">homelon=</span><span class="kw">round</span>(homelon,<span class="dv">1</span>), <span class="dt">travellat=</span><span class="kw">round</span>(travellat,<span class="dv">1</span>), <span class="dt">travellon=</span><span class="kw">round</span>(travellon,<span class="dv">1</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">select</span>(homename, homelat, homelon, travelcountry, travellat, travellon)
-
-tmp <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<p>This document provides a few suggestions for the visualization of
+geographical connections.</p>
+<p>The dataset considered here is available on <a
+href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github</a>.
+It is based on about 13,000 tweets containing the <a
+href="https://twitter.com/search?q=%23surf&amp;src=typd&amp;lang=en">#surf</a>
+hashtag. These tweets have been recovered on a 10 months period, and
+those with both current geo location and correct city of origin have
+been kept. You can learn more on this project in this dedicated <a
+href="https://github.com/holtzy/About-Surfers-On-Twitter">github
+repository</a>.</p>
+<p>The dataset provides longitude and latitude for both the home
+location of tweeters, and their instant geolocation as well. Basically
+it looks like that:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(jpeg)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(maps)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">library</span>(geosphere)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co">#load(url(&quot;https://github.com/holtzy/About-Surfers-On-Twitter/raw/master/DATA/Surf_Hashtag_Data.Rdata&quot;))</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co">#data &lt;- data %&gt;% select(homename, homecontinent, homecountry, homelat, homelon, travelcontinent, travelcountry, travellat, travellon) %&gt;% na.omit()</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#write.table(data, file=&quot;/Users/y.holtz/Dropbox/data_to_viz/Example_dataset/19_MapConnection.csv&quot;, quote=TRUE, row.names=FALSE, sep=&quot;,&quot;)  </span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Load dataset from github (Surfer project)</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a><span class="co"># Show long format</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">tail</span>(<span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">homename =</span> <span class="fu">gsub</span>( <span class="st">&quot;, Western Australia&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">homename =</span> <span class="fu">gsub</span>( <span class="st">&quot;, France&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">homename =</span> <span class="fu">gsub</span>( <span class="st">&quot; - Bali - Indonesia&quot;</span>, <span class="st">&quot;&quot;</span>, homename)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">homelat=</span><span class="fu">round</span>(homelat,<span class="dv">1</span>), <span class="at">homelon=</span><span class="fu">round</span>(homelon,<span class="dv">1</span>), <span class="at">travellat=</span><span class="fu">round</span>(travellat,<span class="dv">1</span>), <span class="at">travellon=</span><span class="fu">round</span>(travellon,<span class="dv">1</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="fu">select</span>(homename, homelat, homelon, travelcountry, travellat, travellon)</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>tmp <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span> <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
+<th style="text-align:left;">
+</th>
 <th style="text-align:left;">
 homename
 </th>
@@ -287,6 +341,9 @@ travellon
 <tbody>
 <tr>
 <td style="text-align:left;">
+9507
+</td>
+<td style="text-align:left;">
 Bridgetown
 </td>
 <td style="text-align:right;">
@@ -306,6 +363,9 @@ Australia
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+9508
+</td>
 <td style="text-align:left;">
 Lille
 </td>
@@ -327,6 +387,9 @@ France
 </tr>
 <tr>
 <td style="text-align:left;">
+9509
+</td>
+<td style="text-align:left;">
 MX
 </td>
 <td style="text-align:right;">
@@ -347,6 +410,9 @@ Mexico
 </tr>
 <tr>
 <td style="text-align:left;">
+9510
+</td>
+<td style="text-align:left;">
 Kuta
 </td>
 <td style="text-align:right;">
@@ -366,6 +432,9 @@ Indonesia
 </td>
 </tr>
 <tr>
+<td style="text-align:left;">
+9511
+</td>
 <td style="text-align:left;">
 Kuta
 </td>
@@ -388,126 +457,141 @@ Indonesia
 </tbody>
 </table>
 <p><br><br></p>
-<h1 id="showing-a-few-connection-on-a-map">Showing a few connection on a map</h1>
-<hr />
-<p>Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called <a href="https://en.wikipedia.org/wiki/Great_circle">great circles</a>. A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.</p>
+<p>#Showing a few connection on a map ***</p>
+<p>Before showing all the relationships provided in this dataset, it is
+important to understand how to visualize a unique connection on a map.
+It is a common practice to link 2 points using the shortest route
+between them instead of a straight line. It is called <a
+href="https://en.wikipedia.org/wiki/Great_circle">great circles</a>. A
+special care is given for situations where cities are very far from each
+other and where the shortest connection thus passes behind the map.</p>
 <p>Here are the connection between 7 major cities on a world map:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">don=<span class="kw">rbind</span>(
-    <span class="dt">Paris=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">49</span>),
-    <span class="dt">Melbourne=</span><span class="kw">c</span>(<span class="dv">145</span>,<span class="op">-</span><span class="dv">38</span>),
-    <span class="dt">Saint.Petersburg=</span><span class="kw">c</span>(<span class="fl">30.32</span>, <span class="fl">59.93</span>),
-    <span class="dt">Abidjan=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">4.03</span>, <span class="fl">5.33</span>),
-    <span class="dt">Montreal=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">73.57</span>, <span class="fl">45.52</span>),
-    <span class="dt">Nairobi=</span><span class="kw">c</span>(<span class="fl">36.82</span>, <span class="op">-</span><span class="fl">1.29</span>),
-    <span class="dt">Salvador=</span><span class="kw">c</span>(<span class="op">-</span><span class="fl">38.5</span>, <span class="op">-</span><span class="fl">12.97</span>)
-    )  <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()
-<span class="kw">colnames</span>(don)=<span class="kw">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)
-
-
-all_pairs=<span class="kw">cbind</span>(<span class="kw">t</span>(<span class="kw">combn</span>(don<span class="op">$</span>long, <span class="dv">2</span>)), <span class="kw">t</span>(<span class="kw">combn</span>(don<span class="op">$</span>lat, <span class="dv">2</span>))) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.data.frame</span>()
-<span class="kw">colnames</span>(all_pairs)=<span class="kw">c</span>(<span class="st">&quot;long1&quot;</span>,<span class="st">&quot;long2&quot;</span>,<span class="st">&quot;lat1&quot;</span>,<span class="st">&quot;lat2&quot;</span>)
-
-plot_my_connection=<span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, ...){
-    inter &lt;-<span class="st"> </span><span class="kw">gcIntermediate</span>(<span class="kw">c</span>(dep_lon, dep_lat), <span class="kw">c</span>(arr_lon, arr_lat), <span class="dt">n=</span><span class="dv">50</span>, <span class="dt">addStartEnd=</span><span class="ot">TRUE</span>, <span class="dt">breakAtDateLine=</span>F)             
-    inter=<span class="kw">data.frame</span>(inter)
-    diff_of_lon=<span class="kw">abs</span>(dep_lon) <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(arr_lon)
-    <span class="cf">if</span>(diff_of_lon <span class="op">&gt;</span><span class="st"> </span><span class="dv">180</span>){
-        <span class="kw">lines</span>(<span class="kw">subset</span>(inter, lon<span class="op">&gt;=</span><span class="dv">0</span>), ...)
-        <span class="kw">lines</span>(<span class="kw">subset</span>(inter, lon<span class="op">&lt;</span><span class="dv">0</span>), ...)
-    }<span class="cf">else</span>{
-        <span class="kw">lines</span>(inter, ...)
-        }
-}
-
-<span class="co"># background map</span>
-<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))
-<span class="kw">map</span>(<span class="st">&#39;world&#39;</span>,<span class="dt">col=</span><span class="st">&quot;#f2f2f2&quot;</span>, <span class="dt">fill=</span><span class="ot">TRUE</span>, <span class="dt">bg=</span><span class="st">&quot;white&quot;</span>, <span class="dt">lwd=</span><span class="fl">0.05</span>,<span class="dt">mar=</span><span class="kw">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="dt">border=</span><span class="dv">0</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="op">-</span><span class="dv">80</span>,<span class="dv">80</span>) )
- 
-<span class="co"># add every connections:</span>
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(all_pairs)){
-    <span class="kw">plot_my_connection</span>(all_pairs<span class="op">$</span>long1[i], all_pairs<span class="op">$</span>lat1[i], all_pairs<span class="op">$</span>long2[i], all_pairs<span class="op">$</span>lat2[i], <span class="dt">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">lwd=</span><span class="dv">1</span>)
-    }
- 
-<span class="co"># add points and names of cities</span>
-<span class="kw">points</span>(<span class="dt">x=</span>don<span class="op">$</span>long, <span class="dt">y=</span>don<span class="op">$</span>lat, <span class="dt">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">cex=</span><span class="dv">2</span>, <span class="dt">pch=</span><span class="dv">20</span>)
-<span class="kw">text</span>(<span class="kw">rownames</span>(don), <span class="dt">x=</span>don<span class="op">$</span>long, <span class="dt">y=</span>don<span class="op">$</span>lat,  <span class="dt">col=</span><span class="st">&quot;black&quot;</span>, <span class="dt">cex=</span><span class="dv">1</span>, <span class="dt">pos=</span><span class="dv">4</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>don<span class="ot">=</span><span class="fu">rbind</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>    <span class="at">Paris=</span><span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">49</span>),</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>    <span class="at">Melbourne=</span><span class="fu">c</span>(<span class="dv">145</span>,<span class="sc">-</span><span class="dv">38</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="at">Saint.Petersburg=</span><span class="fu">c</span>(<span class="fl">30.32</span>, <span class="fl">59.93</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="at">Abidjan=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">4.03</span>, <span class="fl">5.33</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="at">Montreal=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">73.57</span>, <span class="fl">45.52</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="at">Nairobi=</span><span class="fu">c</span>(<span class="fl">36.82</span>, <span class="sc">-</span><span class="fl">1.29</span>),</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="at">Salvador=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">38.5</span>, <span class="sc">-</span><span class="fl">12.97</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    )  <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="fu">colnames</span>(don)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;long&quot;</span>,<span class="st">&quot;lat&quot;</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>all_pairs<span class="ot">=</span><span class="fu">cbind</span>(<span class="fu">t</span>(<span class="fu">combn</span>(don<span class="sc">$</span>long, <span class="dv">2</span>)), <span class="fu">t</span>(<span class="fu">combn</span>(don<span class="sc">$</span>lat, <span class="dv">2</span>))) <span class="sc">%&gt;%</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="fu">colnames</span>(all_pairs)<span class="ot">=</span><span class="fu">c</span>(<span class="st">&quot;long1&quot;</span>,<span class="st">&quot;long2&quot;</span>,<span class="st">&quot;lat1&quot;</span>,<span class="st">&quot;lat2&quot;</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>plot_my_connection<span class="ot">=</span><span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, ...){</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(<span class="fu">c</span>(dep_lon, dep_lat), <span class="fu">c</span>(arr_lon, arr_lat), <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    inter<span class="ot">=</span><span class="fu">data.frame</span>(inter)</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    diff_of_lon<span class="ot">=</span><span class="fu">abs</span>(dep_lon) <span class="sc">+</span> <span class="fu">abs</span>(arr_lon)</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="cf">if</span>(diff_of_lon <span class="sc">&gt;</span> <span class="dv">180</span>){</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&gt;=</span><span class="dv">0</span>), ...)</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>        <span class="fu">lines</span>(<span class="fu">subset</span>(inter, lon<span class="sc">&lt;</span><span class="dv">0</span>), ...)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    }<span class="cf">else</span>{</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>        <span class="fu">lines</span>(inter, ...)</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>        }</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>}</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="co"># background map</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>))</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="fu">map</span>(<span class="st">&#39;world&#39;</span>,<span class="at">col=</span><span class="st">&quot;#f2f2f2&quot;</span>, <span class="at">fill=</span><span class="cn">TRUE</span>, <span class="at">bg=</span><span class="st">&quot;white&quot;</span>, <span class="at">lwd=</span><span class="fl">0.05</span>,<span class="at">mar=</span><span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">4</span>),<span class="at">border=</span><span class="dv">0</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">80</span>,<span class="dv">80</span>) )</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a> </span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a><span class="co"># add every connections:</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(all_pairs)){</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>    <span class="fu">plot_my_connection</span>(all_pairs<span class="sc">$</span>long1[i], all_pairs<span class="sc">$</span>lat1[i], all_pairs<span class="sc">$</span>long2[i], all_pairs<span class="sc">$</span>lat2[i], <span class="at">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>)</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>    }</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a> </span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a><span class="co"># add points and names of cities</span></span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>don<span class="sc">$</span>long, <span class="at">y=</span>don<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(don), <span class="at">x=</span>don<span class="sc">$</span>long, <span class="at">y=</span>don<span class="sc">$</span>lat,  <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="MapConnection_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<h1 id="showing-many-connections-on-a-map">Showing many connections on a map</h1>
-<hr />
-<p>It is then possible to use the same method for the whole dataset composed of about 10,000 connections. With such a sample size, it makes sense to group the connections that have exactly the same starting and ending points. Then it is important to represent the connections with high volume on top of the graphic, and those with small volume below it. Indeed this will allow to highlight the most important pattern and hide the noise of rare connections.</p>
-<p>Here I choosed to use a <a href="https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg">NASA night lights</a> image as a background, inspired from this <a href="https://www.dataplanes.org/notes/2018/01/27/flight-routes-night-lights">blog post</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Load dataset from github (Surfer project)</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)
-
-<span class="co"># Download NASA night lights image</span>
-<span class="kw">download.file</span>(<span class="st">&quot;https://www.nasa.gov/specials/blackmarble/2016/globalmaps/BlackMarble_2016_01deg.jpg&quot;</span>, 
-<span class="dt">destfile =</span> <span class="st">&quot;IMG/BlackMarble_2016_01deg.jpg&quot;</span>, <span class="dt">mode =</span> <span class="st">&quot;wb&quot;</span>)
-<span class="co"># Load picture and render</span>
-earth &lt;-<span class="st"> </span><span class="kw">readJPEG</span>(<span class="st">&quot;IMG/BlackMarble_2016_01deg.jpg&quot;</span>, <span class="dt">native =</span> <span class="ot">TRUE</span>)
-earth &lt;-<span class="st"> </span><span class="kw">rasterGrob</span>(earth, <span class="dt">interpolate =</span> <span class="ot">TRUE</span>)
-
-<span class="co"># Count how many times we have each unique connexion + order by importance</span>
-summary=data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">count</span>(homelat,homelon,homecontinent, travellat,travellon,travelcontinent) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(n)
-
-<span class="co"># A function that makes a dateframe per connection (we will use these connections to plot each lines)</span>
-data_for_connection=<span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, group){
-  inter &lt;-<span class="st"> </span><span class="kw">gcIntermediate</span>(<span class="kw">c</span>(dep_lon, dep_lat), <span class="kw">c</span>(arr_lon, arr_lat), <span class="dt">n=</span><span class="dv">50</span>, <span class="dt">addStartEnd=</span><span class="ot">TRUE</span>, <span class="dt">breakAtDateLine=</span>F)             
-  inter=<span class="kw">data.frame</span>(inter)
-  inter<span class="op">$</span>group=<span class="ot">NA</span>
-  diff_of_lon=<span class="kw">abs</span>(dep_lon) <span class="op">+</span><span class="st"> </span><span class="kw">abs</span>(arr_lon)
-  <span class="cf">if</span>(diff_of_lon <span class="op">&gt;</span><span class="st"> </span><span class="dv">180</span>){
-    inter<span class="op">$</span>group[ <span class="kw">which</span>(inter<span class="op">$</span>lon<span class="op">&gt;=</span><span class="dv">0</span>)]=<span class="kw">paste</span>(group, <span class="st">&quot;A&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)
-    inter<span class="op">$</span>group[ <span class="kw">which</span>(inter<span class="op">$</span>lon<span class="op">&lt;</span><span class="dv">0</span>)]=<span class="kw">paste</span>(group, <span class="st">&quot;B&quot;</span>,<span class="dt">sep=</span><span class="st">&quot;&quot;</span>)
-  }<span class="cf">else</span>{
-    inter<span class="op">$</span>group=group
-  }
-  <span class="kw">return</span>(inter)
-}
-
-<span class="co"># Création d&#39;un dataframe complet avec les points de toutes les lignes à faire.</span>
-data_ready_plot=<span class="kw">data.frame</span>()
-<span class="cf">for</span>(i <span class="cf">in</span> <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(summary))){
-  tmp=<span class="kw">data_for_connection</span>(summary<span class="op">$</span>homelon[i], summary<span class="op">$</span>homelat[i], summary<span class="op">$</span>travellon[i], summary<span class="op">$</span>travellat[i] , i)
-  tmp<span class="op">$</span>homecontinent=summary<span class="op">$</span>homecontinent[i]
-  tmp<span class="op">$</span>n=summary<span class="op">$</span>n[i]
-  data_ready_plot=<span class="kw">rbind</span>(data_ready_plot, tmp)
-}
-data_ready_plot<span class="op">$</span>homecontinent=<span class="kw">factor</span>(data_ready_plot<span class="op">$</span>homecontinent, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Asia&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Australia&quot;</span>,<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;North America&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;Antarctica&quot;</span>))
-
-<span class="co"># Plot</span>
-p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">annotation_custom</span>(earth, <span class="dt">xmin =</span> <span class="op">-</span><span class="dv">180</span>, <span class="dt">xmax =</span> <span class="dv">180</span>, <span class="dt">ymin =</span> <span class="op">-</span><span class="dv">90</span>, <span class="dt">ymax =</span> <span class="dv">90</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_line</span>(<span class="dt">data=</span>data_ready_plot, <span class="kw">aes</span>(<span class="dt">x=</span>lon, <span class="dt">y=</span>lat, <span class="dt">group=</span>group, <span class="dt">colour=</span>homecontinent, <span class="dt">alpha=</span>n), <span class="dt">size=</span><span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_color_brewer</span>(<span class="dt">palette=</span><span class="st">&quot;Set3&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-        <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-        <span class="dt">panel.background =</span> <span class="kw">element_rect</span>(<span class="dt">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>), 
-        <span class="dt">panel.spacing=</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),
-        <span class="dt">plot.margin=</span>grid<span class="op">::</span><span class="kw">unit</span>(<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>),
-  ) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">150</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">45</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">11</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;Where surfers travel.&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span>
-<span class="st">  </span>ggplot2<span class="op">::</span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="op">-</span><span class="dv">150</span>, <span class="dt">y =</span> <span class="op">-</span><span class="dv">51</span>, <span class="dt">hjust =</span> <span class="dv">0</span>, <span class="dt">size =</span> <span class="dv">8</span>, <span class="dt">label =</span> <span class="kw">paste</span>(<span class="st">&quot;data-to-viz.com | NASA.gov | 10,000 #surf tweets recovered&quot;</span>), <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">  </span><span class="co">#ggplot2::annotate(&quot;text&quot;, x = 160, y = -51, hjust = 1, size = 7, label = paste(&quot;Cacedédi Air-Guimzu 2018&quot;), color = &quot;white&quot;, alpha = 0.5) +</span>
-<span class="st">  </span><span class="kw">xlim</span>(<span class="op">-</span><span class="dv">180</span>,<span class="dv">180</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">60</span>,<span class="dv">80</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_x_continuous</span>(<span class="dt">expand =</span> <span class="kw">c</span>(<span class="fl">0.006</span>, <span class="fl">0.006</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_equal</span>() 
-
-<span class="co"># Save at PNG</span>
-<span class="kw">ggsave</span>(<span class="st">&quot;IMG/Surfer_travel.png&quot;</span>, <span class="dt">width =</span> <span class="dv">36</span>, <span class="dt">height =</span> <span class="fl">15.22</span>, <span class="dt">units =</span> <span class="st">&quot;in&quot;</span>, <span class="dt">dpi =</span> <span class="dv">90</span>)</code></pre></div>
+<p>#Showing many connections on a map ***</p>
+<p>It is then possible to use the same method for the whole dataset
+composed of about 10,000 connections. With such a sample size, it makes
+sense to group the connections that have exactly the same starting and
+ending points. Then it is important to represent the connections with
+high volume on top of the graphic, and those with small volume below it.
+Indeed this will allow to highlight the most important pattern and hide
+the noise of rare connections.</p>
+<p>Here I choosed to use a <a
+href="https://raw.githubusercontent.com/holtzy/data_to_viz/master/story/IMG/BlackMarble_2016_01deg.jpg">NASA
+night lights</a> image as a background, inspired from this <a
+href="https://www.dataplanes.org/notes/2018/01/27/flight-routes-night-lights">blog
+post</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Load dataset from github (Surfer project)</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://github.com/holtzy/data_to_viz/raw/master/Example_dataset/19_MapConnection.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Download NASA night lights image</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/story/IMG/BlackMarble_2016_01deg.jpg&quot;</span>, </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="at">destfile =</span> <span class="st">&quot;IMG/BlackMarble_2016_01deg.jpg&quot;</span>, <span class="at">mode =</span> <span class="st">&quot;wb&quot;</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Load picture and render</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>earth <span class="ot">&lt;-</span> <span class="fu">readJPEG</span>(<span class="st">&quot;IMG/BlackMarble_2016_01deg.jpg&quot;</span>, <span class="at">native =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>earth <span class="ot">&lt;-</span> <span class="fu">rasterGrob</span>(earth, <span class="at">interpolate =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co"># Count how many times we have each unique connexion + order by importance</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>summary<span class="ot">=</span>data <span class="sc">%&gt;%</span> </span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(homelat,homelon,homecontinent, travellat,travellon,travelcontinent) <span class="sc">%&gt;%</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>  <span class="fu">arrange</span>(n)</span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co"># A function that makes a dateframe per connection (we will use these connections to plot each lines)</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a>data_for_connection<span class="ot">=</span><span class="cf">function</span>( dep_lon, dep_lat, arr_lon, arr_lat, group){</span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a>  inter <span class="ot">&lt;-</span> <span class="fu">gcIntermediate</span>(<span class="fu">c</span>(dep_lon, dep_lat), <span class="fu">c</span>(arr_lon, arr_lat), <span class="at">n=</span><span class="dv">50</span>, <span class="at">addStartEnd=</span><span class="cn">TRUE</span>, <span class="at">breakAtDateLine=</span>F)             </span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a>  inter<span class="ot">=</span><span class="fu">data.frame</span>(inter)</span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a>  inter<span class="sc">$</span>group<span class="ot">=</span><span class="cn">NA</span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a>  diff_of_lon<span class="ot">=</span><span class="fu">abs</span>(dep_lon) <span class="sc">+</span> <span class="fu">abs</span>(arr_lon)</span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a>  <span class="cf">if</span>(diff_of_lon <span class="sc">&gt;</span> <span class="dv">180</span>){</span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a>    inter<span class="sc">$</span>group[ <span class="fu">which</span>(inter<span class="sc">$</span>lon<span class="sc">&gt;=</span><span class="dv">0</span>)]<span class="ot">=</span><span class="fu">paste</span>(group, <span class="st">&quot;A&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a>    inter<span class="sc">$</span>group[ <span class="fu">which</span>(inter<span class="sc">$</span>lon<span class="sc">&lt;</span><span class="dv">0</span>)]<span class="ot">=</span><span class="fu">paste</span>(group, <span class="st">&quot;B&quot;</span>,<span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a>  }<span class="cf">else</span>{</span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a>    inter<span class="sc">$</span>group<span class="ot">=</span>group</span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a>  }</span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a>  <span class="fu">return</span>(inter)</span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a>}</span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co"># Création d&#39;un dataframe complet avec les points de toutes les lignes à faire.</span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a>data_ready_plot<span class="ot">=</span><span class="fu">data.frame</span>()</span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(summary))){</span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a>  tmp<span class="ot">=</span><span class="fu">data_for_connection</span>(summary<span class="sc">$</span>homelon[i], summary<span class="sc">$</span>homelat[i], summary<span class="sc">$</span>travellon[i], summary<span class="sc">$</span>travellat[i] , i)</span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a>  tmp<span class="sc">$</span>homecontinent<span class="ot">=</span>summary<span class="sc">$</span>homecontinent[i]</span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a>  tmp<span class="sc">$</span>n<span class="ot">=</span>summary<span class="sc">$</span>n[i]</span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a>  data_ready_plot<span class="ot">=</span><span class="fu">rbind</span>(data_ready_plot, tmp)</span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a>}</span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a>data_ready_plot<span class="sc">$</span>homecontinent<span class="ot">=</span><span class="fu">factor</span>(data_ready_plot<span class="sc">$</span>homecontinent, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Asia&quot;</span>,<span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Australia&quot;</span>,<span class="st">&quot;Africa&quot;</span>,<span class="st">&quot;North America&quot;</span>,<span class="st">&quot;South America&quot;</span>,<span class="st">&quot;Antarctica&quot;</span>))</span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a>  <span class="fu">annotation_custom</span>(earth, <span class="at">xmin =</span> <span class="sc">-</span><span class="dv">180</span>, <span class="at">xmax =</span> <span class="dv">180</span>, <span class="at">ymin =</span> <span class="sc">-</span><span class="dv">90</span>, <span class="at">ymax =</span> <span class="dv">90</span>) <span class="sc">+</span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>data_ready_plot, <span class="fu">aes</span>(<span class="at">x=</span>lon, <span class="at">y=</span>lat, <span class="at">group=</span>group, <span class="at">colour=</span>homecontinent, <span class="at">alpha=</span>n), <span class="at">size=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a>  <span class="fu">scale_color_brewer</span>(<span class="at">palette=</span><span class="st">&quot;Set3&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a>        <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a>        <span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">&quot;black&quot;</span>, <span class="at">colour =</span> <span class="st">&quot;black&quot;</span>), </span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a>        <span class="at">panel.spacing=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),</span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a>        <span class="at">plot.margin=</span>grid<span class="sc">::</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>), <span class="st">&quot;cm&quot;</span>),</span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="sc">-</span><span class="dv">150</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">11</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;Where surfers travel.&quot;</span>), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a>  ggplot2<span class="sc">::</span><span class="fu">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="at">x =</span> <span class="sc">-</span><span class="dv">150</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">51</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">size =</span> <span class="dv">8</span>, <span class="at">label =</span> <span class="fu">paste</span>(<span class="st">&quot;data-to-viz.com | NASA.gov | 10,000 #surf tweets recovered&quot;</span>), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a>  <span class="co">#ggplot2::annotate(&quot;text&quot;, x = 160, y = -51, hjust = 1, size = 7, label = paste(&quot;Cacedédi Air-Guimzu 2018&quot;), color = &quot;white&quot;, alpha = 0.5) +</span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a>  <span class="fu">xlim</span>(<span class="sc">-</span><span class="dv">180</span>,<span class="dv">180</span>) <span class="sc">+</span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">60</span>,<span class="dv">80</span>) <span class="sc">+</span></span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="fl">0.006</span>, <span class="fl">0.006</span>)) <span class="sc">+</span></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a>  <span class="fu">coord_equal</span>() </span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a><span class="co"># Save at PNG</span></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;IMG/Surfer_travel.png&quot;</span>, <span class="at">width =</span> <span class="dv">36</span>, <span class="at">height =</span> <span class="fl">15.22</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>, <span class="at">dpi =</span> <span class="dv">90</span>)</span></code></pre></div>
 </div>
 <center>
-<div class="figure">
-<img src="IMG/Surfer_travel.png" />
-
-</div>
+<p><img src="IMG/Surfer_travel.png" /></p>
 </center>
 <br><br>
 <div class="mycontent">
-<p>Please note that this map is available <a href="https://github.com/holtzy/data_to_viz/tree/master/story/IMG">here</a> if needed. Even if a connecting map is probably the best option for plotting this kind of dataset, please note that other representation like chord diagrams or networks could make a good job as well.</p>
+<p>Please note that this map is available <a
+href="https://github.com/holtzy/data_to_viz/tree/master/story/IMG">here</a>
+if needed. Even if a connecting map is probably the best option for
+plotting this kind of dataset, please note that other representation
+like chord diagrams or networks could make a good job as well.</p>
 </div>
 
 
@@ -540,8 +624,8 @@ p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op
         <script>
 
         var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/.html;  
-        this.page.identifier = ; 
+        this.page.url = www.data-to-viz.com/story/.html;
+        this.page.identifier = ;
         };
 
         (function() { // DON'T EDIT BELOW THIS LINE
@@ -582,7 +666,16 @@ p &lt;-<span class="st"> </span><span class="kw">ggplot</span>() <span class="op
 
   gtag('config', 'UA-79254642-3');
 </script>
-
+<script>
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
+}
+</script>
 
 &nbsp;
 

@@ -13,7 +13,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
@@ -83,7 +83,35 @@ Two type of dendrogram exist, resulting from 2 types of dataset:
 # Dendrogram from hierarchic data
 ***
 
+Hierarchic data is a type of data that provides the **links between nodes** explicitely. It is a common way to represent a hierarchical organization.
 
+The following example shows the hierarchy of a company. The CEO is the **root node**. He manages 2 managers that manage 8 employees (the **leaves**).
+
+```{r}
+# libraries
+library(ggraph)
+library(igraph)
+library(tidyverse)
+ 
+# create a data frame 
+data <- data.frame(
+  level1="CEO",
+  level2=c( rep("boss1",4), rep("boss2",4)),
+  level3=paste0("mister_", letters[1:8])
+)
+ 
+# transform it to a edge list!
+edges_level1_2 <- data %>% select(level1, level2) %>% unique %>% rename(from=level1, to=level2)
+edges_level2_3 <- data %>% select(level2, level3) %>% unique %>% rename(from=level2, to=level3)
+edge_list <- rbind(edges_level1_2, edges_level2_3)
+
+# Now we can plot that
+mygraph <- graph_from_data_frame( edge_list )
+ggraph(mygraph, layout = 'dendrogram', circular = FALSE) + 
+  geom_edge_diagonal() +
+  geom_node_point() +
+  theme_void()
+```
 
 
 
@@ -102,8 +130,8 @@ Let's consider a `distance matrix` that provides the distance between all pairs 
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=9}
 # Load the data
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, row.names="Cities.", sep=",") %>% as.matrix
-data <- read.table("../Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, sep=",") %>% as.matrix
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, sep=",") %>% as.matrix
+#data <- read.table("../Example_dataset/13_AdjacencyUndirecterWeighted.csv", header=T, sep=",") %>% as.matrix
 colnames(data) <- gsub("\\.", " ", colnames(data))
 data <- data %>%
   as.data.frame() %>%
@@ -265,10 +293,10 @@ d3heatmap(mtcars, scale = "column", colors = "Blues")
 
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
-  <p class="mytitlerelated">Heatmap</p>
-  <p class="mytextrelated">Representation of data where the individual values contained in a matrix are represented as colors</p>
+  <a href="http://www.data-to-viz.com/graph/venn.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/VennSmall.png">
+  <p class="mytitlerelated">Venn Diagram</p>
+  <p class="mytextrelated">Show the overlap between sets. Perfect to show how much different groups have in common.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">

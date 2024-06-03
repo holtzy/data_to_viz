@@ -13,7 +13,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
@@ -228,10 +228,10 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
-  <p class="mytitlerelated">Lollipop plot</p>
-  <p class="mytextrelated">A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.</p>
+  <a href="http://www.data-to-viz.com/graph/circularbarplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplotSmall.png">
+  <p class="mytitlerelated">Circular barplot</p>
+  <p class="mytextrelated">A barplot where the bars are displayed in a circular way. It is useful when you have many groups.</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
@@ -242,10 +242,10 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
-  <p class="mytitlerelated">Boxplot</p>
-  <p class="mytextrelated">Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.</p>
+  <a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+  <p class="mytitlerelated">Barplot</p>
+  <p class="mytextrelated">A barplot is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable.</p>
   </a>
   </div>
 </div>

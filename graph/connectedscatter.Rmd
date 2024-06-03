@@ -13,7 +13,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 
@@ -236,31 +236,31 @@ p1 + p2
 
 <div class="row">
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/line.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LineSmall.png">
-  <p class="mytitlerelated">Line plot</p>
-  <p class="mytextrelated">Displays the evolution of one or several numeric variables.</p>
+  <a href="http://www.data-to-viz.com/graph/bubble.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BubblePlotSmall.png">
+  <p class="mytitlerelated">Bubble plot</p>
+  <p class="mytextrelated">Add a third dimension to your scatter: the circle size</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/area.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/AreaSmall.png">
-  <p class="mytitlerelated">Area chart</p>
-  <p class="mytextrelated">Basically a line graph, filling the area under the curve.</p>
+  <a href="http://www.data-to-viz.com/graph/correlogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CorrelogramSmall.png">
+  <p class="mytitlerelated">Correlogram</p>
+  <p class="mytextrelated">Shows the relationship between each pair of numeric variables</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/stackedarea.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StackedAreaSmall.png">
-  <p class="mytitlerelated">Stacked area chart</p>
-  <p class="mytextrelated">Displays the evolution of the value of several groups on the same graphic</p>
+  <a href="http://www.data-to-viz.com/graph/scatter.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png">
+  <p class="mytitlerelated">Scatterplot</p>
+  <p class="mytextrelated">The most common way to display the relationship between 2 numeric variables</p>
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="https://www.data-to-viz.com/graph/streamgraph.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/StreamSmall.png">
-  <p class="mytitlerelated">Streamgraph</p>
-  <p class="mytextrelated">A stacked area graph displaced around a central axis, resulting in a flowing, organic shape</p>
+  <a href="http://www.data-to-viz.com/graph/density2d.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/2dDensitySmall.png">
+  <p class="mytitlerelated">Density 2d</p>
+  <p class="mytextrelated">One of the best way to avoid overplotting for big sample size</p>
   </a>
   </div>
 </div>

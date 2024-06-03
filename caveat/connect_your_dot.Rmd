@@ -11,7 +11,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes: 

@@ -13,7 +13,7 @@ output:
       toc: FALSE
       toc_float: TRUE
       toc_depth: 2
-      number_sections: TRUE
+      number_section: FALSE
       df_print: "paged"
       code_folding: "hide"
       includes:
@@ -36,59 +36,65 @@ The term `hexbin map` refers to two different concepts:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=8}
 # library
 library(tidyverse)
-
-# Hexbin available in the geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map. Download it and then:
 library(sf)
-spdf <- st_read("us_states_hexgrid.geojson.json")
+library(RColorBrewer)
 
-# I need to 'fortify' the data to be able to show it with ggplot2 (we need a data frame format)
-library(broom)
-spdf <- spdf %>% mutate(google_name = gsub(" \\(United States\\)", "", google_name))
-spdf_fortified <- tidy(spdf, region = "google_name")
+# Download the Hexagon boundaries at geojson format here: https://team.carto.com/u/andrew/tables/andrew.us_states_hexgrid/public/map.
 
-# Calculate the centroid of each hexagon to add the label:
-centers <- cbind.data.frame(data.frame(st_centroid(spdf), id=spdf$iso3166_2))
+# Load this file. (Note: I stored in a folder called DATA)
+my_sf <- read_sf("us_states_hexgrid.geojson.json")
 
-# Found here: https://www.cdc.gov/nchs/nvss/marriage-divorce.html
-data = read.table("https://www.r-graph-gallery.com/wp-content/uploads/2017/12/State_Marriage_Rates.csv", header = TRUE, sep = ",", na.strings = "---")
+# Bit of reformatting
+my_sf <- my_sf %>%
+  mutate(google_name = gsub(" \\(United States\\)", "", google_name))
 
-# Merge geospatial and numerical information
-spdf_fortified = spdf_fortified %>%
-  left_join(data, by = c("id" = "state"))
+data <- read.table("https://raw.githubusercontent.com/holtzy/R-graph-gallery/master/DATA/State_mariage_rate.csv",
+  header = T, sep = ",", na.strings = "---"
+)
+
+# Show it
+my_sf_wed <- my_sf %>%
+  left_join(data, by = c("google_name" = "state"))
 
 # Prepare binning
-spdf_fortified$bin = cut(spdf_fortified$y_2015, breaks = c(seq(5, 10), Inf), labels = c("5-6", "6-7", "7-8", "8-9", "9-10", "10+"), include.lowest = TRUE)
+my_sf_wed$bin <- cut(my_sf_wed$y_2015,
+  breaks = c(seq(5, 10), Inf),
+  labels = c("5-6", "6-7", "7-8", "8-9", "9-10", "10+"),
+  include.lowest = TRUE
+)
 
 # Prepare a color scale coming from the viridis color palette
 library(viridis)
-my_palette=rev(magma(8))[c(-1,-8)]
+my_palette <- rev(magma(8))[c(-1, -8)]
 
 # plot
-ggplot() +
-  geom_polygon(data = spdf_fortified, aes(fill = bin, x = long, y = lat, group = group) , size=0, alpha=0.9) +
-  geom_text(data=centers, aes(x=x, y=y, label=id), color="white", size=3, alpha=0.6) +
+ggplot(my_sf_wed) +
+  geom_sf(aes(fill = bin), linewidth = 0, alpha = 0.9) +
+  geom_sf_text(aes(label = iso3166_2), color = "white", size = 3, alpha = 0.6) +
   theme_void() +
   scale_fill_manual(
-    values=my_palette,
-    name="Wedding per 1000 people in 2015",
-    guide = guide_legend( keyheight = unit(3, units = "mm"), keywidth=unit(12, units = "mm"), label.position = "bottom", title.position = 'top', nrow=1)
+    values = my_palette,
+    name = "Wedding per 1000 people in 2015",
+    guide = guide_legend(
+      keyheight = unit(3, units = "mm"),
+      keywidth = unit(12, units = "mm"),
+      label.position = "bottom", title.position = "top", nrow = 1
+    )
   ) +
-  ggtitle( "A map of marriage rates, state by state" ) +
+  ggtitle("A map of marriage rates, state by state") +
   theme(
     legend.position = c(0.5, 0.9),
     text = element_text(color = "#22211d"),
     plot.background = element_rect(fill = "#f5f5f2", color = NA),
     panel.background = element_rect(fill = "#f5f5f2", color = NA),
     legend.background = element_rect(fill = "#f5f5f2", color = NA),
-    plot.title = element_text(size= 22, hjust=0.5, color = "#4e4d47", margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")),
+    plot.title = element_text(
+      size = 22, hjust = 0.5, color = "#4e4d47",
+      margin = margin(b = -0.1, t = 0.4, l = 2, unit = "cm")
+    )
   )
 ```
 
-<br><br>
-
-<center>
-<img src="https://www.r-graph-gallery.com/wp-content/uploads/2017/12/328_Hexbin_map_USA_4.png" alt="img" width="600" height="700">
-</center>
 
 <br>
 

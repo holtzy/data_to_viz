@@ -87,7 +87,7 @@
       </p>
     </div>
 
-         <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -282,8 +282,8 @@
                          </div>
 
               <div class="mycontent">
-<div id="definition" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Definition</h1>
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
 <p>A barplot (or barchart) is one of the most common types of graphic.
 It shows the relationship between a numeric and a categoric variable.
@@ -320,8 +320,8 @@ href="http://www.data-to-viz.com/story/OneNumOneCat.html">here</a>):</p>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Weapon quantity (SIPRI trend-indicator value)&quot;</span>)</span></code></pre></div>
 <p><img src="barplot_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="what-for" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> What for</h1>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
 <p>A barplot shows the relationship between a numeric and a categoric
 variable. In the previous graphic, each country is a level of the
@@ -371,8 +371,8 @@ stack them, resulting in a stacked barplot:</p>
 <span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Number of baby&quot;</span>)</span></code></pre></div>
 <p><img src="barplot_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
-<div id="variation" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Variation</h1>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
 <p>Barplot is sometimes described as a boring way to visualize
 information, despite its incredible efficiency. There are a few
@@ -446,8 +446,8 @@ there is an obvious pattern to show in the data.</p>
 <span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a>  <span class="fu">geom_text</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="dv">24</span>, <span class="at">y=</span><span class="dv">8000</span>, <span class="at">label=</span><span class="st">&quot;Who sells more weapons?&quot;</span>), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>, <span class="at">data =</span> <span class="fu">data.frame</span>())</span></code></pre></div>
 <p><img src="barplot_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
-<div id="mistake" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Common mistakes</h1>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <ul>
 <li><p>Do not confound barchart with <a
@@ -466,8 +466,8 @@ href="https://www.data-to-viz.com/graph/violin.html">violin</a> are much
 more appropriate.</p></li>
 </ul>
 </div>
-<div id="related" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Related</h1>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -483,14 +483,14 @@ and adopt it.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+<a href="http://www.data-to-viz.com/graph/circularbarplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplotSmall.png">
 <p class="mytitlerelated">
-Lollipop plot
+Circular barplot
 </p>
 <p class="mytextrelated">
-A fancy barplot where bars are replaced with a dot and a segment. Allows
-even more options when it comes to stacking.
+A barplot where the bars are displayed in a circular way. It is useful
+when you have many groups.
 </p>
 </a>
 </div>
@@ -507,21 +507,21 @@ their frequency.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
-Boxplot
+Barplot
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use
-it if you have a limited dataset size.
+A barplot is one of the most common types of graphic. It shows the
+relationship between a numeric and a categoric variable.
 </p>
 </a>
 </div>
 </div>
 </div>
-<div id="code" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Build your own</h1>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
 <p>The <a href="https://r-graph-gallery.com/barplot.html">R</a>, <a
 href="https://python-graph-gallery.com/barplot/">Python</a>, <a
