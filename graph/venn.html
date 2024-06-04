@@ -1,392 +1,484 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Venn Diagram &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Venn
+Diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Venn Diagram" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/VennSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Venn
+Diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/venn.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Venn Diagram &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Venn Diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Venn Diagram" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/VennSmall.png" />
-<meta property="og:description" content="An extensive description of Venn Diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/venn.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/VennSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Venn Diagram</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/VennSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Venn Diagram</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
-<p>A <code>Venn diagram</code> (also called primary diagram, set diagram or logic diagram) is a diagram that shows all possible logical relationships between a finite collection of different sets.</p>
-<p>Each set is represented by a circle. The circle size sometimes represents the importance of the group but not always. The groups are usually overlapping: the size of the overlap represents the intersection between both groups.</p>
+<p>A <code>Venn diagram</code> (also called primary diagram, set diagram
+or logic diagram) is a diagram that shows all possible logical
+relationships between a finite collection of different sets.</p>
+<p>Each set is represented by a circle. The circle size sometimes
+represents the importance of the group but not always. The groups are
+usually overlapping: the size of the overlap represents the intersection
+between both groups.</p>
 <p><br></p>
-<p>Here is an example showing the number of shared words in the lyrics of 3 famous french singers: (<a href="https://en.wikipedia.org/wiki/Nekfeu">Nekfeu</a>, <a href="https://en.wikipedia.org/wiki/Booba">Booba</a>) and <a href="https://en.wikipedia.org/wiki/Georges_Brassens">Georges Brassens</a>. You can read more about this story <a href="https://www.data-to-viz.com/story/SeveralIndepLists.html">here</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(tm)
-<span class="kw">library</span>(proustr)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>) 
-to_remove &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;_|[0-9]|</span><span class="ch">\\</span><span class="st">.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist&quot;</span>)
-data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">grepl</span>(to_remove, word)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">stopwords</span>(<span class="st">&#39;fr&#39;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span>word <span class="op">%in%</span><span class="st"> </span><span class="kw">proust_stopwords</span>()<span class="op">$</span>word)
-
-<span class="co"># library</span>
-<span class="kw">library</span>(VennDiagram)
- 
-<span class="co">#cMake the plot</span>
-<span class="kw">venn.diagram</span>(
-  <span class="dt">x =</span> <span class="kw">list</span>(
-    data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;booba&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(word) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() , 
-    data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;nekfeu&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(word) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>() , 
-    data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(artist<span class="op">==</span><span class="st">&quot;georges-brassens&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(word) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">unlist</span>()
-    ),
-  <span class="dt">category.names =</span> <span class="kw">c</span>(<span class="st">&quot;Booba (1995)&quot;</span> , <span class="st">&quot;Nekfeu (663)&quot;</span> , <span class="st">&quot;Brassens (471)&quot;</span>),
-  <span class="dt">filename =</span> <span class="st">&#39;IMG/venn.png&#39;</span>,
-  <span class="dt">output =</span> <span class="ot">TRUE</span> ,
-          <span class="dt">imagetype=</span><span class="st">&quot;png&quot;</span> ,
-          <span class="dt">height =</span> <span class="dv">480</span> , 
-          <span class="dt">width =</span> <span class="dv">480</span> , 
-          <span class="dt">resolution =</span> <span class="dv">300</span>,
-          <span class="dt">compression =</span> <span class="st">&quot;lzw&quot;</span>,
-          <span class="dt">lwd =</span> <span class="dv">1</span>,
-          <span class="dt">col=</span><span class="kw">c</span>(<span class="st">&quot;#440154ff&quot;</span>, <span class="st">&#39;#21908dff&#39;</span>, <span class="st">&#39;#fde725ff&#39;</span>),
-          <span class="dt">fill =</span> <span class="kw">c</span>(<span class="kw">alpha</span>(<span class="st">&quot;#440154ff&quot;</span>,<span class="fl">0.3</span>), <span class="kw">alpha</span>(<span class="st">&#39;#21908dff&#39;</span>,<span class="fl">0.3</span>), <span class="kw">alpha</span>(<span class="st">&#39;#fde725ff&#39;</span>,<span class="fl">0.3</span>)),
-          <span class="dt">cex =</span> <span class="fl">0.5</span>,
-          <span class="dt">fontfamily =</span> <span class="st">&quot;sans&quot;</span>,
-          <span class="dt">cat.cex =</span> <span class="fl">0.3</span>,
-          <span class="dt">cat.default.pos =</span> <span class="st">&quot;outer&quot;</span>,
-          <span class="dt">cat.pos =</span> <span class="kw">c</span>(<span class="op">-</span><span class="dv">27</span>, <span class="dv">27</span>, <span class="dv">135</span>),
-          <span class="dt">cat.dist =</span> <span class="kw">c</span>(<span class="fl">0.055</span>, <span class="fl">0.055</span>, <span class="fl">0.085</span>),
-          <span class="dt">cat.fontfamily =</span> <span class="st">&quot;sans&quot;</span>,
-          <span class="dt">cat.col =</span> <span class="kw">c</span>(<span class="st">&quot;#440154ff&quot;</span>, <span class="st">&#39;#21908dff&#39;</span>, <span class="st">&#39;#fde725ff&#39;</span>),
-          <span class="dt">rotation =</span> <span class="dv">1</span>
-        )</code></pre></div>
+<p>Here is an example showing the number of shared words in the lyrics
+of 3 famous french singers: (<a
+href="https://en.wikipedia.org/wiki/Nekfeu">Nekfeu</a>, <a
+href="https://en.wikipedia.org/wiki/Booba">Booba</a>) and <a
+href="https://en.wikipedia.org/wiki/Georges_Brassens">Georges
+Brassens</a>. You can read more about this story <a
+href="https://www.data-to-viz.com/story/SeveralIndepLists.html">here</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(tm)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(proustr)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/14_SeveralIndepLists.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>to_remove <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;_|[0-9]|</span><span class="sc">\\</span><span class="st">.|function|^id|script|var|div|null|typeof|opts|if|^r$|undefined|false|loaded|true|settimeout|eval|else|artist&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">grepl</span>(to_remove, word)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>word <span class="sc">%in%</span> <span class="fu">stopwords</span>(<span class="st">&#39;fr&#39;</span>)) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span>word <span class="sc">%in%</span> <span class="fu">proust_stopwords</span>()<span class="sc">$</span>word)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="co"># library</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="fu">library</span>(VennDiagram)</span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="co">#cMake the plot</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">venn.diagram</span>(</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">list</span>(</span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(artist<span class="sc">==</span><span class="st">&quot;booba&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(word) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() ,</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(artist<span class="sc">==</span><span class="st">&quot;nekfeu&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(word) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>() ,</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(artist<span class="sc">==</span><span class="st">&quot;georges-brassens&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(word) <span class="sc">%&gt;%</span> <span class="fu">unlist</span>()</span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    ),</span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="at">category.names =</span> <span class="fu">c</span>(<span class="st">&quot;Booba (1995)&quot;</span> , <span class="st">&quot;Nekfeu (663)&quot;</span> , <span class="st">&quot;Brassens (471)&quot;</span>),</span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  <span class="at">filename =</span> <span class="st">&#39;IMG/venn.png&#39;</span>,</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>  <span class="at">output =</span> <span class="cn">TRUE</span> ,</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>          <span class="at">imagetype=</span><span class="st">&quot;png&quot;</span> ,</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>          <span class="at">height =</span> <span class="dv">480</span> ,</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>          <span class="at">width =</span> <span class="dv">480</span> ,</span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>          <span class="at">resolution =</span> <span class="dv">300</span>,</span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>          <span class="at">compression =</span> <span class="st">&quot;lzw&quot;</span>,</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>          <span class="at">lwd =</span> <span class="dv">1</span>,</span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>          <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;#440154ff&quot;</span>, <span class="st">&#39;#21908dff&#39;</span>, <span class="st">&#39;#fde725ff&#39;</span>),</span>
+<span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>          <span class="at">fill =</span> <span class="fu">c</span>(<span class="fu">alpha</span>(<span class="st">&quot;#440154ff&quot;</span>,<span class="fl">0.3</span>), <span class="fu">alpha</span>(<span class="st">&#39;#21908dff&#39;</span>,<span class="fl">0.3</span>), <span class="fu">alpha</span>(<span class="st">&#39;#fde725ff&#39;</span>,<span class="fl">0.3</span>)),</span>
+<span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>          <span class="at">cex =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>          <span class="at">fontfamily =</span> <span class="st">&quot;sans&quot;</span>,</span>
+<span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>          <span class="at">cat.cex =</span> <span class="fl">0.3</span>,</span>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>          <span class="at">cat.default.pos =</span> <span class="st">&quot;outer&quot;</span>,</span>
+<span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>          <span class="at">cat.pos =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">27</span>, <span class="dv">27</span>, <span class="dv">135</span>),</span>
+<span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>          <span class="at">cat.dist =</span> <span class="fu">c</span>(<span class="fl">0.055</span>, <span class="fl">0.055</span>, <span class="fl">0.085</span>),</span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>          <span class="at">cat.fontfamily =</span> <span class="st">&quot;sans&quot;</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a>          <span class="at">cat.col =</span> <span class="fu">c</span>(<span class="st">&quot;#440154ff&quot;</span>, <span class="st">&#39;#21908dff&#39;</span>, <span class="st">&#39;#fde725ff&#39;</span>),</span>
+<span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>          <span class="at">rotation =</span> <span class="dv">1</span></span>
+<span id="cb1-42"><a href="#cb1-42" tabindex="-1"></a>        )</span></code></pre></div>
 <p><br><br></p>
 <center>
 <img src="IMG/venn.png" alt="img" width="600" height="700">
 </center>
 <p><br></p>
-<p>Here, it is easy to understand that Booba used 1995 unique words in the dataset. 44 of them were also used by Brassens <em>and</em> Nekfeu, 126 only shared with Nekfeu only.</p>
-<h1 id="what-for">What for</h1>
+<p>Here, it is easy to understand that Booba used 1995 unique words in
+the dataset. 44 of them were also used by Brassens <em>and</em> Nekfeu,
+126 only shared with Nekfeu only.</p>
+</div>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
-<p>A venn diagram makes a really good work to study the intersection between 2 or 3 sets. It becomes very hard to read with more groups than that and thus must be avoided.</p>
-<p>Here is a famous example: a six-set venn diagram published in <a href="https://www.nature.com/articles/nature11241">Nature</a> that shows the relationship between the banana’s genome and the genome of five other species.</p>
+<p>A venn diagram makes a really good work to study the intersection
+between 2 or 3 sets. It becomes very hard to read with more groups than
+that and thus must be avoided.</p>
+<p>Here is a famous example: a six-set venn diagram published in <a
+href="https://www.nature.com/articles/nature11241">Nature</a> that shows
+the relationship between the banana’s genome and the genome of five
+other species.</p>
 <p><br><br></p>
 <center>
 <img src="IMG/venn_banana.png" alt="img" width="600" height="700">
 </center>
 <p><br></p>
-<p>Even if this figure is quite attractive, it is really hard to extract any information from it. Here is a workaround.</p>
-<h1 id="variation">Variation</h1>
+<p>Even if this figure is quite attractive, it is really hard to extract
+any information from it. Here is a workaround.</p>
+</div>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
-<p>To visualize the intersection between more than 3 sets, the best option is to use a <a href="http://caleydo.org/tools/upset/">UpSet plot</a>.</p>
-<p>Here is an example provided by the <a href="https://github.com/hms-dbmi/UpSetR">UpsetR</a> R library that displays the banana genome information seen before. The total size of each set is represented on the left barplot. Every possible intersection is represented by the bottom plot, and their occurence is shown on the top barplot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Specific library</span>
-<span class="kw">library</span>(UpSetR)
-
-<span class="co"># Dataset</span>
-input &lt;-<span class="st"> </span><span class="kw">c</span>(
-  <span class="dt">M.acuminata =</span> <span class="dv">759</span>,
-  <span class="dt">P.dactylifera =</span> <span class="dv">769</span>,
-  <span class="dt">A.thaliana =</span> <span class="dv">1187</span>,
-  <span class="dt">O.sativa =</span> <span class="dv">1246</span>,
-  <span class="dt">S.bicolor =</span> <span class="dv">827</span>,
-  <span class="dt">B.distachyon =</span> <span class="dv">387</span>,
-  <span class="st">&quot;P.dactylifera&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">467</span>,
-  <span class="st">&quot;O.sativa&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">29</span>,
-  <span class="st">&quot;A.thaliana&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">6</span>,
-  <span class="st">&quot;S.bicolor&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">9</span>,
-  <span class="st">&quot;O.sativa&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">32</span>,
-  <span class="st">&quot;S.bicolor&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">49</span>,
-  <span class="st">&quot;S.bicolor&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">49</span>,
-  <span class="st">&quot;B.distachyon&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">547</span>,
-  <span class="st">&quot;S.bicolor&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">1151</span>,
-  <span class="st">&quot;B.distachyon&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">10</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">9</span>,
-  <span class="st">&quot;B.distachyon&amp;S.bicolor&quot;</span> =<span class="st"> </span><span class="dv">402</span>,
-  <span class="st">&quot;M.acuminata&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">155</span>,
-  <span class="st">&quot;A.thaliana&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">105</span>,
-  <span class="st">&quot;B.distachyon&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">25</span>,
-  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">42</span>,
-  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">12</span>,
-  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;B.distachyon&quot;</span> =<span class="st"> </span><span class="dv">2809</span>,
-  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">18</span>,
-  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">40</span>,
-  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">14</span>,
-  <span class="st">&quot;O.sativa&amp;B.distachyon&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">28</span>,
-  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">13</span>,
-  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">35</span>,
-  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">21</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">7</span>,
-  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">13</span>,
-  <span class="st">&quot;M.acuminata&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">206</span>,
-  <span class="st">&quot;P.dactylifera&amp;A.thaliana&amp;S.bicolor&quot;</span> =<span class="st"> </span><span class="dv">4</span>,
-  <span class="st">&quot;O.sativa&amp;A.thaliana&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">6</span>,
-  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">64</span>,
-  <span class="st">&quot;S.bicolor&amp;M.acuminata&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">19</span>,
-  <span class="st">&quot;B.distachyon&amp;A.thaliana&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">3</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">12</span>,
-  <span class="st">&quot;B.distachyon&amp;S.bicolor&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">23</span>,
-  <span class="st">&quot;M.acuminata&amp;B.distachyon&amp;S.bicolor&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">54</span>,
-  <span class="st">&quot;P.dactylifera&amp;S.bicolor&amp;O.sativa&amp;M.acuminata&quot;</span> =<span class="st"> </span><span class="dv">62</span>,
-  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;M.acuminata&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">18</span>,
-  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">206</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">29</span>,
-  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;A.thaliana&amp;S.bicolor&quot;</span> =<span class="st"> </span><span class="dv">71</span>,
-  <span class="st">&quot;M.acuminata&amp;O.sativa&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">28</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">7</span>,
-  <span class="st">&quot;B.distachyon&amp;S.bicolor&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">11</span>,
-  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">5</span>,
-  <span class="st">&quot;A.thaliana&amp;P.dactylifera&amp;S.bicolor&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">21</span>,
-  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">23</span>,
-  <span class="st">&quot;M.acuminata&amp;B.distachyon&amp;S.bicolor&amp;P.dactylifera&quot;</span> =<span class="st"> </span><span class="dv">24</span>,
-  <span class="st">&quot;M.acuminata&amp;O.sativa&amp;S.bicolor&amp;B.distachyon&quot;</span> =<span class="st"> </span><span class="dv">368</span>,
-  <span class="st">&quot;P.dactylifera&amp;B.distachyon&amp;S.bicolor&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">190</span>,
-  <span class="st">&quot;P.dactylifera&amp;B.distachyon&amp;S.bicolor&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">258</span>,
-  <span class="st">&quot;P.dactylifera&amp;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;O.sativa&quot;</span> =<span class="st"> </span><span class="dv">685</span>,
-  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">1458</span>,
-  <span class="st">&quot;S.bicolor&amp;M.acuminata&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">149</span>,
-  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">80</span>,
-  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;P.dactylifera&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">113</span>,
-  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> =<span class="st"> </span><span class="dv">7674</span>
-)
-
-<span class="co"># Plot</span>
-<span class="kw">upset</span>(<span class="kw">fromExpression</span>(input), <span class="dt">nintersects =</span> <span class="dv">40</span>, <span class="dt">nsets =</span> <span class="dv">6</span>, <span class="dt">order.by =</span> <span class="st">&quot;freq&quot;</span>, <span class="dt">decreasing =</span> T, <span class="dt">mb.ratio =</span> <span class="kw">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>),
-      <span class="dt">number.angles =</span> <span class="dv">0</span>, <span class="dt">text.scale =</span> <span class="fl">1.1</span>, <span class="dt">point.size =</span> <span class="fl">2.8</span>, <span class="dt">line.size =</span> <span class="dv">1</span>)</code></pre></div>
+<p>To visualize the intersection between more than 3 sets, the best
+option is to use a <a href="http://caleydo.org/tools/upset/">UpSet
+plot</a>.</p>
+<p>Here is an example provided by the <a
+href="https://github.com/hms-dbmi/UpSetR">UpsetR</a> R library that
+displays the banana genome information seen before. The total size of
+each set is represented on the left barplot. Every possible intersection
+is represented by the bottom plot, and their occurence is shown on the
+top barplot.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Specific library</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(UpSetR)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Dataset</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>input <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="at">M.acuminata =</span> <span class="dv">759</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">P.dactylifera =</span> <span class="dv">769</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">A.thaliana =</span> <span class="dv">1187</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">O.sativa =</span> <span class="dv">1246</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">S.bicolor =</span> <span class="dv">827</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="at">B.distachyon =</span> <span class="dv">387</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">467</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">29</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="st">&quot;A.thaliana&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">6</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">9</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">32</span>,</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">49</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">49</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">547</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">1151</span>,</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">10</span>,</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">9</span>,</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;S.bicolor&quot;</span> <span class="ot">=</span> <span class="dv">402</span>,</span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">155</span>,</span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>  <span class="st">&quot;A.thaliana&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">105</span>,</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">25</span>,</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">42</span>,</span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">12</span>,</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;B.distachyon&quot;</span> <span class="ot">=</span> <span class="dv">2809</span>,</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">18</span>,</span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">40</span>,</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">14</span>,</span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;B.distachyon&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">28</span>,</span>
+<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">13</span>,</span>
+<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">35</span>,</span>
+<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">21</span>,</span>
+<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">7</span>,</span>
+<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">13</span>,</span>
+<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">206</span>,</span>
+<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;A.thaliana&amp;S.bicolor&quot;</span> <span class="ot">=</span> <span class="dv">4</span>,</span>
+<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;A.thaliana&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">6</span>,</span>
+<span id="cb2-42"><a href="#cb2-42" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;O.sativa&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">64</span>,</span>
+<span id="cb2-43"><a href="#cb2-43" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;M.acuminata&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">19</span>,</span>
+<span id="cb2-44"><a href="#cb2-44" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;A.thaliana&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">3</span>,</span>
+<span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">12</span>,</span>
+<span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;S.bicolor&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">23</span>,</span>
+<span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;B.distachyon&amp;S.bicolor&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">54</span>,</span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;S.bicolor&amp;O.sativa&amp;M.acuminata&quot;</span> <span class="ot">=</span> <span class="dv">62</span>,</span>
+<span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;M.acuminata&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">18</span>,</span>
+<span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">206</span>,</span>
+<span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">29</span>,</span>
+<span id="cb2-52"><a href="#cb2-52" tabindex="-1"></a>  <span class="st">&quot;O.sativa&amp;M.acuminata&amp;A.thaliana&amp;S.bicolor&quot;</span> <span class="ot">=</span> <span class="dv">71</span>,</span>
+<span id="cb2-53"><a href="#cb2-53" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;O.sativa&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">28</span>,</span>
+<span id="cb2-54"><a href="#cb2-54" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">7</span>,</span>
+<span id="cb2-55"><a href="#cb2-55" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;S.bicolor&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">11</span>,</span>
+<span id="cb2-56"><a href="#cb2-56" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;O.sativa&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">5</span>,</span>
+<span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a>  <span class="st">&quot;A.thaliana&amp;P.dactylifera&amp;S.bicolor&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">21</span>,</span>
+<span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">23</span>,</span>
+<span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;B.distachyon&amp;S.bicolor&amp;P.dactylifera&quot;</span> <span class="ot">=</span> <span class="dv">24</span>,</span>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;O.sativa&amp;S.bicolor&amp;B.distachyon&quot;</span> <span class="ot">=</span> <span class="dv">368</span>,</span>
+<span id="cb2-61"><a href="#cb2-61" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;B.distachyon&amp;S.bicolor&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">190</span>,</span>
+<span id="cb2-62"><a href="#cb2-62" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;B.distachyon&amp;S.bicolor&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">258</span>,</span>
+<span id="cb2-63"><a href="#cb2-63" tabindex="-1"></a>  <span class="st">&quot;P.dactylifera&amp;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;O.sativa&quot;</span> <span class="ot">=</span> <span class="dv">685</span>,</span>
+<span id="cb2-64"><a href="#cb2-64" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">1458</span>,</span>
+<span id="cb2-65"><a href="#cb2-65" tabindex="-1"></a>  <span class="st">&quot;S.bicolor&amp;M.acuminata&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">149</span>,</span>
+<span id="cb2-66"><a href="#cb2-66" tabindex="-1"></a>  <span class="st">&quot;B.distachyon&amp;M.acuminata&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">80</span>,</span>
+<span id="cb2-67"><a href="#cb2-67" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;P.dactylifera&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">113</span>,</span>
+<span id="cb2-68"><a href="#cb2-68" tabindex="-1"></a>  <span class="st">&quot;M.acuminata&amp;S.bicolor&amp;B.distachyon&amp;P.dactylifera&amp;O.sativa&amp;A.thaliana&quot;</span> <span class="ot">=</span> <span class="dv">7674</span></span>
+<span id="cb2-69"><a href="#cb2-69" tabindex="-1"></a>)</span>
+<span id="cb2-70"><a href="#cb2-70" tabindex="-1"></a></span>
+<span id="cb2-71"><a href="#cb2-71" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-72"><a href="#cb2-72" tabindex="-1"></a><span class="fu">upset</span>(<span class="fu">fromExpression</span>(input), <span class="at">nintersects =</span> <span class="dv">40</span>, <span class="at">nsets =</span> <span class="dv">6</span>, <span class="at">order.by =</span> <span class="st">&quot;freq&quot;</span>, <span class="at">decreasing =</span> T, <span class="at">mb.ratio =</span> <span class="fu">c</span>(<span class="fl">0.6</span>, <span class="fl">0.4</span>),</span>
+<span id="cb2-73"><a href="#cb2-73" tabindex="-1"></a>      <span class="at">number.angles =</span> <span class="dv">0</span>, <span class="at">text.scale =</span> <span class="fl">1.1</span>, <span class="at">point.size =</span> <span class="fl">2.8</span>, <span class="at">line.size =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="venn_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Here, it gets easy to understand that the vast majority of genes is shared between all plants, and which intersection are the biggest.</p>
-<h1 id="mistake">Common mistakes</h1>
+<p>Here, it gets easy to understand that the vast majority of genes is
+shared between all plants, and which intersection are the biggest.</p>
+</div>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <ul>
-<li>Don’t display more than 3 groups in a classic venn diagram. Over this limit the figure gets very hard to read and it is better to use a upset plot.</li>
-<li>If working with 2 groups, make the circle areas proportional to the represented values.</li>
+<li>Don’t display more than 3 groups in a classic venn diagram. Over
+this limit the figure gets very hard to read and it is better to use a
+upset plot.</li>
+<li>If working with 2 groups, make the circle areas proportional to the
+represented values.</li>
 <li>Write the numbers into each areas.</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
 Barplot
 </p>
@@ -396,17 +488,20 @@ Represents the value of entities using bar of various length.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
 <p class="mytitlerelated">
 Lollipop plot
 </p>
 <p class="mytextrelated">
-A fancy barplot where bars are replaced with a dot and a segment. Allows even more options when it comes to stacking.
+A fancy barplot where bars are replaced with a dot and a segment. Allows
+even more options when it comes to stacking.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
+<a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
 <p class="mytitlerelated">
 Circular packing
 </p>
@@ -416,7 +511,8 @@ A circular version of a Treemap to visualize a hierarchical organization
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
 <p class="mytitlerelated">
 Dendrogram
 </p>
@@ -426,45 +522,90 @@ A network structure used to show a hierarchical organization.
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a
+href="https://www.r-graph-gallery.com/venn-diagram.html">R</a>, <a
+href="https://www.python-graph-gallery.com/venn-diagram/">Python</a>, <a
+href="https://www.react-graph-gallery.com">React</a> and <a
+href="https://d3-graph-gallery.com">D3</a> graph galleries are 4
+websites providing hundreds of chart example, always providing the
+reproducible code. Click the button below to see how to build the chart
+you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/barplot/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/barplot/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com/venn-diagram.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/venn-diagram/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/venn.html;  
-        this.page.identifier = venn; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -485,28 +626,29 @@ A network structure used to show a hierarchical organization.
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

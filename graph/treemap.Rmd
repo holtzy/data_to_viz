@@ -99,11 +99,8 @@ The main variation of treemaps concerns the use of interactivity. It is advised 
 In the figure below, clicking on a group zooms on it a reveals the underlying structure. Hint: click on the title to come back to the previous level of the hierarchy.
 
 ```{r, warning=FALSE, fig.width=9}
-
 library(d3treeR)
-
-d3tree2( p ,  rootname = "General" )
-
+d3tree2(p, rootname = "General" )
 ```
 
 
@@ -155,19 +152,14 @@ d3tree2( p ,  rootname = "General" )
 # Build your own {#code}
 ***
 
-The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com/treemap.html), [Python](https://www.python-graph-gallery.com/treemap/), [React](https://www.react-graph-gallery.com/treemap) and [D3](https://d3-graph-gallery.com/treemap.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/treemap/" class="btn btn-primary">R graph gallery</a>
+<a href="https://www.r-graph-gallery.com/treemap.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/treemap/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.react-graph-gallery.com/treemap" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/treemap.html" class="btn btn-primary">D3 gallery</a>
 </p>
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 
 
