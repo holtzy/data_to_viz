@@ -284,8 +284,8 @@ plot. Definition, examples, input data, common caveats, tool to build it and pot
                          </div>
 
               <div class="mycontent">
-<div id="definition" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Definition</h1>
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
 <p>A donut plot is a pie chart with a hole in the center. It’s a way to
 show the distribution of a categorical variable, but it can be a little
@@ -302,7 +302,7 @@ the exact proportion.</p>
 <span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="at">category=</span><span class="fu">c</span>(<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>),</span>
 <span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">count=</span><span class="fu">c</span>(<span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">30</span>)</span>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a> </span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Compute percentages</span></span>
 <span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>data<span class="sc">$</span>fraction <span class="ot">&lt;-</span> data<span class="sc">$</span>count <span class="sc">/</span> <span class="fu">sum</span>(data<span class="sc">$</span>count)</span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
@@ -329,8 +329,8 @@ the exact proportion.</p>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
 <p><img src="donut_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
-<div id="what-for" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> What for?</h1>
+<div id="what-for" class="section level1">
+<h1>What for?</h1>
 <hr />
 <p><strong>Donut plots</strong> are used to visualize the
 <em>distribution</em> of <strong>categorical data</strong>. They are
@@ -357,8 +357,8 @@ plot for enhanced data interpretation.</li>
 presentations and reports.</li>
 </ul>
 </div>
-<div id="variation" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Variation</h1>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
 <p>The donut plot is a variation of different charts. Here are some
 examples:</p>
@@ -371,12 +371,8 @@ chart</a>: A bar chart is a chart with rectangular bars with lengths
 proportional to the values they represent.</li>
 </ul>
 </div>
-<div id="related" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Related</h1>
-<hr />
-</div>
-<div id="related" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Related</h1>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -392,26 +388,26 @@ and adopt it.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/lollipop.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/LollipopSmall.png">
+<a href="http://www.data-to-viz.com/caveat/pie.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/PieSmall.png">
 <p class="mytitlerelated">
-Lollipop plot
+Pie chart
 </p>
 <p class="mytextrelated">
-A fancy barplot where bars are replaced with a dot and a segment. Allows
-even more options when it comes to stacking.
+A circular statistical graphic, which is divided into slices to
+illustrate numerical proportions.
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/wordcloud.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/WordCloudSmall.png">
+<a href="http://www.data-to-viz.com/graph/barplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png">
 <p class="mytitlerelated">
-Wordcloud
+Barplot
 </p>
 <p class="mytextrelated">
-A visual representation of text data, where word size is relative to
-their frequency.
+A chart with rectangular bars with lengths proportional to the values
+they represent. Use it to compare values.
 </p>
 </a>
 </div>
@@ -429,8 +425,8 @@ it if you have a limited dataset size.
 </div>
 </div>
 </div>
-<div id="code" class="section level1" number="6">
-<h1><span class="header-section-number">6</span> Build your own</h1>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
 <p>The <a href="https://r-graph-gallery.com/doughnut-plot.html">R</a>,
 <a href="https:/python-graph-gallery.com/donut-plot/">Python</a>, <a

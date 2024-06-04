@@ -284,8 +284,8 @@ bundling. Definition, examples, input data, common caveats, tool to build it and
                          </div>
 
               <div class="mycontent">
-<div id="definition" class="section level1" number="1">
-<h1><span class="header-section-number">1</span> Definition</h1>
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
 <p><code>Hierarchical Edge Bundling</code> allows to visualize
 <code>adjacency relations</code> between entities organized in a
@@ -328,9 +328,9 @@ as follow:</p>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a><span class="co"># The connection object must refer to the ids of the leaves:</span></span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>from <span class="ot">=</span> <span class="fu">match</span>( connections<span class="sc">$</span>from, vertices<span class="sc">$</span>name)</span>
 <span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>to <span class="ot">=</span> <span class="fu">match</span>( connections<span class="sc">$</span>to, vertices<span class="sc">$</span>name)</span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a> </span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co"># Basic dendrogram</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>(<span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">y=</span>y<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">filter =</span> leaf, <span class="at">label=</span>shortName, <span class="at">angle =</span> angle, <span class="at">hjust=</span>hjust), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>    <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
@@ -352,9 +352,9 @@ between the 2 elements (right).</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>to_head <span class="ot">=</span> <span class="fu">match</span>( connections<span class="sc">$</span>to, vertices<span class="sc">$</span>name) <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">1</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># Basic dendrogram</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>(<span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from_head, <span class="at">to =</span> to_head), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">width=</span><span class="dv">2</span>, <span class="at">tension=</span><span class="dv">0</span>) <span class="sc">+</span> </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from_head, <span class="at">to =</span> to_head), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">width=</span><span class="dv">2</span>, <span class="at">tension=</span><span class="dv">0</span>) <span class="sc">+</span></span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">y=</span>y<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">filter =</span> leaf, <span class="at">label=</span>shortName, <span class="at">angle =</span> angle, <span class="at">hjust=</span>hjust), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
@@ -364,9 +364,9 @@ between the 2 elements (right).</p>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    ) <span class="sc">+</span></span>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>))</span>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="fu">geom_edge_link</span>(<span class="at">size=</span><span class="fl">0.4</span>, <span class="at">alpha=</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from_head, <span class="at">to =</span> to_head), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">width=</span><span class="dv">2</span>, <span class="at">tension=</span><span class="fl">0.9</span>) <span class="sc">+</span> </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from_head, <span class="at">to =</span> to_head), <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">width=</span><span class="dv">2</span>, <span class="at">tension=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
 <span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">y=</span>y<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">filter =</span> leaf, <span class="at">label=</span>shortName, <span class="at">angle =</span> angle, <span class="at">hjust=</span>hjust), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
 <span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
@@ -390,8 +390,8 @@ clutter, while fanning them out at their terminus in order to plus them
 in.</p>
 </blockquote>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Make the plot</span></span>
-<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from, <span class="at">to =</span> to), <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>    <span class="fu">geom_conn_bundle</span>(<span class="at">data =</span> <span class="fu">get_con</span>(<span class="at">from =</span> from, <span class="at">to =</span> to), <span class="at">alpha =</span> <span class="fl">0.1</span>, <span class="at">colour=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
 <span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>    <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">y=</span>y<span class="sc">*</span><span class="fl">1.01</span>, <span class="at">filter =</span> leaf, <span class="at">label=</span>shortName, <span class="at">angle =</span> angle, <span class="at">hjust=</span>hjust), <span class="at">size=</span><span class="fl">1.5</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
 <span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>    <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
 <span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="fu">theme_void</span>() <span class="sc">+</span></span>
@@ -412,8 +412,8 @@ Edge Bundles: Visualization of Adjacency Relations in Hierarchical
 Data</a>. <em>IEEE Transactions on Visualization and Computer Graphics
 12(5)</em>.</p>
 </div>
-<div id="what-for" class="section level1" number="2">
-<h1><span class="header-section-number">2</span> What for</h1>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
 <p>Hierarchical edge bundling reduces visual clutter and also visualizes
 implicit adjacency edges between parent nodes that are the result of
@@ -433,8 +433,8 @@ on the right makes a neat figure:</p>
 href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=4015425">Holten
 2006.</a></p>
 </div>
-<div id="variation" class="section level1" number="3">
-<h1><span class="header-section-number">3</span> Variation</h1>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
 <p>Because I love this kind of graphic so much, I feel like displaying a
 few examples</p>
@@ -462,8 +462,8 @@ the hierarchical edge bundling technique:</li>
 <img src="IMG/bundle_eigen.png" alt="img" width="600" height="600">
 </center>
 </div>
-<div id="related" class="section level1" number="4">
-<h1><span class="header-section-number">4</span> Related</h1>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
@@ -515,8 +515,8 @@ entities through arcs.
 </div>
 </div>
 </div>
-<div id="code" class="section level1" number="5">
-<h1><span class="header-section-number">5</span> Build your own</h1>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
 <p>The <a
 href="https://r-graph-gallery.com/hierarchical-edge-bundling.html">R</a>,

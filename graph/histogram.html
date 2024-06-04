@@ -1,404 +1,538 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Histogram &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Histogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Histogram" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Histogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/histogram.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Histogram &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Histogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Histogram" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png" />
-<meta property="og:description" content="An extensive description of Histogram. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/histogram.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Histogram</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Histogram</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
-<p>A histogram is an accurate graphical representation of the distribution of a numeric variable. It takes as input numeric variables only. The variable is cut into several bins, and the number of observation per bin is represented by the height of the bar.</p>
-<p>Here is an example showing the distribution of the night price of Rbnb appartements in the south of France. Price range is divided per 10 euros interval. For example, there are slightly less than 750 appartements with a night price between 100 and 110 euros:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>)
-
-<span class="co"># Make the histogram</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>( price<span class="op">&lt;</span><span class="dv">300</span> ) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>price)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">stat_bin</span>(<span class="dt">breaks=</span><span class="kw">seq</span>(<span class="dv">0</span>,<span class="dv">300</span>,<span class="dv">10</span>), <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Night price distribution of Airbnb appartements&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p>A histogram is an accurate graphical representation of the
+distribution of a numeric variable. It takes as input numeric variables
+only. The variable is cut into several bins, and the number of
+observation per bin is represented by the height of the bar.</p>
+<p>Here is an example showing the distribution of the night price of
+Rbnb appartements in the south of France. Price range is divided per 10
+euros interval. For example, there are slightly less than 750
+appartements with a night price between 100 and 110 euros:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="co"># Make the histogram</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="fu">filter</span>( price<span class="sc">&lt;</span><span class="dv">300</span> ) <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>price)) <span class="sc">+</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>    <span class="fu">stat_bin</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">300</span>,<span class="dv">10</span>), <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Night price distribution of Airbnb appartements&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code></pre></div>
 <p><img src="histogram_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="what-for">What for</h1>
+</div>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
-<p>Histogram are used to study the distribution of one or a few variables. Checking the distribution of your variables one by one is probably the first task you should do when you get a new dataset. It delivers a good quantity of information. Several distribution shapes exist, here is an illustration of the 6 most common ones:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
-data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;edge peak&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;comb&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;uniform&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;bimodal&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;skewed&quot;</span>, <span class="dv">1000</span>) ),
-  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">900</span>), <span class="kw">rep</span>(<span class="dv">3</span>, <span class="dv">100</span>), <span class="kw">rnorm</span>(<span class="dv">360</span>, <span class="dt">sd=</span><span class="fl">0.5</span>), <span class="kw">rep</span>(<span class="kw">c</span>(<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="fl">0.75</span>,<span class="op">-</span><span class="fl">0.5</span>,<span class="op">-</span><span class="fl">0.25</span>,<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>), <span class="dv">80</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">runif</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="op">-</span><span class="dv">2</span>), <span class="kw">rnorm</span>(<span class="dv">500</span>, <span class="dt">mean=</span><span class="dv">2</span>), <span class="kw">abs</span>(<span class="kw">log</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>))) )
-)
-
-<span class="co"># Represent it</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.9</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>type, <span class="dt">scale=</span><span class="st">&quot;free_x&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
-      <span class="dt">axis.title.x=</span><span class="kw">element_blank</span>(),
-      <span class="dt">axis.text.x=</span><span class="kw">element_blank</span>(),
-      <span class="dt">axis.ticks.x=</span><span class="kw">element_blank</span>()
-    )</code></pre></div>
+<p>Histogram are used to study the distribution of one or a few
+variables. Checking the distribution of your variables one by one is
+probably the first task you should do when you get a new dataset. It
+delivers a good quantity of information. Several distribution shapes
+exist, here is an illustration of the 6 most common ones:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Build dataset with different distributions</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&quot;edge peak&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;comb&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;normal&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;uniform&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;bimodal&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;skewed&quot;</span>, <span class="dv">1000</span>) ),</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>( <span class="fu">rnorm</span>(<span class="dv">900</span>), <span class="fu">rep</span>(<span class="dv">3</span>, <span class="dv">100</span>), <span class="fu">rnorm</span>(<span class="dv">360</span>, <span class="at">sd=</span><span class="fl">0.5</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="sc">-</span><span class="fl">0.75</span>,<span class="sc">-</span><span class="fl">0.5</span>,<span class="sc">-</span><span class="fl">0.25</span>,<span class="dv">0</span>,<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>), <span class="dv">80</span>), <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="fu">runif</span>(<span class="dv">1000</span>), <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="at">mean=</span><span class="sc">-</span><span class="dv">2</span>), <span class="fu">rnorm</span>(<span class="dv">500</span>, <span class="at">mean=</span><span class="dv">2</span>), <span class="fu">abs</span>(<span class="fu">log</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>))) )</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Represent it</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>value)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="at">alpha=</span><span class="fl">0.9</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>type, <span class="at">scale=</span><span class="st">&quot;free_x&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>      <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>      <span class="at">axis.title.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      <span class="at">axis.text.x=</span><span class="fu">element_blank</span>(),</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      <span class="at">axis.ticks.x=</span><span class="fu">element_blank</span>()</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="histogram_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Checking this distribution also helps you discovering mistakes in the data. For example, the <code>comb</code> distribution can often denote a rounding that has been applied to the variable or another mistake.</p>
-<p>As a second step, histogram allow to compare the distribution of <strong>a few</strong> variables. Don’t compare more than 3 or 4, it would make the figure cluttered and unreadable. This comparison can be done showing the 2 variables on the same graphic and using transparency.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Build dataset with different distributions</span>
-data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">type =</span> <span class="kw">c</span>( <span class="kw">rep</span>(<span class="st">&quot;variable 1&quot;</span>, <span class="dv">1000</span>), <span class="kw">rep</span>(<span class="st">&quot;variable 2&quot;</span>, <span class="dv">1000</span>) ),
-  <span class="dt">value =</span> <span class="kw">c</span>( <span class="kw">rnorm</span>(<span class="dv">1000</span>), <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">4</span>) )
-)
-
-<span class="co"># Represent it</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value, <span class="dt">fill=</span>type)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_histogram</span>( <span class="dt">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_manual</span>(<span class="dt">values=</span><span class="kw">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">labs</span>(<span class="dt">fill=</span><span class="st">&quot;&quot;</span>)</code></pre></div>
+<p>Checking this distribution also helps you discovering mistakes in the
+data. For example, the <code>comb</code> distribution can often denote a
+rounding that has been applied to the variable or another mistake.</p>
+<p>As a second step, histogram allow to compare the distribution of
+<strong>a few</strong> variables. Don’t compare more than 3 or 4, it
+would make the figure cluttered and unreadable. This comparison can be
+done showing the 2 variables on the same graphic and using
+transparency.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Build dataset with different distributions</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&quot;variable 1&quot;</span>, <span class="dv">1000</span>), <span class="fu">rep</span>(<span class="st">&quot;variable 2&quot;</span>, <span class="dv">1000</span>) ),</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">c</span>( <span class="fu">rnorm</span>(<span class="dv">1000</span>), <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean=</span><span class="dv">4</span>) )</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co"># Represent it</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>value, <span class="at">fill=</span>type)) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="fu">geom_histogram</span>( <span class="at">color=</span><span class="st">&quot;#e9ecef&quot;</span>, <span class="at">alpha=</span><span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="fu">scale_fill_manual</span>(<span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">fill=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="histogram_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="variation">Variation</h1>
+</div>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
-<p>A common variation of the histogram is the mirror histogram: it puts face to face 2 histograms to compare their distribution.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">x =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>), 
-  <span class="dt">y =</span> <span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">mean=</span><span class="dv">2</span>)
-)
- 
-data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(x) ) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_histogram</span>( <span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> ..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span> ) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.8</span>, <span class="dt">y=</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable1&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_histogram</span>( <span class="kw">aes</span>(<span class="dt">x =</span> y, <span class="dt">y =</span> <span class="op">-</span>..density..), <span class="dt">binwidth =</span> <span class="kw">diff</span>(<span class="kw">range</span>(data<span class="op">$</span>x))<span class="op">/</span><span class="dv">30</span>, <span class="dt">fill=</span> <span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="fl">4.8</span>, <span class="dt">y=</span><span class="op">-</span><span class="fl">0.25</span>, <span class="dt">label=</span><span class="st">&quot;variable2&quot;</span>), <span class="dt">color=</span><span class="st">&quot;#404080&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;value of x&quot;</span>)</code></pre></div>
+<p>A common variation of the histogram is the mirror histogram: it puts
+face to face 2 histograms to compare their distribution.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>  <span class="at">x =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>),</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="at">y =</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean=</span><span class="dv">2</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(x) ) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="fu">geom_histogram</span>( <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> ..density..), <span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(data<span class="sc">$</span>x))<span class="sc">/</span><span class="dv">30</span>, <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span> ) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">geom_label</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="fl">4.8</span>, <span class="at">y=</span><span class="fl">0.25</span>, <span class="at">label=</span><span class="st">&quot;variable1&quot;</span>), <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="fu">geom_histogram</span>( <span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> <span class="sc">-</span>..density..), <span class="at">binwidth =</span> <span class="fu">diff</span>(<span class="fu">range</span>(data<span class="sc">$</span>x))<span class="sc">/</span><span class="dv">30</span>, <span class="at">fill=</span> <span class="st">&quot;#404080&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="fu">geom_label</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="fl">4.8</span>, <span class="at">y=</span><span class="sc">-</span><span class="fl">0.25</span>, <span class="at">label=</span><span class="st">&quot;variable2&quot;</span>), <span class="at">color=</span><span class="st">&quot;#404080&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;value of x&quot;</span>)</span></code></pre></div>
 <p><img src="histogram_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<h1 id="mistake">Common mistakes</h1>
+</div>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <ul>
-<li><a href="">Try several bin size</a>, it can lead to very different conclusions.</li>
+<li><a href="">Try several bin size</a>, it can lead to very different
+conclusions.</li>
 <li>Don’t use weird color sheme. It does not give any more insight.</li>
-<li>Don’t confound it with a <a href="barplot.html">barplot</a>. A barplot gives a value for each group of a categoric variable. Here, we have only a numeric variable and we chack its distribution.</li>
-<li><a href="">Don’t compare more than ~3 groups</a> in the same histogram. The graphic gets cluttered and hardly understandable. Instead use a violin plot, a boxplot, a ridgeline plot or use small multiple.</li>
+<li>Don’t confound it with a <a href="">barplot</a>. A barplot gives a
+value for each group of a categoric variable. Here, we have only a
+numeric variable and we chack its distribution.</li>
+<li><a href="">Don’t compare more than ~3 groups</a> in the same
+histogram. The graphic gets cluttered and hardly understandable. Instead
+use a violin plot, a boxplot, a ridgeline plot or use small
+multiple.</li>
 <li>Using unequal bin widths</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
 <p class="mytitlerelated">
 Density
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Very close from an histogram. Show a density of distribution instead of
+bars
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
 <p class="mytitlerelated">
 Ridgeline
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+Allows to compare the distribution of a few variables. Usefull if there
+is a pattern to observe
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
 <p class="mytitlerelated">
 Boxplot
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Summarize the distribution of several numeric variables using boxes. Use
+it if you have a limited dataset size.
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
 <p class="mytitlerelated">
 Violin
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+Show the density of several numeric variables. Use it with a large
+amount of data
 </p>
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://r-graph-gallery.com/histogram.html">R</a>, <a
+href="https:/python-graph-gallery.com/histogram/">Python</a>, <a
+href="https://www.react-graph-gallery.com/histogram">React</a> and <a
+href="https://d3-graph-gallery.com/histogram.html">D3</a> graph
+galleries are 4 websites providing hundreds of chart example, always
+providing the reproducible code. Click the button below to see how to
+build the chart you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/histogram/" class="btn btn-primary">R graph gallery</a> <a href="https://python-graph-gallery.com/histogram/" class="btn btn-primary">Python gallery</a>
+<a href="https://r-graph-gallery.com/histogram.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/histogram/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/histogram" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/histogram.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/histogram.html;  
-        this.page.identifier = histogram; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -419,28 +553,29 @@ Show the density of several numeric variables. Use it with a large amount of dat
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

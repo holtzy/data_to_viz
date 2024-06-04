@@ -31,7 +31,7 @@ output:
 # Definition {#definition}
 ***
 
-A `heatmap` is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.
+A `heatmap` is a graphical representation of data where the individual values contained in a **matrix** are represented as colors. It is a bit like looking a data table from above.
 
 Here is an example showing 8 general features like population or life expectancy for about 30 countries in 2015. Data come from the French National Institute of [Demographic Studies](https://www.ined.fr/en/everything_about_population/data/all-countries/?lst_continent=908&lst_pays=926).
 
@@ -95,11 +95,11 @@ p
 
 # What for
 ***
-A heatmap is really useful to display a `general view` of numerical data, not to extract specific data point. In the graphic above, the huge population size of China and India pops out for example.
+A heatmap is really useful to display a `general view` of numerical data, **not** to extract specific data point. In the graphic above, the huge population size of China and India pops out for example.
 
 <br>
 
-A heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks which countries tend to have the same features on their numeric variables, and therefore which countries are similar. The usual way to represent the result is to use [dendrograms](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn around the heatmap:
+A heatmap is also useful to display the result of `hierarchical clustering`. Basically, clustering checks which countries tend to have the same features on their numeric variables, and therefore which countries are **similar**. The usual way to represent the result is to use [dendrograms](https://www.data-to-viz.com/graph/dendrogram.html). This type of chart can be drawn around the heatmap:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=6, fig.width=6}
 p <- heatmaply(mat,
@@ -187,11 +187,11 @@ p <- heatmaply(mat,
 
 
 
-- For a static heatmap, a common practice is to display the exact value of each cell in numbers. Indeed, it is hard to translate a color into a precise number.
+- For a static heatmap, a common practice is to display the **exact value** of each cell in numbers. Indeed, it is hard to translate a color into a precise number.
 
-- Heatmaps can also be used for time series where there is a regular pattern in time.
+- Heatmaps can also be used for time series where there is a **regular pattern** in time.
 
-- Heatmaps can be applied to adjacency matrices.
+- Heatmaps can be applied to **adjacency matrices**.
 
 
 
@@ -204,7 +204,7 @@ p <- heatmaply(mat,
 ***
 
 - Often need to normalize your data
-- Use cluster analysis and thus permute the rows and the columns of the matrix to place similar values near each other according to the clustering
+- Use **cluster analysis** and thus permute the rows and the columns of the matrix to place similar values near each other according to the clustering
 - Color palette is important
 
 

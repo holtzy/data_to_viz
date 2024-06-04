@@ -172,19 +172,14 @@ If you're interested to see more examples, there is a [whole website about it](h
 # Build your own {#code}
 ***
 
-The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com/sankey-diagram.html), [Python](https://www.python-graph-gallery.com/sankey-diagram/), [React](https://www.react-graph-gallery.com/sankey-diagram) and [D3](https://d3-graph-gallery.com/sankey.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/sankey-diagram/" class="btn btn-primary">R graph gallery</a>
+<a href="https://www.r-graph-gallery.com/sankey-diagram.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/sankey-diagram/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.react-graph-gallery.com/sankey-diagram" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/sankey.html" class="btn btn-primary">D3 gallery</a>
 </p>
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 
 

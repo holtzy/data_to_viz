@@ -188,7 +188,9 @@ Hexbin map uses hexagons to split the area in several parts and attribute a colo
 # Common mistakes {#mistake}
 ***
 
-All the mistakes presented in the [choropleth](https://www.data-to-viz.com/graph/choropleth.html) section apply
+- Normalize your variable: you cannot compare raw numbers between regions of distinct size or population.
+- Take a huge care when choosing the continuous color palette.
+- Don't forget the legend.
 
 
 

@@ -190,13 +190,13 @@ p1 + p2
 # Build your own {#code}
 ***
 
-The [R](https://r-graph-gallery.com/line-plot.html), [Python](https:/python-graph-gallery.com/line-chart/), [React](https://www.react-graph-gallery.com/barplot) and [D3](https://d3-graph-gallery.com/barplot.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://r-graph-gallery.com/line-plot.html), [Python](https:/python-graph-gallery.com/line-chart/), [React](https://www.react-graph-gallery.com/line-chart) and [D3](https://d3-graph-gallery.com/line.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://r-graph-gallery.com/line-plot.html" class="btn btn-primary">R graph gallery</a>
 <a href="https://python-graph-gallery.com/line-chart/" class="btn btn-primary">Python gallery</a>
-<a href="https://www.react-graph-gallery.com/barplot" class="btn btn-primary">React gallery</a>
-<a href="https://d3-graph-gallery.com/barplot.html" class="btn btn-primary">D3 gallery</a>
+<a href="https://www.react-graph-gallery.com/line-chart" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/line.html" class="btn btn-primary">D3 gallery</a>
 </p>
 
 </div>

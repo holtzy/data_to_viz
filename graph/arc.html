@@ -315,7 +315,7 @@ network diagram</a> (left) and an arc diagram (right)</p>
 <span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>(links)</span>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co"># Make the usual network diagram</span></span>
-<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>p1 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph) <span class="sc">+</span> </span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>p1 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph) <span class="sc">+</span></span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.3</span>, <span class="at">edge_width=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>  <span class="fu">geom_node_point</span>( <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  <span class="fu">geom_node_text</span>( <span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">repel =</span> <span class="cn">TRUE</span>, <span class="at">size=</span><span class="dv">8</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
@@ -323,10 +323,10 @@ network diagram</a> (left) and an arc diagram (right)</p>
 <span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)</span>
-<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  ) </span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  )</span>
 <span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a></span>
 <span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a><span class="co"># Make a cord diagram</span></span>
-<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>p2 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>p2 <span class="ot">&lt;-</span>  <span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span></span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.3</span>, <span class="at">edge_width=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  <span class="fu">geom_node_point</span>( <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">size=</span><span class="dv">5</span>) <span class="sc">+</span></span>
 <span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="fu">geom_node_text</span>( <span class="fu">aes</span>(<span class="at">label=</span>name), <span class="at">repel =</span> <span class="cn">FALSE</span>, <span class="at">size=</span><span class="dv">8</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">nudge_y=</span><span class="sc">-</span><span class="fl">0.1</span>) <span class="sc">+</span></span>
@@ -334,7 +334,7 @@ network diagram</a> (left) and an arc diagram (right)</p>
 <span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
 <span id="cb1-37"><a href="#cb1-37" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
 <span id="cb1-38"><a href="#cb1-38" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">rep</span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)</span>
-<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  ) </span>
+<span id="cb1-39"><a href="#cb1-39" tabindex="-1"></a>  )</span>
 <span id="cb1-40"><a href="#cb1-40" tabindex="-1"></a></span>
 <span id="cb1-41"><a href="#cb1-41" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
@@ -366,10 +366,10 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>dataUU <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Transform the adjacency matrix in a long format</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>connect <span class="ot">&lt;-</span> dataUU <span class="sc">%&gt;%</span> </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>connect <span class="ot">&lt;-</span> dataUU <span class="sc">%&gt;%</span></span>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span><span class="st">&quot;to&quot;</span>, <span class="at">value=</span><span class="st">&quot;value&quot;</span>, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">to =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>,to)) <span class="sc">%&gt;%</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">na.omit</span>() </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co"># Number of connection per person</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="fu">c</span>( <span class="fu">as.character</span>(connect<span class="sc">$</span>from), <span class="fu">as.character</span>(connect<span class="sc">$</span>to)) <span class="sc">%&gt;%</span></span>
@@ -387,13 +387,13 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="co">#max(com$membership)</span></span>
 <span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a></span>
 <span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="co">#Reorder dataset and make the graph</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>  <span class="fu">mutate</span>( <span class="at">grp =</span> com<span class="sc">$</span>membership) <span class="sc">%&gt;%</span></span>
 <span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="fu">arrange</span>(grp) <span class="sc">%&gt;%</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name=</span><span class="fu">factor</span>(name, name))</span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a></span>
 <span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="co"># keep only 10 first communities</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span></span>
 <span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  <span class="fu">filter</span>(grp<span class="sc">&lt;</span><span class="dv">16</span>)</span>
 <span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a></span>
 <span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a><span class="co"># keep only this people in edges</span></span>
@@ -409,7 +409,7 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb2-45"><a href="#cb2-45" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">sample</span>(mycolor, <span class="fu">length</span>(mycolor))</span>
 <span id="cb2-46"><a href="#cb2-46" tabindex="-1"></a></span>
 <span id="cb2-47"><a href="#cb2-47" tabindex="-1"></a><span class="co"># Make the graph</span></span>
-<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb2-48"><a href="#cb2-48" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span></span>
 <span id="cb2-49"><a href="#cb2-49" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.2</span>, <span class="at">edge_width=</span><span class="fl">0.3</span>, <span class="at">fold=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb2-50"><a href="#cb2-50" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>n, <span class="at">color=</span><span class="fu">as.factor</span>(grp), <span class="at">fill=</span>grp), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb2-51"><a href="#cb2-51" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
@@ -421,7 +421,7 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb2-57"><a href="#cb2-57" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),</span>
 <span id="cb2-58"><a href="#cb2-58" tabindex="-1"></a>    <span class="at">panel.spacing=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)</span>
 <span id="cb2-59"><a href="#cb2-59" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </span></code></pre></div>
+<span id="cb2-60"><a href="#cb2-60" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>))</span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-2-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 <div class="mycontent">
@@ -460,7 +460,7 @@ in a random order. Harder to find any insight isn’t it?</p>
 <div class="row"
 style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right: auto;">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#Reorder dataset randomly</span></span>
-<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>coauth <span class="ot">&lt;-</span> coauth <span class="sc">%&gt;%</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">slice</span>( <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(coauth)), <span class="fu">nrow</span>(coauth)))</span>
 <span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="co"># Create a graph object with igraph</span></span>
@@ -471,7 +471,7 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">sample</span>(mycolor, <span class="fu">length</span>(mycolor))</span>
 <span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a></span>
 <span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="co"># Make the graph</span></span>
-<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout=</span><span class="st">&quot;linear&quot;</span>) <span class="sc">+</span></span>
 <span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>  <span class="fu">geom_edge_arc</span>(<span class="at">edge_colour=</span><span class="st">&quot;black&quot;</span>, <span class="at">edge_alpha=</span><span class="fl">0.2</span>, <span class="at">edge_width=</span><span class="fl">0.3</span>, <span class="at">fold=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">size=</span>n, <span class="at">color=</span><span class="fu">as.factor</span>(grp), <span class="at">fill=</span>grp), <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range=</span><span class="fu">c</span>(<span class="fl">0.5</span>,<span class="dv">8</span>)) <span class="sc">+</span></span>
@@ -483,7 +483,7 @@ style="padding-left: 50px; padding-right: 50px; margin-left: auto; margin-right:
 <span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="at">plot.margin=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">0.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>),</span>
 <span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="at">panel.spacing=</span><span class="fu">unit</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="fl">3.4</span>,<span class="dv">0</span>), <span class="st">&quot;null&quot;</span>)</span>
 <span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>)) </span></code></pre></div>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a>  <span class="fu">expand_limits</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.2</span>, <span class="fl">1.2</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">5.6</span>, <span class="fl">1.2</span>))</span></code></pre></div>
 <p><img src="arc_files/figure-html/unnamed-chunk-4-1.png" width="1440" style="display: block; margin: auto;" /></p>
 </div>
 <div class="mycontent">

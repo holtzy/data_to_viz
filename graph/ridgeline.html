@@ -1,406 +1,562 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Ridgeline plot &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Ridgeline
+plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Ridgeline plot" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/Joyplot150.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Ridgeline
+plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/ridgeline.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Ridgeline plot &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Ridgeline plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Ridgeline plot" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/Joyplot150.png" />
-<meta property="og:description" content="An extensive description of Ridgeline plot. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/ridgeline.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Joyplot150.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Ridgeline plot</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Joyplot150.png"></a>
-  <br><br>
-  <p class="mytitle">Ridgeline plot</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> - 
-    <a href="#related">related</a> - 
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
-<p>A Ridgeline plot (sometimes called Joyplot) shows the distribution of a numeric value for several groups. Distribution can be represented using <a href="http://www.data-to-viz.com/graph/histogram.html">histograms</a> or <a href="http://www.data-to-viz.com/graph/density.html">density plots</a>, all aligned to the same horizontal scale and presented with a slight overlap.</p>
+<p>A Ridgeline plot (sometimes called Joyplot) shows the distribution of
+a numeric value for several groups. Distribution can be represented
+using <a
+href="http://www.data-to-viz.com/graph/histogram.html">histograms</a> or
+<a href="http://www.data-to-viz.com/graph/density.html">density
+plots</a>, all aligned to the same horizontal scale and presented with a
+slight overlap.</p>
 <p><br></p>
-<p>Here is an example showing how people <a href="http://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html">perceive probability</a>. On the <a href="https://www.reddit.com/r/SampleSize/">/r/samplesize</a> thread of reddit, questions like <em>What probability would you assign to the phrase “Highly likely”</em> were asked. Answers between 0 and 100 were recorded, and here is the distribution for each question:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)
-data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">gather</span>(<span class="dt">key=</span><span class="st">&quot;text&quot;</span>, <span class="dt">value=</span><span class="st">&quot;value&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">gsub</span>(<span class="st">&quot;</span><span class="ch">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>,text)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">value =</span> <span class="kw">round</span>(<span class="kw">as.numeric</span>(value),<span class="dv">0</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(text <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Almost Certainly&quot;</span>,<span class="st">&quot;Very Good Chance&quot;</span>,<span class="st">&quot;We Believe&quot;</span>,<span class="st">&quot;Likely&quot;</span>,<span class="st">&quot;About Even&quot;</span>, <span class="st">&quot;Little Chance&quot;</span>, <span class="st">&quot;Chances Are Slight&quot;</span>, <span class="st">&quot;Almost No Chance&quot;</span>))
-
-<span class="kw">library</span>(ggridges)
-
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">fct_reorder</span>(text, value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">y=</span>text, <span class="dt">x=</span>value,  <span class="dt">fill=</span>text)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density_ridges</span>(<span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">bandwidth=</span><span class="dv">4</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
-      <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Assigned Probability (%)&quot;</span>)</code></pre></div>
+<p>Here is an example showing how people <a
+href="http://www.data-to-viz.com/story/OneNumOneCatSeveralObs.html">perceive
+probability</a>. On the <a
+href="https://www.reddit.com/r/SampleSize/">/r/samplesize</a> thread of
+reddit, questions like <em>What probability would you assign to the
+phrase “Highly likely”</em> were asked. Answers between 0 and 100 were
+recorded, and here is the distribution for each question:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>  <span class="fu">gather</span>(<span class="at">key=</span><span class="st">&quot;text&quot;</span>, <span class="at">value=</span><span class="st">&quot;value&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">.&quot;</span>, <span class="st">&quot; &quot;</span>,text)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">value =</span> <span class="fu">round</span>(<span class="fu">as.numeric</span>(value),<span class="dv">0</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">filter</span>(text <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Almost Certainly&quot;</span>,<span class="st">&quot;Very Good Chance&quot;</span>,<span class="st">&quot;We Believe&quot;</span>,<span class="st">&quot;Likely&quot;</span>,<span class="st">&quot;About Even&quot;</span>, <span class="st">&quot;Little Chance&quot;</span>, <span class="st">&quot;Chances Are Slight&quot;</span>, <span class="st">&quot;Almost No Chance&quot;</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="fu">library</span>(ggridges)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">fct_reorder</span>(text, value)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">y=</span>text, <span class="at">x=</span>value,  <span class="at">fill=</span>text)) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>    <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">bandwidth=</span><span class="dv">4</span>) <span class="sc">+</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a>      <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>      <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Assigned Probability (%)&quot;</span>)</span></code></pre></div>
 <p><img src="ridgeline_files/figure-html/unnamed-chunk-1-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p><strong>Disclaimer</strong>: This idea originally comes from a publication of the <a href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html">CIA</a> which resulted in this <a href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/fig18.gif/image.gif">figure</a>. Then, <a href="https://github.com/zonination">Zoni Nation</a> cleaned the reddit dataset and built <a href="https://github.com/zonination/perceptions">graphics with R</a>.</p>
-<h1 id="what-for">What for</h1>
+<p><strong>Disclaimer</strong>: This idea originally comes from a
+publication of the <a
+href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html">CIA</a>
+which resulted in this <a
+href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/fig18.gif/image.gif">figure</a>.
+Then, <a href="https://github.com/zonination">Zoni Nation</a> cleaned
+the reddit dataset and built <a
+href="https://github.com/zonination/perceptions">graphics with
+R</a>.</p>
+</div>
+<div id="what-for" class="section level1">
+<h1>What for</h1>
 <hr />
 <ul>
-<li><p>Ridgeline plots make sense when the number of group to represent is <code>medium to high</code>, and thus a classic window separation would take to much space. Indeed, the fact that groups overlap each other allows to use space more efficiently. If you have less than ~6 groups, dealing with other <a href="http://www.data-to-viz.com/#portfolio">distribution plots</a> is probably better.</p></li>
-<li><p>It works well when there is a clear pattern in the result, like if there is an obvious ranking in groups. Otherwise group will tend to overlap each other, leading to a messy plot not providing any insight.</p></li>
+<li><p>Ridgeline plots make sense when the number of group to represent
+is <code>medium to high</code>, and thus a classic window separation
+would take to much space. Indeed, the fact that groups overlap each
+other allows to use space more efficiently. If you have less than ~6
+groups, dealing with other <a
+href="http://www.data-to-viz.com/#portfolio">distribution plots</a> is
+probably better.</p></li>
+<li><p>It works well when there is a clear pattern in the result, like
+if there is an obvious ranking in groups. Otherwise group will tend to
+overlap each other, leading to a messy plot not providing any
+insight.</p></li>
 </ul>
-<h1 id="variation">Variation</h1>
+</div>
+<div id="variation" class="section level1">
+<h1>Variation</h1>
 <hr />
 <ul>
-<li>The above example is a ridgeline plot using a set of density plots. It is possible to use histograms as well:</li>
+<li>The above example is a ridgeline plot using a set of density plots.
+It is possible to use histograms as well:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text =</span> <span class="kw">fct_reorder</span>(text, value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">y=</span>text, <span class="dt">x=</span>value,  <span class="dt">fill=</span>text)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_density_ridges</span>(<span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">stat=</span><span class="st">&quot;binline&quot;</span>, <span class="dt">bins=</span><span class="dv">20</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
-      <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Assigned Probability (%)&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text =</span> <span class="fu">fct_reorder</span>(text, value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">y=</span>text, <span class="at">x=</span>value,  <span class="at">fill=</span>text)) <span class="sc">+</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>    <span class="fu">geom_density_ridges</span>(<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">stat=</span><span class="st">&quot;binline&quot;</span>, <span class="at">bins=</span><span class="dv">20</span>) <span class="sc">+</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>      <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>      <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Assigned Probability (%)&quot;</span>)</span></code></pre></div>
 <p><img src="ridgeline_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li>It is possible to color depending on the numeric variable instead of the categoric one. (code from the <a href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html">ridgeline R package</a> by <a href="https://github.com/clauswilke">Claus O. Wilke</a> )</li>
+<li>It is possible to color depending on the numeric variable instead of
+the categoric one. (code from the <a
+href="https://cran.r-project.org/web/packages/ggridges/vignettes/introduction.html">ridgeline
+R package</a> by <a href="https://github.com/clauswilke">Claus O.
+Wilke</a> )</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(lincoln_weather, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="st">`</span><span class="dt">Mean Temperature [F]</span><span class="st">`</span>, <span class="dt">y =</span> <span class="st">`</span><span class="dt">Month</span><span class="st">`</span>, <span class="dt">fill =</span> ..x..)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_density_ridges_gradient</span>(<span class="dt">scale =</span> <span class="dv">3</span>, <span class="dt">rel_min_height =</span> <span class="fl">0.01</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">name =</span> <span class="st">&quot;Temp. [F]&quot;</span>, <span class="dt">option =</span> <span class="st">&quot;C&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&#39;Temperatures in Lincoln NE in 2016&#39;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>,
-      <span class="dt">panel.spacing =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),
-      <span class="dt">strip.text.x =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">8</span>)
-    ) </code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggplot</span>(lincoln_weather, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Mean Temperature [F]</span><span class="st">`</span>, <span class="at">y =</span> <span class="st">`</span><span class="at">Month</span><span class="st">`</span>, <span class="at">fill =</span> ..x..)) <span class="sc">+</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">geom_density_ridges_gradient</span>(<span class="at">scale =</span> <span class="dv">3</span>, <span class="at">rel_min_height =</span> <span class="fl">0.01</span>) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">name =</span> <span class="st">&quot;Temp. [F]&quot;</span>, <span class="at">option =</span> <span class="st">&quot;C&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Temperatures in Lincoln NE in 2016&#39;</span>) <span class="sc">+</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>,</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>      <span class="at">panel.spacing =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;lines&quot;</span>),</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>      <span class="at">strip.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="ridgeline_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 <ul>
-<li>See more variations in the <a href="https://www.r-graph-gallery.com/ridgeline-plot/">R graph gallery</a>.</li>
+<li>See more variations in the <a
+href="https://www.r-graph-gallery.com/ridgeline-plot/">R graph
+gallery</a>.</li>
 </ul>
-<h1 id="mistake">Common mistakes</h1>
+</div>
+<div id="mistake" class="section level1">
+<h1>Common mistakes</h1>
 <hr />
 <ul>
-<li>As with histogram or density plot, <a href="http://www.data-to-viz.com/caveat/bin_size.html">play with bin size / bandwidth argument</a>.</li>
-<li>Think about <a href="http://www.data-to-viz.com/caveat/order_data.html">ordering groups</a> in a smart way.</li>
-<li>Ridgeline plot works well when there is a <code>clear pattern</code> to discover since it hides a part of the data where the overlap takes place.</li>
+<li>As with histogram or density plot, <a
+href="http://www.data-to-viz.com/caveat/bin_size.html">play with bin
+size / bandwidth argument</a>.</li>
+<li>Think about <a
+href="http://www.data-to-viz.com/caveat/order_data.html">ordering
+groups</a> in a smart way.</li>
+<li>Ridgeline plot works well when there is a <code>clear pattern</code>
+to discover since it hides a part of the data where the overlap takes
+place.</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-sm-3">
-<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
+<a href="density.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png">
 <p class="mytitlerelated">
 Density
 </p>
 <p class="mytextrelated">
-Very close from an histogram. Show a density of distribution instead of bars
+Very close from an histogram. Show a density of distribution instead of
+bars
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
+<a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
 <p class="mytitlerelated">
-Ridgeline
+Histogram
 </p>
 <p class="mytextrelated">
-Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe
+Represent the value of entities using bars of various length. Use it if
+you have a large dataset.
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
+<a href="https://www.data-to-viz.com/caveat/boxplot.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png">
 <p class="mytitlerelated">
 Boxplot
 </p>
 <p class="mytextrelated">
-Summarize the distribution of several numeric variables using boxes. Use it if you have a limited dataset size.
+Summarize the distribution of several numeric variables using boxes. Use
+it if you have a limited dataset size.
 </p>
 </a>
 </div>
 <div class="col-sm-3">
-<a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
+<a href="violin.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png">
 <p class="mytitlerelated">
 Violin
 </p>
 <p class="mytextrelated">
-Show the density of several numeric variables. Use it with a large amount of data
+Show the density of several numeric variables. Use it with a large
+amount of data
 </p>
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
-<p>The <a href="https://www.r-graph-gallery.com">R</a> and <a href="https://www.python-graph-gallery.com">Python</a> graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a
+href="https://www.r-graph-gallery.com/ridgeline-plot.html">R</a>, <a
+href="https://www.python-graph-gallery.com/ridgeline/">Python</a>, <a
+href="https://www.react-graph-gallery.com/ridgeline">React</a> and <a
+href="https://d3-graph-gallery.com/ridgeline.html">D3</a> graph
+galleries are 4 websites providing hundreds of chart example, always
+providing the reproducible code. Click the button below to see how to
+build the chart you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com/ridgeline-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://www.r-graph-gallery.com/ridgeline-plot.html" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com/ridgeline/" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com/ridgeline" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com/ridgeline.html" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/ridgeline.html;  
-        this.page.identifier = ridgeline; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-    
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -421,28 +577,29 @@ Show the density of several numeric variables. Use it with a large amount of dat
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>
