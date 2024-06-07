@@ -1,268 +1,346 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <title>Sunburst &#8211; from Data to Viz</title>
 
-<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta
+      name="description"
+      content="An extensive description of Sunburst. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Sunburst" />
+    <meta
+      property="og:image"
+      content="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png"
+    />
+    <meta
+      property="og:description"
+      content="An extensive description of Sunburst. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/sunburst.html"
+    />
+    <meta property="og:type" content="website" />
 
-<title>Sunburst &#8211; from Data to Viz</title>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 300px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="An extensive description of Sunburst. Definition, examples, input data, common caveats, tool to build it and potential alternatives.">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Sunburst" />
-<meta property="og:image" content="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png" />
-<meta property="og:description" content="An extensive description of Sunburst. Definition, examples, input data, common caveats, tool to build it and potential alternatives." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/sunburst.html" />
-<meta property="og:type" content="website" />
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <a href="http://www.data-to-viz.com">
+        <img
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png"
+      /></a>
+      <br /><br />
+      <p class="mytitle">Sunburst</p>
+      <p style="color: #d0d0d0">
+        <a href="#definition">definition</a> - <a href="#mistake">mistake</a> -
+        <a href="#related">related</a> -
+        <a href="#code">code</a>
+      </p>
+    </div>
 
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 300px;
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-    height: 100%;
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <a href="http://www.data-to-viz.com"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png"></a>
-  <br><br>
-  <p class="mytitle">Sunburst</p>
-  <p style="color: #D0D0D0;">
-    <a href="#definition">definition</a> -
-    <a href="#mistake">mistake</a> -
-    <a href="#related">related</a> -
-    <a href="#code">code</a>
-  </p>
-</div>
-
-
-
-
-
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/sequences-0.1/sequences.css" rel="stylesheet" />
-<script src="libs/sunburst-binding-2.1.0/sunburst.js"></script>
+<script src="libs/sunburst-binding-2.1.8/sunburst.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Show Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
+                         </div>
 
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Show Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<div class="mycontent">
-<h1 id="definition">Definition</h1>
+              <div class="mycontent">
+<div id="definition" class="section level1">
+<h1>Definition</h1>
 <hr />
-<p>A <code>sunburst diagram</code> displays a hierarchical structure. The origin of the organization is represented by the center of the circle, and each level of the organization by an aditional ring. The last level (leaves) are located at the extreme outer part of the circle. It is very similar to a <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>, except it uses a <code>radial layout</code>.</p>
+<p>A <code>sunburst diagram</code> displays a hierarchical structure.
+The origin of the organization is represented by the center of the
+circle, and each level of the organization by an aditional ring. The
+last level (leaves) are located at the extreme outer part of the circle.
+It is very similar to a <a
+href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>,
+except it uses a <code>radial layout</code>.</p>
 <p><br></p>
 <p>A sunburst diagram can be used in 2 situations:</p>
-<h1 id="part-of-a-whole">Part of a whole</h1>
+<ul>
+<li><em>Part of a whole</em> - the sunburst diagram can be used to
+represent a part of a whole. In this case, the center of the circle
+represents the whole, and the outer part represents the parts. The
+following example shows the <a
+href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">world
+population</a> of 250 countries.</li>
+<li><em>Flows</em> - the sunburst diagram can also be used to represent
+flows. In this case, the center of the circle represents the origin of
+the flow, and the outer part represents the destination. The following
+example shows the professional state evolution of a set of people.</li>
+</ul>
+</div>
+<div id="part-of-a-whole" class="section level1">
+<h1>Part of a whole</h1>
 <hr />
-<p>Here is an example describing the <a href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">world population</a> of 250 countries. The world is divided in continent (group), continent are divided in regions (subgroup), and regions are divided in countries. In this tree structure, countries are considered as leaves: they are at the end of the branches. They are thus represented at the outer part of the circle.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(treemap)
-<span class="kw">library</span>(sunburstR)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;;&quot;</span>)
-data[ <span class="kw">which</span>(data<span class="op">$</span>value<span class="op">==-</span><span class="dv">1</span>),<span class="st">&quot;value&quot;</span>] &lt;-<span class="st"> </span><span class="dv">1</span>
-<span class="kw">colnames</span>(data) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;Continent&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Pop&quot;</span>)
-
-<span class="co"># Reformat data for the sunburstR package</span>
-data &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Continent <span class="op">!=</span><span class="st"> &quot;&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">path =</span> <span class="kw">paste</span>(Continent, Region, Country, <span class="dt">sep=</span><span class="st">&quot;-&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(path, Pop)
-
-<span class="co"># Plot</span>
-p &lt;-<span class="st"> </span><span class="kw">sunburst</span>(data, <span class="dt">legend=</span><span class="ot">FALSE</span>)</code></pre></div>
+<p>Here is an example describing the <a
+href="https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html">world
+population</a> of 250 countries. The world is divided in continent
+(group), continent are divided in regions (subgroup), and regions are
+divided in countries. In this tree structure, countries are considered
+as leaves: they are at the end of the branches. They are thus
+represented at the outer part of the circle.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(sunburstR)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/11_SevCatOneNumNestedOneObsPerGroup.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;;&quot;</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data[ <span class="fu">which</span>(data<span class="sc">$</span>value<span class="sc">==-</span><span class="dv">1</span>),<span class="st">&quot;value&quot;</span>] <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">colnames</span>(data) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Continent&quot;</span>, <span class="st">&quot;Region&quot;</span>, <span class="st">&quot;Country&quot;</span>, <span class="st">&quot;Pop&quot;</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Reformat data for the sunburstR package</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="fu">filter</span>(Continent <span class="sc">!=</span> <span class="st">&quot;&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">path =</span> <span class="fu">paste</span>(Continent, Region, Country, <span class="at">sep=</span><span class="st">&quot;-&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path, Pop)</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">sunburst</span>(data, <span class="at">legend=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <center>
-<div class="sunburst html-widget" id="htmlwidget-d01660ce13d297dab3f5" style="width:768px;height:480px; position:relative;">
+<div class="sunburst html-widget html-fill-item" id="htmlwidget-bad871803960bf2f4c8b" style="width:768px;height:480px; position:relative;">
 <div>
 <div class="sunburst-main">
 <div class="sunburst-sequence"></div>
@@ -276,47 +354,54 @@ p &lt;-<span class="st"> </span><span class="kw">sunburst</span>(data, <span cla
 </div>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-d01660ce13d297dab3f5">{"x":{"data":{"children":[{"name":"Asia","children":[{"name":"Southern Asia","children":[{"name":"Afghanistan","children":[],"size":25500100,"colname":"X3"},{"name":"Bangladesh","children":[],"size":152518015,"colname":"X3"},{"name":"Bhutan","children":[],"size":740990,"colname":"X3"},{"name":"India","children":[],"size":1236670000,"colname":"X3"},{"name":"Iran","children":[],"size":77068000,"colname":"X3"},{"name":"Maldives","children":[],"size":317280,"colname":"X3"},{"name":"Nepal","children":[],"size":26494504,"colname":"X3"},{"name":"Pakistan","children":[],"size":184845000,"colname":"X3"},{"name":"Sri Lanka","children":[],"size":20277597,"colname":"X3"}],"colname":"X2"},{"name":"Western Asia","children":[{"name":"Armenia","children":[],"size":3024100,"colname":"X3"},{"name":"Azerbaijan","children":[],"size":9235100,"colname":"X3"},{"name":"Bahrain","children":[],"size":1234571,"colname":"X3"},{"name":"Cyprus","children":[],"size":865878,"colname":"X3"},{"name":"Georgia","children":[],"size":1,"colname":"X3"},{"name":"Iraq","children":[],"size":34035000,"colname":"X3"},{"name":"Israel","children":[],"size":8092700,"colname":"X3"},{"name":"Jordan","children":[],"size":6512600,"colname":"X3"},{"name":"Kuwait","children":[],"size":3582054,"colname":"X3"},{"name":"Lebanon","children":[],"size":4822000,"colname":"X3"},{"name":"Oman","children":[],"size":3929000,"colname":"X3"},{"name":"Palestine","children":[],"size":1,"colname":"X3"},{"name":"Qatar","children":[],"size":2024707,"colname":"X3"},{"name":"Saudi Arabia","children":[],"size":29994272,"colname":"X3"},{"name":"Syria","children":[],"size":21898000,"colname":"X3"},{"name":"Turkey","children":[],"size":75627384,"colname":"X3"},{"name":"United Arab Emirates","children":[],"size":8264070,"colname":"X3"},{"name":"Yemen","children":[],"size":24527000,"colname":"X3"}],"colname":"X2"},{"name":"South","children":[{"name":"Eastern Asia","children":[{"name":"Brunei","children":[],"size":393162,"colname":"X4"},{"name":"Cambodia","children":[],"size":15135000,"colname":"X4"},{"name":"Indonesia","children":[],"size":237641326,"colname":"X4"},{"name":"Laos","children":[],"size":6580800,"colname":"X4"},{"name":"Malaysia","children":[],"size":29793600,"colname":"X4"},{"name":"Myanmar","children":[],"size":1,"colname":"X4"},{"name":"Philippines","children":[],"size":98678000,"colname":"X4"},{"name":"Singapore","children":[],"size":5399200,"colname":"X4"},{"name":"Thailand","children":[],"size":65926261,"colname":"X4"},{"name":"Timor","children":[{"name":"Leste","size":1,"colname":"X5"}],"colname":"X4"},{"name":"Vietnam","children":[],"size":90388000,"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"Eastern Asia","children":[{"name":"China","children":[],"size":1361170000,"colname":"X3"},{"name":"Hong Kong","children":[],"size":7184000,"colname":"X3"},{"name":"Japan","children":[],"size":127290000,"colname":"X3"},{"name":"Macau","children":[],"size":1,"colname":"X3"},{"name":"Mongolia","children":[],"size":2754685,"colname":"X3"},{"name":"North Korea","children":[],"size":24895000,"colname":"X3"},{"name":"South Korea","children":[],"size":50219669,"colname":"X3"},{"name":"Taiwan","children":[],"size":23361147,"colname":"X3"}],"colname":"X2"},{"name":"Central Asia","children":[{"name":"Kazakhstan","children":[],"size":17099000,"colname":"X3"},{"name":"Kyrgyzstan","children":[],"size":5551900,"colname":"X3"},{"name":"Tajikistan","children":[],"size":8000000,"colname":"X3"},{"name":"Turkmenistan","children":[],"size":5240000,"colname":"X3"},{"name":"Uzbekistan","children":[],"size":30183400,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Europe","children":[{"name":"Northern Europe","children":[{"name":"Åland Islands","children":[],"size":28502,"colname":"X3"},{"name":"Denmark","children":[],"size":5623501,"colname":"X3"},{"name":"Estonia","children":[],"size":1286540,"colname":"X3"},{"name":"Faroe Islands","children":[],"size":48509,"colname":"X3"},{"name":"Finland","children":[],"size":5445883,"colname":"X3"},{"name":"Guernsey","children":[],"size":62431,"colname":"X3"},{"name":"Iceland","children":[],"size":325010,"colname":"X3"},{"name":"Ireland","children":[],"size":1,"colname":"X3"},{"name":"Isle of Man","children":[],"size":84497,"colname":"X3"},{"name":"Jersey","children":[],"size":97857,"colname":"X3"},{"name":"Latvia","children":[],"size":2014000,"colname":"X3"},{"name":"Lithuania","children":[],"size":2950684,"colname":"X3"},{"name":"Norway","children":[],"size":5077798,"colname":"X3"},{"name":"Svalbard and Jan Mayen","children":[],"size":2655,"colname":"X3"},{"name":"Sweden","children":[],"size":9625444,"colname":"X3"},{"name":"United Kingdom","children":[],"size":63705000,"colname":"X3"}],"colname":"X2"},{"name":"Southern Europe","children":[{"name":"Albania","children":[],"size":2821977,"colname":"X3"},{"name":"Andorra","children":[],"size":76246,"colname":"X3"},{"name":"Bosnia and Herzegovina","children":[],"size":3791622,"colname":"X3"},{"name":"Croatia","children":[],"size":4290612,"colname":"X3"},{"name":"Gibraltar","children":[],"size":29752,"colname":"X3"},{"name":"Greece","children":[],"size":10815197,"colname":"X3"},{"name":"Vatican City","children":[],"size":800,"colname":"X3"},{"name":"Italy","children":[],"size":59829079,"colname":"X3"},{"name":"Macedonia","children":[],"size":1,"colname":"X3"},{"name":"Malta","children":[],"size":416055,"colname":"X3"},{"name":"Montenegro","children":[],"size":620029,"colname":"X3"},{"name":"Portugal","children":[],"size":10562178,"colname":"X3"},{"name":"San Marino","children":[],"size":32509,"colname":"X3"},{"name":"Serbia","children":[],"size":7181505,"colname":"X3"},{"name":"Slovenia","children":[],"size":2061405,"colname":"X3"},{"name":"Spain","children":[],"size":46704314,"colname":"X3"}],"colname":"X2"},{"name":"Western Europe","children":[{"name":"Austria","children":[],"size":8501502,"colname":"X3"},{"name":"Belgium","children":[],"size":11175653,"colname":"X3"},{"name":"France","children":[],"size":65806000,"colname":"X3"},{"name":"Germany","children":[],"size":80523700,"colname":"X3"},{"name":"Liechtenstein","children":[],"size":36842,"colname":"X3"},{"name":"Luxembourg","children":[],"size":537000,"colname":"X3"},{"name":"Monaco","children":[],"size":36136,"colname":"X3"},{"name":"Netherlands","children":[],"size":16807300,"colname":"X3"},{"name":"Switzerland","children":[],"size":8085300,"colname":"X3"}],"colname":"X2"},{"name":"Eastern Europe","children":[{"name":"Belarus","children":[],"size":9465500,"colname":"X3"},{"name":"Bulgaria","children":[],"size":7282041,"colname":"X3"},{"name":"Czech Republic","children":[],"size":10512900,"colname":"X3"},{"name":"Hungary","children":[],"size":9906000,"colname":"X3"},{"name":"Moldova","children":[],"size":3559500,"colname":"X3"},{"name":"Poland","children":[],"size":38533299,"colname":"X3"},{"name":"Republic of Kosovo","children":[],"size":1733842,"colname":"X3"},{"name":"Romania","children":[],"size":20121641,"colname":"X3"},{"name":"Russia","children":[],"size":143500000,"colname":"X3"},{"name":"Slovakia","children":[],"size":5412008,"colname":"X3"},{"name":"Ukraine","children":[],"size":45461627,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Africa","children":[{"name":"Northern Africa","children":[{"name":"Algeria","children":[],"size":37900000,"colname":"X3"},{"name":"Egypt","children":[],"size":83661000,"colname":"X3"},{"name":"Libya","children":[],"size":6202000,"colname":"X3"},{"name":"Morocco","children":[],"size":33087700,"colname":"X3"},{"name":"Sudan","children":[],"size":37964000,"colname":"X3"},{"name":"Tunisia","children":[],"size":10833431,"colname":"X3"},{"name":"Western Sahara","children":[],"size":567000,"colname":"X3"}],"colname":"X2"},{"name":"Middle Africa","children":[{"name":"Angola","children":[],"size":20609294,"colname":"X3"},{"name":"Cameroon","children":[],"size":20386799,"colname":"X3"},{"name":"Central African Republic","children":[],"size":4616000,"colname":"X3"},{"name":"Chad","children":[],"size":12825000,"colname":"X3"},{"name":"Republic of the Congo","children":[],"size":4448000,"colname":"X3"},{"name":"Democratic Republic of the Congo","children":[],"size":67514000,"colname":"X3"},{"name":"Equatorial Guinea","children":[],"size":1622000,"colname":"X3"},{"name":"Gabon","children":[],"size":1672000,"colname":"X3"},{"name":"São Tomé and Príncipe","children":[],"size":187356,"colname":"X3"},{"name":"South Sudan","children":[],"size":11296000,"colname":"X3"}],"colname":"X2"},{"name":"Western Africa","children":[{"name":"Benin","children":[],"size":10323000,"colname":"X3"},{"name":"Burkina Faso","children":[],"size":17322796,"colname":"X3"},{"name":"Cape Verde","children":[],"size":491875,"colname":"X3"},{"name":"Côte d'Ivoire","children":[],"size":1,"colname":"X3"},{"name":"Gambia","children":[],"size":1,"colname":"X3"},{"name":"Ghana","children":[],"size":24658823,"colname":"X3"},{"name":"Guinea","children":[{"name":"Bissau","children":[],"size":1704000,"colname":"X4"}],"size":10824200,"colname":"X3"},{"name":"Liberia","children":[],"size":4294000,"colname":"X3"},{"name":"Mali","children":[],"size":15302000,"colname":"X3"},{"name":"Mauritania","children":[],"size":3461041,"colname":"X3"},{"name":"Niger","children":[],"size":17129076,"colname":"X3"},{"name":"Nigeria","children":[],"size":173615000,"colname":"X3"},{"name":"Saint Helena","children":[],"size":1,"colname":"X3"},{"name":"Senegal","children":[],"size":13567338,"colname":"X3"},{"name":"Sierra Leone","children":[],"size":6190280,"colname":"X3"},{"name":"Togo","children":[],"size":6191155,"colname":"X3"}],"colname":"X2"},{"name":"Southern Africa","children":[{"name":"Botswana","children":[],"size":2024904,"colname":"X3"},{"name":"Lesotho","children":[],"size":2074000,"colname":"X3"},{"name":"Namibia","children":[],"size":2113077,"colname":"X3"},{"name":"South Africa","children":[],"size":52981991,"colname":"X3"},{"name":"Swaziland","children":[],"size":1250000,"colname":"X3"}],"colname":"X2"},{"name":"Eastern Africa","children":[{"name":"British Indian Ocean Territory","children":[],"size":1,"colname":"X3"},{"name":"Burundi","children":[],"size":10163000,"colname":"X3"},{"name":"Comoros","children":[],"size":724300,"colname":"X3"},{"name":"Djibouti","children":[],"size":864618,"colname":"X3"},{"name":"Eritrea","children":[],"size":6333000,"colname":"X3"},{"name":"Ethiopia","children":[],"size":86613986,"colname":"X3"},{"name":"Kenya","children":[],"size":44354000,"colname":"X3"},{"name":"Madagascar","children":[],"size":20696070,"colname":"X3"},{"name":"Malawi","children":[],"size":16363000,"colname":"X3"},{"name":"Mauritius","children":[],"size":1257900,"colname":"X3"},{"name":"Mayotte","children":[],"size":212600,"colname":"X3"},{"name":"Mozambique","children":[],"size":23700715,"colname":"X3"},{"name":"Réunion","children":[],"size":821136,"colname":"X3"},{"name":"Rwanda","children":[],"size":10537222,"colname":"X3"},{"name":"Seychelles","children":[],"size":90945,"colname":"X3"},{"name":"Somalia","children":[],"size":10496000,"colname":"X3"},{"name":"Tanzania","children":[],"size":44928923,"colname":"X3"},{"name":"Uganda","children":[],"size":35357000,"colname":"X3"},{"name":"Zambia","children":[],"size":13092666,"colname":"X3"},{"name":"Zimbabwe","children":[],"size":12973808,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Oceania","children":[{"name":"Polynesia","children":[{"name":"American Samoa","children":[],"size":55519,"colname":"X3"},{"name":"Cook Islands","children":[],"size":14974,"colname":"X3"},{"name":"French Polynesia","children":[],"size":268270,"colname":"X3"},{"name":"Niue","children":[],"size":1613,"colname":"X3"},{"name":"Pitcairn Islands","children":[],"size":56,"colname":"X3"},{"name":"Samoa","children":[],"size":187820,"colname":"X3"},{"name":"Tokelau","children":[],"size":1411,"colname":"X3"},{"name":"Tonga","children":[],"size":103036,"colname":"X3"},{"name":"Tuvalu","children":[],"size":11323,"colname":"X3"},{"name":"Wallis and Futuna","children":[],"size":13135,"colname":"X3"}],"colname":"X2"},{"name":"Australia and New Zealand","children":[{"name":"Australia","children":[],"size":23254142,"colname":"X3"},{"name":"Christmas Island","children":[],"size":2072,"colname":"X3"},{"name":"Cocos (Keeling) Islands","children":[],"size":550,"colname":"X3"},{"name":"New Zealand","children":[],"size":4478810,"colname":"X3"},{"name":"Norfolk Island","children":[],"size":2302,"colname":"X3"}],"colname":"X2"},{"name":"Melanesia","children":[{"name":"Fiji","children":[],"size":858038,"colname":"X3"},{"name":"New Caledonia","children":[],"size":258958,"colname":"X3"},{"name":"Papua New Guinea","children":[],"size":7059653,"colname":"X3"},{"name":"Solomon Islands","children":[],"size":561000,"colname":"X3"},{"name":"Vanuatu","children":[],"size":264652,"colname":"X3"}],"colname":"X2"},{"name":"Micronesia","children":[{"name":"Guam","children":[],"size":159358,"colname":"X3"},{"name":"Kiribati","children":[],"size":106461,"colname":"X3"},{"name":"Marshall Islands","children":[],"size":56086,"colname":"X3"},{"name":"Micronesia","children":[],"size":1,"colname":"X3"},{"name":"Nauru","children":[],"size":9945,"colname":"X3"},{"name":"Northern Mariana Islands","children":[],"size":53883,"colname":"X3"},{"name":"Palau","children":[],"size":20901,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Americas","children":[{"name":"Caribbean","children":[{"name":"Anguilla","children":[],"size":13452,"colname":"X3"},{"name":"Antigua and Barbuda","children":[],"size":86295,"colname":"X3"},{"name":"Aruba","children":[],"size":101484,"colname":"X3"},{"name":"Bahamas","children":[],"size":1,"colname":"X3"},{"name":"Barbados","children":[],"size":274200,"colname":"X3"},{"name":"Bonaire","children":[],"size":1,"colname":"X3"},{"name":"British Virgin Islands","children":[],"size":29537,"colname":"X3"},{"name":"Cayman Islands","children":[],"size":55456,"colname":"X3"},{"name":"Cuba","children":[],"size":11167325,"colname":"X3"},{"name":"Curaçao","children":[],"size":150563,"colname":"X3"},{"name":"Dominica","children":[],"size":71293,"colname":"X3"},{"name":"Dominican Republic","children":[],"size":9445281,"colname":"X3"},{"name":"Grenada","children":[],"size":103328,"colname":"X3"},{"name":"Guadeloupe","children":[],"size":403355,"colname":"X3"},{"name":"Haiti","children":[],"size":10413211,"colname":"X3"},{"name":"Jamaica","children":[],"size":2711476,"colname":"X3"},{"name":"Martinique","children":[],"size":394173,"colname":"X3"},{"name":"Montserrat","children":[],"size":4922,"colname":"X3"},{"name":"Puerto Rico","children":[],"size":3667084,"colname":"X3"},{"name":"Saint Barthélemy","children":[],"size":8938,"colname":"X3"},{"name":"Saint Kitts and Nevis","children":[],"size":54000,"colname":"X3"},{"name":"Saint Lucia","children":[],"size":166526,"colname":"X3"},{"name":"Saint Martin","children":[],"size":1,"colname":"X3"},{"name":"Saint Vincent and the Grenadines","children":[],"size":109000,"colname":"X3"},{"name":"Sint Maarten","children":[],"size":37429,"colname":"X3"},{"name":"Trinidad and Tobago","children":[],"size":1328019,"colname":"X3"},{"name":"Turks and Caicos Islands","children":[],"size":31458,"colname":"X3"},{"name":"United States Virgin Islands","children":[],"size":106405,"colname":"X3"}],"colname":"X2"},{"name":"South America","children":[{"name":"Argentina","children":[],"size":40117096,"colname":"X3"},{"name":"Bolivia","children":[],"size":10027254,"colname":"X3"},{"name":"Brazil","children":[],"size":201032714,"colname":"X3"},{"name":"Chile","children":[],"size":16634603,"colname":"X3"},{"name":"Colombia","children":[],"size":47330000,"colname":"X3"},{"name":"Ecuador","children":[],"size":15617900,"colname":"X3"},{"name":"Falkland Islands","children":[],"size":2563,"colname":"X3"},{"name":"French Guiana","children":[],"size":229040,"colname":"X3"},{"name":"Guyana","children":[],"size":784894,"colname":"X3"},{"name":"Paraguay","children":[],"size":6783374,"colname":"X3"},{"name":"Peru","children":[],"size":30475144,"colname":"X3"},{"name":"South Georgia","children":[],"size":1,"colname":"X3"},{"name":"Suriname","children":[],"size":534189,"colname":"X3"},{"name":"Uruguay","children":[],"size":3286314,"colname":"X3"},{"name":"Venezuela","children":[],"size":28946101,"colname":"X3"}],"colname":"X2"},{"name":"Central America","children":[{"name":"Belize","children":[],"size":312971,"colname":"X3"},{"name":"Costa Rica","children":[],"size":4667096,"colname":"X3"},{"name":"El Salvador","children":[],"size":6340000,"colname":"X3"},{"name":"Guatemala","children":[],"size":15438384,"colname":"X3"},{"name":"Honduras","children":[],"size":8555072,"colname":"X3"},{"name":"Mexico","children":[],"size":118395054,"colname":"X3"},{"name":"Nicaragua","children":[],"size":6071045,"colname":"X3"},{"name":"Panama","children":[],"size":3405813,"colname":"X3"}],"colname":"X2"},{"name":"Northern America","children":[{"name":"Bermuda","children":[],"size":64237,"colname":"X3"},{"name":"Canada","children":[],"size":35158304,"colname":"X3"},{"name":"Greenland","children":[],"size":56370,"colname":"X3"},{"name":"Saint Pierre and Miquelon","children":[],"size":6081,"colname":"X3"},{"name":"United States","children":[],"size":317101000,"colname":"X3"},{"name":"United States Minor Outlying Islands","children":[],"size":1,"colname":"X3"}],"colname":"X2"}],"colname":"X1"}],"name":"root"},"options":{"legendOrder":null,"colors":null,"valueField":"size","percent":true,"count":false,"explanation":null,"breadcrumb":[],"legend":false,"sortFunction":null,"sumNodes":true}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-bad871803960bf2f4c8b">{"x":{"data":{"children":[{"name":"Asia","children":[{"name":"Southern Asia","children":[{"name":"Afghanistan","children":[],"size":25500100,"colname":"X3"},{"name":"Bangladesh","children":[],"size":152518015,"colname":"X3"},{"name":"Bhutan","children":[],"size":740990,"colname":"X3"},{"name":"India","children":[],"size":1236670000,"colname":"X3"},{"name":"Iran","children":[],"size":77068000,"colname":"X3"},{"name":"Maldives","children":[],"size":317280,"colname":"X3"},{"name":"Nepal","children":[],"size":26494504,"colname":"X3"},{"name":"Pakistan","children":[],"size":184845000,"colname":"X3"},{"name":"Sri Lanka","children":[],"size":20277597,"colname":"X3"}],"colname":"X2"},{"name":"Western Asia","children":[{"name":"Armenia","children":[],"size":3024100,"colname":"X3"},{"name":"Azerbaijan","children":[],"size":9235100,"colname":"X3"},{"name":"Bahrain","children":[],"size":1234571,"colname":"X3"},{"name":"Cyprus","children":[],"size":865878,"colname":"X3"},{"name":"Georgia","children":[],"size":1,"colname":"X3"},{"name":"Iraq","children":[],"size":34035000,"colname":"X3"},{"name":"Israel","children":[],"size":8092700,"colname":"X3"},{"name":"Jordan","children":[],"size":6512600,"colname":"X3"},{"name":"Kuwait","children":[],"size":3582054,"colname":"X3"},{"name":"Lebanon","children":[],"size":4822000,"colname":"X3"},{"name":"Oman","children":[],"size":3929000,"colname":"X3"},{"name":"Palestine","children":[],"size":1,"colname":"X3"},{"name":"Qatar","children":[],"size":2024707,"colname":"X3"},{"name":"Saudi Arabia","children":[],"size":29994272,"colname":"X3"},{"name":"Syria","children":[],"size":21898000,"colname":"X3"},{"name":"Turkey","children":[],"size":75627384,"colname":"X3"},{"name":"United Arab Emirates","children":[],"size":8264070,"colname":"X3"},{"name":"Yemen","children":[],"size":24527000,"colname":"X3"}],"colname":"X2"},{"name":"South","children":[{"name":"Eastern Asia","children":[{"name":"Brunei","children":[],"size":393162,"colname":"X4"},{"name":"Cambodia","children":[],"size":15135000,"colname":"X4"},{"name":"Indonesia","children":[],"size":237641326,"colname":"X4"},{"name":"Laos","children":[],"size":6580800,"colname":"X4"},{"name":"Malaysia","children":[],"size":29793600,"colname":"X4"},{"name":"Myanmar","children":[],"size":1,"colname":"X4"},{"name":"Philippines","children":[],"size":98678000,"colname":"X4"},{"name":"Singapore","children":[],"size":5399200,"colname":"X4"},{"name":"Thailand","children":[],"size":65926261,"colname":"X4"},{"name":"Timor","children":[{"name":"Leste","size":1,"colname":"X5"}],"colname":"X4"},{"name":"Vietnam","children":[],"size":90388000,"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"Eastern Asia","children":[{"name":"China","children":[],"size":1361170000,"colname":"X3"},{"name":"Hong Kong","children":[],"size":7184000,"colname":"X3"},{"name":"Japan","children":[],"size":127290000,"colname":"X3"},{"name":"Macau","children":[],"size":1,"colname":"X3"},{"name":"Mongolia","children":[],"size":2754685,"colname":"X3"},{"name":"North Korea","children":[],"size":24895000,"colname":"X3"},{"name":"South Korea","children":[],"size":50219669,"colname":"X3"},{"name":"Taiwan","children":[],"size":23361147,"colname":"X3"}],"colname":"X2"},{"name":"Central Asia","children":[{"name":"Kazakhstan","children":[],"size":17099000,"colname":"X3"},{"name":"Kyrgyzstan","children":[],"size":5551900,"colname":"X3"},{"name":"Tajikistan","children":[],"size":8000000,"colname":"X3"},{"name":"Turkmenistan","children":[],"size":5240000,"colname":"X3"},{"name":"Uzbekistan","children":[],"size":30183400,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Europe","children":[{"name":"Northern Europe","children":[{"name":"Åland Islands","children":[],"size":28502,"colname":"X3"},{"name":"Denmark","children":[],"size":5623501,"colname":"X3"},{"name":"Estonia","children":[],"size":1286540,"colname":"X3"},{"name":"Faroe Islands","children":[],"size":48509,"colname":"X3"},{"name":"Finland","children":[],"size":5445883,"colname":"X3"},{"name":"Guernsey","children":[],"size":62431,"colname":"X3"},{"name":"Iceland","children":[],"size":325010,"colname":"X3"},{"name":"Ireland","children":[],"size":1,"colname":"X3"},{"name":"Isle of Man","children":[],"size":84497,"colname":"X3"},{"name":"Jersey","children":[],"size":97857,"colname":"X3"},{"name":"Latvia","children":[],"size":2014000,"colname":"X3"},{"name":"Lithuania","children":[],"size":2950684,"colname":"X3"},{"name":"Norway","children":[],"size":5077798,"colname":"X3"},{"name":"Svalbard and Jan Mayen","children":[],"size":2655,"colname":"X3"},{"name":"Sweden","children":[],"size":9625444,"colname":"X3"},{"name":"United Kingdom","children":[],"size":63705000,"colname":"X3"}],"colname":"X2"},{"name":"Southern Europe","children":[{"name":"Albania","children":[],"size":2821977,"colname":"X3"},{"name":"Andorra","children":[],"size":76246,"colname":"X3"},{"name":"Bosnia and Herzegovina","children":[],"size":3791622,"colname":"X3"},{"name":"Croatia","children":[],"size":4290612,"colname":"X3"},{"name":"Gibraltar","children":[],"size":29752,"colname":"X3"},{"name":"Greece","children":[],"size":10815197,"colname":"X3"},{"name":"Vatican City","children":[],"size":800,"colname":"X3"},{"name":"Italy","children":[],"size":59829079,"colname":"X3"},{"name":"Macedonia","children":[],"size":1,"colname":"X3"},{"name":"Malta","children":[],"size":416055,"colname":"X3"},{"name":"Montenegro","children":[],"size":620029,"colname":"X3"},{"name":"Portugal","children":[],"size":10562178,"colname":"X3"},{"name":"San Marino","children":[],"size":32509,"colname":"X3"},{"name":"Serbia","children":[],"size":7181505,"colname":"X3"},{"name":"Slovenia","children":[],"size":2061405,"colname":"X3"},{"name":"Spain","children":[],"size":46704314,"colname":"X3"}],"colname":"X2"},{"name":"Western Europe","children":[{"name":"Austria","children":[],"size":8501502,"colname":"X3"},{"name":"Belgium","children":[],"size":11175653,"colname":"X3"},{"name":"France","children":[],"size":65806000,"colname":"X3"},{"name":"Germany","children":[],"size":80523700,"colname":"X3"},{"name":"Liechtenstein","children":[],"size":36842,"colname":"X3"},{"name":"Luxembourg","children":[],"size":537000,"colname":"X3"},{"name":"Monaco","children":[],"size":36136,"colname":"X3"},{"name":"Netherlands","children":[],"size":16807300,"colname":"X3"},{"name":"Switzerland","children":[],"size":8085300,"colname":"X3"}],"colname":"X2"},{"name":"Eastern Europe","children":[{"name":"Belarus","children":[],"size":9465500,"colname":"X3"},{"name":"Bulgaria","children":[],"size":7282041,"colname":"X3"},{"name":"Czech Republic","children":[],"size":10512900,"colname":"X3"},{"name":"Hungary","children":[],"size":9906000,"colname":"X3"},{"name":"Moldova","children":[],"size":3559500,"colname":"X3"},{"name":"Poland","children":[],"size":38533299,"colname":"X3"},{"name":"Republic of Kosovo","children":[],"size":1733842,"colname":"X3"},{"name":"Romania","children":[],"size":20121641,"colname":"X3"},{"name":"Russia","children":[],"size":143500000,"colname":"X3"},{"name":"Slovakia","children":[],"size":5412008,"colname":"X3"},{"name":"Ukraine","children":[],"size":45461627,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Africa","children":[{"name":"Northern Africa","children":[{"name":"Algeria","children":[],"size":37900000,"colname":"X3"},{"name":"Egypt","children":[],"size":83661000,"colname":"X3"},{"name":"Libya","children":[],"size":6202000,"colname":"X3"},{"name":"Morocco","children":[],"size":33087700,"colname":"X3"},{"name":"Sudan","children":[],"size":37964000,"colname":"X3"},{"name":"Tunisia","children":[],"size":10833431,"colname":"X3"},{"name":"Western Sahara","children":[],"size":567000,"colname":"X3"}],"colname":"X2"},{"name":"Middle Africa","children":[{"name":"Angola","children":[],"size":20609294,"colname":"X3"},{"name":"Cameroon","children":[],"size":20386799,"colname":"X3"},{"name":"Central African Republic","children":[],"size":4616000,"colname":"X3"},{"name":"Chad","children":[],"size":12825000,"colname":"X3"},{"name":"Republic of the Congo","children":[],"size":4448000,"colname":"X3"},{"name":"Democratic Republic of the Congo","children":[],"size":67514000,"colname":"X3"},{"name":"Equatorial Guinea","children":[],"size":1622000,"colname":"X3"},{"name":"Gabon","children":[],"size":1672000,"colname":"X3"},{"name":"São Tomé and Príncipe","children":[],"size":187356,"colname":"X3"},{"name":"South Sudan","children":[],"size":11296000,"colname":"X3"}],"colname":"X2"},{"name":"Western Africa","children":[{"name":"Benin","children":[],"size":10323000,"colname":"X3"},{"name":"Burkina Faso","children":[],"size":17322796,"colname":"X3"},{"name":"Cape Verde","children":[],"size":491875,"colname":"X3"},{"name":"Côte d'Ivoire","children":[],"size":1,"colname":"X3"},{"name":"Gambia","children":[],"size":1,"colname":"X3"},{"name":"Ghana","children":[],"size":24658823,"colname":"X3"},{"name":"Guinea","children":[{"name":"Bissau","children":[],"size":1704000,"colname":"X4"}],"size":10824200,"colname":"X3"},{"name":"Liberia","children":[],"size":4294000,"colname":"X3"},{"name":"Mali","children":[],"size":15302000,"colname":"X3"},{"name":"Mauritania","children":[],"size":3461041,"colname":"X3"},{"name":"Niger","children":[],"size":17129076,"colname":"X3"},{"name":"Nigeria","children":[],"size":173615000,"colname":"X3"},{"name":"Saint Helena","children":[],"size":1,"colname":"X3"},{"name":"Senegal","children":[],"size":13567338,"colname":"X3"},{"name":"Sierra Leone","children":[],"size":6190280,"colname":"X3"},{"name":"Togo","children":[],"size":6191155,"colname":"X3"}],"colname":"X2"},{"name":"Southern Africa","children":[{"name":"Botswana","children":[],"size":2024904,"colname":"X3"},{"name":"Lesotho","children":[],"size":2074000,"colname":"X3"},{"name":"Namibia","children":[],"size":2113077,"colname":"X3"},{"name":"South Africa","children":[],"size":52981991,"colname":"X3"},{"name":"Swaziland","children":[],"size":1250000,"colname":"X3"}],"colname":"X2"},{"name":"Eastern Africa","children":[{"name":"British Indian Ocean Territory","children":[],"size":1,"colname":"X3"},{"name":"Burundi","children":[],"size":10163000,"colname":"X3"},{"name":"Comoros","children":[],"size":724300,"colname":"X3"},{"name":"Djibouti","children":[],"size":864618,"colname":"X3"},{"name":"Eritrea","children":[],"size":6333000,"colname":"X3"},{"name":"Ethiopia","children":[],"size":86613986,"colname":"X3"},{"name":"Kenya","children":[],"size":44354000,"colname":"X3"},{"name":"Madagascar","children":[],"size":20696070,"colname":"X3"},{"name":"Malawi","children":[],"size":16363000,"colname":"X3"},{"name":"Mauritius","children":[],"size":1257900,"colname":"X3"},{"name":"Mayotte","children":[],"size":212600,"colname":"X3"},{"name":"Mozambique","children":[],"size":23700715,"colname":"X3"},{"name":"Réunion","children":[],"size":821136,"colname":"X3"},{"name":"Rwanda","children":[],"size":10537222,"colname":"X3"},{"name":"Seychelles","children":[],"size":90945,"colname":"X3"},{"name":"Somalia","children":[],"size":10496000,"colname":"X3"},{"name":"Tanzania","children":[],"size":44928923,"colname":"X3"},{"name":"Uganda","children":[],"size":35357000,"colname":"X3"},{"name":"Zambia","children":[],"size":13092666,"colname":"X3"},{"name":"Zimbabwe","children":[],"size":12973808,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Oceania","children":[{"name":"Polynesia","children":[{"name":"American Samoa","children":[],"size":55519,"colname":"X3"},{"name":"Cook Islands","children":[],"size":14974,"colname":"X3"},{"name":"French Polynesia","children":[],"size":268270,"colname":"X3"},{"name":"Niue","children":[],"size":1613,"colname":"X3"},{"name":"Pitcairn Islands","children":[],"size":56,"colname":"X3"},{"name":"Samoa","children":[],"size":187820,"colname":"X3"},{"name":"Tokelau","children":[],"size":1411,"colname":"X3"},{"name":"Tonga","children":[],"size":103036,"colname":"X3"},{"name":"Tuvalu","children":[],"size":11323,"colname":"X3"},{"name":"Wallis and Futuna","children":[],"size":13135,"colname":"X3"}],"colname":"X2"},{"name":"Australia and New Zealand","children":[{"name":"Australia","children":[],"size":23254142,"colname":"X3"},{"name":"Christmas Island","children":[],"size":2072,"colname":"X3"},{"name":"Cocos (Keeling) Islands","children":[],"size":550,"colname":"X3"},{"name":"New Zealand","children":[],"size":4478810,"colname":"X3"},{"name":"Norfolk Island","children":[],"size":2302,"colname":"X3"}],"colname":"X2"},{"name":"Melanesia","children":[{"name":"Fiji","children":[],"size":858038,"colname":"X3"},{"name":"New Caledonia","children":[],"size":258958,"colname":"X3"},{"name":"Papua New Guinea","children":[],"size":7059653,"colname":"X3"},{"name":"Solomon Islands","children":[],"size":561000,"colname":"X3"},{"name":"Vanuatu","children":[],"size":264652,"colname":"X3"}],"colname":"X2"},{"name":"Micronesia","children":[{"name":"Guam","children":[],"size":159358,"colname":"X3"},{"name":"Kiribati","children":[],"size":106461,"colname":"X3"},{"name":"Marshall Islands","children":[],"size":56086,"colname":"X3"},{"name":"Micronesia","children":[],"size":1,"colname":"X3"},{"name":"Nauru","children":[],"size":9945,"colname":"X3"},{"name":"Northern Mariana Islands","children":[],"size":53883,"colname":"X3"},{"name":"Palau","children":[],"size":20901,"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"Americas","children":[{"name":"Caribbean","children":[{"name":"Anguilla","children":[],"size":13452,"colname":"X3"},{"name":"Antigua and Barbuda","children":[],"size":86295,"colname":"X3"},{"name":"Aruba","children":[],"size":101484,"colname":"X3"},{"name":"Bahamas","children":[],"size":1,"colname":"X3"},{"name":"Barbados","children":[],"size":274200,"colname":"X3"},{"name":"Bonaire","children":[],"size":1,"colname":"X3"},{"name":"British Virgin Islands","children":[],"size":29537,"colname":"X3"},{"name":"Cayman Islands","children":[],"size":55456,"colname":"X3"},{"name":"Cuba","children":[],"size":11167325,"colname":"X3"},{"name":"Curaçao","children":[],"size":150563,"colname":"X3"},{"name":"Dominica","children":[],"size":71293,"colname":"X3"},{"name":"Dominican Republic","children":[],"size":9445281,"colname":"X3"},{"name":"Grenada","children":[],"size":103328,"colname":"X3"},{"name":"Guadeloupe","children":[],"size":403355,"colname":"X3"},{"name":"Haiti","children":[],"size":10413211,"colname":"X3"},{"name":"Jamaica","children":[],"size":2711476,"colname":"X3"},{"name":"Martinique","children":[],"size":394173,"colname":"X3"},{"name":"Montserrat","children":[],"size":4922,"colname":"X3"},{"name":"Puerto Rico","children":[],"size":3667084,"colname":"X3"},{"name":"Saint Barthélemy","children":[],"size":8938,"colname":"X3"},{"name":"Saint Kitts and Nevis","children":[],"size":54000,"colname":"X3"},{"name":"Saint Lucia","children":[],"size":166526,"colname":"X3"},{"name":"Saint Martin","children":[],"size":1,"colname":"X3"},{"name":"Saint Vincent and the Grenadines","children":[],"size":109000,"colname":"X3"},{"name":"Sint Maarten","children":[],"size":37429,"colname":"X3"},{"name":"Trinidad and Tobago","children":[],"size":1328019,"colname":"X3"},{"name":"Turks and Caicos Islands","children":[],"size":31458,"colname":"X3"},{"name":"United States Virgin Islands","children":[],"size":106405,"colname":"X3"}],"colname":"X2"},{"name":"South America","children":[{"name":"Argentina","children":[],"size":40117096,"colname":"X3"},{"name":"Bolivia","children":[],"size":10027254,"colname":"X3"},{"name":"Brazil","children":[],"size":201032714,"colname":"X3"},{"name":"Chile","children":[],"size":16634603,"colname":"X3"},{"name":"Colombia","children":[],"size":47330000,"colname":"X3"},{"name":"Ecuador","children":[],"size":15617900,"colname":"X3"},{"name":"Falkland Islands","children":[],"size":2563,"colname":"X3"},{"name":"French Guiana","children":[],"size":229040,"colname":"X3"},{"name":"Guyana","children":[],"size":784894,"colname":"X3"},{"name":"Paraguay","children":[],"size":6783374,"colname":"X3"},{"name":"Peru","children":[],"size":30475144,"colname":"X3"},{"name":"South Georgia","children":[],"size":1,"colname":"X3"},{"name":"Suriname","children":[],"size":534189,"colname":"X3"},{"name":"Uruguay","children":[],"size":3286314,"colname":"X3"},{"name":"Venezuela","children":[],"size":28946101,"colname":"X3"}],"colname":"X2"},{"name":"Central America","children":[{"name":"Belize","children":[],"size":312971,"colname":"X3"},{"name":"Costa Rica","children":[],"size":4667096,"colname":"X3"},{"name":"El Salvador","children":[],"size":6340000,"colname":"X3"},{"name":"Guatemala","children":[],"size":15438384,"colname":"X3"},{"name":"Honduras","children":[],"size":8555072,"colname":"X3"},{"name":"Mexico","children":[],"size":118395054,"colname":"X3"},{"name":"Nicaragua","children":[],"size":6071045,"colname":"X3"},{"name":"Panama","children":[],"size":3405813,"colname":"X3"}],"colname":"X2"},{"name":"Northern America","children":[{"name":"Bermuda","children":[],"size":64237,"colname":"X3"},{"name":"Canada","children":[],"size":35158304,"colname":"X3"},{"name":"Greenland","children":[],"size":56370,"colname":"X3"},{"name":"Saint Pierre and Miquelon","children":[],"size":6081,"colname":"X3"},{"name":"United States","children":[],"size":317101000,"colname":"X3"},{"name":"United States Minor Outlying Islands","children":[],"size":1,"colname":"X3"}],"colname":"X2"}],"colname":"X1"}],"name":"root"},"options":{"legendOrder":null,"colors":null,"valueField":"size","percent":true,"count":false,"explanation":null,"breadcrumb":[],"legend":false,"sortFunction":null,"sumNodes":true}},"evals":[],"jsHooks":[]}</script>
 </center>
-<p><em>Note</em>: This figure is interactive: hover a region to show the country and its architecture.</p>
-<h1 id="flows">Flows</h1>
+<p><em>Note</em>: This figure is interactive: hover a region to show the
+country and its architecture.</p>
+</div>
+<div id="flows" class="section level1">
+<h1>Flows</h1>
 <hr />
-<p>Sunburst diagrams can also be used to represent flows. In this case they are more comparable to a <a href="https://www.data-to-viz.com/graph/sankey.html">Sankey diagram</a>. The following example describe the professional state evolution of a set of people:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(TraMineR)
-<span class="kw">library</span>(sunburstR)
-<span class="kw">library</span>(pipeR)
-
-<span class="co"># use example from TraMineR vignette</span>
-<span class="kw">data</span>(<span class="st">&quot;mvad&quot;</span>)
-mvad.alphab &lt;-<span class="st"> </span><span class="kw">c</span>(
-  <span class="st">&quot;employment&quot;</span>, <span class="st">&quot;FE&quot;</span>, <span class="st">&quot;HE&quot;</span>, <span class="st">&quot;joblessness&quot;</span>,
-  <span class="st">&quot;school&quot;</span>, <span class="st">&quot;training&quot;</span>
-)
-mvad.seq &lt;-<span class="st"> </span><span class="kw">seqdef</span>(mvad, <span class="dv">17</span><span class="op">:</span><span class="dv">86</span>, <span class="dt">xtstep =</span> <span class="dv">6</span>, <span class="dt">alphabet =</span> mvad.alphab)
-
-<span class="co"># to make this work, we&#39;ll compress the sequences with seqdss</span>
-<span class="co">#   could also aggregate with dply later</span>
-<span class="kw">seqtab</span>( <span class="kw">seqdss</span>(mvad.seq), <span class="dt">tlim =</span> <span class="dv">0</span>, <span class="dt">format =</span> <span class="st">&quot;SPS&quot;</span> ) <span class="op">%&gt;&gt;%</span>
-<span class="st">  </span><span class="kw">attr</span>(<span class="st">&quot;freq&quot;</span>) <span class="op">%&gt;&gt;%</span>
-<span class="st">  </span>(
-    <span class="kw">data.frame</span>(
-      <span class="co"># appending &quot;-end&quot; is necessary for this to work</span>
-      <span class="dt">sequence =</span> <span class="kw">paste0</span>(
-        <span class="kw">gsub</span>(
-          <span class="dt">x =</span> <span class="kw">names</span>(.<span class="op">$</span>Freq)
-          , <span class="dt">pattern =</span> <span class="st">&quot;(/[0-9]*)&quot;</span>
-          , <span class="dt">replacement =</span> <span class="st">&quot;&quot;</span>
-          , <span class="dt">perl =</span> T
-        )
-        ,<span class="st">&quot;-end&quot;</span>
-      )
-      ,<span class="dt">freq =</span> <span class="kw">as.numeric</span>(.<span class="op">$</span>Freq)
-      ,<span class="dt">stringsAsFactors =</span> <span class="ot">FALSE</span>
-    )
-  ) <span class="op">%&gt;&gt;%</span>
-<span class="st">  </span>sunburst -&gt;p</code></pre></div>
+<p>Sunburst diagrams can also be used to represent flows. In this case
+they are more comparable to a <a
+href="https://www.data-to-viz.com/graph/sankey.html">Sankey diagram</a>.
+The following example describe the professional state evolution of a set
+of people:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(TraMineR)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(sunburstR)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(pipeR)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># use example from TraMineR vignette</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;mvad&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>mvad.alphab <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="st">&quot;employment&quot;</span>, <span class="st">&quot;FE&quot;</span>, <span class="st">&quot;HE&quot;</span>, <span class="st">&quot;joblessness&quot;</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="st">&quot;school&quot;</span>, <span class="st">&quot;training&quot;</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>)</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>mvad.seq <span class="ot">&lt;-</span> <span class="fu">seqdef</span>(mvad, <span class="dv">17</span><span class="sc">:</span><span class="dv">86</span>, <span class="at">xtstep =</span> <span class="dv">6</span>, <span class="at">alphabet =</span> mvad.alphab)</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co"># to make this work, we&#39;ll compress the sequences with seqdss</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="co">#   could also aggregate with dply later</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="fu">seqtab</span>( <span class="fu">seqdss</span>(mvad.seq), <span class="at">tlim =</span> <span class="dv">0</span>, <span class="at">format =</span> <span class="st">&quot;SPS&quot;</span> ) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>  <span class="fu">attr</span>(<span class="st">&quot;freq&quot;</span>) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>  (</span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="fu">data.frame</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>      <span class="co"># appending &quot;-end&quot; is necessary for this to work</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>      <span class="at">sequence =</span> <span class="fu">paste0</span>(</span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>        <span class="fu">gsub</span>(</span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>          <span class="at">x =</span> <span class="fu">names</span>(.<span class="sc">$</span>Freq)</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>          , <span class="at">pattern =</span> <span class="st">&quot;(/[0-9]*)&quot;</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>          , <span class="at">replacement =</span> <span class="st">&quot;&quot;</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>          , <span class="at">perl =</span> T</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>        )</span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a>        ,<span class="st">&quot;-end&quot;</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>      )</span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>      ,<span class="at">freq =</span> <span class="fu">as.numeric</span>(.<span class="sc">$</span>Freq)</span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>      ,<span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>    )</span>
+<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a>  ) <span class="sc">%&gt;&gt;%</span></span>
+<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>  sunburst <span class="ot">-&gt;</span>p</span></code></pre></div>
 <center>
-<div class="sunburst html-widget" id="htmlwidget-35005f03006f9b1134c6" style="width:768px;height:480px; position:relative;">
+<div class="sunburst html-widget html-fill-item" id="htmlwidget-f7b49ddcb3adb29f21f3" style="width:768px;height:480px; position:relative;">
 <div>
 <div class="sunburst-main">
 <div class="sunburst-sequence"></div>
@@ -330,31 +415,52 @@ mvad.seq &lt;-<span class="st"> </span><span class="kw">seqdef</span>(mvad, <spa
 </div>
 </div>
 </div>
-<script type="application/json" data-for="htmlwidget-35005f03006f9b1134c6">{"x":{"data":{"children":[{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":78,"colname":"X3"},{"name":"HE","children":[{"name":"end","children":[],"size":10,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":6,"colname":"X5"},{"name":"HE","children":[{"name":"end","children":[],"size":4,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":8,"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":4,"colname":"X7"}],"colname":"X6"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"HE","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":2,"colname":"X4"},{"name":"HE","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"school","children":[{"name":"FE","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":7,"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":2,"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":6,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":6,"colname":"X5"},{"name":"joblessness","children":[{"name":"end","children":[],"size":2,"colname":"X6"},{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X7"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"school","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"FE","children":[{"name":"employment","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"HE","children":[{"name":"end","children":[],"size":22,"colname":"X3"},{"name":"employment","children":[{"name":"end","children":[],"size":13,"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"FE","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":16,"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":5,"colname":"X6"}],"colname":"X5"},{"name":"end","children":[],"size":3,"colname":"X5"},{"name":"FE","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":8,"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X5"}],"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"training","children":[{"name":"FE","children":[{"name":"HE","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"end","size":1,"colname":"X11"}],"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"},{"name":"training","children":[{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"HE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X5"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":16,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":1,"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","size":1,"colname":"X11"}],"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"school","children":[{"name":"HE","children":[{"name":"end","children":[],"size":3,"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"end","children":[],"size":1,"colname":"X2"}],"colname":"X1"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":70,"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":9,"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"training","children":[{"name":"joblessness","children":[{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":8,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":8,"colname":"X5"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"training","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":10,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":4,"colname":"X5"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":7,"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X5"},{"name":"FE","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X6"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"school","children":[{"name":"training","children":[{"name":"FE","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":6,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"school","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"employment","children":[{"name":"end","children":[],"size":50,"colname":"X2"},{"name":"joblessness","children":[{"name":"end","children":[],"size":7,"colname":"X3"},{"name":"employment","children":[{"name":"end","children":[],"size":7,"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X6"}],"colname":"X5"},{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X10"}],"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":5,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"school","children":[{"name":"employment","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"school","children":[{"name":"HE","children":[{"name":"end","children":[],"size":39,"colname":"X3"},{"name":"employment","children":[{"name":"end","children":[],"size":16,"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":5,"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":2,"colname":"X5"}],"colname":"X4"},{"name":"FE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"end","children":[],"size":2,"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"employment","children":[{"name":"end","children":[],"size":14,"colname":"X3"},{"name":"HE","children":[{"name":"end","children":[],"size":9,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":6,"colname":"X5"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":3,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":2,"colname":"X5"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":2,"colname":"X6"}],"colname":"X5"},{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"HE","children":[{"name":"employment","children":[{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"school","children":[{"name":"FE","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"school","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"school","children":[{"name":"FE","children":[{"name":"employment","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"HE","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":11,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":2,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"HE","children":[{"name":"end","children":[],"size":7,"colname":"X4"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":2,"colname":"X4"},{"name":"FE","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":1,"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":8,"colname":"X4"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":4,"colname":"X4"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":3,"colname":"X3"},{"name":"HE","children":[{"name":"end","children":[],"size":2,"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X5"},{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"training","children":[{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X9"}],"colname":"X8"}],"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"}],"colname":"X1"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X5"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"},{"name":"end","children":[],"size":1,"colname":"X4"},{"name":"training","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X7"}],"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"end","children":[],"size":1,"colname":"X3"},{"name":"school","children":[{"name":"HE","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"training","children":[{"name":"employment","children":[{"name":"end","children":[],"size":3,"colname":"X4"},{"name":"joblessness","children":[{"name":"FE","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"end","children":[],"size":1,"colname":"X2"},{"name":"FE","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X4"}],"colname":"X3"},{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"},{"name":"school","children":[{"name":"employment","children":[{"name":"joblessness","children":[{"name":"employment","children":[{"name":"end","children":[],"size":1,"colname":"X6"}],"colname":"X5"}],"colname":"X4"}],"colname":"X3"}],"colname":"X2"}],"colname":"X1"}],"name":"root"},"options":{"legendOrder":null,"colors":null,"valueField":"size","percent":true,"count":false,"explanation":null,"breadcrumb":[],"legend":[],"sortFunction":null,"sumNodes":true}},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-f7b49ddcb3adb29f21f3">{"x":{"data":{"children":[{"name":"","children":[{"name":"end","size":78,"colname":"X2"},{"name":"end","size":70,"colname":"X2"},{"name":"end","size":50,"colname":"X2"},{"name":"end","size":39,"colname":"X2"},{"name":"end","size":22,"colname":"X2"},{"name":"end","size":16,"colname":"X2"},{"name":"end","size":16,"colname":"X2"},{"name":"end","size":16,"colname":"X2"},{"name":"end","size":14,"colname":"X2"},{"name":"end","size":13,"colname":"X2"},{"name":"end","size":11,"colname":"X2"},{"name":"end","size":10,"colname":"X2"},{"name":"end","size":10,"colname":"X2"},{"name":"end","size":9,"colname":"X2"},{"name":"end","size":9,"colname":"X2"},{"name":"end","size":8,"colname":"X2"},{"name":"end","size":8,"colname":"X2"},{"name":"end","size":8,"colname":"X2"},{"name":"end","size":8,"colname":"X2"},{"name":"end","size":8,"colname":"X2"},{"name":"end","size":7,"colname":"X2"},{"name":"end","size":7,"colname":"X2"},{"name":"end","size":7,"colname":"X2"},{"name":"end","size":7,"colname":"X2"},{"name":"end","size":7,"colname":"X2"},{"name":"end","size":6,"colname":"X2"},{"name":"end","size":6,"colname":"X2"},{"name":"end","size":6,"colname":"X2"},{"name":"end","size":6,"colname":"X2"},{"name":"end","size":6,"colname":"X2"},{"name":"end","size":5,"colname":"X2"},{"name":"end","size":5,"colname":"X2"},{"name":"end","size":5,"colname":"X2"},{"name":"end","size":4,"colname":"X2"},{"name":"end","size":4,"colname":"X2"},{"name":"end","size":4,"colname":"X2"},{"name":"end","size":4,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":3,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":2,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"},{"name":"end","size":1,"colname":"X2"}],"colname":"X1"}],"name":"root"},"options":{"legendOrder":null,"colors":null,"valueField":"size","percent":true,"count":false,"explanation":null,"breadcrumb":[],"legend":[],"sortFunction":null,"sumNodes":true}},"evals":[],"jsHooks":[]}</script>
 </center>
-<p><em>Note</em>: This graphic comes from the <a href="http://www.buildingwidgets.com/blog/2015/7/2/week-26-sunburstr">sunburstR package</a> documentation. Thanks to <a href="https://twitter.com/timelyportfolio?lang=en">timelyportfolio</a> for his work.</p>
-<h1 id="downsides">Downsides</h1>
+<p><em>Note</em>: This graphic comes from the <a
+href="http://www.buildingwidgets.com/blog/2015/7/2/week-26-sunburstr">sunburstR
+package</a> documentation. Thanks to <a
+href="https://twitter.com/timelyportfolio?lang=en">timelyportfolio</a>
+for his work.</p>
+</div>
+<div id="downsides" class="section level1">
+<h1>Downsides</h1>
 <hr />
 <ul>
-<li><em>Labels</em> - It is very hard to represent labels on sunburst charts. This is why using <code>interactivity</code> as above is often necessary to make the chart useful. This is an important downside though: it is hard to understand the figure in a glimpse.</li>
-<li><em>Angles are hard to read</em> - sunburst suffers the same issue than <a href="https://www.data-to-viz/caveat/pie.html">pie</a> or <a href="https://www.data-to-viz/caveat/pie.html">donut</a> chart. The human eye is bad at reading angles. As a consequence, it is hard to deduce values behind items accurately.</li>
-<li><em>Deeper slices are exagerated</em> - by construction, outer parts tend to get bigger than inner part for a same value. Indeed, the perimeter of the circle gets longer when you go further from the center of the circle!</li>
+<li><em>Labels</em> - It is very hard to represent labels on sunburst
+charts. This is why using <code>interactivity</code> as above is often
+necessary to make the chart useful. This is an important downside
+though: it is hard to understand the figure in a glimpse.</li>
+<li><em>Angles are hard to read</em> - sunburst suffers the same issue
+than <a href="https://www.data-to-viz/caveat/pie.html">pie</a> or <a
+href="https://www.data-to-viz/caveat/pie.html">donut</a> chart. The
+human eye is bad at reading angles. As a consequence, it is hard to
+deduce values behind items accurately.</li>
+<li><em>Deeper slices are exagerated</em> - by construction, outer parts
+tend to get bigger than inner part for a same value. Indeed, the
+perimeter of the circle gets longer when you go further from the center
+of the circle!</li>
 </ul>
-<h1 id="related">Related</h1>
+</div>
+<div id="related" class="section level1">
+<h1>Related</h1>
 <hr />
 <div class="row">
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
+<a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
 <p class="mytitlerelated">
 Heatmap
 </p>
 <p class="mytextrelated">
-Representation of data where the individual values contained in a matrix are represented as colors
+Representation of data where the individual values contained in a matrix
+are represented as colors
 </p>
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
+<a href="https://www.data-to-viz.com/graph/circularpacking.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPackingSmall.png">
 <p class="mytitlerelated">
 Circular packing
 </p>
@@ -364,7 +470,8 @@ A circular version of a Treemap to visualize a hierarchical organization
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/sunburst.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png">
+<a href="https://www.data-to-viz.com/graph/sunburst.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SunburstSmall.png">
 <p class="mytitlerelated">
 Sunburst Diagram
 </p>
@@ -374,7 +481,8 @@ Display a hierarchy through a set of nested donut plots.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;"> <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
 <p class="mytitlerelated">
 Dendrogram
 </p>
@@ -384,45 +492,89 @@ A network structure used to show a hierarchical organization.
 </a>
 </div>
 </div>
-<h1 id="code">Build your own</h1>
+</div>
+<div id="code" class="section level1">
+<h1>Build your own</h1>
 <hr />
-<p>The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.</p>
+<p>The <a href="https://www.r-graph-gallery.com">R</a>, <a
+href="https://www.python-graph-gallery.com">Python</a>, <a
+href="https://www.react-graph-gallery.com">React</a> and <a
+href="https://d3-graph-gallery.com">D3</a> graph galleries are 4
+websites providing hundreds of chart example, always providing the
+reproducible code. Click the button below to see how to build the chart
+you need with your favorite programing language.</p>
 <p>
-<a href="https://www.r-graph-gallery.com" class="btn btn-primary">R graph gallery</a> <a href="https://www.python-graph-gallery.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.r-graph-gallery.com" class="btn btn-primary">R
+graph gallery</a>
+<a href="https://python-graph-gallery.com" class="btn btn-primary">Python
+gallery</a>
+<a href="https://www.react-graph-gallery.com" class="btn btn-primary">React
+gallery</a>
+<a href="https://d3-graph-gallery.com" class="btn btn-primary">D3
+gallery</a>
 </p>
-<h1 id="comments">Comments</h1>
-<hr />
-<p>Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+</div>
 </div>
 
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="mycontent">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/graph/sunburst.html;
-        this.page.identifier = sunburst;
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-
-
-
-&nbsp;
+           &nbsp;
 <hr />
-<p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -443,28 +595,29 @@ A network structure used to show a hierarchical organization.
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;                </div>
 
-</body>
+    <script>
+
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

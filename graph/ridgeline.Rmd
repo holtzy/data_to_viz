@@ -140,10 +140,10 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x.
   </a>
   </div>
   <div class="col-sm-3">
-  <a href="ridgeline.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png">
-  <p class="mytitlerelated">Ridgeline</p>
-  <p class="mytextrelated">Allows to compare the distribution of a few variables. Usefull if there is a pattern to observe</p>
+  <a href="histogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png">
+  <p class="mytitlerelated">Histogram</p>
+  <p class="mytextrelated">Represent the value of entities using bars of various length. Use it if you have a large dataset.</p>
   </a>
   </div>
   <div class="col-sm-3">
@@ -168,19 +168,14 @@ ggplot(lincoln_weather, aes(x = `Mean Temperature [F]`, y = `Month`, fill = ..x.
 # Build your own {#code}
 ***
 
-The [R](https://www.r-graph-gallery.com) and [Python](https://www.python-graph-gallery.com) graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com/ridgeline-plot.html), [Python](https://www.python-graph-gallery.com/ridgeline/), [React](https://www.react-graph-gallery.com/ridgeline) and [D3](https://d3-graph-gallery.com/ridgeline.html) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
-<a href="https://www.r-graph-gallery.com/ridgeline-plot/" class="btn btn-primary">R graph gallery</a>
+<a href="https://www.r-graph-gallery.com/ridgeline-plot.html" class="btn btn-primary">R graph gallery</a>
+<a href="https://python-graph-gallery.com/ridgeline/" class="btn btn-primary">Python gallery</a>
+<a href="https://www.react-graph-gallery.com/ridgeline" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com/ridgeline.html" class="btn btn-primary">D3 gallery</a>
 </p>
-
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 </div>
 

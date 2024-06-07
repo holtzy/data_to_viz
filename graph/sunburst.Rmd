@@ -34,6 +34,9 @@ A `sunburst diagram` displays a hierarchical structure. The origin of the organi
 
 A sunburst diagram can be used in 2 situations:
 
+- *Part of a whole* - the sunburst diagram can be used to represent a part of a whole. In this case, the center of the circle represents the whole, and the outer part represents the parts. The following example shows the [world population](https://www.data-to-viz.com/story/SevCatOneNumNestedOneObsPerGroup.html) of 250 countries.
+- *Flows* - the sunburst diagram can also be used to represent flows. In this case, the center of the circle represents the origin of the flow, and the outer part represents the destination. The following example shows the professional state evolution of a set of people.
+
 
 
 
@@ -174,18 +177,13 @@ p
 # Build your own {#code}
 ***
 
-The R and Python graph galleries are 2 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
+The [R](https://www.r-graph-gallery.com), [Python](https://www.python-graph-gallery.com), [React](https://www.react-graph-gallery.com) and [D3](https://d3-graph-gallery.com) graph galleries are 4 websites providing hundreds of chart example, always providing the reproducible code. Click the button below to see how to build the chart you need with your favorite programing language.
 
 <p>
 <a href="https://www.r-graph-gallery.com" class="btn btn-primary">R graph gallery</a>
-<a href="https://www.python-graph-gallery.com" class="btn btn-primary">Python gallery</a>
+<a href="https://python-graph-gallery.com" class="btn btn-primary">Python gallery</a>
+<a href="https://www.react-graph-gallery.com" class="btn btn-primary">React gallery</a>
+<a href="https://d3-graph-gallery.com" class="btn btn-primary">D3 gallery</a>
 </p>
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 </div>

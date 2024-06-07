@@ -314,10 +314,10 @@ d3heatmap(mtcars, scale = "column", colors = "Blues")
   </a>
   </div>
   <div class="col-lg-3 col-md-6 col-sm-6">
-  <a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
-  <p class="mytitlerelated">Dendrogram</p>
-  <p class="mytextrelated">A network structure used to show a hierarchical organization.</p>
+  <a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+  <img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
+  <p class="mytitlerelated">Heatmap</p>
+  <p class="mytextrelated">A graphical representation of data where the individual values contained in a matrix are represented as colors.</p>
   </a>
   </div>
 </div>

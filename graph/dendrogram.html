@@ -314,32 +314,32 @@ He manages 2 managers that manage 8 employees (the leaves).</p>
 <span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
 <span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
 <span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># create a data frame </span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># create a data frame</span></span>
 <span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>data<span class="ot">=</span><span class="fu">data.frame</span>(</span>
 <span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="at">level1=</span><span class="st">&quot;CEO&quot;</span>,</span>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="at">level2=</span><span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&quot;boss1&quot;</span>,<span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">&quot;boss2&quot;</span>,<span class="dv">4</span>)),</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="at">level3=</span><span class="fu">paste0</span>(<span class="st">&quot;mister_&quot;</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>])</span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>)</span>
-<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a> </span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co"># transform it to a edge list!</span></span>
 <span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>edges_level1_2 <span class="ot">=</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(level1, level2) <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">from=</span>level1, <span class="at">to=</span>level2)</span>
 <span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>edges_level2_3 <span class="ot">=</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(level2, level3) <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">from=</span>level2, <span class="at">to=</span>level3)</span>
 <span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a>edge_list<span class="ot">=</span><span class="fu">rbind</span>(edges_level1_2, edges_level2_3)</span>
-<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a> </span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a></span>
 <span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a><span class="co"># Now we can plot that</span></span>
 <span id="cb1-24"><a href="#cb1-24" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( edge_list )</span>
-<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb1-25"><a href="#cb1-25" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb1-26"><a href="#cb1-26" tabindex="-1"></a>  <span class="fu">geom_edge_diagonal</span>() <span class="sc">+</span></span>
 <span id="cb1-27"><a href="#cb1-27" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">size=</span><span class="dv">3</span>) <span class="sc">+</span></span>
 <span id="cb1-28"><a href="#cb1-28" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(</span>
-<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="fu">aes</span>(  <span class="at">label=</span><span class="fu">c</span>(<span class="st">&quot;CEO&quot;</span>, <span class="st">&quot;Manager&quot;</span>, <span class="st">&quot;Manager&quot;</span>, LETTERS[<span class="dv">8</span><span class="sc">:</span><span class="dv">1</span>]) ), </span>
-<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    <span class="at">hjust=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)), </span>
+<span id="cb1-29"><a href="#cb1-29" tabindex="-1"></a>    <span class="fu">aes</span>(  <span class="at">label=</span><span class="fu">c</span>(<span class="st">&quot;CEO&quot;</span>, <span class="st">&quot;Manager&quot;</span>, <span class="st">&quot;Manager&quot;</span>, LETTERS[<span class="dv">8</span><span class="sc">:</span><span class="dv">1</span>]) ),</span>
+<span id="cb1-30"><a href="#cb1-30" tabindex="-1"></a>    <span class="at">hjust=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>)),</span>
 <span id="cb1-31"><a href="#cb1-31" tabindex="-1"></a>    <span class="at">nudge_y =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">02</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="fu">rep</span>(.<span class="dv">02</span>,<span class="dv">8</span>)),</span>
 <span id="cb1-32"><a href="#cb1-32" tabindex="-1"></a>    <span class="at">nudge_x =</span> <span class="fu">c</span>(<span class="dv">0</span>, .<span class="dv">3</span>, .<span class="dv">3</span>, <span class="fu">rep</span>(<span class="dv">0</span>,<span class="dv">8</span>))</span>
 <span id="cb1-33"><a href="#cb1-33" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb1-34"><a href="#cb1-34" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
 <span id="cb1-35"><a href="#cb1-35" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>() </span></code></pre></div>
+<span id="cb1-36"><a href="#cb1-36" tabindex="-1"></a>  <span class="fu">scale_y_reverse</span>()</span></code></pre></div>
 <p><img src="dendrogram_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
 <p><br></p>
 <p>Two type of dendrogram exist, resulting from 2 types of dataset:</p>
@@ -363,14 +363,14 @@ employees (the <strong>leaves</strong>).</p>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a> </span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># create a data frame </span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="co"># create a data frame</span></span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">level1=</span><span class="st">&quot;CEO&quot;</span>,</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="at">level2=</span><span class="fu">c</span>( <span class="fu">rep</span>(<span class="st">&quot;boss1&quot;</span>,<span class="dv">4</span>), <span class="fu">rep</span>(<span class="st">&quot;boss2&quot;</span>,<span class="dv">4</span>)),</span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="at">level3=</span><span class="fu">paste0</span>(<span class="st">&quot;mister_&quot;</span>, letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>])</span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>)</span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a> </span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="co"># transform it to a edge list!</span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>edges_level1_2 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(level1, level2) <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">from=</span>level1, <span class="at">to=</span>level2)</span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>edges_level2_3 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">select</span>(level2, level3) <span class="sc">%&gt;%</span> unique <span class="sc">%&gt;%</span> <span class="fu">rename</span>(<span class="at">from=</span>level2, <span class="at">to=</span>level3)</span>
@@ -378,7 +378,7 @@ employees (the <strong>leaves</strong>).</p>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a></span>
 <span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co"># Now we can plot that</span></span>
 <span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( edge_list )</span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
 <span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="fu">geom_edge_diagonal</span>() <span class="sc">+</span></span>
 <span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>  <span class="fu">geom_node_point</span>() <span class="sc">+</span></span>
 <span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
@@ -510,7 +510,7 @@ deduce from the branch size that represents the distance.</p>
 expected result. For instance, we can check if the countries are indeed
 grouped in continent using a color bar:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Create a color vector with continent</span></span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>continent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;North America&quot;</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>continent <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Africa&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;North America&quot;</span>,</span>
 <span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>               <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Europe&quot;</span>,<span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>               <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;South America&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;North America&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Europe&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Asia&quot;</span>, <span class="st">&quot;Europe&quot;</span>,</span>
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>               <span class="st">&quot;North America&quot;</span></span>
@@ -544,23 +544,23 @@ more efficiently:</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer) </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
 <span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
 <span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a></span>
 <span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co"># create a data frame giving the hierarchical structure of your individuals</span></span>
 <span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>d1<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">from=</span><span class="st">&quot;origin&quot;</span>, <span class="at">to=</span><span class="fu">paste</span>(<span class="st">&quot;group&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">10</span>), <span class="at">sep=</span><span class="st">&quot;&quot;</span>))</span>
 <span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>d2<span class="ot">=</span><span class="fu">data.frame</span>(<span class="at">from=</span><span class="fu">rep</span>(d1<span class="sc">$</span>to, <span class="at">each=</span><span class="dv">10</span>), <span class="at">to=</span><span class="fu">paste</span>(<span class="st">&quot;group&quot;</span>, <span class="fu">seq</span>(<span class="dv">1</span>,<span class="dv">100</span>), <span class="at">sep=</span><span class="st">&quot;_&quot;</span>))</span>
 <span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>edges<span class="ot">=</span><span class="fu">rbind</span>(d1, d2)</span>
-<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a> </span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a></span>
 <span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co"># create a vertices data.frame. One line per object of our hierarchy</span></span>
 <span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>vertices <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
-<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">unique</span>(<span class="fu">c</span>(<span class="fu">as.character</span>(edges<span class="sc">$</span>from), <span class="fu">as.character</span>(edges<span class="sc">$</span>to))) , </span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a>  <span class="at">name =</span> <span class="fu">unique</span>(<span class="fu">c</span>(<span class="fu">as.character</span>(edges<span class="sc">$</span>from), <span class="fu">as.character</span>(edges<span class="sc">$</span>to))) ,</span>
 <span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a>  <span class="at">value =</span> <span class="fu">runif</span>(<span class="dv">111</span>)</span>
-<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>) </span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>)</span>
 <span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co"># Let&#39;s add a column with the group of each name. It will be useful later to color points</span></span>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>vertices<span class="sc">$</span>group <span class="ot">=</span> edges<span class="sc">$</span>from[ <span class="fu">match</span>( vertices<span class="sc">$</span>name, edges<span class="sc">$</span>to ) ]</span>
-<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a> </span>
-<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a> </span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a></span>
 <span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="co">#Let&#39;s add information concerning the label we are going to add: angle, horizontal adjustement and potential flip</span></span>
 <span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="co">#calculate the ANGLE of the labels</span></span>
 <span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a>vertices<span class="sc">$</span>id<span class="ot">=</span><span class="cn">NA</span></span>
@@ -568,14 +568,14 @@ more efficiently:</p>
 <span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a>nleaves<span class="ot">=</span><span class="fu">length</span>(myleaves)</span>
 <span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a>vertices<span class="sc">$</span>id[ myleaves ] <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">1</span><span class="sc">:</span>nleaves)</span>
 <span id="cb6-28"><a href="#cb6-28" tabindex="-1"></a>vertices<span class="sc">$</span>angle<span class="ot">=</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> vertices<span class="sc">$</span>id <span class="sc">/</span> nleaves</span>
-<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a> </span>
+<span id="cb6-29"><a href="#cb6-29" tabindex="-1"></a></span>
 <span id="cb6-30"><a href="#cb6-30" tabindex="-1"></a><span class="co"># calculate the alignment of labels: right or left</span></span>
 <span id="cb6-31"><a href="#cb6-31" tabindex="-1"></a><span class="co"># If I am on the left part of the plot, my labels have currently an angle &lt; -90</span></span>
 <span id="cb6-32"><a href="#cb6-32" tabindex="-1"></a>vertices<span class="sc">$</span>hjust<span class="ot">&lt;-</span><span class="fu">ifelse</span>( vertices<span class="sc">$</span>angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
-<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a> </span>
+<span id="cb6-33"><a href="#cb6-33" tabindex="-1"></a></span>
 <span id="cb6-34"><a href="#cb6-34" tabindex="-1"></a><span class="co"># flip angle BY to make them readable</span></span>
 <span id="cb6-35"><a href="#cb6-35" tabindex="-1"></a>vertices<span class="sc">$</span>angle<span class="ot">&lt;-</span><span class="fu">ifelse</span>(vertices<span class="sc">$</span>angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, vertices<span class="sc">$</span>angle<span class="sc">+</span><span class="dv">180</span>, vertices<span class="sc">$</span>angle)</span>
-<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a> </span>
+<span id="cb6-36"><a href="#cb6-36" tabindex="-1"></a></span>
 <span id="cb6-37"><a href="#cb6-37" tabindex="-1"></a><span class="co"># Create a graph object</span></span>
 <span id="cb6-38"><a href="#cb6-38" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( edges, <span class="at">vertices=</span>vertices )</span>
 <span id="cb6-39"><a href="#cb6-39" tabindex="-1"></a></span>
@@ -583,7 +583,7 @@ more efficiently:</p>
 <span id="cb6-41"><a href="#cb6-41" tabindex="-1"></a>mycolor <span class="ot">&lt;-</span> <span class="fu">colormap</span>(<span class="at">colormap =</span> colormaps<span class="sc">$</span>viridis, <span class="at">nshades =</span> <span class="dv">6</span>, <span class="at">format =</span> <span class="st">&quot;hex&quot;</span>, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">reverse =</span> <span class="cn">FALSE</span>)[<span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>), <span class="dv">10</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)]</span>
 <span id="cb6-42"><a href="#cb6-42" tabindex="-1"></a></span>
 <span id="cb6-43"><a href="#cb6-43" tabindex="-1"></a><span class="co"># Make the plot</span></span>
-<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> </span>
+<span id="cb6-44"><a href="#cb6-44" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;dendrogram&#39;</span>, <span class="at">circular =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb6-45"><a href="#cb6-45" tabindex="-1"></a>  <span class="fu">geom_edge_diagonal</span>(<span class="at">colour=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
 <span id="cb6-46"><a href="#cb6-46" tabindex="-1"></a>  <span class="fu">scale_edge_colour_distiller</span>(<span class="at">palette =</span> <span class="st">&quot;RdPu&quot;</span>) <span class="sc">+</span></span>
 <span id="cb6-47"><a href="#cb6-47" tabindex="-1"></a>  <span class="fu">geom_node_text</span>(<span class="fu">aes</span>(<span class="at">x =</span> x<span class="sc">*</span><span class="fl">1.15</span>, <span class="at">y=</span>y<span class="sc">*</span><span class="fl">1.15</span>, <span class="at">filter =</span> leaf, <span class="at">label=</span>name, <span class="at">angle =</span> angle, <span class="at">hjust=</span>hjust, <span class="at">colour=</span>group), <span class="at">size=</span><span class="fl">2.7</span>, <span class="at">alpha=</span><span class="dv">1</span>) <span class="sc">+</span></span>
@@ -660,13 +660,14 @@ show how the whole is divided.
 </a>
 </div>
 <div class="col-lg-3 col-md-6 col-sm-6">
-<a href="http://www.data-to-viz.com/graph/dendrogram.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png">
+<a href="http://www.data-to-viz.com/graph/heatmap.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
+<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png">
 <p class="mytitlerelated">
-Dendrogram
+Heatmap
 </p>
 <p class="mytextrelated">
-A network structure used to show a hierarchical organization.
+A graphical representation of data where the individual values contained
+in a matrix are represented as colors.
 </p>
 </a>
 </div>
