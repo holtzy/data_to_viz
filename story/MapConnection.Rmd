@@ -68,7 +68,7 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
 
 <br><br>
 
-#Showing a few connection on a map
+# Showing a few connection on a map
 ***
 
 Before showing all the relationships provided in this dataset, it is important to understand how to visualize a unique connection on a map. It is a common practice to link 2 points using the shortest route between them instead of a straight line. It is called [great circles](https://en.wikipedia.org/wiki/Great_circle). A special care is given for situations where cities are very far from each other and where the shortest connection thus passes behind the map.  
@@ -119,7 +119,7 @@ text(rownames(don), x=don$long, y=don$lat,  col="black", cex=1, pos=4)
 
 
 
-#Showing many connections on a map
+# Showing many connections on a map
 ***
 
 It is then possible to use the same method for the whole dataset composed of about 10,000 connections. With such a sample size, it makes sense to group the connections that have exactly the same starting and ending points. Then it is important to represent the connections with high volume on top of the graphic, and those with small volume below it. Indeed this will allow to highlight the most important pattern and hide the noise of rare connections.  
@@ -191,7 +191,7 @@ p <- ggplot() +
 ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 90)
 ```
 
-</div>
+
 
 <center>
 
@@ -200,7 +200,7 @@ ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 
 </center>
 
 <br><br>
-<div class="mycontent">
+
 
 Please note that this map is available [here](https://github.com/holtzy/data_to_viz/tree/master/story/IMG) if needed. Even if a connecting map is probably the best option for plotting this kind of dataset, please note that other representation like chord diagrams or networks could make a good job as well.
 

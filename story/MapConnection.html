@@ -1,77 +1,69 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
-<head>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 350px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<link rel="icon" href="img/logo/data-to-viz.ico">
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">Visualizing geographic connections</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A few data analytics ideas from
+            <a href="www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ConnectedMapSmall.png></a
+      >
+                   </div>
 
+       
+    <title>MapConnection.knit</title>
 
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px;
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-    height: 100%;
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">Visualizing geographic connections</p>
-  <center><div class='mysubtitle'>
-    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ConnectedMapSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-<title>MapConnection.knit</title>
-
-<script src="libs/header-attrs-2.27/header-attrs.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -92,183 +84,181 @@
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br><br>
+                         </div>
+              <br><br>
 <div class="mycontent">
 <p>This document provides a few suggestions for the visualization of
 geographical connections.</p>
@@ -457,7 +447,9 @@ Indonesia
 </tbody>
 </table>
 <p><br><br></p>
-<p>#Showing a few connection on a map ***</p>
+<div id="showing-a-few-connection-on-a-map" class="section level1">
+<h1>Showing a few connection on a map</h1>
+<hr />
 <p>Before showing all the relationships provided in this dataset, it is
 important to understand how to visualize a unique connection on a map.
 It is a common practice to link 2 points using the shortest route
@@ -506,7 +498,10 @@ other and where the shortest connection thus passes behind the map.</p>
 <span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>don<span class="sc">$</span>long, <span class="at">y=</span>don<span class="sc">$</span>lat, <span class="at">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">cex=</span><span class="dv">2</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
 <span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a><span class="fu">text</span>(<span class="fu">rownames</span>(don), <span class="at">x=</span>don<span class="sc">$</span>long, <span class="at">y=</span>don<span class="sc">$</span>lat,  <span class="at">col=</span><span class="st">&quot;black&quot;</span>, <span class="at">cex=</span><span class="dv">1</span>, <span class="at">pos=</span><span class="dv">4</span>)</span></code></pre></div>
 <p><img src="MapConnection_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>#Showing many connections on a map ***</p>
+</div>
+<div id="showing-many-connections-on-a-map" class="section level1">
+<h1>Showing many connections on a map</h1>
+<hr />
 <p>It is then possible to use the same method for the whole dataset
 composed of about 10,000 connections. With such a sample size, it makes
 sense to group the connections that have exactly the same starting and
@@ -581,69 +576,87 @@ post</a>.</p>
 <span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a></span>
 <span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a><span class="co"># Save at PNG</span></span>
 <span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;IMG/Surfer_travel.png&quot;</span>, <span class="at">width =</span> <span class="dv">36</span>, <span class="at">height =</span> <span class="fl">15.22</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>, <span class="at">dpi =</span> <span class="dv">90</span>)</span></code></pre></div>
-</div>
 <center>
 <p><img src="IMG/Surfer_travel.png" /></p>
 </center>
-<br><br>
-<div class="mycontent">
+<p><br><br></p>
 <p>Please note that this map is available <a
 href="https://github.com/holtzy/data_to_viz/tree/master/story/IMG">here</a>
 if needed. Even if a connecting map is probably the best option for
 plotting this kind of dataset, please note that other representation
 like chord diagrams or networks could make a good job as well.</p>
 </div>
+</div>
 
+          <!-- Insert code for related graphics  -->
+          <h1>Going further</h1>
+          <hr />
+          <p>
+            You can learn more about each type of graphic presented in this
+            story in the dedicated sections. Click the icon below:
+          </p>
+                    <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ConnectedMapSmall.png></a
+          >
+                   
+          <section
+            id="form"
+            style="
+              margin-top: 70px;
+              padding-bottom: 70px;
+              padding-top: 70px;
+              background-color: #f8f9fa;
+            "
+          >
+            <div class="container">
+              <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  align-items: center;
+                "
+              >
+                <h2 style="font-size: 44px" class="text-center">
+                  Dataviz decision tree
+                </h2>
+                <p
+                  class="text-center"
+                  style="max-width: 600px; font-size: 18px"
+                >
+                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+                  comprehensive <b>classification of chart types</b> organized
+                  by data input format. Get a high-resolution version of our
+                  decision tree delivered to your inbox now!
+                </p>
+                <div
+                  style="
+                    margin-top: -50px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <script
+                    async
+                    data-uid="8010f15fd2"
+                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+                  ></script>
+                </div>
+                <br />
+                <div class="text-center">
+                  <img
+                    class="img-fluid"
+                    src="../img/poster/poster_small.png"
+                    alt="High Resolution Poster"
+                    style="max-width: 400px"
+                  />
+                </div>
+              </div>
+            </div>
+          </section>
 
-<!-- Insert code for related graphics  -->
-<h1>Going further</h1>
-<hr>
-<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ConnectedMapSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-
-
-<!-- Insert code for DISQUS comments  -->
-      <br>
-      <h1>Comments</h1>
-      <hr>
-      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
-      <br>
-      <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/.html;
-        this.page.identifier = ;
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-<!-- Insert code for DISQUS comments  -->
-
-
-
-
-
-&nbsp;
+           &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -677,26 +690,18 @@ var getOutboundLink = function(url) {
 }
 </script>
 
-&nbsp;
+&nbsp;                </div>
 
+    <script>
 
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
 
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-
-</body>
+          </script>
+       </body>
 </html>

@@ -58,8 +58,7 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
 
 ```{r, warning=FALSE, message=FALSE}
 # Load data
-#dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
-dataUU <- read.table("../Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
+dataUU <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/13_AdjacencyUndirectedUnweighted.csv", header=TRUE)
 
 # show data
 dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
@@ -163,7 +162,7 @@ However chord diagram is not an usual way of displaying information. Thus, it is
 # Sankey diagram
 ***
 
-[Sankey diagram]() is another option to display weighted connection. Intead of displaying regions on a circle, they are duplicated and represented on both sides of the graphic. Origin is usually on the left, destination on the right.
+[Sankey diagram](../graph/sankey.html) is another option to display weighted connection. Intead of displaying regions on a circle, they are duplicated and represented on both sides of the graphic. Origin is usually on the left, destination on the right.
 ```{r, fig.align="center", fig.width=10, fig.height=7, warning=FALSE}
 # Package
 library(networkD3)
@@ -200,8 +199,9 @@ sankeyNetwork(Links = data_long, Nodes = nodes,
 
 
 
-#Heatmap
+# Heatmap
 ***
+
 The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is another great alternative to represent an adjacency matrix. Here, all the origin countries are represented as row, and all the destination as columns. The diagonal pops out with a lot of yellow squares, which means that most of the migrations are intra continental.
 
 
