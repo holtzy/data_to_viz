@@ -21,6 +21,7 @@ output:
 ---
 
 <br><br><br><br>
+
 <div class="mycontent">
 
 
@@ -29,10 +30,17 @@ output:
 
 
 <div class = "row">
+
 <div class = "col-md-6">
-<br>This document gives a few suggestions to analyse a dataset composed by a set of geographic coordinates that have an associated numeric value.<br><br>It considers the population of 925 cities in the UK. This example dataset is provided in the [R maps library](https://github.com/adeckmyn/maps) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+
+<br>
+
+This document gives a few suggestions to analyse a dataset composed by a set of geographic coordinates that have an associated numeric value.<br><br>It considers the population of 925 cities in the UK. This example dataset is provided in the [R maps library](https://github.com/adeckmyn/maps) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
+
 </div>
+
 <div class = "col-md-6">
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -60,8 +68,9 @@ data %>% head(5) %>% kable() %>%
 
 
 
-#Bubble map
+# Bubble map
 ***
+
 The go-to graphic in this kind of situation is probably the [bubble map](https://www.data-to-viz.com/graph/bubblemap.html). Basically, one circle is drawn per provided geographic position. The size of the bubble is proportional to its corresponding numeric value. Warning, remember that the bubble area must be proportional to the value, [not its radius](https://www.data-to-viz.com/caveat/radius_or_area.html).
 
 ```{r, message=FALSE, warning=FALSE, fig.align='center', fig.height=8, fig.width=7}

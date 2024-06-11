@@ -1,261 +1,311 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
-<head>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 350px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">How much do people tip?</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A few data analytics ideas from
+            <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a
+      >
+                </div>
 
+       
+    <title>OneNumSevCatSubgroupSevObsPerGroup.knit</title>
 
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">How much do people tip?</p>
-  <center><div class='mysubtitle'>
-    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-<title></title>
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br>
+                         </div>
+              <br>
 <div class="mycontent">
 
 
 <div class="row">
 <div class="col-md-8">
-<p><br><br><br> This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups, with several observations for each combinations. <br><br> The dataset used as an example describes the amount that restaurant staff receive in tips based on various indicators like the client sex, the day of the week and if the client smokes or not. <br><br> Data come from the <a href="https://github.com/mwaskom/seaborn-data">Seaborn</a> Python library. A clean <code>.csv</code> version is available in the data-to-viz.com <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github repository</a>.</p>
+<p><br><br><br> This document gives a few suggestions to analyse a
+dataset composed by a numeric variable measured on groups and subgroups,
+with several observations for each combinations. <br><br> The dataset
+used as an example describes the amount that restaurant staff receive in
+tips based on various indicators like the client sex, the day of the
+week and if the client smokes or not. <br><br> Data come from the <a
+href="https://github.com/mwaskom/seaborn-data">Seaborn</a> Python
+library. A clean <code>.csv</code> version is available in the
+data-to-viz.com <a
+href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github
+repository</a>.</p>
 </div>
 <div class="col-md-4">
 <p><br><br></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(ggrepel)
-<span class="kw">library</span>(plotly)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">tip =</span> <span class="kw">round</span>(tip<span class="op">/</span>total_bill<span class="op">*</span><span class="dv">100</span>, <span class="dv">1</span>))
-
-<span class="co"># show data</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(tip, sex, day, smoker) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">tip =</span> <span class="fu">round</span>(tip<span class="sc">/</span>total_bill<span class="sc">*</span><span class="dv">100</span>, <span class="dv">1</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a><span class="co"># show data</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(tip, sex, day, smoker) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -365,133 +415,177 @@ No
 <div id="grouped-boxplot" class="section level1">
 <h1>Grouped boxplot</h1>
 <hr />
-<p>The most common way to represent that kind of dataset is probably the grouped <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>. Each combination of group is represented by a box. This allows to quickly understand what is the distribution of the numeric variable for each combination.</p>
+<p>The most common way to represent that kind of dataset is probably the
+grouped <a
+href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>. Each
+combination of group is represented by a box. This allows to quickly
+understand what is the distribution of the numeric variable for each
+combination.</p>
 <p><br></p>
-<p>Here, it looks like there is not much difference in tip values from one day to the other in average, except a slight increase on sunday. Moreover, it looks like females tend to tip more than males on friday. Note that individual data points are presented using <code>jittering</code>, what allows to detect more particular pattern and assess the sample size of each group.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Counts the number of value per group and subgroup</span>
-counts =<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(day, sex) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarize</span>(
-    <span class="dt">n=</span><span class="kw">n</span>(),
-    <span class="dt">median=</span><span class="kw">median</span>(tip)
-  )
-
-<span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">factor</span>(day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>sex, <span class="dt">y=</span>tip, <span class="dt">x=</span>day)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">position=</span><span class="kw">position_dodge2</span>(<span class="dt">preserve =</span> <span class="st">&quot;total&quot;</span>), <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>, <span class="dt">varwidth =</span> <span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">width=</span><span class="fl">0.1</span>, <span class="dt">position=</span><span class="kw">position_jitterdodge</span>() , <span class="dt">alpha=</span><span class="fl">0.4</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_text</span>(<span class="dt">data=</span>counts, <span class="kw">aes</span>(<span class="dt">label=</span><span class="kw">paste0</span>(<span class="st">&quot;n: &quot;</span>,n), <span class="dt">y=</span>median<span class="op">-</span><span class="dv">2</span>), <span class="dt">position=</span><span class="kw">position_dodge</span>(<span class="dv">1</span>), <span class="dt">hjust=</span><span class="fl">0.5</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">35</span>)</code></pre></div>
+<p>Here, it looks like there is not much difference in tip values from
+one day to the other in average, except a slight increase on sunday.
+Moreover, it looks like females tend to tip more than males on friday.
+Note that individual data points are presented using
+<code>jittering</code>, what allows to detect more particular pattern
+and assess the sample size of each group.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Counts the number of value per group and subgroup</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>counts <span class="ot">=</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">group_by</span>(day, sex) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fu">summarize</span>(</span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>    <span class="at">n=</span><span class="fu">n</span>(),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="at">median=</span><span class="fu">median</span>(tip)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  )</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">fct_reorder</span>(day, tip)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">factor</span>(day, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>sex, <span class="at">y=</span>tip, <span class="at">x=</span>day)) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">position=</span><span class="fu">position_dodge2</span>(<span class="at">preserve =</span> <span class="st">&quot;total&quot;</span>), <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>, <span class="at">varwidth =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">position=</span><span class="fu">position_jitterdodge</span>() , <span class="at">alpha=</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data=</span>counts, <span class="fu">aes</span>(<span class="at">label=</span><span class="fu">paste0</span>(<span class="st">&quot;n: &quot;</span>,n), <span class="at">y=</span>median<span class="dv">-2</span>), <span class="at">position=</span><span class="fu">position_dodge</span>(<span class="dv">1</span>), <span class="at">hjust=</span><span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()  <span class="sc">+</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">35</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>In the above chart categories are grouped by day. It is possible to build the same kind of visualization, grouping by Sex instead. In the first case, it is easy to compare the behavior or each sex day by day. On the second one, the idea is more to compare the difference by day for each sex.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">factor</span>(day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>day, <span class="dt">y=</span>tip, <span class="dt">x=</span>sex)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_boxplot</span>(<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">color=</span><span class="st">&quot;grey&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">width=</span><span class="fl">0.1</span>, <span class="dt">position=</span><span class="kw">position_jitterdodge</span>() , <span class="dt">alpha=</span><span class="fl">0.4</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</code></pre></div>
+<p>In the above chart categories are grouped by day. It is possible to
+build the same kind of visualization, grouping by Sex instead. In the
+first case, it is easy to compare the behavior or each sex day by day.
+On the second one, the idea is more to compare the difference by day for
+each sex.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">fct_reorder</span>(day, tip)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">factor</span>(day, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>day, <span class="at">y=</span>tip, <span class="at">x=</span>sex)) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">color=</span><span class="st">&quot;grey&quot;</span>, <span class="at">size=</span><span class="dv">1</span>, <span class="at">width=</span><span class="fl">0.1</span>, <span class="at">position=</span><span class="fu">position_jitterdodge</span>() , <span class="at">alpha=</span><span class="fl">0.4</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()  <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="violin" class="section level1">
 <h1>Violin</h1>
 <hr />
-<p>The <a href="https://www.data-to-viz.com/graph/violin.html">violin plot</a> can be used exactly in the same situation that the <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>. Using the same grouping technique, we got here a grouped violin plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">factor</span>(day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>sex, <span class="dt">y=</span>tip, <span class="dt">x=</span>day)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_violin</span>(<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">alpha=</span><span class="fl">0.5</span>, <span class="dt">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</code></pre></div>
+<p>The <a href="https://www.data-to-viz.com/graph/violin.html">violin
+plot</a> can be used exactly in the same situation that the <a
+href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a>.
+Using the same grouping technique, we got here a grouped violin
+plot.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">fct_reorder</span>(day, tip)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">factor</span>(day, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>sex, <span class="at">y=</span>tip, <span class="at">x=</span>day)) <span class="sc">+</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>    <span class="fu">geom_violin</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>, <span class="at">outlier.colour=</span><span class="st">&quot;transparent&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()  <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Tip (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>    <span class="fu">ylim</span>(<span class="dv">0</span>,<span class="dv">40</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="histogram" class="section level1">
 <h1>Histogram</h1>
 <hr />
-<p>Small multiple is a powerful technique that can be used with that kind of data. Here, each combination is represented in a part of the grid, allowing a quick comparison between them. <a href="https://www.data-to-viz.com/graph/histogram.html">Histograms</a> are used here, but the same result could be obtained with <a href="https://www.data-to-viz.com/graph/density.html">density</a> plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">fct_reorder</span>(day, tip)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">day =</span> <span class="kw">factor</span>(day, <span class="dt">levels=</span><span class="kw">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span>tip)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">bins=</span><span class="dv">20</span>, <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">color=</span><span class="st">&quot;white&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_grid</span>(sex<span class="op">~</span>time) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Tip&quot;</span>)</code></pre></div>
+<p>Small multiple is a powerful technique that can be used with that
+kind of data. Here, each combination is represented in a part of the
+grid, allowing a quick comparison between them. <a
+href="https://www.data-to-viz.com/graph/histogram.html">Histograms</a>
+are used here, but the same result could be obtained with <a
+href="https://www.data-to-viz.com/graph/density.html">density</a>
+plot.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">fct_reorder</span>(day, tip)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">day =</span> <span class="fu">factor</span>(day, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">&quot;Thur&quot;</span>, <span class="st">&quot;Fri&quot;</span>, <span class="st">&quot;Sat&quot;</span>, <span class="st">&quot;Sun&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span>tip)) <span class="sc">+</span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="fu">geom_histogram</span>(<span class="at">bins=</span><span class="dv">20</span>, <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">color=</span><span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>    <span class="fu">facet_grid</span>(sex<span class="sc">~</span>time) <span class="sc">+</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()  <span class="sc">+</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Tip&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupSevObsPerGroup_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 
-
-<!-- Insert code for related graphics  -->
-<h1>Going further</h1>
-<hr>
-<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-
-
-
-<!-- Insert code for DISQUS comments  -->
-      <br>
-      <h1>Comments</h1>
-      <hr>
-      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
-      <br>
+          <!-- Insert code for related graphics  -->
+          <h1>Going further</h1>
+          <hr />
+          <p>
+            You can learn more about each type of graphic presented in this
+            story in the dedicated sections. Click the icon below:
+          </p>
+                    <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HistogramSmall.png></a
+          >
+                      </div>
+    </div>
+    <section
+      id="form"
+      style="
+        margin-top: 70px;
+        padding-bottom: 70px;
+        padding-top: 70px;
+        background-color: #f8f9fa;
+      "
+    >
       <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/OneNumSevCatSubgroupSevObsPerGroup.html;  
-        this.page.identifier = OneNumSevCatSubgroupSevObsPerGroup; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-size: 44px" class="text-center">
+            Dataviz decision tree
+          </h2>
+          <p class="text-center" style="max-width: 600px; font-size: 18px">
+            <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+            comprehensive <b>classification of chart types</b> organized by data
+            input format. Get a high-resolution version of our decision tree
+            delivered to your inbox now!
+          </p>
+          <div
+            style="
+              margin-top: -50px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            "
+          >
+            <script
+              async
+              data-uid="8010f15fd2"
+              src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+            ></script>
+          </div>
+          <br />
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="../img/poster/poster_small.png"
+              alt="High Resolution Poster"
+              style="max-width: 400px"
+            />
+          </div>
+        </div>
       </div>
-<!-- Insert code for DISQUS comments  -->
+    </section>
 
-
-
-
-
-&nbsp;
+     &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -514,28 +608,28 @@ data <span class="op">%&gt;%</span>
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;   
+    <script>
 
-</body>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

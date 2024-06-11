@@ -1,267 +1,316 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
-<head>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 350px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">The gender wage gap</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A few data analytics ideas from
+            <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png></a
+      >
+                </div>
 
+       
+    <title>OneNumSevCatSubgroupOneObsPerGroup.knit</title>
 
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">The gender wage gap</p>
-  <center><div class='mysubtitle'>
-    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-<title></title>
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
-<script src="libs/plotly-binding-4.7.1/plotly.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/crosstalk-1.0.0/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.0.0/js/crosstalk.min.js"></script>
-<link href="libs/plotlyjs-1.29.2/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotlyjs-1.29.2/plotly-latest.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br><br>
+                         </div>
+              <br><br>
 <div class="mycontent">
 
 
 <div class="row">
 <div class="col-md-8">
-<p><br><br><br> This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups. <br><br> The dataset used as an example quantifies the gender wage gap in 39 countries at three different time stamp. The gender wage gap is defined as the difference between male and female median wages divided by the male median wages. <br><br> Data have been gathered on the <a href="https://stats.oecd.org/index.aspx?queryid=54751">OECD website</a>. A clean version is available at <code>csv</code>format on <a href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github</a>.</p>
+<p><br><br><br> This document gives a few suggestions to analyse a
+dataset composed by a numeric variable measured on groups and subgroups.
+<br><br> The dataset used as an example quantifies the gender wage gap
+in 39 countries at three different time stamp. The gender wage gap is
+defined as the difference between male and female median wages divided
+by the male median wages. <br><br> Data have been gathered on the <a
+href="https://stats.oecd.org/index.aspx?queryid=54751">OECD website</a>.
+A clean version is available at <code>csv</code>format on <a
+href="https://github.com/holtzy/data_to_viz/tree/master/Example_dataset">github</a>.</p>
 </div>
 <div class="col-md-4">
 <p><br></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(ggrepel)
-<span class="kw">library</span>(plotly)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv&quot;</span>, <span class="dt">header=</span>T, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)
-
-<span class="co"># show data</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/9_OneNumSevCatSubgroupOneObs.csv&quot;</span>, <span class="at">header=</span>T, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># show data</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -350,181 +399,233 @@ Austria
 <div id="grouped-barplot" class="section level1">
 <h1>Grouped barplot</h1>
 <hr />
-<p>The most common way to represent this kind of dataset is probably to build a <a href="">grouped barplot</a>. In this example, each bar represents a gender wage gap. Bars can be grouped by year or by country depending on what you want to focus on.</p>
+<p>The most common way to represent this kind of dataset is probably to
+build a <a href="">grouped barplot</a>. In this example, each bar
+represents a gender wage gap. Bars can be grouped by year or by country
+depending on what you want to focus on.</p>
 <p>This works well if your groups have no logical orders</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># List of country with 4 values</span>
-with4 &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarize</span>(<span class="dt">n=</span><span class="kw">n</span>()) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(n<span class="op">==</span><span class="dv">4</span>)
-
-<span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">%in%</span><span class="st"> </span>with4<span class="op">$</span>Country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country =</span> <span class="kw">fct_reorder</span>(Country, Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">TIME=</span><span class="kw">factor</span>(TIME, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;2000&quot;</span>, <span class="st">&quot;2005&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2015&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span><span class="kw">as.factor</span>(TIME), <span class="dt">y=</span>Value, <span class="dt">x=</span>Country)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()  <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># List of country with 4 values</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>with4 <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">group_by</span>(Country) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">n=</span><span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">filter</span>(n<span class="sc">==</span><span class="dv">4</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> with4<span class="sc">$</span>Country) <span class="sc">%&gt;%</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">fct_reorder</span>(Country, Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TIME=</span><span class="fu">factor</span>(TIME, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;2000&quot;</span>, <span class="st">&quot;2005&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2015&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span><span class="fu">as.factor</span>(TIME), <span class="at">y=</span>Value, <span class="at">x=</span>Country)) <span class="sc">+</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()  <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupOneObsPerGroup_files/figure-html/unnamed-chunk-2-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>On this graphic, bars are grouped per country. Since country are ordered, it is easy to notice that Korea is the country with the biggest wage gap, followed by Japan and the UK. It is also possible to observe that the gender wage gap globally decreased between 2000 and 2015, but there are clearly better way to represent this idea. <br><br> Note that choosing the appropriate grouping variable is important. Let’s check what happens when grouping using the other categoric variable, the year:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">%in%</span><span class="st"> </span>with4<span class="op">$</span>Country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country =</span> <span class="kw">fct_reorder</span>(Country, Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">TIME=</span><span class="kw">factor</span>(TIME, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;2000&quot;</span>, <span class="st">&quot;2005&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2015&quot;</span>))) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">fill=</span>Country, <span class="dt">y=</span>Value, <span class="dt">x=</span><span class="kw">as.factor</span>(TIME))) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</code></pre></div>
+<p>On this graphic, bars are grouped per country. Since country are
+ordered, it is easy to notice that Korea is the country with the biggest
+wage gap, followed by Japan and the UK. It is also possible to observe
+that the gender wage gap globally decreased between 2000 and 2015, but
+there are clearly better way to represent this idea. <br><br> Note that
+choosing the appropriate grouping variable is important. Let’s check
+what happens when grouping using the other categoric variable, the
+year:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> with4<span class="sc">$</span>Country) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country =</span> <span class="fu">fct_reorder</span>(Country, Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">TIME=</span><span class="fu">factor</span>(TIME, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">&quot;2000&quot;</span>, <span class="st">&quot;2005&quot;</span>, <span class="st">&quot;2010&quot;</span>, <span class="st">&quot;2015&quot;</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">fill=</span>Country, <span class="at">y=</span>Value, <span class="at">x=</span><span class="fu">as.factor</span>(TIME))) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">position=</span><span class="st">&quot;dodge&quot;</span>, <span class="at">stat=</span><span class="st">&quot;identity&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupOneObsPerGroup_files/figure-html/unnamed-chunk-3-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>The result of this grouped barplot is quite disapointing compared to the previous one. This is mainly due to the fact that too many bars are displayed for each year. It gets very hard to make a link with the legend, and the comparison from a year to the other is very complicated as well. Globally, it is better to group bars in a way that minimize the number of bar per group. Moreover, remember that having a legend with more than ~7 groups probably means that there is a better way to represent the information.</p>
+<p>The result of this grouped barplot is quite disapointing compared to
+the previous one. This is mainly due to the fact that too many bars are
+displayed for each year. It gets very hard to make a link with the
+legend, and the comparison from a year to the other is very complicated
+as well. Globally, it is better to group bars in a way that minimize the
+number of bar per group. Moreover, remember that having a legend with
+more than ~7 groups probably means that there is a better way to
+represent the information.</p>
 </div>
 <div id="parallel-coordinates-plot" class="section level1">
 <h1>Parallel coordinates plot</h1>
 <hr />
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Groups</span>
-all &lt;-<span class="st"> </span><span class="kw">unique</span>(data<span class="op">$</span>Country)
-grp1 &lt;-<span class="st"> </span><span class="kw">sample</span>( all, <span class="dv">20</span>)
-grp2 &lt;-<span class="st"> </span>all[ <span class="op">!</span><span class="st"> </span>all<span class="op">%in%</span>grp1]
-
-<span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">%in%</span><span class="st"> </span>with4<span class="op">$</span>Country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">!=</span><span class="st"> &quot;OECD - Average&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">if_else</span>(TIME <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(TIME) <span class="op">&amp;</span><span class="st"> </span>Country <span class="op">%in%</span><span class="st"> </span>grp1, <span class="kw">as.character</span>(Country), <span class="ot">NA_character_</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label2 =</span> <span class="kw">if_else</span>(TIME <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(TIME) <span class="op">&amp;</span><span class="st"> </span>Country <span class="op">%in%</span><span class="st"> </span>grp2, <span class="kw">as.character</span>(Country), <span class="ot">NA_character_</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.factor</span>(TIME), <span class="dt">y=</span>Value, <span class="dt">color=</span>Country, <span class="dt">group=</span>Country)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label_repel</span>( <span class="kw">aes</span>(<span class="dt">label=</span>label), <span class="dt">nudge_x =</span> <span class="fl">0.3</span>, <span class="dt">hjust=</span><span class="dv">0</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label_repel</span>( <span class="kw">aes</span>(<span class="dt">label=</span>label2), <span class="dt">nudge_x =</span> <span class="op">-</span><span class="fl">0.3</span>, <span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position =</span><span class="st">&quot;none&quot;</span>
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Groups</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">unique</span>(data<span class="sc">$</span>Country)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>grp1 <span class="ot">&lt;-</span> <span class="fu">sample</span>( all, <span class="dv">20</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>grp2 <span class="ot">&lt;-</span> all[ <span class="sc">!</span> all<span class="sc">%in%</span>grp1]</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> with4<span class="sc">$</span>Country) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">!=</span> <span class="st">&quot;OECD - Average&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">if_else</span>(TIME <span class="sc">==</span> <span class="fu">max</span>(TIME) <span class="sc">&amp;</span> Country <span class="sc">%in%</span> grp1, <span class="fu">as.character</span>(Country), <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label2 =</span> <span class="fu">if_else</span>(TIME <span class="sc">==</span> <span class="fu">min</span>(TIME) <span class="sc">&amp;</span> Country <span class="sc">%in%</span> grp2, <span class="fu">as.character</span>(Country), <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(TIME), <span class="at">y=</span>Value, <span class="at">color=</span>Country, <span class="at">group=</span>Country)) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a>    <span class="fu">geom_label_repel</span>( <span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">nudge_x =</span> <span class="fl">0.3</span>, <span class="at">hjust=</span><span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a>    <span class="fu">geom_label_repel</span>( <span class="fu">aes</span>(<span class="at">label=</span>label2), <span class="at">nudge_x =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>      <span class="at">legend.position =</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupOneObsPerGroup_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="spider-plot" class="section level1">
 <h1>Spider plot</h1>
 <hr />
-<p>The <a href="">spider chart</a> is a circular version of the parallel coordinates plot where vertical axis are joint in the center of the figure. It is sometimes criticized [<a href="http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart">1</a>, <a href="https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html">2</a>], but I believe in their effectiveness in certain cases, as explained <a href="">here</a>.</p>
+<p>The <a href="">spider chart</a> is a circular version of the parallel
+coordinates plot where vertical axis are joint in the center of the
+figure. It is sometimes criticized [<a
+href="http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart">1</a>,
+<a
+href="https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html">2</a>],
+but I believe in their effectiveness in certain cases, as explained <a
+href="">here</a>.</p>
 </div>
 <div id="slope-chart" class="section level1">
 <h1>Slope chart</h1>
 <hr />
-<p>If one of the categoric variable has only two levels, it is possible to build a slope chart that is a specific use case of the <a href="">parallel coordinates plot</a>. It is very powerful since it describes efficiently both the ranking and the evolution of every country.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Groups</span>
-all &lt;-<span class="st"> </span><span class="kw">unique</span>(data<span class="op">$</span>Country)
-grp1 &lt;-<span class="st"> </span><span class="kw">sample</span>( all, <span class="dv">20</span>)
-grp2 &lt;-<span class="st"> </span>all[ <span class="op">!</span><span class="st"> </span>all<span class="op">%in%</span>grp1]
-
-<span class="co"># Grouped</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">%in%</span><span class="st"> </span>with4<span class="op">$</span>Country) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(Country <span class="op">!=</span><span class="st"> &quot;OECD - Average&quot;</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(TIME <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2015</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label =</span> <span class="kw">if_else</span>(TIME <span class="op">==</span><span class="st"> </span><span class="kw">max</span>(TIME) <span class="op">&amp;</span><span class="st"> </span>Country <span class="op">%in%</span><span class="st"> </span>grp1, <span class="kw">as.character</span>(Country), <span class="ot">NA_character_</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">label2 =</span> <span class="kw">if_else</span>(TIME <span class="op">==</span><span class="st"> </span><span class="kw">min</span>(TIME) <span class="op">&amp;</span><span class="st"> </span>Country <span class="op">%in%</span><span class="st"> </span>grp2, <span class="kw">as.character</span>(Country), <span class="ot">NA_character_</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.factor</span>(TIME), <span class="dt">y=</span>Value, <span class="dt">color=</span>Country, <span class="dt">group=</span>Country)) <span class="op">+</span><span class="st"> </span>
-<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label_repel</span>( <span class="kw">aes</span>(<span class="dt">label=</span>label), <span class="dt">nudge_x =</span> <span class="fl">0.3</span>, <span class="dt">hjust=</span><span class="dv">0</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label_repel</span>( <span class="kw">aes</span>(<span class="dt">label=</span>label2), <span class="dt">nudge_x =</span> <span class="op">-</span><span class="fl">0.3</span>, <span class="dt">hjust=</span><span class="dv">1</span>, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>, <span class="dt">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">scale_color_viridis</span>(<span class="dt">discrete=</span>T, <span class="dt">name=</span><span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">legend.position =</span><span class="st">&quot;none&quot;</span>
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</code></pre></div>
+<p>If one of the categoric variable has only two levels, it is possible
+to build a slope chart that is a specific use case of the <a
+href="">parallel coordinates plot</a>. It is very powerful since it
+describes efficiently both the ranking and the evolution of every
+country.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Groups</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>all <span class="ot">&lt;-</span> <span class="fu">unique</span>(data<span class="sc">$</span>Country)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>grp1 <span class="ot">&lt;-</span> <span class="fu">sample</span>( all, <span class="dv">20</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>grp2 <span class="ot">&lt;-</span> all[ <span class="sc">!</span> all<span class="sc">%in%</span>grp1]</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co"># Grouped</span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">%in%</span> with4<span class="sc">$</span>Country) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>  <span class="fu">filter</span>(Country <span class="sc">!=</span> <span class="st">&quot;OECD - Average&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>  <span class="fu">filter</span>(TIME <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2015</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label =</span> <span class="fu">if_else</span>(TIME <span class="sc">==</span> <span class="fu">max</span>(TIME) <span class="sc">&amp;</span> Country <span class="sc">%in%</span> grp1, <span class="fu">as.character</span>(Country), <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">label2 =</span> <span class="fu">if_else</span>(TIME <span class="sc">==</span> <span class="fu">min</span>(TIME) <span class="sc">&amp;</span> Country <span class="sc">%in%</span> grp2, <span class="fu">as.character</span>(Country), <span class="cn">NA_character_</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(TIME), <span class="at">y=</span>Value, <span class="at">color=</span>Country, <span class="at">group=</span>Country)) <span class="sc">+</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>    <span class="fu">geom_label_repel</span>( <span class="fu">aes</span>(<span class="at">label=</span>label), <span class="at">nudge_x =</span> <span class="fl">0.3</span>, <span class="at">hjust=</span><span class="dv">0</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>    <span class="fu">geom_label_repel</span>( <span class="fu">aes</span>(<span class="at">label=</span>label2), <span class="at">nudge_x =</span> <span class="sc">-</span><span class="fl">0.3</span>, <span class="at">hjust=</span><span class="dv">1</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">segment.colour=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>    <span class="fu">scale_color_viridis</span>(<span class="at">discrete=</span>T, <span class="at">name=</span><span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>      <span class="at">legend.position =</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;gender wage gap (%)&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumSevCatSubgroupOneObsPerGroup_files/figure-html/unnamed-chunk-5-1.png" width="768" style="display: block; margin: auto;" /></p>
 </div>
 <div id="scatter-plot" class="section level1">
 <h1>Scatter plot</h1>
 <hr />
-<p>If one of the grouping variable has 2 levels, it is also possible to build a scatterplot. One level will be on the X axis, the other on the Y axis. Let’s make an example showing the value in the 20’ compared to the 2015’. In this case it is useful to use interactivity: it avoids to have a legend with too many levels.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(TIME <span class="op">%in%</span><span class="st"> </span><span class="kw">c</span>(<span class="dv">2000</span>, <span class="dv">2015</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">spread</span>(<span class="dt">key=</span>TIME, <span class="dt">value=</span>Value, <span class="op">-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">2000</span><span class="st">`</span><span class="op">!=-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="st">`</span><span class="dt">2015</span><span class="st">`</span><span class="op">!=-</span><span class="dv">1</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">text=</span><span class="kw">paste</span>(<span class="st">&quot;Country: &quot;</span>,Country, <span class="st">&quot;</span><span class="ch">\n</span><span class="st">&quot;</span>, <span class="st">&quot;Wage gap in 2000: &quot;</span>, <span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="st">&quot;%</span><span class="ch">\n</span><span class="st">Wage gap in 2015: &quot;</span>, <span class="st">`</span><span class="dt">2015</span><span class="st">`</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x=</span><span class="st">`</span><span class="dt">2000</span><span class="st">`</span>, <span class="dt">y=</span><span class="st">`</span><span class="dt">2015</span><span class="st">`</span>, <span class="dt">text=</span>text)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">4</span>, <span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Gender wage gap in 2000 (%)&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Gender wage gap in 2015 (%)&quot;</span>)
-  
-
-<span class="kw">ggplotly</span>(p, <span class="dt">tooltip=</span><span class="st">&quot;text&quot;</span>)</code></pre></div>
-<div id="b80765c2b60c" style="width:768px;height:576px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="b80765c2b60c">{"x":{"data":[{"x":[17.2,23.1,13.6,23.9,6.1,19.1,20.4,19.6,14.1,19.7,33.9,41.7,7.2,10.2,17.8,26.3,23.1],"y":[13,17,4.7,18.6,21.1,16.5,18.1,15.8,9.5,14.4,25.7,37.2,7.9,7.1,14.3,17.1,18.9],"text":["Country: Australia<br />Wage gap in 2000: 17.2%<br />Wage gap in 2015: 13","Country: Austria<br />Wage gap in 2000: 23.1%<br />Wage gap in 2015: 17","Country: Belgium<br />Wage gap in 2000: 13.6%<br />Wage gap in 2015: 4.7","Country: Canada<br />Wage gap in 2000: 23.9%<br />Wage gap in 2015: 18.6","Country: Chile<br />Wage gap in 2000: 6.1%<br />Wage gap in 2015: 21.1","Country: Czech Republic<br />Wage gap in 2000: 19.1%<br />Wage gap in 2015: 16.5","Country: Finland<br />Wage gap in 2000: 20.4%<br />Wage gap in 2015: 18.1","Country: Germany<br />Wage gap in 2000: 19.6%<br />Wage gap in 2015: 15.8","Country: Hungary<br />Wage gap in 2000: 14.1%<br />Wage gap in 2015: 9.5","Country: Ireland<br />Wage gap in 2000: 19.7%<br />Wage gap in 2015: 14.4","Country: Japan<br />Wage gap in 2000: 33.9%<br />Wage gap in 2015: 25.7","Country: Korea<br />Wage gap in 2000: 41.7%<br />Wage gap in 2015: 37.2","Country: New Zealand<br />Wage gap in 2000: 7.2%<br />Wage gap in 2015: 7.9","Country: Norway<br />Wage gap in 2000: 10.2%<br />Wage gap in 2015: 7.1","Country: OECD - Average<br />Wage gap in 2000: 17.8%<br />Wage gap in 2015: 14.3","Country: United Kingdom<br />Wage gap in 2000: 26.3%<br />Wage gap in 2015: 17.1","Country: United States<br />Wage gap in 2000: 23.1%<br />Wage gap in 2015: 18.9"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(105,179,162,1)","opacity":0.6,"size":15.1181102362205,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(105,179,162,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":69.1340805313408,"r":39.8505603985056,"b":84.1843088418431,"l":70.9007887090079},"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.2760481527605},"xaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[4.32,43.48],"tickmode":"array","ticktext":["10","20","30","40"],"tickvals":[10,20,30,40],"categoryorder":"array","categoryarray":["10","20","30","40"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.81901203819012,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.2760481527605},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"y","title":"Gender wage gap in 2000 (%)","titlefont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.9551681195517},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"type":"linear","autorange":false,"range":[3.075,38.825],"tickmode":"array","ticktext":["10","20","30"],"tickvals":[10,20,30],"categoryorder":"array","categoryarray":["10","20","30"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.81901203819012,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.2760481527605},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.265670402656704,"zeroline":false,"anchor":"x","title":"Gender wage gap in 2015 (%)","titlefont":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.9551681195517},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.2208385222084}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":[{"name":"Collaborate","icon":{"width":1000,"ascent":500,"descent":-50,"path":"M487 375c7-10 9-23 5-36l-79-259c-3-12-11-23-22-31-11-8-22-12-35-12l-263 0c-15 0-29 5-43 15-13 10-23 23-28 37-5 13-5 25-1 37 0 0 0 3 1 7 1 5 1 8 1 11 0 2 0 4-1 6 0 3-1 5-1 6 1 2 2 4 3 6 1 2 2 4 4 6 2 3 4 5 5 7 5 7 9 16 13 26 4 10 7 19 9 26 0 2 0 5 0 9-1 4-1 6 0 8 0 2 2 5 4 8 3 3 5 5 5 7 4 6 8 15 12 26 4 11 7 19 7 26 1 1 0 4 0 9-1 4-1 7 0 8 1 2 3 5 6 8 4 4 6 6 6 7 4 5 8 13 13 24 4 11 7 20 7 28 1 1 0 4 0 7-1 3-1 6-1 7 0 2 1 4 3 6 1 1 3 4 5 6 2 3 3 5 5 6 1 2 3 5 4 9 2 3 3 7 5 10 1 3 2 6 4 10 2 4 4 7 6 9 2 3 4 5 7 7 3 2 7 3 11 3 3 0 8 0 13-1l0-1c7 2 12 2 14 2l218 0c14 0 25-5 32-16 8-10 10-23 6-37l-79-259c-7-22-13-37-20-43-7-7-19-10-37-10l-248 0c-5 0-9-2-11-5-2-3-2-7 0-12 4-13 18-20 41-20l264 0c5 0 10 2 16 5 5 3 8 6 10 11l85 282c2 5 2 10 2 17 7-3 13-7 17-13z m-304 0c-1-3-1-5 0-7 1-1 3-2 6-2l174 0c2 0 4 1 7 2 2 2 4 4 5 7l6 18c0 3 0 5-1 7-1 1-3 2-6 2l-173 0c-3 0-5-1-8-2-2-2-4-4-4-7z m-24-73c-1-3-1-5 0-7 2-2 3-2 6-2l174 0c2 0 5 0 7 2 3 2 4 4 5 7l6 18c1 2 0 5-1 6-1 2-3 3-5 3l-174 0c-3 0-5-1-7-3-3-1-4-4-5-6z"},"click":"function(gd) { \n        // is this being viewed in RStudio?\n        if (location.search == '?viewer_pane=1') {\n          alert('To learn about plotly for collaboration, visit:\\n https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html');\n        } else {\n          window.open('https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html', '_blank');\n        }\n      }"}],"cloud":false},"source":"A","attrs":{"b8073f5ccdab":{"x":{},"y":{},"text":{},"type":"scatter"}},"cur_data":"b8073f5ccdab","visdat":{"b8073f5ccdab":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1}},"base_url":"https://plot.ly"},"evals":["config.modeBarButtonsToAdd.0.click"],"jsHooks":{"render":[{"code":"function(el, x) { var ctConfig = crosstalk.var('plotlyCrosstalkOpts').set({\"on\":\"plotly_click\",\"persistent\":false,\"dynamic\":false,\"selectize\":false,\"opacityDim\":0.2,\"selected\":{\"opacity\":1}}); }","data":null}]}}</script>
+<p>If one of the grouping variable has 2 levels, it is also possible to
+build a scatterplot. One level will be on the X axis, the other on the Y
+axis. Let’s make an example showing the value in the 20’ compared to the
+2015’. In this case it is useful to use interactivity: it avoids to have
+a legend with too many levels.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>p <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>  <span class="fu">filter</span>(TIME <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">2000</span>, <span class="dv">2015</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>  <span class="fu">spread</span>(<span class="at">key=</span>TIME, <span class="at">value=</span>Value, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">2000</span><span class="st">`</span><span class="sc">!=-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">2015</span><span class="st">`</span><span class="sc">!=-</span><span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">text=</span><span class="fu">paste</span>(<span class="st">&quot;Country: &quot;</span>,Country, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>, <span class="st">&quot;Wage gap in 2000: &quot;</span>, <span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="st">&quot;%</span><span class="sc">\n</span><span class="st">Wage gap in 2015: &quot;</span>, <span class="st">`</span><span class="at">2015</span><span class="st">`</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">2000</span><span class="st">`</span>, <span class="at">y=</span><span class="st">`</span><span class="at">2015</span><span class="st">`</span>, <span class="at">text=</span>text)) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">4</span>, <span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Gender wage gap in 2000 (%)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Gender wage gap in 2015 (%)&quot;</span>)</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="fu">ggplotly</span>(p, <span class="at">tooltip=</span><span class="st">&quot;text&quot;</span>)</span></code></pre></div>
+<div class="plotly html-widget html-fill-item" id="htmlwidget-c8482b5dd5f3d46653c9" style="width:768px;height:576px;"></div>
+<script type="application/json" data-for="htmlwidget-c8482b5dd5f3d46653c9">{"x":{"data":[{"x":[17.199999999999999,23.100000000000001,13.6,23.899999999999999,6.0999999999999996,19.100000000000001,20.399999999999999,19.600000000000001,14.1,19.699999999999999,33.899999999999999,41.700000000000003,7.2000000000000002,10.199999999999999,17.800000000000001,26.300000000000001,23.100000000000001],"y":[13,17,4.7000000000000002,18.600000000000001,21.100000000000001,16.5,18.100000000000001,15.800000000000001,9.5,14.4,25.699999999999999,37.200000000000003,7.9000000000000004,7.0999999999999996,14.300000000000001,17.100000000000001,18.899999999999999],"text":["Country: Australia<br />Wage gap in 2000: 17.2%<br />Wage gap in 2015: 13","Country: Austria<br />Wage gap in 2000: 23.1%<br />Wage gap in 2015: 17","Country: Belgium<br />Wage gap in 2000: 13.6%<br />Wage gap in 2015: 4.7","Country: Canada<br />Wage gap in 2000: 23.9%<br />Wage gap in 2015: 18.6","Country: Chile<br />Wage gap in 2000: 6.1%<br />Wage gap in 2015: 21.1","Country: Czech Republic<br />Wage gap in 2000: 19.1%<br />Wage gap in 2015: 16.5","Country: Finland<br />Wage gap in 2000: 20.4%<br />Wage gap in 2015: 18.1","Country: Germany<br />Wage gap in 2000: 19.6%<br />Wage gap in 2015: 15.8","Country: Hungary<br />Wage gap in 2000: 14.1%<br />Wage gap in 2015: 9.5","Country: Ireland<br />Wage gap in 2000: 19.7%<br />Wage gap in 2015: 14.4","Country: Japan<br />Wage gap in 2000: 33.9%<br />Wage gap in 2015: 25.7","Country: Korea<br />Wage gap in 2000: 41.7%<br />Wage gap in 2015: 37.2","Country: New Zealand<br />Wage gap in 2000: 7.2%<br />Wage gap in 2015: 7.9","Country: Norway<br />Wage gap in 2000: 10.2%<br />Wage gap in 2015: 7.1","Country: OECD - Average<br />Wage gap in 2000: 17.8%<br />Wage gap in 2015: 14.3","Country: United Kingdom<br />Wage gap in 2000: 26.3%<br />Wage gap in 2015: 17.1","Country: United States<br />Wage gap in 2000: 23.1%<br />Wage gap in 2015: 18.9"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(105,179,162,1)","opacity":0.59999999999999998,"size":15.118110236220474,"symbol":"circle","line":{"width":1.8897637795275593,"color":"rgba(105,179,162,1)"}},"hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":69.134080531340828,"r":39.850560398505614,"b":84.184308841843119,"l":70.900788709007898},"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":15.276048152760483},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[4.3199999999999994,43.480000000000004],"tickmode":"array","ticktext":["10","20","30","40"],"tickvals":[10,20,30,40],"categoryorder":"array","categoryarray":["10","20","30","40"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"y","title":{"text":"Gender wage gap in 2000 (%)","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[3.0750000000000002,38.825000000000003],"tickmode":"array","ticktext":["10","20","30"],"tickvals":[10,20,30],"categoryorder":"array","categoryarray":["10","20","30"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.8190120381901207,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"Arial Narrow","size":15.276048152760483},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(204,204,204,1)","gridwidth":0.26567040265670405,"zeroline":false,"anchor":"x","title":{"text":"Gender wage gap in 2015 (%)","font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":11.955168119551683}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":false,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"Arial Narrow","size":12.220838522208389}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"6e2c3dbd7c03":{"x":{},"y":{},"text":{},"type":"scatter"}},"cur_data":"6e2c3dbd7c03","visdat":{"6e2c3dbd7c03":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 
-
-<!-- Insert code for related graphics  -->
-<h1>Going further</h1>
-<hr>
-<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png></a>
-  
-  
-  
-  
-  
-  
-  
-
-
-
-<!-- Insert code for DISQUS comments  -->
-      <br>
-      <h1>Comments</h1>
-      <hr>
-      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
-      <br>
+          <!-- Insert code for related graphics  -->
+          <h1>Going further</h1>
+          <hr />
+          <p>
+            You can learn more about each type of graphic presented in this
+            story in the dedicated sections. Click the icon below:
+          </p>
+                    <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/BarSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Parallel1Small.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/SpiderSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ScatterPlotSmall.png></a
+          >
+                      </div>
+    </div>
+    <section
+      id="form"
+      style="
+        margin-top: 70px;
+        padding-bottom: 70px;
+        padding-top: 70px;
+        background-color: #f8f9fa;
+      "
+    >
       <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/OneNumSevCatSubgroupOneObsPerGroup.html;  
-        this.page.identifier = OneNumSevCatSubgroupOneObsPerGroup; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-size: 44px" class="text-center">
+            Dataviz decision tree
+          </h2>
+          <p class="text-center" style="max-width: 600px; font-size: 18px">
+            <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+            comprehensive <b>classification of chart types</b> organized by data
+            input format. Get a high-resolution version of our decision tree
+            delivered to your inbox now!
+          </p>
+          <div
+            style="
+              margin-top: -50px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            "
+          >
+            <script
+              async
+              data-uid="8010f15fd2"
+              src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+            ></script>
+          </div>
+          <br />
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="../img/poster/poster_small.png"
+              alt="High Resolution Poster"
+              style="max-width: 400px"
+            />
+          </div>
+        </div>
       </div>
-<!-- Insert code for DISQUS comments  -->
+    </section>
 
-
-
-
-
-&nbsp;
+     &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -547,28 +648,28 @@ data <span class="op">%&gt;%</span>
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;   
+    <script>
 
-</body>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

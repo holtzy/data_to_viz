@@ -40,6 +40,7 @@ A clean version at `.csv` format is available on github, and the table beside sh
 
 <div class = "col-md-4">
 <br>
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -66,7 +67,7 @@ data %>% head(6) %>% kable() %>%
 
 
 
-#Lollipop
+# Lollipop
 ***
 
 Even if the most common way to represent this kind of information is probably to use [barplots](https://www.data-to-viz.com/graph/barplot.html), [lollipop](https://www.data-to-viz.com/graph/lollipop.html) can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.
@@ -94,7 +95,7 @@ data %>%
 
 
 
-#Barplot
+# Barplot
 ***
 
 Here is the [barplot](https://www.data-to-viz.com/graph/barplot.html) version that looks very similar to the [lollipop](https://www.data-to-viz.com/graph/lollipop.html). This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.
@@ -118,7 +119,7 @@ data %>%
 
 
 
-#Circular barplot
+# Circular barplot
 ***
 The [circular barplot](https://www.data-to-viz.com/graph/circularbarplot.html) is an alternative to the [barplots](https://www.data-to-viz.com/graph/barplot.html), where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if obvious differences exist between group.
 ```{r, fig.align="center", fig.height=8, fig.width=8, message=FALSE, warning=FALSE}
@@ -167,13 +168,16 @@ Please note that in this case the [circular barplot](https://www.data-to-viz.com
 
 
 
-#Treemap
+# Treemap
 ***
 A [treemap](https://www.data-to-viz.com/graph/treemap.html) represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.
 It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.
 ```{r, fig.align="center", fig.width=9}
 # Package
 library(treemap)
+
+data <- data %>%
+  filter(!is.na(Value))
 
 # Plot
 treemap(data,
@@ -226,7 +230,7 @@ edges <- data.frame(
 vertices = rbind(tmp, data.frame(Country="o", Value=1)) %>% mutate(name=Country)
 mygraph <- graph_from_data_frame( edges, vertices=vertices )
 
-ggraph(mygraph, layout = 'circlepack', weight="Value") +
+ggraph(mygraph, layout = 'circlepack', weight=Value) +
   geom_node_circle( aes(fill=name)) +
   scale_fill_viridis(discrete=TRUE) +
   geom_node_label(aes(label=name, size=Value)) +

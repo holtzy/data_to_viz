@@ -42,6 +42,7 @@ On the [/r/samplesize](https://www.reddit.com/r/SampleSize/) thread of reddit, q
 
 </div>
 <div class = "col-md-4">
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -74,7 +75,7 @@ data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
 
 
 
-#Boxplot
+# Boxplot
 ***
 The most common way to represent that kind of dataset is probably the [boxplot](). It summarizes the main features of each group and thus allow an efficient of distributions. Mind a few pitfalls tough. It often makes sense to [order groups](http://www.data-to-viz.com/caveat/order_data.html) to make the chart easier to read. If the [group labels are long](http://www.data-to-viz.com/caveat/hard_label.html), consider a horizontal version that makes the labels readable. Last but not least, note that the boxplot [hides information](http://www.data-to-viz.com/caveat/boxplot.html) like the underlying distribution of the sample size. [Several workarounds](http://www.data-to-viz.com/caveat/boxplot.html) exist, like showing the individual data points with unobstrusive dots.
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
@@ -94,7 +95,7 @@ data %>%
 ```
 
 
-#Violin
+# Violin
 ***
 The [violin plot]() is often a good alternative to boxplot as long as your sample size is big enough. It is very close to the boxplot, thus the advices above still apply, except that it describes group distributions more accurately by definition. If you have many groups (like here), it is probably not the best option since each violin tends to be very slim, what makes hard to visualize the distribution. In this case a good alternative is the [ridgeline plot]() thatis described a bit further in this post.
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
@@ -115,7 +116,7 @@ data %>%
 
 
 
-#Density
+# Density
 ***
 If you have just a few group, you can compare them on the same [density plot](). Here only four groups were selected to illustrate this idea. With more groups, the graphic would get cluttered and hard to read. The number of group you can show on the same density plot depends of your data: if the group overlap, few, if their distribution is really different, a bit more.
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
@@ -169,7 +170,7 @@ This is a good way to study the distribution of each group separately. However, 
 
 
 
-#Histogram
+# Histogram
 ***
 The [histrogram]() is very close from density plots. Thus, all the remarks above probably apply here as well.
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}
@@ -192,7 +193,7 @@ data %>%
 Note that here the Y scale is the same for each group, unlike the precedent example on density plot.
 
 
-#Ridgeline plot
+# Ridgeline plot
 ***
 In this example, the best option is probably the [ridgeline plot](). It shares all the benefits of a violinplot and avoid to loose space since there is an overlap between groups. Both individual distribution and comparison between groups are described efficiently.
 ```{r, fig.align='center', fig.height=6, fig.width=8, warning=FALSE}

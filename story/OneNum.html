@@ -48,7 +48,7 @@
         <div class="mysubtitle">
           <i
             >A few data analytics ideas from
-            <a href="www.data-to-viz.com">Data-to-Viz.com</a></i
+            <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
           >
         </div>
       </center>
@@ -67,7 +67,7 @@
        
     <title>OneNum.knit</title>
 
-     <script src="libs/header-attrs-2.26/header-attrs.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
@@ -106,7 +106,7 @@
       }
       @media print {
       pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
       }
       pre.numberSource code
         { counter-reset: source-line 0; }
@@ -338,7 +338,9 @@ price
 </table>
 </div>
 </div>
-<p>#Histogram ***</p>
+<div id="histogram" class="section level1">
+<h1>Histogram</h1>
+<hr />
 <p>The most common way to represent a unique numeric variable is with a
 histogram. Basically, the numeric variable is cut in several
 <code>bins</code>: between 0 and 10 euros a night, between 10 and 20 and
@@ -374,7 +376,10 @@ prices by bins of 2 euros instead of 10:</p>
 Actually a few values are over represented in the dataset (like 58, 64,
 69, 75, 80..). This is definitely a signal that you want to understand
 when analysing your dataset.</p>
-<p>#Density ***</p>
+</div>
+<div id="density" class="section level1">
+<h1>Density</h1>
+<hr />
 <p>A variation of the histogram is the density plot, which is basically
 a smoothed version of the histogram. It represents a
 <code>kernel density estimate</code> of the variable. As seen for the
@@ -398,6 +403,7 @@ bin size of the histogram, it is important to try several values for the
 <span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Bandwidth: 2&quot;</span>) <span class="sc">+</span></span>
 <span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code></pre></div>
 <p><img src="OneNum_files/figure-html/unnamed-chunk-5-1.png" width="672" style="display: block; margin: auto;" /></p>
+</div>
 </div>
 </div>
 
@@ -456,7 +462,7 @@ bin size of the histogram, it is important to try several values for the
           <div class="text-center">
             <img
               class="img-fluid"
-              src="img/poster/poster_small.png"
+              src="../img/poster/poster_small.png"
               alt="High Resolution Poster"
               style="max-width: 400px"
             />

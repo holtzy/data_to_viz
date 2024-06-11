@@ -39,6 +39,7 @@ Data come from the [Seaborn](https://github.com/mwaskom/seaborn-data) Python lib
 
 <div class = "col-md-4">
 <br><br>
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -64,14 +65,14 @@ data %>% head(6) %>% select(tip, sex, day, smoker) %>% kable() %>%
 
 
 
-#Grouped boxplot
+# Grouped boxplot
 ***
 The most common way to represent that kind of dataset is probably the grouped [boxplot](https://www.data-to-viz.com/caveat/boxplot.html). Each combination of group is represented by a box. This allows to quickly understand what is the distribution of the numeric variable for each combination.
 
 <br>
 
 Here, it looks like there is not much difference in tip values from one day to the other in average, except a slight increase on sunday. Moreover, it looks like females tend to tip more than males on friday. Note that individual data points are presented using `jittering`, what allows to detect more particular pattern and assess the sample size of each group.
-```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 # Counts the number of value per group and subgroup
 counts = data %>%
   group_by(day, sex) %>%
@@ -98,7 +99,7 @@ data %>%
 In the above chart categories are grouped by day. It is possible to build the same kind of visualization, grouping by Sex instead. In the first case, it is easy to compare the behavior or each sex day by day. On the second one, the idea is more to compare the difference by day for each sex.
 
 
-```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 # Grouped
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
@@ -116,11 +117,11 @@ data %>%
 
 
 
-#Violin
+# Violin
 ***
 
 The [violin plot](https://www.data-to-viz.com/graph/violin.html) can be used exactly in the same situation that the [boxplot](https://www.data-to-viz.com/caveat/boxplot.html). Using the same grouping technique, we got here a grouped violin plot.
-```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 # Grouped
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
@@ -139,10 +140,10 @@ data %>%
 
 
 
-#Histogram
+# Histogram
 ***
 Small multiple is a powerful technique that can be used with that kind of data. Here, each combination is represented in a part of the grid, allowing a quick comparison between them. [Histograms](https://www.data-to-viz.com/graph/histogram.html) are used here, but the same result could be obtained with [density](https://www.data-to-viz.com/graph/density.html) plot.
-```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE}
+```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 # Grouped
 data %>%
   mutate(day = fct_reorder(day, tip)) %>%
