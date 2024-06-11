@@ -32,6 +32,7 @@ output:
 <br><br><br>This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinates<br>It considers the geographic position of about 200k tweets containing the hashtags `#surf`, `#windsurf` or `#kitesurf`.<br>This dataset has been built harvesting twitter every day during about 300 days. It is fully available in this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
 </div>
 <div class = "col-md-4">
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -57,12 +58,12 @@ data %>% head(3) %>% kable() %>%
 
 
 
-#Showing a few dots
+# Showing a few dots
 ***
 If your dataset is composed by a few data point only, you can just display them on a map. If you have specific information to display concerning these positions, use an interactive: more information are available when you click data points.
 
 
-#A dot density map
+# A dot density map
 ***
 A dot density map is used when the sample size of your dataset is high.
 
@@ -107,7 +108,7 @@ Dotmaps give a good idea about where samples are distributed. However, once dots
 
 
 
-#Hexbin
+# Hexbin
 ***
 
 To create a hexbin map, the territory is divided in many hexagones and the number of sample per hexagone is counted and represented by a color.
@@ -163,7 +164,7 @@ ggplot(data, aes(x=homelon, y=homelat)) +
 
 
 
-#Choropleth
+# Choropleth
 ***
 
 It is also possible to divide your territory (the world here) in regions other than square or hexagones. This will result in a chloropleth map. Of course, you need the information of the exact shape of your regions.

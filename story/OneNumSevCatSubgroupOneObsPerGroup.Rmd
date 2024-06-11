@@ -39,6 +39,7 @@ Data have been gathered on the [OECD website](https://stats.oecd.org/index.aspx?
 
 <div class = "col-md-4">
 <br>
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -61,7 +62,7 @@ data %>% head(6) %>% kable() %>%
 
 
 
-#Grouped barplot
+# Grouped barplot
 ***
 The most common way to represent this kind of dataset is probably to build a [grouped barplot](). In this example, each bar represents a gender wage gap. Bars can be grouped by year or by country depending on what you want to focus on.
 
@@ -111,7 +112,7 @@ The result of this grouped barplot is quite disapointing compared to the previou
 
 
 
-#Parallel coordinates plot
+# Parallel coordinates plot
 ***
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
 # Groups
@@ -143,7 +144,7 @@ data %>%
 
 
 
-#Spider plot
+# Spider plot
 ***
 The [spider chart]() is a circular version of the parallel coordinates plot where vertical axis are joint in the center of the figure. It is sometimes criticized [[1](http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart), [2](https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html)], but I believe in their effectiveness in certain cases, as explained [here]().
 
@@ -151,7 +152,7 @@ The [spider chart]() is a circular version of the parallel coordinates plot wher
 
 
 
-#Slope chart
+# Slope chart
 ***
 If one of the categoric variable has only two levels, it is possible to build a slope chart that is a specific use case of the [parallel coordinates plot](). It is very powerful since it describes efficiently both the ranking and the evolution of every country.
 ```{r, fig.width=8, fig.height=6, fig.align="center", warning=FALSE, message=FALSE}
@@ -185,7 +186,7 @@ data %>%
 
 
 
-#Scatter plot
+# Scatter plot
 ***
 
 If one of the grouping variable has 2 levels, it is also possible to build a scatterplot. One level will be on the X axis, the other on the Y axis. Let's make an example showing the value in the 20' compared to the 2015'. In this case it is useful to use interactivity: it avoids to have a legend with too many levels.

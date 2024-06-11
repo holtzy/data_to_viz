@@ -1,258 +1,311 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
-<head>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 350px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">Who sells more weapons?</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A few data analytics ideas from
+            <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a
+      >
+               </div>
 
+       
+    <title>OneNumOneCat.knit</title>
 
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">Who sells more weapons?</p>
-  <center><div class='mysubtitle'>
-    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a>
-  
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-<title></title>
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br><br>
+                         </div>
+              <br><br>
 <div class="mycontent">
 
 
 <div class="row">
 <div class="col-md-8">
-<p><br><br><br> This document gives a few suggestions to analyse a dataset composed by <code>one numeric and one categoric</code> variable. <br> The dataset used as an example provides the quantity of weapons exported by the top 50 largest exporters in 2017. This dataset has been downloaded on the <a href="http://armstrade.sipri.org/armstrade/page/toplist.php">Stockholm International Peace Research Institute</a> website and more information about it are available <a href="http://www.sipri.org/databases/armstransfers/sources-and-methods/">here</a>. <br> A clean version at <code>.csv</code> format is available on github, and the table beside shows how it looks like.</p>
+<p><br><br><br> This document gives a few suggestions to analyse a
+dataset composed by <code>one numeric and one categoric</code> variable.
+<br> The dataset used as an example provides the quantity of weapons
+exported by the top 50 largest exporters in 2017. This dataset has been
+downloaded on the <a
+href="http://armstrade.sipri.org/armstrade/page/toplist.php">Stockholm
+International Peace Research Institute</a> website and more information
+about it are available <a
+href="http://www.sipri.org/databases/armstransfers/sources-and-methods/">here</a>.
+<br> A clean version at <code>.csv</code> format is available on github,
+and the table beside shows how it looks like.</p>
 </div>
 <div class="col-md-4">
 <p><br></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
-
-<span class="co"># Load dataset from github</span>
-data &lt;-<span class="st"> </span><span class="kw">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv&quot;</span>, <span class="dt">header=</span><span class="ot">TRUE</span>, <span class="dt">sep=</span><span class="st">&quot;,&quot;</span>)
-
-<span class="co"># show data</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="co"># Load dataset from github</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;,&quot;</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="co"># show data</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -320,211 +373,274 @@ China
 <div id="lollipop" class="section level1">
 <h1>Lollipop</h1>
 <hr />
-<p>Even if the most common way to represent this kind of information is probably to use <a href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>, <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> can be a very good alternative, especially if you have a high number of entities. It is basically the same thing, but the bar is replaced by a line and a dot at the end. It allows the figure to be less cluttered.</p>
-<p>Moreover, it is a good practice to plot a horizontal version, to make the labels more easily readable. Last, sorting your entities gives much more insight to the plot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(Value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country=</span><span class="kw">factor</span>(Country, Country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Country, <span class="dt">y=</span>Value) ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_segment</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Country ,<span class="dt">xend=</span>Country, <span class="dt">y=</span><span class="dv">0</span>, <span class="dt">yend=</span>Value), <span class="dt">color=</span><span class="st">&quot;grey&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size=</span><span class="dv">3</span>, <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">panel.grid.minor.y =</span> <span class="kw">element_blank</span>(),
-      <span class="dt">panel.grid.major.y =</span> <span class="kw">element_blank</span>(),
-      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</code></pre></div>
+<p>Even if the most common way to represent this kind of information is
+probably to use <a
+href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>, <a
+href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a> can
+be a very good alternative, especially if you have a high number of
+entities. It is basically the same thing, but the bar is replaced by a
+line and a dot at the end. It allows the figure to be less
+cluttered.</p>
+<p>Moreover, it is a good practice to plot a horizontal version, to make
+the labels more easily readable. Last, sorting your entities gives much
+more insight to the plot.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="fu">arrange</span>(Value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">factor</span>(Country, Country)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>Country, <span class="at">y=</span>Value) ) <span class="sc">+</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>    <span class="fu">geom_segment</span>( <span class="fu">aes</span>(<span class="at">x=</span>Country ,<span class="at">xend=</span>Country, <span class="at">y=</span><span class="dv">0</span>, <span class="at">yend=</span>Value), <span class="at">color=</span><span class="st">&quot;grey&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size=</span><span class="dv">3</span>, <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>      <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>      <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-2-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="barplot" class="section level1">
 <h1>Barplot</h1>
 <hr />
-<p>Here is the <a href="https://www.data-to-viz.com/graph/barplot.html">barplot</a> version that looks very similar to the <a href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a>. This version is all right in this case where there is a lot of difference from one bar to the other. It would look way to cluttered with no or few differences.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(Value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country=</span><span class="kw">factor</span>(Country, Country)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Country, <span class="dt">y=</span>Value) ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">fill=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme</span>(
-      <span class="dt">panel.grid.minor.y =</span> <span class="kw">element_blank</span>(),
-      <span class="dt">panel.grid.major.y =</span> <span class="kw">element_blank</span>(),
-      <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>
-    ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;&quot;</span>)</code></pre></div>
+<p>Here is the <a
+href="https://www.data-to-viz.com/graph/barplot.html">barplot</a>
+version that looks very similar to the <a
+href="https://www.data-to-viz.com/graph/lollipop.html">lollipop</a>.
+This version is all right in this case where there is a lot of
+difference from one bar to the other. It would look way to cluttered
+with no or few differences.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="fu">arrange</span>(Value) <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">factor</span>(Country, Country)) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>Country, <span class="at">y=</span>Value) ) <span class="sc">+</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>    <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">fill=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>    <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a>      <span class="at">panel.grid.minor.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a>      <span class="at">panel.grid.major.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /></p>
 </div>
 <div id="circular-barplot" class="section level1">
 <h1>Circular barplot</h1>
 <hr />
-<p>The <a href="https://www.data-to-viz.com/graph/circularbarplot.html">circular barplot</a> is an alternative to the <a href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>, where each bar is placed around a circle instead of along a line. The benefit is that your figure gets more eye-catching, and that it uses space more efficiently. However, differences between groups get harder to read. In my opinion, this kind of graphic is worth it if you have a high number of groups and if obvious differences exist between group.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Order data</span>
-tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">arrange</span>(<span class="kw">desc</span>(Value)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Country=</span><span class="kw">factor</span>(Country, Country))
-
-<span class="co"># Set a number of &#39;empty bar&#39;</span>
-empty_bar=<span class="dv">10</span>
-
-<span class="co"># Add lines to the initial tmpset</span>
-to_add =<span class="st"> </span><span class="kw">matrix</span>(<span class="ot">NA</span>, empty_bar, <span class="kw">ncol</span>(tmp))
-<span class="kw">colnames</span>(to_add) =<span class="st"> </span><span class="kw">colnames</span>(tmp)
-tmp=<span class="kw">rbind</span>(tmp, to_add)
-tmp<span class="op">$</span>id=<span class="kw">seq</span>(<span class="dv">1</span>, <span class="kw">nrow</span>(tmp))
-
-<span class="co"># Get the name and the y position of each label</span>
-label_tmp=tmp
-number_of_bar=<span class="kw">nrow</span>(label_tmp)
-angle=<span class="st"> </span><span class="dv">90</span> <span class="op">-</span><span class="st"> </span><span class="dv">360</span> <span class="op">*</span><span class="st"> </span>(label_tmp<span class="op">$</span>id<span class="op">-</span><span class="fl">0.5</span>) <span class="op">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span>
-label_tmp<span class="op">$</span>hjust&lt;-<span class="kw">ifelse</span>( angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)
-label_tmp<span class="op">$</span>angle&lt;-<span class="kw">ifelse</span>(angle <span class="op">&lt;</span><span class="st"> </span><span class="op">-</span><span class="dv">90</span>, angle<span class="op">+</span><span class="dv">180</span>, angle)
-label_tmp<span class="op">$</span>Country &lt;-<span class="st"> </span><span class="kw">gsub</span>(<span class="st">&quot;United States&quot;</span>, <span class="st">&quot;US&quot;</span>, label_tmp<span class="op">$</span>Country)
-label_tmp<span class="op">$</span>Country &lt;-<span class="st"> </span><span class="kw">paste</span>(label_tmp<span class="op">$</span>Country, <span class="st">&quot; (&quot;</span>, label_tmp<span class="op">$</span>Value,<span class="st">&quot;)&quot;</span>, <span class="dt">sep=</span><span class="st">&quot;&quot;</span>)
-
-<span class="co"># Make the plot</span>
-<span class="kw">ggplot</span>(tmp, <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">as.factor</span>(id), <span class="dt">y=</span>Value)) <span class="op">+</span><span class="st">       </span><span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span>
-<span class="st">  </span><span class="kw">geom_bar</span>(<span class="dt">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="dt">fill=</span><span class="kw">alpha</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="fl">0.8</span>)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">ylim</span>(<span class="op">-</span><span class="dv">7000</span>,<span class="dv">13000</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_minimal</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">axis.text =</span> <span class="kw">element_blank</span>(),
-    <span class="dt">axis.title =</span> <span class="kw">element_blank</span>(),
-    <span class="dt">panel.grid =</span> <span class="kw">element_blank</span>(),
-    <span class="dt">plot.margin =</span> <span class="kw">unit</span>(<span class="kw">rep</span>(<span class="op">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>) 
-  ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">coord_polar</span>(<span class="dt">start =</span> <span class="dv">0</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_text</span>(<span class="dt">data=</span>label_tmp, <span class="kw">aes</span>(<span class="dt">x=</span>id, <span class="dt">y=</span>Value<span class="op">+</span><span class="dv">200</span>, <span class="dt">label=</span>Country ), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="dt">alpha=</span><span class="fl">0.6</span>, <span class="dt">size=</span><span class="fl">2.5</span>, <span class="dt">angle=</span> label_tmp<span class="op">$</span>angle, <span class="dt">hjust=</span>label_tmp<span class="op">$</span>hjust, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span> ) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_text</span>( <span class="kw">aes</span>(<span class="dt">x=</span><span class="dv">24</span>, <span class="dt">y=</span><span class="dv">8000</span>, <span class="dt">label=</span><span class="st">&quot;Who sells more weapons?&quot;</span>), <span class="dt">color=</span><span class="st">&quot;black&quot;</span>, <span class="dt">inherit.aes =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p>The <a
+href="https://www.data-to-viz.com/graph/circularbarplot.html">circular
+barplot</a> is an alternative to the <a
+href="https://www.data-to-viz.com/graph/barplot.html">barplots</a>,
+where each bar is placed around a circle instead of along a line. The
+benefit is that your figure gets more eye-catching, and that it uses
+space more efficiently. However, differences between groups get harder
+to read. In my opinion, this kind of graphic is worth it if you have a
+high number of groups and if obvious differences exist between
+group.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Order data</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Value)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Country=</span><span class="fu">factor</span>(Country, Country))</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co"># Set a number of &#39;empty bar&#39;</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>empty_bar<span class="ot">=</span><span class="dv">10</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co"># Add lines to the initial tmpset</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>to_add <span class="ot">=</span> <span class="fu">matrix</span>(<span class="cn">NA</span>, empty_bar, <span class="fu">ncol</span>(tmp))</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="fu">colnames</span>(to_add) <span class="ot">=</span> <span class="fu">colnames</span>(tmp)</span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a>tmp<span class="ot">=</span><span class="fu">rbind</span>(tmp, to_add)</span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a>tmp<span class="sc">$</span>id<span class="ot">=</span><span class="fu">seq</span>(<span class="dv">1</span>, <span class="fu">nrow</span>(tmp))</span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="co"># Get the name and the y position of each label</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a>label_tmp<span class="ot">=</span>tmp</span>
+<span id="cb4-18"><a href="#cb4-18" tabindex="-1"></a>number_of_bar<span class="ot">=</span><span class="fu">nrow</span>(label_tmp)</span>
+<span id="cb4-19"><a href="#cb4-19" tabindex="-1"></a>angle<span class="ot">=</span> <span class="dv">90</span> <span class="sc">-</span> <span class="dv">360</span> <span class="sc">*</span> (label_tmp<span class="sc">$</span>id<span class="fl">-0.5</span>) <span class="sc">/</span>number_of_bar     <span class="co"># I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)</span></span>
+<span id="cb4-20"><a href="#cb4-20" tabindex="-1"></a>label_tmp<span class="sc">$</span>hjust<span class="ot">&lt;-</span><span class="fu">ifelse</span>( angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, <span class="dv">1</span>, <span class="dv">0</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" tabindex="-1"></a>label_tmp<span class="sc">$</span>angle<span class="ot">&lt;-</span><span class="fu">ifelse</span>(angle <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">90</span>, angle<span class="sc">+</span><span class="dv">180</span>, angle)</span>
+<span id="cb4-22"><a href="#cb4-22" tabindex="-1"></a>label_tmp<span class="sc">$</span>Country <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;United States&quot;</span>, <span class="st">&quot;US&quot;</span>, label_tmp<span class="sc">$</span>Country)</span>
+<span id="cb4-23"><a href="#cb4-23" tabindex="-1"></a>label_tmp<span class="sc">$</span>Country <span class="ot">&lt;-</span> <span class="fu">paste</span>(label_tmp<span class="sc">$</span>Country, <span class="st">&quot; (&quot;</span>, label_tmp<span class="sc">$</span>Value,<span class="st">&quot;)&quot;</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" tabindex="-1"></a><span class="co"># Make the plot</span></span>
+<span id="cb4-26"><a href="#cb4-26" tabindex="-1"></a><span class="fu">ggplot</span>(tmp, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">as.factor</span>(id), <span class="at">y=</span>Value)) <span class="sc">+</span>       <span class="co"># Note that id is a factor. If x is numeric, there is some space between the first bar</span></span>
+<span id="cb4-27"><a href="#cb4-27" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">&quot;identity&quot;</span>, <span class="at">fill=</span><span class="fu">alpha</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="fl">0.8</span>)) <span class="sc">+</span></span>
+<span id="cb4-28"><a href="#cb4-28" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">7000</span>,<span class="dv">13000</span>) <span class="sc">+</span></span>
+<span id="cb4-29"><a href="#cb4-29" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb4-30"><a href="#cb4-30" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb4-31"><a href="#cb4-31" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-32"><a href="#cb4-32" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-33"><a href="#cb4-33" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-34"><a href="#cb4-34" tabindex="-1"></a>    <span class="at">plot.margin =</span> <span class="fu">unit</span>(<span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">4</span>), <span class="st">&quot;cm&quot;</span>)</span>
+<span id="cb4-35"><a href="#cb4-35" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb4-36"><a href="#cb4-36" tabindex="-1"></a>  <span class="fu">coord_polar</span>(<span class="at">start =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb4-37"><a href="#cb4-37" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data=</span>label_tmp, <span class="fu">aes</span>(<span class="at">x=</span>id, <span class="at">y=</span>Value<span class="sc">+</span><span class="dv">200</span>, <span class="at">label=</span>Country ), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">fontface=</span><span class="st">&quot;bold&quot;</span>,<span class="at">alpha=</span><span class="fl">0.6</span>, <span class="at">size=</span><span class="fl">2.5</span>, <span class="at">angle=</span> label_tmp<span class="sc">$</span>angle, <span class="at">hjust=</span>label_tmp<span class="sc">$</span>hjust, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span> ) <span class="sc">+</span></span>
+<span id="cb4-38"><a href="#cb4-38" tabindex="-1"></a>  <span class="fu">geom_text</span>( <span class="fu">aes</span>(<span class="at">x=</span><span class="dv">24</span>, <span class="at">y=</span><span class="dv">8000</span>, <span class="at">label=</span><span class="st">&quot;Who sells more weapons?&quot;</span>), <span class="at">color=</span><span class="st">&quot;black&quot;</span>, <span class="at">inherit.aes =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-4-1.png" width="768" style="display: block; margin: auto;" /></p>
-<p>Please note that in this case the <a href="https://www.data-to-viz.com/graph/circularbarplot.html">circular barplot</a> do not look very good due to a lot of very small values that are hardly visible on the chart.</p>
+<p>Please note that in this case the <a
+href="https://www.data-to-viz.com/graph/circularbarplot.html">circular
+barplot</a> do not look very good due to a lot of very small values that
+are hardly visible on the chart.</p>
 </div>
 <div id="treemap" class="section level1">
 <h1>Treemap</h1>
 <hr />
-<p>A <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a> represents each entity as a rectangle, with an area that is proportional to the numeric variable of the dataset.<br />
-It is a good way to show a general overview of the data organization and is probably more eye-catching than the previous barplot. However, it is less precise in the sense that it is harder to make accurate comparisons between groups.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Package</span>
-<span class="kw">library</span>(treemap)
-
-<span class="co"># Plot</span>
-<span class="kw">treemap</span>(data,
-            
-            <span class="co"># data</span>
-            <span class="dt">index=</span><span class="st">&quot;Country&quot;</span>,
-            <span class="dt">vSize=</span><span class="st">&quot;Value&quot;</span>,
-            <span class="dt">type=</span><span class="st">&quot;index&quot;</span>,
-            
-            <span class="co"># Main</span>
-            <span class="dt">title=</span><span class="st">&quot;&quot;</span>,
-            <span class="dt">palette=</span><span class="st">&quot;Dark2&quot;</span>,
-
-            <span class="co"># Borders:</span>
-            <span class="dt">border.col=</span><span class="kw">c</span>(<span class="st">&quot;black&quot;</span>),             
-            <span class="dt">border.lwds=</span><span class="dv">1</span>,                         
-        
-            <span class="co"># Labels</span>
-            <span class="dt">fontsize.labels=</span><span class="fl">0.5</span>,
-            <span class="dt">fontcolor.labels=</span><span class="st">&quot;white&quot;</span>,
-            <span class="dt">fontface.labels=</span><span class="dv">1</span>,            
-            <span class="dt">bg.labels=</span><span class="kw">c</span>(<span class="st">&quot;transparent&quot;</span>),              
-            <span class="dt">align.labels=</span><span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>),                                  
-            <span class="dt">overlap.labels=</span><span class="fl">0.5</span>,
-            <span class="dt">inflate.labels=</span>T                        <span class="co"># If true, labels are bigger when rectangle is bigger.</span>
-
-            
-            )</code></pre></div>
+<p>A <a
+href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>
+represents each entity as a rectangle, with an area that is proportional
+to the numeric variable of the dataset. It is a good way to show a
+general overview of the data organization and is probably more
+eye-catching than the previous barplot. However, it is less precise in
+the sense that it is harder to make accurate comparisons between
+groups.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># Package</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">library</span>(treemap)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Value))</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="fu">treemap</span>(data,</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>            <span class="co"># data</span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>            <span class="at">index=</span><span class="st">&quot;Country&quot;</span>,</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>            <span class="at">vSize=</span><span class="st">&quot;Value&quot;</span>,</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>            <span class="at">type=</span><span class="st">&quot;index&quot;</span>,</span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>            <span class="co"># Main</span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>            <span class="at">title=</span><span class="st">&quot;&quot;</span>,</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a>            <span class="at">palette=</span><span class="st">&quot;Dark2&quot;</span>,</span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a>            <span class="co"># Borders:</span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a>            <span class="at">border.col=</span><span class="fu">c</span>(<span class="st">&quot;black&quot;</span>),</span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a>            <span class="at">border.lwds=</span><span class="dv">1</span>,</span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a>            <span class="co"># Labels</span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a>            <span class="at">fontsize.labels=</span><span class="fl">0.5</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a>            <span class="at">fontcolor.labels=</span><span class="st">&quot;white&quot;</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a>            <span class="at">fontface.labels=</span><span class="dv">1</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a>            <span class="at">bg.labels=</span><span class="fu">c</span>(<span class="st">&quot;transparent&quot;</span>),</span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a>            <span class="at">align.labels=</span><span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;top&quot;</span>),</span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a>            <span class="at">overlap.labels=</span><span class="fl">0.5</span>,</span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a>            <span class="at">inflate.labels=</span>T                        <span class="co"># If true, labels are bigger when rectangle is bigger.</span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a>            )</span></code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-5-1.png" width="864" style="display: block; margin: auto;" /></p>
 </div>
 <div id="circle-packing" class="section level1">
 <h1>Circle packing</h1>
 <hr />
-<p><a href="https://www.data-to-viz.com/graph/circularpacking.html">Circle packing</a> is the circular version of the <a href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>. Each groupd is represented as a circle instead of a rectangle, and its area is proportional to the numeric value.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(ggraph)
-<span class="kw">library</span>(igraph)
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(viridis)
- 
-<span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span>
-tmp &lt;-<span class="st"> </span>data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="op">!</span><span class="kw">is.na</span>(Value))
-edges &lt;-<span class="st"> </span><span class="kw">data.frame</span>(
-  <span class="dt">from =</span> <span class="st">&quot;o&quot;</span>,
-  <span class="dt">to =</span> tmp<span class="op">$</span>Country
-)
-vertices =<span class="st"> </span><span class="kw">rbind</span>(tmp, <span class="kw">data.frame</span>(<span class="dt">Country=</span><span class="st">&quot;o&quot;</span>, <span class="dt">Value=</span><span class="dv">1</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">name=</span>Country)
-mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</span>( edges, <span class="dt">vertices=</span>vertices )
-
-<span class="kw">ggraph</span>(mygraph, <span class="dt">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="dt">weight=</span><span class="st">&quot;Value&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_node_circle</span>( <span class="kw">aes</span>(<span class="dt">fill=</span>name)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">scale_fill_viridis</span>(<span class="dt">discrete=</span><span class="ot">TRUE</span>) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_node_label</span>(<span class="kw">aes</span>(<span class="dt">label=</span>name, <span class="dt">size=</span>Value)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme_void</span>() <span class="op">+</span>
-<span class="st">  </span><span class="kw">theme</span>(
-    <span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>
-  )</code></pre></div>
+<p><a
+href="https://www.data-to-viz.com/graph/circularpacking.html">Circle
+packing</a> is the circular version of the <a
+href="https://www.data-to-viz.com/graph/treemap.html">treemap</a>. Each
+groupd is represented as a circle instead of a rectangle, and its area
+is proportional to the numeric value.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">library</span>(ggraph)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">library</span>(igraph)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co"># We need a data frame giving a hierarchical structure. Let&#39;s consider the flare dataset:</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>tmp <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(Value))</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>edges <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>  <span class="at">from =</span> <span class="st">&quot;o&quot;</span>,</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>  <span class="at">to =</span> tmp<span class="sc">$</span>Country</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>)</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>vertices <span class="ot">=</span> <span class="fu">rbind</span>(tmp, <span class="fu">data.frame</span>(<span class="at">Country=</span><span class="st">&quot;o&quot;</span>, <span class="at">Value=</span><span class="dv">1</span>)) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">name=</span>Country)</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>mygraph <span class="ot">&lt;-</span> <span class="fu">graph_from_data_frame</span>( edges, <span class="at">vertices=</span>vertices )</span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="fu">ggraph</span>(mygraph, <span class="at">layout =</span> <span class="st">&#39;circlepack&#39;</span>, <span class="at">weight=</span>Value) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>  <span class="fu">geom_node_circle</span>( <span class="fu">aes</span>(<span class="at">fill=</span>name)) <span class="sc">+</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>  <span class="fu">scale_fill_viridis</span>(<span class="at">discrete=</span><span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>  <span class="fu">geom_node_label</span>(<span class="fu">aes</span>(<span class="at">label=</span>name, <span class="at">size=</span>Value)) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a>  <span class="fu">theme_void</span>() <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a>    <span class="at">legend.position=</span><span class="st">&quot;none&quot;</span></span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a>  )</span></code></pre></div>
 <p><img src="OneNumOneCat_files/figure-html/unnamed-chunk-6-1.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 
-
-<!-- Insert code for related graphics  -->
-<h1>Going further</h1>
-<hr>
-<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a>
-  
-  
-  
-  
-  
-  
-
-
-
-<!-- Insert code for DISQUS comments  -->
-      <br>
-      <h1>Comments</h1>
-      <hr>
-      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
-      <br>
+          <!-- Insert code for related graphics  -->
+          <h1>Going further</h1>
+          <hr />
+          <p>
+            You can learn more about each type of graphic presented in this
+            story in the dedicated sections. Click the icon below:
+          </p>
+                    <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Bar150.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularBarplot150.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Lollipop150.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Tree150.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/CircularPacking150.png></a
+          >
+                     </div>
+    </div>
+    <section
+      id="form"
+      style="
+        margin-top: 70px;
+        padding-bottom: 70px;
+        padding-top: 70px;
+        background-color: #f8f9fa;
+      "
+    >
       <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/OneNumOneCat.html;  
-        this.page.identifier = OneNumOneCat; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-size: 44px" class="text-center">
+            Dataviz decision tree
+          </h2>
+          <p class="text-center" style="max-width: 600px; font-size: 18px">
+            <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+            comprehensive <b>classification of chart types</b> organized by data
+            input format. Get a high-resolution version of our decision tree
+            delivered to your inbox now!
+          </p>
+          <div
+            style="
+              margin-top: -50px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            "
+          >
+            <script
+              async
+              data-uid="8010f15fd2"
+              src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+            ></script>
+          </div>
+          <br />
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="../img/poster/poster_small.png"
+              alt="High Resolution Poster"
+              style="max-width: 400px"
+            />
+          </div>
+        </div>
       </div>
-<!-- Insert code for DISQUS comments  -->
+    </section>
 
-
-
-
-
-&nbsp;
+     &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -547,28 +663,28 @@ mygraph &lt;-<span class="st"> </span><span class="kw">graph_from_data_frame</sp
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;   
+    <script>
 
-</body>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

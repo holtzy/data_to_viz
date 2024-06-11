@@ -348,12 +348,19 @@ South America
 </table>
 </div>
 </div>
-<p>#Showing a few dots *** If your dataset is composed by a few data
-point only, you can just display them on a map. If you have specific
-information to display concerning these positions, use an interactive:
-more information are available when you click data points.</p>
-<p>#A dot density map *** A dot density map is used when the sample size
-of your dataset is high.</p>
+<div id="showing-a-few-dots" class="section level1">
+<h1>Showing a few dots</h1>
+<hr />
+<p>If your dataset is composed by a few data point only, you can just
+display them on a map. If you have specific information to display
+concerning these positions, use an interactive: more information are
+available when you click data points.</p>
+</div>
+<div id="a-dot-density-map" class="section level1">
+<h1>A dot density map</h1>
+<hr />
+<p>A dot density map is used when the sample size of your dataset is
+high.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Get the world polygon</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>world <span class="ot">&lt;-</span> <span class="fu">map_data</span>(<span class="st">&quot;world&quot;</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
@@ -377,17 +384,20 @@ of your dataset is high.</p>
 <p><img src="NestedValueForConnection_files/figure-html/unnamed-chunk-2-1.png" width="864" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">&quot;IMG/Surfer_position.png&quot;</span>, <span class="at">width =</span> <span class="dv">36</span>, <span class="at">height =</span> <span class="fl">15.22</span>, <span class="at">units =</span> <span class="st">&quot;in&quot;</span>, <span class="at">dpi =</span> <span class="dv">90</span>)</span></code></pre></div>
 </div>
+</div>
 <center>
 <p><img src="IMG/Surfer_position.png" /></p>
 </center>
-<br><br>
+<p><br><br></p>
 <div class="mycontent">
 
 <p>Dotmaps give a good idea about where samples are distributed.
 However, once dots start to overlap, it gets impossible to distinguish
 how many of them are displayed on a certain zone. That’s where binning
 becomes an interesting option.</p>
-<p>#Hexbin ***</p>
+<div id="hexbin" class="section level1">
+<h1>Hexbin</h1>
+<hr />
 <p>To create a hexbin map, the territory is divided in many hexagones
 and the number of sample per hexagone is counted and represented by a
 color.</p>
@@ -428,11 +438,15 @@ color.</p>
 <span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="sc">-</span><span class="dv">70</span>, <span class="dv">80</span>)</span></code></pre></div>
 <p><img src="NestedValueForConnection_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>#Choropleth ***</p>
+</div>
+<div id="choropleth" class="section level1">
+<h1>Choropleth</h1>
+<hr />
 <p>It is also possible to divide your territory (the world here) in
 regions other than square or hexagones. This will result in a
 chloropleth map. Of course, you need the information of the exact shape
 of your regions.</p>
+</div>
 
           <!-- Insert code for related graphics  -->
           <h1>Going further</h1>
