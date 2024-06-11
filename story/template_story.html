@@ -573,70 +573,60 @@
             <img class="mylogoheader"
             src=https://github.com/holtzy/data_to_viz/raw/master/img/section/$myimage10$></a
           >
-          $endif$
+        </div>
 
-          <section
-            id="form"
+        $endif$
+      </div>
+    </div>
+    <section
+      id="form"
+      style="
+        margin-top: 70px;
+        padding-bottom: 70px;
+        padding-top: 70px;
+        background-color: #f8f9fa;
+      "
+    >
+      <div class="container">
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-size: 44px" class="text-center">
+            Dataviz decision tree
+          </h2>
+          <p class="text-center" style="max-width: 600px; font-size: 18px">
+            <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+            comprehensive <b>classification of chart types</b> organized by data
+            input format. Get a high-resolution version of our decision tree
+            delivered to your inbox now!
+          </p>
+          <div
             style="
-              margin-top: 70px;
-              padding-bottom: 70px;
-              padding-top: 70px;
-              background-color: #f8f9fa;
+              margin-top: -50px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
             "
           >
-            <div class="container">
-              <div
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-              >
-                <h2 style="font-size: 44px" class="text-center">
-                  Dataviz decision tree
-                </h2>
-                <p
-                  class="text-center"
-                  style="max-width: 600px; font-size: 18px"
-                >
-                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
-                  comprehensive <b>classification of chart types</b> organized
-                  by data input format. Get a high-resolution version of our
-                  decision tree delivered to your inbox now!
-                </p>
-                <div
-                  style="
-                    margin-top: -50px;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                  "
-                >
-                  <script
-                    async
-                    data-uid="8010f15fd2"
-                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
-                  ></script>
-                </div>
-                <br />
-                <div class="text-center">
-                  <img
-                    class="img-fluid"
-                    src="../img/poster/poster_small.png"
-                    alt="High Resolution Poster"
-                    style="max-width: 400px"
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          $for(include-after)$ $include-after$ $endfor$ $if(theme)$
-          $if(toc_float)$
+            <script
+              async
+              data-uid="8010f15fd2"
+              src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+            ></script>
+          </div>
+          <br />
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="../img/poster/poster_small.png"
+              alt="High Resolution Poster"
+              style="max-width: 400px"
+            />
+          </div>
         </div>
       </div>
-      $endif$
-    </div>
+    </section>
+
+    $for(include-after)$ $include-after$ $endfor$ $if(theme)$ $if(toc_float)$
+    $endif$
 
     <script>
 
