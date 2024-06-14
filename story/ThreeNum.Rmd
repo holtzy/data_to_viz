@@ -58,7 +58,7 @@ data %>% head(6) %>%
 
 
 
-#Bubble plot
+# Bubble plot
 ***
 
 The go to graph in that kind of situation is probably the [bubble plot](). The bubble plot is really close to a [scatterplot]() since it shows the value of two numeric variables on the X and Y axis. However, it allows to study the value of a third variable using different sizes for the dots (that are thus called bubbles).
@@ -160,7 +160,7 @@ ggplotly(p, tooltip="text")
 ```
 
 
-#A note on the grid scenario
+# A note on the grid scenario
 ***
 
 

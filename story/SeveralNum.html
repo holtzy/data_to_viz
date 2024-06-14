@@ -1,271 +1,323 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <link rel="icon" href="img/logo/data-to-viz.ico" />
 
-<head>
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
+        min-height: 350px;
+        background-size: 100% 100%;
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
+        /* Create the parallax scrolling effect */
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
 
+        height: 100%;
+        width: 100% !important;
+      }
+      .mytitle {
+        text-transform: uppercase;
+        font-family: "Montserrat";
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+      }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">Eleven features for 32 cars</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A few data analytics ideas from
+            <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png></a
+      >
+             <a href="https://www.data-to-viz.com/#portfolioanchor">
+        <img class="mylogoheader"
+        src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png></a
+      >
+              </div>
 
+       
+    <title>SeveralNum.knit</title>
 
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/overview_RGG_faded.png");
-    min-height: 350px; 
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  
-  
-    height: 100%; 
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }   
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">Eleven features for 32 cars</p>
-  <center><div class='mysubtitle'>
-    <i>A few data analytics ideas from <a href="www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolioanchor"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png></a>
-  
-  
-  
-  
-  
-</div>
-
-
-
-
-
-<title></title>
-
-<script src="libs/jquery-1.11.3/jquery.min.js"></script>
+     <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="libs/navigation-1.1/tabsets.js"></script>
 <script src="libs/navigation-1.1/codefolding.js"></script>
 <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<script src="libs/htmlwidgets-1.2.1/htmlwidgets.js"></script>
-<script src="libs/d3-3.5.3/./d3.min.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<script src="libs/d3v3-3.5.3/./d3v3.min.js"></script>
 <link href="libs/d3heatmapcore-0.0.0/heatmapcore.css" rel="stylesheet" />
 <script src="libs/d3heatmapcore-0.0.0/heatmapcore.js"></script>
-<script src="libs/d3-tip-0.6.6/index.js"></script>
-<script src="libs/d3heatmap-binding-0.6.1.2/d3heatmap.js"></script>
+<script src="libs/d3v3-tip-0.6.6/index.js"></script>
+<script src="libs/d3heatmap-binding-0.9.0/d3heatmap.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br><br>
+                         </div>
+              <br><br>
 <div class="mycontent">
 
 
-<p>This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous <a href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html">mtcars</a> dataset will be considered. It provides several features like the number of cylinders, the gross horsepower, the weight etc. for 32 car models.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Libraries</span>
-<span class="kw">library</span>(tidyverse)
-<span class="kw">library</span>(hrbrthemes)
-<span class="kw">library</span>(viridis)
-<span class="kw">library</span>(DT)
-<span class="kw">library</span>(plotly)
-<span class="kw">library</span>(dendextend)
-<span class="kw">library</span>(car)
-<span class="kw">library</span>(FactoMineR)
-<span class="kw">library</span>(kableExtra)
-<span class="kw">options</span>(<span class="dt">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)
-
-<span class="co"># This dataset is available in R by default, and on the datatoviz github repo</span>
-data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/6_SeveralNum.csv&quot;</span>, <span class="dt">header=</span>T)
-<span class="kw">rownames</span>(data) &lt;-<span class="st"> </span>data[,<span class="dv">1</span>]
-data &lt;-<span class="st"> </span>data[,<span class="op">-</span><span class="dv">1</span>]
-
-<span class="co"># Save it at .csv for the github repo</span>
-<span class="co">#write.csv(mtcars, file=&quot;../Example_dataset/6_SeveralNum.csv&quot;, quote=F)</span>
-
-<span class="co"># show data</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">head</span>(<span class="dv">6</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">kable</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">kable_styling</span>(<span class="dt">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="dt">full_width =</span> F)</code></pre></div>
+<p>This page provides a few hints to visualize a dataset composed of
+several numeric variables. As an example the famous <a
+href="https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/mtcars.html">mtcars</a>
+dataset will be considered. It provides several features like the number
+of cylinders, the gross horsepower, the weight etc. for 32 car
+models.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">library</span>(DT)</span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="fu">library</span>(dendextend)</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="fu">library</span>(kableExtra)</span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="fu">options</span>(<span class="at">knitr.table.format =</span> <span class="st">&quot;html&quot;</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="co"># This dataset is available in R by default, and on the datatoviz github repo</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/6_SeveralNum.csv&quot;</span>, <span class="at">header=</span>T)</span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a><span class="fu">rownames</span>(data) <span class="ot">&lt;-</span> data[,<span class="dv">1</span>]</span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>data <span class="ot">&lt;-</span> data[,<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a><span class="co"># Save it at .csv for the github repo</span></span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a><span class="co">#write.csv(mtcars, file=&quot;../Example_dataset/6_SeveralNum.csv&quot;, quote=F)</span></span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a></span>
+<span id="cb1-21"><a href="#cb1-21" tabindex="-1"></a><span class="co"># show data</span></span>
+<span id="cb1-22"><a href="#cb1-22" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">head</span>(<span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">kable</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb1-23"><a href="#cb1-23" tabindex="-1"></a>  <span class="fu">kable_styling</span>(<span class="at">bootstrap_options =</span> <span class="st">&quot;striped&quot;</span>, <span class="at">full_width =</span> F)</span></code></pre></div>
 <table class="table table-striped" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <thead>
 <tr>
@@ -540,139 +592,213 @@ Valiant
 <div id="check-distribution" class="section level1">
 <h1>Check distribution</h1>
 <hr />
-<p>In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a <a href="https://www.data-to-viz.com/graph/violin.html">violin plot</a>, a <a href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a> or a <a href="https://www.data-to-viz.com/graph/ridgeline.html">ridgeline plot</a> if your variables are all on the same scale. In the case of the <code>mtcars</code> dataset the variables are completely different one to each other so it make more sense to make an <a href="https://www.data-to-viz.com/graph/histogram.html">histogram</a> for each of them:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Keep the numeric variables of the mtcars dataset</span>
-data &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>( disp, drat, hp, mpg, qsec, wt)
-
-<span class="co"># Show the histogram of these variables</span>
-data <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.tibble</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">gather</span>(variable, value) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>value) ) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_histogram</span>( <span class="dt">fill=</span> <span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span>variable, <span class="dt">scale=</span><span class="st">&quot;free&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>()</code></pre></div>
+<p>In my opinion, the first thing to do when you have several numeric
+variables is to observe their distribution one by one. This can be done
+using a <a href="https://www.data-to-viz.com/graph/violin.html">violin
+plot</a>, a <a
+href="https://www.data-to-viz.com/caveat/boxplot.html">boxplot</a> or a
+<a href="https://www.data-to-viz.com/graph/ridgeline.html">ridgeline
+plot</a> if your variables are all on the same scale. In the case of the
+<code>mtcars</code> dataset the variables are completely different one
+to each other so it make more sense to make an <a
+href="https://www.data-to-viz.com/graph/histogram.html">histogram</a>
+for each of them:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Keep the numeric variables of the mtcars dataset</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span> <span class="fu">select</span>( disp, drat, hp, mpg, qsec, wt)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="co"># Show the histogram of these variables</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  <span class="fu">as.tibble</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="fu">gather</span>(variable, value) <span class="sc">%&gt;%</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>value) ) <span class="sc">+</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>    <span class="fu">geom_histogram</span>( <span class="at">fill=</span> <span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>    <span class="fu">facet_wrap</span>(<span class="sc">~</span>variable, <span class="at">scale=</span><span class="st">&quot;free&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>()</span></code></pre></div>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
 </div>
 <div id="correlogram" class="section level1">
 <h1>Correlogram</h1>
 <hr />
-<p>A <a href="https://www.data-to-viz.com/graph/correlogram.html">correlogram</a> or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a scatterplot, or a symbol that represents the correlation (bubble, line, number..). The diagonal often represents the distribution of each variable, using an <a href="https://www.data-to-viz.com/graph/histogram.html">histogram</a> or a <a href="https://www.data-to-viz.com/graph/density.html">density plot</a>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">scatterplotMatrix</span>(<span class="op">~</span>mpg<span class="op">+</span>disp<span class="op">+</span>drat<span class="op">+</span>hp<span class="op">+</span>qsec<span class="op">+</span>wt, <span class="dt">data=</span>data , <span class="dt">reg.line=</span><span class="ot">FALSE</span>, <span class="dt">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">id.col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="dt">smooth=</span><span class="ot">FALSE</span> , <span class="dt">cex=</span><span class="fl">1.5</span> , <span class="dt">pch=</span><span class="dv">20</span> )</code></pre></div>
-<p><img src="SeveralNum_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" /> It is a powerful method that give a good overview of the dataset in an unique graphic. For instance, it is obvious that displacement (<code>disp</code>) and gross horsepower (<code>hp</code>) have a strong correlation.</p>
+<p>A <a
+href="https://www.data-to-viz.com/graph/correlogram.html">correlogram</a>
+or correlation matrix allows to analyse the relationship between each
+pair of numeric variables of a dataset. The relationship between each
+pair of variable is visualised through a scatterplot, or a symbol that
+represents the correlation (bubble, line, number..). The diagonal often
+represents the distribution of each variable, using an <a
+href="https://www.data-to-viz.com/graph/histogram.html">histogram</a> or
+a <a href="https://www.data-to-viz.com/graph/density.html">density
+plot</a>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">scatterplotMatrix</span>(<span class="sc">~</span>mpg<span class="sc">+</span>disp<span class="sc">+</span>drat<span class="sc">+</span>hp<span class="sc">+</span>qsec<span class="sc">+</span>wt, <span class="at">data=</span>data , <span class="at">reg.line=</span><span class="cn">FALSE</span>, <span class="at">col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">id.col=</span><span class="st">&quot;#69b3a2&quot;</span>, <span class="at">smooth=</span><span class="cn">FALSE</span> , <span class="at">cex=</span><span class="fl">1.5</span> , <span class="at">pch=</span><span class="dv">20</span> )</span></code></pre></div>
+<p><img src="SeveralNum_files/figure-html/unnamed-chunk-3-1.png" width="672" style="display: block; margin: auto;" />
+It is a powerful method that give a good overview of the dataset in an
+unique graphic. For instance, it is obvious that displacement
+(<code>disp</code>) and gross horsepower (<code>hp</code>) have a strong
+correlation.</p>
 </div>
 <div id="dendrogram" class="section level1">
 <h1>Dendrogram</h1>
 <hr />
-<p>A <a href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a> can be used to check the result of a clustering algorythm on the dataset. Basically, the steps are:</p>
+<p>A <a
+href="https://www.data-to-viz.com/graph/dendrogram.html">dendrogram</a>
+can be used to check the result of a clustering algorythm on the
+dataset. Basically, the steps are:</p>
 <ul>
-<li>compute the distance between each pair of sample using <code>correlation</code> or <code>euclidean distance</code>.</li>
-<li>perform clustering on this matrix: it builds a hierarchy of clusters: groups sample that are close one from another</li>
+<li>compute the distance between each pair of sample using
+<code>correlation</code> or <code>euclidean distance</code>.</li>
+<li>perform clustering on this matrix: it builds a hierarchy of
+clusters: groups sample that are close one from another</li>
 <li>show the result as a dendrogram:</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Clusterisation using 3 variables</span>
-data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">dist</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">hclust</span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">as.dendrogram</span>() -&gt;<span class="st"> </span>dend
-
-<span class="co"># Color in function of the cluster</span>
-<span class="kw">par</span>(<span class="dt">mar=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>))
-dend <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="dt">value =</span> <span class="kw">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="dt">k=</span><span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">set</span>(<span class="st">&quot;branches_k_color&quot;</span>, <span class="dt">value =</span> <span class="kw">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="dt">k =</span> <span class="dv">3</span>) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">plot</span>(<span class="dt">horiz=</span><span class="ot">TRUE</span>, <span class="dt">axes=</span><span class="ot">FALSE</span>)
-<span class="kw">abline</span>(<span class="dt">v =</span> <span class="dv">350</span>, <span class="dt">lty =</span> <span class="dv">2</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Clusterisation using 3 variables</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>data <span class="sc">%&gt;%</span> <span class="fu">dist</span>() <span class="sc">%&gt;%</span> <span class="fu">hclust</span>() <span class="sc">%&gt;%</span> <span class="fu">as.dendrogram</span>() <span class="ot">-&gt;</span> dend</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Color in function of the cluster</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mar=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">7</span>))</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>dend <span class="sc">%&gt;%</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">&quot;labels_col&quot;</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="at">k=</span><span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a>  <span class="fu">set</span>(<span class="st">&quot;branches_k_color&quot;</span>, <span class="at">value =</span> <span class="fu">c</span>(<span class="st">&quot;#69b3a2&quot;</span>, <span class="st">&quot;#404080&quot;</span>, <span class="st">&quot;orange&quot;</span>), <span class="at">k =</span> <span class="dv">3</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">horiz=</span><span class="cn">TRUE</span>, <span class="at">axes=</span><span class="cn">FALSE</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="dv">350</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-4-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p>Here, the dendrogram informs us that the Mercedes 280 and the Mercedes 280C have similar features, what makes sense. Basically, it gives an idea of group of cars that are similar one another.</p>
-<p>See more about it <a href="https://www.data-to-viz.com/graph/dendrogram.html">here</a>.</p>
+<p>Here, the dendrogram informs us that the Mercedes 280 and the
+Mercedes 280C have similar features, what makes sense. Basically, it
+gives an idea of group of cars that are similar one another.</p>
+<p>See more about it <a
+href="https://www.data-to-viz.com/graph/dendrogram.html">here</a>.</p>
 </div>
 <div id="heatmap" class="section level1">
 <h1>Heatmap</h1>
 <hr />
-<p>The <a href="https://www.data-to-viz.com/graph/heatmap.html">heatmap</a> is often used in complement of a dendrogram. It is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.</p>
-<p>In addition of a dendrogram, it allows to understand why samples ore features are grouped together.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(d3heatmap)
-<span class="kw">d3heatmap</span>(data, <span class="dt">k_row =</span> <span class="dv">4</span>, <span class="dt">k_col =</span> <span class="dv">2</span>, <span class="dt">scale =</span> <span class="st">&quot;column&quot;</span>)</code></pre></div>
-<div id="htmlwidget-3efbf12354e7bb1f5288" style="width:768px;height:480px;" class="d3heatmap html-widget"></div>
-<script type="application/json" data-for="htmlwidget-3efbf12354e7bb1f5288">{"x":{"rows":{"members":32,"height":425.311735936125,"edgePar":{"col":""},"children":[{"members":23,"height":261.813598625052,"edgePar":{"col":""},"children":[{"members":16,"height":141.626800165082,"edgePar":{"col":"#CC476B"},"children":[{"members":12,"height":113.200756622913,"edgePar":{"col":"#CC476B"},"children":[{"members":11,"height":74.3151789946038,"edgePar":{"col":"#CC476B"},"children":[{"members":6,"height":50.089442690052,"edgePar":{"col":"#CC476B"},"children":[{"members":5,"height":33.1502322767126,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":20.6697677780859,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":13.0210176253625,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.2392126444218,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Toyota Corona","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Porsche 914-2","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Datsun 710","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Volvo 142E","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Merc 230","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Lotus Europa","edgePar":{"col":"#CC476B"}}]},{"members":5,"height":64.8281991111893,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":15.6085361261074,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":1.52315462117278,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Merc 280","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Merc 280C","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":0.61532511731604,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Mazda RX4 Wag","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Mazda RX4","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Merc 240D","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Ferrari Dino","edgePar":{"col":"#CC476B"}}]},{"members":4,"height":14.7468403395439,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":10.3922856003865,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":5.14734154685698,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Fiat 128","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Fiat X1-9","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Toyota Corolla","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Honda Civic","edgePar":{"col":"#CC476B"}}]}]},{"members":7,"height":103.402060424346,"edgePar":{"col":"#767F00"},"children":[{"members":5,"height":51.8146031539372,"edgePar":{"col":"#767F00"},"children":[{"members":3,"height":2.13834047803431,"edgePar":{"col":"#767F00"},"children":[{"members":2,"height":0.982649479723062,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Merc 450SL","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Merc 450SE","edgePar":{"col":"#767F00"}}]},{"members":1,"height":0,"label":"Merc 450SLC","edgePar":{"col":"#767F00"}}]},{"members":2,"height":14.0154994559595,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Dodge Challenger","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"AMC Javelin","edgePar":{"col":"#767F00"}}]}]},{"members":2,"height":33.5508692137775,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Hornet 4 Drive","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Valiant","edgePar":{"col":"#767F00"}}]}]}]},{"members":9,"height":214.887828645552,"edgePar":{"col":""},"children":[{"members":8,"height":134.793400802858,"edgePar":{"col":"#009681"},"children":[{"members":5,"height":101.694728108196,"edgePar":{"col":"#009681"},"children":[{"members":3,"height":21.1477114601084,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":10.0761202851097,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Duster 360","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Camaro Z28","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Ford Pantera L","edgePar":{"col":"#009681"}}]},{"members":2,"height":40.005247468301,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Pontiac Firebird","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Hornet Sportabout","edgePar":{"col":"#009681"}}]}]},{"members":3,"height":40.8399635773589,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":15.6224446230416,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Cadillac Fleetwood","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Lincoln Continental","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Chrysler Imperial","edgePar":{"col":"#009681"}}]}]},{"members":1,"height":0,"label":"Maserati Bora","edgePar":{"col":"#7866D8"}}]}]},"cols":{"members":6,"height":1459.40421703516,"edgePar":{"col":""},"children":[{"members":4,"height":102.877137742066,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.13964679823394,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"wt","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"drat","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":33.2610913831762,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"qsec","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"mpg","edgePar":{"col":"#CC476B"}}]}]},{"members":2,"height":656.640441946732,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"hp","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"disp","edgePar":{"col":"#009681"}}]}]},"matrix":{"data":["2.465","3.7","20.01","21.5","97","120.1","2.14","4.43","16.7","26","91","120.3","2.32","3.85","18.61","22.8","93","108","2.78","4.11","18.6","21.4","109","121","3.15","3.92","22.9","22.8","95","140.8","1.513","3.77","16.9","30.4","113","95.1","3.44","3.92","18.3","19.2","123","167.6","3.44","3.92","18.9","17.8","123","167.6","2.875","3.9","17.02","21","110","160","2.62","3.9","16.46","21","110","160","3.19","3.69","20","24.4","62","146.7","2.77","3.62","15.5","19.7","175","145","2.2","4.08","19.47","32.4","66","78.7","1.935","4.08","18.9","27.3","66","79","1.835","4.22","19.9","33.9","65","71.1","1.615","4.93","18.52","30.4","52","75.7","3.73","3.07","17.6","17.3","180","275.8","4.07","3.07","17.4","16.4","180","275.8","3.78","3.07","18","15.2","180","275.8","3.52","2.76","16.87","15.5","150","318","3.435","3.15","17.3","15.2","150","304","3.215","3.08","19.44","21.4","110","258","3.46","2.76","20.22","18.1","105","225","3.57","3.21","15.84","14.3","245","360","3.84","3.73","15.41","13.3","245","350","3.17","4.22","14.5","15.8","264","351","3.845","3.08","17.05","19.2","175","400","3.44","3.15","17.02","18.7","175","360","5.25","2.93","17.98","10.4","205","472","5.424","3","17.82","10.4","215","460","5.345","3.23","17.42","14.7","230","440","3.57","3.54","14.6","15","335","301"],"dim":[32,6],"rows":["Toyota Corona","Porsche 914-2","Datsun 710","Volvo 142E","Merc 230","Lotus Europa","Merc 280","Merc 280C","Mazda RX4 Wag","Mazda RX4","Merc 240D","Ferrari Dino","Fiat 128","Fiat X1-9","Toyota Corolla","Honda Civic","Merc 450SL","Merc 450SE","Merc 450SLC","Dodge Challenger","AMC Javelin","Hornet 4 Drive","Valiant","Duster 360","Camaro Z28","Ford Pantera L","Pontiac Firebird","Hornet Sportabout","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Maserati Bora"],"cols":["wt","drat","qsec","mpg","hp","disp"]},"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAGCAYAAACij5zfAAACp0lEQVQokUXOXUyVdQDH8e/zHAOF0oYodGFIN10gsizNuYlr05i2Ni+0uXkT5pprqc1Bw6nzogUXOl9GL1QUNedqhbplOjYOeuEJlJa9ogy1Awc4vJw4nMN5eJ4Dz3n+vy7c6PZz9bF096S8yl1c7l/OzufTFPS3Q3oGJZN8mFfH8ed+pDN/P9smz8DcPBjD+EvHCVk+RiFK+8+j5DRWRSVhfxdrV+QoXJSgYCwMwyNYL2/lkVvN7m1fcf3mHkoHmlEohPPpDYKzbVgm1qz63s2c2tiNfr2Lt/0I4145JUtiPBkMwOw08jK4Ja8w7pVjW1Ce/Q7sEPIyWEueYij/DcoyXzO3cgN58Z/BBJDLESt5l7KBRuaqdi64taqSrCnmUv8K1j6zFCt3Ya/sF9dgPV2EKa3AtDazqPYtEn4VxdFWGBrmVmUTAlq+/Z2LZW3IN8j16d7ewqpli+mJTbOnrwH5hiDhcqXmEywbvvi8l4717cidZ/5+kh1jtVxqrabpWoKm+AfYy/Jh2HFkOg9K3lUp3qLR2ZT+9UYUGU099vT3Mg9PL3g0k5XpPCg/uC3Te2zBU9movBM7ZIbOS7+dVGAi+mvKkTN/T+b2USl5Uab3mAIT0T8znqSbMl2HZUdTPu6WAygxyGxxNUufGKew8W3+HkljrduAEjGs1VUsth2KHrTxbPgdsG2aI8VcW/4ejp9HfsihoLWevBdKODf4GuGiQ9jGo2/Cwdu3HwoLqeuqILzyCA/T61j9SwOMPcDatBUm3Ql93B39fxpvkWbaNelO6OqjhHY3dSn3zV7lgh65DTXqjqf05kcRvfr+Twqu7JPMDbkNNeqITunAl3f0+okOmb5GaeYHmVt1uvDnqOov/6Epb0Sau65k7WaZnqNav+UzDWay+g+2SqPnN+Eq8QAAAABJRU5ErkJggg==","theme":null,"options":{"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":null,"yaxis_font_size":null,"brush_color":"#0000FF","show_grid":true,"anim_duration":500}},"evals":[],"jsHooks":[]}</script>
-<p>The heatmap above allows to understand why cars are split in 2 main clusters. For instance the weight (<code>wt</code>) is much higher for the group on top than for the other.</p>
+<p>The <a
+href="https://www.data-to-viz.com/graph/heatmap.html">heatmap</a> is
+often used in complement of a dendrogram. It is a graphical
+representation of data where the individual values contained in a matrix
+are represented as colors. It is a bit like looking a data table from
+above.</p>
+<p>In addition of a dendrogram, it allows to understand why samples ore
+features are grouped together.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(d3heatmap)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">d3heatmap</span>(data, <span class="at">k_row =</span> <span class="dv">4</span>, <span class="at">k_col =</span> <span class="dv">2</span>, <span class="at">scale =</span> <span class="st">&quot;column&quot;</span>)</span></code></pre></div>
+<div class="d3heatmap html-widget html-fill-item" id="htmlwidget-326477cfc0ac1900e5cf" style="width:768px;height:480px;"></div>
+<script type="application/json" data-for="htmlwidget-326477cfc0ac1900e5cf">{"x":{"rows":{"members":32,"height":425.3117359361248,"edgePar":{"col":""},"children":[{"members":23,"height":261.8135986250524,"edgePar":{"col":""},"children":[{"members":16,"height":141.6268001650818,"edgePar":{"col":"#CC476B"},"children":[{"members":12,"height":113.2007566229131,"edgePar":{"col":"#CC476B"},"children":[{"members":11,"height":74.31517899460378,"edgePar":{"col":"#CC476B"},"children":[{"members":6,"height":50.08944269005197,"edgePar":{"col":"#CC476B"},"children":[{"members":5,"height":33.15023227671264,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":20.66976777808594,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":13.02101762536246,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.239212644421796,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Toyota Corona","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Porsche 914-2","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Datsun 710","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Volvo 142E","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Merc 230","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Lotus Europa","edgePar":{"col":"#CC476B"}}]},{"members":5,"height":64.82819911118926,"edgePar":{"col":"#CC476B"},"children":[{"members":4,"height":15.6085361261074,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":1.523154621172779,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Merc 280","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Merc 280C","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":0.6153251173160401,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Mazda RX4 Wag","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Mazda RX4","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Merc 240D","edgePar":{"col":"#CC476B"}}]}]},{"members":1,"height":0,"label":"Ferrari Dino","edgePar":{"col":"#CC476B"}}]},{"members":4,"height":14.74684033954392,"edgePar":{"col":"#CC476B"},"children":[{"members":3,"height":10.39228560038647,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":5.147341546856977,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"Fiat 128","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"Fiat X1-9","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Toyota Corolla","edgePar":{"col":"#CC476B"}}]},{"members":1,"height":0,"label":"Honda Civic","edgePar":{"col":"#CC476B"}}]}]},{"members":7,"height":103.4020604243455,"edgePar":{"col":"#767F00"},"children":[{"members":5,"height":51.8146031539372,"edgePar":{"col":"#767F00"},"children":[{"members":3,"height":2.138340478034311,"edgePar":{"col":"#767F00"},"children":[{"members":2,"height":0.9826494797230624,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Merc 450SL","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Merc 450SE","edgePar":{"col":"#767F00"}}]},{"members":1,"height":0,"label":"Merc 450SLC","edgePar":{"col":"#767F00"}}]},{"members":2,"height":14.01549945595946,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Dodge Challenger","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"AMC Javelin","edgePar":{"col":"#767F00"}}]}]},{"members":2,"height":33.55086921377745,"edgePar":{"col":"#767F00"},"children":[{"members":1,"height":0,"label":"Hornet 4 Drive","edgePar":{"col":"#767F00"}},{"members":1,"height":0,"label":"Valiant","edgePar":{"col":"#767F00"}}]}]}]},{"members":9,"height":214.8878286455517,"edgePar":{"col":""},"children":[{"members":8,"height":134.7934008028583,"edgePar":{"col":"#009681"},"children":[{"members":5,"height":101.6947281081964,"edgePar":{"col":"#009681"},"children":[{"members":3,"height":21.1477114601084,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":10.07612028510974,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Duster 360","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Camaro Z28","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Ford Pantera L","edgePar":{"col":"#009681"}}]},{"members":2,"height":40.00524746830096,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Pontiac Firebird","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Hornet Sportabout","edgePar":{"col":"#009681"}}]}]},{"members":3,"height":40.83996357735888,"edgePar":{"col":"#009681"},"children":[{"members":2,"height":15.62244462304155,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"Cadillac Fleetwood","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"Lincoln Continental","edgePar":{"col":"#009681"}}]},{"members":1,"height":0,"label":"Chrysler Imperial","edgePar":{"col":"#009681"}}]}]},{"members":1,"height":0,"label":"Maserati Bora","edgePar":{"col":"#7866D8"}}]}]},"cols":{"members":6,"height":1459.404217035157,"edgePar":{"col":""},"children":[{"members":4,"height":102.8771377420659,"edgePar":{"col":"#CC476B"},"children":[{"members":2,"height":8.139646798233938,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"wt","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"drat","edgePar":{"col":"#CC476B"}}]},{"members":2,"height":33.26109138317623,"edgePar":{"col":"#CC476B"},"children":[{"members":1,"height":0,"label":"qsec","edgePar":{"col":"#CC476B"}},{"members":1,"height":0,"label":"mpg","edgePar":{"col":"#CC476B"}}]}]},{"members":2,"height":656.6404419467323,"edgePar":{"col":"#009681"},"children":[{"members":1,"height":0,"label":"hp","edgePar":{"col":"#009681"}},{"members":1,"height":0,"label":"disp","edgePar":{"col":"#009681"}}]}]},"matrix":{"data":["2.465","3.7","20.01","21.5","97","120.1","2.14","4.43","16.7","26","91","120.3","2.32","3.85","18.61","22.8","93","108","2.78","4.11","18.6","21.4","109","121","3.15","3.92","22.9","22.8","95","140.8","1.513","3.77","16.9","30.4","113","95.1","3.44","3.92","18.3","19.2","123","167.6","3.44","3.92","18.9","17.8","123","167.6","2.875","3.9","17.02","21","110","160","2.62","3.9","16.46","21","110","160","3.19","3.69","20","24.4","62","146.7","2.77","3.62","15.5","19.7","175","145","2.2","4.08","19.47","32.4","66","78.7","1.935","4.08","18.9","27.3","66","79","1.835","4.22","19.9","33.9","65","71.1","1.615","4.93","18.52","30.4","52","75.7","3.73","3.07","17.6","17.3","180","275.8","4.07","3.07","17.4","16.4","180","275.8","3.78","3.07","18","15.2","180","275.8","3.52","2.76","16.87","15.5","150","318","3.435","3.15","17.3","15.2","150","304","3.215","3.08","19.44","21.4","110","258","3.46","2.76","20.22","18.1","105","225","3.57","3.21","15.84","14.3","245","360","3.84","3.73","15.41","13.3","245","350","3.17","4.22","14.5","15.8","264","351","3.845","3.08","17.05","19.2","175","400","3.44","3.15","17.02","18.7","175","360","5.25","2.93","17.98","10.4","205","472","5.424","3","17.82","10.4","215","460","5.345","3.23","17.42","14.7","230","440","3.57","3.54","14.6","15","335","301"],"x":[-0.769,0.193,1.209,0.234,-0.725,-0.893,-1.101,1.559,-0.643,0.98,-0.8120000000000001,-0.891,-0.917,0.474,0.426,0.45,-0.783,-0.99,-0.447,0.96,0.42,0.217,-0.55,-0.885,-0.06900000000000001,0.605,2.827,0.45,-0.754,-0.726,-1.742,0.324,-0.531,1.711,-0.491,-1.094,0.228,0.605,0.253,-0.148,-0.345,-0.509,0.228,0.605,0.588,-0.38,-0.345,-0.509,-0.35,0.5679999999999999,-0.464,0.151,-0.535,-0.571,-0.61,0.5679999999999999,-0.777,0.151,-0.535,-0.571,-0.028,0.175,1.204,0.715,-1.235,-0.678,-0.457,0.044,-1.314,-0.065,0.413,-0.6919999999999999,-1.04,0.904,0.907,2.042,-1.177,-1.227,-1.31,0.904,0.588,1.196,-1.177,-1.224,-1.413,1.166,1.148,2.291,-1.191,-1.288,-1.638,2.494,0.376,1.711,-1.381,-1.251,0.524,-0.985,-0.139,-0.463,0.486,0.364,0.872,-0.985,-0.251,-0.612,0.486,0.364,0.575,-0.985,0.08500000000000001,-0.8110000000000001,0.486,0.364,0.309,-1.565,-0.548,-0.762,0.048,0.704,0.223,-0.835,-0.307,-0.8110000000000001,0.048,0.591,-0.002,-0.966,0.89,0.217,-0.535,0.22,0.248,-1.565,1.327,-0.33,-0.608,-0.046,0.361,-0.723,-1.124,-0.961,1.434,1.043,0.636,0.25,-1.365,-1.127,1.434,0.962,-0.048,1.166,-1.874,-0.712,1.711,0.97,0.642,-0.966,-0.447,-0.148,0.413,1.366,0.228,-0.835,-0.464,-0.231,0.413,1.043,2.078,-1.247,0.073,-1.608,0.85,1.947,2.255,-1.116,-0.016,-1.608,0.996,1.85,2.175,-0.6860000000000001,-0.24,-0.894,1.215,1.689,0.361,-0.106,-1.818,-0.845,2.747,0.5669999999999999],"dim":[32,6],"rows":["Toyota Corona","Porsche 914-2","Datsun 710","Volvo 142E","Merc 230","Lotus Europa","Merc 280","Merc 280C","Mazda RX4 Wag","Mazda RX4","Merc 240D","Ferrari Dino","Fiat 128","Fiat X1-9","Toyota Corolla","Honda Civic","Merc 450SL","Merc 450SE","Merc 450SLC","Dodge Challenger","AMC Javelin","Hornet 4 Drive","Valiant","Duster 360","Camaro Z28","Ford Pantera L","Pontiac Firebird","Hornet Sportabout","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Maserati Bora"],"cols":["wt","drat","qsec","mpg","hp","disp"]},"title":null,"image":"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAGCAYAAACij5zfAAACGklEQVQokW2QT0jTYRjHP9M0tx2zQCcJTfSSopdoGBTbYYfy0A4uJMSEDoED/2XLoA7WXHURUmIIgmAhkRseJIV0SeHEQ6V0URxqNQc27dB+2/KnezrIXoJ6Ty+f7/d93oePIelxiNnfxtzuRewn5tG8gwDsru0y3TdJ66ceYk2jFPdeJnfM/jZ1z/WPny0m1jRKed4bAA7Gxvn9JYGpq4GMxU59/Xs+hktVf/LZN5q0xxj0gFvuFvfSn/CxHVzldPAB6UIrxv0osjQPwOFanGPXr5EutAJQ9GFE8fzKEjIXWikYeUS+08bhTEQtp7feI9vZgamrQfF8pw2AcF4ztpLvGLactVLqqlLhouM552dvYThZzsHYONvBVeT1IgA9gws8fdcJQGw9TennZU4VrRGJl1Fx0654Onz0Wd/9t4zGfcTW02xEheGWh4SHCrg9fQZXTyOWCiOk9BVJehySDbeLHnBLSl8R0UKy+SvzX676mwOS9DgUFy0kC9Yq0QNuleey3Jy/ee593k6mErO/TWk27keJ1HiJ/kxhclUfaXbaMO5H0byD/LjSDMDwzlUSvimlO1LjxVJhZKTuieKReBkvzXeO7O3dIOGbImOxk+3s4HAmgslVDaKFJLC0pTbVA27JhtuVhcb+Odly1kp2c0BeUKnYpZZX//DuiWVp7J9TM5Ieh8x+3ZPuiWURLaS6SY9D6s4NSUpfkT9IAW8agBdBFgAAAABJRU5ErkJggg==","rowcolors":null,"colcolors":null,"theme":null,"options":{"hm_width":null,"hm_height":null,"xaxis_height":80,"yaxis_width":120,"xaxis_font_size":17.82116650726162,"yaxis_font_size":10.37262742772967,"xaxis_angle":60,"xaxis_location":"bottom","yaxis_location":"right","xaxis_title":null,"yaxis_title":null,"xaxis_title_font_size":14,"yaxis_title_font_size":14,"bins":16,"manual_breaks":false,"symbreaks":false,"print_values":false,"show_legend":false,"legend_scaler":1,"legend_title":null,"legend_location":"fl","legend_colors":["#A50026","#C62327","#E14730","#F46D43","#FB9957","#FEBF70","#FEE090","#FFF5AF","#F6FBD2","#E0F3F8","#BDE2EE","#99CAE1","#74ADD1","#5687BE","#4060AA","#313695"],"legend_bins":16,"legend_breaks":[-1.874010283233482,-1.580212478471234,-1.286414673708986,-0.9926168689467376,-0.6988190641844896,-0.4050212594222415,-0.1112234546599935,0.1825743501022545,0.4763721548645026,0.7701699596267506,1.063967764388999,1.357765569151247,1.651563373913495,1.945361178675743,2.239158983437991,2.532956788200239,2.826754592962486],"legend_type":"histogram","legend_fill":null,"brush_color":"#0000FF","na_color":"#777777","show_grid":true,"cellnote_row":null,"cellnote_col":null,"cellnote_val":"Value","cellnote_fontsize":12,"cellnote_color":"#222222","anim_duration":500,"rsc_labs":null,"csc_labs":null,"rsc_cols":null,"csc_cols":null,"rsc_colnames":null,"csc_colnames":null},"params":{"x":{"disp":[160,160,108,258,360,225,360,146.7,140.8,167.6,167.6,275.8,275.8,275.8,472,460,440,78.7,75.7,71.09999999999999,120.1,318,304,350,400,79,120.3,95.09999999999999,351,145,301,121],"drat":[3.9,3.9,3.85,3.08,3.15,2.76,3.21,3.69,3.92,3.92,3.92,3.07,3.07,3.07,2.93,3,3.23,4.08,4.93,4.22,3.7,2.76,3.15,3.73,3.08,4.08,4.43,3.77,4.22,3.62,3.54,4.11],"hp":[110,110,93,110,175,105,245,62,95,123,123,180,180,180,205,215,230,66,52,65,97,150,150,245,175,66,91,113,264,175,335,109],"mpg":[21,21,22.8,21.4,18.7,18.1,14.3,24.4,22.8,19.2,17.8,16.4,17.3,15.2,10.4,10.4,14.7,32.4,30.4,33.9,21.5,15.5,15.2,13.3,19.2,27.3,26,30.4,15.8,19.7,15,21.4],"qsec":[16.46,17.02,18.61,19.44,17.02,20.22,15.84,20,22.9,18.3,18.9,17.4,17.6,18,17.98,17.82,17.42,19.47,18.52,19.9,20.01,16.87,17.3,15.41,17.05,18.9,16.7,16.9,14.5,15.5,14.6,18.6],"wt":[2.62,2.875,2.32,3.215,3.44,3.46,3.57,3.19,3.15,3.44,3.44,4.07,3.73,3.78,5.25,5.424,5.345,2.2,1.615,1.835,2.465,3.52,3.435,3.84,3.845,1.935,2.14,1.513,3.17,2.77,3.57,2.78]},"Rowv":true,"Colv":true,"distfun":["function (x, method = \"euclidean\", diag = FALSE, upper = FALSE, ","    p = 2) ","{","    if (!is.na(pmatch(method, \"euclidian\"))) ","        method <- \"euclidean\"","    METHODS <- c(\"euclidean\", \"maximum\", \"manhattan\", \"canberra\", ","        \"binary\", \"minkowski\")","    method <- pmatch(method, METHODS)","    if (is.na(method)) ","        stop(\"invalid distance method\")","    if (method == -1) ","        stop(\"ambiguous distance method\")","    x <- as.matrix(x)","    N <- nrow(x)","    attrs <- if (method == 6L) ","        list(Size = N, Labels = dimnames(x)[[1L]], Diag = diag, ","            Upper = upper, method = METHODS[method], p = p, call = match.call(), ","            class = \"dist\")","    else list(Size = N, Labels = dimnames(x)[[1L]], Diag = diag, ","        Upper = upper, method = METHODS[method], call = match.call(), ","        class = \"dist\")","    .Call(C_Cdist, x, method, attrs, p)","}"],"hclustfun":["function (d, method = \"complete\", members = NULL) ","{","    METHODS <- c(\"ward.D\", \"single\", \"complete\", \"average\", \"mcquitty\", ","        \"median\", \"centroid\", \"ward.D2\")","    if (method == \"ward\") {","        message(\"The \\\"ward\\\" method has been renamed to \\\"ward.D\\\"; note new \\\"ward.D2\\\"\")","        method <- \"ward.D\"","    }","    i.meth <- pmatch(method, METHODS)","    if (is.na(i.meth)) ","        stop(\"invalid clustering method\", paste(\"\", method))","    if (i.meth == -1) ","        stop(\"ambiguous clustering method\", paste(\"\", method))","    n <- as.integer(attr(d, \"Size\"))","    if (is.null(n)) ","        stop(\"invalid dissimilarities\")","    if (is.na(n) || n > 65536L) ","        stop(\"size cannot be NA nor exceed 65536\")","    if (n < 2) ","        stop(\"must have n >= 2 objects to cluster\")","    len <- as.integer(n * (n - 1)/2)","    if (length(d) != len) ","        (if (length(d) < len) ","            stop","        else warning)(\"dissimilarities of improper length\")","    if (is.null(members)) ","        members <- rep(1, n)","    else if (length(members) != n) ","        stop(\"invalid length of members\")","    storage.mode(d) <- \"double\"","    hcl <- .Fortran(C_hclust, n = n, len = len, method = as.integer(i.meth), ","        ia = integer(n), ib = integer(n), crit = double(n), members = as.double(members), ","        nn = integer(n), disnn = double(n), diss = d)","    hcass <- .Fortran(C_hcass2, n = n, ia = hcl$ia, ib = hcl$ib, ","        order = integer(n), iia = integer(n), iib = integer(n))","    structure(list(merge = cbind(hcass$iia[1L:(n - 1)], hcass$iib[1L:(n - ","        1)]), height = hcl$crit[1L:(n - 1)], order = hcass$order, ","        labels = attr(d, \"Labels\"), method = METHODS[i.meth], ","        call = match.call(), dist.method = attr(d, \"method\")), ","        class = \"hclust\")","}"],"dendrogram":"both","reorderfun":["function (d, w) ","reorder(d, w)"],"k_row":4,"k_col":2,"symm":false,"revC":null,"scale":"column","scale.by.range":false,"na.rm":true,"na.value":null,"digits":3,"cellnote":null,"cellnote_scale":false,"labRow":["Mazda RX4","Mazda RX4 Wag","Datsun 710","Hornet 4 Drive","Hornet Sportabout","Valiant","Duster 360","Merc 240D","Merc 230","Merc 280","Merc 280C","Merc 450SE","Merc 450SL","Merc 450SLC","Cadillac Fleetwood","Lincoln Continental","Chrysler Imperial","Fiat 128","Honda Civic","Toyota Corolla","Toyota Corona","Dodge Challenger","AMC Javelin","Camaro Z28","Pontiac Firebird","Fiat X1-9","Porsche 914-2","Lotus Europa","Ford Pantera L","Ferrari Dino","Maserati Bora","Volvo 142E"],"labCol":["disp","drat","hp","mpg","qsec","wt"],"col":"RdYlBu","symbreaks":false,"na.color":"#777777","rng":null,"breaks":null,"RowSideColors":null,"ColSideColors":null,"RowColorsPalette":["blue","orange","black"],"ColColorsPalette":["cyan","maroon","grey"]}},"evals":[],"jsHooks":[]}</script>
+<p>The heatmap above allows to understand why cars are split in 2 main
+clusters. For instance the weight (<code>wt</code>) is much higher for
+the group on top than for the other.</p>
 </div>
 <div id="pca" class="section level1">
 <h1>PCA</h1>
 <hr />
-<p>The Principal Component Analysis is a statistical procedure that aims to summarize all the available numeric variables in a set of principal components.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">myPCA &lt;-<span class="st"> </span><span class="kw">PCA</span>(data, <span class="dt">scale.unit=</span><span class="ot">TRUE</span>, <span class="dt">graph=</span>F)
-
-myPCA<span class="op">$</span>ind <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">as.data.frame</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">name=</span><span class="kw">rownames</span>(.)) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>coord.Dim.<span class="dv">1</span>, <span class="dt">y=</span>coord.Dim.<span class="dv">2</span>, <span class="dt">label=</span>name)) <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_point</span>( <span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="op">+</span>
-<span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span>
-<span class="st">    </span><span class="kw">geom_label</span>(<span class="dt">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</code></pre></div>
+<p>The Principal Component Analysis is a statistical procedure that aims
+to summarize all the available numeric variables in a set of principal
+components.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>myPCA <span class="ot">&lt;-</span> <span class="fu">PCA</span>(data, <span class="at">scale.unit=</span><span class="cn">TRUE</span>, <span class="at">graph=</span>F)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>myPCA<span class="sc">$</span>ind <span class="sc">%&gt;%</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">name=</span><span class="fu">rownames</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>coord.Dim<span class="fl">.1</span>, <span class="at">y=</span>coord.Dim<span class="fl">.2</span>, <span class="at">label=</span>name)) <span class="sc">+</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>    <span class="fu">geom_point</span>( <span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>) <span class="sc">+</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>    <span class="fu">geom_label</span>(<span class="at">color=</span><span class="st">&quot;#69b3a2&quot;</span>)</span></code></pre></div>
 <p><img src="SeveralNum_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#plot.PCA(myPCA, axes=c(1, 2), choix=&quot;var&quot;)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co">#plot.PCA(myPCA, axes=c(1, 2), choix=&quot;var&quot;)</span></span></code></pre></div>
 <p><em>Note</em>: this section needs <code>improvement</code></p>
 </div>
 <div id="getting-a-correlation-matrix" class="section level1">
 <h1>Getting a correlation matrix</h1>
 <hr />
-<p>It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">adjacency matrix</a>. Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">how to visualize an adjacency matrix</a>.</p>
+<p>It is of importance to note that this kind of dataset can be
+converted to a correlation matrix that is an <a
+href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">adjacency
+matrix</a>. Indeed, we can compute the correlation between each pair of
+variable or each pair of entities of the dataset and try to visualize
+this new dataset. But this is a new story: <a
+href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">how to
+visualize an adjacency matrix</a>.</p>
 </div>
 
-
-<!-- Insert code for related graphics  -->
-<h1>Going further</h1>
-<hr>
-<p>You can learn more about each type of graphic presented in this story in the dedicated sections. Click the icon below:</p>
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader" src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png></a>
-  
-    <a href="https://www.data-to-viz.com/#portfolio"> <img class="mylogoheader"  src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png></a>
-  
-  
-  
-  
-  
-
-
-
-<!-- Insert code for DISQUS comments  -->
-      <br>
-      <h1>Comments</h1>
-      <hr>
-      <p>Any thoughts on this? Found any mistake? Have another way to show the data? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">Twitter</a> or in the comment section below:</p>
-      <br>
+          <!-- Insert code for related graphics  -->
+          <h1>Going further</h1>
+          <hr />
+          <p>
+            You can learn more about each type of graphic presented in this
+            story in the dedicated sections. Click the icon below:
+          </p>
+                    <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DensitySmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/Box1Small.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/ViolinSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/JoyplotSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/HeatmapSmall.png></a
+          >
+                     <a href="https://www.data-to-viz.com/#portfolio">
+            <img class="mylogoheader"
+            src=https://github.com/holtzy/data_to_viz/raw/master/img/section/DendrogramSmall.png></a
+          >
+                    </div>
+    </div>
+    <section
+      id="form"
+      style="
+        margin-top: 70px;
+        padding-bottom: 70px;
+        padding-top: 70px;
+        background-color: #f8f9fa;
+      "
+    >
       <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/story/SeveralNum.html;  
-        this.page.identifier = SeveralNum; 
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <div style="display: flex; flex-direction: column; align-items: center">
+          <h2 style="font-size: 44px" class="text-center">
+            Dataviz decision tree
+          </h2>
+          <p class="text-center" style="max-width: 600px; font-size: 18px">
+            <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+            comprehensive <b>classification of chart types</b> organized by data
+            input format. Get a high-resolution version of our decision tree
+            delivered to your inbox now!
+          </p>
+          <div
+            style="
+              margin-top: -50px;
+              width: 100%;
+              display: flex;
+              justify-content: center;
+            "
+          >
+            <script
+              async
+              data-uid="8010f15fd2"
+              src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+            ></script>
+          </div>
+          <br />
+          <div class="text-center">
+            <img
+              class="img-fluid"
+              src="../img/poster/poster_small.png"
+              alt="High Resolution Poster"
+              style="max-width: 400px"
+            />
+          </div>
+        </div>
       </div>
-<!-- Insert code for DISQUS comments  -->
+    </section>
 
-
-
-
-
-&nbsp;
+     &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -695,28 +821,28 @@ myPCA<span class="op">$</span>ind <span class="op">%&gt;%</span>
 
   gtag('config', 'UA-79254642-3');
 </script>
-
-
-&nbsp;
-
-
-
-
-</div>
-
 <script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+var getOutboundLink = function(url) {
+	gtag('event', 'click', {
+		'event_category': 'outbound',
+		'event_label': url,
+		'transport_type': 'beacon',
+		'event_callback': function(){document.location = url;}
+	});
 }
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
 </script>
 
+&nbsp;   
+    <script>
 
-</body>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
+
+          </script>
+       </body>
 </html>

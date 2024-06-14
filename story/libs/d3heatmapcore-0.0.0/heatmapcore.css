@@ -7,7 +7,26 @@ body.theme-dark {
 }
 .theme-dark .link {
 }
-
+.title {
+  font-size: 2em;
+  position:absolute;
+}
+.plot_title {
+  text-anchor: middle;
+}
+.outer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.inner {
+  overflow: visible;
+  position: relative;
+	top: 0px;
+	left: 0px;
+  width: 100%;
+  height: 100%;
+}
 .d3heatmap {
   position: relative;
   width: 820px;
@@ -33,9 +52,6 @@ body.theme-dark {
 }
 .d3heatmap .axis rect {
   cursor: pointer;
-}
-.inner {
-  position: relative;
 }
 .info {
   position: absolute;
@@ -98,3 +114,84 @@ body.theme-dark {
 .d3heatmap-tip th, .d3heatmap-tip td {
   padding: 0 1px;
 }
+.xtitle {
+  position: absolute;
+  overflow: hidden;
+  font-family: Ubuntu Sans, Segoe UI, Lucida Grande, sans-serif;
+}
+.ytitle {
+  position: absolute;
+  overflow: hidden;
+  font-family: Ubuntu Sans, Segoe UI, Lucida Grande, sans-serif;
+}
+.tick {
+  font-family: Helvetica;
+  font-size: 0.6em;
+	fill: black;
+}
+.legendbox {
+  stroke:#FFFFFF;
+  stroke-width:1px;
+  stroke-linecap:butt;
+  stroke-linejoin:miter;
+  stroke-opacity:0;
+}
+.bar {
+  stroke:#FFFFFF;
+  stroke-width:0px;
+  stroke-linecap:butt;
+  stroke-linejoin:miter;
+  stroke-opacity:0;
+  fill-opacity: 1;
+}
+.legend {
+  overflow: visible;
+  position: absolute;
+  padding: 5px 5px 5px 10px;
+}
+.legend_title {
+	position: absolute;
+	top: 0px;
+  font-family: Helvetica;
+  font-size: 0.7em;
+  font-style: italic;
+  text-anchor: middle;
+	fill: black;
+}
+.side_color_title {
+	position: absolute;
+	top: 0px;
+  font-family: Helvetica;
+  font-size: 1em;
+  font-style: italic;
+  text-anchor: left;
+	fill: black;
+}
+.side_colors_label {  
+  stroke:#FFFFFF;
+  stroke-width:0px;  
+  stroke-linecap:butt;  
+  stroke-linejoin:miter;  
+  stroke-opacity:1;  
+}  
+.row_colors_label {  
+  position: absolute;  
+  left: 0;
+  width: 50px;  
+  height: 50%;  
+	font-size: 1em;  
+  font-family: Helvetica;
+  margin-left: 5px;  
+}  
+.col_colors_label {  
+  position: relative;  
+  left: 0;
+	top: 50%;
+  width: 50px;  
+  height: 50%;
+	font-size: 1em;  
+  font-family: Helvetica;
+  margin-left: 5px;  
+}  
+
+

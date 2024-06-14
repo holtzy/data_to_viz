@@ -83,7 +83,7 @@ c %>% head(6) %>% kable(row.names=FALSE) %>%
 
 
 
-#Wordcloud
+# Wordcloud
 ***
 If some words are repeated in the dataset, the first thing to do is probably to find out what are the most frequent ones. A common way to do so is to build a [wordcloud](https://www.data-to-viz.com/graph/wordcloud.html): each word is written with a size proportionnal to its frequency.
 
@@ -110,7 +110,7 @@ However this type of chart can be [criticized](https://www.data-to-viz.com/graph
 
 
 
-#Lollipop chart
+# Lollipop chart
 ***
 A [lollipop](https://www.data-to-viz.com/graph/lollipop.html) chart is like a [barplot](https://www.data-to-viz.com/graph/barplot.html), but the bar is replaced by a segment and a circle. It gives a lighter appearance. It is advised to use a horizontal version: words are easier to read.
 ```{r, fig.align="center", fig.height=6}
@@ -138,7 +138,7 @@ data %>%
 
 
 
-#Venn diagram
+# Venn diagram
 ***
 Once the most frequent words are known, it is of interest to know how many words are common to every lists, and how many are specific to each artist. The best way to represent this information is to use a [venn diagram](https://www.data-to-viz.com/graph/venn.html).
 
@@ -181,7 +181,7 @@ venn.diagram(
 
 
 
-#Note
+# Note
 ***
 
 This section needs improvements:
