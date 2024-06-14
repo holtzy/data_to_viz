@@ -102,15 +102,19 @@ Line charts tend to be too cluttered as soon as more than a few groups are displ
 
 ```{r, fig.align="center", fig.width=10, message=FALSE, warning=FALSE}
 data %>%
-  mutate( highlight=ifelse(name=="Amanda", "Amanda", "Other")) %>%
-  ggplot( aes(x=year, y=n, group=name, color=highlight, linewidth=highlight)) +
-    geom_line(linewidth=1) +
-    scale_color_manual(values = c("#264653", "lightgrey")) +
-    scale_size_manual(values=c(1.5,0.2)) +
-    theme(legend.position="none") +
-    ggtitle("Popularity of American names in the previous 30 years") +
-    theme_ipsum() +
-    geom_label(x = 1990, y = 55000, label = "Amanda reached 3550\nbabies in 1970", size = 4, color = "#69b3a2")
+  mutate(highlight = ifelse(name == "Amanda", "Amanda", "Other")) %>%
+  ggplot(aes(x = year, y = n, group = name, color = highlight, size = highlight)) +
+  geom_line() +
+  scale_color_manual(values = c("#69b3a2", "lightgrey")) +
+  scale_size_manual(values = c(1.5, 0.2)) +
+  theme(legend.position = "none") +
+  ggtitle("Popularity of American names in the previous 30 years") +
+  theme_ipsum() +
+  geom_label(x = 1990, y = 55000, label = "Amanda reached 3550\nbabies in 1970", size = 4, color = "#69b3a2") +
+  theme(
+    legend.position = "none",
+    plot.title = element_text(size = 14)
+  )
 ```
 
 This is a good way to describe the behavior of a specific group in the dataset.
