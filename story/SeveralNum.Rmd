@@ -58,7 +58,7 @@ data %>% head(6) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)
 ```
 
-#Check distribution
+# Check distribution
 ***
 
 In my opinion, the first thing to do when you have several numeric variables is to observe their distribution one by one. This can be done using a [violin plot](https://www.data-to-viz.com/graph/violin.html), a [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or a [ridgeline plot](https://www.data-to-viz.com/graph/ridgeline.html) if your variables are all on the same scale. In the case of the `mtcars` dataset the variables are completely different one to each other so it make more sense to make an [histogram](https://www.data-to-viz.com/graph/histogram.html) for each of them:
@@ -83,7 +83,7 @@ data %>%
 
 
 
-#Correlogram
+# Correlogram
 ***
 A [correlogram](https://www.data-to-viz.com/graph/correlogram.html) or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each pair of variable is visualised through a scatterplot, or a symbol that represents the correlation (bubble, line, number..). The diagonal often represents the distribution of each variable, using an [histogram](https://www.data-to-viz.com/graph/histogram.html) or a [density plot](https://www.data-to-viz.com/graph/density.html).
 
@@ -93,7 +93,7 @@ scatterplotMatrix(~mpg+disp+drat+hp+qsec+wt, data=data , reg.line=FALSE, col="#6
 It is a powerful method that give a good overview of the dataset in an unique graphic. For instance, it is obvious that displacement (`disp`) and gross horsepower (`hp`) have a strong correlation.
 
 
-#Dendrogram
+# Dendrogram
 ***
 A [dendrogram](https://www.data-to-viz.com/graph/dendrogram.html) can be used to check the result of a clustering algorythm on the dataset. Basically, the steps are:
 
@@ -122,7 +122,7 @@ See more about it [here](https://www.data-to-viz.com/graph/dendrogram.html).
 
 
 
-#Heatmap
+# Heatmap
 ***
 The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is often used in complement of a dendrogram. It is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.
 
@@ -138,7 +138,7 @@ The heatmap above allows to understand why cars are split in 2 main clusters. Fo
 
 
 
-#PCA
+# PCA
 ***
 The Principal Component Analysis is a statistical procedure that aims to summarize all the available numeric variables in a set of principal components.
 ```{r, fig.align="center", fig.width=7, message=FALSE, warning=FALSE}
@@ -160,7 +160,7 @@ myPCA$ind %>%
 
 
 
-#Getting a correlation matrix
+# Getting a correlation matrix
 ***
 
 It is of importance to note that this kind of dataset can be converted to a correlation matrix that is an [adjacency matrix](https://www.data-to-viz.com/story/AdjacencyMatrix.html). Indeed, we can compute the correlation between each pair of variable or each pair of entities of the dataset and try to visualize this new dataset. But this is a new story: [how to visualize an adjacency matrix](https://www.data-to-viz.com/story/AdjacencyMatrix.html).

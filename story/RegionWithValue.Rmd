@@ -33,6 +33,7 @@ output:
 <br><br><br>This document gives a few suggestions to analyse a dataset composed by a unique numeric variable.<br> It considers the night price of about 10,000 [Airbnb](https://www.airbnb.fr) appartements on the French Riviera in France.<br>This example dataset has been downloaded from the [Airbnb website](http://insideairbnb.com/get-the-data.html) and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Basically it looks like the table beside.
 </div>
 <div class = "col-md-4">
+
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)

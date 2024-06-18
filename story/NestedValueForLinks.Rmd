@@ -83,7 +83,7 @@ data %>%
         plot.margin=grid::unit(c(0,0,0,0), "cm"),
     ) +
     ggplot2::annotate("text", x = -150, y = -45, hjust = 0, size = 11, label = paste("Where surfers live."), color = "Black") +
-    ggplot2::annotate("text", x = -150, y = -51, hjust = 0, size = 8, label = paste("data-to-viz.com | 200,000 #surf tweets recovered"), color = "black", alpha = 0.5) +
+    ggplot2::annotate("text", x = -150, y = -60, hjust = 0, size = 8, label = paste("data-to-viz.com | 200,000 #surf tweets recovered"), color = "black", alpha = 0.5) +
     xlim(-180,180) +
     ylim(-60,80) +
     scale_x_continuous(expand = c(0.006, 0.006)) +

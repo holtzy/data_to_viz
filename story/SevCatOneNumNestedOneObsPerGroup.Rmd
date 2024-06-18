@@ -76,24 +76,19 @@ p <- treemap(data,
             index=c("Continent", "Region", "Country"),
             vSize="Pop",
             type="index",
-
-            # Main
             title="",
             palette="Dark2",
 
-            # Borders:
+            # Borders
             border.col=c("black", "grey", "grey"),
             border.lwds=c(1,0.5,0.1),
 
             # Labels
-            fontsize.labels=c(0.7, 0.4, 0.3),
             fontcolor.labels=c("white", "white", "black"),
             fontface.labels=1,
             bg.labels=c("transparent"),
             align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),
-            overlap.labels=0.5,
-            inflate.labels=T
-
+            overlap.labels=0.5
 )
 ```
 

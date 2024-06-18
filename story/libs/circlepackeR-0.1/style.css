@@ -12,10 +12,9 @@
 }
 
 .circlepackeR .label {
-  font: 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
   text-anchor: middle;
-  background: orange;
-  max-width: 400px;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
 }
 
 .circlepackeR .label,
