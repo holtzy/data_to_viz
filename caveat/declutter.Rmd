@@ -4,6 +4,9 @@ mytitle: "Decluttering your chart"
 pathSlug: "declutter"
 output:
   html_document:
+      self_contained: false
+      mathjax: default
+      lib_dir: libs
       template: template_caveat.html
       theme: "lumen"
       css: style.css

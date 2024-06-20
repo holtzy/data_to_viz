@@ -1,0 +1,53 @@
+.d3tree2 text {
+  pointer-events: none;
+  font-size: 10px;
+}
+
+.d3tree2 .grandparent text {
+  font-weight: bold;
+  font-size: inherit;
+}
+
+.d3tree2 .legend text{
+  font-size: inherit;
+}
+
+.d3tree2 rect {
+/*  fill: none; */
+  stroke: #fff;
+  stroke-width: 1px;
+}
+
+.d3tree2 rect.parent,
+.d3tree2 .grandparent rect {
+  stroke-width: 2px;
+}
+
+.d3tree2 .grandparent:hover rect {
+  fill: darkgrey;
+}
+
+.d3tree2 .children rect.parent,
+.d3tree2 .grandparent rect {
+  cursor: pointer;
+}
+
+.d3tree2 .children rect.child {
+  opacity: 0;
+}
+
+.d3tree2 .children rect.parent {
+}
+
+.d3tree2 .children text{
+
+}
+
+.d3tree2 .children:hover rect.child {
+  opacity: 1;
+  stroke-width: 1px;
+}
+
+.d3tree2 .children:hover rect.parent {
+  opacity: 0;
+}
