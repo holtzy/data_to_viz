@@ -70,25 +70,27 @@ A [treemap](https://www.data-to-viz.com/graph/treemap.html) represents each node
 ```{r, fig.align="center", fig.width=8, fig.height=7,  warning=FALSE}
 library(treemap)
 
-p <- treemap(data,
+p <- treemap(
+  data,
 
-            # data
-            index=c("Continent", "Region", "Country"),
-            vSize="Pop",
-            type="index",
-            title="",
-            palette="Dark2",
+  # data
+  index=c("Continent", "Region", "Country"),
+  vSize="Pop",
+  type="index",
+  title="",
+  palette="Dark2",
 
-            # Borders
-            border.col=c("black", "grey", "grey"),
-            border.lwds=c(1,0.5,0.1),
+  # Borders
+  border.col=c("black", "grey", "grey"),
+  border.lwds=c(1,0.5,0.1),
 
-            # Labels
-            fontcolor.labels=c("white", "white", "black"),
-            fontface.labels=1,
-            bg.labels=c("transparent"),
-            align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),
-            overlap.labels=0.5
+  # Labels
+  fontcolor.labels=c("white", "white", "black"),
+  fontface.labels=1,
+  bg.labels=c("transparent"),
+  align.labels=list( c("center", "center"), c("left", "top"), c("right", "bottom")),
+  overlap.labels=0.5,
+  fontsize.labels=c(32, 20, 13)
 )
 ```
 
