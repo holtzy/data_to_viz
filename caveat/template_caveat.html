@@ -22,14 +22,20 @@
       content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
     />
     <meta name="author" content="Yan Holtz and Conor Healy" />
-    <link rel="icon" href="img/logo/data-to-viz.ico" />
+    <link
+      rel="icon"
+      href="https://raw.githubusercontent.com/holtzy/data_to_viz/master/img/logo/data-to-viz.ico"
+    />
 
     <!-- Control appearance when share by social media -->
     <meta property="og:title" content="$mytitle$" />
-    <meta property="og:image" content="$myimage1$" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/holtzy/data_to_viz/master/img/parallax/caveat_gallery_overview.png"
+    />
     <meta
       property="og:description"
-      content="A classification of chart types based on their input data format."
+      content="Dataviz pitfall gallery | $mytitle$"
     />
     <meta
       property="og:url"
@@ -500,46 +506,65 @@
           </div>
           $endif$ $if(toc_float)$ $else$ $if(toc)$
           <div id="$idprefix$TOC">$toc$</div>
-          $endif$ $endif$ $body$
 
-          <!-- Insert code for DISQUS comments  -->
-
-          <div class="container">
-            <div id="disqus_thread"></div>
-            <script>
-              var disqus_config = function () {
-                this.page.url =
-                  www.data - to - viz.com / caveat / $pathSlug$.html;
-                this.page.identifier = $pathSlug$;
-              };
-
-              (function () {
-                // DON'T EDIT BELOW THIS LINE
-                var d = document,
-                  s = d.createElement("script");
-                s.src = "https://data-to-viz.disqus.com/embed.js";
-                s.setAttribute("data-timestamp", +new Date());
-                (d.head || d.body).appendChild(s);
-              })();
-            </script>
-            <noscript
-              >Please enable JavaScript to view the
-              <a href="https://disqus.com/?ref_noscript"
-                >comments powered by Disqus.</a
-              ></noscript
-            >
-          </div>
-          <!-- Insert code for DISQUS comments  -->
-
-          $for(include-after)$ $include-after$ $endfor$ $if(theme)$
-          $if(toc_float)$
+          $endif$ $endif$ $body$ $if(theme)$ $if(toc_float)$
         </div>
       </div>
       $endif$
+
+      <section
+        id="form"
+        style="
+          margin-top: 70px;
+          padding-bottom: 70px;
+          padding-top: 70px;
+          background-color: #f8f9fa;
+        "
+      >
+        <div class="container">
+          <div
+            style="display: flex; flex-direction: column; align-items: center"
+          >
+            <h2 style="font-size: 44px" class="text-center">
+              Dataviz decision tree
+            </h2>
+            <p class="text-center" style="max-width: 600px; font-size: 18px">
+              <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+              comprehensive <b>classification of chart types</b> organized by
+              data input format. Get a high-resolution version of our decision
+              tree delivered to your inbox now!
+            </p>
+            <div
+              style="
+                margin-top: -50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+              "
+            >
+              <script
+                async
+                data-uid="8010f15fd2"
+                src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+              ></script>
+            </div>
+            <br />
+            <div class="text-center">
+              <img
+                class="img-fluid"
+                src="../img/poster/poster_small.png"
+                alt="High Resolution Poster"
+                style="max-width: 400px"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      $for(include-after)$ $include-after$ $endfor$
     </div>
 
     <script>
-
       // add bootstrap table styles to pandoc tables
       function bootstrapStylePandocTables() {
         $$('tr.header').parent('thead').parent('table').addClass('table table-condensed');

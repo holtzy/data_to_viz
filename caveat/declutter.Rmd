@@ -25,7 +25,7 @@ Getting rid of all the unnecessary elements can greatly improve the quality and 
 
 Here is a good example that takes a cluttered graphic from [viz.wtf](http://viz.wtf) and gets rid of the unnecessary elements. This example comes from the website [Storytelling with data](http://www.storytellingwithdata.com/blog/2017/3/29/declutter-this-graph) by [Cole Nussbaumer Knaflic](http://www.storytellingwithdata.com/about/).
 
-#Initial graphic
+# Initial graphic
 ***
 The idea of the chart is to show that women tend to begin Christmas shopping earlier than men:
 
@@ -36,7 +36,7 @@ The idea of the chart is to show that women tend to begin Christmas shopping ear
 <br>
 
 
-#Final appearance:
+# Final appearance:
 ***
 
 <br>
@@ -48,7 +48,7 @@ The idea of the chart is to show that women tend to begin Christmas shopping ear
 
 
 
-#Step by step
+# Step by step
 ***
 
 Here are the components you can consider removing when making a chart:
@@ -74,7 +74,7 @@ Here is an animation showing the evolution of the previous chart at each step of
 <br>
 
 
-#Going further
+# Going further
 ***
 
 - Visit the website [Story Telling with data](http://www.storytellingwithdata.com/)
@@ -82,10 +82,6 @@ Here is an animation showing the evolution of the previous chart at each step of
 - [Data looks better naked](https://www.darkhorseanalytics.com/blog/data-looks-better-naked), by Dark Horse Analytics.
 
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
-<br>
 
 
 
