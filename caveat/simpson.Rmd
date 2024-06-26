@@ -22,7 +22,7 @@ output:
 
 
 
-#Definition
+# Definition
 ***
 
 >Simpson's paradox, or the Yule–Simpson effect, is a phenomenon in probability and statistics, in which a trend appears in several different groups of data but disappears or reverses when these groups are combined. It is sometimes given the descriptive title reversal paradox or amalgamation paradox.
@@ -30,7 +30,7 @@ output:
 [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox)
 
 
-#Example
+# Example
 ***
 
 Let's consider the following [scatterplot](https://www.data-to-viz.com/graph/scatter.html) built from dummy data.
@@ -84,39 +84,18 @@ Here, we understand that the positive correlation was due to a difference `betwe
 This is the Sympson's paradox: the trend between two different variables reverses when a third variable is included.
 
 
-#Impact on dataviz
+# Impact on dataviz
 ***
 The impact is strong for data analytics and dataviz. The Simpson's paradox can lead to a wrong conclusions with spurious correlation. Always double check the potential effect of confounding variables available in your dataset.
 
 
 
-#Going further
+# Going further
 ***
 - Simpson’s Paradox - Correlations and Slopes. By [Prof. Eric A. Suess](http://rstudio-pubs-static.s3.amazonaws.com/155188_cc8b400f7d134a3e9de6cbfb8320e1e0.html). It gives a nice real life example based on book price and number of pages in books.
 - The [Wikipedia](https://en.wikipedia.org/wiki/Simpson%27s_paradox) page
 
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 
-
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

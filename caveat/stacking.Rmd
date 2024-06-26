@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-#What is stacking
+# What is stacking
 ***
 `Stacking` is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is represented by a shaded area. These areas are stacked on top of one another.
 
@@ -81,7 +81,7 @@ ggplotly(p, tooltip="text")
 
 
 
-#Heaven or Hell?
+# Heaven or Hell?
 ***
 The efficiency of stacked area graph is discussed and it must be used with care. To put it in a nutshell:
 
@@ -91,14 +91,14 @@ The efficiency of stacked area graph is discussed and it must be used with care.
 
 
 
-#Example: mental arithmetic
+# Example: mental arithmetic
 ***
 In the previous graphic, try to find out how many times the name Dorothy was given in 1920.
 
 It is not trivial to find it out using the previous chart. You have to mentally do 75000 - 37000 which is hard. If you want to convey a message efficiently, you don't want the audience to perform mental arithmetic.
 
 
-#Example: optical illusion.
+# Example: optical illusion.
 ***
 
 >Important note: this section is inspired from [this post](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/) by Dr. Drang.
@@ -143,7 +143,7 @@ don %>%
 It looks like we were quite `wrong`. This is due to an optical illusion. The human eye is not performant to assess that kind a visual patterns, and this is why it must be avoided.
 
 
-#Workaround
+# Workaround
 ***
 
 If you have just a `few categories`, I would suggest to build a line chart. Here it is easy to follow a category and understand how it evolved accurately.
@@ -182,30 +182,13 @@ data %>%
 
 
 
-#Going further
+# Going further
 ***
 
 - Stacked Area Graphs Are Not Your Friend by [Everyday analytics](http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html)
 - Quantitative Displays for Combining Time-Series and Part-to-Whole Relationships by [Stephen Few](http://www.perceptualedge.com/articles/visual_business_intelligence/displays_for_combining_time-series_and_part-to-whole.pdf)
 - I hate stacked area charts by [Dr Drang](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/)
 
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
-
-
 </div>
-
-
-
-
-
-
-
-
-
