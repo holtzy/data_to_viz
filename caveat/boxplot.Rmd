@@ -104,7 +104,7 @@ Here some new patterns appear clearly. Group `C` has a small sample size compare
 
 # Switching to violin plot
 ***
-If you have a large sample size, using `jitter` is not an option anymore since dots will overlap, making the figure uninterpretable. A alternative is the [violin plot](https://www.data-to-viz.com/violin.html), which describes the distribution of the data for each group:
+If you have a large sample size, using `jitter` is not an option anymore since dots will overlap, making the figure uninterpretable. A alternative is the [violin plot](https://www.data-to-viz.com/graph/violin.html), which describes the distribution of the data for each group:
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
 # sample size
