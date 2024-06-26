@@ -78,7 +78,7 @@ Let’s see what happens when the boxplot is improved using additional elements.
 
 
 
-#Adding jitter {#boxplotjitter}
+# Adding jitter {#boxplotjitter}
 ***
 
 If the amount of data you are working with is not too large, adding `jitter` on top of your boxplot can make the graphic more insightful.
@@ -102,7 +102,7 @@ Here some new patterns appear clearly. Group `C` has a small sample size compare
 
 
 
-#Switching to violin plot
+# Switching to violin plot
 ***
 If you have a large sample size, using `jitter` is not an option anymore since dots will overlap, making the figure uninterpretable. A alternative is the [violin plot](https://www.data-to-viz.com/violin.html), which describes the distribution of the data for each group:
 
@@ -131,7 +131,7 @@ Here it is very clear that the groups have different distributions. The bimodal 
 
 
 
-#Adding the sample size
+# Adding the sample size
 ***
 On the previous chart, the sample size of each group is indicated on the x-axis, below the group name. This is a good practice and shows that group `C` is under-represented. However, it is sometimes better to show the data points themselves. Thus, a good alternative is a half violin plot showing the raw data. This uses code coming from [jbburant](https://gist.github.com/jbburant/b3bd4961f3f5b03aeb542ed33a8fe062) and [David Robinson](https://gist.github.com/dgrtwo/eb7750e74997891d7c20#file-geom_flat_violin-r).
 
@@ -222,17 +222,13 @@ data %>%
 
 
 
-#Going further
+# Going further
 ***
 
 - Hintze et al. 1998, *Violin Plots: A Box Plot-Density Trace Synergism*. [PDF](http://www.stat.cmu.edu/~rnugent/PCMI2016/papers/ViolinPlots.pdf)
 - Making boxplots in [R](https://www.r-graph-gallery.com/boxplot/) and [Python](https://python-graph-gallery.com/boxplot/)
 - Making violin plots in [R](https://www.r-graph-gallery.com/violin/) and [Python](https://python-graph-gallery.com/violin/)
 
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

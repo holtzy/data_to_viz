@@ -29,6 +29,7 @@ output:
 
 
 <div class = "col-md-6">
+
 ```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -80,7 +81,7 @@ In this post, I suggest 10 workarounds to avoid overplotting.
 
 
 
-#Decreasing dot size
+# Decreasing dot size
 ***
 The easiest workaround is probably to `reduce dot size`. Depending on the quantity of overlap you have, it can give a really satisfying result. Here it appears clearly that 3 clusters are present, which was hidden in the previous figure.
 
@@ -95,7 +96,7 @@ data %>%
     )
 ```
 
-#Transparency
+# Transparency
 ***
 In combination with decreasing dot size, using transparency also allows you to reveal patterns encountering overplotting issues:
 ```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
@@ -110,7 +111,7 @@ data %>%
 ```
 
 
-#2D density
+# 2D density
 ***
 The 2D density chart basically counts the number of observations within a particular area of the 2D space and represents this count by a color. If you divide the space into several squares, you get a 2D histogram. If you use hexagons instead of squares, you get a hexbin plot. You can also calculate a density estimate and represent 2D density plots or Contour plots. You can read more about this on the [dedicated page](https://www.data-to-viz.com/graph/density2d.html) of data-to-viz.com.
 
@@ -126,7 +127,7 @@ ggplot(data, aes(x=x, y=y) ) +
 ```
 
 
-#Sampling
+# Sampling
 ***
 Sometimes less is more. Plotting only a fraction of your data (5% here) can greatly reduce the computing time and can help to avoid overplotting:
 ```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
@@ -143,7 +144,7 @@ data %>%
 
 
 
-#Highlighting a group
+# Highlighting a group
 ***
 Another way to reduce the complexity of a graphic is to highlight a specific group. (This suggests that you have a grouping variable in your dataset).
 ```{r, fig.align='center', fig.height=6, fig.width=6, warning=FALSE, message=FALSE}
@@ -162,7 +163,7 @@ data %>%
 
 
 
-#Grouping
+# Grouping
 ***
 If you have a grouping variable, it is highly recommended to make it appear on the graphic. In the case of overplotting, it can also help to reveal patterns.
 
@@ -176,7 +177,7 @@ data %>%
 ```
 
 
-#Faceting
+# Faceting
 ***
 As soon as you have several groups in your plot, an alternative is to use faceting: the same plot is repeated, each time highlighting another group:
 ```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
@@ -196,7 +197,7 @@ data %>%
 
 
 
-#Jittering
+# Jittering
 ***
 `Jittering` is an option when one of the axis is qualitative (like 1, 2, 3.., see left figure). It adds or subtracts a random value to each data point to avoid overplotting. Note that other chart types are available in that kind of situation, like [boxplot](https://www.data-to-viz.com/caveat/boxplot.html) or [violin plot](https://www.data-to-viz.com/graph/violin.html).
 
@@ -231,7 +232,7 @@ p1 + p2
 ```
 
 
-#3D
+# 3D
 ***
 
 As for 2d density plots, it is possible to transform the scatter plot information in a grid, and count the number of data points on each position of the grid. Then, instead of representing this number by a graduating color, the surface plot uses 3d to represent density. In this case, the position of the 3 groups become obvious:
@@ -248,7 +249,7 @@ plot_ly(x = kd$x, y = kd$y, z = kd$z) %>% add_surface()
 
 
 
-#Marginal distribution
+# Marginal distribution
 ***
 Adding marginal distributions allow you to detect the distribution hidden in the overplotted parts of the graphic. You can add a boxplot, a histogram or a density plot in the margins.
 ```{r, fig.align='center', fig.height=6, fig.width=10, warning=FALSE, message=FALSE}
@@ -271,32 +272,14 @@ ggExtra::ggMarginal(p, type = "histogram")
 
 
 
-#Going further
+# Going further
 ***
 
 - *Too Big Data: Coping with Overplotting* by [Tim Brock](https://www.infragistics.com/community/blogs/b/tim_brock/posts/too-big-data-coping-with-overplotting)
 - Scatterplots in [R](https://www.r-graph-gallery.com/scatterplot/) and [Python](https://python-graph-gallery.com/scatter-plot/).
 
 
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

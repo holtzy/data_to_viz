@@ -22,7 +22,7 @@ output:
 
 
 
-#The issue
+# The issue
 ***
 Most of the time, [barplot](https://www.data_to_viz.com/graph/barplot.html) or [lollipop](https://www.data_to_viz.com/graph/lollipop.html) plots are plotted vertically with the Y-axis representing the value of the numeric variable. If your labels on the X-axis are long, they need to be `rotated` in order not to overlap.
 <br>
@@ -60,7 +60,7 @@ data %>%
 
 
 
-#Solving the issue
+# Solving the issue
 ***
 The workaround is pretty simple, why not considering an `horizontal version` of the chart?
 ```{r, warning=FALSE, message=FALSE, fig.align="center"}
@@ -87,7 +87,7 @@ data %>%
 
 
 
-#Warning
+# Warning
 ***
 Note that the horizontal version is not always an option though. If you categorical variable has a natural order, it is better to stick to the vertical version. It happens when:
 
@@ -96,35 +96,12 @@ Note that the horizontal version is not always an option though. If you categori
 
 
 
-#Going further
+# Going further
 ***
 
 - Bar Charts: vertical or horizontal? by [Ann K. Emery](http://annkemery.com/vertical-or-horizontal/)
 
 
-
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
-
-
-
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

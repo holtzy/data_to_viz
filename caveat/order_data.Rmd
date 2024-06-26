@@ -25,7 +25,7 @@ output:
 By default, most of the data visualization tools will order the groups of your categorical variables using alphabetical order, or using the order of appearance in your input table. It is good practice to think about this order since changing it can add a lot of insight to your graphic.
 
 
-#Unordered lollipop plot
+# Unordered lollipop plot
 ***
 Let's start with a [lollipop plot]() showing the [quantity of weapons sold](https://www.data-to-viz.com/story/OneNumOneCat.html) by a few countries. Here each row represents a country and the X-axis shows how many weapons have been sold in 2017. Countries are ordered in alphabetical order by default.
 
@@ -58,7 +58,7 @@ data %>%
 It is quite obvious that the US and Russia sell many more weapons than the other countries. However, it is quite hard to see the difference between any other countries, and the reader has to go from one to the other to compare them. This is a lot of work and will definitely discard attention to your graphic.
 
 
-#Reorder it
+# Reorder it
 ***
 Instead, let's make the exact same chart, but reorder each group using their value:
 ```{r, fig.align="center", fig.height=7}
@@ -82,7 +82,7 @@ data %>%
 The figure is now way more insightful, with France being the third biggest exporting country, followed by Germany, Israel and the UK. Of course, note that it would make sense to normalize this graphic by the population of each country to have more comparable data.
 
 
-#Conclusion
+# To bear in mind
 ***
 Reordering your data is an easy step you should always consider when building a chart. Of course, sometimes the order of groups must be set by their features and not their values, like the months of the year, but it's worth thinking about it.
 <br>
@@ -94,9 +94,9 @@ Reordering your data is an easy step you should always consider when building a 
 
 </div>
 
-<center>
+<!-- <center>
 <a href="https://www.data-to-viz.com/caveats.html"><img src="../img/mistake/long_caveat_list.png" style="width:90%"></a>
-</center>
+</center> -->
 
 
 
@@ -106,11 +106,6 @@ Reordering your data is an easy step you should always consider when building a 
 <a class="btn btn-primary text-uppercase js-scroll-trigger" href="https://www.data-to-viz.com/caveats.html">See the collection</a>
 </center>
 
-
-
-#Comments
-***
-Any thoughts on this? Want to share another common dataviz pitfall? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 </div>

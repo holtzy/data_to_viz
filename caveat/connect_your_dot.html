@@ -1,351 +1,430 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html
+  xmlns="http://www.w3.org/1999/xhtml"
+  >
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="generator" content="pandoc" />
+    <title>Connect your dots when the X-axis is ordered</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="description" content="Dataviz pitfall gallery | Connect
+your dots when the X-axis is ordered" />
+    <meta
+      name="keywords"
+      content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification"
+    />
+    <meta name="author" content="Yan Holtz and Conor Healy" />
+    <link
+      rel="icon"
+      href="https://raw.githubusercontent.com/holtzy/data_to_viz/master/img/logo/data-to-viz.ico"
+    />
 
-<head>
+    <!-- Control appearance when share by social media -->
+    <meta property="og:title" content="Connect your dots when the X-axis
+is ordered" />
+    <meta
+      property="og:image"
+      content="https://raw.githubusercontent.com/holtzy/data_to_viz/master/img/parallax/caveat_gallery_overview.png"
+    />
+    <meta
+      property="og:description"
+      content="Dataviz pitfall gallery | Connect your dots when the
+X-axis is ordered"
+    />
+    <meta
+      property="og:url"
+      content="www.data-to-viz.com/caveat/connect_your_dot.html"
+    />
+    <meta property="og:type" content="website" />
 
-<meta charset="utf-8" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="pandoc" />
-<title>Connect your dots when the X-axis is ordered</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Dataviz pitfall gallery | Connect your dots when the X-axis is ordered">
-<meta name="keywords" content="Data,Dataviz,Datavisualization,Plot,Chart,Graph,R,Python,D3,Learning,Caveat,Pitfall,Mistake,Classification">
-<meta name="author" content="Yan Holtz and Conor Healy">
-<link rel="icon" href="img/logo/data-to-viz.ico">
+    <style>
+      .myheader {
+        background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/parallax/paral_caveat.png");
+          min-height: 350px;
+          background-size: 100% 100%;
 
-<!-- Control appearance when share by social media -->
-<meta property="og:title" content="Connect your dots when the X-axis is ordered" />
-<meta property="og:image" content="../img/mistake/connect_your_dot.png" />
-<meta property="og:description" content="A classification of chart types based on their input data format." />
-<meta property='og:url' content="www.data-to-viz.com/caveat/connect_your_dot.html" />
-<meta property="og:type" content="website" />
-
-
-
-
-
-
-
-<style>
-.myheader {
-  background-image: url("https://github.com/holtzy/data_to_viz/raw/master/img/parallax/paral_caveat.png");
-    min-height: 350px;
-    background-size: 100% 100%;
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-
-    height: 100%; !important;
-    width: 100% !important;
-  }
-.mytitle{
-  text-transform: uppercase;
-  font-family: 'Montserrat';
-  font-size: 200%;
-  font-weight: 500;
-  letter-spacing: 4px;
-  }
-</style>
-
-<div class="myheader" style="text-align: center;">
-  <br>
-  <a href="http://www.data-to-viz.com"><img align="left" src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png" style="width:150px; vertical-align: top; margin-left: 5%;"></a>
-  <br><br>
-  <br><br>
-  <p class="mytitle">Connect your dots when the X-axis is ordered</p>
-  <center><div class='mysubtitle'>
-    <i>A collection of common <a href="https://www.data-to-viz.com/caveats.html">dataviz caveats</a> by <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i>
-  </div></center>
-  <br><br>
-
-    <a href="http://www.data-to-viz.com"> <img class="mylogoheader" src=../img/mistake/connect_your_dot.png></a>
-  
-</div>
+          /* Create the parallax scrolling effect */
+          background-attachment: fixed;
+          background-position: center;
+          background-repeat: no-repeat;
+          background-size: cover;
 
 
+          height: 100%; !important;
+          width: 100% !important;
+        }
+      .mytitle{
+        text-transform: uppercase;
+        font-family: 'Montserrat';
+        font-size: 200%;
+        font-weight: 500;
+        letter-spacing: 4px;
+        }
+    </style>
 
+    <div class="myheader" style="text-align: center">
+      <br />
+      <a href="http://www.data-to-viz.com"
+        ><img
+          align="left"
+          src="https://github.com/holtzy/data_to_viz/raw/master/img/logo/typo.png"
+          style="width: 150px; vertical-align: top; margin-left: 5%"
+      /></a>
+      <br /><br />
+      <br /><br />
+      <p class="mytitle">Connect your dots when the X-axis is
+ordered</p>
+      <center>
+        <div class="mysubtitle">
+          <i
+            >A collection of common
+            <a href="https://www.data-to-viz.com/caveats.html"
+              >dataviz caveats</a
+            >
+            by <a href="https://www.data-to-viz.com">Data-to-Viz.com</a></i
+          >
+        </div>
+      </center>
+      <br /><br />
 
+            <a href="http://www.data-to-viz.com">
+        <img class="mylogoheader" src="../img/mistake/connect_your_dot.png"
+      /></a>
+          </div>
 
-
-<script src="connect_your_dot_files/jquery-1.11.3/jquery.min.js"></script>
+         <script src="connect_your_dot_files/header-attrs-2.27/header-attrs.js"></script>
+<script src="connect_your_dot_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link href="connect_your_dot_files/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
 <script src="connect_your_dot_files/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="connect_your_dot_files/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="connect_your_dot_files/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
 <script src="connect_your_dot_files/navigation-1.1/tabsets.js"></script>
 <script src="connect_your_dot_files/navigation-1.1/codefolding.js"></script>
 <link href="connect_your_dot_files/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="connect_your_dot_files/pagedtable-1.1/js/pagedtable.js"></script>
+<script src="connect_your_dot_files/pagedtable-1.1/js/pagedtable.js"></script>       <style type="text/css">
+      code {
+        white-space: pre;
+      }
+    </style>
+    <style type="text/css">
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+          color: #aaaaaa;
+        }
+      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+      code span.at { color: #7d9029; } /* Attribute */
+      code span.bn { color: #40a070; } /* BaseN */
+      code span.bu { color: #008000; } /* BuiltIn */
+      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+      code span.ch { color: #4070a0; } /* Char */
+      code span.cn { color: #880000; } /* Constant */
+      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+      code span.dt { color: #902000; } /* DataType */
+      code span.dv { color: #40a070; } /* DecVal */
+      code span.er { color: #ff0000; font-weight: bold; } /* Error */
+      code span.ex { } /* Extension */
+      code span.fl { color: #40a070; } /* Float */
+      code span.fu { color: #06287e; } /* Function */
+      code span.im { color: #008000; font-weight: bold; } /* Import */
+      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+      code span.op { color: #666666; } /* Operator */
+      code span.ot { color: #007020; } /* Other */
+      code span.pp { color: #bc7a00; } /* Preprocessor */
+      code span.sc { color: #4070a0; } /* SpecialChar */
+      code span.ss { color: #bb6688; } /* SpecialString */
+      code span.st { color: #4070a0; } /* String */
+      code span.va { color: #19177c; } /* Variable */
+      code span.vs { color: #4070a0; } /* VerbatimString */
+      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+            div.sourceCode {
+        overflow-x: visible;
+      }
+          </style>
+        <style type="text/css">
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+           <style type="text/css">
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      .table th:not([align]) {
+        text-align: left;
+      }
+          </style>
+         <link
+      rel="stylesheet"
+      href="style.css"
+      type="text/css"
+      
+    />
+      </head>
 
+  <body>
+        <style type="text/css">
+      .main-container {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+      .tabbed-pane {
+        padding-top: 12px;
+      }
+      button.code-folding-btn:focus {
+        outline: none;
+      }
+    </style>
 
-<style type="text/css">code{white-space: pre;}</style>
-<style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
-}
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(data-line-number);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {  }
-@media screen {
-a.sourceLine::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-div.sourceCode {
-  overflow-x: visible;
-}
-</style>
-<style type="text/css">
-  pre:not([class]) {
-    background-color: white;
-  }
-</style>
+     
+    <div class="container-fluid main-container">
+      <!-- tabsets -->
+      <script>
+        $(document).ready(function () {
+          window.buildTabsets("TOC");
+        });
+      </script>
 
+      <!-- code folding -->
+            <style type="text/css">
+        .code-folding-btn {
+          margin-bottom: 4px;
+        }
+      </style>
+      <script>
+        $(document).ready(function () {
+                          window.initializeCodeFolding("hide" === "show");
+                });
+      </script>
+         
+                    <div class="fluid-row" id="header">
+                        <div class="btn-group pull-right">
+              <button
+                type="button"
+                class="btn btn-default btn-xs dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <span>Code</span> <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu" style="min-width: 50px">
+                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+                                </ul>
+            </div>
 
-<style type="text/css">
-h1 {
-  font-size: 34px;
-}
-h1.title {
-  font-size: 38px;
-}
-h2 {
-  font-size: 30px;
-}
-h3 {
-  font-size: 24px;
-}
-h4 {
-  font-size: 18px;
-}
-h5 {
-  font-size: 16px;
-}
-h6 {
-  font-size: 12px;
-}
-.table th:not([align]) {
-  text-align: left;
-}
-</style>
-
-<link rel="stylesheet" href="style.css" type="text/css" />
-
-</head>
-
-<body>
-
-<!-- THIS ALLOWS TO INSERT THE MENU THAT IS STORED IN A MENU.HTML FILE-->
-<nav class="navbar navbar-expand-lg fixed-top" id="mainNav"></nav>
-<script>
-  $(function(){
-    $("#mainNav").load("../menu.html");
-  });
-</script>
-
-<style type = "text/css">
-.main-container {
-  max-width: 940px;
-  margin-left: auto;
-  margin-right: auto;
-}
-code {
-  color: inherit;
-  background-color: rgba(0, 0, 0, 0.04);
-}
-img {
-  max-width:100%;
-  height: auto;
-}
-.tabbed-pane {
-  padding-top: 12px;
-}
-button.code-folding-btn:focus {
-  outline: none;
-}
-</style>
-
-
-
-<div class="container-fluid main-container">
-
-<!-- tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("TOC");
-});
-</script>
-
-<!-- code folding -->
-<style type="text/css">
-.code-folding-btn { margin-bottom: 4px; }
-</style>
-<script>
-$(document).ready(function () {
-  window.initializeCodeFolding("hide" === "show");
-});
-</script>
-
-
-
-
-
-
-<div class="fluid-row" id="header">
-
-<div class="btn-group pull-right">
-<button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
-<ul class="dropdown-menu" style="min-width: 50px;">
-<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-</ul>
-</div>
-
-
-
-
-</div>
-
-
-<br><br>
+                         </div>
+              <br><br>
 <div class="mycontent">
-<p>Let’s consider a dataset composed by two numeric variables. The x-axis represents years, and the y-axis the yearly sunspot numbers from 1749 to 1983. (<a href="https://en.wikipedia.org/wiki/Sunspot">Sunspots</a> are temporary phenomena on the Sun’s photosphere that appear as spots darker than the surrounding areas.). The original dataset comes from this <a href="https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613">scientific publication</a>, related by <a href="https://www.springer.com/gp/book/9781461295631">Andrews et al.</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># Libraries</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw">library</span>(hrbrthemes)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co"># Load dataset: comes with R</span></a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">  <span class="dt">Year =</span> <span class="kw">as.numeric</span>(<span class="kw">time</span>(sunspot.year)),</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">  <span class="dt">Sunspots =</span> <span class="kw">as.numeric</span>(sunspot.year)</a>
-<a class="sourceLine" id="cb1-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11"><span class="co"># Plot</span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-13" data-line-number="13"><span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb1-14" data-line-number="14"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">y=</span>Sunspots)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-15" data-line-number="15"><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of sunspots per year&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-17" data-line-number="17"><span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb1-18" data-line-number="18"><span class="st">    </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb1-19" data-line-number="19">      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb1-20" data-line-number="20">    )</a></code></pre></div>
+<p>Let’s consider a dataset composed by two numeric variables. The
+x-axis represents years, and the y-axis the yearly sunspot numbers from
+1749 to 1983. (<a
+href="https://en.wikipedia.org/wiki/Sunspot">Sunspots</a> are temporary
+phenomena on the Sun’s photosphere that appear as spots darker than the
+surrounding areas.). The original dataset comes from this <a
+href="https://onlinelibrary.wiley.com/doi/abs/10.1002/asna.19622860613">scientific
+publication</a>, related by <a
+href="https://www.springer.com/gp/book/9781461295631">Andrews et
+al.</a>.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="co"># Load dataset: comes with R</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">Year =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(sunspot.year)),</span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>  <span class="at">Sunspots =</span> <span class="fu">as.numeric</span>(sunspot.year)</span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>Sunspots)) <span class="sc">+</span></span>
+<span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Number of sunspots per year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb1-17"><a href="#cb1-17" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb1-19"><a href="#cb1-19" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="connect_your_dot_files/figure-html/unnamed-chunk-1-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Here, it is hard to see any trend. It looks like no relationships exist between time and sunspot number.</p>
-<p>#Connect your lines *** However, if your x-axis is ordered, like for time, you should connect dots.</p>
-<p>Let’s take the exact same graphic, except that we connect dots together with segments. We switch from a <a href="https://www.data-to-viz.com/graph/scatter.html">scatter plot</a> to a <a href="https://www.data-to-viz.com/graph/line.html">line plot</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="co"># Libraries</span></a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(hrbrthemes)</a>
-<a class="sourceLine" id="cb2-4" data-line-number="4"></a>
-<a class="sourceLine" id="cb2-5" data-line-number="5"><span class="co"># Load dataset: comes with R</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6">data &lt;-<span class="st"> </span><span class="kw">data.frame</span>(</a>
-<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">Year =</span> <span class="kw">as.numeric</span>(<span class="kw">time</span>(sunspot.year)),</a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">  <span class="dt">Sunspots =</span> <span class="kw">as.numeric</span>(sunspot.year)</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9">)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co"># Plot</span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12">data <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-13" data-line-number="13"><span class="st">  </span><span class="kw">head</span>(<span class="dv">100</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-14" data-line-number="14"><span class="st">  </span><span class="kw">ggplot</span>( <span class="kw">aes</span>(<span class="dt">x=</span>Year, <span class="dt">y=</span>Sunspots)) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-15" data-line-number="15"><span class="st">    </span><span class="kw">geom_line</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-16" data-line-number="16"><span class="st">    </span><span class="kw">ggtitle</span>(<span class="st">&quot;Number of sunspots per year&quot;</span>) <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-17" data-line-number="17"><span class="st">    </span><span class="kw">theme_ipsum</span>() <span class="op">+</span></a>
-<a class="sourceLine" id="cb2-18" data-line-number="18"><span class="st">    </span><span class="kw">theme</span>(</a>
-<a class="sourceLine" id="cb2-19" data-line-number="19">      <span class="dt">plot.title =</span> <span class="kw">element_text</span>(<span class="dt">size=</span><span class="dv">12</span>)</a>
-<a class="sourceLine" id="cb2-20" data-line-number="20">    )</a></code></pre></div>
+<p>Here, it is hard to see any trend. It looks like no relationships
+exist between time and sunspot number.</p>
+<div id="connect-your-lines" class="section level1">
+<h1>Connect your lines</h1>
+<hr />
+<p>However, if your x-axis is ordered, like for time, you should connect
+dots.</p>
+<p>Let’s take the exact same graphic, except that we connect dots
+together with segments. We switch from a <a
+href="https://www.data-to-viz.com/graph/scatter.html">scatter plot</a>
+to a <a href="https://www.data-to-viz.com/graph/line.html">line
+plot</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="fu">library</span>(hrbrthemes)</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="co"># Load dataset: comes with R</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  <span class="at">Year =</span> <span class="fu">as.numeric</span>(<span class="fu">time</span>(sunspot.year)),</span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  <span class="at">Sunspots =</span> <span class="fu">as.numeric</span>(sunspot.year)</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>)</span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>data <span class="sc">%&gt;%</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="fu">ggplot</span>( <span class="fu">aes</span>(<span class="at">x=</span>Year, <span class="at">y=</span>Sunspots)) <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>    <span class="fu">ggtitle</span>(<span class="st">&quot;Number of sunspots per year&quot;</span>) <span class="sc">+</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>    <span class="fu">theme_ipsum</span>() <span class="sc">+</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size=</span><span class="dv">12</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a>    )</span></code></pre></div>
 <p><img src="connect_your_dot_files/figure-html/unnamed-chunk-2-1.png" width="960" style="display: block; margin: auto;" /></p>
-<p>Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly periodic 11-year change in the sun’s activity, making the line go up and down quite regularly. It is also clear that some spikes are higher than others, with maximum smoothed sunspot numbers ranging from approximately 50 to 180.</p>
-<p>#Going further ***</p>
-<ul>
-<li>Have a look at our page on <a href="https://www.data-to-viz.com/caveat/aspect_ratio.html">aspect ratio</a>; aspect ratio can have a strong impact on the <a href="https://www.data-to-viz.com/caveat/aspect_ratio.html">readability</a> of your line plot.</li>
-</ul>
-<p>#Comments *** Any thoughts on this? Found any mistake? Disagree? Please drop me a word on <a href="https://twitter.com/R_Graph_Gallery">twitter</a> or in the comment section below: <br></p>
+<p>Now, it is obvious that a pattern exists. The sunspot numbers follow
+this nearly periodic 11-year change in the sun’s activity, making the
+line go up and down quite regularly. It is also clear that some spikes
+are higher than others, with maximum smoothed sunspot numbers ranging
+from approximately 50 to 180.</p>
 </div>
+<div id="going-further" class="section level1">
+<h1>Going further</h1>
+<hr />
+<ul>
+<li>Have a look at our page on <a
+href="https://www.data-to-viz.com/caveat/aspect_ratio.html">aspect
+ratio</a>; aspect ratio can have a strong impact on the <a
+href="https://www.data-to-viz.com/caveat/aspect_ratio.html">readability</a>
+of your line plot.</li>
+</ul>
+<p><br></p>
+</div>
+</div>  
+      <section
+        id="form"
+        style="
+          margin-top: 70px;
+          padding-bottom: 70px;
+          padding-top: 70px;
+          background-color: #f8f9fa;
+        "
+      >
+        <div class="container">
+          <div
+            style="display: flex; flex-direction: column; align-items: center"
+          >
+            <h2 style="font-size: 44px" class="text-center">
+              Dataviz decision tree
+            </h2>
+            <p class="text-center" style="max-width: 600px; font-size: 18px">
+              <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+              comprehensive <b>classification of chart types</b> organized by
+              data input format. Get a high-resolution version of our decision
+              tree delivered to your inbox now!
+            </p>
+            <div
+              style="
+                margin-top: -50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+              "
+            >
+              <script
+                async
+                data-uid="8010f15fd2"
+                src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+              ></script>
+            </div>
+            <br />
+            <div class="text-center">
+              <img
+                class="img-fluid"
+                src="../img/poster/poster_small.png"
+                alt="High Resolution Poster"
+                style="max-width: 400px"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-
-
-<!-- Insert code for DISQUS comments  -->
-
-      <div class="container">
-        <div id="disqus_thread"></div>
-        <script>
-
-        var disqus_config = function () {
-        this.page.url = www.data-to-viz.com/caveat/connect_your_dot.html;
-        this.page.identifier = connect_your_dot;
-        };
-
-        (function() { // DON'T EDIT BELOW THIS LINE
-        var d = document, s = d.createElement('script');
-        s.src = 'https://data-to-viz.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-        })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-      </div>
-  <!-- Insert code for DISQUS comments  -->
-
-
-
-&nbsp;
+       &nbsp;
 <hr />
 <p style="text-align: center;">A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
 
@@ -379,27 +458,18 @@ var getOutboundLink = function(url) {
 }
 </script>
 
-&nbsp;
+&nbsp; 
+    </div>
 
+    <script>
+      // add bootstrap table styles to pandoc tables
+      function bootstrapStylePandocTables() {
+        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+      }
+      $(document).ready(function () {
+        bootstrapStylePandocTables();
+      });
 
-
-
-</div>
-
-<script>
-
-// add bootstrap table styles to pandoc tables
-function bootstrapStylePandocTables() {
-  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
-}
-$(document).ready(function () {
-  bootstrapStylePandocTables();
-});
-
-
-</script>
-
-
-
-</body>
+          </script>
+       </body>
 </html>

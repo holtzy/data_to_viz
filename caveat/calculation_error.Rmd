@@ -25,7 +25,7 @@ output:
 
 This is probably the most obvious pitfall example of the collection, but is probably the most frequent one as well. Number inconsistencies on a graphic make it completely useless.
 
-#Percentages don't add up to 100%
+# Percentages don't add up to 100%
 ***
 For example, when displaying percentages on a pie chart, double-check that the percents sum to 100%:
 
@@ -44,7 +44,7 @@ Here, alsoe note that using an exploded 3D pie chart is probably the worst way t
 
 
 
-#Values don't match visuals
+# Values don't match visuals
 ***
 In the following example, the 45% annotation is linked with the biggest part of the donut chart; clearly something is incorrect.
 
@@ -66,15 +66,12 @@ Source: [WTF Visualizations](http://viz.wtf/post/169392205697/fewer-people-would
 
 
 
-#Going further
+# Going further
 ***
 
 - On a daily basis, the website [WTF Visualization](http://viz.wtf) shows visualizations that make no sense. Check it out or follow them on [twitter](https://twitter.com/WTFViz).
 
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

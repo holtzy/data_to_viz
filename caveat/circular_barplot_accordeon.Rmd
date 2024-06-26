@@ -78,7 +78,7 @@ Source: [VisualizingData.com](http://www.visualisingdata.com/2017/09/problems-ba
 
 
 
-#Workaround
+# Workaround
 ***
 
 Becauses of these issues, radial bar charts should be avoided. Instead, you can build a standard [bar chart](https://www.data-to-viz.com/graph/barplot) or [lollipop plot](https://www.data-to-viz.com/graph/lollipop) to display the information more accurately:
@@ -104,16 +104,13 @@ data %>%
 You can see more ways to represent this dataset [here](http://www.data-to-viz.com/story/OneNumOneCat.html).
 
 
-#Going further
+# Going further
 ***
 
 - *The problems with B'Arc charts* by Andy Kirk on his blog [Visualising Data](http://www.visualisingdata.com/2017/09/problems-barc-charts/)
 - The [dataviz catalog](https://datavizcatalogue.com/methods/radial_bar_chart.html) has a page dedicated to radial bar charts.
 - Making a barchart with [R](https://www.r-graph-gallery.com/barplot/) and [Python](https://python-graph-gallery.com/barplot/).
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

@@ -20,6 +20,9 @@ output:
 <br><br><br><br>
 <div class="mycontent">
 
+# Areas as a measure
+***
+
 The human eye does not perform well when it has to translate areas to numeric values. Let's consider the following five bubbles. Try to rank them by decreasing area. You will probably agree that this is possible, but takes some time.
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=7, fig.height=1}
@@ -46,6 +49,8 @@ ggplot(data, aes(x=name, y=1, size=value)) +
 <br><br>
 
 
+# Same info, easier to read
+***
 
 Now, let's represent the exact same values using bars instead:
 
@@ -58,27 +63,17 @@ ggplot(data, aes(x=name, y=value)) +
 
 That is much easier, is'nt it?
 
-
-
-
-
-#Conclusion
-***
 This does not mean that area must never been used to represent a numeric variable. It means that other shapes and techniques must be before using area. For instance, the [bubble chart](https://www.data-to-viz.com/graph/bubble.html) does a good job representing the values of 3 numeric variables.
 
 
 
 
-#Going further
+# Going further
 ***
 - Using bubbles: [scaling to radius or area](https://www.data-to-viz.com/caveat/radius_or_area.html)?
 - Data visualization: basic principles. [link](http://paldhous.github.io/ucb/2016/dataviz/week2.html)
 
 
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

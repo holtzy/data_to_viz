@@ -88,7 +88,7 @@ Here, it is very hard to make the link between the two charts, since the color p
 
 
 
-#Be consistent.
+# Be consistent.
 ***
 When you have several graphic, use the same color for the same item throughout the report:
 
@@ -155,11 +155,6 @@ That's better, isn't it?
 
 
 
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

@@ -22,7 +22,7 @@ output:
 
 
 
-#Example
+# Example
 ***
 Let's consider the number of people entering (red curve) and leaving (blue curve) a shop from 8am to 10pm. This is an accurate representation using a [line plot](https://www.data-to-viz.com/graph/line.html), that answers very well the question of how many people are entering / leaving the shop.
 
@@ -67,7 +67,7 @@ Now, what if somebody asks you:
 
 
 
-#Mental arithmetic
+# Mental arithmetic
 ***
 To answer these questions, your audience must think hard and will probably be confused.
 
@@ -99,21 +99,17 @@ Of course, if more people leave the shop than enter, the total quantity starts d
 
 
 
-#Link with stacking
+# Link with stacking
 ***
 This is very related with the problem of [stacking].
 
 
 
-#Going further
+# Going further
 ***
 
 - Inspired from [this talk](http://www.seascapemodels.org/rstats/2018/07/04/dataviz2018_notes.html) by [Chris Brown](https://github.com/cbrown5)
 
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

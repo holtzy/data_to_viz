@@ -67,7 +67,7 @@ There is a huge difference between these two histograms. A few values are over-r
 
 
 
-#Going further
+# Going further
 ***
 
 - [Airbnb prices on the French Riviera](http://www.data-to-viz.com/story/OneNum.html): see the story that describes that kind of dataset.
@@ -75,9 +75,6 @@ There is a huge difference between these two histograms. A few values are over-r
 - About histogram [bin width optimization](http://176.32.89.45/~hideaki/res/histogram.html)
 - Doing histograms in [R](https://www.r-graph-gallery.com/histogram/) and [Python](https://python-graph-gallery.com/histogram/)
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 
