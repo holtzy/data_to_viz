@@ -22,18 +22,13 @@ output:
 <div class="mycontent">
 
 
-#Example
+# Example
 ***
- good example coming from
- http://emschuch.github.io/Planned-Parenthood/
- and from
- http://www.politifact.com/truth-o-meter/statements/2015/oct/01/jason-chaffetz/chart-shown-planned-parenthood-hearing-misleading-/
-
- initially published on http://www.aul.org
+good example coming from [Planned-Parenthood](http://emschuch.github.io/Planned-Parenthood/) and from [Politifact](http://www.politifact.com/truth-o-meter/statements/2015/oct/01/jason-chaffetz/chart-shown-planned-parenthood-hearing-misleading-/), initially published on [aul.org](http://www.aul.org).
 
 
- Data here
- https://docs.google.com/spreadsheets/d/1vzkuzSi2S-JO0m0VolflzxaMN9wUfjw6Slek97_6L4s/edit#gid=0
+Data here
+https://docs.google.com/spreadsheets/d/1vzkuzSi2S-JO0m0VolflzxaMN9wUfjw6Slek97_6L4s/edit#gid=0
 
 
 
@@ -76,7 +71,6 @@ for(step in 1:11){
                       y=sin(step*x))
 }
 aval[3][[1]]$visible = TRUE
-aval
 
 
 

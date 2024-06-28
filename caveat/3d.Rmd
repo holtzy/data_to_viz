@@ -23,7 +23,7 @@ output:
 `Three dimensional` objects are very popular but negatively affect the `accuracy` and `speed` at which one can interpret a graphic in most cases. Here is a review of the main graphic types involving 3d, with a discussion of whether or not they are considered bad practice.
 
 
-#3D Barplots: Don't
+# 3D Barplots: Don't
 ***
 
 Here is a 3d barplot. You are probably familiar with this kind of figure since it is created with Excel, and thus widely used. Compared with a classic grouped barplot, this representation has several drawbacks:
@@ -113,7 +113,7 @@ plot3d(
 ```
 
 
-#Surface plot: Why not
+# Surface plot: Why not
 ***
 If you have grid coordinates with a numeric variable for each position, you can represent your data using a surface plot. This kind of representation makes sense especially if the numeric value represents an altitude. In this case, we are actually building a 3D element that is a real 3d object, which makes sense in my opinion.
 
@@ -128,16 +128,13 @@ plot_ly(z = volcano, type = "surface")
 
 
 
-#Going further
+# Going further
 ***
 - 3D: good for HD, bad for DV by [E-tabs](http://www.e-tabs.com/data-viz-blog/3d-good-hd-bad-dv/)
 - When 3D works by Andy Kirk on [Visualising data](http://www.visualisingdata.com/2015/03/when-3d-works/).
 - 3D graphs by [data in the spotlight](https://www.gabrielaplucinska.com/blog/2017/8/7/3d-graphs)
 - Is the Avoidance of 3-D Bar Graphs a Knee-Jerk Reaction? by Stephen Few in [Visual Business Intelligence](https://www.perceptualedge.com/blog/?p=2362)
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

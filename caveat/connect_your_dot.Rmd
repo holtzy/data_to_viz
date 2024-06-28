@@ -49,7 +49,7 @@ data %>%
 Here, it is hard to see any trend. It looks like no relationships exist between time and sunspot number.
 
 
-#Connect your lines
+# Connect your lines
 ***
 However, if your x-axis is ordered, like for time, you should connect dots.
 
@@ -82,16 +82,11 @@ Now, it is obvious that a pattern exists. The sunspot numbers follow this nearly
 
 
 
-#Going further
+# Going further
 ***
 
 - Have a look at our page on [aspect ratio](https://www.data-to-viz.com/caveat/aspect_ratio.html); aspect ratio can have a strong impact on the [readability](https://www.data-to-viz.com/caveat/aspect_ratio.html) of your line plot.
 
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

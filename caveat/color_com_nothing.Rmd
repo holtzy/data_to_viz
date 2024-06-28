@@ -59,7 +59,7 @@ data %>%
 Here, each country is represented using a random color. When looking at it, your audience may try to understand what the color means. They are thus `less focused` on the main point: the bar length.
 
 
-#Color: if additionnal information only
+# Color: if additionnal information only
 ***
 Here is the same graphic using a single color for all countries. In my opinion, it conveys the information better:
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.width=10}
@@ -106,7 +106,7 @@ data %>%
 ```
 
 
-#Conclusion
+# To bear in mind
 ***
 When adding color to your chart, double check that the colors add insight. Colors are often useful to:
 
@@ -116,15 +116,11 @@ When adding color to your chart, double check that the colors add insight. Color
 
 
 
-#Going further
+# Going further
 ***
 
 - What to consider when using choosing colors for data visualization, by Lisa Charlotte Rost on the [Data Wrapper blog](https://blog.datawrapper.de/colors/).
 
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

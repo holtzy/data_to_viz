@@ -323,7 +323,7 @@ data <- data %>% slice(c(3:6)) %>%
   t() %>%
   as.data.frame() %>%
   add_rownames() %>%
-  arrange(V1) %>%
+  #arrange(V1) %>%
   mutate(rowname=factor(rowname, rowname)) %>%
   gather(key=name, value=mark, -1)
 
@@ -364,26 +364,9 @@ data %>%
 
 
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 
 
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

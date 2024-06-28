@@ -57,7 +57,7 @@ In the graphic above 5 groups are reported. The bar heights represent their mean
 
 
 
-#Error bars hide information
+# Error bars hide information
 ***
 
 The first issue with error bars is that they hide information. Here is a figure from a [paper in PLOS Biology](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128). It illustrates that the full data may suggest different conclusions than the summary statistics. The same barplot with error bars (left) can represent several situations. Both groups can have the same kind of distribution (`B`), one group can have outliers (`C`), one group can have a bimodal distribution (`D`), or groups can have unequal sample sizes:
@@ -82,7 +82,7 @@ Thus, the same barplot with error bars can in fact tell very different stories, 
 
 
 
-#What is an error bar?
+# What is an error bar?
 ***
 The second issue with error bars is that they are used to show `different metrics`, and it is not always clear which one is being shown. Three different types of values are commonly used for error bars, sometimes giving very different results. Here is an overview of their definitions and how to calculate them on a simple vector in R.
 
@@ -168,7 +168,7 @@ It is quite obvious that the 3 metrics report very different visualizations and 
 
 
 
-#Workaround
+# Workaround
 ***
 
 It is better to avoid error bars as much as you can. Of course it is not possible if you only have summary statistics. But if you know the individual data points, show them. Several workarounds are possible. The [boxplot with jitter](http://www.data-to-viz.com/caveat/boxplot.html) is a good one for a relatively small amount of data. The [violin plot](https://www.data-to-viz.com/graph/violin.html) is another possibility if you have a large sample size to display.
@@ -189,7 +189,7 @@ data %>%
 
 
 
-#Going further
+# Going further
 ***
 
 - Weissgerber et al. 2015, *Beyond Bar and Line Graphs: Time for a New Data Presentation Paradigm*. [link](http://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002128)
@@ -197,9 +197,6 @@ data %>%
 - Making violin plots in [R](https://www.r-graph-gallery.com/violin/) and [Python](https://python-graph-gallery.com/violin/)
 
 
-#Comments
-***
-Any thoughts on this? Found any mistakes? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

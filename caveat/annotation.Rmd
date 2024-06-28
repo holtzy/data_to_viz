@@ -103,7 +103,7 @@ Here you can see that annotation plays a key role:
 
 
 
-#Going further
+# Going further
 ***
 - Making Annotations First-Class Citizens in Data Visualization. By Elijah Meeks on [Medium](https://medium.com/@Elijah_Meeks/making-annotations-first-class-citizens-in-data-visualization-21db6383d3fe)
 - About the 5 seconds rule on [tableau blog](https://www.tableau.com/about/blog/2016/5/5-tips-effective-visual-data-communication-54174)
@@ -111,9 +111,6 @@ Here you can see that annotation plays a key role:
 - How to Improve Your Data Visualizations with Annotations. By Tim Brock on [Infragistics](https://www.infragistics.com/community/blogs/b/tim_brock/posts/annotate-wisely)
 
 
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 

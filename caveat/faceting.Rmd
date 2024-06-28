@@ -20,7 +20,7 @@ output:
 <br><br>
 <div class="mycontent">
 
-#What is small multiple
+# What is small multiple
 ***
 One of the most useful techniques in data visualization is rendering groups of data alongside each other, making it easy to compare the groups. With ggplot2, one way to do this is by mapping a discrete variable to an aesthetic, like x position, color, or shape. Another way of doing this is to create a subplot for each group and draw the subplots side by side.
 
@@ -59,7 +59,7 @@ ggplotly(p, tooltip="text")
 
 
 
-#Going further
+# Going further
 ***
 
 - Stacked Area Graphs Are Not Your Friend by [Everyday analytics](http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html)
@@ -67,11 +67,6 @@ ggplotly(p, tooltip="text")
 - I hate stacked area charts by [Dr Drang](http://www.leancrew.com/all-this/2011/11/i-hate-stacked-area-charts/)
 
 
-
-
-#Comments
-***
-Any thoughts on this? Found any mistake? Disagree? Please drop me a word on [twitter](https://twitter.com/R_Graph_Gallery) or in the comment section below:
 <br>
 
 
