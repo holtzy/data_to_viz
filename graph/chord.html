@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 
-<html
-  xmlns="http://www.w3.org/1999/xhtml"
-  >
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Chord diagram &#8211; from Data to Viz</title>
 
@@ -36,10 +34,7 @@ diagram. Definition, examples, input data, common caveats, tool to build it and 
       content="An extensive description of Chord
 diagram. Definition, examples, input data, common caveats, tool to build it and potential alternatives."
     />
-    <meta
-      property="og:url"
-      content="www.data-to-viz.com/caveat/chord.html"
-    />
+    <meta property="og:url" content="www.data-to-viz.com/caveat/chord.html" />
     <meta property="og:type" content="website" />
 
     <style>
@@ -89,110 +84,246 @@ diagram. Definition, examples, input data, common caveats, tool to build it and 
       </p>
     </div>
 
-         <script src="libs/header-attrs-2.27/header-attrs.js"></script>
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
-<script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
-<script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
-<style>h1 {font-size: 34px;}
-       h1.title {font-size: 38px;}
-       h2 {font-size: 30px;}
-       h3 {font-size: 24px;}
-       h4 {font-size: 18px;}
-       h5 {font-size: 16px;}
-       h6 {font-size: 12px;}
-       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
-       pre:not([class]) { background-color: white }</style>
-<script src="libs/navigation-1.1/tabsets.js"></script>
-<script src="libs/navigation-1.1/codefolding.js"></script>
-<link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
-<script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
-<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
-<script src="libs/d3-4.13.0/d3.min.js"></script>
-<script src="libs/d3-tip-0.8.1/index.js"></script>
-<link href="libs/chorddiag-0.1.2.9000/chorddiag.css" rel="stylesheet" />
-<script src="libs/chorddiag-0.1.2.9000/chorddiag.js"></script>       <style type="text/css">
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="libs/bootstrap-3.3.5/css/lumen.min.css" rel="stylesheet" />
+    <script src="libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+    <script src="libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+    <script src="libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+    <style>
+      h1 {
+        font-size: 34px;
+      }
+      h1.title {
+        font-size: 38px;
+      }
+      h2 {
+        font-size: 30px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      h4 {
+        font-size: 18px;
+      }
+      h5 {
+        font-size: 16px;
+      }
+      h6 {
+        font-size: 12px;
+      }
+      code {
+        color: inherit;
+        background-color: rgba(0, 0, 0, 0.04);
+      }
+      pre:not([class]) {
+        background-color: white;
+      }
+    </style>
+    <script src="libs/navigation-1.1/tabsets.js"></script>
+    <script src="libs/navigation-1.1/codefolding.js"></script>
+    <link href="libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet" />
+    <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
+    <link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+    <script src="libs/d3-4.13.0/d3.min.js"></script>
+    <script src="libs/d3-tip-0.8.1/index.js"></script>
+    <link href="libs/chorddiag-0.1.2.9000/chorddiag.css" rel="stylesheet" />
+    <script src="libs/chorddiag-0.1.2.9000/chorddiag.js"></script>
+    <style type="text/css">
       code {
         white-space: pre;
       }
     </style>
     <style type="text/css">
-      pre > code.sourceCode { white-space: pre; position: relative; }
-      pre > code.sourceCode > span { line-height: 1.25; }
-      pre > code.sourceCode > span:empty { height: 1.2em; }
-      .sourceCode { overflow: visible; }
-      code.sourceCode > span { color: inherit; text-decoration: inherit; }
-      div.sourceCode { margin: 1em 0; }
-      pre.sourceCode { margin: 0; }
+      pre > code.sourceCode {
+        white-space: pre;
+        position: relative;
+      }
+      pre > code.sourceCode > span {
+        line-height: 1.25;
+      }
+      pre > code.sourceCode > span:empty {
+        height: 1.2em;
+      }
+      .sourceCode {
+        overflow: visible;
+      }
+      code.sourceCode > span {
+        color: inherit;
+        text-decoration: inherit;
+      }
+      div.sourceCode {
+        margin: 1em 0;
+      }
+      pre.sourceCode {
+        margin: 0;
+      }
       @media screen {
-      div.sourceCode { overflow: auto; }
+        div.sourceCode {
+          overflow: auto;
+        }
       }
       @media print {
-      pre > code.sourceCode { white-space: pre-wrap; }
-      pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-      }
-      pre.numberSource code
-        { counter-reset: source-line 0; }
-      pre.numberSource code > span
-        { position: relative; left: -4em; counter-increment: source-line; }
-      pre.numberSource code > span > a:first-child::before
-        { content: counter(source-line);
-          position: relative; left: -1em; text-align: right; vertical-align: baseline;
-          border: none; display: inline-block;
-          -webkit-touch-callout: none; -webkit-user-select: none;
-          -khtml-user-select: none; -moz-user-select: none;
-          -ms-user-select: none; user-select: none;
-          padding: 0 4px; width: 4em;
-          color: #aaaaaa;
+        pre > code.sourceCode {
+          white-space: pre-wrap;
         }
-      pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-      div.sourceCode
-        {   }
-      @media screen {
-      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+        pre > code.sourceCode > span {
+          display: inline-block;
+          text-indent: -5em;
+          padding-left: 5em;
+        }
       }
-      code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-      code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-      code span.at { color: #7d9029; } /* Attribute */
-      code span.bn { color: #40a070; } /* BaseN */
-      code span.bu { color: #008000; } /* BuiltIn */
-      code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-      code span.ch { color: #4070a0; } /* Char */
-      code span.cn { color: #880000; } /* Constant */
-      code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-      code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-      code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-      code span.dt { color: #902000; } /* DataType */
-      code span.dv { color: #40a070; } /* DecVal */
-      code span.er { color: #ff0000; font-weight: bold; } /* Error */
-      code span.ex { } /* Extension */
-      code span.fl { color: #40a070; } /* Float */
-      code span.fu { color: #06287e; } /* Function */
-      code span.im { color: #008000; font-weight: bold; } /* Import */
-      code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-      code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-      code span.op { color: #666666; } /* Operator */
-      code span.ot { color: #007020; } /* Other */
-      code span.pp { color: #bc7a00; } /* Preprocessor */
-      code span.sc { color: #4070a0; } /* SpecialChar */
-      code span.ss { color: #bb6688; } /* SpecialString */
-      code span.st { color: #4070a0; } /* String */
-      code span.va { color: #19177c; } /* Variable */
-      code span.vs { color: #4070a0; } /* VerbatimString */
-      code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-            div.sourceCode {
+      pre.numberSource code {
+        counter-reset: source-line 0;
+      }
+      pre.numberSource code > span {
+        position: relative;
+        left: -4em;
+        counter-increment: source-line;
+      }
+      pre.numberSource code > span > a:first-child::before {
+        content: counter(source-line);
+        position: relative;
+        left: -1em;
+        text-align: right;
+        vertical-align: baseline;
+        border: none;
+        display: inline-block;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        padding: 0 4px;
+        width: 4em;
+        color: #aaaaaa;
+      }
+      pre.numberSource {
+        margin-left: 3em;
+        border-left: 1px solid #aaaaaa;
+        padding-left: 4px;
+      }
+      div.sourceCode {
+      }
+      @media screen {
+        pre > code.sourceCode > span > a:first-child::before {
+          text-decoration: underline;
+        }
+      }
+      code span.al {
+        color: #ff0000;
+        font-weight: bold;
+      } /* Alert */
+      code span.an {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Annotation */
+      code span.at {
+        color: #7d9029;
+      } /* Attribute */
+      code span.bn {
+        color: #40a070;
+      } /* BaseN */
+      code span.bu {
+        color: #008000;
+      } /* BuiltIn */
+      code span.cf {
+        color: #007020;
+        font-weight: bold;
+      } /* ControlFlow */
+      code span.ch {
+        color: #4070a0;
+      } /* Char */
+      code span.cn {
+        color: #880000;
+      } /* Constant */
+      code span.co {
+        color: #60a0b0;
+        font-style: italic;
+      } /* Comment */
+      code span.cv {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* CommentVar */
+      code span.do {
+        color: #ba2121;
+        font-style: italic;
+      } /* Documentation */
+      code span.dt {
+        color: #902000;
+      } /* DataType */
+      code span.dv {
+        color: #40a070;
+      } /* DecVal */
+      code span.er {
+        color: #ff0000;
+        font-weight: bold;
+      } /* Error */
+      code span.ex {
+      } /* Extension */
+      code span.fl {
+        color: #40a070;
+      } /* Float */
+      code span.fu {
+        color: #06287e;
+      } /* Function */
+      code span.im {
+        color: #008000;
+        font-weight: bold;
+      } /* Import */
+      code span.in {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Information */
+      code span.kw {
+        color: #007020;
+        font-weight: bold;
+      } /* Keyword */
+      code span.op {
+        color: #666666;
+      } /* Operator */
+      code span.ot {
+        color: #007020;
+      } /* Other */
+      code span.pp {
+        color: #bc7a00;
+      } /* Preprocessor */
+      code span.sc {
+        color: #4070a0;
+      } /* SpecialChar */
+      code span.ss {
+        color: #bb6688;
+      } /* SpecialString */
+      code span.st {
+        color: #4070a0;
+      } /* String */
+      code span.va {
+        color: #19177c;
+      } /* Variable */
+      code span.vs {
+        color: #4070a0;
+      } /* VerbatimString */
+      code span.wa {
+        color: #60a0b0;
+        font-weight: bold;
+        font-style: italic;
+      } /* Warning */
+      div.sourceCode {
         overflow-x: visible;
       }
-          </style>
-        <style type="text/css">
+    </style>
+    <style type="text/css">
       pre:not([class]) {
         background-color: white;
       }
     </style>
-           <style type="text/css">
+    <style type="text/css">
       h1 {
         font-size: 34px;
       }
@@ -217,17 +348,12 @@ diagram. Definition, examples, input data, common caveats, tool to build it and 
       .table th:not([align]) {
         text-align: left;
       }
-          </style>
-         <link
-      rel="stylesheet"
-      href="style.css"
-      type="text/css"
-      
-    />
-      </head>
+    </style>
+    <link rel="stylesheet" href="style.css" type="text/css" />
+  </head>
 
   <body>
-        <style type="text/css">
+    <style type="text/css">
       .main-container {
         max-width: 940px;
         margin-left: auto;
@@ -249,7 +375,6 @@ diagram. Definition, examples, input data, common caveats, tool to build it and 
       }
     </style>
 
-     
     <div class="container-fluid main-container">
       <!-- tabsets -->
       <script>
@@ -259,50 +384,59 @@ diagram. Definition, examples, input data, common caveats, tool to build it and 
       </script>
 
       <!-- code folding -->
-            <style type="text/css">
+      <style type="text/css">
         .code-folding-btn {
           margin-bottom: 4px;
         }
       </style>
       <script>
         $(document).ready(function () {
-                          window.initializeCodeFolding("hide" === "show");
-                });
+          window.initializeCodeFolding("hide" === "show");
+        });
       </script>
-         
-                    <div class="fluid-row" id="header">
-                        <div class="btn-group pull-right">
-              <button
-                type="button"
-                class="btn btn-default btn-xs dropdown-toggle"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <span>Show Code</span> <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu" style="min-width: 50px">
-                                <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
-                <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
-                                </ul>
-            </div>
 
-                         </div>
+      <div class="fluid-row" id="header">
+        <div class="btn-group pull-right">
+          <button
+            type="button"
+            class="btn btn-default btn-xs dropdown-toggle"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            <span>Show Code</span> <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" style="min-width: 50px">
+            <li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+            <li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+          </ul>
+        </div>
+      </div>
 
-              <div class="mycontent">
-<div id="definition" class="section level1">
-<h1>Definition</h1>
-<hr />
-<p>A <code>chord diagram</code> represents flows or connections between
-several entities (called <code>nodes</code>). Each entity is represented
-by a fragment on the outer part of the <code>circular layout</code>.
-Then, <code>arcs</code> are drawn between each entities. The size of the
-arc is proportional to the importance of the flow.</p>
-<p>Here is an example displaying the number of people migrating from one
-country to another. Data used comes from this <a
-href="https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327">scientific
-publication</a> from <a href="http://guyabel.com">Gui J. Abel</a>.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
+      <div class="mycontent">
+        <div id="definition" class="section level1">
+          <h1>Definition</h1>
+          <hr />
+          <p>
+            A <code>chord diagram</code> represents flows or connections between
+            several entities (called <code>nodes</code>). Each entity is
+            represented by a fragment on the outer part of the
+            <code>circular layout</code>. Then, <code>arcs</code> are drawn
+            between each entities. The size of the arc is proportional to the
+            importance of the flow.
+          </p>
+          <p>
+            Here is an example displaying the number of people migrating from
+            one country to another. Data used comes from this
+            <a href="https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327"
+              >scientific publication</a
+            >
+            from <a href="http://guyabel.com">Guy J. Abel</a>.
+          </p>
+          <div class="sourceCode" id="cb1">
+            <pre
+              class="sourceCode r"
+            ><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># Libraries</span></span>
 <span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="fu">library</span>(viridis)</span>
 <span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
@@ -371,44 +505,74 @@ publication</a> from <a href="http://guyabel.com">Gui J. Abel</a>.</p>
 <span id="cb1-67"><a href="#cb1-67" tabindex="-1"></a>      <span class="at">major.tick.percentage =</span> <span class="fl">0.5</span>,</span>
 <span id="cb1-68"><a href="#cb1-68" tabindex="-1"></a>      <span class="at">labels.niceFacing =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb1-69"><a href="#cb1-69" tabindex="-1"></a>  }</span>
-<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a>)</span></code></pre></div>
-<p><img src="chord_files/figure-html/unnamed-chunk-1-1.png" width="672" style="display: block; margin: auto;" /></p>
-<p><em>Note</em>: this plot is made using the circlize library, and very
-strongly inspired from the <a
-href="https://github.com/cran/migest">Migest package</a> from <a
-href="http://guyabel.com">Gui J. Abel</a>. Read more about this story <a
-href="https://www.data-to-viz.com/story/AdjacencyMatrix.html">here</a>.</p>
-</div>
-<div id="what-for" class="section level1">
-<h1>What for</h1>
-<hr />
-<p>Chord diagrams are eye catching and quite popular in data
-visualization. They allow to visualize <code>weigthed</code>
-relationships between several entities. They are adapted for several
-specific situations that slightly modify the output and the way to read
-them:</p>
-<ul>
-<li><p>Flow. This is the example decribed in the chord diagram above.
-But two ways to represent it:</p>
-<ul>
-<li>One asymetric arc per pair</li>
-<li>Two arcs per pair</li>
-</ul></li>
-<li><p>Bipartite: nodes are grouped in a few categories. Connections go
-<em>between</em> categories but not <em>within</em> categories. In my
-opinion <a href="https://www.data-to-viz.com/graph/sankey.html">sankey
-diagrams</a> are more adapted in this situation.</p></li>
-</ul>
-<p><em>Note</em>: this section is under construction.</p>
-</div>
-<div id="variation" class="section level1">
-<h1>Variation</h1>
-<hr />
-<p>Interactivity is a real plus to make the chord diagram
-understandable. In the example below, you can hover a specific group to
-highlight all its connections.</p>
-<center>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(chorddiag)</span>
+<span id="cb1-70"><a href="#cb1-70" tabindex="-1"></a>)</span></code></pre>
+          </div>
+          <p>
+            <img
+              src="chord_files/figure-html/unnamed-chunk-1-1.png"
+              width="672"
+              style="display: block; margin: auto"
+            />
+          </p>
+          <p>
+            <em>Note</em>: this plot is made using the circlize library, and
+            very strongly inspired from the
+            <a href="https://github.com/cran/migest">Migest package</a> from
+            <a href="http://guyabel.com">Guy J. Abel</a>. Read more about this
+            story
+            <a href="https://www.data-to-viz.com/story/AdjacencyMatrix.html"
+              >here</a
+            >.
+          </p>
+        </div>
+        <div id="what-for" class="section level1">
+          <h1>What for</h1>
+          <hr />
+          <p>
+            Chord diagrams are eye catching and quite popular in data
+            visualization. They allow to visualize
+            <code>weigthed</code> relationships between several entities. They
+            are adapted for several specific situations that slightly modify the
+            output and the way to read them:
+          </p>
+          <ul>
+            <li>
+              <p>
+                Flow. This is the example decribed in the chord diagram above.
+                But two ways to represent it:
+              </p>
+              <ul>
+                <li>One asymetric arc per pair</li>
+                <li>Two arcs per pair</li>
+              </ul>
+            </li>
+            <li>
+              <p>
+                Bipartite: nodes are grouped in a few categories. Connections go
+                <em>between</em> categories but not <em>within</em> categories.
+                In my opinion
+                <a href="https://www.data-to-viz.com/graph/sankey.html"
+                  >sankey diagrams</a
+                >
+                are more adapted in this situation.
+              </p>
+            </li>
+          </ul>
+          <p><em>Note</em>: this section is under construction.</p>
+        </div>
+        <div id="variation" class="section level1">
+          <h1>Variation</h1>
+          <hr />
+          <p>
+            Interactivity is a real plus to make the chord diagram
+            understandable. In the example below, you can hover a specific group
+            to highlight all its connections.
+          </p>
+          <center>
+            <div class="sourceCode" id="cb2">
+              <pre
+                class="sourceCode r"
+              ><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(chorddiag)</span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">11975</span>,  <span class="dv">5871</span>, <span class="dv">8916</span>, <span class="dv">2868</span>,</span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>              <span class="dv">1951</span>, <span class="dv">10048</span>, <span class="dv">2060</span>, <span class="dv">6171</span>,</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>              <span class="dv">8010</span>, <span class="dv">16145</span>, <span class="dv">8090</span>, <span class="dv">8045</span>,</span>
@@ -420,207 +584,315 @@ highlight all its connections.</p>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>                    <span class="at">prefer =</span> haircolors)</span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>groupColors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;#000000&quot;</span>, <span class="st">&quot;#FFDD89&quot;</span>, <span class="st">&quot;#957244&quot;</span>, <span class="st">&quot;#F26223&quot;</span>)</span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="fu">chorddiag</span>(m, <span class="at">groupColors =</span> groupColors, <span class="at">groupnamePadding =</span> <span class="dv">20</span>)</span></code></pre></div>
-<div class="chorddiag html-widget html-fill-item" id="htmlwidget-426b0aa91f26f5cb8825" style="width:672px;height:672px;"></div>
-<script type="application/json" data-for="htmlwidget-426b0aa91f26f5cb8825">{"x":{"matrix":[[11975,5871,8916,2868],[1951,10048,2060,6171],[8010,16145,8090,8045],[1013,990,940,6907]],"options":{"type":"directional","width":null,"height":null,"margin":100,"showGroupnames":true,"groupNames":["black","blonde","brown","red"],"groupColors":["#000000","#FFDD89","#957244","#F26223"],"groupThickness":0.1,"groupPadding":0.03490658503988659,"groupnamePadding":[20,20,20,20],"groupnameFontsize":18,"groupedgeColor":null,"chordedgeColor":"#808080","categoryNames":null,"categorynamePadding":100,"categorynameFontsize":28,"showTicks":true,"tickInterval":1000,"ticklabelFontsize":10,"fadeLevel":0.1,"showTooltips":true,"showZeroTooltips":true,"tooltipNames":["black","blonde","brown","red"],"tooltipFontsize":12,"tooltipUnit":"","tooltipGroupConnector":" &#x25B6; ","precision":"null","clickAction":null,"clickGroupAction":null}},"evals":[],"jsHooks":[]}</script>
-</center>
-<p><em>Note</em>: this example comes from the <a
-href="https://github.com/mattflor/chorddiag">chorddiag</a> package
-documentation.</p>
-</div>
-<div id="mistake" class="section level1">
-<h1>Common mistakes</h1>
-<hr />
-<ul>
-<li>The group order around the circle is important. Try to minimize the
-number of arc crossing.</li>
-<li>Mind over-cluttering that makes the figure unreadable. It is advised
-to dismiss weak connections.</li>
-<li>Chord diagrams are not straightforward to understand at all. Give
-plenty of explanation to your audience when you present it. It is
-advised to break down the graphic, presenting its components
-progressively. See this awesome example of storytelling from <a
-href="https://www.visualcinnamon.com/2014/12/using-data-storytelling-with-chord">Nadieh
-Bremer</a>.</li>
-</ul>
-</div>
-<div id="related" class="section level1">
-<h1>Related</h1>
-<hr />
-<div class="row">
-<div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/network.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png">
-<p class="mytitlerelated">
-Network
-</p>
-<p class="mytextrelated">
-Represents relationships using nodes and edges.
-</p>
-</a>
-</div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/arc.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png">
-<p class="mytitlerelated">
-Arc diagram
-</p>
-<p class="mytextrelated">
-A subset of the network diagram where nodes are aligned and edges are
-arcs.
-</p>
-</a>
-</div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/sankey.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png">
-<p class="mytitlerelated">
-Sankey diagram
-</p>
-<p class="mytextrelated">
-A flow diagram in which the width of the arrows is shown proportionally
-to the flow quantity.
-</p>
-</a>
-</div>
-<div class="col-lg-3 col-md-6 col-sm-6">
-<a href="https://www.data-to-viz.com/graph/edge_bundling.html" class="btn btn-primary mybtnrelated" style="margin-bottom:4px;white-space: normal !important;">
-<img  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png">
-<p class="mytitlerelated">
-Edge bundling
-</p>
-<p class="mytextrelated">
-Show connections between entities organized in a hierarchy.
-</p>
-</a>
-</div>
-</div>
-</div>
-<div id="code" class="section level1">
-<h1>Build your own</h1>
-<hr />
-<p>The <a href="https://r-graph-gallery.com/chord-diagram.html">R</a>,
-<a href="https:/python-graph-gallery.com/chord-diagram/">Python</a>, <a
-href="https://www.react-graph-gallery.com/chord-diagram">React</a> and
-<a href="https://d3-graph-gallery.com/chord.html">D3</a> graph galleries
-are 4 websites providing hundreds of chart example, always providing the
-reproducible code. Click the button below to see how to build the chart
-you need with your favorite programing language.</p>
-<p>
-<a href="https://r-graph-gallery.com/chord-diagram.html" class="btn btn-primary">R
-graph gallery</a>
-<a href="https://python-graph-gallery.com/chord-diagram/" class="btn btn-primary">Python
-gallery</a>
-<a href="https://www.react-graph-gallery.com/chord-diagram" class="btn btn-primary">React
-gallery</a>
-<a href="https://d3-graph-gallery.com/chord.html" class="btn btn-primary">D3
-gallery</a>
-</p>
-</div>
-</div>
-
-          <section
-            id="form"
-            style="
-              margin-top: 70px;
-              padding-bottom: 70px;
-              padding-top: 70px;
-              background-color: #f8f9fa;
-            "
-          >
-            <div class="container">
-              <div
-                style="
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                "
-              >
-                <h2 style="font-size: 44px" class="text-center">
-                  Dataviz decision tree
-                </h2>
-                <p
-                  class="text-center"
-                  style="max-width: 600px; font-size: 18px"
-                >
-                  <a href="https://www.data-to-viz.com">Data To Viz</a> is a
-                  comprehensive <b>classification of chart types</b> organized
-                  by data input format. Get a high-resolution version of our
-                  decision tree delivered to your inbox now!
-                </p>
-                <div
-                  style="
-                    margin-top: -50px;
-                    width: 100%;
-                    display: flex;
-                    justify-content: center;
-                  "
-                >
-                  <script
-                    async
-                    data-uid="8010f15fd2"
-                    src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
-                  ></script>
-                </div>
-                <br />
-                <div class="text-center">
-                  <img
-                    class="img-fluid"
-                    src="../img/poster/poster_small.png"
-                    alt="High Resolution Poster"
-                    style="max-width: 400px"
-                  />
-                </div>
-              </div>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="fu">chorddiag</span>(m, <span class="at">groupColors =</span> groupColors, <span class="at">groupnamePadding =</span> <span class="dv">20</span>)</span></code></pre>
             </div>
-          </section>
+            <div
+              class="chorddiag html-widget html-fill-item"
+              id="htmlwidget-426b0aa91f26f5cb8825"
+              style="width: 672px; height: 672px"
+            ></div>
+            <script
+              type="application/json"
+              data-for="htmlwidget-426b0aa91f26f5cb8825"
+            >
+              {
+                "x": {
+                  "matrix": [
+                    [11975, 5871, 8916, 2868],
+                    [1951, 10048, 2060, 6171],
+                    [8010, 16145, 8090, 8045],
+                    [1013, 990, 940, 6907]
+                  ],
+                  "options": {
+                    "type": "directional",
+                    "width": null,
+                    "height": null,
+                    "margin": 100,
+                    "showGroupnames": true,
+                    "groupNames": ["black", "blonde", "brown", "red"],
+                    "groupColors": ["#000000", "#FFDD89", "#957244", "#F26223"],
+                    "groupThickness": 0.1,
+                    "groupPadding": 0.03490658503988659,
+                    "groupnamePadding": [20, 20, 20, 20],
+                    "groupnameFontsize": 18,
+                    "groupedgeColor": null,
+                    "chordedgeColor": "#808080",
+                    "categoryNames": null,
+                    "categorynamePadding": 100,
+                    "categorynameFontsize": 28,
+                    "showTicks": true,
+                    "tickInterval": 1000,
+                    "ticklabelFontsize": 10,
+                    "fadeLevel": 0.1,
+                    "showTooltips": true,
+                    "showZeroTooltips": true,
+                    "tooltipNames": ["black", "blonde", "brown", "red"],
+                    "tooltipFontsize": 12,
+                    "tooltipUnit": "",
+                    "tooltipGroupConnector": " &#x25B6; ",
+                    "precision": "null",
+                    "clickAction": null,
+                    "clickGroupAction": null
+                  }
+                },
+                "evals": [],
+                "jsHooks": []
+              }
+            </script>
+          </center>
+          <p>
+            <em>Note</em>: this example comes from the
+            <a href="https://github.com/mattflor/chorddiag">chorddiag</a>
+            package documentation.
+          </p>
+        </div>
+        <div id="mistake" class="section level1">
+          <h1>Common mistakes</h1>
+          <hr />
+          <ul>
+            <li>
+              The group order around the circle is important. Try to minimize
+              the number of arc crossing.
+            </li>
+            <li>
+              Mind over-cluttering that makes the figure unreadable. It is
+              advised to dismiss weak connections.
+            </li>
+            <li>
+              Chord diagrams are not straightforward to understand at all. Give
+              plenty of explanation to your audience when you present it. It is
+              advised to break down the graphic, presenting its components
+              progressively. See this awesome example of storytelling from
+              <a
+                href="https://www.visualcinnamon.com/2014/12/using-data-storytelling-with-chord"
+                >Nadieh Bremer</a
+              >.
+            </li>
+          </ul>
+        </div>
+        <div id="related" class="section level1">
+          <h1>Related</h1>
+          <hr />
+          <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <a
+                href="https://www.data-to-viz.com/graph/network.html"
+                class="btn btn-primary mybtnrelated"
+                style="margin-bottom: 4px; white-space: normal !important"
+              >
+                <img
+                  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/NetworkSmall.png"
+                />
+                <p class="mytitlerelated">Network</p>
+                <p class="mytextrelated">
+                  Represents relationships using nodes and edges.
+                </p>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <a
+                href="https://www.data-to-viz.com/graph/arc.html"
+                class="btn btn-primary mybtnrelated"
+                style="margin-bottom: 4px; white-space: normal !important"
+              >
+                <img
+                  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/ArcSmal.png"
+                />
+                <p class="mytitlerelated">Arc diagram</p>
+                <p class="mytextrelated">
+                  A subset of the network diagram where nodes are aligned and
+                  edges are arcs.
+                </p>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <a
+                href="https://www.data-to-viz.com/graph/sankey.html"
+                class="btn btn-primary mybtnrelated"
+                style="margin-bottom: 4px; white-space: normal !important"
+              >
+                <img
+                  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/SankeySmall.png"
+                />
+                <p class="mytitlerelated">Sankey diagram</p>
+                <p class="mytextrelated">
+                  A flow diagram in which the width of the arrows is shown
+                  proportionally to the flow quantity.
+                </p>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <a
+                href="https://www.data-to-viz.com/graph/edge_bundling.html"
+                class="btn btn-primary mybtnrelated"
+                style="margin-bottom: 4px; white-space: normal !important"
+              >
+                <img
+                  src="https://github.com/holtzy/data_to_viz/raw/master/img/section/BundleSmall.png"
+                />
+                <p class="mytitlerelated">Edge bundling</p>
+                <p class="mytextrelated">
+                  Show connections between entities organized in a hierarchy.
+                </p>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div id="code" class="section level1">
+          <h1>Build your own</h1>
+          <hr />
+          <p>
+            The <a href="https://r-graph-gallery.com/chord-diagram.html">R</a>,
+            <a href="https:/python-graph-gallery.com/chord-diagram/">Python</a>,
+            <a href="https://www.react-graph-gallery.com/chord-diagram"
+              >React</a
+            >
+            and <a href="https://d3-graph-gallery.com/chord.html">D3</a> graph
+            galleries are 4 websites providing hundreds of chart example, always
+            providing the reproducible code. Click the button below to see how
+            to build the chart you need with your favorite programing language.
+          </p>
+          <p>
+            <a
+              href="https://r-graph-gallery.com/chord-diagram.html"
+              class="btn btn-primary"
+              >R graph gallery</a
+            >
+            <a
+              href="https://python-graph-gallery.com/chord-diagram/"
+              class="btn btn-primary"
+              >Python gallery</a
+            >
+            <a
+              href="https://www.react-graph-gallery.com/chord-diagram"
+              class="btn btn-primary"
+              >React gallery</a
+            >
+            <a
+              href="https://d3-graph-gallery.com/chord.html"
+              class="btn btn-primary"
+              >D3 gallery</a
+            >
+          </p>
+        </div>
+      </div>
 
-           &nbsp;
-<hr />
-<p style="text-align: center;">A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for <a href="https://data-to-viz.com">data-to-viz.com</a></p>
+      <section
+        id="form"
+        style="
+          margin-top: 70px;
+          padding-bottom: 70px;
+          padding-top: 70px;
+          background-color: #f8f9fa;
+        "
+      >
+        <div class="container">
+          <div
+            style="display: flex; flex-direction: column; align-items: center"
+          >
+            <h2 style="font-size: 44px" class="text-center">
+              Dataviz decision tree
+            </h2>
+            <p class="text-center" style="max-width: 600px; font-size: 18px">
+              <a href="https://www.data-to-viz.com">Data To Viz</a> is a
+              comprehensive <b>classification of chart types</b> organized by
+              data input format. Get a high-resolution version of our decision
+              tree delivered to your inbox now!
+            </p>
+            <div
+              style="
+                margin-top: -50px;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+              "
+            >
+              <script
+                async
+                data-uid="8010f15fd2"
+                src="https://prodigious-trailblazer-3628.ck.page/8010f15fd2/index.js"
+              ></script>
+            </div>
+            <br />
+            <div class="text-center">
+              <img
+                class="img-fluid"
+                src="../img/poster/poster_small.png"
+                alt="High Resolution Poster"
+                style="max-width: 400px"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-<!-- Add icon library -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      &nbsp;
+      <hr />
+      <p style="text-align: center">
+        A work by <a href="https://www.yan-holtz.com/">Yan Holtz</a> for
+        <a href="https://data-to-viz.com">data-to-viz.com</a>
+      </p>
 
-<!-- Add font awesome icons -->
-<p style="text-align: center;">
-	<a href="https://twitter.com/r_graph_gallery?lang=en" class="fa fa-twitter"></a>
-	<a href="https://www.linkedin.com/in/yan-holtz-2477534a/" class="fa fa-linkedin"></a>
-	<a href="https://github.com/holtzy/" class="fa fa-github"></a>
-</p>
+      <!-- Add icon library -->
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      />
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-79254642-3"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      <!-- Add font awesome icons -->
+      <p style="text-align: center">
+        <a
+          href="https://twitter.com/r_graph_gallery?lang=en"
+          class="fa fa-twitter"
+        ></a>
+        <a
+          href="https://www.linkedin.com/in/yan-holtz-2477534a/"
+          class="fa fa-linkedin"
+        ></a>
+        <a href="https://github.com/holtzy/" class="fa fa-github"></a>
+      </p>
 
-  gtag('config', 'UA-79254642-3');
-</script>
-<script>
-var getOutboundLink = function(url) {
-	gtag('event', 'click', {
-		'event_category': 'outbound',
-		'event_label': url,
-		'transport_type': 'beacon',
-		'event_callback': function(){document.location = url;}
-	});
-}
-</script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-79254642-3"
+      ></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
 
-&nbsp;                </div>
+        gtag("config", "UA-79254642-3");
+      </script>
+      <script>
+        var getOutboundLink = function (url) {
+          gtag("event", "click", {
+            event_category: "outbound",
+            event_label: url,
+            transport_type: "beacon",
+            event_callback: function () {
+              document.location = url;
+            },
+          });
+        };
+      </script>
+
+      &nbsp;
+    </div>
 
     <script>
-
       // add bootstrap table styles to pandoc tables
       function bootstrapStylePandocTables() {
-        $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+        $("tr.header")
+          .parent("thead")
+          .parent("table")
+          .addClass("table table-condensed");
       }
       $(document).ready(function () {
         bootstrapStylePandocTables();
       });
-
-          </script>
-       </body>
+    </script>
+  </body>
 </html>

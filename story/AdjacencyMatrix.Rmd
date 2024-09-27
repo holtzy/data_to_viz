@@ -33,7 +33,7 @@ output:
 Adjacency and incidence matrices provide relationship between several nodes. The information they contain can have different nature, thus this document will consider several examples:
 
 
-- Relationships can be `directed` and `weighted`. Like the number of people migrating from one country to another. Data used comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) from [Gui J. Abel](http://guyabel.com).
+- Relationships can be `directed` and `weighted`. Like the number of people migrating from one country to another. Data used comes from this [scientific publication](https://onlinelibrary.wiley.com/doi/abs/10.1111/imre.12327) from [Guy J. Abel](http://guyabel.com).
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
 library(tidyverse)
@@ -80,7 +80,7 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
 
 A chord diagram is a good way to represent migration flows. It works well if your data are directed and weighted like for migration flows between country.
 
-Disclaimer: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Gui J. Abel](http://guyabel.com), who is also the author of the migration [dataset](https://www.oeaw.ac.at/fileadmin/subsites/Institute/VID/PDF/Publications/Working_Papers/WP2016_02.pdf) used here.
+Disclaimer: this plot is made using the circlize library, and very strongly inspired from the [Migest package](https://github.com/cran/migest) from [Guy J. Abel](http://guyabel.com), who is also the author of the migration [dataset](https://www.oeaw.ac.at/fileadmin/subsites/Institute/VID/PDF/Publications/Working_Papers/WP2016_02.pdf) used here.
 
 Since this kind of graphic is used to display flows, it can be applied only on networks in which connections are `weighted`. It does not work for the other example on authors connections.
 
