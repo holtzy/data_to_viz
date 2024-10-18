@@ -94,7 +94,7 @@ data %>%
     )
 ```
 
-There is a huge difference difference between these 2 histograms. Actually a few values are over represented in the dataset (like 58, 64, 69, 75, 80..). This is definitely a signal that you want to understand when analysing your dataset.
+There is a huge difference between these 2 histograms. Actually a few values are over represented in the dataset (like 58, 64, 69, 75, 80..). This is definitely a signal that you want to understand when analysing your dataset.
 
 
 
