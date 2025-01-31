@@ -126,8 +126,8 @@ If you're interested to see more examples, there is a [whole website about it](h
 # Common mistakes {#mistake}
 ***
 
-- The position of nodes is very important: algorythm exist to minimize the number of crossing between links.
-- Mind over-cluttering that makes the figure unreadable. It is advised to dismiss weak connections.
+- The position of nodes is very important: algorithms exist to minimize the number of crossing between links.
+- Over-cluttering may make the figure unreadable. Weak connections can be removed (or relegated to an "other" category) to minimize clutter.
 
 
 
