@@ -126,7 +126,7 @@ See more about it [here](https://www.data-to-viz.com/graph/dendrogram.html).
 ***
 The [heatmap](https://www.data-to-viz.com/graph/heatmap.html) is often used in complement of a dendrogram. It is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a data table from above.
 
-In addition of a dendrogram, it allows to understand why samples ore features are grouped together.
+In addition of a dendrogram, it allows to understand why samples or features are grouped together.
 ```{r, fig.align="center", fig.width=8, message=FALSE, warning=FALSE}
 library(d3heatmap)
 d3heatmap(data, k_row = 4, k_col = 2, scale = "column")
