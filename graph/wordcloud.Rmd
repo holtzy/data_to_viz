@@ -33,7 +33,7 @@ A `word cloud` (also called tag cloud or weighted list) is a visual representati
 
 <br>
 
-Here is an example showing the most frequent words used by [Nekfeu](https://en.wikipedia.org/wiki/Nekfeu), a famous french raper, in a few of his songs. You can read more about this story [here](https://www.data-to-viz.com/story/SeveralIndepLists.html).
+Here is an example showing the most frequent words used by [Nekfeu](https://en.wikipedia.org/wiki/Nekfeu), a famous french rapper, in a few of his songs. You can read more about this story [here](https://www.data-to-viz.com/story/SeveralIndepLists.html).
 
 ```{r, warning=FALSE, message=FALSE, fig.align="center", fig.height=8, fig.width=8}
 # Libraries
@@ -204,7 +204,6 @@ The [R](https://www.r-graph-gallery.com/wordcloud.html), [Python](https://www.py
 
 
 </div>
-
 
 
 
