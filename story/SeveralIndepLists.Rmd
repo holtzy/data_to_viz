@@ -2,7 +2,7 @@
 myimage1: "VennSmall.png"
 myimage2: "LollipopSmall.png"
 myimage3: "WordCloudSmall.png"
-mytitle: "Comparing raper lyrics"
+mytitle: "Comparing rapper lyrics"
 pathSlug: "SeveralIndepLists"
 output:
   html_document:
@@ -32,7 +32,7 @@ output:
 
 <div class = "row">
 <div class = "col-md-6">
-This document gives a few suggestions to analyse a dataset composed by a few lists of items.<br><br>It considers the lyrics of 2 famous french rapers ([Nekfeu](https://en.wikipedia.org/wiki/Nekfeu) and [Booba](https://en.wikipedia.org/wiki/Booba)) and a french singer ([Georges Brassens](https://en.wikipedia.org/wiki/Georges_Brassens)).<br><br>This example dataset has been downloaded from the [Paroles.net website](https://www.paroles.net/) using a custom script and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Seventy five songs are considered.
+This document gives a few suggestions to analyse a dataset composed by a few lists of items.<br><br>It considers the lyrics of 2 famous french rappers ([Nekfeu](https://en.wikipedia.org/wiki/Nekfeu) and [Booba](https://en.wikipedia.org/wiki/Booba)) and a french singer ([Georges Brassens](https://en.wikipedia.org/wiki/Georges_Brassens)).<br><br>This example dataset has been downloaded from the [Paroles.net website](https://www.paroles.net/) using a custom script and is available on this [Github repository](https://github.com/holtzy/data_to_viz/tree/master/Example_dataset). Seventy five songs are considered.
 
 ```{r, warning=FALSE, message=FALSE}
 # Libraries
