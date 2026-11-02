@@ -105,7 +105,7 @@ export default function Page() {
         />
         <div className="relative mx-auto grid max-w-6xl gap-6 px-4 py-24 sm:grid-cols-2 sm:py-32 lg:grid-cols-4">
           {features.map((f) => (
-            <div key={f.title} className="rounded-xl bg-background/90 p-6 text-center shadow-sm">
+            <div key={f.title} className="rounded-[4px] bg-background/90 p-6 text-center shadow-sm">
               <h2 className="mb-4 border-b pb-2 font-heading text-xl font-bold tracking-[0.03em]">
                 {f.title}
               </h2>

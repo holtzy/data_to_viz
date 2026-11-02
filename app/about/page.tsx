@@ -218,7 +218,7 @@ export default function Page() {
             How is built this website?
           </h2>
           <div className="mt-10 grid gap-6 md:grid-cols-3">
-            <div className="rounded-xl bg-background/90 p-6 text-center shadow-sm">
+            <div className="rounded-[4px] bg-background/90 p-6 text-center shadow-sm">
               <ColumnTitle>Website</ColumnTitle>
               <p className="text-muted-foreground">
                 Data to viz is based on a{" "}
@@ -240,7 +240,7 @@ export default function Page() {
                 .
               </p>
             </div>
-            <div className="rounded-xl bg-background/90 p-6 text-center shadow-sm">
+            <div className="rounded-[4px] bg-background/90 p-6 text-center shadow-sm">
               <ColumnTitle>Content</ColumnTitle>
               <p className="text-muted-foreground">
                 The vast majority of the pages of this website are built using{" "}
@@ -258,7 +258,7 @@ export default function Page() {
                 .
               </p>
             </div>
-            <div className="rounded-xl bg-background/90 p-6 text-center shadow-sm">
+            <div className="rounded-[4px] bg-background/90 p-6 text-center shadow-sm">
               <ColumnTitle>Graphics</ColumnTitle>
               <p className="text-muted-foreground">
                 All analysis are made using the{" "}

@@ -51,7 +51,7 @@ export function CaveatGallery({ items }: { items: CaveatItem[] }) {
             <a
               href={item.href}
               className={cn(
-                "group flex h-full flex-col items-center rounded-xl border bg-card p-5 text-center transition hover:border-brand/40 hover:shadow-md",
+                "group flex h-full flex-col items-center rounded-[4px] border bg-card p-5 text-center transition hover:border-brand/40 hover:shadow-md",
                 item.external && "opacity-70 hover:opacity-100",
               )}
             >

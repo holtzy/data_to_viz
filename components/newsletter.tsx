@@ -29,17 +29,22 @@ export function KitForm({ uid = KIT_FORM_UID, className }: { uid?: string; class
     const timer = setTimeout(() => {
       if (!container.querySelector("form")) setBlocked(true);
     }, 4000);
-    return () => clearTimeout(timer);
+    // A slow network can render the form after the fallback appeared: hide it then.
+    const observer = new MutationObserver(() => {
+      if (container.querySelector("form")) setBlocked(false);
+    });
+    observer.observe(container, { childList: true, subtree: true });
+    return () => {
+      clearTimeout(timer);
+      observer.disconnect();
+    };
   }, [uid]);
 
   return (
     <div className={className}>
       <div ref={ref} className="flex w-full justify-center" />
       {blocked && (
-        <a
-          href={`${KIT_HOST}/${uid}`}
-          className={buttonClass("primary", "lg")}
-        >
+        <a href={`${KIT_HOST}/${uid}`} className={buttonClass("primary", "lg")}>
           Subscribe to the newsletter
         </a>
       )}
@@ -57,8 +62,8 @@ export function NewsletterSection() {
           <a href="/" className="link">
             Data To Viz
           </a>{" "}
-          is a comprehensive <strong>classification of chart types</strong> organized by data input format.
-          Get a high-resolution version of our decision tree delivered to your inbox now!
+          is a comprehensive <strong>classification of chart types</strong> organized by data input format. Get a
+          high-resolution version of our decision tree delivered to your inbox now!
         </p>
         <KitForm className="mt-6 w-full" />
         <img

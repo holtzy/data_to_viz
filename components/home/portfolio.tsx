@@ -3,7 +3,6 @@
 import { useState, type MouseEvent } from "react";
 import { PORTFOLIO, PORTFOLIO_FILTERS } from "@/components/home/data/home";
 import { useOpenChart } from "@/components/home/chart-dialog";
-import { cn } from "@/lib/utils";
 import { buttonClass } from "@/lib/button";
 
 /** "A world of possibilities": every chart type, filterable by purpose. */
@@ -45,7 +44,7 @@ export function Portfolio() {
             >
               {/* Same tile as the React Graph Gallery front page: icon + "+" overlay on hover. */}
               <span className="relative block size-[122px]">
-                <img src={item.image} alt={item.title} loading="lazy" className="size-[122px] object-contain" />
+                <img src={item.image} alt="" loading="lazy" className="size-[122px] object-contain" />
                 <span
                   aria-hidden
                   className="absolute inset-0 flex items-center justify-center rounded-full bg-brand text-4xl text-white opacity-0 transition-opacity group-hover:opacity-60"

@@ -192,9 +192,10 @@ html {
     margin-bottom: 10px;
     padding-bottom: 10px;
     border-bottom: 1px solid #f1f5f9;
-    scroll-margin-top: 100px;
+    scroll-margin-top: 24px;
   }
   .article h3 {
+    scroll-margin-top: 24px;
     font-size: 22px;
     line-height: 34px;
     margin-top: 40px;

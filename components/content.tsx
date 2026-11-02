@@ -1,10 +1,9 @@
 import type { ReactNode } from "react";
 import { codeToHtml } from "shiki";
 import { ChevronDown } from "lucide-react";
-import { cn } from "@/lib/utils";
 import { buttonClass } from "@/lib/button";
 
-/** A titled block of an article. `id` is the anchor used in links (`#definition`). */
+/** A titled block of an article. `id` is the heading's anchor, used in links (`#definition`). */
 export function Section({
   id,
   title,
@@ -18,8 +17,8 @@ export function Section({
 }) {
   const Heading = `h${level}` as const;
   return (
-    <section id={id} className="scroll-mt-24">
-      <Heading>{title}</Heading>
+    <section aria-labelledby={id}>
+      <Heading id={id}>{title}</Heading>
       {children}
     </section>
   );
@@ -47,7 +46,7 @@ export async function Code({
         <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
       </summary>
       <div
-        className="mt-2 overflow-x-auto rounded-lg border bg-[#f6f8fa] text-[13px] leading-relaxed [&_pre]:!bg-transparent [&_pre]:p-4"
+        className="mt-2 overflow-x-auto rounded-[4px] border bg-[#f6f8fa] text-[13px] leading-relaxed [&_pre]:!bg-transparent [&_pre]:p-4"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </details>
@@ -57,9 +56,7 @@ export async function Code({
 /** Raw console output printed by a code chunk. */
 export function Output({ children }: { children: string }) {
   return (
-    <pre className="my-4 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-[13px] leading-relaxed">
-      {children}
-    </pre>
+    <pre className="my-4 overflow-x-auto rounded-[4px] border bg-muted/40 p-4 text-[13px] leading-relaxed">{children}</pre>
   );
 }
 
@@ -100,9 +97,9 @@ export function RelatedCard({
   return (
     <a
       href={href}
-      className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center no-underline transition hover:border-brand/40 hover:shadow-md"
+      className="group flex flex-col items-center rounded-[4px] border bg-card p-5 text-center no-underline transition hover:border-brand/40 hover:shadow-md"
     >
-      <img src={image} alt={title} loading="lazy" className="size-20 object-contain" />
+      <img src={image} alt="" loading="lazy" className="size-20 object-contain" />
       <span className="mt-3 font-heading text-[17px] leading-snug font-bold text-foreground group-hover:text-brand">
         {title}
       </span>
@@ -111,20 +108,9 @@ export function RelatedCard({
   );
 }
 
-export function ButtonLink({
-  href,
-  className,
-  children,
-}: {
-  href: string;
-  className?: string;
-  children: ReactNode;
-}) {
+export function ButtonLink({ href, className, children }: { href: string; className?: string; children: ReactNode }) {
   return (
-    <a
-      href={href}
-      className={buttonClass("secondary", "md", className)}
-    >
+    <a href={href} className={buttonClass("secondary", "md", className)}>
       {children}
     </a>
   );

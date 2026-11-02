@@ -3,7 +3,6 @@
 import { useState, type MouseEvent } from "react";
 import { TREES } from "@/components/home/data/trees";
 import { useOpenChart } from "@/components/home/chart-dialog";
-import { cn } from "@/lib/utils";
 import { buttonClass } from "@/lib/button";
 
 type Tip = { text: string; image?: string; x: number; y: number };
@@ -36,6 +35,7 @@ export function DecisionTree() {
         {TREES.map((t) => (
           <button
             key={t.id}
+            id={`tree-tab-${t.id}`}
             role="tab"
             aria-selected={active === t.id}
             aria-controls={`tree-panel-${t.id}`}
@@ -52,6 +52,7 @@ export function DecisionTree() {
             key={t.id}
             id={`tree-panel-${t.id}`}
             role="tabpanel"
+            aria-labelledby={`tree-tab-${t.id}`}
             hidden={active !== t.id}
             className="mx-auto max-w-5xl animate-in fade-in duration-700 [&_a[data-chart]]:cursor-pointer [&_a[data-chart]_image]:transition-opacity [&_a[data-chart]:hover_image]:opacity-60"
             dangerouslySetInnerHTML={{ __html: t.svg }}
@@ -61,7 +62,7 @@ export function DecisionTree() {
       {tip && (
         <div
           role="tooltip"
-          className="pointer-events-none fixed z-50 w-72 rounded-lg border bg-popover p-3 text-sm text-popover-foreground shadow-xl"
+          className="pointer-events-none fixed z-50 w-72 rounded-[4px] border bg-popover p-3 text-sm text-popover-foreground shadow-xl"
           style={{
             left: Math.min(tip.x + 16, window.innerWidth - 300),
             top: Math.min(tip.y + 16, window.innerHeight - 260),

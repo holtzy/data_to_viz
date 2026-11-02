@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SITE_NAME, SITE_URL } from "@/lib/site";
+import { SITE_NAME } from "@/lib/site";
 
 type PageMetadataInput = {
   /** Public URL path, exactly as indexed by search engines, e.g. `/graph/barplot.html`. */
@@ -21,8 +21,6 @@ export function pageMetadata({ path, title, description, image }: PageMetadataIn
     description,
     alternates: { canonical: path },
     openGraph: { type: "article", url: path, siteName: SITE_NAME, title, description, images },
-    twitter: { card: "summary_large_image", title, description, images: image ? [image] : undefined },
+    twitter: { card: "summary", title, description, images: image ? [image] : undefined },
   };
 }
-
-export const absoluteUrl = (path: string) => new URL(path, SITE_URL).toString();

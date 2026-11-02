@@ -16,6 +16,7 @@ const linkClass =
  */
 export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -47,7 +48,7 @@ export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
               {NAV_CTA.label}
             </a>
           </div>
-          <Sheet>
+          <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
             <SheetTrigger className="rounded-md p-2 hover:bg-slate-100 md:hidden" aria-label="Open menu">
               <Menu className="size-5" />
             </SheetTrigger>
@@ -56,7 +57,7 @@ export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
               <ul className="flex flex-col gap-1 p-4">
                 {[...NAV_LINKS, NAV_CTA].map((l) => (
                   <li key={l.href}>
-                    <a href={l.href} className={cn(linkClass, "w-full")}>
+                    <a href={l.href} onClick={() => setMenuOpen(false)} className={cn(linkClass, "w-full")}>
                       {l.label}
                     </a>
                   </li>

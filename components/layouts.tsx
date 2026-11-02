@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { HashScroll } from "@/components/hash-scroll";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { NewsletterSection } from "@/components/newsletter";
@@ -9,6 +10,7 @@ import { buttonClass } from "@/lib/button";
 export function PageShell({ children, narrowHeader = false }: { children: ReactNode; narrowHeader?: boolean }) {
   return (
     <>
+      <HashScroll />
       <SiteHeader narrow={narrowHeader} />
       <main className="flex-1">{children}</main>
       <SiteFooter />

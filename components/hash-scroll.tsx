@@ -3,8 +3,8 @@
 import { useEffect } from "react";
 
 /**
- * Scrolls to `location.hash` once the page is hydrated. Arriving from another
- * page on `/#story` otherwise ends up at the top: the router resets the scroll
+ * Scrolls to `location.hash` once the page is hydrated. Arriving on
+ * `/#story` or `/graph/violin.html#related` otherwise ends up at the top: the router resets the scroll
  * after hydration, at a moment that varies. So the jump is re-applied a few
  * times during the first second, until the user scrolls themselves.
  */

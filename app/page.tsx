@@ -4,7 +4,6 @@ import { PageShell } from "@/components/layouts";
 import { KitForm } from "@/components/newsletter";
 import { ChartDialogProvider } from "@/components/home/chart-dialog";
 import { DecisionTree } from "@/components/home/decision-tree";
-import { HashScroll } from "@/components/home/hash-scroll";
 import { Portfolio } from "@/components/home/portfolio";
 import { PosterCarousel } from "@/components/home/poster-carousel";
 import { StoryMenus } from "@/components/home/story-menus";
@@ -98,7 +97,6 @@ export default function Home() {
   return (
     <PageShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
-      <HashScroll />
       <ChartDialogProvider>
         <div className="text-[19px] leading-7 text-slate-900">
           {/* Hero */}
@@ -212,7 +210,7 @@ export default function Home() {
                     <li key={c.href}>
                       <a
                         href={c.href}
-                        className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:border-brand hover:shadow-lg"
+                        className="group flex h-full flex-col items-center rounded-[4px] border bg-white p-5 text-center transition hover:border-brand hover:shadow-lg"
                       >
                         <img src={c.image} alt="" loading="lazy" className="size-28 object-contain" />
                         <h3 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">

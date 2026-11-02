@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   description:
     "From Data to Viz leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid.",
   authors: [{ name: "Yan Holtz", url: "https://www.yan-holtz.com" }, { name: "Conor Healy" }],
-  icons: { icon: "/img/logo/data-to-viz.ico" },
   openGraph: { siteName: SITE_NAME, type: "website", locale: "en_US" },
   twitter: { site: "@R_Graph_Gallery", creator: "@R_Graph_Gallery" },
 };
