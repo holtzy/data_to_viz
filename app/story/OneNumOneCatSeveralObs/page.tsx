@@ -68,13 +68,12 @@ data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>text</th>
                   <th className="text-right">value</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>We Doubt</td>
@@ -108,7 +107,7 @@ data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
                   <td>We Doubt</td>
                   <td className="text-right">10</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -328,51 +327,42 @@ data %>%
         </figure>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DensitySmall.png"
-          alt="Perception of probability – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/HistogramSmall.png"
-          alt="Perception of probability – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1Small.png"
-          alt="Perception of probability – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ViolinSmall.png"
-          alt="Perception of probability – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/JoyplotSmall.png"
-          alt="Perception of probability – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img
+            src="/img/section/DensitySmall.png"
+            alt="Density"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/histogram.html" title="Histogram">
+          <img
+            src="/img/section/HistogramSmall.png"
+            alt="Histogram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/violin.html" title="Violin">
+          <img src="/img/section/ViolinSmall.png" alt="Violin" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/ridgeline.html" title="Ridgeline plot">
+          <img
+            src="/img/section/JoyplotSmall.png"
+            alt="Ridgeline plot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

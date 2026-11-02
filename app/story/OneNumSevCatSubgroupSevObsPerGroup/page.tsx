@@ -61,7 +61,6 @@ data %>% head(6) %>% select(tip, sex, day, smoker) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">tip</th>
@@ -69,7 +68,7 @@ data %>% head(6) %>% select(tip, sex, day, smoker) %>% kable() %>%
                   <th>day</th>
                   <th>smoker</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">5.9</td>
@@ -107,7 +106,7 @@ data %>% head(6) %>% select(tip, sex, day, smoker) %>% kable() %>%
                   <td>Sun</td>
                   <td>No</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -245,43 +244,34 @@ data %>%
         </figure>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DensitySmall.png"
-          alt="How much do people tip? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1Small.png"
-          alt="How much do people tip? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ViolinSmall.png"
-          alt="How much do people tip? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/HistogramSmall.png"
-          alt="How much do people tip? – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img
+            src="/img/section/DensitySmall.png"
+            alt="Density"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/violin.html" title="Violin">
+          <img src="/img/section/ViolinSmall.png" alt="Violin" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/histogram.html" title="Histogram">
+          <img
+            src="/img/section/HistogramSmall.png"
+            alt="Histogram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

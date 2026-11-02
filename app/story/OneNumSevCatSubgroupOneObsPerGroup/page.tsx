@@ -55,14 +55,13 @@ data %>% head(6) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>Country</th>
                   <th className="text-right">TIME</th>
                   <th className="text-right">Value</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>Australia</td>
@@ -94,7 +93,7 @@ data %>% head(6) %>% kable() %>%
                   <td className="text-right">2005</td>
                   <td className="text-right">22.0</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -290,43 +289,39 @@ ggplotly(p, tooltip="text")`}</Code>
         />
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/BarSmall.png"
-          alt="The gender wage gap – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Parallel1Small.png"
-          alt="The gender wage gap – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/SpiderSmall.png"
-          alt="The gender wage gap – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ScatterPlotSmall.png"
-          alt="The gender wage gap – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/barplot.html" title="Barplot">
+          <img src="/img/section/BarSmall.png" alt="Barplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/parallel.html" title="Parallel coordinates">
+          <img
+            src="/img/section/Parallel1Small.png"
+            alt="Parallel coordinates"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/spider.html" title="Spider Chart">
+          <img
+            src="/img/section/SpiderSmall.png"
+            alt="Spider Chart"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/scatter.html" title="Scatter plot">
+          <img
+            src="/img/section/ScatterPlotSmall.png"
+            alt="Scatter plot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

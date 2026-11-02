@@ -55,13 +55,12 @@ data %>% head(6) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>Country</th>
                   <th className="text-right">Value</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>United States</td>
@@ -87,7 +86,7 @@ data %>% head(6) %>% kable() %>%
                   <td>China</td>
                   <td className="text-right">1131</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -319,51 +318,42 @@ ggraph(mygraph, layout = 'circlepack', weight=Value) +
         </figure>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Bar150.png"
-          alt="Who sells more weapons? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/CircularBarplot150.png"
-          alt="Who sells more weapons? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Lollipop150.png"
-          alt="Who sells more weapons? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Tree150.png"
-          alt="Who sells more weapons? – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/CircularPacking150.png"
-          alt="Who sells more weapons? – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/barplot.html" title="Barplot">
+          <img src="/img/section/Bar150.png" alt="Barplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/circularbarplot.html" title="Circular Barplot">
+          <img
+            src="/img/section/CircularBarplot150.png"
+            alt="Circular Barplot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/lollipop.html" title="Lollipop">
+          <img
+            src="/img/section/Lollipop150.png"
+            alt="Lollipop"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/treemap.html" title="Treemap">
+          <img src="/img/section/Tree150.png" alt="Treemap" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/circularpacking.html" title="Circular Packing">
+          <img
+            src="/img/section/CircularPacking150.png"
+            alt="Circular Packing"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

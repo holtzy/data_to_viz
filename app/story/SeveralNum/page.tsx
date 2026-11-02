@@ -55,7 +55,6 @@ data %>% head(6) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)`}</Code>
       <div className="overflow-x-auto">
         <table>
-          {" "}
           <thead>
             <tr>
               <th></th>
@@ -71,7 +70,7 @@ data %>% head(6) %>% kable() %>%
               <th className="text-right">gear</th>
               <th className="text-right">carb</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
               <td>Mazda RX4</td>
@@ -157,7 +156,7 @@ data %>% head(6) %>% kable() %>%
               <td className="text-right">3</td>
               <td className="text-right">1</td>
             </tr>
-          </tbody>{" "}
+          </tbody>
         </table>
       </div>
       <Section id="check-distribution" title="Check distribution">
@@ -327,59 +326,50 @@ myPCA$ind %>%
         </p>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DensitySmall.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1Small.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ViolinSmall.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/JoyplotSmall.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/HeatmapSmall.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DendrogramSmall.png"
-          alt="Eleven features for 32 cars – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img
+            src="/img/section/DensitySmall.png"
+            alt="Density"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/violin.html" title="Violin">
+          <img src="/img/section/ViolinSmall.png" alt="Violin" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/ridgeline.html" title="Ridgeline plot">
+          <img
+            src="/img/section/JoyplotSmall.png"
+            alt="Ridgeline plot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/heatmap.html" title="Heatmap">
+          <img
+            src="/img/section/HeatmapSmall.png"
+            alt="Heatmap"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/dendrogram.html" title="Dendrogram">
+          <img
+            src="/img/section/DendrogramSmall.png"
+            alt="Dendrogram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

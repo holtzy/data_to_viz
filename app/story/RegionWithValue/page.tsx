@@ -50,12 +50,11 @@ data %>% head(6) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">price</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">75</td>
@@ -75,7 +74,7 @@ data %>% head(6) %>% kable() %>%
                 <tr>
                   <td className="text-right">64</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -83,27 +82,23 @@ data %>% head(6) %>% kable() %>%
       <p>#Histogram ***</p>
       <p>The mos</p>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DensitySmall.png"
-          alt="Visualizing a unique Numeric variable – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1Small.png"
-          alt="Visualizing a unique Numeric variable – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img
+            src="/img/section/DensitySmall.png"
+            alt="Density"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

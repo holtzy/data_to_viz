@@ -37,7 +37,7 @@ export function ChartDialogProvider({ children }: { children: ReactNode }) {
               </DialogTitle>
               <DialogDescription className="mt-2 text-base">{chart.intro}</DialogDescription>
             </div>
-            <a href={chart.href} className={buttonClass("primary", "lg", "w-full")}>
+            <a href={chart.href} className={buttonClass("primary", "md", "justify-self-center")}>
               Read the full {chart.title.toLowerCase()} page
             </a>
             <div className="prose prose-neutral max-w-none text-[15px] prose-headings:font-heading prose-h3:mt-6 prose-a:font-normal prose-a:text-slate-900 prose-a:decoration-slate-400 prose-a:decoration-1 prose-a:underline-offset-3 hover:prose-a:decoration-slate-900">

@@ -292,7 +292,7 @@ function convertPage(section, slug) {
       const align = (el.attr("style") ?? "").match(/text-align:\s*(left|right|center)/)?.[1];
       return `<${tag}${align && align !== "left" ? ` className="text-${align}"` : ""}>${kids(node).trim()}</${tag}>`;
     }
-    if (tag === "table") return `\n<div className="overflow-x-auto"><table>${kids(node)}</table></div>\n`;
+    if (tag === "table") return `\n<div className="overflow-x-auto"><table>${$(node).children().toArray().map(conv).join("")}</table></div>\n`;
     if (["thead", "tbody", "tr"].includes(tag)) return `<${tag}>${$(node).children().toArray().map(conv).join("")}</${tag}>`;
     if (["h1", "h2", "h3", "h4", "h5"].includes(tag)) {
       const lvl = Math.min(4, Math.max(2, +tag[1] + 1));

@@ -158,7 +158,6 @@ tmp %>% kable() %>%
 
             <div className="overflow-x-auto">
               <table>
-                {" "}
                 <thead>
                   <tr>
                     <th></th>
@@ -166,7 +165,7 @@ tmp %>% kable() %>%
                     <th>Cairo</th>
                     <th>Caracas</th>
                   </tr>
-                </thead>{" "}
+                </thead>
                 <tbody>
                   <tr>
                     <td>1</td>
@@ -201,7 +200,7 @@ tmp %>% kable() %>%
                       </ul>
                     </td>
                   </tr>
-                </tbody>{" "}
+                </tbody>
               </table>
             </div>
           </div>{" "}

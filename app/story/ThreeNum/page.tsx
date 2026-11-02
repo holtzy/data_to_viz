@@ -57,7 +57,6 @@ data %>% head(6) %>%
   kable_styling(bootstrap_options = "striped", full_width = F)`}</Code>
       <div className="overflow-x-auto">
         <table>
-          {" "}
           <thead>
             <tr>
               <th>country</th>
@@ -66,7 +65,7 @@ data %>% head(6) %>%
               <th className="text-right">pop</th>
               <th className="text-right">gdpPercap</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
               <td>Afghanistan</td>
@@ -110,7 +109,7 @@ data %>% head(6) %>%
               <td className="text-right">20.43</td>
               <td className="text-right">34435</td>
             </tr>
-          </tbody>{" "}
+          </tbody>
         </table>
       </div>
       <Section id="bubble-plot" title="Bubble plot">
@@ -276,14 +275,13 @@ don %>% head(6) %>% kable() %>%
 
             <div className="overflow-x-auto">
               <table>
-                {" "}
                 <thead>
                   <tr>
                     <th className="text-right">lat</th>
                     <th>long</th>
                     <th className="text-right">altitude</th>
                   </tr>
-                </thead>{" "}
+                </thead>
                 <tbody>
                   <tr>
                     <td className="text-right">1</td>
@@ -315,7 +313,7 @@ don %>% head(6) %>% kable() %>%
                     <td>1</td>
                     <td className="text-right">105</td>
                   </tr>
-                </tbody>{" "}
+                </tbody>
               </table>
             </div>
           </div>{" "}
@@ -351,43 +349,29 @@ don %>% head(6) %>% kable() %>%
         <Widget src="/widgets/story/ThreeNum-2.html" height={480} width={672} />
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Density150.png"
-          alt="Life expectancy, gdp per capita and population size – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1150.png"
-          alt="Life expectancy, gdp per capita and population size – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/BubblePlot150.png"
-          alt="Life expectancy, gdp per capita and population size – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/3d150.png"
-          alt="Life expectancy, gdp per capita and population size – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img src="/img/section/Density150.png" alt="Density" loading="lazy" className="size-24" />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1150.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/bubble.html" title="Bubble plot">
+          <img
+            src="/img/section/BubblePlot150.png"
+            alt="Bubble plot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/3d.html" title="3D">
+          <img src="/img/section/3d150.png" alt="3D" loading="lazy" className="size-24" />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

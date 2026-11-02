@@ -56,14 +56,13 @@ data %>% head(3) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">homelat</th>
                   <th className="text-right">homelon</th>
                   <th>homecontinent</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">18.28548</td>
@@ -80,7 +79,7 @@ data %>% head(3) %>% kable() %>%
                   <td className="text-right">-99.27186</td>
                   <td>South America</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -210,35 +209,36 @@ ggplot(data, aes(x=homelon, y=homelat)) +
         </p>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Choropleth150.png"
-          alt="Visualizing a set of geographic coordinates – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/MapHexbin150.png"
-          alt="Visualizing a set of geographic coordinates – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Cartogram150.png"
-          alt="Visualizing a set of geographic coordinates – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/choropleth.html" title="Choropleth map">
+          <img
+            src="/img/section/Choropleth150.png"
+            alt="Choropleth map"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/hexbinmap.html" title="Hexbin Map">
+          <img
+            src="/img/section/MapHexbin150.png"
+            alt="Hexbin Map"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/cartogram.html" title="Cartogram">
+          <img
+            src="/img/section/Cartogram150.png"
+            alt="Cartogram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

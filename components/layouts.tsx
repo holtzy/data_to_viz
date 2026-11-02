@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { NewsletterSection } from "@/components/newsletter";
+import { TitleUnderline } from "@/components/title-underline";
 import { buttonClass } from "@/lib/button";
 
 /** Navigation + footer around any page. */
@@ -45,7 +46,7 @@ function PageHeader({
           </div>
         )}
       </div>
-      <hr className="mt-4 w-24 border-t-2 border-brand/60" />
+      <TitleUnderline className="mt-3" />
       {anchors && (
         <nav aria-label="On this page" className="mt-5 flex flex-wrap gap-2">
           {anchors.map((a) => (

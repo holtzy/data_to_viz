@@ -57,13 +57,12 @@ data %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>date</th>
                   <th className="text-right">value</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>2013-04-28</td>
@@ -85,7 +84,7 @@ data %>%
                   <td>2013-05-02</td>
                   <td className="text-right">125.60</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -225,35 +224,26 @@ ggplotly(p)`}</Code>
         of <code>geom_ribbon</code>)
       </p>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Line150.png"
-          alt="Evolution of the bitcoin price – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Area150.png"
-          alt="Evolution of the bitcoin price – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ScatterConnected150.png"
-          alt="Evolution of the bitcoin price – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/line.html" title="Line chart">
+          <img src="/img/section/Line150.png" alt="Line chart" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/area.html" title="Area chart">
+          <img src="/img/section/Area150.png" alt="Area chart" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/connectedscatter.html" title="Connected Scatter">
+          <img
+            src="/img/section/ScatterConnected150.png"
+            alt="Connected Scatter"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

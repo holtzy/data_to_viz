@@ -62,14 +62,13 @@ data %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">year</th>
                   <th>name</th>
                   <th className="text-right">n</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">1880</td>
@@ -96,7 +95,7 @@ data %>%
                   <td>Linda</td>
                   <td className="text-right">27</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -121,7 +120,6 @@ wide %>%
 
         <div className="overflow-x-auto">
           <table>
-            {" "}
             <thead>
               <tr>
                 <th className="text-right">year</th>
@@ -130,7 +128,7 @@ wide %>%
                 <th className="text-right">Betty</th>
                 <th className="text-right">Deborah</th>
               </tr>
-            </thead>{" "}
+            </thead>
             <tbody>
               <tr>
                 <td className="text-right">1880</td>
@@ -153,7 +151,7 @@ wide %>%
                 <td className="text-right">123</td>
                 <td className="text-right">15</td>
               </tr>
-            </tbody>{" "}
+            </tbody>
           </table>
         </div>
       </Section>
@@ -342,43 +340,34 @@ ggplot(data, aes(x=PC1, y=PC2)) +
         </figure>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Line150.png"
-          alt="Evolution of baby names in the US – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Area150.png"
-          alt="Evolution of baby names in the US – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/StackedArea150.png"
-          alt="Evolution of baby names in the US – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Stream150.png"
-          alt="Evolution of baby names in the US – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/line.html" title="Line chart">
+          <img src="/img/section/Line150.png" alt="Line chart" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/area.html" title="Area chart">
+          <img src="/img/section/Area150.png" alt="Area chart" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/stackedarea.html" title="Stacked Area">
+          <img
+            src="/img/section/StackedArea150.png"
+            alt="Stacked Area"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/streamgraph.html" title="Streamgraph">
+          <img
+            src="/img/section/Stream150.png"
+            alt="Streamgraph"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

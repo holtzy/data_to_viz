@@ -64,12 +64,11 @@ c <- data %>% filter(artist=="georges-brassens") %>% select(word) %>% arrange(wo
         <div className="md:col-span-2">
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>booba</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>pâtes</td>
@@ -89,19 +88,18 @@ c <- data %>% filter(artist=="georges-brassens") %>% select(word) %>% arrange(wo
                 <tr>
                   <td>complete</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
         <div className="md:col-span-2">
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>nekfeu</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>temps</td>
@@ -121,19 +119,18 @@ c <- data %>% filter(artist=="georges-brassens") %>% select(word) %>% arrange(wo
                 <tr>
                   <td>valeurs</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
         <div className="md:col-span-2">
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th>brassens</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td>demande</td>
@@ -153,7 +150,7 @@ c <- data %>% filter(artist=="georges-brassens") %>% select(word) %>% arrange(wo
                 <tr>
                   <td>vague</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -287,35 +284,36 @@ venn.diagram(
         </ul>
       </Section>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/VennSmall.png"
-          alt="Comparing raper lyrics – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/LollipopSmall.png"
-          alt="Comparing raper lyrics – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/WordCloudSmall.png"
-          alt="Comparing raper lyrics – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/venn.html" title="Venn diagram">
+          <img
+            src="/img/section/VennSmall.png"
+            alt="Venn diagram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/lollipop.html" title="Lollipop">
+          <img
+            src="/img/section/LollipopSmall.png"
+            alt="Lollipop"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/wordcloud.html" title="Wordcloud">
+          <img
+            src="/img/section/WordCloudSmall.png"
+            alt="Wordcloud"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

@@ -280,3 +280,66 @@ html {
     border-color: #f1f5f9;
   }
 }
+
+/* "Story" buttons inside the decision tree SVGs (secondary button look). */
+.tree-story rect {
+  fill: #f1f5f9;
+  transition: fill 150ms;
+}
+.tree-story:hover rect {
+  fill: #e2e8f0;
+}
+.tree-story text {
+  fill: #475569;
+  font-family: var(--font-roboto), ui-sans-serif, system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 300;
+  transition: fill 150ms;
+}
+.tree-story:hover text {
+  fill: #0f172a;
+}
+
+/* Animated underline below page titles (components/title-underline.tsx):
+ * draw in left to right, split into a staggered wave, merge back. */
+.title-underline {
+  animation: title-underline-draw 600ms cubic-bezier(0.65, 0, 0.35, 1) both;
+}
+.title-underline > span {
+  animation: title-underline-wave 1100ms ease-in-out both;
+  animation-delay: calc(700ms + var(--i) * 45ms);
+}
+@keyframes title-underline-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes title-underline-wave {
+  0% {
+    transform: translateY(0) scaleX(1);
+  }
+  12% {
+    transform: translateY(0) scaleX(0.5);
+  }
+  35% {
+    transform: translateY(-6px) scaleX(0.5);
+  }
+  60% {
+    transform: translateY(4px) scaleX(0.5);
+  }
+  82% {
+    transform: translateY(0) scaleX(0.5);
+  }
+  100% {
+    transform: translateY(0) scaleX(1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-underline,
+  .title-underline > span {
+    animation: none;
+  }
+}

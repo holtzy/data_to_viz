@@ -50,12 +50,11 @@ data %>% head(6) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">price</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">75</td>
@@ -75,7 +74,7 @@ data %>% head(6) %>% kable() %>%
                 <tr>
                   <td className="text-right">64</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}

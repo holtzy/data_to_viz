@@ -47,7 +47,6 @@ data %>% head(5) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">lat</th>
@@ -55,7 +54,7 @@ data %>% head(5) %>% kable() %>%
                   <th className="text-right">pop</th>
                   <th>name</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">51.65</td>
@@ -87,7 +86,7 @@ data %>% head(5) %>% kable() %>%
                   <td className="text-right">17819</td>
                   <td>Abergele</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -146,20 +145,20 @@ p <- ggplotly(p, tooltip="text")`}</Code>
 
       <h2>Going further</h2>
 
-      <hr />
-
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/BubbleMap150.png"
-          alt="The biggest UK cities – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/bubblemap.html" title="Bubble maps">
+          <img
+            src="/img/section/BubbleMap150.png"
+            alt="Bubble maps"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

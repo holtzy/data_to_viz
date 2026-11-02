@@ -57,7 +57,6 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)`}</Code>
       <div className="overflow-x-auto">
         <table>
-          {" "}
           <thead>
             <tr>
               <th></th>
@@ -65,7 +64,7 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
               <th className="text-right">East.Asia</th>
               <th className="text-right">Europe</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
               <td>Africa</td>
@@ -85,7 +84,7 @@ data %>% head(3) %>% select(1:3) %>% kable() %>%
               <td className="text-right">0.000000</td>
               <td className="text-right">2.401476</td>
             </tr>
-          </tbody>{" "}
+          </tbody>
         </table>
       </div>
       <ul>
@@ -110,7 +109,6 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
   kable_styling(bootstrap_options = "striped", full_width = F)`}</Code>
       <div className="overflow-x-auto">
         <table>
-          {" "}
           <thead>
             <tr>
               <th>from</th>
@@ -118,7 +116,7 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
               <th className="text-right">A.Besnard</th>
               <th className="text-right">A.Breil</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
               <td>A Armero</td>
@@ -138,7 +136,7 @@ dataUU %>% head(3) %>% select(1:4) %>% kable() %>%
               <td className="text-right">NA</td>
               <td className="text-right">NA</td>
             </tr>
-          </tbody>{" "}
+          </tbody>
         </table>
       </div>
       <ul>
@@ -589,51 +587,37 @@ ggraph(mygraph, layout="linear") +
         </figure>
       </div>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Arc150.png"
-          alt="Researchers network and migration flows – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Network150.png"
-          alt="Researchers network and migration flows – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Heatmap150.png"
-          alt="Researchers network and migration flows – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Sankey150.png"
-          alt="Researchers network and migration flows – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Chord150.png"
-          alt="Researchers network and migration flows – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/arc.html" title="Arc diagram">
+          <img src="/img/section/Arc150.png" alt="Arc diagram" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/network.html" title="Network">
+          <img src="/img/section/Network150.png" alt="Network" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/heatmap.html" title="Heatmap">
+          <img src="/img/section/Heatmap150.png" alt="Heatmap" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/sankey.html" title="Sankey diagram">
+          <img
+            src="/img/section/Sankey150.png"
+            alt="Sankey diagram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/chord.html" title="Chord diagram">
+          <img
+            src="/img/section/Chord150.png"
+            alt="Chord diagram"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

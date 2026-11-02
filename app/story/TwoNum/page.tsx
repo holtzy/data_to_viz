@@ -58,13 +58,12 @@ data %>% head(6) %>% kable() %>%
 
           <div className="overflow-x-auto">
             <table>
-              {" "}
               <thead>
                 <tr>
                   <th className="text-right">GrLivArea</th>
                   <th className="text-right">SalePrice</th>
                 </tr>
-              </thead>{" "}
+              </thead>
               <tbody>
                 <tr>
                   <td className="text-right">1710</td>
@@ -90,7 +89,7 @@ data %>% head(6) %>% kable() %>%
                   <td className="text-right">1362</td>
                   <td className="text-right">143000</td>
                 </tr>
-              </tbody>{" "}
+              </tbody>
             </table>
           </div>
         </div>{" "}
@@ -312,43 +311,39 @@ p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 2)`}</Code>
         />
       </figure>
       <h2>Going further</h2>
-      <hr />
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/DensitySmall.png"
-          alt="Apartment price vs ground living area. – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/Box1Small.png"
-          alt="Apartment price vs ground living area. – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ScatterPlotSmall.png"
-          alt="Apartment price vs ground living area. – chart example"
-          loading="lazy"
-        />
-      </a>{" "}
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/2dDensitySmall.png"
-          alt="Apartment price vs ground living area. – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/graph/density.html" title="Density">
+          <img
+            src="/img/section/DensitySmall.png"
+            alt="Density"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/caveat/boxplot.html" title="Boxplot">
+          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
+        </a>
+        <a href="/graph/scatter.html" title="Scatter plot">
+          <img
+            src="/img/section/ScatterPlotSmall.png"
+            alt="Scatter plot"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+        <a href="/graph/density2d.html" title="Density 2d">
+          <img
+            src="/img/section/2dDensitySmall.png"
+            alt="Density 2d"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }

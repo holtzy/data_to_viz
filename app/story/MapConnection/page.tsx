@@ -68,7 +68,6 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
 
       <div className="overflow-x-auto">
         <table>
-          {" "}
           <thead>
             <tr>
               <th></th>
@@ -79,7 +78,7 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
               <th className="text-right">travellat</th>
               <th className="text-right">travellon</th>
             </tr>
-          </thead>{" "}
+          </thead>
           <tbody>
             <tr>
               <td>9507</td>
@@ -126,7 +125,7 @@ tmp %>% kable() %>% kable_styling(bootstrap_options = "striped", full_width = F)
               <td className="text-right">-8.7</td>
               <td className="text-right">115.2</td>
             </tr>
-          </tbody>{" "}
+          </tbody>
         </table>
       </div>
 
@@ -298,20 +297,20 @@ ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 
 
       <h2>Going further</h2>
 
-      <hr />
-
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <a href="/#portfolio">
-        {" "}
-        <img
-          src="/img/section/ConnectedMapSmall.png"
-          alt="Visualizing geographic connections – chart example"
-          loading="lazy"
-        />
-      </a>
+      <div className="flex flex-wrap justify-center gap-3">
+        <a href="/story/MapConnection.html" title="Connection map">
+          <img
+            src="/img/section/ConnectedMapSmall.png"
+            alt="Connection map"
+            loading="lazy"
+            className="size-24"
+          />
+        </a>
+      </div>
     </StoryLayout>
   );
 }
