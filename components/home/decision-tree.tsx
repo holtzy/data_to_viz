@@ -71,7 +71,7 @@ export function DecisionTree() {
             Your data look like
           </p>
           <p className="mt-1">{tip.text}</p>
-          {tip.image && <img src={tip.image} alt="" className="mt-2 max-h-40 w-full object-contain" />}
+          {tip.image && <img src={tip.image} alt="" className="mt-3 max-h-40 w-full object-contain object-left" />}
         </div>
       )}
     </div>
