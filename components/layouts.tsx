@@ -43,7 +43,15 @@ function PageHeader({
         {images.length > 0 && (
           <div className="flex shrink-0 gap-1">
             {images.slice(0, 3).map((src) => (
-              <img key={src} src={src} alt="" className="size-20 object-contain sm:size-28" />
+              <img
+                key={src}
+                src={src}
+                alt=""
+                // One icon can be large; several (data stories) stay small so the title keeps its room.
+                className={
+                  images.length > 1 ? "size-12 object-contain sm:size-16" : "size-20 object-contain sm:size-28"
+                }
+              />
             ))}
           </div>
         )}
