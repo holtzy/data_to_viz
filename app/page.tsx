@@ -144,7 +144,7 @@ export default function Home() {
           </HomeSection>
 
           {/* Data stories */}
-          <HomeSection id="story" className="relative overflow-hidden border-t">
+          <HomeSection id="story" className="relative border-t">
             <div
               aria-hidden
               className="absolute inset-0 bg-[url('/img/parallax/story_fading.png')] bg-cover bg-fixed bg-center opacity-60"
