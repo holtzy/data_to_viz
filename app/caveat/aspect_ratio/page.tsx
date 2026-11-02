@@ -158,7 +158,7 @@ ggplotly(p)`}</Code>
 
         <Widget src="/widgets/caveat/aspect_ratio-1.html" height={576} width={864} />
 
-        <p>#Going further ***</p>
+        <h2 id="going-further">Going further</h2>
         <ul>
           {" "}
           <li>

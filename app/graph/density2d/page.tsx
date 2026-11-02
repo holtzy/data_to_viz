@@ -1,13 +1,5 @@
 import { GraphLayout } from "@/components/layouts";
-import {
-  ButtonLink,
-  Code,
-  Output,
-  RelatedCard,
-  RelatedGrid,
-  Section,
-  Widget,
-} from "@/components/content";
+import { ButtonLink, Code, RelatedCard, RelatedGrid, Section, Widget } from "@/components/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -92,8 +84,6 @@ axes[4].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.
 axes[5].set_title('Contour')
 axes[5].pcolormesh(xi, yi, zi.reshape(xi.shape), shading='gouraud', cmap=plt.cm.BuGn_r)
 axes[5].contour(xi, yi, zi.reshape(xi.shape) )`}</Code>
-
-      <Output>{`## <matplotlib.contour.QuadContourSet object at 0x16502df10>`}</Output>
 
       <Code lang="python">{`# save
 plt.savefig("IMG/density2d.png")

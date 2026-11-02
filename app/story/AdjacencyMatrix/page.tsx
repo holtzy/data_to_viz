@@ -1,5 +1,5 @@
 import { StoryLayout } from "@/components/layouts";
-import { Code, Output, Section, Widget } from "@/components/content";
+import { Code, Section, Widget } from "@/components/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -233,17 +233,6 @@ circos.trackPlotRegion(
       labels.niceFacing = FALSE)
   }
 )`}</Code>
-
-        <Output>{`## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.
-## \`major.tick.percentage\` is not used any more, please directly use argument \`major.tick.length\`.`}</Output>
 
         <p>
           <img

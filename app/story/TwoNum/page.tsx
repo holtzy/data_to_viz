@@ -1,5 +1,5 @@
 import { StoryLayout } from "@/components/layouts";
-import { Code, Output, Widget } from "@/components/content";
+import { Code, Widget } from "@/components/content";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -94,11 +94,12 @@ data %>% head(6) %>% kable() %>%
           </div>
         </div>{" "}
       </div>
+      <h2 id="distribution">Distribution</h2>
       <p>
-        #Distribution *** As usual when working with numeric variables, it is always a good practice
-        to check their distributions. Here Prices and Ground living areas are on two different
-        scales so it makes sense to study them in two different graphics. This can be done using a
-        histogram or a density plot.
+        As usual when working with numeric variables, it is always a good practice to check their
+        distributions. Here Prices and Ground living areas are on two different scales so it makes
+        sense to study them in two different graphics. This can be done using a histogram or a
+        density plot.
       </p>
       <Code lang="r">{`p1 <- data %>%
   ggplot( aes(x=GrLivArea)) +
@@ -132,10 +133,11 @@ p1 + p2`}</Code>
         This allows to understand that most of the prices range between 100 and 300 k$ with extreme
         values reaching 750 k$.
       </p>
+      <h2 id="scatterplot">Scatterplot</h2>
       <p>
-        #Scatterplot *** The next step is to study the relationship between the 2 variables.
-        Basically to explore if there is a correlation between sale price and living area. The first
-        chart type to try in this case is the scatterplot.
+        The next step is to study the relationship between the 2 variables. Basically to explore if
+        there is a correlation between sale price and living area. The first chart type to try in
+        this case is the scatterplot.
       </p>
       <Code lang="r">{`data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice/1000)) +
@@ -156,10 +158,10 @@ p1 + p2`}</Code>
         />{" "}
         It is quite obvious that there is a relationship between prices and ground living area.
       </p>
+      <h2 id="improving-the-scatter-plot">Improving the scatter plot</h2>
       <p>
-        #Improving the scatter plot {"{"}.tabset{"}"} *** The previous graphic convey most of the
-        information efficiently. Still, there are a few customizations that can be done to make the
-        chart even more insightful:
+        The previous graphic convey most of the information efficiently. Still, there are a few
+        customizations that can be done to make the chart even more insightful:
       </p>
       <ul>
         {" "}
@@ -175,9 +177,10 @@ p1 + p2`}</Code>
           Add <code>marginal distribution</code>
         </li>{" "}
       </ul>
+      <h3 id="trend">Trend</h3>
       <p>
-        ##Trend Help the reader seing the trend on the chart by showing it explicitely. Several
-        models exist to show a trend. A{" "}
+        Help the reader seing the trend on the chart by showing it explicitely. Several models exist
+        to show a trend. A{" "}
         <a href="https://en.wikipedia.org/wiki/Linear_regression">linear regression</a> is used on
         the left plot, and a{" "}
         <a href="https://en.wikipedia.org/wiki/Local_regression">local regression</a> is used on the
@@ -195,17 +198,10 @@ p1 + p2`}</Code>
 
 p1 <- p + ggtitle("Linear regression") +
     geom_smooth(method='lm', color="black", alpha=0.8, size=0.5, fill="skyblue", se=FALSE)`}</Code>
-      <Output>{`## Warning: Using \`size\` aesthetic for lines was deprecated in ggplot2 3.4.0.
-## ℹ Please use \`linewidth\` instead.
-## This warning is displayed once every 8 hours.
-## Call \`lifecycle::last_lifecycle_warnings()\` to see where this warning was
-## generated.`}</Output>
       <Code lang="r">{`p2 <- p + ggtitle("Loess") +
     geom_smooth(method='loess', color="black", alpha=0.8, size=0.5, fill="skyblue")
 
 p1 + p2`}</Code>
-      <Output>{`## \`geom_smooth()\` using formula = 'y ~ x'
-## \`geom_smooth()\` using formula = 'y ~ x'`}</Output>
       <figure>
         <img
           src="/figures/story/TwoNum/3.webp"
@@ -213,10 +209,11 @@ p1 + p2`}</Code>
           loading="lazy"
         />
       </figure>
+      <h3 id="interactivity">Interactivity</h3>
       <p>
-        ##Interactivity Scatter plot is probably the chart type for which it makes the most sense to
-        use interactivity. For instance, it allows to hover a dot to have more information about it.
-        It allows to zoom on a specific part of the chart as well.
+        Scatter plot is probably the chart type for which it makes the most sense to use
+        interactivity. For instance, it allows to hover a dot to have more information about it. It
+        allows to zoom on a specific part of the chart as well.
       </p>
       <Code lang="r">{`# Plotly allows to turn any ggplot2 graphic interactive
 library(plotly)
@@ -235,9 +232,10 @@ p <- data %>%
 
 ggplotly(p, tooltip="text")`}</Code>
       <Widget src="/widgets/story/TwoNum-1.html" height={480} width={672} />
+      <h3 id="marginal-distribution">Marginal distribution</h3>
       <p>
-        ##Marginal distribution If the number of data points on the scatterplot is high, it is a
-        good practice to display the marginal distributions arount the graphic.
+        If the number of data points on the scatterplot is high, it is a good practice to display
+        the marginal distributions arount the graphic.
       </p>
       <Code lang="r">{`data %>%
   ggplot( aes(x=GrLivArea, y=SalePrice)) +
@@ -251,11 +249,12 @@ ggplotly(p, tooltip="text")`}</Code>
         />
       </figure>
       <Code lang="r">{`    #ggMarginal(type="histogram")`}</Code>
+      <h2 id="overplotting">Overplotting</h2>
       <p>
-        #Overplotting *** The most common pitfall with scatterplot is overplotting: when the sample
-        size gets big, dots are plotted on top of each other what makes the chart unreadable. There
-        are several work around to avoid this issue as describe in this specific post. Here is a
-        summary of the different offered techniques:
+        The most common pitfall with scatterplot is overplotting: when the sample size gets big,
+        dots are plotted on top of each other what makes the chart unreadable. There are several
+        work around to avoid this issue as describe in this specific post. Here is a summary of the
+        different offered techniques:
       </p>
       <Code lang="r">{`# code for all graphics:
 p <- data %>%

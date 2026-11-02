@@ -79,8 +79,6 @@ data %>% head(6) %>% kable() %>%
           </div>
         </div>{" "}
       </div>
-      <p>#Histogram ***</p>
-      <p>The mos</p>
       <h2>Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated

@@ -89,10 +89,11 @@ data %>%
           </div>
         </div>{" "}
       </div>
+      <h2 id="line-plot">Line plot</h2>
       <p>
-        #Line plot *** The most comon way to represent that kind of dataset is probably to produce a
-        line plot. It allows to give a good overview of the bitcoin price on the period, reaching a
-        value of 20,000 $ in december 2017.
+        The most comon way to represent that kind of dataset is probably to produce a line plot. It
+        allows to give a good overview of the bitcoin price on the period, reaching a value of
+        20,000 $ in december 2017.
       </p>
       <Code lang="r">{`data %>%
   ggplot( aes(x=date, y=value)) +
@@ -108,11 +109,12 @@ data %>%
           loading="lazy"
         />
       </figure>
+      <h2 id="area-chart">Area chart</h2>
       <p>
-        #Area chart *** Even if the line chart is a very good way to convey the information, when
-        only one variable is represented like here, the plot can appear to be slightly empty. Thus,
-        an interesting alternative is the area chart. It is basically the same thing, except that
-        the area between the X axis and the line is filled.
+        Even if the line chart is a very good way to convey the information, when only one variable
+        is represented like here, the plot can appear to be slightly empty. Thus, an interesting
+        alternative is the area chart. It is basically the same thing, except that the area between
+        the X axis and the line is filled.
       </p>
       <Code lang="r">{`data %>%
   ggplot( aes(x=date, y=value)) +
@@ -133,12 +135,12 @@ data %>%
         Note that using the same color for the filled area and the line is often a good looking
         choice, with a bit more transparency for the filled area.
       </p>
+      <h2 id="interactivity">Interactivity</h2>
       <p>
-        #Interactivity *** Using interactivity gives a great added value to your line or area chart.
-        Indeed, it is very useful to ba able to zoom on a specific time slot of interest on the
-        graphic. For instance, have a look to what happened in 2014: bitcoin already experienced a
-        huge evolution, comparable to 2017 in terme of relative evolution, but not mediatised at
-        all.
+        Using interactivity gives a great added value to your line or area chart. Indeed, it is very
+        useful to ba able to zoom on a specific time slot of interest on the graphic. For instance,
+        have a look to what happened in 2014: bitcoin already experienced a huge evolution,
+        comparable to 2017 in terme of relative evolution, but not mediatised at all.
       </p>
       <Code lang="r">{`p <- data %>%
   ggplot( aes(x=date, y=value)) +
@@ -149,11 +151,12 @@ data %>%
     theme_ipsum()
 ggplotly(p)`}</Code>
       <Widget src="/widgets/story/TwoNumOrdered-1.html" height={480} width={960} />
+      <h2 id="few-points-use-connected-scatter">Few points? Use connected scatter</h2>
       <p>
-        #Few points? Use connected scatter *** If you have just a few point in your dataset, you
-        probably want to use a connected scatterplot instead. it is basically the same thing where
-        each individual point is represented. It greatly helps to understand when observation have
-        been made. Let’s consider the last 10 observation of the bitcoin dataset:
+        If you have just a few point in your dataset, you probably want to use a connected
+        scatterplot instead. it is basically the same thing where each individual point is
+        represented. It greatly helps to understand when observation have been made. Let’s consider
+        the last 10 observation of the bitcoin dataset:
       </p>
       <Code lang="r">{`data %>%
   tail(10) %>%
@@ -172,12 +175,13 @@ ggplotly(p)`}</Code>
           loading="lazy"
         />
       </figure>
+      <h2 id="to-cut-or-not-to-cut">To cut or not to cut?</h2>
       <p>
-        #To cut or not to cut? *** The previous chart can be a bit frustrating. It is indeed hard to
-        study the evolution of the bitcoin in this graphic since the price ranges between 7,500 and
-        10,000 dollars in this period, when the Y axis ranges between 0 and 10,000. In this case, it
-        is a good practice to cut the Y axis to zoom on the variation. This subject is subject to
-        many debates in the dataviz community and you can read more about it in the dedicated page.
+        The previous chart can be a bit frustrating. It is indeed hard to study the evolution of the
+        bitcoin in this graphic since the price ranges between 7,500 and 10,000 dollars in this
+        period, when the Y axis ranges between 0 and 10,000. In this case, it is a good practice to
+        cut the Y axis to zoom on the variation. This subject is subject to many debates in the
+        dataviz community and you can read more about it in the dedicated page.
       </p>
       <Code lang="r">{`data %>%
   tail(10) %>%
@@ -196,10 +200,11 @@ ggplotly(p)`}</Code>
           loading="lazy"
         />
       </figure>
+      <h2 id="comparing-to-a-limit">Comparing to a limit</h2>
       <p>
-        #Comparing to a limit *** Sometimes one can be interested in comparing the value to a
-        specific threshold. In this case, you can fill the area depending on this threshold, with 2
-        different colors depending if the value is over or below the threshold:
+        Sometimes one can be interested in comparing the value to a specific threshold. In this
+        case, you can fill the area depending on this threshold, with 2 different colors depending
+        if the value is over or below the threshold:
       </p>
       <Code lang="r">{`data %>%
   tail(300) %>%

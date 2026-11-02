@@ -80,8 +80,6 @@ data %>% head(6) %>% kable() %>%
         </div>{" "}
       </div>
 
-      <p>#Histogram ***</p>
-
       <p>
         A work by <a href="https://github.com/holtzy/">Yan Holtz</a> for{" "}
         <a href="/">data-to-viz.com</a>
