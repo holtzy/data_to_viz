@@ -14,45 +14,47 @@ const GALLERIES = [
 export function SiteFooter() {
   return (
     <footer className="border-t bg-background py-10 text-sm text-muted-foreground">
-      <div className="mx-auto grid max-w-5xl gap-8 px-4 sm:grid-cols-3">
-        <div>
-          <a href="/">
-            <img src="/img/logo/typo.png" alt="from Data to Viz" className="h-7 w-auto" />
-          </a>
-          <p className="mt-3">
-            A work by{" "}
-            <a href="https://www.yan-holtz.com/" className="link">
-              Yan Holtz
-            </a>{" "}
-            and Conor Healy.
-          </p>
+      <div className="wrapper">
+        <div className="grid gap-8 sm:grid-cols-3">
+          <div>
+            <a href="/">
+              <img src="/img/logo/typo.png" alt="from Data to Viz" className="h-7 w-auto" />
+            </a>
+            <p className="mt-3">
+              A work by{" "}
+              <a href="https://www.yan-holtz.com/" className="link">
+                Yan Holtz
+              </a>{" "}
+              and Conor Healy.
+            </p>
+          </div>
+          <nav aria-label="Graph galleries">
+            <p className="font-heading text-base font-bold tracking-[0.03em] text-slate-900">Build it</p>
+            <ul className="mt-3 space-y-1">
+              {GALLERIES.map((g) => (
+                <li key={g.href}>
+                  <a href={g.href} className="hover:text-slate-900 hover:underline hover:underline-offset-3">
+                    {g.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+          <nav aria-label="Social">
+            <p className="font-heading text-base font-bold tracking-[0.03em] text-slate-900">Follow</p>
+            <ul className="mt-3 space-y-1">
+              {SOCIAL.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href} className="hover:text-slate-900 hover:underline hover:underline-offset-3">
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
-        <nav aria-label="Graph galleries">
-          <p className="font-heading text-base font-bold tracking-[0.03em] text-slate-900">Build it</p>
-          <ul className="mt-3 space-y-1">
-            {GALLERIES.map((g) => (
-              <li key={g.href}>
-                <a href={g.href} className="hover:text-slate-900 hover:underline hover:underline-offset-3">
-                  {g.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <nav aria-label="Social">
-          <p className="font-heading text-base font-bold tracking-[0.03em] text-slate-900">Follow</p>
-          <ul className="mt-3 space-y-1">
-            {SOCIAL.map((s) => (
-              <li key={s.href}>
-                <a href={s.href} className="hover:text-slate-900 hover:underline hover:underline-offset-3">
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <p className="mt-8 text-xs">© from Data to Viz {new Date().getFullYear()}</p>
       </div>
-      <p className="mx-auto mt-8 max-w-6xl px-4 text-xs">© from Data to Viz {new Date().getFullYear()}</p>
     </footer>
   );
 }

@@ -46,7 +46,14 @@ export function DecisionTree() {
           </button>
         ))}
       </div>
-      <div onClick={onClick} onMouseMove={onMove} onMouseLeave={() => setTip(null)} className="mt-8">
+      {/* On phones the tree keeps a readable size and scrolls sideways. */}
+      <p className="mt-6 text-center text-sm text-slate-500 md:hidden">Swipe sideways to see the whole tree →</p>
+      <div
+        onClick={onClick}
+        onMouseMove={onMove}
+        onMouseLeave={() => setTip(null)}
+        className="mt-4 overflow-x-auto overscroll-x-contain md:mt-8"
+      >
         {TREES.map((t) => (
           <div
             key={t.id}
@@ -54,7 +61,7 @@ export function DecisionTree() {
             role="tabpanel"
             aria-labelledby={`tree-tab-${t.id}`}
             hidden={active !== t.id}
-            className="mx-auto max-w-5xl animate-in fade-in duration-700 [&_a[data-chart]]:cursor-pointer [&_a[data-chart]_image]:transition-opacity [&_a[data-chart]:hover_image]:opacity-60"
+            className="mx-auto max-w-5xl min-w-[900px] animate-in fade-in duration-700 md:min-w-0 [&_a[data-chart]]:cursor-pointer [&_a[data-chart]_image]:transition-opacity [&_a[data-chart]:hover_image]:opacity-60"
             dangerouslySetInnerHTML={{ __html: t.svg }}
           />
         ))}
