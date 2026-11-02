@@ -1,0 +1,103 @@
+import { CaveatLayout } from "@/components/layouts";
+import { Code, Section } from "@/components/content";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/caveat/grouped_bar.html",
+  title: "Grouped barplot must be grouped | Dataviz pitfall gallery",
+  description:
+    "A barplot displays the value of a numeric variable for several entities. These entities can be grouped using a categoric variable, resulting in a grouped…",
+  image: "/img/mistake/ungrouped_grouped_barplot.png",
+});
+
+export default function Page() {
+  return (
+    <CaveatLayout
+      title="Grouped barplot must be grouped"
+      images={["/img/mistake/ungrouped_grouped_barplot.png"]}
+    >
+      <Section id="the-issue" title="The issue">
+        <p>
+          A <a href="/graph/barplot.html">barplot</a> displays the value of a numeric variable for
+          several entities. These entities can be grouped using a categoric variable, resulting in a{" "}
+          <code>grouped barplot</code>.
+        </p>
+
+        <p>
+          When building a grouped barplot, make sure that your bars are indeed grouped: bars within
+          a group must be closer to one another than bars in different groups. In the example below,
+          bars are not grouped, making hard to distinguish groups.
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Load dataset from github
+data <- babynames %>%
+  filter(name %in% c("Anna", "Mary")) %>%
+  filter(sex=="F")
+
+# A grouped barplot
+data  %>%
+  filter(year %in% c(1950, 1960, 1970, 1980, 1990, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  mutate( nameYear = paste(year, name, sep=" - ")) %>%
+  ggplot( aes(x=as.factor(nameYear), y=n, fill=name)) +
+    geom_bar(stat="identity") +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby") +
+    xlab("") +
+    theme(
+      axis.text.x = element_text(angle=60, hjust=1)
+    )`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/grouped_bar/1.webp"
+            alt="Grouped barplot must be grouped – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="solving-the-issue" title="Solving the issue">
+        <p>The workaround is pretty simple, just group your bars:</p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Load dataset from github
+data <- babynames %>%
+  filter(name %in% c("Anna", "Mary")) %>%
+  filter(sex=="F")
+
+# A grouped barplot
+data  %>%
+  filter(year %in% c(1950, 1960, 1970, 1980, 1990, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", position="dodge") +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/grouped_bar/2.webp"
+            alt="Grouped barplot must be grouped – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+    </CaveatLayout>
+  );
+}

@@ -1,0 +1,823 @@
+[
+  {
+    "section": "graph",
+    "slug": "arc",
+    "title": "Arc diagram",
+    "description": "An arc diagram is a special kind of network graph. It is consituted by nodes that represent entities and by links that show relationships between…",
+    "images": [
+      "/img/section/ArcSmal.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "area",
+    "title": "Area chart",
+    "description": "An area chart is really similar to a line chart and represents the evolution of a numeric variable. Basically, the X axis represents time or an ordered…",
+    "images": [
+      "/img/section/AreaSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "barplot",
+    "title": "Barplot",
+    "description": "A barplot (or barchart) is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable. Each entity of…",
+    "images": [
+      "/img/section/BarSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "bubble",
+    "title": "Bubble plot",
+    "description": "A bubble plot is a scatterplot where a third dimension is added: the value of an additional numeric variable is represented through the size of the dots.",
+    "images": [
+      "/img/section/BubblePlotSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "bubblemap",
+    "title": "Bubble map",
+    "description": "A bubble map uses circles of different size to represent a numeric value on a territory. It displays one bubble per geographic coordinate, or one bubble…",
+    "images": [
+      "/img/section/BubbleMapSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "cartogram",
+    "title": "Cartogram",
+    "description": "A cartogram is a map in which the geometry of regions is distorted in order to convey the information of an alternate variable. The region area will be…",
+    "images": [
+      "/img/section/CartogramSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "chord",
+    "title": "Chord diagram",
+    "description": "A chord diagram represents flows or connections between several entities (called nodes). Each entity is represented by a fragment on the outer part of the…",
+    "images": [
+      "/img/section/ChordSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "choropleth",
+    "title": "Choropleth map",
+    "description": "A choropleth map displays divided geographical areas or regions that are coloured in relation to a numeric variable. It allows to study how a variable…",
+    "images": [
+      "/img/section/ChoroplethSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "circularbarplot",
+    "title": "Circular Barplot",
+    "description": "A circular barplot is a barplot, with each bar displayed along a circle instead of a line. Thus, it is advised to have a good understanding of how barplot…",
+    "images": [
+      "/img/section/CircularBarplotSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "circularpacking",
+    "title": "Circular Packing",
+    "description": "Circular packing or circular treemap allows to visualize a hierarchic organization. It is an equivalent of a treemap or a dendrogram, where each node of…",
+    "images": [
+      "/img/section/CircularPackingSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "connectedscatter",
+    "title": "Connected Scatterplot",
+    "description": "A connected scatterplot displays the evolution of a numeric variable. Data points are represented by a dot and connected by straight line segments. It…",
+    "images": [
+      "/img/section/ScatterConnectedSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "correlogram",
+    "title": "Correlogram",
+    "description": "A correlogram or correlation matrix allows to analyse the relationship between each pair of numeric variables of a dataset. The relationship between each…",
+    "images": [
+      "/img/section/CorrelogramSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "dendrogram",
+    "title": "Dendrogram",
+    "description": "A dendrogram is a network structure. It is constituted of a root node that gives birth to several nodes connected by edges or branches. The last nodes of…",
+    "images": [
+      "/img/section/DendrogramSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "density",
+    "title": "Density",
+    "description": "A density plot is a representation of the distribution of a numeric variable. It uses a kernel density estimate to show the probability density function…",
+    "images": [
+      "/img/section/DensitySmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "density2d",
+    "title": "2D density plot",
+    "description": "This page is dedicated to a group of graphics allowing to study the combined distribution of two quantitative variables. These graphics are basically…",
+    "images": [
+      "/img/section/2dDensitySmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "donut",
+    "title": "Donut plot",
+    "description": "A donut plot is a pie chart with a hole in the center. It’s a way to show the distribution of a categorical variable, but it can be a little bit tricky to…",
+    "images": [
+      "/img/section/DougnutSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "edge_bundling",
+    "title": "Hierarchical edge bundling",
+    "description": "Hierarchical Edge Bundling allows to visualize adjacency relations between entities organized in a hierarchy. The idea is to bundle the adjacency edges…",
+    "images": [
+      "/img/section/BundleSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "heatmap",
+    "title": "Heatmap",
+    "description": "A heatmap is a graphical representation of data where the individual values contained in a matrix are represented as colors. It is a bit like looking a…",
+    "images": [
+      "/img/section/HeatmapSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "hexbinmap",
+    "title": "Hexbin map",
+    "description": "Note on the first map: You can learn more about this story here. Data comes from here. Code has been inspired from this post and that one.",
+    "images": [
+      "/img/section/MapHexbinSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "histogram",
+    "title": "Histogram",
+    "description": "A histogram is an accurate graphical representation of the distribution of a numeric variable. It takes as input numeric variables only. The variable is…",
+    "images": [
+      "/img/section/HistogramSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "line",
+    "title": "Line chart",
+    "description": "A line chart or line graph displays the evolution of one or several numeric variables. Data points are connected by straight line segments. It is similar…",
+    "images": [
+      "/img/section/LineSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "lollipop",
+    "title": "Lollipop chart",
+    "description": "A lollipop plot is basically a barplot, where the bar is transformed in a line and a dot. It shows the relationship between a numeric and a categoric…",
+    "images": [
+      "/img/section/LollipopSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "map",
+    "title": "Background Map",
+    "description": "A background map is a type of visualization that uses a geographical map as the backdrop to display data points or regions. The data is overlaid on the…",
+    "images": [
+      "/img/section/Map150.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "network",
+    "title": "Network diagram",
+    "description": "Network diagrams (also called Graphs) show interconnections between a set of entities. Each entity is represented by a Node (or vertice). Connections…",
+    "images": [
+      "/img/section/NetworkSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "parallel",
+    "title": "Parallel coordinates plot",
+    "description": "Parallel plot or parallel coordinates plot allows to compare the feature of several individual observations (series) on a set of numeric variables. Each…",
+    "images": [
+      "/img/section/Parallel1Small.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "ridgeline",
+    "title": "Ridgeline plot",
+    "description": "A Ridgeline plot (sometimes called Joyplot) shows the distribution of a numeric value for several groups. Distribution can be represented using histograms…",
+    "images": [
+      "/img/section/Joyplot150.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "sankey",
+    "title": "Sankey diagram",
+    "description": "A Sankey Diagram is a visualisation technique that allows to display flows. Several entities (nodes) are represented by rectangles or text. Their links…",
+    "images": [
+      "/img/section/SankeySmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "scatter",
+    "title": "Scatter plot",
+    "description": "A scatterplot displays the relationship between 2 numeric variables. For each data point, the value of its first variable is represented on the X axis,…",
+    "images": [
+      "/img/section/ScatterPlotSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "stackedarea",
+    "title": "Stacked Area Graph",
+    "description": "A stacked area chart is the extension of a basic area chart. It displays the evolution of the value of several groups on the same graphic. The values of…",
+    "images": [
+      "/img/section/StackedAreaSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "streamgraph",
+    "title": "Streamgraph",
+    "description": "A Stream graph is a type of stacked area chart. It displays the evolution of a numeric value (Y axis) following another numeric value (X axis). This…",
+    "images": [
+      "/img/section/StreamSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "sunburst",
+    "title": "Sunburst",
+    "description": "A sunburst diagram displays a hierarchical structure. The origin of the organization is represented by the center of the circle, and each level of the…",
+    "images": [
+      "/img/section/SunburstSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "treemap",
+    "title": "Treemap",
+    "description": "A Treemap displays hierarchical data as a set of nested rectangles. Each group is represented by a rectangle, which area is proportional to its value.…",
+    "images": [
+      "/img/section/TreeSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "venn",
+    "title": "Venn Diagram",
+    "description": "A Venn diagram (also called primary diagram, set diagram or logic diagram) is a diagram that shows all possible logical relationships between a finite…",
+    "images": [
+      "/img/section/VennSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "violin",
+    "title": "Violin plot",
+    "description": "Violin plot allows to visualize the distribution of a numeric variable for one or several groups. Each ‘violin’ represents a group or a variable. The…",
+    "images": [
+      "/img/section/ViolinSmall.png"
+    ]
+  },
+  {
+    "section": "graph",
+    "slug": "wordcloud",
+    "title": "Wordcloud",
+    "description": "A word cloud (also called tag cloud or weighted list) is a visual representation of text data. Words are usually single words, and the importance of each…",
+    "images": [
+      "/img/section/WordCloudSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "AdjacencyMatrix",
+    "title": "Researchers network and migration flows",
+    "description": "Adjacency and incidence matrices provide relationship between several nodes. The information they contain can have different nature, thus this document…",
+    "images": [
+      "/img/section/Arc150.png",
+      "/img/section/Network150.png",
+      "/img/section/Heatmap150.png",
+      "/img/section/Sankey150.png",
+      "/img/section/Chord150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "GPSCoordWithValue",
+    "title": "The biggest UK cities",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a set of geographic coordinates that have an associated numeric value.It considers…",
+    "images": [
+      "/img/section/BubbleMap150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "GPSCoordWithoutValue",
+    "title": "Where surfers live",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinatesIt considers the geographic position of about 200k tweets…",
+    "images": [
+      "/img/section/Choropleth150.png",
+      "/img/section/MapHexbin150.png",
+      "/img/section/Cartogram150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "MapConnection",
+    "title": "Visualizing geographic connections",
+    "description": "This document provides a few suggestions for the visualization of geographical connections.",
+    "images": [
+      "/img/section/ConnectedMapSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "NestedValueForConnection",
+    "title": "Visualizing a set of geographic coordinates",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinatesIt considers the geographic position of about 200k tweets…",
+    "images": [
+      "/img/section/Choropleth150.png",
+      "/img/section/MapHexbin150.png",
+      "/img/section/Cartogram150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "NestedValueForLinks",
+    "title": "Visualizing a set of geographic coordinates",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a list of GPS coordinatesIt considers the geographic position of about 200k tweets…",
+    "images": [
+      "/img/section/Choropleth150.png",
+      "/img/section/MapHexbin150.png",
+      "/img/section/Cartogram150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneCatSevOrderedNum",
+    "title": "Evolution of baby names in the US",
+    "description": "This document aims to describe a few dataviz that can be applied to a dataset containing an ordered numeric variable, a categoric variable and another…",
+    "images": [
+      "/img/section/Line150.png",
+      "/img/section/Area150.png",
+      "/img/section/StackedArea150.png",
+      "/img/section/Stream150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneNum",
+    "title": "Airbnb prices on the french riviera",
+    "description": "This document porvides a few suggestions for analying a dataset composed of a unique numeric variable. It considers the nightly price of about 10,000…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/HistogramSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneNumOneCat",
+    "title": "Who sells more weapons?",
+    "description": "This document gives a few suggestions to analyse a dataset composed by one numeric and one categoric variable. The dataset used as an example provides the…",
+    "images": [
+      "/img/section/Bar150.png",
+      "/img/section/CircularBarplot150.png",
+      "/img/section/Lollipop150.png",
+      "/img/section/Tree150.png",
+      "/img/section/CircularPacking150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneNumOneCatSeveralObs",
+    "title": "Perception of probability",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a numeric and a categoric variable. On the /r/samplesize thread of reddit,…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/HistogramSmall.png",
+      "/img/section/Box1Small.png",
+      "/img/section/ViolinSmall.png",
+      "/img/section/JoyplotSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneNumSevCatSubgroupOneObsPerGroup",
+    "title": "The gender wage gap",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups. The dataset used as an example…",
+    "images": [
+      "/img/section/BarSmall.png",
+      "/img/section/Parallel1Small.png",
+      "/img/section/SpiderSmall.png",
+      "/img/section/ScatterPlotSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "OneNumSevCatSubgroupSevObsPerGroup",
+    "title": "How much do people tip?",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a numeric variable measured on groups and subgroups, with several observations for…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/Box1Small.png",
+      "/img/section/ViolinSmall.png",
+      "/img/section/HistogramSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "RegionWithValue",
+    "title": "Visualizing a unique Numeric variable",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a unique numeric variable. It considers the night price of about 10,000 Airbnb…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/Box1Small.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "SevCatOneNumNestedOneObsPerGroup",
+    "title": "Visualizing the world population",
+    "description": "This document gives a few suggestions to analyse a nested or hierarchical dataset in which a numeric value is available for each leaf. This kind of data…",
+    "images": [
+      "/img/section/Lollipop150.png",
+      "/img/section/CircularBarplot150.png",
+      "/img/section/Tree150.png",
+      "/img/section/CircularPacking150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "SeveralIndepLists",
+    "title": "Comparing raper lyrics",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a few lists of items.It considers the lyrics of 2 famous french rapers (Nekfeu and…",
+    "images": [
+      "/img/section/VennSmall.png",
+      "/img/section/LollipopSmall.png",
+      "/img/section/WordCloudSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "SeveralNum",
+    "title": "Eleven features for 32 cars",
+    "description": "This page provides a few hints to visualize a dataset composed of several numeric variables. As an example the famous mtcars dataset will be considered.…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/Box1Small.png",
+      "/img/section/ViolinSmall.png",
+      "/img/section/JoyplotSmall.png",
+      "/img/section/HeatmapSmall.png",
+      "/img/section/DendrogramSmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "ThreeNum",
+    "title": "Life expectancy, gdp per capita and population size",
+    "description": "This document gives a few suggestions to analyse a dataset composed by three numeric variables. It considers an abstract of the Gapminder dataset made…",
+    "images": [
+      "/img/section/Density150.png",
+      "/img/section/Box1150.png",
+      "/img/section/BubblePlot150.png",
+      "/img/section/3d150.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "TwoNum",
+    "title": "Apartment price vs ground living area.",
+    "description": "This document gives a few suggestions to analyse a dataset composed by two numeric variables. It considers the price of 1460 apartements (SalePrice) and…",
+    "images": [
+      "/img/section/DensitySmall.png",
+      "/img/section/Box1Small.png",
+      "/img/section/ScatterPlotSmall.png",
+      "/img/section/2dDensitySmall.png"
+    ]
+  },
+  {
+    "section": "story",
+    "slug": "TwoNumOrdered",
+    "title": "Evolution of the bitcoin price",
+    "description": "This document gives a few suggestions to analyse a dataset composed by two ordered numeric variables. It considers the evolution of the bitcoin price…",
+    "images": [
+      "/img/section/Line150.png",
+      "/img/section/Area150.png",
+      "/img/section/ScatterConnected150.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "3d",
+    "title": "The issue with 3D in data visualization",
+    "description": "Three dimensional objects are very popular but negatively affect the accuracy and speed at which one can interpret a graphic in most cases. Here is a…",
+    "images": [
+      "/img/mistake/3d.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "annotation",
+    "title": "Annotation is crucial for your dataviz",
+    "description": "Annotation is a crucial component of a good dataviz. It can turn a boring graphic into an interesting and insightful way to convey information. Dataviz is…",
+    "images": [
+      "/img/mistake/annotate.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "area_hard",
+    "title": "Area is a poor metaphor",
+    "description": "The human eye does not perform well when it has to translate areas to numeric values. Let’s consider the following five bubbles. Try to rank them by…",
+    "images": [
+      "/img/mistake/bubble_hard.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "aspect_ratio",
+    "title": "Mind the aspect ratio",
+    "description": "Aspect ratio is defined as the ratio of the width to the height of a graphic. It can have a strong impact on the insights gained from your graphic.",
+    "images": [
+      "/img/mistake/aspect_ratio.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "bin_size",
+    "title": "Play with your histogram bin size",
+    "description": "A histogram takes as input a numeric variable and cuts it into several bins. The number of observations in each bin is represented by the height of the…",
+    "images": [
+      "/img/mistake/bin_size.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "boxplot",
+    "title": "The Boxplot and its pitfalls",
+    "description": "A boxplot provides an effective summary of one or more numeric variables, showcasing key statistical features through its distinct elements:",
+    "images": [
+      "/img/mistake/boxplot.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "calculation_error",
+    "title": "Calculation errors",
+    "description": "This is probably the most obvious pitfall example of the collection, but is probably the most frequent one as well. Number inconsistencies on a graphic…",
+    "images": [
+      "/img/mistake/calculation_error.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "circular_bar_yaxis",
+    "title": "Circular barplot and distortion",
+    "description": "Circular barplots are a good alternative to classic barplots. It is basically the same thing with each bar displayed along a circle instead of a line,…",
+    "images": [
+      "/img/mistake/circular_bar_yaxis.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "circular_barplot_accordeon",
+    "title": "Mind the radial bar charts",
+    "description": "A radial bar chart is basically a bar chart plotted in polar coordinates instead of a Cartesian plane. Here is one showing the quantity of weapons…",
+    "images": [
+      "/img/mistake/calculation_error.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "color_com_nothing",
+    "title": "Don't use color if they communicate nothing",
+    "description": "Colors are one of the main mediums used to convey information in a dataviz. They allow us to highlight groups or variation when used appropriately, but…",
+    "images": [
+      "/img/mistake/color_com_nothing.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "connect_your_dot",
+    "title": "Connect your dots when the X-axis is ordered",
+    "description": "Let’s consider a dataset composed by two numeric variables. The x-axis represents years, and the y-axis the yearly sunspot numbers from 1749 to 1983.…",
+    "images": [
+      "/img/mistake/connect_your_dot.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "consistency",
+    "title": "Consistency between charts",
+    "description": "Let’s consider a small report where you present several graphics to your audience. The report is composed of:",
+    "images": [
+      "/img/mistake/consistency_sev_graph.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "counter_intuitive",
+    "title": "Don't be counter intuitive",
+    "description": "People are used to seeing data displayed in a usual and logical way. Not respecting the standards of data visualization can make your chart hard to…",
+    "images": [
+      "/img/mistake/counter_intuitive.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "cut_y_axis",
+    "title": "To cut or not to cut (the Y axis)",
+    "description": "Cutting or not cutting the Y-axis is probably one of the most disputed topics in data visualization, as here, here and here. Basically, the issue is…",
+    "images": [
+      "/img/mistake/cut_y_axis.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "declutter",
+    "title": "Decluttering your chart",
+    "description": "Getting rid of all the unnecessary elements can greatly improve the quality and impact of your chart. First, the chart will be cleaner and thus more…",
+    "images": [
+      "/img/mistake/declutter_your_graphic.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "dual_axis",
+    "title": "The issue with dual axis",
+    "description": "good example coming from Planned-Parenthood and from Politifact, initially published on aul.org.",
+    "images": [
+      "/img/mistake/dual_axis.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "error_bar",
+    "title": "The issue with error bars",
+    "description": "Error bars give a general idea of how precise a measurement is, or conversely, how far from the reported value the true (error free) value might be. If…",
+    "images": [
+      "/img/mistake/error_bar.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "faceting",
+    "title": "A few thoughts about small multiples",
+    "description": "One of the most useful techniques in data visualization is rendering groups of data alongside each other, making it easy to compare the groups. With…",
+    "images": [
+      "/img/mistake/small_multiple.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "grouped_bar",
+    "title": "Grouped barplot must be grouped",
+    "description": "A barplot displays the value of a numeric variable for several entities. These entities can be grouped using a categoric variable, resulting in a grouped…",
+    "images": [
+      "/img/mistake/ungrouped_grouped_barplot.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "hard_label",
+    "title": "A note on long labels",
+    "description": "Most of the time, barplot or lollipop plots are plotted vertically with the Y-axis representing the value of the numeric variable. If your labels on the…",
+    "images": [
+      "/img/mistake/hard_label.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "mental_calculation",
+    "title": "Mental arithmetic in dataviz",
+    "description": "Let’s consider the number of people entering (red curve) and leaving (blue curve) a shop from 8am to 10pm. This is an accurate representation using a line…",
+    "images": [
+      "/img/mistake/mental_workout.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "multi_distribution",
+    "title": "Too many distributions",
+    "description": "Comparing the distributions of several numeric variables is a common task in dataviz. The distribution of a variable can be represented using a histogram…",
+    "images": [
+      "/img/mistake/multi_distribution.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "order_data",
+    "title": "Why you should order your data",
+    "description": "By default, most of the data visualization tools will order the groups of your categorical variables using alphabetical order, or using the order of…",
+    "images": [
+      "/img/mistake/order_data.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "overplotting",
+    "title": "How to avoid overplotting",
+    "description": "Overplotting is a common issue in dataviz. When your dataset is large, the dots of your scatterplot will tend to overlap, making the graphic unreadable.…",
+    "images": [
+      "/img/mistake/overplotting.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "pie",
+    "title": "The issue with pie chart",
+    "description": "A pie chart is a circle divided into sectors that each represent a proportion of the whole. It is often used to show percentage, where the sum of the…",
+    "images": [
+      "/img/mistake/pie.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "radius_or_area",
+    "title": "Scaling to radius or area?",
+    "description": "A usual practice in data visualization consists of scaling a graphic component to a numeric value. For instance, bar lengths are scaled to values in a…",
+    "images": [
+      "/img/mistake/radius_or_area.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "rainbow",
+    "title": "Visualizing a unique Numeric variable",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a unique numeric variable. It considers the night price of about 10,000 Airbnb…",
+    "images": [
+      "/img/mistake/order_data.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "simpson",
+    "title": "The simpson's paradox",
+    "description": "Simpson’s paradox, or the Yule–Simpson effect, is a phenomenon in probability and statistics, in which a trend appears in several different groups of data…",
+    "images": [
+      "/img/mistake/simpson.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "small_multiple",
+    "title": "Visualizing a unique Numeric variable",
+    "description": "This document gives a few suggestions to analyse a dataset composed by a unique numeric variable. It considers the night price of about 10,000 Airbnb…",
+    "images": [
+      "/img/mistake/order_data.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "spaghetti",
+    "title": "The Spaghetti plot",
+    "description": "A Spaghetti plot is a line plot with many lines displayed together. With more than a few (~5?) groups this kind of graphic gets really hard to read, and…",
+    "images": [
+      "/img/mistake/spaghetti.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "spider",
+    "title": "The Radar chart and its caveats",
+    "description": "A radar or spider or web chart is a two-dimensional chart type designed to plot one or more series of values over multiple quantitative variables. Each…",
+    "images": [
+      "/img/section/Spider150.png"
+    ]
+  },
+  {
+    "section": "caveat",
+    "slug": "stacking",
+    "title": "The issue with stacking",
+    "description": "Stacking is a process where a chart is broken up across more than one categoric variables which make up the whole. Each item of the categoric variable is…",
+    "images": [
+      "/img/mistake/stacking.png"
+    ]
+  }
+]

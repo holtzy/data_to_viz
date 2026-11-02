@@ -1,0 +1,14 @@
+.axis path, .axis line {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+svg text {
+  font: 10px "Gill Sans", "Helvetica", "sans-serif";
+}
+
+select, option, label {
+  font: 12px "Gill Sans", "Helvetica", "sans-serif";
+}

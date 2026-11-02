@@ -1,0 +1,302 @@
+import { GraphLayout } from "@/components/layouts";
+import { ButtonLink, Code, RelatedCard, RelatedGrid, Section } from "@/components/content";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/graph/violin.html",
+  title: "Violin plot – from Data to Viz",
+  description:
+    "Violin plot allows to visualize the distribution of a numeric variable for one or several groups. Each ‘violin’ represents a group or a variable. The…",
+  image: "/img/section/ViolinSmall.png",
+});
+
+export default function Page() {
+  return (
+    <GraphLayout title="Violin plot" images={["/img/section/ViolinSmall.png"]}>
+      <Section id="definition" title="Definition">
+        <p>
+          Violin plot allows to visualize the distribution of a numeric variable for one or several
+          groups. Each ‘violin’ represents a group or a variable. The shape represents the density
+          estimate of the variable: the more data points in a specific range, the larger the violin
+          is for that range. It is really close to a <a href="/caveat/boxplot.html">boxplot</a>, but
+          allows a deeper understanding of the distribution.
+        </p>
+
+        <p>
+          Here is an example showing how people{" "}
+          <a href="/story/OneNumOneCatSeveralObs.html">perceive probability</a>. On the{" "}
+          <a href="https://www.reddit.com/r/SampleSize/">/r/samplesize</a> thread of reddit,
+          questions like <em>What probability would you assign to the phrase “Highly likely”</em>{" "}
+          were asked. Answers between 0 and 100 were recorded, and here is the distribution for each
+          question:
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(viridis)
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>%
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+
+# Plot
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(x=text, y=value, fill=text, color=text)) +
+    geom_violin(width=2.1, size=0.2) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none"
+    ) +
+    coord_flip() +
+    xlab("") +
+    ylab("Assigned Probability (%)")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/violin/1.webp"
+            alt="Violin plot – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+
+        <p>
+          <strong>Disclaimer</strong>: This idea originally comes from a publication of the{" "}
+          <a href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/art15.html">
+            CIA
+          </a>{" "}
+          which resulted in this{" "}
+          <a href="https://www.cia.gov/library/center-for-the-study-of-intelligence/csi-publications/books-and-monographs/psychology-of-intelligence-analysis/fig18.gif/image.gif">
+            figure
+          </a>
+          . Then, <a href="https://github.com/zonination">Zoni Nation</a> cleaned the reddit dataset
+          and built <a href="https://github.com/zonination/perceptions">graphics with R</a>.
+        </p>
+      </Section>
+
+      <Section id="what-for" title="What for">
+        <p>
+          Violin plot is a powerful data visualization technique since it allows to compare both the{" "}
+          <code>ranking</code> of several groups and their <code>distribution</code>. Surprisingly,
+          it is less used than <a href="/caveat/boxplot.html">boxplot</a>, even if it provides more
+          information in my opinion.
+        </p>
+
+        <p>
+          Violins are particularly adapted when the amount of data is huge and showing individual
+          observations gets impossible. For small datasets, a{" "}
+          <a href="/caveat/boxplot.html#boxplotjitter">boxplot with jitter</a> is probably a better
+          option since it really shows all the information.
+        </p>
+      </Section>
+
+      <Section id="variation" title="Variation">
+        <ul>
+          {" "}
+          <li>
+            <p>
+              Violin plot are made <code>vertically</code> most of the time. If you have long
+              labels, building an <code>horizontal</code> version like above make the labels more
+              readable.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              It is possible to display a boxplot in the violin: it allows to assess the median and
+              quartiles in a glimpse. See the <a href="/caveat/boxplot.html">boxplot</a> section for
+              more info.
+            </p>
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# create a dataset
+data <- data.frame(
+  name=c( rep("A",500), rep("B",500), rep("B",500), rep("C",20), rep('D', 100)  ),
+  value=c( rnorm(500, 10, 5), rnorm(500, 13, 1), rnorm(500, 18, 1), rnorm(20, 25, 4), rnorm(100, 12, 1) )
+)
+
+# sample size
+sample_size = data %>% group_by(name) %>% summarize(num=n())
+
+# Plot
+data %>%
+  left_join(sample_size) %>%
+  mutate(myaxis = paste0(name, "\\n", "n=", num)) %>%
+  ggplot( aes(x=myaxis, y=value, fill=name)) +
+    geom_violin(width=1.4) +
+    geom_boxplot(width=0.1, color="grey", alpha=0.2) +
+    scale_fill_viridis(discrete = TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      plot.title = element_text(size=11)
+    ) +
+    ggtitle("A Violin wrapping a boxplot") +
+    xlab("")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/violin/2.webp"
+            alt="Violin plot – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+        <ul>
+          {" "}
+          <li>
+            If your variable are grouped, you can build a grouped violin as you would do for a
+            boxplot. Here is an example showing{" "}
+            <a href="/story/OneNumSevCatSubgroupSevObsPerGroup.html">
+              how much Male and Female tip
+            </a>{" "}
+            depending on the day of the week.
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/10_OneNumSevCatSubgroupsSevObs.csv", header=T, sep=",") %>%
+  mutate(tip = round(tip/total_bill*100, 1))
+
+# Grouped
+data %>%
+  mutate(day = fct_reorder(day, tip)) %>%
+  mutate(day = factor(day, levels=c("Thur", "Fri", "Sat", "Sun"))) %>%
+  ggplot(aes(fill=sex, y=tip, x=day)) +
+    geom_violin(position="dodge", alpha=0.5, outlier.colour="transparent") +
+    scale_fill_viridis(discrete=T, name="") +
+    theme_ipsum()  +
+    xlab("") +
+    ylab("Tip (%)") +
+    ylim(0,40)`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/violin/3.webp"
+            alt="Violin plot – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="mistake" title="Common caveats">
+        <ul>
+          {" "}
+          <li>
+            If you compare groups with very <a href="/caveat/boxplot.html">different sample size</a>
+            , show it.
+          </li>{" "}
+          <li>
+            <a href="/caveat/order_data.html">Ordering groups</a> by median value makes the chart
+            more insightful.
+          </li>{" "}
+          <li>
+            If you have just a few groups, you are probably interested by{" "}
+            <a href="/graph/ridgeline.html">ridgeline charts</a>. Here is a version for the
+            probability perception story:
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/zonination/perceptions/master/probly.csv", header=TRUE, sep=",")
+data <- data %>%
+  gather(key="text", value="value") %>%
+  mutate(text = gsub("\\\\.", " ",text)) %>%
+  mutate(value = round(as.numeric(value),0)) %>%
+  filter(text %in% c("Almost Certainly","Very Good Chance","We Believe","Likely","About Even", "Little Chance", "Chances Are Slight", "Almost No Chance"))
+
+library(ggridges)
+
+data %>%
+  mutate(text = fct_reorder(text, value)) %>%
+  ggplot( aes(y=text, x=value,  fill=text)) +
+    geom_density_ridges(alpha=0.6, bandwidth=4) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("") +
+    ylab("Assigned Probability (%)")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/violin/4.webp"
+            alt="Violin plot – chart example"
+            width={768}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="related" title="Related">
+        <RelatedGrid>
+          <RelatedCard
+            href="/graph/density.html"
+            image="/img/section/DensitySmall.png"
+            title="Density"
+          >
+            Very close from an histogram. Show a density of distribution instead of bars
+          </RelatedCard>
+          <RelatedCard
+            href="/graph/ridgeline.html"
+            image="/img/section/JoyplotSmall.png"
+            title="Ridgeline"
+          >
+            Allows to compare the distribution of a few variables. Usefull if there is a pattern to
+            observe
+          </RelatedCard>
+          <RelatedCard
+            href="/caveat/boxplot.html"
+            image="/img/section/Box1Small.png"
+            title="Boxplot"
+          >
+            Summarize the distribution of several numeric variables using boxes. Use it if you have
+            a limited dataset size.
+          </RelatedCard>
+          <RelatedCard
+            href="/graph/histogram.html"
+            image="/img/section/HistogramSmall.png"
+            title="Histogram"
+          >
+            Show the distribution of a numeric variable. Use it if you have a limited dataset size.
+          </RelatedCard>
+        </RelatedGrid>
+      </Section>
+
+      <Section id="code" title="Build your own">
+        <p>
+          The <a href="https://www.r-graph-gallery.com/violin.html">R</a>,{" "}
+          <a href="https://www.python-graph-gallery.com/violin-plot/">Python</a>,{" "}
+          <a href="https://www.react-graph-gallery.com/violin-plot">React</a> and{" "}
+          <a href="https://d3-graph-gallery.com/violin.html">D3</a> graph galleries are 4 websites
+          providing hundreds of chart example, always providing the reproducible code. Click the
+          button below to see how to build the chart you need with your favorite programing
+          language.
+        </p>
+
+        <p>
+          <ButtonLink href="https://www.r-graph-gallery.com/violin.html">
+            R graph gallery
+          </ButtonLink>{" "}
+          <ButtonLink href="https://python-graph-gallery.com/violin-plot/">
+            Python gallery
+          </ButtonLink>{" "}
+          <ButtonLink href="https://www.react-graph-gallery.com/violin-plot">
+            React gallery
+          </ButtonLink>{" "}
+          <ButtonLink href="https://d3-graph-gallery.com/violin.html">D3 gallery</ButtonLink>
+        </p>
+      </Section>
+    </GraphLayout>
+  );
+}

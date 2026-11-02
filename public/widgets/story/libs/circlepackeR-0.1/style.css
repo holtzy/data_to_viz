@@ -1,0 +1,24 @@
+.circlepackeR .node {
+  cursor: pointer;
+}
+
+.circlepackeR .node:hover {
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.circlepackeR .node--leaf {
+  fill: white;
+}
+
+.circlepackeR .label {
+  font: 11px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  text-anchor: middle;
+  text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+}
+
+.circlepackeR .label,
+.circlepackeR .node--root,
+.circlepackeR .node--leaf {
+  pointer-events: none;
+}

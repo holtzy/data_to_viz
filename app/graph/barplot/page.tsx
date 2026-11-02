@@ -1,0 +1,310 @@
+import { GraphLayout } from "@/components/layouts";
+import { ButtonLink, Code, RelatedCard, RelatedGrid, Section } from "@/components/content";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/graph/barplot.html",
+  title: "Barplot – from Data to Viz",
+  description:
+    "A barplot (or barchart) is one of the most common types of graphic. It shows the relationship between a numeric and a categoric variable. Each entity of…",
+  image: "/img/section/BarSmall.png",
+});
+
+export default function Page() {
+  return (
+    <GraphLayout title="Barplot" images={["/img/section/BarSmall.png"]}>
+      <Section id="definition" title="Definition">
+        <p>
+          A barplot (or barchart) is one of the most common types of graphic. It shows the
+          relationship between a numeric and a categoric variable. Each entity of the categoric
+          variable is represented as a bar. The size of the bar represents its numeric value.
+        </p>
+
+        <p>
+          Here is an example showing the quantity of weapons exported by the top 20 largest
+          exporters in 2017 (more info <a href="/story/OneNumOneCat.html">here</a>):
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(kableExtra)
+options(knitr.table.format = "html")
+
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Barplot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  tail(20) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_bar(stat="identity", fill="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("") +
+    ylab("Weapon quantity (SIPRI trend-indicator value)")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/barplot/1.webp"
+            alt="Barplot – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="what-for" title="What for">
+        <p>
+          A barplot shows the relationship between a numeric and a categoric variable. In the
+          previous graphic, each country is a level of the categoric variable, and the quantity of
+          weapon sold is the numeric variable. An <code>ordered</code> barplot is a very good choice
+          here since it displays both the ranking of countries and their specific value.
+        </p>
+
+        <p>
+          A barplot can also display values for <code>several levels of grouping</code>. In the
+          following graphic, the number of given baby name is provided by name (level1) and per year
+          (level2). With this kind of information it is possible to build a{" "}
+          <code>grouped barplot</code>:
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+library(babynames)
+library(viridis)
+
+# Load dataset from github
+data <- babynames %>% 
+  filter(name %in% c("Ashley", "Amanda", "Jessica",    "Patricia", "Linda", "Deborah",   "Dorothy", "Betty", "Helen")) %>%
+  filter(sex=="F")
+
+# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", position="dodge") +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/barplot/2.webp"
+            alt="Barplot – chart example"
+            width={768}
+            loading="lazy"
+          />
+        </figure>
+
+        <p>
+          Instead of puting the bars one beside each other it is possible to stack them, resulting
+          in a stacked barplot:
+        </p>
+
+        <Code lang="r">{`# A grouped barplot
+data  %>% 
+  filter(name %in% c("Ashley", "Patricia", "Betty", "Helen")) %>%
+  filter(year %in% c(1920, 1960, 2000)) %>%
+  mutate(year=as.factor(year)) %>%
+  ggplot( aes(x=year, y=n, fill=name)) +
+    geom_bar(stat="identity", width = 0.5) +
+    scale_fill_viridis(discrete=TRUE, name="") +
+    theme_ipsum() +
+    ylab("Number of baby")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/barplot/3.webp"
+            alt="Barplot – chart example"
+            width={768}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="variation" title="Variation">
+        <p>
+          Barplot is sometimes described as a boring way to visualize information, despite its
+          incredible efficiency. There are a few variations that allows to create more eye-catching
+          figures without loosing any of the barplot accuracy. My favorite variation is the lollipop
+          plot that replaces the bars with a segment and a dot. It results in a less cluttered
+          figure that is often more attractive:
+        </p>
+
+        <Code lang="r">{`# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Plot
+data %>%
+  filter(!is.na(Value)) %>%
+  arrange(Value) %>%
+  mutate(Country=factor(Country, Country)) %>%
+  ggplot( aes(x=Country, y=Value) ) +
+    geom_segment( aes(x=Country ,xend=Country, y=0, yend=Value), color="grey") +
+    geom_point(size=3, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      legend.position="none"
+    ) +
+    xlab("")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/barplot/4.webp"
+            alt="Barplot – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+
+        <p>
+          Circular barplot can also be considered if you have many groups. The group comparison is
+          less accurate, thus this option must be selected if there is an obvious pattern to show in
+          the data.
+        </p>
+
+        <Code lang="r">{`# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/7_OneCatOneNum.csv", header=TRUE, sep=",")
+
+# Order data
+tmp <- data %>%
+  filter(!is.na(Value)) %>%
+  arrange(desc(Value)) %>%
+  mutate(Country=factor(Country, Country))
+
+# Set a number of 'empty bar'
+empty_bar=10
+
+# Add lines to the initial tmpset
+to_add = matrix(NA, empty_bar, ncol(tmp))
+colnames(to_add) = colnames(tmp)
+tmp=rbind(tmp, to_add)
+tmp$id=seq(1, nrow(tmp))
+
+# Get the name and the y position of each label
+label_tmp=tmp
+number_of_bar=nrow(label_tmp)
+angle= 90 - 360 * (label_tmp$id-0.5) /number_of_bar     # I substract 0.5 because the letter must have the angle of the center of the bars. Not extreme right(1) or extreme left (0)
+label_tmp$hjust<-ifelse( angle < -90, 1, 0)
+label_tmp$angle<-ifelse(angle < -90, angle+180, angle)
+label_tmp$Country <- gsub("United States", "US", label_tmp$Country)
+label_tmp$Country <- paste(label_tmp$Country, " (", label_tmp$Value,")", sep="")
+
+# Make the plot
+ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. If x is numeric, there is some space between the first bar
+  geom_bar(stat="identity", fill=alpha("#69b3a2", 0.8)) +
+  ylim(-7000,13000) +
+  theme_minimal() +
+  theme(
+    axis.text = element_blank(),
+    axis.title = element_blank(),
+    panel.grid = element_blank(),
+    plot.margin = unit(rep(-1,4), "cm") 
+  ) +
+  coord_polar(start = 0) + 
+  geom_text(data=label_tmp, aes(x=id, y=Value+200, label=Country ), color="black", fontface="bold",alpha=0.6, size=2.5, angle= label_tmp$angle, hjust=label_tmp$hjust, inherit.aes = FALSE ) +
+  geom_text( aes(x=24, y=8000, label="Who sells more weapons?"), color="black", inherit.aes = FALSE, data = data.frame())`}</Code>
+
+        <figure>
+          <img
+            src="/figures/graph/barplot/5.webp"
+            alt="Barplot – chart example"
+            width={768}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="mistake" title="Common mistakes">
+        <ul>
+          {" "}
+          <li>
+            <p>
+              Do not confound barchart with <a href="/graph/histogram.html">histogram</a>. A
+              histogram has only a numeric variable as input and shows its distribution.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              <a href="/caveat/order_data.html">Order your bars</a>. If the levels of your categoric
+              variable have no obvious order, order the bars following their values.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              Several values per group? <a href="/caveat/error_bar.html">Don’t use a barplot</a>.
+              Even with error bars, it hides information and other type of graphic like{" "}
+              <a href="/caveat/boxplot.html">boxplot</a> or <a href="/graph/violin.html">violin</a>{" "}
+              are much more appropriate.
+            </p>
+          </li>{" "}
+        </ul>
+      </Section>
+
+      <Section id="related" title="Related">
+        <RelatedGrid>
+          <RelatedCard
+            href="/graph/lollipop.html"
+            image="/img/section/LollipopSmall.png"
+            title="Lollipop plot"
+          >
+            A fancy barplot where bars are replaced with a dot and a segment. Try it and adopt it.
+          </RelatedCard>
+          <RelatedCard
+            href="/graph/circularbarplot.html"
+            image="/img/section/CircularBarplotSmall.png"
+            title="Circular barplot"
+          >
+            A barplot where the bars are displayed in a circular way. It is useful when you have
+            many groups.
+          </RelatedCard>
+          <RelatedCard
+            href="/graph/wordcloud.html"
+            image="/img/section/WordCloudSmall.png"
+            title="Wordcloud"
+          >
+            A visual representation of text data, where word size is relative to their frequency.
+          </RelatedCard>
+          <RelatedCard href="/graph/barplot.html" image="/img/section/BarSmall.png" title="Barplot">
+            A barplot is one of the most common types of graphic. It shows the relationship between
+            a numeric and a categoric variable.
+          </RelatedCard>
+        </RelatedGrid>
+      </Section>
+
+      <Section id="code" title="Build your own">
+        <p>
+          The <a href="https://r-graph-gallery.com/barplot.html">R</a>,{" "}
+          <a href="https://python-graph-gallery.com/barplot/">Python</a>,{" "}
+          <a href="https://www.react-graph-gallery.com/barplot">React</a> and{" "}
+          <a href="https://d3-graph-gallery.com/barplot.html">D3</a> graph galleries are 4 websites
+          providing hundreds of chart example, always providing the reproducible code. Click the
+          button below to see how to build the chart you need with your favorite programing
+          language.
+        </p>
+
+        <p>
+          <ButtonLink href="https://r-graph-gallery.com/barplot.html/">R graph gallery</ButtonLink>{" "}
+          <ButtonLink href="https://python-graph-gallery.com/barplot/">Python gallery</ButtonLink>{" "}
+          <ButtonLink href="https://www.react-graph-gallery.com/barplot">React gallery</ButtonLink>{" "}
+          <ButtonLink href="https://d3-graph-gallery.com/barplot.html">D3 gallery</ButtonLink>
+        </p>
+      </Section>
+    </GraphLayout>
+  );
+}

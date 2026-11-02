@@ -1,0 +1,140 @@
+import { CaveatLayout } from "@/components/layouts";
+import { Code, Section } from "@/components/content";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/caveat/mental_calculation.html",
+  title: "Mental arithmetic in dataviz | Dataviz pitfall gallery",
+  description:
+    "Let’s consider the number of people entering (red curve) and leaving (blue curve) a shop from 8am to 10pm. This is an accurate representation using a line…",
+  image: "/img/mistake/mental_workout.png",
+});
+
+export default function Page() {
+  return (
+    <CaveatLayout title="Mental arithmetic in dataviz" images={["/img/mistake/mental_workout.png"]}>
+      <Section id="example" title="Example">
+        <p>
+          Let’s consider the number of people entering (red curve) and leaving (blue curve) a shop
+          from 8am to 10pm. This is an accurate representation using a{" "}
+          <a href="/graph/line.html">line plot</a>, that answers very well the question of how many
+          people are entering / leaving the shop.
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(hrbrthemes)
+
+# Create data
+data <- data.frame(
+  x = seq(8,20,0.5),
+  Entering = c(20,22,19,24,28,29,26,32,34,37,33,34,30,28,29,30,27,21,19,21,17,13,15,12,9),
+  Leaving = c(0,4,8,7,10,13,15,16,15,16,17,19,22,21,24,26,24,25,28,29,28,26,23,20,19)
+)
+
+# reformat
+data %>%
+  gather( key=type, value=value, -1) %>%
+  ggplot( aes(x=x, y=value, color=type)) +
+    geom_line() +
+    ylim(0,40) +
+    scale_color_discrete(name="") +
+    scale_x_continuous(breaks=seq(8,20,1)) +
+    annotate( "text", x=c(12.5, 16.3, 17.5), y=c(39, 27, 31), label=LETTERS[1:3] ) +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor = element_blank(),
+      legend.position = c(0.9, 0.9),
+    ) +
+    ylab("# of people") +
+    xlab("Hour of day")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/mental_calculation/1.webp"
+            alt="Mental arithmetic in dataviz – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+
+        <p>Now, what if somebody asks you:</p>
+        <ul>
+          {" "}
+          <li>what is the trend of the total number of people in the shop?</li>{" "}
+          <li>at what time is the number of people in the shop declining?</li>{" "}
+        </ul>
+      </Section>
+
+      <Section id="mental-arithmetic" title="Mental arithmetic">
+        <p>
+          To answer these questions, your audience must think hard and will probably be confused.
+        </p>
+        <ul>
+          {" "}
+          <li>
+            Is it where the marker <code>A</code> is, when the number of people entering the shop
+            starts decreasing?
+          </li>{" "}
+          <li>
+            Or marker <code>B</code> where more people are leaving than entering?
+          </li>{" "}
+          <li>
+            Or <code>C</code> where the number of people leaving decreases?
+          </li>{" "}
+        </ul>
+        <p>
+          Instead of forcing the reader to make the calculation, it is probably better to represent
+          the number of people in the shop directly:
+        </p>
+
+        <Code lang="r">{`# reformat
+data %>%
+  mutate(difference=Entering-Leaving + 5) %>%
+  mutate(tot = cumsum(difference)) %>%
+  ggplot( aes(x=x, y=tot)) +
+    geom_line() +
+    annotate( "text", x=c(12.5, 16.3, 17.5), y=c(205, 300, 290), label=LETTERS[1:3] ) +
+    scale_x_continuous(breaks=seq(8,20,1)) +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor = element_blank()
+    ) +
+    ylab("# of people") +
+    xlab("Hour of day")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/mental_calculation/2.webp"
+            alt="Mental arithmetic in dataviz – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+
+        <p>
+          Of course, if more people leave the shop than enter, the total quantity starts decreasing
+          (marker B). But if you want your audience to focus on your point, do not give them extra
+          work.
+        </p>
+      </Section>
+
+      <Section id="link-with-stacking" title="Link with stacking">
+        <p>This is very related with the problem of [stacking].</p>
+      </Section>
+
+      <Section id="going-further" title="Going further">
+        <ul>
+          {" "}
+          <li>
+            Inspired from{" "}
+            <a href="http://www.seascapemodels.org/rstats/2018/07/04/dataviz2018_notes.html">
+              this talk
+            </a>{" "}
+            by <a href="https://github.com/cbrown5">Chris Brown</a>
+          </li>{" "}
+        </ul>
+      </Section>
+    </CaveatLayout>
+  );
+}

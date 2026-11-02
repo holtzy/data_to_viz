@@ -1,0 +1,505 @@
+import { CaveatLayout } from "@/components/layouts";
+import { Code, Section } from "@/components/content";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata = pageMetadata({
+  path: "/caveat/spider.html",
+  title: "The Radar chart and its caveats | Dataviz pitfall gallery",
+  description:
+    "A radar or spider or web chart is a two-dimensional chart type designed to plot one or more series of values over multiple quantitative variables. Each…",
+  image: "/img/section/Spider150.png",
+});
+
+export default function Page() {
+  return (
+    <CaveatLayout title="The Radar chart and its caveats" images={["/img/section/Spider150.png"]}>
+      <Section id="definition" title="Definition">
+        <p>
+          A <code>radar</code> or <code>spider</code> or <code>web</code> chart is a two-dimensional
+          chart type designed to plot one or more <code>series</code> of values over{" "}
+          <code>multiple quantitative variables</code>. Each variable has its own axis, all axes are
+          joined in the center of the figure.
+        </p>
+
+        <p>
+          Let’s consider the exam results of a student. He has a mark ranging from 0 to 20 for ten
+          topics like math, sports, statistics, and so on. The radar chart provides one axis for
+          each topic. The shape allows you to see which topics the student performed well or poorly
+          in.
+        </p>
+
+        <Code lang="r">{`# Libraries
+library(tidyverse)
+library(viridis)
+library(patchwork)
+library(hrbrthemes)
+library(fmsb)
+library(colormap)
+
+# Create data
+set.seed(1)
+data <- as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <- rbind(rep(20,10) , rep(0,10) , data)
+
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+radarchart( data, axistype=1,
+
+  #custom polygon
+  pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+  #custom labels
+  vlcex=0.8
+  )`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/1.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={480}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="variation" title="Variation">
+        <p>
+          In the previous chart, only one series is plotted, showing how one student performed. A
+          common task is to compare several individuals. With only a few series it is possible to
+          show every group on the same chart. Here it is quite obvious that Shirley globally
+          performed better than Sonia, except in sport, english and R-coding.
+        </p>
+
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( c( sample( 2:20 , 10 , replace=T), sample( 2:9 , 10 , replace=T)) , ncol=10, byrow=TRUE))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data[2,2]=19
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Prepare color
+colors_border=c( rgb(0.2,0.5,0.5,0.9), rgb(0.8,0.2,0.5,0.9)  )
+colors_in=c( rgb(0.2,0.5,0.5,0.4), rgb(0.8,0.2,0.5,0.4)  )
+
+# Custom the radarChart !
+radarchart( data, axistype=1,
+
+  #custom polygon
+  pcol=colors_border , pfcol=colors_in , plwd=4, plty=1 ,
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=1.1,
+
+  #custom labels
+  vlcex=0.8
+  )
+
+# Legend
+legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colors_border , text.col = "black", cex=0.9, pt.cex=1.6)`}</Code>
+
+        <p>
+          <img
+            src="/figures/caveat/spider/2.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={576}
+            loading="lazy"
+          />{" "}
+          With more than two or three series, it is a good practice to use small multiples to avoid
+          a cluttered figure. Each student is represented on their own radar chart. It is easy to
+          understand the features of a specific individual, and looking for similarity in shapes
+          allows you to find students with similar features.
+        </p>
+
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 60 , replace=T) , ncol=10, byrow=TRUE))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Prepare color
+colors_border=colormap(colormap=colormaps$viridis, nshades=6, alpha=1)
+colors_in=colormap(colormap=colormaps$viridis, nshades=6, alpha=0.3)
+
+# Prepare title
+mytitle <- c("Max", "George", "Xue", "Tom", "Alice", "bob")
+
+# Split the screen in 6 parts
+par(mar=rep(0.8,4))
+par(mfrow=c(2,3))
+
+# Loop for each plot
+for(i in 1:6){
+
+  # Custom the radarChart !
+  radarchart( data[c(1,2,i+2),], axistype=1,
+
+    #custom polygon
+    pcol=colors_border[i] , pfcol=colors_in[i] , plwd=4, plty=1 ,
+
+    #custom the grid
+    cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+    #custom labels
+    vlcex=0.8,
+
+    #title
+    title=mytitle[i]
+    )
+}`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/3.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={960}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="whats-wrong-with-it-then" title="What’s wrong with it then?">
+        <p>
+          Spider charts are often criticized by dataviz specialists like{" "}
+          <a href="https://blog.scottlogic.com/2011/09/23/a-critique-of-radar-charts.html#chart2">
+            here
+          </a>
+          , <a href="https://www.perceptualedge.com/articles/dmreview/radar_graphs.pdf">here</a>,{" "}
+          <a href="http://www.verghisgroup.com/wp-content/uploads/2012/04/3-Things-to-Think-About-A-Warning-Label-for-Radar-Charts.pdf">
+            here
+          </a>{" "}
+          and{" "}
+          <a href="http://blog.minitab.com/blog/fun-with-statistics/beware-the-radar-chart">here</a>
+          . Here is an overview of the most common reproaches:
+        </p>
+        <ul>
+          {" "}
+          <li>
+            <em>Circular layout = harder to read</em> - quantitative values are much easier to
+            compare when they are laid out along a single vertical or horizontal axis. This is a
+            general reproach made to circular layouts. Compare the figure below that considers the
+            data of one student only. It is easier to compare values in the barplot, and more
+            accurate.
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+
+# To use the fmsb package, I have to add 2 lines to the dataframe: the max and min of each topic to show on the plot!
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+p1 <- radarchart( data, axistype=1,
+
+  #custom polygon
+  pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,
+
+  #custom the grid
+  cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8,
+
+  #custom labels
+  vlcex=1.3
+  )
+
+# Barplot
+data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=0, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 ),
+      legend.position="none"
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")`}</Code>
+
+        <p>
+          <img
+            src="/figures/caveat/spider/4.webp"
+            alt="The Radar chart and its caveats – chart example"
+            loading="lazy"
+          />
+          <img
+            src="/figures/caveat/spider/5.webp"
+            alt="The Radar chart and its caveats – chart example"
+            loading="lazy"
+          />
+        </p>
+        <ul>
+          {" "}
+          <li>
+            <p>
+              <em>Supporting the ranking</em> - In the above example, the lollipop plot is ordered.
+              It allows you to see instantly which topic had the best mark and what the ranking of
+              each topic was. This is more difficult with radar charts where there are no starts and
+              ends.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              <em>Category order has a huge impact</em> - Radar chart readers will probably focus on
+              the shape observed. This can be misleading since this shape highly depends on the
+              ordering of categories around the plot. See these charts made using the same data, but
+              changing the category ordering:
+            </p>
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(7)
+data <- as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data[1,1:3]=rep(19,3)
+data[1,6:8]=rep(4,3)
+data <- rbind(rep(20,10) , rep(0,10) , data)
+
+# Change order:
+data2 <- data[,sample(1:10,10, replace=FALSE)]
+data3 <- data[,sample(1:10,10, replace=FALSE)]
+
+# Custom the radarChart !
+par(mar=c(0,0,0,0))
+par(mfrow=c(1,3))
+radarchart( data, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data3, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 ,   cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/6.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={960}
+            loading="lazy"
+          />
+        </figure>
+        <ul>
+          {" "}
+          <li>
+            <p>
+              <em>About scales</em> - Radar charts display the value of several quantitative
+              variables, all represented on an axis. In the previous example, the same scale and the
+              same unit is shared by all variables (a mark ranging from 0 to 20). It is also
+              possible to display variables that are completely different. In this case, don’t
+              forget to show an obvious scale for each: the reader will expect the same scale
+              otherwise.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              <em>Overplotting</em> - showing more than a couple of series would result in an
+              unreadable graphic. Avoid it and use small multiples instead.
+            </p>
+          </li>{" "}
+          <li>
+            <p>
+              <em>Over-evaluation of differences</em> - the area of a shape in a radar chart also
+              increases quadratically rather than linearly, which could lead viewers to think that
+              small changes are more significant than they actually are. In the following example,
+              the student on the left had a score of 7 in every topic, whereas the student on the
+              right had a score of 14 in every topic. However, the right figure’s area is more than
+              twice the left figure’s area.
+            </p>
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# data:
+data <- as.data.frame(matrix( c(7,7,7,7,7) , ncol=5))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding")
+data <- rbind(rep(20,10) , rep(0,10) , data)
+
+# other dataset
+data2 <- data
+data2[3,] <- rep(14,5)
+
+# Custom the radarChart !
+par(mar=rep(0,4))
+par(mfrow=c(1,2))
+radarchart( data, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )
+radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5,0.5) , plwd=4 , cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,20,5), cglwd=0.8, vlcex=0.8  )`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/7.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={960}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+
+      <Section id="workaround" title="Workaround">
+        <p>If the radar chart is not a good practice, how to replace it then?</p>
+        <ul>
+          {" "}
+          <li>
+            If you have a single series to display and all quantitative variables have the same
+            scale, then use a barplot or a lollipop plot, ranking the variables:
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 10 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Barplot
+data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=0, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 ),
+      legend.position="none"
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/8.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+        <ul>
+          {" "}
+          <li>
+            If you have two series to plot, you can still play with barplot and lollipop plots. Here
+            is an example with 2 series. It focuses on the first student (dark) and allows you to
+            see how another student (light) performed in comparison.
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 20 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+
+# Barplot
+data %>% slice(c(3,4)) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1) %>% mutate(rowname=factor(rowname, rowname)) %>%
+  ggplot( aes(x=rowname, y=V1)) +
+    geom_segment( aes(x=rowname ,xend=rowname, y=V2, yend=V1), color="grey") +
+    geom_point(size=5, color="#69b3a2") +
+    geom_point(aes(y=V2), size=5, color="#69b3a2", alpha=0.1) +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 )
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("")`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/9.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={672}
+            loading="lazy"
+          />
+        </figure>
+        <ul>
+          {" "}
+          <li>
+            If you have a few series to plot, using faceting with barplot or lollipop plot can
+            perhaps do the trick:
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`# Create data: note in High school for Jonathan:
+set.seed(1)
+data <-as.data.frame(matrix( sample( 2:20 , 40 , replace=T) , ncol=10))
+colnames(data) <- c("math" , "english" , "biology" , "music" , "R-coding", "data-viz" , "french" , "physic", "statistic", "sport" )
+data <-rbind(rep(20,10) , rep(0,10) , data)
+rownames(data) <- c("-", "--", "John", "Angli", "Baptiste", "Alfred")
+
+# Barplot
+data <- data %>% slice(c(3:6)) %>%
+  t() %>%
+  as.data.frame() %>%
+  add_rownames() %>%
+  #arrange(V1) %>%
+  mutate(rowname=factor(rowname, rowname)) %>%
+  gather(key=name, value=mark, -1)
+
+#Recode
+data$name <- recode(data$name, V1 = "John", V2 = "Angli", V3 = "Baptiste", V4 = "Alfred")
+
+# Plot
+data %>% ggplot( aes(x=rowname, y=mark)) +
+    geom_bar(stat="identity", fill="#69b3a2", width=0.6) +
+    coord_flip() +
+    theme_ipsum() +
+    theme(
+      panel.grid.minor.y = element_blank(),
+      panel.grid.major.y = element_blank(),
+      axis.text = element_text( size=48 )
+    ) +
+    ylim(0,20) +
+    ylab("mark") +
+    xlab("") +
+    facet_wrap(~name, ncol=4)`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/10.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={960}
+            loading="lazy"
+          />
+        </figure>
+        <ul>
+          {" "}
+          <li>
+            If you have a lot of series to plot, or if your variables do not have the same scale,
+            then the best option is probably to switch to a parallel coordinates plot.
+          </li>{" "}
+        </ul>
+        <Code lang="r">{`library(GGally)
+data <- iris
+
+data %>%
+  ggparcoord(
+    columns = 1:4, groupColumn = 5, order = "anyClass",
+    showPoints = TRUE,
+    title = "Parallel Coordinate Plot for the Iris Data",
+    alphaLines = 0.3
+    ) +
+  scale_color_viridis(discrete=TRUE) +
+  theme_ipsum()`}</Code>
+
+        <figure>
+          <img
+            src="/figures/caveat/spider/11.webp"
+            alt="The Radar chart and its caveats – chart example"
+            width={960}
+            loading="lazy"
+          />
+        </figure>
+      </Section>
+    </CaveatLayout>
+  );
+}
