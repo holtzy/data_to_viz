@@ -119,11 +119,11 @@ export default function Home() {
               </h1>
               <p className="mt-8 max-w-xl text-xl leading-8 text-slate-600">{DESCRIPTION}</p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#explore" className={buttonClass("primary", "lg")}>
-                  Explore
-                </a>
                 <a href="/poster.html" className={buttonClass("secondary", "lg")}>
                   See poster
+                </a>
+                <a href="#explore" className={buttonClass("primary", "lg")}>
+                  Explore
                 </a>
               </div>
             </div>
