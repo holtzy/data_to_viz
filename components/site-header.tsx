@@ -34,7 +34,8 @@ export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
       <div className={cn("h-full", narrow ? "wrapper" : "mx-auto max-w-5xl px-4")}>
         <div className="flex h-full items-center justify-between">
           <a href="/" aria-label="from Data to Viz – home" className="shrink-0">
-            <img src="/img/logo/typo.png" alt="from Data to Viz" className="h-5 w-auto" />
+            {/* The lettering sits low in the PNG: lift it to line up optically with the links. */}
+            <img src="/img/logo/typo.png" alt="from Data to Viz" className="h-5 w-auto -translate-y-[3px]" />
           </a>
           <div className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((l) => (
