@@ -33,14 +33,14 @@ function PageHeader({
   return (
     <header className="pt-24 sm:pt-32">
       <p className="text-sm font-medium tracking-wider text-brand uppercase">{kicker}</p>
-      <div className="mt-2 flex items-center gap-5">
+      <div className="mt-2 flex items-center justify-between gap-4">
         <h1 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
           {title}
         </h1>
         {images.length > 0 && (
           <div className="flex shrink-0 gap-1">
             {images.slice(0, 3).map((src) => (
-              <img key={src} src={src} alt="" className="size-14 object-contain sm:size-[72px]" />
+              <img key={src} src={src} alt="" className="size-20 object-contain sm:size-28" />
             ))}
           </div>
         )}
