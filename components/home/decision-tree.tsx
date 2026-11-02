@@ -70,7 +70,7 @@ export function DecisionTree() {
           <p className="font-heading text-[11px] font-semibold tracking-widest text-brand uppercase">
             Your data look like
           </p>
-          <p className="mt-1 italic">{tip.text}</p>
+          <p className="mt-1">{tip.text}</p>
           {tip.image && <img src={tip.image} alt="" className="mt-2 max-h-40 w-full object-contain" />}
         </div>
       )}

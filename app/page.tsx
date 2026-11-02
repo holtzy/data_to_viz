@@ -38,7 +38,7 @@ const JSON_LD = {
   author: { "@type": "Person", name: "Yan Holtz", url: "https://www.yan-holtz.com" },
 };
 
-/** Big bold uppercase title + italic serif subtitle, as on the original site. */
+/** Section title (Bitter) with a short intro paragraph below it. */
 function SectionHeading({ title, children }: { title: ReactNode; children?: ReactNode }) {
   return (
     <div className="mx-auto max-w-3xl text-center">
