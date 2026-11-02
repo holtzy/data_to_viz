@@ -141,6 +141,7 @@ p1 + p2`}</Code>
             src="/figures/caveat/circular_bar_yaxis/1.webp"
             alt="Circular barplot and distortion – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -210,6 +211,7 @@ p`}</Code>
             src="/figures/caveat/circular_bar_yaxis/2.webp"
             alt="Circular barplot and distortion – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

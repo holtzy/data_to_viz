@@ -55,6 +55,7 @@ data %>%
             src="/figures/caveat/hard_label/1.webp"
             alt="A note on long labels – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />{" "}
           <em>Note</em>: this barplot shows the quantity of weapons exported by the top 20 largest
@@ -91,6 +92,7 @@ data %>%
             src="/figures/caveat/hard_label/2.webp"
             alt="A note on long labels – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

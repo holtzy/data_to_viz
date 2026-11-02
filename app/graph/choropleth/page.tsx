@@ -84,6 +84,7 @@ p`}</Code>
             src="/figures/graph/choropleth/1.webp"
             alt="Choropleth map – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>

@@ -50,6 +50,7 @@ ggplot(data) +
           src="/figures/caveat/error_bar/1.webp"
           alt="The issue with error bars – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -76,7 +77,13 @@ ggplot(data) +
 
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/error_bar/2.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/error_bar/2.webp"
+            alt="img"
+            width={600}
+            height={336}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">
@@ -212,6 +219,7 @@ p1 + p2 + p3`}</Code>
             src="/figures/caveat/error_bar/3.webp"
             alt="The issue with error bars – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -252,6 +260,7 @@ p1 + p2 + p3`}</Code>
             src="/figures/caveat/error_bar/4.webp"
             alt="The issue with error bars – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

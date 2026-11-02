@@ -71,6 +71,8 @@ ggplotly(p, tooltip="text")`}</Code>
             <a href="/graph/stackedarea.html">
               {" "}
               <img
+                width={114}
+                height={114}
                 src="/figures/caveat/stacking/1.webp"
                 alt="The issue with stacking – chart example"
                 loading="lazy"
@@ -82,6 +84,8 @@ ggplotly(p, tooltip="text")`}</Code>
             <a href="/graph/streamgraph.html">
               {" "}
               <img
+                width={114}
+                height={114}
                 src="/figures/caveat/stacking/2.webp"
                 alt="The issue with stacking – chart example"
                 loading="lazy"
@@ -93,6 +97,8 @@ ggplotly(p, tooltip="text")`}</Code>
             <a href="/graph/barplot.html">
               {" "}
               <img
+                width={114}
+                height={114}
                 src="/figures/caveat/stacking/3.webp"
                 alt="The issue with stacking – chart example"
                 loading="lazy"
@@ -178,6 +184,7 @@ don %>%
             src="/figures/caveat/stacking/4.webp"
             alt="The issue with stacking – chart example"
             width={576}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -203,6 +210,7 @@ don %>%
             src="/figures/caveat/stacking/5.webp"
             alt="The issue with stacking – chart example"
             width={576}
+            height={480}
             loading="lazy"
           />{" "}
           It looks like we were quite <code>wrong</code>. This is due to an optical illusion. The
@@ -230,6 +238,7 @@ don %>%
             src="/figures/caveat/stacking/6.webp"
             alt="The issue with stacking – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -264,6 +273,7 @@ don %>%
             src="/figures/caveat/stacking/7.webp"
             alt="The issue with stacking – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>

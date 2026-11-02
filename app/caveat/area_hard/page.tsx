@@ -43,6 +43,7 @@ ggplot(data, aes(x=name, y=1, size=value)) +
             src="/figures/caveat/area_hard/1.webp"
             alt="Area is a poor metaphor – chart example"
             width={672}
+            height={96}
             loading="lazy"
           />
         </figure>
@@ -61,6 +62,7 @@ ggplot(data, aes(x=name, y=value)) +
             src="/figures/caveat/area_hard/2.webp"
             alt="Area is a poor metaphor – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

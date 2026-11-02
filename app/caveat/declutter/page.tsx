@@ -41,7 +41,13 @@ export default function Page() {
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/declutter/1.webp" alt="img" width={500} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/declutter/1.webp"
+            alt="img"
+            width={500}
+            height={432}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 
@@ -49,7 +55,13 @@ export default function Page() {
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/declutter/2.webp" alt="img" width={500} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/declutter/2.webp"
+            alt="img"
+            width={500}
+            height={383}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 
@@ -69,7 +81,13 @@ export default function Page() {
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/declutter/3.gif" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/declutter/3.gif"
+            alt="img"
+            width={600}
+            height={500}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">

@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 export default function Page() {
   return (
     <GraphLayout title="2D density plot" images={["/img/section/2dDensitySmall.png"]}>
-      <h2>Definition</h2>
+      <h2 id="definition">Definition</h2>
 
       <hr />
 
@@ -94,6 +94,7 @@ plt.show()`}</Code>
           src="/figures/graph/density2d/1.webp"
           alt="2D density plot – chart example"
           width={2016}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -143,6 +144,7 @@ p1 + p2`}</Code>
             src="/figures/graph/density2d/2.webp"
             alt="2D density plot – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

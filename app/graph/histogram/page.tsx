@@ -47,6 +47,7 @@ data %>%
             src="/figures/graph/histogram/1.webp"
             alt="Histogram – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -84,6 +85,7 @@ data %>%
             src="/figures/graph/histogram/2.webp"
             alt="Histogram – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -120,6 +122,7 @@ data %>%
             src="/figures/graph/histogram/3.webp"
             alt="Histogram – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -150,6 +153,7 @@ data %>%
             src="/figures/graph/histogram/4.webp"
             alt="Histogram – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

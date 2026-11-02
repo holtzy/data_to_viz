@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -137,6 +138,7 @@ data %>%
             src="/figures/story/ThreeNum/1.webp"
             alt="Life expectancy, gdp per capita and population size – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -178,6 +180,7 @@ grid.arrange(p2,p3, ncol=2)`}</Code>
             src="/figures/story/ThreeNum/2.webp"
             alt="Life expectancy, gdp per capita and population size – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -220,6 +223,7 @@ ggplot( tmp, aes(x=gdpPercap, y=lifeExp, size = pop, color = continent)) +
             src="/figures/story/ThreeNum/3.webp"
             alt="Life expectancy, gdp per capita and population size – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -335,6 +339,7 @@ don %>% head(6) %>% kable() %>%
             src="/figures/story/ThreeNum/4.webp"
             alt="Life expectancy, gdp per capita and population size – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -348,30 +353,21 @@ don %>% head(6) %>% kable() %>%
 
         <Widget src="/widgets/story/ThreeNum-2.html" height={480} width={672} />
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/density.html" title="Density">
-          <img src="/img/section/Density150.png" alt="Density" loading="lazy" className="size-24" />
-        </a>
-        <a href="/caveat/boxplot.html" title="Boxplot">
-          <img src="/img/section/Box1150.png" alt="Boxplot" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/bubble.html" title="Bubble plot">
-          <img
-            src="/img/section/BubblePlot150.png"
-            alt="Bubble plot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/3d.html" title="3D">
-          <img src="/img/section/3d150.png" alt="3D" loading="lazy" className="size-24" />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile href="/graph/density.html" image="/img/section/Density150.png" title="Density" />
+        <ChartTile href="/caveat/boxplot.html" image="/img/section/Box1150.png" title="Boxplot" />
+        <ChartTile
+          href="/graph/bubble.html"
+          image="/img/section/BubblePlot150.png"
+          title="Bubble plot"
+        />
+        <ChartTile href="/caveat/3d.html" image="/img/section/3d150.png" title="3D" />
+      </ChartTiles>
     </StoryLayout>
   );
 }

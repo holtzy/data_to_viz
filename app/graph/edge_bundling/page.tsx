@@ -75,6 +75,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/edge_bundling/1.webp"
             alt="Hierarchical edge bundling – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -123,6 +124,7 @@ p1 + p2`}</Code>
             src="/figures/graph/edge_bundling/2.webp"
             alt="Hierarchical edge bundling – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -157,6 +159,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/edge_bundling/3.webp"
             alt="Hierarchical edge bundling – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -199,6 +202,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/edge_bundling/4.webp"
             alt="img"
             width={600}
+            height={300}
             loading="lazy"
           />{" "}
         </div>
@@ -232,6 +236,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/edge_bundling/5.webp"
             alt="img"
             width={800}
+            height={340}
             loading="lazy"
           />{" "}
         </div>
@@ -253,6 +258,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/edge_bundling/6.webp"
             alt="img"
             width={600}
+            height={433}
             loading="lazy"
           />{" "}
         </div>

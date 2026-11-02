@@ -60,6 +60,7 @@ data  %>%
             src="/figures/caveat/grouped_bar/1.webp"
             alt="Grouped barplot must be grouped – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -94,6 +95,7 @@ data  %>%
             src="/figures/caveat/grouped_bar/2.webp"
             alt="Grouped barplot must be grouped – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

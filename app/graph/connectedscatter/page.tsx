@@ -55,6 +55,7 @@ data %>%
             src="/figures/graph/connectedscatter/1.webp"
             alt="Connected Scatterplot – chart example"
             width={672}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -103,6 +104,7 @@ p1 + p2`}</Code>
             src="/figures/graph/connectedscatter/2.webp"
             alt="Connected Scatterplot – chart example"
             width={864}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -129,6 +131,7 @@ data %>%
             src="/figures/graph/connectedscatter/3.webp"
             alt="Connected Scatterplot – chart example"
             width={576}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -169,6 +172,7 @@ data %>%
             src="/figures/graph/connectedscatter/4.webp"
             alt="Connected Scatterplot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -211,6 +215,7 @@ tmp%>%
             src="/figures/graph/connectedscatter/5.webp"
             alt="Connected Scatterplot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -297,6 +302,7 @@ p1 + p2`}</Code>
             src="/figures/graph/connectedscatter/6.webp"
             alt="Connected Scatterplot – chart example"
             width={960}
+            height={288}
             loading="lazy"
           />
         </figure>

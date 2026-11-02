@@ -46,6 +46,7 @@ export default function Page() {
             src="/figures/caveat/counter_intuitive/1.webp"
             alt="img"
             width={600}
+            height={751}
             loading="lazy"
           />{" "}
         </div>
@@ -75,6 +76,7 @@ export default function Page() {
             src="/figures/caveat/counter_intuitive/2.webp"
             alt="img"
             width={600}
+            height={313}
             loading="lazy"
           />{" "}
         </div>

@@ -48,6 +48,7 @@ data %>%
           src="/figures/caveat/bin_size/1.webp"
           alt="Play with your histogram bin size – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -76,6 +77,7 @@ data %>%
           src="/figures/caveat/bin_size/2.webp"
           alt="Play with your histogram bin size – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />
       </figure>

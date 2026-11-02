@@ -54,6 +54,7 @@ data %>%
           src="/figures/caveat/connect_your_dot/1.webp"
           alt="Connect your dots when the X-axis is ordered – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -98,6 +99,7 @@ data %>%
             src="/figures/caveat/connect_your_dot/2.webp"
             alt="Connect your dots when the X-axis is ordered – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

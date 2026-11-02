@@ -80,6 +80,7 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
             src="/figures/graph/circularbarplot/1.webp"
             alt="Circular Barplot – chart example"
             width={672}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -185,6 +186,7 @@ p`}</Code>
             src="/figures/graph/circularbarplot/2.webp"
             alt="Circular Barplot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -280,6 +282,7 @@ p`}</Code>
             src="/figures/graph/circularbarplot/3.webp"
             alt="Circular Barplot – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -344,6 +347,7 @@ p`}</Code>
             src="/figures/graph/circularbarplot/4.webp"
             alt="Circular Barplot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>

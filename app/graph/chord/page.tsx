@@ -106,6 +106,7 @@ circos.trackPlotRegion(
             src="/figures/graph/chord/1.webp"
             alt="Chord diagram – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>

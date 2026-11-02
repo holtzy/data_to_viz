@@ -31,6 +31,7 @@ map('world', col="grey", fill=TRUE, bg="white", lwd=0.05, mar=rep(0,4), border=0
             src="/figures/graph/map/1.webp"
             alt="Background Map – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -47,6 +48,8 @@ map('world', col="grey", fill=TRUE, bg="white", lwd=0.05, mar=rep(0,4), border=0
 
         <figure>
           <img
+            width={1920}
+            height={1080}
             src="/img/backgroundMapExplanationNew.png"
             alt="Background Map – chart example"
             loading="lazy"

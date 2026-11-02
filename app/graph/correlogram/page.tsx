@@ -41,6 +41,7 @@ sns_plot.savefig("IMG/correlogram1.png")`}</Code>
             src="/figures/graph/correlogram/1.webp"
             alt="Correlogram – chart example"
             width={960}
+            height={960}
             loading="lazy"
           />
         </figure>
@@ -82,6 +83,7 @@ sns_plot.savefig("IMG/correlogram2.png")`}</Code>
             src="/figures/graph/correlogram/2.webp"
             alt="Correlogram – chart example"
             width={960}
+            height={960}
             loading="lazy"
           />
         </figure>
@@ -100,6 +102,7 @@ sns_plot.savefig("IMG/correlogram3.png")`}</Code>
             src="/figures/graph/correlogram/3.webp"
             alt="Correlogram – chart example"
             width={1073}
+            height={960}
             loading="lazy"
           />
         </figure>

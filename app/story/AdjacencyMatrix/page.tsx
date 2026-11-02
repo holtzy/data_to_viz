@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -239,6 +240,7 @@ circos.trackPlotRegion(
             src="/figures/story/AdjacencyMatrix/1.webp"
             alt="Researchers network and migration flows – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />{" "}
           In my opinion this is a powerful way to display information. Major flows are easy to
@@ -448,6 +450,7 @@ ggraph(mygraph) +
             src="/figures/story/AdjacencyMatrix/2.webp"
             alt="Researchers network and migration flows – chart example"
             width={1152}
+            height={864}
             loading="lazy"
           />
         </figure>
@@ -540,6 +543,7 @@ ggraph(mygraph, layout="circle") +
             src="/figures/story/AdjacencyMatrix/3.webp"
             alt="Researchers network and migration flows – chart example"
             width={768}
+            height={768}
             loading="lazy"
           />
         </figure>
@@ -571,42 +575,31 @@ ggraph(mygraph, layout="linear") +
             src="/figures/story/AdjacencyMatrix/4.webp"
             alt="Researchers network and migration flows – chart example"
             width={1440}
+            height={672}
             loading="lazy"
           />
         </figure>
       </div>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/arc.html" title="Arc diagram">
-          <img src="/img/section/Arc150.png" alt="Arc diagram" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/network.html" title="Network">
-          <img src="/img/section/Network150.png" alt="Network" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/heatmap.html" title="Heatmap">
-          <img src="/img/section/Heatmap150.png" alt="Heatmap" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/sankey.html" title="Sankey diagram">
-          <img
-            src="/img/section/Sankey150.png"
-            alt="Sankey diagram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/chord.html" title="Chord diagram">
-          <img
-            src="/img/section/Chord150.png"
-            alt="Chord diagram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile href="/graph/arc.html" image="/img/section/Arc150.png" title="Arc diagram" />
+        <ChartTile href="/graph/network.html" image="/img/section/Network150.png" title="Network" />
+        <ChartTile href="/graph/heatmap.html" image="/img/section/Heatmap150.png" title="Heatmap" />
+        <ChartTile
+          href="/graph/sankey.html"
+          image="/img/section/Sankey150.png"
+          title="Sankey diagram"
+        />
+        <ChartTile
+          href="/graph/chord.html"
+          image="/img/section/Chord150.png"
+          title="Chord diagram"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

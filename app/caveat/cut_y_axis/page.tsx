@@ -31,7 +31,13 @@ export default function Page() {
 
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/cut_y_axis/1.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/cut_y_axis/1.webp"
+            alt="img"
+            width={600}
+            height={355}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">

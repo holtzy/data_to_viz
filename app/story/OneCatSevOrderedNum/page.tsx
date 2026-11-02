@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -175,6 +176,7 @@ wide %>%
             src="/figures/story/OneCatSevOrderedNum/1.webp"
             alt="Evolution of baby names in the US – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -207,6 +209,7 @@ wide %>%
             src="/figures/story/OneCatSevOrderedNum/2.webp"
             alt="Evolution of baby names in the US – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -239,6 +242,7 @@ wide %>%
             src="/figures/story/OneCatSevOrderedNum/3.webp"
             alt="Evolution of baby names in the US – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -335,39 +339,30 @@ ggplot(data, aes(x=PC1, y=PC2)) +
             src="/figures/story/OneCatSevOrderedNum/4.webp"
             alt="Evolution of baby names in the US – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/line.html" title="Line chart">
-          <img src="/img/section/Line150.png" alt="Line chart" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/area.html" title="Area chart">
-          <img src="/img/section/Area150.png" alt="Area chart" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/stackedarea.html" title="Stacked Area">
-          <img
-            src="/img/section/StackedArea150.png"
-            alt="Stacked Area"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/streamgraph.html" title="Streamgraph">
-          <img
-            src="/img/section/Stream150.png"
-            alt="Streamgraph"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile href="/graph/line.html" image="/img/section/Line150.png" title="Line chart" />
+        <ChartTile href="/graph/area.html" image="/img/section/Area150.png" title="Area chart" />
+        <ChartTile
+          href="/graph/stackedarea.html"
+          image="/img/section/StackedArea150.png"
+          title="Stacked Area"
+        />
+        <ChartTile
+          href="/graph/streamgraph.html"
+          image="/img/section/Stream150.png"
+          title="Streamgraph"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

@@ -63,6 +63,7 @@ radarchart( data, axistype=1,
             src="/figures/caveat/spider/1.webp"
             alt="The Radar chart and its caveats – chart example"
             width={480}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -110,6 +111,7 @@ legend(x=0.85, y=1, legend = c("Shirley", "Sonia"), bty = "n", pch=20 , col=colo
             src="/figures/caveat/spider/2.webp"
             alt="The Radar chart and its caveats – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />{" "}
           With more than two or three series, it is a good practice to use small multiples to avoid
@@ -162,6 +164,7 @@ for(i in 1:6){
             src="/figures/caveat/spider/3.webp"
             alt="The Radar chart and its caveats – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -233,11 +236,15 @@ data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1)
 
         <p>
           <img
+            width={2304}
+            height={1536}
             src="/figures/caveat/spider/4.webp"
             alt="The Radar chart and its caveats – chart example"
             loading="lazy"
           />
           <img
+            width={2304}
+            height={1536}
             src="/figures/caveat/spider/5.webp"
             alt="The Radar chart and its caveats – chart example"
             loading="lazy"
@@ -286,6 +293,7 @@ radarchart( data3, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5
             src="/figures/caveat/spider/6.webp"
             alt="The Radar chart and its caveats – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -338,6 +346,7 @@ radarchart( data2, axistype=1, pcol=rgb(0.2,0.5,0.5,0.9) , pfcol=rgb(0.2,0.5,0.5
             src="/figures/caveat/spider/7.webp"
             alt="The Radar chart and its caveats – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -380,6 +389,7 @@ data %>% slice(3) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrange(V1)
             src="/figures/caveat/spider/8.webp"
             alt="The Radar chart and its caveats – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -419,6 +429,7 @@ data %>% slice(c(3,4)) %>% t() %>% as.data.frame() %>% add_rownames() %>% arrang
             src="/figures/caveat/spider/9.webp"
             alt="The Radar chart and its caveats – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -468,6 +479,7 @@ data %>% ggplot( aes(x=rowname, y=mark)) +
             src="/figures/caveat/spider/10.webp"
             alt="The Radar chart and its caveats – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -496,6 +508,7 @@ data %>%
             src="/figures/caveat/spider/11.webp"
             alt="The Radar chart and its caveats – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

@@ -65,6 +65,7 @@ export default function Page() {
             src="/figures/caveat/boxplot/1.webp"
             alt="anatomy of a boxplot: a diagram explaining how a boxplot is built"
             width={600}
+            height={275}
             loading="lazy"
           />{" "}
         </div>
@@ -127,6 +128,7 @@ data %>%
             src="/figures/caveat/boxplot/2.webp"
             alt="The Boxplot and its pitfalls – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -159,6 +161,7 @@ data %>%
             src="/figures/caveat/boxplot/3.webp"
             alt="The Boxplot and its pitfalls – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -217,6 +220,7 @@ data %>%
             src="/figures/caveat/boxplot/4.webp"
             alt="The Boxplot and its pitfalls – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -288,6 +292,7 @@ data %>%
             src="/figures/caveat/boxplot/5.webp"
             alt="The Boxplot and its pitfalls – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>

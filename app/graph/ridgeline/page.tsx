@@ -66,6 +66,7 @@ data %>%
             src="/figures/graph/ridgeline/1.webp"
             alt="Ridgeline plot – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -134,6 +135,7 @@ data %>%
             src="/figures/graph/ridgeline/2.webp"
             alt="Ridgeline plot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -164,6 +166,7 @@ data %>%
             src="/figures/graph/ridgeline/3.webp"
             alt="Ridgeline plot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

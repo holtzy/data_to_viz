@@ -72,6 +72,7 @@ data %>%
           src="/figures/caveat/multi_distribution/1.webp"
           alt="Too many distributions – chart example"
           width={768}
+          height={576}
           loading="lazy"
         />
       </figure>
@@ -102,6 +103,7 @@ data %>%
           src="/figures/caveat/multi_distribution/2.webp"
           alt="Too many distributions – chart example"
           width={768}
+          height={576}
           loading="lazy"
         />
       </figure>
@@ -137,6 +139,7 @@ data %>%
             src="/figures/caveat/multi_distribution/3.webp"
             alt="Too many distributions – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -161,6 +164,7 @@ data %>%
               src="/figures/caveat/multi_distribution/4.webp"
               alt="Too many distributions – chart example"
               width={768}
+              height={576}
               loading="lazy"
             />
           </figure>
@@ -188,6 +192,7 @@ data %>%
               src="/figures/caveat/multi_distribution/5.webp"
               alt="Too many distributions – chart example"
               width={768}
+              height={576}
               loading="lazy"
             />
           </figure>
@@ -215,6 +220,7 @@ data %>%
               src="/figures/caveat/multi_distribution/6.webp"
               alt="Too many distributions – chart example"
               width={768}
+              height={672}
               loading="lazy"
             />
           </figure>

@@ -36,6 +36,7 @@ export default function Page() {
             src="/figures/caveat/radius_or_area/1.webp"
             alt="img"
             width={600}
+            height={337}
             loading="lazy"
           />{" "}
         </div>
@@ -72,6 +73,7 @@ export default function Page() {
             src="/figures/caveat/radius_or_area/2.webp"
             alt="img"
             width={600}
+            height={384}
             loading="lazy"
           />{" "}
         </div>

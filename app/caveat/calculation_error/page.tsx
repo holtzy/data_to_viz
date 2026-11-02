@@ -30,6 +30,7 @@ export default function Page() {
             src="/figures/caveat/calculation_error/1.webp"
             alt="img"
             width={500}
+            height={323}
             loading="lazy"
           />{" "}
         </div>
@@ -60,6 +61,7 @@ export default function Page() {
             src="/figures/caveat/calculation_error/2.webp"
             alt="img"
             width={400}
+            height={315}
             loading="lazy"
           />{" "}
         </div>

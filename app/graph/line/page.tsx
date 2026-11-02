@@ -54,6 +54,7 @@ data %>%
             src="/figures/graph/line/1.webp"
             alt="Line chart – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -93,6 +94,7 @@ don %>%
             src="/figures/graph/line/2.webp"
             alt="Line chart – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -119,6 +121,7 @@ don %>%
             src="/figures/graph/line/3.webp"
             alt="Line chart – chart example"
             width={960}
+            height={288}
             loading="lazy"
           />
         </figure>
@@ -138,6 +141,7 @@ don %>%
             src="/figures/graph/line/4.webp"
             alt="Line chart – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -190,6 +194,7 @@ p1 + p2`}</Code>
             src="/figures/graph/line/5.webp"
             alt="Line chart – chart example"
             width={960}
+            height={288}
             loading="lazy"
           />
         </figure>

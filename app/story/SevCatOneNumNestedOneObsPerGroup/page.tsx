@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -127,6 +128,7 @@ p <- treemap(
             src="/figures/story/SevCatOneNumNestedOneObsPerGroup/1.webp"
             alt="Visualizing the world population – chart example"
             width={768}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -221,6 +223,7 @@ circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max 
             src="/figures/story/SevCatOneNumNestedOneObsPerGroup/2.webp"
             alt="Visualizing the world population – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -257,6 +260,7 @@ circlepackeR(population, size = "Pop", color_min = "hsl(56,80%,80%)", color_max 
             src="/figures/story/SevCatOneNumNestedOneObsPerGroup/3.webp"
             alt="Visualizing the world population – chart example"
             width={672}
+            height={768}
             loading="lazy"
           />
         </figure>
@@ -355,44 +359,34 @@ p`}</Code>
             src="/figures/story/SevCatOneNumNestedOneObsPerGroup/4.webp"
             alt="Visualizing the world population – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/lollipop.html" title="Lollipop">
-          <img
-            src="/img/section/Lollipop150.png"
-            alt="Lollipop"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/circularbarplot.html" title="Circular Barplot">
-          <img
-            src="/img/section/CircularBarplot150.png"
-            alt="Circular Barplot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/treemap.html" title="Treemap">
-          <img src="/img/section/Tree150.png" alt="Treemap" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/circularpacking.html" title="Circular Packing">
-          <img
-            src="/img/section/CircularPacking150.png"
-            alt="Circular Packing"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/lollipop.html"
+          image="/img/section/Lollipop150.png"
+          title="Lollipop"
+        />
+        <ChartTile
+          href="/graph/circularbarplot.html"
+          image="/img/section/CircularBarplot150.png"
+          title="Circular Barplot"
+        />
+        <ChartTile href="/graph/treemap.html" image="/img/section/Tree150.png" title="Treemap" />
+        <ChartTile
+          href="/graph/circularpacking.html"
+          image="/img/section/CircularPacking150.png"
+          title="Circular Packing"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

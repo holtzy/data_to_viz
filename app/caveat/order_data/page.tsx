@@ -57,6 +57,7 @@ data %>%
             src="/figures/caveat/order_data/1.webp"
             alt="Why you should order your data – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -93,6 +94,7 @@ data %>%
             src="/figures/caveat/order_data/2.webp"
             alt="Why you should order your data – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>

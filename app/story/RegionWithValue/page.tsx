@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -79,24 +80,19 @@ data %>% head(6) %>% kable() %>%
           </div>
         </div>{" "}
       </div>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/density.html" title="Density">
-          <img
-            src="/img/section/DensitySmall.png"
-            alt="Density"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/boxplot.html" title="Boxplot">
-          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/density.html"
+          image="/img/section/DensitySmall.png"
+          title="Density"
+        />
+        <ChartTile href="/caveat/boxplot.html" image="/img/section/Box1Small.png" title="Boxplot" />
+      </ChartTiles>
     </StoryLayout>
   );
 }

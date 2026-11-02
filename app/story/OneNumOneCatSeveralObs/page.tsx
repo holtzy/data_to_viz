@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -144,6 +145,7 @@ data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
             src="/figures/story/OneNumOneCatSeveralObs/1.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -177,6 +179,7 @@ data %>% sample_n(8) %>% kable(row.names = FALSE) %>%
             src="/figures/story/OneNumOneCatSeveralObs/2.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -220,6 +223,7 @@ data %>%
             src="/figures/story/OneNumOneCatSeveralObs/3.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -250,6 +254,7 @@ data %>%
             src="/figures/story/OneNumOneCatSeveralObs/4.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -287,6 +292,7 @@ data %>%
             src="/figures/story/OneNumOneCatSeveralObs/5.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />{" "}
           Note that here the Y scale is the same for each group, unlike the precedent example on
@@ -322,47 +328,35 @@ data %>%
             src="/figures/story/OneNumOneCatSeveralObs/6.webp"
             alt="Perception of probability – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/density.html" title="Density">
-          <img
-            src="/img/section/DensitySmall.png"
-            alt="Density"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/histogram.html" title="Histogram">
-          <img
-            src="/img/section/HistogramSmall.png"
-            alt="Histogram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/boxplot.html" title="Boxplot">
-          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/violin.html" title="Violin">
-          <img src="/img/section/ViolinSmall.png" alt="Violin" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/ridgeline.html" title="Ridgeline plot">
-          <img
-            src="/img/section/JoyplotSmall.png"
-            alt="Ridgeline plot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/density.html"
+          image="/img/section/DensitySmall.png"
+          title="Density"
+        />
+        <ChartTile
+          href="/graph/histogram.html"
+          image="/img/section/HistogramSmall.png"
+          title="Histogram"
+        />
+        <ChartTile href="/caveat/boxplot.html" image="/img/section/Box1Small.png" title="Boxplot" />
+        <ChartTile href="/graph/violin.html" image="/img/section/ViolinSmall.png" title="Violin" />
+        <ChartTile
+          href="/graph/ridgeline.html"
+          image="/img/section/JoyplotSmall.png"
+          title="Ridgeline plot"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

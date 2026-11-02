@@ -54,6 +54,7 @@ data %>%
           src="/figures/caveat/spaghetti/1.webp"
           alt="The Spaghetti plot – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -93,6 +94,7 @@ data %>%
             src="/figures/caveat/spaghetti/2.webp"
             alt="The Spaghetti plot – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -125,6 +127,7 @@ data %>%
             src="/figures/caveat/spaghetti/3.webp"
             alt="The Spaghetti plot – chart example"
             width={768}
+            height={768}
             loading="lazy"
           />{" "}
           For instance, <code>Linda</code> was a really popular name for a really short period of
@@ -161,6 +164,7 @@ tmp %>%
             src="/figures/caveat/spaghetti/4.webp"
             alt="The Spaghetti plot – chart example"
             width={768}
+            height={768}
             loading="lazy"
           />
         </figure>

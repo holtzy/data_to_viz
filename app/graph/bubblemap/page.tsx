@@ -72,7 +72,13 @@ ggsave("IMG/Surfer_bubble.png", width = 36, height = 15.22, units = "in", dpi = 
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/bubblemap/1.webp" alt="img" width={1000} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/bubblemap/1.webp"
+            alt="img"
+            width={1000}
+            height={423}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 

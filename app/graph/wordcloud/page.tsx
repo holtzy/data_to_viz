@@ -116,6 +116,7 @@ data %>%
             src="/figures/graph/wordcloud/1.webp"
             alt="Wordcloud – chart example"
             width={672}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -149,7 +150,13 @@ webshot("tmp.html","IMG/fig_1.png", delay =5, vwidth = 700, vheight=700)`}</Code
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/wordcloud/2.webp" alt="img" width={800} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/wordcloud/2.webp"
+            alt="img"
+            width={800}
+            height={814}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 

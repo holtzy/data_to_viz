@@ -50,6 +50,7 @@ data %>%
             src="/figures/graph/density/1.webp"
             alt="Density – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -87,6 +88,7 @@ data %>%
             src="/figures/graph/density/2.webp"
             alt="Density – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -123,6 +125,7 @@ data %>%
             src="/figures/graph/density/3.webp"
             alt="Density – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -153,6 +156,7 @@ data %>%
             src="/figures/graph/density/4.webp"
             alt="Density – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

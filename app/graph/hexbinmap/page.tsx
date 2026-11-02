@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 export default function Page() {
   return (
     <GraphLayout title="Hexbin map" images={["/img/section/MapHexbinSmall.png"]}>
-      <h2>Definition</h2>
+      <h2 id="definition">Definition</h2>
 
       <hr />
 
@@ -95,6 +95,7 @@ ggplot(my_sf_wed) +
           src="/figures/graph/hexbinmap/1.webp"
           alt="Hexbin map – chart example"
           width={768}
+          height={576}
           loading="lazy"
         />
       </figure>
@@ -153,6 +154,7 @@ data %>%
             src="/figures/graph/hexbinmap/2.webp"
             alt="Hexbin map – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>

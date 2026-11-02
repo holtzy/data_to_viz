@@ -55,6 +55,7 @@ data %>%
           src="/figures/caveat/aspect_ratio/1.webp"
           alt="Mind the aspect ratio – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -88,6 +89,7 @@ data %>%
             src="/figures/caveat/aspect_ratio/2.webp"
             alt="Mind the aspect ratio – chart example"
             width={1152}
+            height={288}
             loading="lazy"
           />
         </figure>
@@ -123,6 +125,7 @@ data %>%
             src="/figures/caveat/aspect_ratio/3.webp"
             alt="img"
             width={600}
+            height={360}
             loading="lazy"
           />{" "}
         </div>

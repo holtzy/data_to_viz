@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -186,6 +187,7 @@ text(rownames(don), x=don$long, y=don$lat,  col="black", cex=1, pos=4)`}</Code>
             src="/figures/story/MapConnection/1.webp"
             alt="Visualizing geographic connections – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -279,6 +281,8 @@ ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 
         <div className="text-center">
           <figure>
             <img
+              width={3240}
+              height={1369}
               src="/figures/story/MapConnection/2.webp"
               alt="Visualizing geographic connections – chart example"
               loading="lazy"
@@ -295,22 +299,19 @@ ggsave("IMG/Surfer_travel.png", width = 36, height = 15.22, units = "in", dpi = 
         </p>
       </Section>
 
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
 
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/story/MapConnection.html" title="Connection map">
-          <img
-            src="/img/section/ConnectedMapSmall.png"
-            alt="Connection map"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/story/MapConnection.html"
+          image="/img/section/ConnectedMapSmall.png"
+          title="Connection map"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

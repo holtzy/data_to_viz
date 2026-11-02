@@ -65,6 +65,7 @@ data %>%
             src="/figures/graph/bubble/1.webp"
             alt="Bubble plot – chart example"
             width={768}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -123,6 +124,7 @@ ggplot( tmp, aes(x=gdpPercap, y=lifeExp, size = pop, color = continent)) +
             src="/figures/graph/bubble/2.webp"
             alt="Bubble plot – chart example"
             width={768}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -192,6 +194,7 @@ grid.arrange(p2,p3, ncol=2)`}</Code>
             src="/figures/graph/bubble/3.webp"
             alt="Bubble plot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>

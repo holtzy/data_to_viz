@@ -91,7 +91,7 @@ simpleNetwork(connect,
       <div className="grid gap-6 md:grid-cols-12">
         {" "}
         <div className="md:col-span-3">
-          <h4>
+          <h4 id="undirected-and-unweighted">
             {" "}
             <code>Undirected and Unweighted</code>{" "}
           </h4>
@@ -127,6 +127,7 @@ ggraph(network) +
               src="/figures/graph/network/1.webp"
               alt="Network diagram – chart example"
               width={672}
+              height={480}
               loading="lazy"
             />
           </figure>
@@ -134,7 +135,7 @@ ggraph(network) +
         <div className="md:col-span-3">
           {" "}
           <br />
-          <h4>
+          <h4 id="undirected-and-weighted">
             {" "}
             <code>Undirected and Weighted</code>{" "}
           </h4>
@@ -170,6 +171,7 @@ ggraph(network) +
               src="/figures/graph/network/2.webp"
               alt="Network diagram – chart example"
               width={672}
+              height={480}
               loading="lazy"
             />
           </figure>
@@ -177,7 +179,7 @@ ggraph(network) +
         <div className="md:col-span-3">
           {" "}
           <br />
-          <h4>
+          <h4 id="directed-and-unweighted">
             {" "}
             <code>Directed and Unweighted</code>{" "}
           </h4>
@@ -210,12 +212,13 @@ ggraph(network) +
               src="/figures/graph/network/3.webp"
               alt="Network diagram – chart example"
               width={672}
+              height={480}
               loading="lazy"
             />
           </figure>
         </div>{" "}
         <div className="md:col-span-3">
-          <h4>
+          <h4 id="directed-and-weighted">
             {" "}
             <code>Directed and Weighted</code>{" "}
           </h4>
@@ -255,6 +258,7 @@ ggraph(network) +
               src="/figures/graph/network/4.webp"
               alt="Network diagram – chart example"
               width={672}
+              height={480}
               loading="lazy"
             />
           </figure>
@@ -294,7 +298,7 @@ ggraph(network) +
       <div className="md:col-span-4">
         {" "}
         <br />
-        <h4>
+        <h4 id="fruchterman-reingold">
           {" "}
           <code>Fruchterman-Reingold</code>{" "}
         </h4>
@@ -332,13 +336,14 @@ ggraph(mygraph, layout="fr") +
           src="/figures/graph/network/5.webp"
           alt="Network diagram – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />{" "}
       </div>{" "}
       <div className="md:col-span-4">
         {" "}
         <br />
-        <h4>
+        <h4 id="drl">
           {" "}
           <code>DrL</code>{" "}
         </h4>
@@ -358,13 +363,14 @@ ggraph(mygraph, layout="drl") +
           src="/figures/graph/network/6.webp"
           alt="Network diagram – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />{" "}
       </div>{" "}
       <div className="md:col-span-4">
         {" "}
         <br />
-        <h4>
+        <h4 id="randomly">
           {" "}
           <code>Randomly</code>{" "}
         </h4>
@@ -384,6 +390,7 @@ ggraph(mygraph, layout="drl") +
             src="/figures/graph/network/7.webp"
             alt="Network diagram – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

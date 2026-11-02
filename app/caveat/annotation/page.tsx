@@ -70,6 +70,7 @@ data %>%
             src="/figures/caveat/annotation/1.webp"
             alt="Annotation is crucial for your dataviz – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -100,6 +101,7 @@ data %>%
             src="/figures/caveat/annotation/2.webp"
             alt="Annotation is crucial for your dataviz – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -131,7 +133,13 @@ data %>%
         </ul>
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/annotation/3.webp" alt="img" width={500} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/annotation/3.webp"
+            alt="img"
+            width={500}
+            height={521}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">

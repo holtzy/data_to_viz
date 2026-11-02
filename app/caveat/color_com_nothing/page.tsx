@@ -62,6 +62,7 @@ data %>%
           src="/figures/caveat/color_com_nothing/1.webp"
           alt="Don't use color if they communicate nothing – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -104,6 +105,7 @@ data %>%
             src="/figures/caveat/color_com_nothing/2.webp"
             alt="Don't use color if they communicate nothing – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -137,6 +139,7 @@ data %>%
             src="/figures/caveat/color_com_nothing/3.webp"
             alt="Don't use color if they communicate nothing – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

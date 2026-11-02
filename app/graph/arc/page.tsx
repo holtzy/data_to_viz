@@ -74,6 +74,7 @@ p1 + p2`}</Code>
             src="/figures/graph/arc/1.webp"
             alt="Arc diagram – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -170,6 +171,7 @@ ggraph(mygraph, layout="linear") +
             src="/figures/graph/arc/2.webp"
             alt="Arc diagram – chart example"
             width={1440}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -201,7 +203,13 @@ ggraph(mygraph, layout="linear") +
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/arc/3.webp" alt="img" width={700} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/arc/3.webp"
+            alt="img"
+            width={700}
+            height={371}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 
@@ -245,6 +253,7 @@ ggraph(mygraph, layout="linear") +
             src="/figures/graph/arc/4.webp"
             alt="Arc diagram – chart example"
             width={1440}
+            height={672}
             loading="lazy"
           />
         </figure>

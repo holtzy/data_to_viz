@@ -41,6 +41,7 @@ data %>%
               src="/figures/caveat/overplotting/1.webp"
               alt="How to avoid overplotting – chart example"
               width={576}
+              height={576}
               loading="lazy"
             />
           </figure>
@@ -79,6 +80,7 @@ data %>%
             src="/figures/caveat/overplotting/2.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -104,6 +106,7 @@ data %>%
             src="/figures/caveat/overplotting/3.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -133,6 +136,7 @@ data %>%
             src="/figures/caveat/overplotting/4.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -159,6 +163,7 @@ data %>%
             src="/figures/caveat/overplotting/5.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -187,6 +192,7 @@ data %>%
             src="/figures/caveat/overplotting/6.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -210,6 +216,7 @@ data %>%
             src="/figures/caveat/overplotting/7.webp"
             alt="How to avoid overplotting – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -238,6 +245,7 @@ data %>%
             src="/figures/caveat/overplotting/8.webp"
             alt="How to avoid overplotting – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -285,6 +293,7 @@ p1 + p2`}</Code>
             src="/figures/caveat/overplotting/9.webp"
             alt="How to avoid overplotting – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -336,6 +345,7 @@ ggExtra::ggMarginal(p, type = "histogram")`}</Code>
             src="/figures/caveat/overplotting/10.webp"
             alt="How to avoid overplotting – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>

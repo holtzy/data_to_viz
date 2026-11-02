@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -223,6 +224,7 @@ wordcloud2(mywords, size = 2, minRotation = -pi/2, maxRotation = -pi/2,
             src="/figures/story/SeveralIndepLists/1.webp"
             alt="Comparing raper lyrics – chart example"
             width={672}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -269,6 +271,8 @@ venn.diagram(
         <div className="text-center">
           {" "}
           <img
+            width={480}
+            height={480}
             src="/figures/story/SeveralIndepLists/2.webp"
             alt="Comparing raper lyrics – chart example"
             loading="lazy"
@@ -283,37 +287,28 @@ venn.diagram(
           <li>more ideas to come</li>{" "}
         </ul>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/venn.html" title="Venn diagram">
-          <img
-            src="/img/section/VennSmall.png"
-            alt="Venn diagram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/lollipop.html" title="Lollipop">
-          <img
-            src="/img/section/LollipopSmall.png"
-            alt="Lollipop"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/wordcloud.html" title="Wordcloud">
-          <img
-            src="/img/section/WordCloudSmall.png"
-            alt="Wordcloud"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/venn.html"
+          image="/img/section/VennSmall.png"
+          title="Venn diagram"
+        />
+        <ChartTile
+          href="/graph/lollipop.html"
+          image="/img/section/LollipopSmall.png"
+          title="Lollipop"
+        />
+        <ChartTile
+          href="/graph/wordcloud.html"
+          image="/img/section/WordCloudSmall.png"
+          title="Wordcloud"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

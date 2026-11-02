@@ -57,6 +57,7 @@ data %>%
             src="/figures/graph/barplot/1.webp"
             alt="Barplot – chart example"
             width={672}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -104,6 +105,7 @@ data  %>%
             src="/figures/graph/barplot/2.webp"
             alt="Barplot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -129,6 +131,7 @@ data  %>%
             src="/figures/graph/barplot/3.webp"
             alt="Barplot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -168,6 +171,7 @@ data %>%
             src="/figures/graph/barplot/4.webp"
             alt="Barplot – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -225,6 +229,7 @@ ggplot(tmp, aes(x=as.factor(id), y=Value)) +       # Note that id is a factor. I
             src="/figures/graph/barplot/5.webp"
             alt="Barplot – chart example"
             width={768}
+            height={768}
             loading="lazy"
           />
         </figure>

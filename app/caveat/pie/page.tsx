@@ -69,6 +69,7 @@ plot_pie(data1, c(10,35,55,75,93))`}</Code>
                 src="/figures/caveat/pie/1.webp"
                 alt="The issue with pie chart – chart example"
                 width={960}
+                height={480}
                 loading="lazy"
               />
             </figure>
@@ -91,6 +92,7 @@ a + b + c`}</Code>
             src="/figures/caveat/pie/2.webp"
             alt="The issue with pie chart – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -130,6 +132,7 @@ a + b + c`}</Code>
             src="/figures/caveat/pie/3.webp"
             alt="The issue with pie chart – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -187,6 +190,7 @@ data %>%
             src="/figures/caveat/pie/4.webp"
             alt="The issue with pie chart – chart example"
             width={576}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -231,6 +235,7 @@ data %>%
             src="/figures/caveat/pie/5.webp"
             alt="The issue with pie chart – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>

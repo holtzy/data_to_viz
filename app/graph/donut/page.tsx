@@ -64,6 +64,7 @@ ggplot(data, aes(ymax=ymax, ymin=ymin, xmax=4, xmin=3, fill=category)) +
             src="/figures/graph/donut/1.webp"
             alt="Donut plot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

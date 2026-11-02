@@ -54,6 +54,7 @@ data %>%
             src="/figures/graph/area/1.webp"
             alt="Area chart – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -112,6 +113,7 @@ don %>%
             src="/figures/graph/area/2.webp"
             alt="Area chart – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />{" "}
           <em>Note</em>: this graphic would deserve a discussion on the Y axis range to use and on
@@ -141,6 +143,7 @@ don %>%
             src="/figures/graph/area/3.webp"
             alt="Area chart – chart example"
             width={960}
+            height={288}
             loading="lazy"
           />
         </figure>
@@ -160,6 +163,7 @@ don %>%
             src="/figures/graph/area/4.webp"
             alt="Area chart – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -212,6 +216,7 @@ p1 + p2`}</Code>
             src="/figures/graph/area/5.webp"
             alt="Area chart – chart example"
             width={960}
+            height={288}
             loading="lazy"
           />
         </figure>

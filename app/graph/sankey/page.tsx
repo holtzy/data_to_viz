@@ -131,7 +131,13 @@ sankeyNetwork(Links = Energy$links, Nodes = Energy$nodes, Source = "source",
         <br />
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/sankey/1.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/sankey/1.webp"
+            alt="img"
+            width={600}
+            height={291}
+            loading="lazy"
+          />{" "}
         </div>
 
         <p>

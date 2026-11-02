@@ -59,6 +59,7 @@ data %>%
             src="/figures/graph/lollipop/1.webp"
             alt="Lollipop chart – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -115,6 +116,7 @@ p1 + p2`}</Code>
             src="/figures/graph/lollipop/2.webp"
             alt="Lollipop chart – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -160,6 +162,7 @@ ggplot(don) +
             src="/figures/graph/lollipop/3.webp"
             alt="Lollipop chart – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -216,6 +219,7 @@ ggplot(don) +
             src="/figures/graph/lollipop/4.webp"
             alt="Lollipop chart – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>

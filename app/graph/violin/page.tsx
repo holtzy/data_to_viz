@@ -64,6 +64,7 @@ data %>%
             src="/figures/graph/violin/1.webp"
             alt="Violin plot – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -146,6 +147,7 @@ data %>%
             src="/figures/graph/violin/2.webp"
             alt="Violin plot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -181,6 +183,7 @@ data %>%
             src="/figures/graph/violin/3.webp"
             alt="Violin plot – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -233,6 +236,7 @@ data %>%
             src="/figures/graph/violin/4.webp"
             alt="Violin plot – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>

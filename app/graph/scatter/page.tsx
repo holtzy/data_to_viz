@@ -54,6 +54,7 @@ data %>%
             src="/figures/graph/scatter/1.webp"
             alt="Scatter plot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -94,6 +95,7 @@ don %>%
             src="/figures/graph/scatter/2.webp"
             alt="Scatter plot – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -149,6 +151,7 @@ ggExtra::ggMarginal(p, type = "histogram", color="grey")`}</Code>
             src="/figures/graph/scatter/3.webp"
             alt="Scatter plot – chart example"
             width={768}
+            height={480}
             loading="lazy"
           />
         </figure>

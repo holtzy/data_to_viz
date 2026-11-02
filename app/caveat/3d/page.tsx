@@ -37,7 +37,13 @@ export default function Page() {
         </ul>
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/3d/1.webp" alt="img" width={500} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/3d/1.webp"
+            alt="img"
+            width={500}
+            height={277}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">
@@ -64,7 +70,13 @@ export default function Page() {
 
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/3d/2.webp" alt="img" width={350} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/3d/2.webp"
+            alt="img"
+            width={350}
+            height={227}
+            loading="lazy"
+          />{" "}
         </div>
 
         <div className="text-center">
@@ -93,7 +105,13 @@ export default function Page() {
 
         <div className="text-center">
           {" "}
-          <img src="/figures/caveat/3d/3.webp" alt="img" width={500} loading="lazy" />{" "}
+          <img
+            src="/figures/caveat/3d/3.webp"
+            alt="img"
+            width={500}
+            height={542}
+            loading="lazy"
+          />{" "}
         </div>
 
         <p>

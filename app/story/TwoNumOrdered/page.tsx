@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -106,6 +107,7 @@ data %>%
           src="/figures/story/TwoNumOrdered/1.webp"
           alt="Evolution of the bitcoin price – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -128,6 +130,7 @@ data %>%
           src="/figures/story/TwoNumOrdered/2.webp"
           alt="Evolution of the bitcoin price – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -172,6 +175,7 @@ ggplotly(p)`}</Code>
           src="/figures/story/TwoNumOrdered/3.webp"
           alt="Evolution of the bitcoin price – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -197,6 +201,7 @@ ggplotly(p)`}</Code>
           src="/figures/story/TwoNumOrdered/4.webp"
           alt="Evolution of the bitcoin price – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -221,6 +226,7 @@ ggplotly(p)`}</Code>
           src="/figures/story/TwoNumOrdered/5.webp"
           alt="Evolution of the bitcoin price – chart example"
           width={960}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -228,27 +234,20 @@ ggplotly(p)`}</Code>
         <em>Note</em>: this graphic is imperfect and must be improved (don’t understand the behavior
         of <code>geom_ribbon</code>)
       </p>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/line.html" title="Line chart">
-          <img src="/img/section/Line150.png" alt="Line chart" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/area.html" title="Area chart">
-          <img src="/img/section/Area150.png" alt="Area chart" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/connectedscatter.html" title="Connected Scatter">
-          <img
-            src="/img/section/ScatterConnected150.png"
-            alt="Connected Scatter"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile href="/graph/line.html" image="/img/section/Line150.png" title="Line chart" />
+        <ChartTile href="/graph/area.html" image="/img/section/Area150.png" title="Area chart" />
+        <ChartTile
+          href="/graph/connectedscatter.html"
+          image="/img/section/ScatterConnected150.png"
+          title="Connected Scatter"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

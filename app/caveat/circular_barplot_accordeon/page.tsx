@@ -56,6 +56,7 @@ data %>%
           src="/figures/caveat/circular_barplot_accordeon/1.webp"
           alt="Mind the radial bar charts – chart example"
           width={576}
+          height={576}
           loading="lazy"
         />
       </figure>
@@ -80,6 +81,7 @@ data %>%
           src="/figures/caveat/circular_barplot_accordeon/2.webp"
           alt="img"
           width={400}
+          height={507}
           loading="lazy"
         />{" "}
       </div>
@@ -120,6 +122,7 @@ data %>%
             src="/figures/caveat/circular_barplot_accordeon/3.webp"
             alt="Mind the radial bar charts – chart example"
             width={576}
+            height={768}
             loading="lazy"
           />
         </figure>

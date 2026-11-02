@@ -57,6 +57,7 @@ data %>%
             src="/figures/graph/parallel/1.webp"
             alt="Parallel coordinates plot – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -104,6 +105,7 @@ data %>%
             src="/figures/graph/parallel/2.webp"
             alt="Parallel coordinates plot – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -194,6 +196,7 @@ p1 + p2 + p3 + p4 + plot_layout(ncol = 2)`}</Code>
             src="/figures/graph/parallel/3.webp"
             alt="Parallel coordinates plot – chart example"
             width={960}
+            height={672}
             loading="lazy"
           />
         </figure>
@@ -244,6 +247,7 @@ p1 + p2`}</Code>
             src="/figures/graph/parallel/4.webp"
             alt="Parallel coordinates plot – chart example"
             width={864}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -278,6 +282,7 @@ data %>%
             src="/figures/graph/parallel/5.webp"
             alt="Parallel coordinates plot – chart example"
             width={672}
+            height={384}
             loading="lazy"
           />
         </figure>

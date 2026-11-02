@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -115,6 +116,8 @@ ggsave(p, file="IMG/Surfer_position.png", width = 36, height = 15.22, units = "i
       <div className="text-center">
         <figure>
           <img
+            width={3240}
+            height={1369}
             src="/figures/story/GPSCoordWithoutValue/1.webp"
             alt="Where surfers live – chart example"
             loading="lazy"
@@ -165,6 +168,7 @@ ggsave(p, file="IMG/Surfer_position.png", width = 36, height = 15.22, units = "i
             src="/figures/story/GPSCoordWithoutValue/2.webp"
             alt="Where surfers live – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -205,6 +209,7 @@ ggplot(data, aes(x=homelon, y=homelat)) +
             src="/figures/story/GPSCoordWithoutValue/3.webp"
             alt="Where surfers live – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -216,37 +221,28 @@ ggplot(data, aes(x=homelon, y=homelat)) +
           of the exact shape of your regions.
         </p>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/choropleth.html" title="Choropleth map">
-          <img
-            src="/img/section/Choropleth150.png"
-            alt="Choropleth map"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/hexbinmap.html" title="Hexbin Map">
-          <img
-            src="/img/section/MapHexbin150.png"
-            alt="Hexbin Map"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/cartogram.html" title="Cartogram">
-          <img
-            src="/img/section/Cartogram150.png"
-            alt="Cartogram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/choropleth.html"
+          image="/img/section/Choropleth150.png"
+          title="Choropleth map"
+        />
+        <ChartTile
+          href="/graph/hexbinmap.html"
+          image="/img/section/MapHexbin150.png"
+          title="Hexbin Map"
+        />
+        <ChartTile
+          href="/graph/cartogram.html"
+          image="/img/section/Cartogram150.png"
+          title="Cartogram"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

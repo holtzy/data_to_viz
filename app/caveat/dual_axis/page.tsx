@@ -13,7 +13,7 @@ export const metadata = pageMetadata({
 export default function Page() {
   return (
     <CaveatLayout title="The issue with dual axis" images={["/img/mistake/dual_axis.png"]}>
-      <h2>Example</h2>
+      <h2 id="example">Example</h2>
 
       <hr />
 

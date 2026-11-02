@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -187,6 +188,7 @@ data %>%
             src="/figures/story/SeveralNum/1.webp"
             alt="Eleven features for 32 cars – chart example"
             width={960}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -209,6 +211,7 @@ data %>%
             src="/figures/story/SeveralNum/2.webp"
             alt="Eleven features for 32 cars – chart example"
             width={672}
+            height={672}
             loading="lazy"
           />{" "}
           It is a powerful method that give a good overview of the dataset in an unique graphic. For
@@ -249,6 +252,7 @@ abline(v = 350, lty = 2)`}</Code>
             src="/figures/story/SeveralNum/3.webp"
             alt="Eleven features for 32 cars – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -306,6 +310,7 @@ myPCA$ind %>%
             src="/figures/story/SeveralNum/4.webp"
             alt="Eleven features for 32 cars – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -325,51 +330,35 @@ myPCA$ind %>%
           <a href="/story/AdjacencyMatrix.html">how to visualize an adjacency matrix</a>.
         </p>
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/density.html" title="Density">
-          <img
-            src="/img/section/DensitySmall.png"
-            alt="Density"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/boxplot.html" title="Boxplot">
-          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/violin.html" title="Violin">
-          <img src="/img/section/ViolinSmall.png" alt="Violin" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/ridgeline.html" title="Ridgeline plot">
-          <img
-            src="/img/section/JoyplotSmall.png"
-            alt="Ridgeline plot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/heatmap.html" title="Heatmap">
-          <img
-            src="/img/section/HeatmapSmall.png"
-            alt="Heatmap"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/dendrogram.html" title="Dendrogram">
-          <img
-            src="/img/section/DendrogramSmall.png"
-            alt="Dendrogram"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/density.html"
+          image="/img/section/DensitySmall.png"
+          title="Density"
+        />
+        <ChartTile href="/caveat/boxplot.html" image="/img/section/Box1Small.png" title="Boxplot" />
+        <ChartTile href="/graph/violin.html" image="/img/section/ViolinSmall.png" title="Violin" />
+        <ChartTile
+          href="/graph/ridgeline.html"
+          image="/img/section/JoyplotSmall.png"
+          title="Ridgeline plot"
+        />
+        <ChartTile
+          href="/graph/heatmap.html"
+          image="/img/section/HeatmapSmall.png"
+          title="Heatmap"
+        />
+        <ChartTile
+          href="/graph/dendrogram.html"
+          image="/img/section/DendrogramSmall.png"
+          title="Dendrogram"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

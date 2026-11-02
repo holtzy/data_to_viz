@@ -69,6 +69,7 @@ p <- treemap(data,
             src="/figures/graph/treemap/1.webp"
             alt="Treemap – chart example"
             width={672}
+            height={384}
             loading="lazy"
           />
         </figure>

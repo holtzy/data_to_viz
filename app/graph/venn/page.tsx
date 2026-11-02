@@ -79,7 +79,13 @@ venn.diagram(
 
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/venn/1.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/venn/1.webp"
+            alt="img"
+            width={600}
+            height={600}
+            loading="lazy"
+          />{" "}
         </div>
 
         <p>
@@ -102,7 +108,13 @@ venn.diagram(
 
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/venn/2.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/venn/2.webp"
+            alt="img"
+            width={600}
+            height={461}
+            loading="lazy"
+          />{" "}
         </div>
 
         <p>
@@ -203,6 +215,7 @@ upset(fromExpression(input), nintersects = 40, nsets = 6, order.by = "freq", dec
             src="/figures/graph/venn/3.webp"
             alt="Venn Diagram – chart example"
             width={960}
+            height={480}
             loading="lazy"
           />
         </figure>

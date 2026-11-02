@@ -7,11 +7,11 @@ import { TitleUnderline } from "@/components/title-underline";
 import { buttonClass } from "@/lib/button";
 
 /** Navigation + footer around any page. */
-export function PageShell({ children, narrowHeader = false }: { children: ReactNode; narrowHeader?: boolean }) {
+export function PageShell({ children }: { children: ReactNode }) {
   return (
     <>
       <HashScroll />
-      <SiteHeader narrow={narrowHeader} />
+      <SiteHeader />
       <main className="flex-1">{children}</main>
       <SiteFooter />
     </>
@@ -83,7 +83,7 @@ type ContentLayoutProps = { title: string; images: string[]; children: ReactNode
 
 export function GraphLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell narrowHeader>
+    <PageShell>
       <Article
         header={
           <PageHeader
@@ -108,7 +108,7 @@ export function GraphLayout({ title, images, children }: ContentLayoutProps) {
 
 export function StoryLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell narrowHeader>
+    <PageShell>
       <Article header={<PageHeader title={title} images={images} kicker="Data story" />}>{children}</Article>
       <NewsletterSection />
     </PageShell>
@@ -117,7 +117,7 @@ export function StoryLayout({ title, images, children }: ContentLayoutProps) {
 
 export function CaveatLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell narrowHeader>
+    <PageShell>
       <Article header={<PageHeader title={title} images={images} kicker="Dataviz caveat" />}>{children}</Article>
       <NewsletterSection />
     </PageShell>

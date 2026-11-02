@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -143,22 +144,19 @@ p <- ggplotly(p, tooltip="text")`}</Code>
         </p>
       </Section>
 
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
 
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/bubblemap.html" title="Bubble maps">
-          <img
-            src="/img/section/BubbleMap150.png"
-            alt="Bubble maps"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/bubblemap.html"
+          image="/img/section/BubbleMap150.png"
+          title="Bubble maps"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

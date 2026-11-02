@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -124,6 +125,8 @@ p2 <- data %>%
 p1 + p2`}</Code>
       <figure>
         <img
+          width={1344}
+          height={576}
           src="/figures/story/TwoNum/1.webp"
           alt="Apartment price vs ground living area. – chart example"
           loading="lazy"
@@ -154,6 +157,7 @@ p1 + p2`}</Code>
           src="/figures/story/TwoNum/2.webp"
           alt="Apartment price vs ground living area. – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />{" "}
         It is quite obvious that there is a relationship between prices and ground living area.
@@ -204,6 +208,8 @@ p1 <- p + ggtitle("Linear regression") +
 p1 + p2`}</Code>
       <figure>
         <img
+          width={1344}
+          height={576}
           src="/figures/story/TwoNum/3.webp"
           alt="Apartment price vs ground living area. – chart example"
           loading="lazy"
@@ -245,6 +251,7 @@ ggplotly(p, tooltip="text")`}</Code>
           src="/figures/story/TwoNum/4.webp"
           alt="Apartment price vs ground living area. – chart example"
           width={672}
+          height={480}
           loading="lazy"
         />
       </figure>
@@ -306,43 +313,33 @@ p1 + p2 + p3 + p4 + p5 + p6 + plot_layout(ncol = 2)`}</Code>
           src="/figures/story/TwoNum/5.webp"
           alt="Apartment price vs ground living area. – chart example"
           width={768}
+          height={768}
           loading="lazy"
         />
       </figure>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/density.html" title="Density">
-          <img
-            src="/img/section/DensitySmall.png"
-            alt="Density"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/boxplot.html" title="Boxplot">
-          <img src="/img/section/Box1Small.png" alt="Boxplot" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/scatter.html" title="Scatter plot">
-          <img
-            src="/img/section/ScatterPlotSmall.png"
-            alt="Scatter plot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/density2d.html" title="Density 2d">
-          <img
-            src="/img/section/2dDensitySmall.png"
-            alt="Density 2d"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile
+          href="/graph/density.html"
+          image="/img/section/DensitySmall.png"
+          title="Density"
+        />
+        <ChartTile href="/caveat/boxplot.html" image="/img/section/Box1Small.png" title="Boxplot" />
+        <ChartTile
+          href="/graph/scatter.html"
+          image="/img/section/ScatterPlotSmall.png"
+          title="Scatter plot"
+        />
+        <ChartTile
+          href="/graph/density2d.html"
+          image="/img/section/2dDensitySmall.png"
+          title="Density 2d"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }

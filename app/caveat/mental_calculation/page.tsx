@@ -54,6 +54,7 @@ data %>%
             src="/figures/caveat/mental_calculation/1.webp"
             alt="Mental arithmetic in dataviz – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -108,6 +109,7 @@ data %>%
             src="/figures/caveat/mental_calculation/2.webp"
             alt="Mental arithmetic in dataviz – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

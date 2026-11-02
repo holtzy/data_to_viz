@@ -110,6 +110,7 @@ ggraph(mygraph, layout = 'circlepack', weight=size) +
             src="/figures/graph/circularpacking/1.webp"
             alt="Circular Packing – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>

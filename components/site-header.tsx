@@ -11,10 +11,10 @@ const linkClass =
   "inline-flex h-9 items-center rounded-[4px] px-2.5 text-sm font-light tracking-wider text-slate-900 uppercase transition-colors hover:bg-slate-100";
 
 /**
- * Top navigation, styled like the React Graph Gallery's: fixed, translucent, blurred.
- * On article pages (`narrow`) it lines up with the 700px reading column.
+ * Top navigation, styled like the React Graph Gallery's: fixed, translucent, blurred,
+ * and lined up with the 700px reading column on every page.
  */
-export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
+export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -32,7 +32,7 @@ export function SiteHeader({ narrow = false }: { narrow?: boolean }) {
         scrolled ? "border-slate-200/80 bg-white/85" : "border-transparent bg-white/60",
       )}
     >
-      <div className={cn("h-full", narrow ? "wrapper" : "mx-auto max-w-5xl px-4")}>
+      <div className="wrapper h-full">
         <div className="flex h-full items-center justify-between">
           <a href="/" aria-label="from Data to Viz – home" className="shrink-0">
             {/* The lettering sits low in the PNG: lift it to line up optically with the links. */}

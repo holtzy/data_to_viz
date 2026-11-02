@@ -55,6 +55,7 @@ ggplot(data, aes(x=x, y=y)) +
             src="/figures/caveat/simpson/1.webp"
             alt="The simpson's paradox – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -93,6 +94,7 @@ ggplot(data, aes(x=x, y=y, color=group)) +
             src="/figures/caveat/simpson/2.webp"
             alt="The simpson's paradox – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>

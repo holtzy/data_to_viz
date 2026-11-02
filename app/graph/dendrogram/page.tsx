@@ -64,6 +64,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = FALSE) +
             src="/figures/graph/dendrogram/1.webp"
             alt="Dendrogram – chart example"
             width={672}
+            height={384}
             loading="lazy"
           />
         </figure>
@@ -122,6 +123,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = FALSE) +
             src="/figures/graph/dendrogram/2.webp"
             alt="Dendrogram – chart example"
             width={672}
+            height={480}
             loading="lazy"
           />
         </figure>
@@ -236,6 +238,7 @@ dend %>%
             src="/figures/graph/dendrogram/3.webp"
             alt="Dendrogram – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -276,6 +279,7 @@ colored_bars(colors = barcolor, dend = dend, rowLabels = "continent")`}</Code>
             src="/figures/graph/dendrogram/4.webp"
             alt="Dendrogram – chart example"
             width={864}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -357,6 +361,7 @@ ggraph(mygraph, layout = 'dendrogram', circular = TRUE) +
             src="/figures/graph/dendrogram/5.webp"
             alt="Dendrogram – chart example"
             width={576}
+            height={576}
             loading="lazy"
           />
         </figure>

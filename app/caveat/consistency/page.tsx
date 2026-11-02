@@ -91,6 +91,7 @@ a + b`}</Code>
           src="/figures/caveat/consistency/1.webp"
           alt="Consistency between charts – chart example"
           width={960}
+          height={384}
           loading="lazy"
         />
       </figure>
@@ -166,6 +167,7 @@ a + b`}</Code>
             src="/figures/caveat/consistency/2.webp"
             alt="Consistency between charts – chart example"
             width={960}
+            height={384}
             loading="lazy"
           />
         </figure>

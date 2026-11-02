@@ -92,6 +92,7 @@ ggsave(p2, filename="IMG/cartogram2.png", dpi=100, width=7, height=7)`}</Code>
                 src="/figures/graph/cartogram/1.webp"
                 alt="img"
                 width={600}
+                height={600}
                 loading="lazy"
               />{" "}
             </div>
@@ -103,6 +104,7 @@ ggsave(p2, filename="IMG/cartogram2.png", dpi=100, width=7, height=7)`}</Code>
                 src="/figures/graph/cartogram/2.webp"
                 alt="img"
                 width={600}
+                height={600}
                 loading="lazy"
               />{" "}
             </div>
@@ -191,7 +193,13 @@ ggplot() +
 
         <div className="text-center">
           {" "}
-          <img src="/figures/graph/cartogram/3.webp" alt="img" width={600} loading="lazy" />{" "}
+          <img
+            src="/figures/graph/cartogram/3.webp"
+            alt="img"
+            width={600}
+            height={400}
+            loading="lazy"
+          />{" "}
         </div>
       </Section>
 

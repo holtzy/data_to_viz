@@ -1,5 +1,6 @@
 import { StoryLayout } from "@/components/layouts";
 import { Code, Section, Widget } from "@/components/content";
+import { ChartTile, ChartTiles } from "@/components/chart-tile";
 import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
@@ -130,6 +131,7 @@ data %>%
             src="/figures/story/OneNumSevCatSubgroupOneObsPerGroup/1.webp"
             alt="The gender wage gap – chart example"
             width={768}
+            height={864}
             loading="lazy"
           />
         </figure>
@@ -161,6 +163,7 @@ data %>%
             src="/figures/story/OneNumSevCatSubgroupOneObsPerGroup/2.webp"
             alt="The gender wage gap – chart example"
             width={768}
+            height={864}
             loading="lazy"
           />
         </figure>
@@ -204,6 +207,7 @@ data %>%
             src="/figures/story/OneNumSevCatSubgroupOneObsPerGroup/3.webp"
             alt="The gender wage gap – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -254,6 +258,7 @@ data %>%
             src="/figures/story/OneNumSevCatSubgroupOneObsPerGroup/4.webp"
             alt="The gender wage gap – chart example"
             width={768}
+            height={576}
             loading="lazy"
           />
         </figure>
@@ -288,40 +293,29 @@ ggplotly(p, tooltip="text")`}</Code>
           width={768}
         />
       </Section>
-      <h2>Going further</h2>
+      <h2 id="going-further">Going further</h2>
       <p>
         You can learn more about each type of graphic presented in this story in the dedicated
         sections. Click the icon below:
       </p>
-      <div className="flex flex-wrap justify-center gap-3">
-        <a href="/graph/barplot.html" title="Barplot">
-          <img src="/img/section/BarSmall.png" alt="Barplot" loading="lazy" className="size-24" />
-        </a>
-        <a href="/graph/parallel.html" title="Parallel coordinates">
-          <img
-            src="/img/section/Parallel1Small.png"
-            alt="Parallel coordinates"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/caveat/spider.html" title="Spider Chart">
-          <img
-            src="/img/section/SpiderSmall.png"
-            alt="Spider Chart"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-        <a href="/graph/scatter.html" title="Scatter plot">
-          <img
-            src="/img/section/ScatterPlotSmall.png"
-            alt="Scatter plot"
-            loading="lazy"
-            className="size-24"
-          />
-        </a>
-      </div>
+      <ChartTiles>
+        <ChartTile href="/graph/barplot.html" image="/img/section/BarSmall.png" title="Barplot" />
+        <ChartTile
+          href="/graph/parallel.html"
+          image="/img/section/Parallel1Small.png"
+          title="Parallel coordinates"
+        />
+        <ChartTile
+          href="/caveat/spider.html"
+          image="/img/section/SpiderSmall.png"
+          title="Spider Chart"
+        />
+        <ChartTile
+          href="/graph/scatter.html"
+          image="/img/section/ScatterPlotSmall.png"
+          title="Scatter plot"
+        />
+      </ChartTiles>
     </StoryLayout>
   );
 }
