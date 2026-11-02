@@ -17,9 +17,9 @@ export default function Page() {
     <PageShell>
       <section className="flex min-h-[80vh] items-center justify-center bg-muted/40 px-4 pt-16">
         <div className="mx-auto w-full max-w-2xl py-12 text-center">
-          <h1 className="font-heading text-3xl font-medium tracking-[0.12em] uppercase sm:text-4xl">Best tips</h1>
+          <h1 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">Best tips</h1>
           <p className="mt-4 text-lg text-muted-foreground">
-            The best dataviz tips from <a href="/" className="text-brand hover:underline">From Data to Viz</a>, a
+            The best dataviz tips from <a href="/" className="link">From Data to Viz</a>, a
             classification of chart types based on their input data format, delivered straight to your inbox.
           </p>
           <div className="mt-8">

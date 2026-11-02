@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { buttonClass } from "@/lib/button";
 import { cn } from "@/lib/utils";
 
 export type CaveatTag = "top10" | "improvement" | "misleading" | "map" | "bar";
@@ -37,12 +38,7 @@ export function CaveatGallery({ items }: { items: CaveatItem[] }) {
             type="button"
             aria-pressed={filter === f.value}
             onClick={() => setFilter(f.value)}
-            className={cn(
-              "rounded-md border px-4 py-1.5 text-sm font-semibold tracking-wide uppercase transition",
-              filter === f.value
-                ? "border-brand bg-brand text-white"
-                : "border-border text-muted-foreground hover:border-brand hover:text-brand",
-            )}
+            className={buttonClass("toggle", "sm")}
           >
             {f.label}
           </button>
@@ -60,7 +56,7 @@ export function CaveatGallery({ items }: { items: CaveatItem[] }) {
               )}
             >
               <img src={item.image} alt={item.title} loading="lazy" className="size-24 object-contain" />
-              <h2 className="mt-4 font-heading text-sm font-semibold tracking-wider text-foreground uppercase group-hover:text-brand">
+              <h2 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">
                 {item.title}
               </h2>
               <p className="mt-2 text-sm leading-snug text-muted-foreground">{item.text}</p>

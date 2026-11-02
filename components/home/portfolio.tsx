@@ -4,6 +4,7 @@ import { useState, type MouseEvent } from "react";
 import { PORTFOLIO, PORTFOLIO_FILTERS } from "@/components/home/data/home";
 import { useOpenChart } from "@/components/home/chart-dialog";
 import { cn } from "@/lib/utils";
+import { buttonClass } from "@/lib/button";
 
 /** "A world of possibilities": every chart type, filterable by purpose. */
 export function Portfolio() {
@@ -24,40 +25,35 @@ export function Portfolio() {
             key={f.id}
             onClick={() => setFilter(f.id)}
             aria-pressed={filter === f.id}
-            className={cn(
-              "rounded-md border px-3 py-1.5 text-sm transition",
-              filter === f.id
-                ? "border-brand bg-brand text-white"
-                : "border-brand/40 bg-background text-brand hover:border-brand hover:bg-brand/10",
-            )}
+            className={buttonClass("toggle", "sm")}
           >
             {f.label}
           </button>
         ))}
       </div>
-      <ul className="mt-10 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 lg:grid-cols-6">
+      <ul className="mx-auto mt-10 flex max-w-5xl flex-wrap justify-center gap-x-3 gap-y-5">
         {PORTFOLIO.map((item) => (
           <li
             key={item.id}
             hidden={filter !== "all" && !item.categories.includes(filter)}
-            className="animate-in fade-in duration-500"
+            className="w-[130px] animate-in fade-in duration-500"
           >
             <a
               href={item.href ?? "#"}
               onClick={(e) => onOpen(e, item.id)}
               className="group flex flex-col items-center text-center"
             >
-              <span className="relative block overflow-hidden rounded-full">
-                <img
-                  src={item.image}
-                  alt={item.title}
-                  loading="lazy"
-                  className="size-28 object-contain transition duration-300 group-hover:scale-105 group-hover:opacity-70"
-                />
+              {/* Same tile as the React Graph Gallery front page: icon + "+" overlay on hover. */}
+              <span className="relative block size-[122px]">
+                <img src={item.image} alt={item.title} loading="lazy" className="size-[122px] object-contain" />
+                <span
+                  aria-hidden
+                  className="absolute inset-0 flex items-center justify-center rounded-full bg-brand text-4xl text-white opacity-0 transition-opacity group-hover:opacity-60"
+                >
+                  +
+                </span>
               </span>
-              <span className="mt-2 font-serif text-sm font-semibold group-hover:text-brand">
-                {item.title}
-              </span>
+              <span className="mt-1 text-sm font-light text-slate-500 group-hover:text-slate-900">{item.title}</span>
             </a>
           </li>
         ))}

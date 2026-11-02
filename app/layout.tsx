@@ -1,14 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import Script from "next/script";
-import { Inter, Montserrat, Noto_Serif, Roboto_Slab } from "next/font/google";
+import { Bitter, Roboto } from "next/font/google";
 import { GA_MEASUREMENT_ID, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
-const montserrat = Montserrat({ variable: "--font-montserrat", subsets: ["latin"] });
-// The original site's body (Roboto Slab) and subtitle (Droid Serif → Noto Serif) faces.
-const robotoSlab = Roboto_Slab({ variable: "--font-roboto-slab", subsets: ["latin"] });
-const notoSerif = Noto_Serif({ variable: "--font-noto-serif", subsets: ["latin"], style: ["italic"] });
+// Same type family as the React Graph Gallery: Bitter for headings, Roboto for text.
+const bitter = Bitter({ variable: "--font-bitter", subsets: ["latin"] });
+const roboto = Roboto({ variable: "--font-roboto", subsets: ["latin"], weight: ["300", "400", "500", "700"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -25,7 +23,7 @@ export const viewport: Viewport = { themeColor: "#69b3a2" };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${inter.variable} ${montserrat.variable} ${robotoSlab.variable} ${notoSerif.variable} h-full antialiased`}>
+    <html lang="en" className={`${bitter.variable} ${roboto.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
         {children}
         <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} strategy="afterInteractive" />

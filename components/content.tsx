@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { codeToHtml } from "shiki";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { buttonClass } from "@/lib/button";
 
 /** A titled block of an article. `id` is the anchor used in links (`#definition`). */
 export function Section({
@@ -39,8 +40,8 @@ export async function Code({
 }) {
   const html = await codeToHtml(children, { lang, theme: "github-light" });
   return (
-    <details open={open} className="group not-prose my-4">
-      <summary className="ml-auto flex w-fit cursor-pointer list-none items-center gap-1 rounded-md px-2 py-1 text-xs font-semibold tracking-wider text-brand uppercase select-none hover:bg-brand/10 [&::-webkit-details-marker]:hidden">
+    <details open={open} className="group my-4">
+      <summary className="ml-auto flex w-fit cursor-pointer list-none items-center gap-1 rounded-md px-2 py-1 text-xs font-light tracking-wider text-slate-600 uppercase select-none hover:bg-slate-100 hover:text-brand [&::-webkit-details-marker]:hidden">
         <span className="group-open:hidden">Show code</span>
         <span className="hidden group-open:inline">Hide code</span>
         <ChevronDown className="size-3.5 transition-transform group-open:rotate-180" />
@@ -56,7 +57,7 @@ export async function Code({
 /** Raw console output printed by a code chunk. */
 export function Output({ children }: { children: string }) {
   return (
-    <pre className="not-prose my-4 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-[13px] leading-relaxed">
+    <pre className="my-4 overflow-x-auto rounded-lg border bg-muted/40 p-4 text-[13px] leading-relaxed">
       {children}
     </pre>
   );
@@ -65,13 +66,13 @@ export function Output({ children }: { children: string }) {
 /** An interactive chart (htmlwidget), served as a standalone page and lazily embedded. */
 export function Widget({ src, height, width }: { src: string; height: number; width?: number }) {
   return (
-    <figure className="not-prose my-6">
+    <figure className="full-bleed my-6 px-[15px]">
       <iframe
         src={src}
         loading="lazy"
         title="Interactive chart"
         className="mx-auto block w-full border-0"
-        style={{ height: height + 16, maxWidth: width }}
+        style={{ height: height + 16, maxWidth: Math.max(width ?? 900, 700) }}
       />
     </figure>
   );
@@ -79,7 +80,9 @@ export function Widget({ src, height, width }: { src: string; height: number; wi
 
 export function RelatedGrid({ children }: { children: ReactNode }) {
   return (
-    <div className="not-prose my-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">{children}</div>
+    <div className="full-bleed my-6 px-[15px]">
+      <div className="mx-auto grid max-w-5xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">{children}</div>
+    </div>
   );
 }
 
@@ -97,13 +100,13 @@ export function RelatedCard({
   return (
     <a
       href={href}
-      className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
+      className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center no-underline transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
     >
       <img src={image} alt={title} loading="lazy" className="size-20 object-contain" />
-      <p className="mt-3 font-heading text-sm font-semibold tracking-wider text-foreground uppercase group-hover:text-brand">
+      <span className="mt-3 font-heading text-[17px] leading-snug font-bold text-foreground group-hover:text-brand">
         {title}
-      </p>
-      <p className="mt-2 text-sm leading-snug text-muted-foreground">{children}</p>
+      </span>
+      <span className="mt-2 text-[15px] leading-snug text-muted-foreground">{children}</span>
     </a>
   );
 }
@@ -120,10 +123,7 @@ export function ButtonLink({
   return (
     <a
       href={href}
-      className={cn(
-        "not-prose inline-flex items-center rounded-md border border-brand px-4 py-2 text-sm font-semibold tracking-wide text-brand uppercase no-underline transition hover:bg-brand hover:text-white",
-        className,
-      )}
+      className={buttonClass("secondary", "md", className)}
     >
       {children}
     </a>

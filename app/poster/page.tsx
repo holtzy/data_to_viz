@@ -1,4 +1,5 @@
 import { PageShell } from "@/components/layouts";
+import { buttonClass } from "@/lib/button";
 import { KitForm } from "@/components/newsletter";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -36,10 +37,9 @@ const photos = [
   { id: "poster_100_three", alt: "Close-up of a printed Data to Viz poster" },
 ];
 
-const link = "text-brand hover:underline";
-const primaryButton =
-  "inline-flex items-center justify-center rounded-md bg-brand px-6 py-3 text-sm font-semibold tracking-wide text-white uppercase transition hover:bg-brand/85";
-const sectionTitle = "font-heading text-2xl font-medium tracking-[0.12em] uppercase sm:text-3xl";
+const link = "link";
+const largeButton = buttonClass("secondary", "lg");
+const sectionTitle = "font-heading text-[28px] leading-9 font-bold tracking-[0.03em] sm:text-[32px] sm:leading-[44px]";
 
 export default function Page() {
   return (
@@ -47,8 +47,8 @@ export default function Page() {
       {/* Header */}
       <section id="head" className="border-b pt-16">
         <div className="mx-auto max-w-4xl px-4 py-14 text-center">
-          <h1 className="font-heading text-3xl font-medium tracking-[0.12em] uppercase sm:text-4xl">Poster</h1>
-          <p className="mt-4 text-lg text-muted-foreground italic">
+          <h1 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">Poster</h1>
+          <p className="mt-4 text-lg text-slate-600">
             Support the{" "}
             <a href="/" className={link}>
               Data to Viz
@@ -57,7 +57,11 @@ export default function Page() {
           </p>
           <nav aria-label="On this page" className="mt-8 flex flex-wrap justify-center gap-2">
             {anchors.map((a) => (
-              <a key={a.href} href={a.href} className={`${primaryButton} px-4 py-2`}>
+              <a
+                key={a.href}
+                href={a.href}
+                className={buttonClass(a.href === "#order" ? "primary" : "secondary")}
+              >
                 {a.label}
               </a>
             ))}
@@ -72,7 +76,7 @@ export default function Page() {
             src="/img/poster/poster_mockup_croped.jpg"
             alt="Mockup of the Data to Viz poster hanging on a wall"
             loading="lazy"
-            className="w-full rounded-lg shadow-md lg:col-span-2"
+            className="w-full shadow-md lg:col-span-2"
           />
           <div className="space-y-4 text-center text-foreground/85">
             <p>
@@ -86,7 +90,7 @@ export default function Page() {
               The poster summarizes the 6 decision trees and is a useful tool for your data analytics project, or for
               teaching students the diversity of dataviz.
             </p>
-            <a href="#poster_full" className={primaryButton}>
+            <a href="#poster_full" className={largeButton}>
               See it full screen
             </a>
           </div>
@@ -102,7 +106,7 @@ export default function Page() {
         <div className="relative mx-auto grid max-w-6xl gap-6 px-4 py-24 sm:grid-cols-2 sm:py-32 lg:grid-cols-4">
           {features.map((f) => (
             <div key={f.title} className="rounded-xl bg-background/90 p-6 text-center shadow-sm">
-              <h2 className="mb-4 border-b pb-2 font-heading text-lg font-semibold tracking-[0.15em] uppercase">
+              <h2 className="mb-4 border-b pb-2 font-heading text-xl font-bold tracking-[0.03em]">
                 {f.title}
               </h2>
               <p className="text-muted-foreground">
@@ -123,7 +127,7 @@ export default function Page() {
               src="/img/poster/poster_medium.png"
               alt="The Data to Viz poster: 6 decision trees leading from data format to chart types"
               loading="lazy"
-              className="mx-auto w-full max-w-2xl rounded-lg shadow-md"
+              className="mx-auto w-full max-w-2xl shadow-md"
             />
           </a>
           <div className="space-y-4 text-center text-foreground/85">
@@ -154,7 +158,7 @@ export default function Page() {
           </div>
           <div className="mt-10 grid gap-6 sm:grid-cols-3">
             {photos.map((p) => (
-              <a key={p.id} id={p.id} href={`/img/poster/${p.id}.jpg`} className="block overflow-hidden rounded-lg">
+              <a key={p.id} id={p.id} href={`/img/poster/${p.id}.jpg`} className="block overflow-hidden">
                 <img
                   src={`/img/poster/${p.id}.jpg`}
                   alt={p.alt}
@@ -182,7 +186,7 @@ export default function Page() {
           </p>
           <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
             {payments.map((p) => (
-              <a key={p.href} href={p.href} className={primaryButton}>
+              <a key={p.href} href={p.href} className={largeButton}>
                 {p.label}
               </a>
             ))}
@@ -205,7 +209,7 @@ export default function Page() {
             src="/img/poster/poster_small.png"
             alt="High Resolution Poster"
             loading="lazy"
-            className="mt-8 w-full max-w-sm rounded-lg shadow-lg"
+            className="mt-8 w-full max-w-sm shadow-lg"
           />
           <p className="mt-6 text-foreground/85">
             PS: you can also purchase it as a high-quality{" "}

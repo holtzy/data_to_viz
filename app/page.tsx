@@ -6,10 +6,11 @@ import { ChartDialogProvider } from "@/components/home/chart-dialog";
 import { DecisionTree } from "@/components/home/decision-tree";
 import { Portfolio } from "@/components/home/portfolio";
 import { PosterCarousel } from "@/components/home/poster-carousel";
-import { StoryTabs } from "@/components/home/story-tabs";
+import { StoryMenus } from "@/components/home/story-menus";
 import { CAVEAT_CARDS } from "@/components/home/data/home";
 import { SITE_URL } from "@/lib/site";
 import { cn } from "@/lib/utils";
+import { buttonClass } from "@/lib/button";
 
 const DESCRIPTION =
   "From Data to Viz leads you to the most appropriate graph for your data. It links to the code to build it and lists common caveats you should avoid.";
@@ -40,8 +41,10 @@ const JSON_LD = {
 function SectionHeading({ title, children }: { title: ReactNode; children?: ReactNode }) {
   return (
     <div className="mx-auto max-w-3xl text-center">
-      <h2 className="font-heading text-3xl font-bold uppercase sm:text-[40px]">{title}</h2>
-      {children && <div className="mt-4 font-serif text-base text-muted-foreground italic">{children}</div>}
+      <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
+        {title}
+      </h2>
+      {children && <div className="mt-4 text-lg text-slate-600">{children}</div>}
     </div>
   );
 }
@@ -64,11 +67,8 @@ function HomeSection({
   );
 }
 
-const btn =
-  "inline-flex items-center rounded-md border-2 border-brand bg-white/60 px-6 py-3 font-heading text-sm font-bold tracking-wider text-brand uppercase transition hover:bg-brand hover:text-white";
-const smallBtn =
-  "inline-flex items-center rounded-md border border-brand px-3 py-1.5 font-heading text-xs font-semibold tracking-wider text-brand uppercase transition hover:bg-brand hover:text-white";
-const link = "text-brand hover:underline";
+
+const link = "link";
 
 const TEAM = [
   {
@@ -96,10 +96,10 @@ const TEAM = [
 
 export default function Home() {
   return (
-    <PageShell overlayHeader>
+    <PageShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       <ChartDialogProvider>
-        <div className="font-slab">
+        <div className="text-[19px] leading-7 text-slate-900">
           {/* Hero */}
           <header className="relative overflow-hidden">
             <div
@@ -109,19 +109,19 @@ export default function Home() {
             <img
               src="/img/IIB-awards-winner.png"
               alt="Information is Beautiful Awards winner"
-              className="absolute top-0 left-0 hidden w-36 opacity-70 sm:block lg:w-48"
+              className="absolute top-20 left-4 hidden w-28 opacity-70 sm:block lg:w-36"
             />
             <div className="relative mx-auto flex min-h-[92vh] max-w-3xl flex-col items-center justify-center px-4 pt-20 pb-16 text-center">
               <h1>
                 <img src="/img/logo/tree-s.png" alt="From Data to Viz" className="mx-auto w-64 sm:w-80" />
                 <span className="sr-only">From Data to Viz – find the graphic you need</span>
               </h1>
-              <p className="mt-8 max-w-xl font-serif text-lg text-foreground/80 italic sm:text-xl">{DESCRIPTION}</p>
+              <p className="mt-8 max-w-xl text-xl leading-8 font-light text-slate-700">{DESCRIPTION}</p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
-                <a href="#explore" className={btn}>
+                <a href="#explore" className={buttonClass("primary", "lg")}>
                   Explore
                 </a>
-                <a href="/poster.html" className={btn}>
+                <a href="/poster.html" className={buttonClass("secondary", "lg")}>
                   See poster
                 </a>
               </div>
@@ -130,7 +130,7 @@ export default function Home() {
 
           {/* Decision tree */}
           <HomeSection id="explore" className="pb-20">
-            <p className="mx-auto max-w-2xl text-center text-muted-foreground">
+            <p className="mx-auto max-w-2xl text-center text-slate-600">
               What kind of data do you have? Pick the main type using the buttons below. Then let the decision tree
               guide you toward your graphic possibilities. Alternatively, check the{" "}
               <a href="/poster.html" className={link}>
@@ -160,7 +160,7 @@ export default function Home() {
                 .
               </SectionHeading>
               <div className="mt-10">
-                <StoryTabs />
+                <StoryMenus />
               </div>
             </div>
           </HomeSection>
@@ -180,8 +180,8 @@ export default function Home() {
           {/* Newsletter */}
           <HomeSection id="form">
             <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-2xl font-bold sm:text-3xl">❤️ Enjoying the project? ❤️</h2>
-              <p className="mt-4 text-muted-foreground">
+              <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">❤️ Enjoying the project? ❤️</h2>
+              <p className="mt-4 text-slate-600">
                 Dive deeper into the world of data visualization with <em>Dataviz Universe</em>, my newsletter packed
                 with <strong className="text-foreground">actionable tips and tricks</strong> to enhance your data
                 storytelling skills.
@@ -207,17 +207,17 @@ export default function Home() {
                   <li key={c.href}>
                     <a
                       href={c.href}
-                      className="group flex h-full flex-col items-center rounded-md border-2 border-brand/70 bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-lg"
+                      className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-lg"
                     >
-                      <img src={c.image} alt="" loading="lazy" className="size-28 rounded-full object-contain" />
-                      <h3 className="mt-4 font-heading text-sm font-semibold text-brand">{c.title}</h3>
-                      <p className="mt-2 text-sm leading-relaxed text-foreground/80">{c.text}</p>
+                      <img src={c.image} alt="" loading="lazy" className="size-28 object-contain" />
+                      <h3 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">{c.title}</h3>
+                      <p className="mt-2 text-[15px] leading-snug text-slate-600">{c.text}</p>
                     </a>
                   </li>
                 ))}
               </ul>
               <div className="mt-10 text-center">
-                <a href="/caveats.html" className={btn}>
+                <a href="/caveats.html" className={buttonClass("secondary", "lg")}>
                   See all caveats
                 </a>
               </div>
@@ -238,10 +238,10 @@ export default function Home() {
                 <PosterCarousel />
               </div>
               <div className="mt-8 flex flex-wrap justify-center gap-4">
-                <a href="/poster.html" className={btn}>
+                <a href="/poster.html" className={buttonClass("primary", "lg")}>
                   Buy a poster
                 </a>
-                <a href="/img/poster/poster_big.png" className={btn}>
+                <a href="/img/poster/poster_big.png" className={buttonClass("secondary", "lg")}>
                   See it full screen
                 </a>
               </div>
@@ -251,8 +251,8 @@ export default function Home() {
           {/* About */}
           <HomeSection id="about" muted>
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-heading text-3xl font-bold uppercase sm:text-[40px]">About the project</h2>
-              <p className="mt-6 text-muted-foreground">
+              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">About the project</h2>
+              <p className="mt-6 text-slate-600">
                 &lsquo;From Data to Viz&rsquo; is a classification of chart types based on input data format. It comes
                 in the form of a decision tree leading to a set of potentially appropriate visualizations to represent
                 your dataset.{" "}
@@ -262,20 +262,20 @@ export default function Home() {
                 .
               </p>
               <div className="mt-6 flex flex-wrap justify-center gap-2">
-                <a href="/about.html#toolsanchor" className={smallBtn}>
+                <a href="/about.html#toolsanchor" className={buttonClass("secondary", "sm")}>
                   Tools
                 </a>
-                <a href="/about.html#acknowledgmentanchor" className={smallBtn}>
+                <a href="/about.html#acknowledgmentanchor" className={buttonClass("secondary", "sm")}>
                   Acknowledgment
                 </a>
-                <a href="/about.html#historyanchor" className={smallBtn}>
+                <a href="/about.html#historyanchor" className={buttonClass("secondary", "sm")}>
                   History
                 </a>
-                <a href="#contact" className={smallBtn}>
+                <a href="#contact" className={buttonClass("secondary", "sm")}>
                   Feedback
                 </a>
               </div>
-              <p className="mt-8 text-muted-foreground">
+              <p className="mt-8 text-slate-600">
                 This website has been developed by two friends from the south of France in their spare time. Feel free
                 to{" "}
                 <a href="#contact" className={link}>
@@ -295,12 +295,12 @@ export default function Home() {
                       className="mx-auto size-56 rounded-full border-[7px] border-white object-cover shadow-sm"
                     />
                   </a>
-                  <h3 className="mt-5 font-heading text-2xl font-bold">
-                    <a href={m.href} className="text-brand hover:underline">
+                  <h3 className="mt-5 font-heading text-2xl font-bold tracking-[0.03em]">
+                    <a href={m.href} className="link">
                       {m.name}
                     </a>
                   </h3>
-                  <p className="mt-1 font-serif text-muted-foreground italic">{m.role}</p>
+                  <p className="mt-1 text-slate-600">{m.role}</p>
                   <ul className="mt-3 flex justify-center gap-4 text-sm">
                     {m.links.map((l) => (
                       <li key={l.href}>
@@ -318,8 +318,8 @@ export default function Home() {
           {/* Contact */}
           <HomeSection id="contact">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-heading text-3xl font-bold uppercase sm:text-[40px]">Contact</h2>
-              <p className="mt-6 text-muted-foreground">
+              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">Contact</h2>
+              <p className="mt-6 text-slate-600">
                 We welcome any feedback you may have! You can open an issue on{" "}
                 <a href="https://github.com/holtzy/data_to_viz" className={link}>
                   Github

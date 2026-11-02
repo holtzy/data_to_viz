@@ -16,7 +16,7 @@ export function PosterCarousel() {
 
   return (
     <div>
-      <div className="relative overflow-hidden rounded-lg bg-muted shadow-sm">
+      <div className="relative overflow-hidden bg-muted shadow-sm">
         <div
           className="flex transition-transform duration-500 ease-out"
           style={{ transform: `translateX(-${index * 100}%)` }}

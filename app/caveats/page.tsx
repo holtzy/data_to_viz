@@ -1,4 +1,5 @@
 import { PageShell } from "@/components/layouts";
+import { buttonClass } from "@/lib/button";
 import { KitForm } from "@/components/newsletter";
 import { pageMetadata } from "@/lib/metadata";
 import { CaveatGallery, type CaveatItem } from "./caveat-gallery";
@@ -62,10 +63,10 @@ export default function Page() {
             className="absolute inset-0 bg-[url('/img/overview_RGG_faded.png')] bg-cover bg-fixed bg-center opacity-70"
           />
           <div className="relative mx-auto max-w-4xl px-4 py-14 text-center">
-            <h1 className="font-heading text-3xl font-medium tracking-[0.12em] uppercase sm:text-4xl">Caveats</h1>
-            <p className="mt-4 text-lg text-muted-foreground italic">
+            <h1 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">Caveats</h1>
+            <p className="mt-4 text-lg text-slate-600">
               A collection of dataviz caveats by{" "}
-              <a href="/" className="text-brand hover:underline">
+              <a href="/" className="link">
                 data-to-viz.com
               </a>
             </p>
@@ -75,10 +76,7 @@ export default function Page() {
         <div className="mx-auto max-w-6xl px-4 py-12">
           <CaveatGallery items={caveats} />
           <div className="mt-12 text-center">
-            <a
-              href="/"
-              className="inline-flex items-center rounded-md bg-brand px-6 py-3 text-sm font-semibold tracking-wide text-white uppercase transition hover:bg-brand/85"
-            >
+            <a href="/" className={buttonClass("secondary", "lg")}>
               Back to Data-to-viz.com
             </a>
           </div>
@@ -86,7 +84,7 @@ export default function Page() {
       </section>
       <section id="form" className="scroll-mt-20 border-t bg-muted/50 py-16 sm:py-24">
         <div className="mx-auto flex max-w-2xl flex-col items-center px-4 text-center">
-          <h2 className="font-heading text-2xl font-semibold tracking-wide sm:text-3xl">❤️ Enjoying the project? ❤️</h2>
+          <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">❤️ Enjoying the project? ❤️</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Dive deeper into the world of data visualization with <i>Dataviz Universe</i>, my newsletter packed with{" "}
             <b>actionable tips and tricks</b> to enhance your data storytelling skills.

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { PageShell } from "@/components/layouts";
+import { buttonClass } from "@/lib/button";
 import { KitForm } from "@/components/newsletter";
 import { pageMetadata } from "@/lib/metadata";
 
@@ -109,11 +110,11 @@ const history: { year: number; image: string; alt: string; text: ReactNode }[] =
   },
 ];
 
-const link = "text-brand hover:underline";
+const link = "link";
 
 function ColumnTitle({ children }: { children: ReactNode }) {
   return (
-    <h3 className="mb-5 border-b pb-2 font-heading text-lg font-semibold tracking-[0.15em] uppercase">{children}</h3>
+    <h3 className="mb-5 border-b pb-2 font-heading text-xl font-bold tracking-[0.03em]">{children}</h3>
   );
 }
 
@@ -123,16 +124,16 @@ export default function Page() {
       {/* Header */}
       <section id="head" className="border-b bg-muted/40 pt-16">
         <div className="mx-auto max-w-4xl px-4 py-14 text-center">
-          <h1 className="font-heading text-3xl font-medium tracking-[0.12em] uppercase sm:text-4xl">
+          <h1 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
             About data to viz
           </h1>
-          <p className="mt-4 text-lg text-muted-foreground italic">How and why we built the project</p>
+          <p className="mt-4 text-lg text-slate-600">How and why we built the project</p>
           <nav aria-label="On this page" className="mt-8 flex flex-wrap justify-center gap-2">
             {anchors.map((a) => (
               <a
                 key={a.href}
                 href={a.href}
-                className="rounded-md bg-brand px-4 py-2 text-sm font-semibold tracking-wide text-white uppercase transition hover:bg-brand/85"
+                className={buttonClass("secondary")}
               >
                 {a.label}
               </a>
@@ -194,7 +195,7 @@ export default function Page() {
       {/* Newsletter */}
       <section id="form" className="scroll-mt-20 border-y bg-muted/50 py-16 sm:py-24">
         <div className="mx-auto flex max-w-2xl flex-col items-center px-4 text-center">
-          <h2 className="font-heading text-2xl font-semibold tracking-wide sm:text-3xl">❤️ Enjoying the project? ❤️</h2>
+          <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">❤️ Enjoying the project? ❤️</h2>
           <p className="mt-4 text-lg text-muted-foreground">
             Dive deeper into the world of data visualization with <i>Dataviz Universe</i>, my newsletter packed with{" "}
             <b>actionable tips and tricks</b> to enhance your data storytelling skills.
@@ -296,17 +297,17 @@ export default function Page() {
       <section id="history" className="scroll-mt-20 bg-muted/40 py-16 sm:py-24">
         <div className="mx-auto max-w-6xl px-4">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-heading text-2xl font-medium tracking-[0.12em] uppercase sm:text-3xl">
+            <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em] sm:text-[32px] sm:leading-[44px]">
               Graphic classification history
             </h2>
-            <p className="mt-4 text-lg text-muted-foreground italic">
+            <p className="mt-4 text-lg text-slate-600">
               From data to viz is not the first project aiming to classify the different form of data visualization.
               Here is a quick overview of this history:
             </p>
           </div>
           <ol className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {history.map((h) => (
-              <li key={h.year} className="flex flex-col overflow-hidden rounded-xl border bg-card shadow-sm">
+              <li key={h.year} className="flex flex-col overflow-hidden border bg-card shadow-sm">
                 <a href={h.image} className="block bg-white p-3">
                   <img src={h.image} alt={h.alt} loading="lazy" className="mx-auto h-56 w-full object-contain" />
                 </a>
@@ -325,8 +326,8 @@ export default function Page() {
         <span id="acknowledgmentanchor" />
         <div className="mx-auto max-w-6xl px-4">
           <div className="mx-auto max-w-3xl text-center">
-            <h2 className="font-heading text-2xl font-medium tracking-[0.12em] uppercase sm:text-3xl">Acknowledgment</h2>
-            <p className="mt-4 text-lg text-muted-foreground italic">
+            <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em] sm:text-[32px] sm:leading-[44px]">Acknowledgment</h2>
+            <p className="mt-4 text-lg text-slate-600">
               This project would not exist without several blogs and website I consult on a daily basis. Even if they
               are not necessarily cited as sources, they are an essential source of inspiration.
             </p>

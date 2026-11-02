@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { KIT_FORM_UID } from "@/lib/site";
+import { buttonClass } from "@/lib/button";
 
 const KIT_HOST = "https://prodigious-trailblazer-3628.kit.com";
 
@@ -37,7 +38,7 @@ export function KitForm({ uid = KIT_FORM_UID, className }: { uid?: string; class
       {blocked && (
         <a
           href={`${KIT_HOST}/${uid}`}
-          className="inline-flex items-center rounded-md bg-brand px-6 py-3 font-heading text-sm font-semibold tracking-wider text-white uppercase transition hover:bg-brand/85"
+          className={buttonClass("primary", "lg")}
         >
           Subscribe to the newsletter
         </a>
@@ -53,7 +54,7 @@ export function NewsletterSection() {
       <div className="mx-auto flex max-w-3xl flex-col items-center px-4 text-center">
         <h2 className="font-heading text-3xl font-bold sm:text-4xl">Dataviz decision tree</h2>
         <p className="mt-4 max-w-xl text-lg text-muted-foreground">
-          <a href="/" className="text-brand hover:underline">
+          <a href="/" className="link">
             Data To Viz
           </a>{" "}
           is a comprehensive <strong>classification of chart types</strong> organized by data input format.
@@ -64,7 +65,7 @@ export function NewsletterSection() {
           src="/img/poster/poster_small.png"
           alt="High resolution poster of the Data to Viz decision tree"
           loading="lazy"
-          className="mt-8 w-full max-w-sm rounded-lg shadow-lg"
+          className="mt-8 w-full max-w-sm shadow-lg"
         />
       </div>
     </section>

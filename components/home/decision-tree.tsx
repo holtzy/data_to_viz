@@ -4,6 +4,7 @@ import { useState, type MouseEvent } from "react";
 import { TREES } from "@/components/home/data/trees";
 import { useOpenChart } from "@/components/home/chart-dialog";
 import { cn } from "@/lib/utils";
+import { buttonClass } from "@/lib/button";
 
 type Tip = { text: string; image?: string; x: number; y: number };
 
@@ -39,12 +40,7 @@ export function DecisionTree() {
             aria-selected={active === t.id}
             aria-controls={`tree-panel-${t.id}`}
             onClick={() => setActive(t.id)}
-            className={cn(
-              "rounded-md border px-4 py-2 text-sm font-medium transition",
-              active === t.id
-                ? "border-brand bg-brand text-white shadow-sm"
-                : "border-brand/40 text-brand hover:border-brand hover:bg-brand/10",
-            )}
+            className={buttonClass("toggle")}
           >
             {t.label}
           </button>
