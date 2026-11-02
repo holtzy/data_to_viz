@@ -31,7 +31,7 @@ export function Portfolio() {
           </button>
         ))}
       </div>
-      <ul className="mx-auto mt-10 flex max-w-5xl flex-wrap justify-center gap-x-3 gap-y-5">
+      <ul className="mx-auto mt-10 flex max-w-5xl flex-wrap justify-start gap-x-3 gap-y-5">
         {PORTFOLIO.map((item) => (
           <li
             key={item.id}
