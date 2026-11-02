@@ -5,10 +5,10 @@ import { NewsletterSection } from "@/components/newsletter";
 import { buttonClass } from "@/lib/button";
 
 /** Navigation + footer around any page. */
-export function PageShell({ children }: { children: ReactNode }) {
+export function PageShell({ children, narrowHeader = false }: { children: ReactNode; narrowHeader?: boolean }) {
   return (
     <>
-      <SiteHeader />
+      <SiteHeader narrow={narrowHeader} />
       <main className="flex-1">{children}</main>
       <SiteFooter />
     </>
@@ -33,19 +33,14 @@ function PageHeader({
   return (
     <header className="pt-24 sm:pt-32">
       <p className="text-sm font-medium tracking-wider text-brand uppercase">{kicker}</p>
-      <div className="mt-2 flex items-center justify-between gap-4">
-        <h1 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em] text-balance sm:text-[42px] sm:leading-[54px]">
+      <div className="mt-2 flex items-center gap-5">
+        <h1 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
           {title}
         </h1>
         {images.length > 0 && (
-          <div className="flex shrink-0 -space-x-4">
+          <div className="flex shrink-0 gap-1">
             {images.slice(0, 3).map((src) => (
-              <img
-                key={src}
-                src={src}
-                alt=""
-                className="size-14 bg-white object-contain sm:size-16"
-              />
+              <img key={src} src={src} alt="" className="size-14 object-contain sm:size-[72px]" />
             ))}
           </div>
         )}
@@ -54,11 +49,7 @@ function PageHeader({
       {anchors && (
         <nav aria-label="On this page" className="mt-5 flex flex-wrap gap-2">
           {anchors.map((a) => (
-            <a
-              key={a.href}
-              href={a.href}
-              className={buttonClass("secondary", "sm")}
-            >
+            <a key={a.href} href={a.href} className={buttonClass("secondary", "sm")}>
               {a.label}
             </a>
           ))}
@@ -81,7 +72,7 @@ type ContentLayoutProps = { title: string; images: string[]; children: ReactNode
 
 export function GraphLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell>
+    <PageShell narrowHeader>
       <Article
         header={
           <PageHeader
@@ -106,7 +97,7 @@ export function GraphLayout({ title, images, children }: ContentLayoutProps) {
 
 export function StoryLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell>
+    <PageShell narrowHeader>
       <Article header={<PageHeader title={title} images={images} kicker="Data story" />}>{children}</Article>
       <NewsletterSection />
     </PageShell>
@@ -115,7 +106,7 @@ export function StoryLayout({ title, images, children }: ContentLayoutProps) {
 
 export function CaveatLayout({ title, images, children }: ContentLayoutProps) {
   return (
-    <PageShell>
+    <PageShell narrowHeader>
       <Article header={<PageHeader title={title} images={images} kicker="Dataviz caveat" />}>{children}</Article>
       <NewsletterSection />
     </PageShell>

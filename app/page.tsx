@@ -4,6 +4,7 @@ import { PageShell } from "@/components/layouts";
 import { KitForm } from "@/components/newsletter";
 import { ChartDialogProvider } from "@/components/home/chart-dialog";
 import { DecisionTree } from "@/components/home/decision-tree";
+import { HashScroll } from "@/components/home/hash-scroll";
 import { Portfolio } from "@/components/home/portfolio";
 import { PosterCarousel } from "@/components/home/poster-carousel";
 import { StoryMenus } from "@/components/home/story-menus";
@@ -61,7 +62,7 @@ function HomeSection({
   children: ReactNode;
 }) {
   return (
-    <section id={id} className={cn("scroll-mt-16 px-4 py-24", muted && "bg-[#f8f9fa]", className)}>
+    <section id={id} className={cn("px-4 py-24", muted && "bg-[#f8f9fa]", className)}>
       {children}
     </section>
   );
@@ -97,6 +98,7 @@ export default function Home() {
   return (
     <PageShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
+      <HashScroll />
       <ChartDialogProvider>
         <div className="text-[19px] leading-7 text-slate-900">
           {/* Hero */}
