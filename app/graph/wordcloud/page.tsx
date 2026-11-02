@@ -22,7 +22,7 @@ export default function Page() {
 
         <p>
           Here is an example showing the most frequent words used by{" "}
-          <a href="https://en.wikipedia.org/wiki/Nekfeu">Nekfeu</a>, a famous french raper, in a few
+          <a href="https://en.wikipedia.org/wiki/Nekfeu">Nekfeu</a>, a famous french rapper, in a few
           of his songs. You can read more about this story{" "}
           <a href="/story/SeveralIndepLists.html">here</a>.
         </p>

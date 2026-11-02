@@ -5,16 +5,16 @@ import { pageMetadata } from "@/lib/metadata";
 
 export const metadata = pageMetadata({
   path: "/story/SeveralIndepLists.html",
-  title: "Comparing raper lyrics – from Data to Viz",
+  title: "Comparing rapper lyrics – from Data to Viz",
   description:
-    "This document gives a few suggestions to analyse a dataset composed by a few lists of items.It considers the lyrics of 2 famous french rapers (Nekfeu and…",
+    "This document gives a few suggestions to analyse a dataset composed by a few lists of items.It considers the lyrics of 2 famous french rappers (Nekfeu and…",
   image: "/img/section/VennSmall.png",
 });
 
 export default function Page() {
   return (
     <StoryLayout
-      title="Comparing raper lyrics"
+      title="Comparing rapper lyrics"
       images={[
         "/img/section/VennSmall.png",
         "/img/section/LollipopSmall.png",
@@ -29,7 +29,7 @@ export default function Page() {
             items.
             <br />
             <br />
-            It considers the lyrics of 2 famous french rapers (
+            It considers the lyrics of 2 famous french rappers (
             <a href="https://en.wikipedia.org/wiki/Nekfeu">Nekfeu</a> and{" "}
             <a href="https://en.wikipedia.org/wiki/Booba">Booba</a>) and a french singer (
             <a href="https://en.wikipedia.org/wiki/Georges_Brassens">Georges Brassens</a>).
@@ -222,7 +222,7 @@ wordcloud2(mywords, size = 2, minRotation = -pi/2, maxRotation = -pi/2,
         <figure>
           <img
             src="/figures/story/SeveralIndepLists/1.webp"
-            alt="Comparing raper lyrics – chart example"
+            alt="Comparing rapper lyrics – chart example"
             width={672}
             height={576}
             loading="lazy"
@@ -274,7 +274,7 @@ venn.diagram(
             width={480}
             height={480}
             src="/figures/story/SeveralIndepLists/2.webp"
-            alt="Comparing raper lyrics – chart example"
+            alt="Comparing rapper lyrics – chart example"
             loading="lazy"
           />{" "}
         </div>
