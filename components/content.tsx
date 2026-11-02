@@ -100,7 +100,7 @@ export function RelatedCard({
   return (
     <a
       href={href}
-      className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center no-underline transition hover:-translate-y-0.5 hover:border-brand/40 hover:shadow-md"
+      className="group flex flex-col items-center rounded-xl border bg-card p-5 text-center no-underline transition hover:border-brand/40 hover:shadow-md"
     >
       <img src={image} alt={title} loading="lazy" className="size-20 object-contain" />
       <span className="mt-3 font-heading text-[17px] leading-snug font-bold text-foreground group-hover:text-brand">

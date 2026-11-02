@@ -212,7 +212,7 @@ export default function Home() {
                     <li key={c.href}>
                       <a
                         href={c.href}
-                        className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-lg"
+                        className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:border-brand hover:shadow-lg"
                       >
                         <img src={c.image} alt="" loading="lazy" className="size-28 object-contain" />
                         <h3 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">
