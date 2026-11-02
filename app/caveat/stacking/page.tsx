@@ -128,8 +128,8 @@ ggplotly(p, tooltip="text")`}</Code>
             <p>
               however they are <code>not appropriate</code> to study the{" "}
               <code>evolution of each</code> individual group. This is due to 2 main reasons. First,
-              all except the since they do not have a flat <code>baseline</code>, it is very hard to
-              read their values at each tile stamp.
+              all groups except the bottom one do not have a flat <code>baseline</code>, so it is
+              very hard to read their values at each time stamp.
             </p>
           </li>{" "}
         </ul>
@@ -284,7 +284,7 @@ don %>%
           {" "}
           <li>
             Stacked Area Graphs Are Not Your Friend by{" "}
-            <a href="http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html">
+            <a href="https://web.archive.org/web/20181212114247/http://everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html">
               Everyday analytics
             </a>
           </li>{" "}

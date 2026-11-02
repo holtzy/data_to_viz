@@ -405,7 +405,7 @@ export default function Page() {
                 </li>
                 <li>
                   <a href="https://github.com/slowkow/ggrepel">Ggrepel</a> and other{" "}
-                  <a href="http://www.ggplot2-exts.org/gallery/">ggplot2 extension</a> that make your life simpler.
+                  <a href="https://exts.ggplot2.tidyverse.org/gallery/">ggplot2 extension</a> that make your life simpler.
                 </li>
                 <li>
                   <a href="https://github.com/talgalili/heatmaply">Heatmaply</a> for most of the heatmaps

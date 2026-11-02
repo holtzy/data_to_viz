@@ -275,7 +275,7 @@ abline(v = 350, lty = 2)`}</Code>
         </p>
 
         <p>
-          In addition of a dendrogram, it allows to understand why samples ore features are grouped
+          In addition of a dendrogram, it allows to understand why samples or features are grouped
           together.
         </p>
 

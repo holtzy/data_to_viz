@@ -250,7 +250,7 @@ data %>%
           </li>{" "}
           <li>
             Four problems with Pie Charts (And what to do instead) by{" "}
-            <a href="https://icharts.net/blog/data-visualization-guides/4-problems-pie-charts-instead">
+            <a href="https://web.archive.org/web/20180223231734/https://icharts.net/blog/data-visualization-guides/4-problems-pie-charts-instead">
               iCharts.net
             </a>
           </li>{" "}

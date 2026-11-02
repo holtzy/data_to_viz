@@ -76,7 +76,7 @@ ggplotly(p, tooltip="text")`}</Code>
           {" "}
           <li>
             Stacked Area Graphs Are Not Your Friend by{" "}
-            <a href="http://www.everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html">
+            <a href="https://web.archive.org/web/20181212114247/http://everydayanalytics.ca/2014/08/stacked-area-graphs-are-not-your-friend.html">
               Everyday analytics
             </a>
           </li>{" "}
