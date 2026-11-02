@@ -67,7 +67,6 @@ function HomeSection({
   );
 }
 
-
 const link = "link";
 
 const TEAM = [
@@ -152,8 +151,8 @@ export default function Home() {
             <div className="relative mx-auto max-w-5xl">
               <SectionHeading title="Data Story">
                 From Data to Viz provides a decision tree based on input data format. This tree leads to twenty formats
-                representing the most common dataset types. For each, an example of analysis based on real-life data
-                is provided using the{" "}
+                representing the most common dataset types. For each, an example of analysis based on real-life data is
+                provided using the{" "}
                 <a href="https://www.r-graph-gallery.com" className={link}>
                   R programming language
                 </a>
@@ -180,7 +179,9 @@ export default function Home() {
           {/* Newsletter */}
           <HomeSection id="form">
             <div className="mx-auto max-w-xl text-center">
-              <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">❤️ Enjoying the project? ❤️</h2>
+              <h2 className="font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">
+                ❤️ Enjoying the project? ❤️
+              </h2>
               <p className="mt-4 text-slate-600">
                 Dive deeper into the world of data visualization with <em>Dataviz Universe</em>, my newsletter packed
                 with <strong className="text-foreground">actionable tips and tricks</strong> to enhance your data
@@ -202,24 +203,33 @@ export default function Home() {
                 </a>
                 .
               </SectionHeading>
-              <ul className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-                {CAVEAT_CARDS.map((c) => (
-                  <li key={c.href}>
-                    <a
-                      href={c.href}
-                      className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-lg"
-                    >
-                      <img src={c.image} alt="" loading="lazy" className="size-28 object-contain" />
-                      <h3 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">{c.title}</h3>
-                      <p className="mt-2 text-[15px] leading-snug text-slate-600">{c.text}</p>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-10 text-center">
-                <a href="/caveats.html" className={buttonClass("secondary", "lg")}>
-                  See all caveats
-                </a>
+              {/* Teaser: the cards fade out into the background; all of them stay in the HTML. */}
+              <div className="relative mt-12">
+                <ul className="grid max-h-[760px] grid-cols-1 gap-5 overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
+                  {CAVEAT_CARDS.map((c) => (
+                    <li key={c.href}>
+                      <a
+                        href={c.href}
+                        className="group flex h-full flex-col items-center rounded-xl border bg-white p-5 text-center transition hover:-translate-y-0.5 hover:border-brand hover:shadow-lg"
+                      >
+                        <img src={c.image} alt="" loading="lazy" className="size-28 object-contain" />
+                        <h3 className="mt-4 font-heading text-[17px] leading-snug font-bold text-slate-900 group-hover:text-brand">
+                          {c.title}
+                        </h3>
+                        <p className="mt-2 text-[15px] leading-snug text-slate-600">{c.text}</p>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-gradient-to-b from-[#f8f9fa]/0 via-[#f8f9fa]/85 to-[#f8f9fa]"
+                />
+                <div className="absolute inset-x-0 bottom-12 flex justify-center">
+                  <a href="/caveats.html" className={buttonClass("primary", "lg")}>
+                    See all caveats
+                  </a>
+                </div>
               </div>
             </div>
           </HomeSection>
@@ -251,7 +261,9 @@ export default function Home() {
           {/* About */}
           <HomeSection id="about" muted>
             <div className="mx-auto max-w-3xl text-center">
-              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">About the project</h2>
+              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
+                About the project
+              </h2>
               <p className="mt-6 text-slate-600">
                 &lsquo;From Data to Viz&rsquo; is a classification of chart types based on input data format. It comes
                 in the form of a decision tree leading to a set of potentially appropriate visualizations to represent
@@ -318,7 +330,9 @@ export default function Home() {
           {/* Contact */}
           <HomeSection id="contact">
             <div className="mx-auto max-w-2xl text-center">
-              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">Contact</h2>
+              <h2 className="font-heading text-[32px] leading-[44px] font-bold tracking-[0.03em] sm:text-[42px] sm:leading-[54px]">
+                Contact
+              </h2>
               <p className="mt-6 text-slate-600">
                 We welcome any feedback you may have! You can open an issue on{" "}
                 <a href="https://github.com/holtzy/data_to_viz" className={link}>
