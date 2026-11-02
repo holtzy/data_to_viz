@@ -25,7 +25,7 @@ export function Portfolio() {
             onClick={() => setFilter(f.id)}
             aria-pressed={filter === f.id}
             className={cn(
-              "rounded-md border px-3 py-1.5 text-sm font-medium transition",
+              "rounded-md border px-3 py-1.5 text-sm transition",
               filter === f.id
                 ? "border-brand bg-brand text-white"
                 : "border-brand/40 bg-background text-brand hover:border-brand hover:bg-brand/10",
@@ -55,7 +55,7 @@ export function Portfolio() {
                   className="size-28 object-contain transition duration-300 group-hover:scale-105 group-hover:opacity-70"
                 />
               </span>
-              <span className="mt-3 font-heading text-xs font-semibold tracking-widest uppercase group-hover:text-brand">
+              <span className="mt-2 font-serif text-sm font-semibold group-hover:text-brand">
                 {item.title}
               </span>
             </a>

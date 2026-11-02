@@ -1,31 +1,64 @@
 // Generated from legacy/index.html by scripts/migrate/convert-home.mjs — edit freely.
-export const STORY_GROUPS = [
+export const STORY_GROUPS: {
+  label: string;
+  items: { title: string; href: string; images: string[] }[];
+}[] = [
   {
     label: "Numeric",
     items: [
       {
         title: "Rbnb night prices on the french riviera",
         href: "/story/OneNum.html",
+        images: ["/img/section/DensitySmall.png", "/img/section/HistogramSmall.png"],
       },
       {
         title: "Price / area relationship of 1500 apartments",
         href: "/story/TwoNum.html",
+        images: [
+          "/img/section/DensitySmall.png",
+          "/img/section/Box1Small.png",
+          "/img/section/ScatterPlotSmall.png",
+          "/img/section/2dDensitySmall.png",
+        ],
       },
       {
         title: "Evolution of the bitcoin price",
         href: "/story/TwoNumOrdered.html",
+        images: [
+          "/img/section/Line150.png",
+          "/img/section/Area150.png",
+          "/img/section/ScatterConnected150.png",
+        ],
       },
       {
         title: "Relationship between life expectancy, gdp per capita and population",
         href: "/story/ThreeNum.html",
+        images: [
+          "/img/section/Density150.png",
+          "/img/section/Box1150.png",
+          "/img/section/BubblePlot150.png",
+          "/img/section/3d150.png",
+        ],
       },
       {
         title: "Evolution of baby names in the US since 1880",
         href: "/story/OneCatSevOrderedNum.html",
+        images: [
+          "/img/section/Line150.png",
+          "/img/section/Area150.png",
+          "/img/section/StackedArea150.png",
+          "/img/section/Stream150.png",
+        ],
       },
       {
         title: "Features of 32 famous car models",
         href: "/story/SeveralNum.html",
+        images: [
+          "/img/section/DensitySmall.png",
+          "/img/section/Box1Small.png",
+          "/img/section/ViolinSmall.png",
+          "/img/section/JoyplotSmall.png",
+        ],
       },
     ],
   },
@@ -35,22 +68,51 @@ export const STORY_GROUPS = [
       {
         title: "Who sells more weapons?",
         href: "/story/OneNumOneCat.html",
+        images: [
+          "/img/section/Bar150.png",
+          "/img/section/CircularBarplot150.png",
+          "/img/section/Lollipop150.png",
+          "/img/section/Tree150.png",
+        ],
       },
       {
         title: "Comparing the lyrics of 3 french rappers",
         href: "/story/SeveralIndepLists.html",
+        images: [
+          "/img/section/VennSmall.png",
+          "/img/section/LollipopSmall.png",
+          "/img/section/WordCloudSmall.png",
+        ],
       },
       {
         title: "Repartition of the world population",
         href: "/story/SevCatOneNumNestedOneObsPerGroup.html",
+        images: [
+          "/img/section/Lollipop150.png",
+          "/img/section/CircularBarplot150.png",
+          "/img/section/Tree150.png",
+          "/img/section/CircularPacking150.png",
+        ],
       },
       {
         title: "The gender wage gap",
         href: "/story/OneNumSevCatSubgroupOneObsPerGroup.html",
+        images: [
+          "/img/section/BarSmall.png",
+          "/img/section/Parallel1Small.png",
+          "/img/section/SpiderSmall.png",
+          "/img/section/ScatterPlotSmall.png",
+        ],
       },
       {
         title: "Co-autorship network | migration flows",
         href: "/story/AdjacencyMatrix.html",
+        images: [
+          "/img/section/Arc150.png",
+          "/img/section/Network150.png",
+          "/img/section/Heatmap150.png",
+          "/img/section/Sankey150.png",
+        ],
       },
     ],
   },
@@ -60,34 +122,82 @@ export const STORY_GROUPS = [
       {
         title: "Who sells more weapons?",
         href: "/story/OneNumOneCat.html",
+        images: [
+          "/img/section/Bar150.png",
+          "/img/section/CircularBarplot150.png",
+          "/img/section/Lollipop150.png",
+          "/img/section/Tree150.png",
+        ],
       },
       {
         title: "How people perceive probability vocabulary",
         href: "/story/OneNumOneCatSeveralObs.html",
+        images: [
+          "/img/section/DensitySmall.png",
+          "/img/section/HistogramSmall.png",
+          "/img/section/Box1Small.png",
+          "/img/section/ViolinSmall.png",
+        ],
       },
       {
         title: "Features of 32 famous car models",
         href: "/story/SeveralNum.html",
+        images: [
+          "/img/section/DensitySmall.png",
+          "/img/section/Box1Small.png",
+          "/img/section/ViolinSmall.png",
+          "/img/section/JoyplotSmall.png",
+        ],
       },
       {
         title: "Evolution of baby names in the US since 1880",
         href: "/story/OneCatSevOrderedNum.html",
+        images: [
+          "/img/section/Line150.png",
+          "/img/section/Area150.png",
+          "/img/section/StackedArea150.png",
+          "/img/section/Stream150.png",
+        ],
       },
       {
         title: "The gender wage gap",
         href: "/story/OneNumSevCatSubgroupOneObsPerGroup.html",
+        images: [
+          "/img/section/BarSmall.png",
+          "/img/section/Parallel1Small.png",
+          "/img/section/SpiderSmall.png",
+          "/img/section/ScatterPlotSmall.png",
+        ],
       },
       {
         title: "How much do people tip?",
         href: "/story/OneNumSevCatSubgroupSevObsPerGroup.html",
+        images: [
+          "/img/section/DensitySmall.png",
+          "/img/section/Box1Small.png",
+          "/img/section/ViolinSmall.png",
+          "/img/section/HistogramSmall.png",
+        ],
       },
       {
         title: "Repartition of the world population",
         href: "/story/SevCatOneNumNestedOneObsPerGroup.html",
+        images: [
+          "/img/section/Lollipop150.png",
+          "/img/section/CircularBarplot150.png",
+          "/img/section/Tree150.png",
+          "/img/section/CircularPacking150.png",
+        ],
       },
       {
         title: "Co-autorship network | migration flows",
         href: "/story/AdjacencyMatrix.html",
+        images: [
+          "/img/section/Arc150.png",
+          "/img/section/Network150.png",
+          "/img/section/Heatmap150.png",
+          "/img/section/Sankey150.png",
+        ],
       },
     ],
   },
@@ -97,18 +207,26 @@ export const STORY_GROUPS = [
       {
         title: "Where surfers live",
         href: "/story/GPSCoordWithoutValue.html",
+        images: [
+          "/img/section/Choropleth150.png",
+          "/img/section/MapHexbin150.png",
+          "/img/section/Cartogram150.png",
+        ],
       },
       {
         title: "The population of 1000 cities in the UK",
         href: "/story/GPSCoordWithValue.html",
+        images: ["/img/section/BubbleMap150.png"],
       },
       {
         title: "Where surfers travel",
         href: "/story/MapConnection.html",
+        images: ["/img/section/ConnectedMapSmall.png"],
       },
       {
         title: "Distribution of restaurants in the south of France",
         href: "/graph/choropleth.html",
+        images: ["/img/section/Choropleth150.png"],
       },
     ],
   },
@@ -118,14 +236,27 @@ export const STORY_GROUPS = [
       {
         title: "Co-autorship network | migration flows",
         href: "/story/AdjacencyMatrix.html",
+        images: [
+          "/img/section/Arc150.png",
+          "/img/section/Network150.png",
+          "/img/section/Heatmap150.png",
+          "/img/section/Sankey150.png",
+        ],
       },
       {
         title: "Repartition of the world population",
         href: "/story/SevCatOneNumNestedOneObsPerGroup.html",
+        images: [
+          "/img/section/Lollipop150.png",
+          "/img/section/CircularBarplot150.png",
+          "/img/section/Tree150.png",
+          "/img/section/CircularPacking150.png",
+        ],
       },
       {
         title: "Connection between informatic components",
         href: "/graph/edge_bundling.html",
+        images: ["/img/section/Bundle150.png"],
       },
     ],
   },

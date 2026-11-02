@@ -11,6 +11,8 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-heading: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-slab: var(--font-roboto-slab), ui-serif, Georgia, serif;
+  --font-serif: var(--font-noto-serif), ui-serif, Georgia, serif;
   --color-brand: #69b3a2;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);

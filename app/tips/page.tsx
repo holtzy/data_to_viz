@@ -1,6 +1,9 @@
 import { PageShell } from "@/components/layouts";
 import { pageMetadata } from "@/lib/metadata";
-import { TipsForm } from "./tips-form";
+import { KitForm } from "@/components/newsletter";
+
+/** The "best tips" Kit form, a different form than the site-wide poster one. */
+const TIPS_FORM_UID = "00710104fc";
 
 export const metadata = pageMetadata({
   path: "/tips.html",
@@ -20,7 +23,7 @@ export default function Page() {
             classification of chart types based on their input data format, delivered straight to your inbox.
           </p>
           <div className="mt-8">
-            <TipsForm />
+            <KitForm uid={TIPS_FORM_UID} />
           </div>
         </div>
       </section>
