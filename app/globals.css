@@ -301,45 +301,24 @@ html {
 }
 
 /* Animated underline below page titles (components/title-underline.tsx):
- * draw in left to right, split into a staggered wave, merge back. */
+ * the line draws in left to right; the wave itself is SVG <animate>. */
 .title-underline {
   animation: title-underline-draw 600ms cubic-bezier(0.65, 0, 0.35, 1) both;
 }
-.title-underline > span {
-  animation: title-underline-wave 1100ms ease-in-out both;
-  animation-delay: calc(700ms + var(--i) * 45ms);
-}
 @keyframes title-underline-draw {
   from {
-    clip-path: inset(0 100% 0 0);
+    clip-path: inset(-12px 100% -12px 0);
   }
   to {
-    clip-path: inset(0 0 0 0);
-  }
-}
-@keyframes title-underline-wave {
-  0% {
-    transform: translateY(0) scaleX(1);
-  }
-  12% {
-    transform: translateY(0) scaleX(0.5);
-  }
-  35% {
-    transform: translateY(-6px) scaleX(0.5);
-  }
-  60% {
-    transform: translateY(4px) scaleX(0.5);
-  }
-  82% {
-    transform: translateY(0) scaleX(0.5);
-  }
-  100% {
-    transform: translateY(0) scaleX(1);
+    clip-path: inset(-12px 0 -12px 0);
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .title-underline,
-  .title-underline > span {
+  .title-underline {
     animation: none;
   }
+  .title-underline-wave {
+    display: none;
+  }
 }
+
