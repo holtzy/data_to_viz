@@ -117,7 +117,7 @@ export default function Home() {
                 <img src="/img/logo/tree-s.png" alt="From Data to Viz" className="mx-auto w-64 sm:w-80" />
                 <span className="sr-only">From Data to Viz – find the graphic you need</span>
               </h1>
-              <p className="mt-8 max-w-xl text-xl leading-8 font-light text-slate-700">{DESCRIPTION}</p>
+              <p className="mt-8 max-w-xl text-xl leading-8 text-slate-600">{DESCRIPTION}</p>
               <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <a href="#explore" className={buttonClass("primary", "lg")}>
                   Explore
