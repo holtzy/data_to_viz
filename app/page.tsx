@@ -207,7 +207,7 @@ export default function Home() {
               </SectionHeading>
               {/* Teaser: the cards fade out into the background; all of them stay in the HTML. */}
               <div className="relative mt-12">
-                <ul className="grid max-h-[760px] grid-cols-1 gap-5 overflow-hidden sm:grid-cols-2 lg:grid-cols-4">
+                <ul className="grid max-h-[640px] grid-cols-1 gap-5 overflow-hidden [mask-image:linear-gradient(to_bottom,black_35%,transparent_95%)] sm:grid-cols-2 lg:grid-cols-4">
                   {CAVEAT_CARDS.map((c) => (
                     <li key={c.href}>
                       <a
@@ -223,11 +223,7 @@ export default function Home() {
                     </li>
                   ))}
                 </ul>
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-gradient-to-b from-[#f8f9fa]/0 via-[#f8f9fa]/85 to-[#f8f9fa]"
-                />
-                <div className="absolute inset-x-0 bottom-12 flex justify-center">
+                <div className="absolute inset-x-0 bottom-10 flex justify-center">
                   <a href="/caveats.html" className={buttonClass("primary", "lg")}>
                     See all caveats
                   </a>
