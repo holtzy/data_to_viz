@@ -49,6 +49,7 @@ const FLASHCARD_ARTICLES: Record<string, string> = {
   "55-annotate-your-chart": "/caveat/annotation.html",
   "56-simpsons-paradox": "/caveat/simpson.html",
   "57-circular-barplot-distortion": "/caveat/circular_bar_yaxis.html",
+  "61-declutter-less-is-more": "/caveat/declutter.html",
 };
 
 /** The original gallery. Items without a flashcard are listed under "More caveats". */

@@ -69,13 +69,6 @@ export const FLASHCARD_SECTIONS: FlashcardSection[] = [
         "thumb": "/flashcards/thumbs/29-draw-proportions-accurately.webp"
       },
       {
-        "id": "32-share-the-y-axis",
-        "number": 32,
-        "title": "Share the y-axis to compare charts",
-        "image": "/flashcards/32-share-the-y-axis.webp",
-        "thumb": "/flashcards/thumbs/32-share-the-y-axis.webp"
-      },
-      {
         "id": "42-respect-time-intervals",
         "number": 42,
         "title": "Respect time intervals",
@@ -156,13 +149,6 @@ export const FLASHCARD_SECTIONS: FlashcardSection[] = [
         "title": "Use color intentionally",
         "image": "/flashcards/06-use-color-intentionally.webp",
         "thumb": "/flashcards/thumbs/06-use-color-intentionally.webp"
-      },
-      {
-        "id": "10-keep-colors-consistent",
-        "number": 10,
-        "title": "Keep colors consistent across charts",
-        "image": "/flashcards/10-keep-colors-consistent.webp",
-        "thumb": "/flashcards/thumbs/10-keep-colors-consistent.webp"
       },
       {
         "id": "21-optimizing-background-colors",
@@ -274,6 +260,13 @@ export const FLASHCARD_SECTIONS: FlashcardSection[] = [
         "title": "Make the title say something",
         "image": "/flashcards/49-make-the-title-say-something.webp",
         "thumb": "/flashcards/thumbs/49-make-the-title-say-something.webp"
+      },
+      {
+        "id": "61-declutter-less-is-more",
+        "number": 61,
+        "title": "Declutter: less is more",
+        "image": "/flashcards/61-declutter-less-is-more.webp",
+        "thumb": "/flashcards/thumbs/61-declutter-less-is-more.webp"
       }
     ]
   },
@@ -356,6 +349,47 @@ export const FLASHCARD_SECTIONS: FlashcardSection[] = [
         "title": "Annotation is crucial",
         "image": "/flashcards/55-annotate-your-chart.webp",
         "thumb": "/flashcards/thumbs/55-annotate-your-chart.webp"
+      },
+      {
+        "id": "60-dont-label-every-tick",
+        "number": 60,
+        "title": "Don't label every tick",
+        "image": "/flashcards/60-dont-label-every-tick.webp",
+        "thumb": "/flashcards/thumbs/60-dont-label-every-tick.webp"
+      }
+    ]
+  },
+  {
+    "id": "dashboards-and-data-stories",
+    "title": "Dashboards and data stories",
+    "cards": [
+      {
+        "id": "10-keep-colors-consistent",
+        "number": 10,
+        "title": "Keep colors consistent across charts",
+        "image": "/flashcards/10-keep-colors-consistent.webp",
+        "thumb": "/flashcards/thumbs/10-keep-colors-consistent.webp"
+      },
+      {
+        "id": "32-share-the-y-axis",
+        "number": 32,
+        "title": "Share the y-axis to compare charts",
+        "image": "/flashcards/32-share-the-y-axis.webp",
+        "thumb": "/flashcards/thumbs/32-share-the-y-axis.webp"
+      },
+      {
+        "id": "58-use-margins-between-charts",
+        "number": 58,
+        "title": "Use margins between charts",
+        "image": "/flashcards/58-use-margins-between-charts.webp",
+        "thumb": "/flashcards/thumbs/58-use-margins-between-charts.webp"
+      },
+      {
+        "id": "59-link-your-charts",
+        "number": 59,
+        "title": "Link charts that share an axis",
+        "image": "/flashcards/59-link-your-charts.webp",
+        "thumb": "/flashcards/thumbs/59-link-your-charts.webp"
       }
     ]
   },
