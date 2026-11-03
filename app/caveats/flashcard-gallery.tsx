@@ -8,11 +8,6 @@ import { FLASHCARD_SECTIONS, FLASHCARD_SIZE, FLASHCARD_THUMB_SIZE, type Flashcar
 import { buttonClass } from "@/lib/button";
 import { cn } from "@/lib/utils";
 
-type Props = {
-  /** Card id → article on data-to-viz.com that covers the same caveat. */
-  articles: Record<string, string>;
-};
-
 /**
  * Caveat flashcards grouped by section. "See card" (or the image) opens it large;
  * cards with a matching article get a "Read more" link to it.
@@ -41,9 +36,9 @@ const VIEWS: Record<
 /** Every card in the order shown on the page, for Previous / Next in the modal. */
 const ALL_CARDS = FLASHCARD_SECTIONS.flatMap((s) => s.cards);
 
-export function FlashcardGallery({ articles }: Props) {
+export function FlashcardGallery() {
   const [open, setOpen] = useState<Flashcard | null>(null);
-  const article = open ? articles[open.id] : undefined;
+  const article = open?.article;
   const index = open ? ALL_CARDS.findIndex((c) => c.id === open.id) : -1;
   const prev = index > 0 ? ALL_CARDS[index - 1] : null;
   const next = index >= 0 && index < ALL_CARDS.length - 1 ? ALL_CARDS[index + 1] : null;
@@ -99,8 +94,8 @@ export function FlashcardGallery({ articles }: Props) {
                       <button type="button" onClick={() => setOpen(card)} className={buttonClass("secondary", "sm")}>
                         See card
                       </button>
-                      {articles[card.id] && (
-                        <a href={articles[card.id]} className={buttonClass("primary", "sm")}>
+                      {card.article && (
+                        <a href={card.article} className={buttonClass("primary", "sm")}>
                           Read more
                         </a>
                       )}
@@ -109,9 +104,9 @@ export function FlashcardGallery({ articles }: Props) {
                   {/* Caption band, a lighter gray than the image area. */}
                   <div className="flex-1 bg-[#f9f9f9] px-3 py-2.5">
                     <p className="text-[15px] leading-snug text-slate-700">{card.title}</p>
-                    {articles[card.id] && (
+                    {card.article && (
                       <a
-                        href={articles[card.id]}
+                        href={card.article}
                         className="link mt-1 inline-block text-sm [@media(hover:hover)]:hidden"
                       >
                         Read more

@@ -6,6 +6,7 @@ import { RelatedCard } from "@/components/content";
 import { TitleUnderline } from "@/components/title-underline";
 import { DownloadFlashcards } from "./download-flashcards";
 import { FlashcardGallery } from "./flashcard-gallery";
+import { FLASHCARD_SECTIONS } from "@/lib/flashcards";
 
 type CaveatItem = { href: string; image: string; title: string; text: string; tags: string[]; external?: boolean };
 
@@ -16,41 +17,6 @@ export const metadata = pageMetadata({
     "A collection of dataviz caveats: pie charts, cut Y axis, spaghetti plots, error bars, overplotting, 3D, dual axes and more common graphic pitfalls to avoid.",
   image: "/img/parallax/caveat_gallery_overview.png",
 });
-
-/**
- * Flashcard (github.com/holtzy/dataviz-caveat-flashcards) → the article that
- * covers the same caveat. Cards without an entry only open in the lightbox.
- */
-const FLASHCARD_ARTICLES: Record<string, string> = {
-  "01-rank-your-barplot": "/caveat/order_data.html",
-  "02-prefer-horizontal-labels": "/caveat/hard_label.html",
-  "03-do-not-cut-y-axis": "/caveat/cut_y_axis.html",
-  "04-histogram-mind-the-bin": "/caveat/bin_size.html",
-  "05-boxplots-hide-info": "/caveat/boxplot.html",
-  "06-use-color-intentionally": "/caveat/color_com_nothing.html",
-  "07-map-bubble-size-to-area": "/caveat/radius_or_area.html",
-  "08-avoid-moire-effect":
-    "https://web.archive.org/web/20181226161528/http://gravyanecdote.com/uncategorized/wrappedbarsthoughts/",
-  "09-the-spaghetti-chart": "/caveat/spaghetti.html",
-  "10-keep-colors-consistent": "/caveat/consistency.html",
-  "12-avoid-counterintuitive": "/caveat/counter_intuitive.html",
-  "13-whats-wrong-with-pie": "/caveat/pie.html",
-  "14-error-bars-on-barplot": "/caveat/error_bar.html",
-  "15-dual-y-axis": "/caveat/dual_axis.html",
-  "16-radial-bar-chart": "/caveat/circular_barplot_accordeon.html",
-  "17-connect-the-dots": "/caveat/connect_your_dot.html",
-  "19-avoid-3d": "/caveat/3d.html",
-  "24-stacked-charts-are-hard": "/caveat/stacking.html",
-  "28-scatter-plot-aspect-ratio": "/caveat/aspect_ratio.html",
-  "41-normalize-your-maps": "https://xkcd.com/1138/",
-  "44-avoid-the-rainbow-palette": "https://blog.datawrapper.de/colors/",
-  "47-reorder-your-heatmap": "/graph/heatmap.html",
-  "48-beware-of-overplotting": "/caveat/overplotting.html",
-  "55-annotate-your-chart": "/caveat/annotation.html",
-  "56-simpsons-paradox": "/caveat/simpson.html",
-  "57-circular-barplot-distortion": "/caveat/circular_bar_yaxis.html",
-  "61-declutter-less-is-more": "/caveat/declutter.html",
-};
 
 /** The original gallery. Items without a flashcard are listed under "More caveats". */
 const caveats: CaveatItem[] = [
@@ -322,7 +288,8 @@ const caveats: CaveatItem[] = [
 ];
 
 /** Articles of the original gallery that no flashcard covers yet. */
-const covered = new Set(Object.values(FLASHCARD_ARTICLES));
+// Articles a flashcard already links to (from caveats.json in the flashcard repo).
+const covered = new Set(FLASHCARD_SECTIONS.flatMap((s) => s.cards.map((c) => c.article)));
 const moreCaveats = caveats.filter((c) => !covered.has(c.href));
 
 export default function Page() {
@@ -345,7 +312,7 @@ export default function Page() {
         </header>
 
         <div className="mx-auto max-w-[880px] px-6 pt-4 pb-12 sm:px-10">
-          <FlashcardGallery articles={FLASHCARD_ARTICLES} />
+          <FlashcardGallery />
 
           <section aria-labelledby="more-caveats" className="mt-16">
             <h2
