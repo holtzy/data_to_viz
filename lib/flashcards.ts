@@ -6,7 +6,7 @@ export type FlashcardSection = { id: string; title: string; cards: Flashcard[] }
 
 /** Size of the full cards and of the thumbnails (cropped to the two panels). */
 export const FLASHCARD_SIZE = { width: 2560, height: 1600 };
-export const FLASHCARD_THUMB_SIZE = { width: 960, height: 367 };
+export const FLASHCARD_THUMB_SIZE = { width: 960, height: 377 };
 
 export const FLASHCARD_SECTIONS: FlashcardSection[] = [
   {

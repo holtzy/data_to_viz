@@ -4,7 +4,7 @@ import { KitForm } from "@/components/newsletter";
 import { pageMetadata } from "@/lib/metadata";
 import { RelatedCard } from "@/components/content";
 import { TitleUnderline } from "@/components/title-underline";
-import { DownloadFlashcards } from "./download-flashcards";
+import { DownloadCta, DownloadFlashcards } from "./download-flashcards";
 import { FlashcardGallery } from "./flashcard-gallery";
 import { FLASHCARD_SECTIONS } from "@/lib/flashcards";
 
@@ -311,8 +311,12 @@ export default function Page() {
           </div>
         </header>
 
-        <div className="mx-auto max-w-[880px] px-6 pt-4 pb-12 sm:px-10">
+        <div className="mx-auto max-w-[1180px] px-6 pt-4 pb-12 sm:px-10">
           <FlashcardGallery />
+          <DownloadCta
+            title="Take them with you"
+            text="You made it through all {count} cards. Get them in one PDF to keep, print or share."
+          />
 
           <section aria-labelledby="more-caveats" className="mt-16">
             <h2

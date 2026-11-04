@@ -18,9 +18,9 @@ const outDir = path.join(root, "public/flashcards");
 const thumbDir = path.join(outDir, "thumbs");
 
 // Every card has its two panels at the same place: x 7.4–92.6%, y 25–74.4% of
-// a 2560×1600 card. The thumbnail keeps them with a small margin.
+// a 2560×1600 card. The thumbnail keeps them with a small margin (narrower on the sides).
 const CARD = { width: 2560, height: 1600 };
-const CROP = { x: 128, y: 352, width: 2304, height: 880 };
+const CROP = { x: 160, y: 352, width: 2240, height: 880 };
 const THUMB_WIDTH = 960;
 
 const SITE = "https://www.data-to-viz.com";
