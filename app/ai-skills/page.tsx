@@ -4,6 +4,7 @@ import { TitleUnderline } from "@/components/title-underline";
 import { pageMetadata } from "@/lib/metadata";
 import { SKILLS, SKILL_CATEGORIES, skillHref, type Skill } from "@/lib/ai-skills";
 import { GithubPill } from "./github-pill";
+import { HeroColumns } from "./hero-columns";
 import { InstallOptions } from "./install-options";
 
 /** Handwritten font, only for the little notes around the hero. */
@@ -60,7 +61,8 @@ export default async function Page() {
 
   return (
     <PageShell>
-      <header className="flex flex-col items-center px-4 pt-36 pb-10 text-center sm:pt-44">
+      <header className="relative isolate flex flex-col items-center px-4 pt-36 pb-10 text-center sm:pt-44">
+        <HeroColumns />
         {/* GitHub pill, with a handwritten "give me a star!" note pointing at it on wider screens. */}
         <div className="relative mb-6">
           <GithubPill initialStars={stars} />

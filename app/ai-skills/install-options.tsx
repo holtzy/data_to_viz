@@ -82,48 +82,51 @@ export function InstallOptions({
 
   return (
     <div>
-      {/* Button group: the options sit side by side in one bordered strip. A handwritten note points at it. */}
-      <div className="relative flex items-center">
-        <div
-          role="tablist"
-          aria-label="Ways to use the skills"
-          className="inline-flex overflow-hidden rounded-[4px] border border-slate-200"
-        >
-          {options.map((o) => (
-            <button
-              key={o.id}
-              type="button"
-              role="tab"
-              aria-selected={o.id === active}
-              onClick={() => {
-                setActive(o.id);
-                setCopied(false);
-              }}
-              className="h-8 border-l border-slate-200 bg-white px-3 text-[13px] font-medium text-slate-600 transition-colors first:border-l-0 hover:bg-slate-50 aria-selected:bg-slate-900 aria-selected:text-white"
-            >
-              {o.label}
-            </button>
-          ))}
-        </div>
-        {handClassName && (
+      {/* Button group: the options sit side by side in one bordered strip, centered except on a skill page.
+          The handwritten note hangs to its right without pushing it off center. */}
+      <div className={`flex ${compact ? "" : "justify-center"}`}>
+        <div className="relative">
           <div
-            aria-hidden
-            className={`${handClassName} pointer-events-none ml-3 hidden items-center gap-1 text-xl text-slate-400 sm:flex`}
+            role="tablist"
+            aria-label="Ways to use the skills"
+            className="inline-flex overflow-hidden rounded-[4px] border border-slate-200"
           >
-            <svg
-              viewBox="0 0 50 30"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              className="h-6 w-10"
-            >
-              <path d="M46 8 C 34 24, 18 24, 4 16" />
-              <path d="M11 11 L 4 16 L 12 21" />
-            </svg>
-            <span className="-translate-y-2 -rotate-3">install with</span>
+            {options.map((o) => (
+              <button
+                key={o.id}
+                type="button"
+                role="tab"
+                aria-selected={o.id === active}
+                onClick={() => {
+                  setActive(o.id);
+                  setCopied(false);
+                }}
+                className="h-8 border-l border-slate-200 bg-white px-3 text-[13px] font-medium text-slate-600 transition-colors first:border-l-0 hover:bg-slate-50 aria-selected:bg-slate-900 aria-selected:text-white"
+              >
+                {o.label}
+              </button>
+            ))}
           </div>
-        )}
+          {handClassName && (
+            <div
+              aria-hidden
+              className={`${handClassName} pointer-events-none absolute top-1/2 left-full ml-3 hidden -translate-y-1/2 items-center gap-1 text-xl whitespace-nowrap text-slate-400 sm:flex`}
+            >
+              <svg
+                viewBox="0 0 50 30"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                className="h-6 w-10"
+              >
+                <path d="M46 8 C 34 24, 18 24, 4 16" />
+                <path d="M11 11 L 4 16 L 12 21" />
+              </svg>
+              <span className="-translate-y-2 -rotate-3">install with</span>
+            </div>
+          )}
+        </div>
       </div>
 
       <div role="tabpanel" className={compact ? "mt-4" : "mt-6"}>

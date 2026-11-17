@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Star } from "lucide-react";
 import { SKILLS_REPO } from "@/lib/ai-skills";
 
@@ -36,13 +36,56 @@ export function GithubPill({ initialStars }: { initialStars: number | null }) {
     >
       <GithubIcon className="size-4" />
       holtzy/dataviz-skills
-      {stars !== null && (
-        <span className="flex h-6 items-center gap-1 rounded-full bg-slate-100 px-2 tabular-nums text-slate-600">
-          <Star className="size-3.5 fill-amber-400 text-amber-400" />
-          {stars}
-          <span className="sr-only">stars on GitHub</span>
-        </span>
-      )}
+      {stars !== null && <StarCount stars={stars} />}
     </a>
+  );
+}
+
+/**
+ * The star badge: it fades in and counts up to `stars` (and from the old number to the new one
+ * when GitHub answers with a different count). No animation for people who prefer reduced motion.
+ */
+function StarCount({ stars }: { stars: number }) {
+  const [shown, setShown] = useState<number | null>(null);
+  const from = useRef(0);
+
+  useEffect(() => {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const start = from.current;
+    const duration = reduced ? 0 : 1200;
+    let frame = 0;
+    let t0 = 0;
+    const tick = (now: number) => {
+      t0 ||= now;
+      const p = duration ? Math.min((now - t0) / duration, 1) : 1;
+      const value = Math.round(start + (stars - start) * (1 - Math.pow(1 - p, 3)));
+      from.current = value;
+      setShown(value);
+      if (p < 1) frame = requestAnimationFrame(tick);
+    };
+    // A short pause, so the count starts once the page has settled.
+    const timer = setTimeout(() => (frame = requestAnimationFrame(tick)), reduced ? 0 : 400);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(frame);
+    };
+  }, [stars]);
+
+  return (
+    <span
+      className={`flex h-6 items-center gap-1 rounded-full bg-slate-100 px-2 text-slate-600 tabular-nums transition-all duration-500 ${
+        shown === null ? "scale-75 opacity-0" : "scale-100 opacity-100"
+      }`}
+    >
+      <Star className="size-3.5 fill-amber-400 text-amber-400" />
+      {/* The invisible final number keeps the badge at its final width while counting. */}
+      <span className="grid">
+        <span className="invisible col-start-1 row-start-1">{stars}</span>
+        <span aria-hidden className="col-start-1 row-start-1 text-right">
+          {shown ?? 0}
+        </span>
+      </span>
+      <span className="sr-only">{stars} stars on GitHub</span>
+    </span>
   );
 }
