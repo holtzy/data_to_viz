@@ -74,5 +74,7 @@ export const SKILLS: Skill[] = [
     description: "Find 3 to 5 published charts to borrow ideas from, on dataviz-inspiration.com and Dataviz Index.",
     coAuthor: "Joël Gombin",
     image: "/ai-skills/inspiration.webp",
+    page: true,
+    updated: "November 10, 2026",
   },
 ];
