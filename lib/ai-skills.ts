@@ -34,6 +34,8 @@ export const SKILLS: Skill[] = [
     category: "code",
     description: "Build, fix or animate a D3.js chart inside a React or Next.js app.",
     image: "/ai-skills/d3.webp",
+    page: true,
+    updated: "November 5, 2026",
   },
   {
     slug: "ggplot2",
@@ -42,6 +44,8 @@ export const SKILLS: Skill[] = [
     description: "Publication-ready charts in R, following an opinionated set of ggplot2 best practices.",
     coAuthor: "Cédric Scherer",
     image: "/ai-skills/ggplot2.webp",
+    page: true,
+    updated: "November 5, 2026",
   },
   {
     slug: "matplotlib",
@@ -50,6 +54,8 @@ export const SKILLS: Skill[] = [
     description: "Publication-ready charts in Python with Matplotlib and Seaborn: styling, annotations, layouts and maps.",
     coAuthor: "Joseph Barbier",
     image: "/ai-skills/matplotlib.webp",
+    page: true,
+    updated: "November 5, 2026",
   },
   {
     slug: "new-dataviz-project",
@@ -57,6 +63,8 @@ export const SKILLS: Skill[] = [
     category: "code",
     description: "Start a web dataviz project with React, TypeScript, D3 and Tailwind, ready to deploy on GitHub Pages.",
     image: "/ai-skills/new-dataviz-project.webp",
+    page: true,
+    updated: "November 9, 2026",
   },
   {
     slug: "roast-my-chart",

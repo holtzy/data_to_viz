@@ -26,7 +26,7 @@ export default function Page() {
       slug="inspiration"
       pitch="Before drawing, your AI finds 3 to 5 published charts to borrow ideas from."
       imageAlt="A wall of published charts from dataviz-inspiration.com"
-      authors="Yan Holtz and Joël Gombin"
+      coAuthor={{ name: "Joël Gombin", url: "https://github.com/joelgombin", role: "Co-author of the skill" }}
       task="find references before making my chart"
       pairs={[{ slug: "roast-my-chart", text: "Check the chart once drawn" }]}
       example={

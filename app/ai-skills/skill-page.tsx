@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
+import { ArrowRight } from "lucide-react";
 import { PageShell } from "@/components/layouts";
+import { buttonClass } from "@/lib/button";
 import { getSkill, skillHref } from "@/lib/ai-skills";
 import { CopyText } from "./copy-text";
 import { InstallOptions } from "./install-options";
@@ -28,16 +30,24 @@ export function DashList({ items }: { items: ReactNode[] }) {
   );
 }
 
+/** Who wrote the skill with Yan. `photo` is optional: initials are shown without it. */
+export type CoAuthor = { name: string; url: string; role: string; photo?: string };
+/** The course the skill is based on. `image`: a preview of the course page. */
+export type Course = { name: string; url: string; image: string; text: string };
+
 /**
  * The page of one skill: header (name, pitch, ways to install, byline, image), the description
  * (`children`) with a sidebar (skills it pairs with, how to invoke it), then an optional `example`
  * section at full width. `task` finishes the sentence of the example prompt ("…and use it to <task>.").
+ * A `coAuthor` is credited in the byline and the sidebar; a `course` gets a link under the byline and
+ * a banner below the description.
  */
 export function SkillPage({
   slug,
   pitch,
   imageAlt,
-  authors = "Yan Holtz",
+  coAuthor,
+  course,
   task,
   pairs,
   children,
@@ -46,7 +56,8 @@ export function SkillPage({
   slug: string;
   pitch: string;
   imageAlt: string;
-  authors?: string;
+  coAuthor?: CoAuthor;
+  course?: Course;
   task: string;
   pairs: { slug: string; text: string }[];
   children: ReactNode;
@@ -73,8 +84,23 @@ export function SkillPage({
               <InstallOptions skill={slug} task={task} compact />
             </div>
             <p className="mt-5 font-mono text-xs text-slate-400">
-              By {authors} · Updated {skill.updated}
+              By Yan Holtz
+              {coAuthor && (
+                <>
+                  {" and "}
+                  <a href={coAuthor.url} className="text-slate-600 underline underline-offset-2 hover:text-slate-900">
+                    {coAuthor.name}
+                  </a>
+                </>
+              )}{" "}
+              · Updated {skill.updated}
             </p>
+            {course && (
+              <a href={course.url} className="link mt-3 inline-flex items-center gap-1.5 text-sm font-medium">
+                📚 Based on the {course.name} course
+                <ArrowRight className="size-3.5" />
+              </a>
+            )}
           </div>
           <div className="rounded-2xl border border-slate-200 bg-white p-2">
             <img
@@ -91,6 +117,35 @@ export function SkillPage({
           <article className="max-w-2xl">{children}</article>
 
           <aside className="md:pt-1">
+            {coAuthor && (
+              <div className="mb-6 border-b border-slate-100 pb-6">
+                <p className="text-sm text-slate-500">Co-authored with</p>
+                <a href={coAuthor.url} className="group mt-4 flex items-center gap-3 no-underline">
+                  {coAuthor.photo ? (
+                    <img
+                      src={coAuthor.photo}
+                      alt=""
+                      width={160}
+                      height={160}
+                      className="size-12 shrink-0 rounded-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-600">
+                      {coAuthor.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")}
+                    </span>
+                  )}
+                  <span>
+                    <span className="block text-[15px] font-semibold text-slate-900 group-hover:underline">
+                      {coAuthor.name}
+                    </span>
+                    <span className="block text-sm text-slate-500">{coAuthor.role}</span>
+                  </span>
+                </a>
+              </div>
+            )}
             <p className="text-sm text-slate-500">Pairs with</p>
             <ul className="mt-4 space-y-4">
               {pairs.map((pair) => {
@@ -126,6 +181,33 @@ export function SkillPage({
             </div>
           </aside>
         </div>
+
+        {course && (
+          <aside
+            aria-label={`The ${course.name} course`}
+            className="mt-24 grid items-center gap-8 rounded-2xl border border-slate-200 bg-white p-2 md:grid-cols-[1fr_1.1fr] md:gap-10"
+          >
+            <a href={course.url} className="block overflow-hidden rounded-xl">
+              <img
+                src={course.image}
+                alt={`The ${course.name} course page`}
+                width={800}
+                height={500}
+                loading="lazy"
+                className="aspect-[16/10] w-full object-cover object-top"
+              />
+            </a>
+            <div className="px-4 pb-6 md:px-0 md:pr-8 md:pb-0">
+              <p className="font-mono text-xs tracking-wide text-slate-400 uppercase">Go further</p>
+              <p className="mt-2 font-heading text-[26px] leading-9 font-bold tracking-[0.03em]">{course.name}</p>
+              <p className="mt-3 text-slate-600">{course.text}</p>
+              <a href={course.url} className={buttonClass("dark", "md", "mt-6")}>
+                See the course
+                <ArrowRight className="size-4" />
+              </a>
+            </div>
+          </aside>
+        )}
 
         {example && <section className="mt-24">{example}</section>}
       </div>
