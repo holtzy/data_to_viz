@@ -183,51 +183,55 @@ function BubbleStrip({ x, className }: { x: number; className: string }) {
 export function WorkshopAd({ className = "" }: { className?: string }) {
   const taken = WORKSHOP.totalSeats - WORKSHOP.seatsLeft;
   return (
-    <section
-      aria-labelledby="workshop"
-      className={`relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center sm:px-12 ${className}`}
-    >
-      <Bubbles />
-      <p className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium">
-        🎟️ Only {WORKSHOP.seatsLeft} seats left
-      </p>
-      <h2
-        id="workshop"
-        className="mx-auto mt-5 max-w-md font-heading text-[32px] leading-tight font-bold tracking-[0.03em] sm:text-5xl"
+    <div className={className}>
+      {/* A short rule, to give the page some breath before the ad. */}
+      <hr className="mx-auto mb-20 w-16 border-t-2 border-slate-200" />
+      <section
+        aria-labelledby="workshop"
+        className="relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center sm:px-12"
       >
-        Workshop: Claude Code for Dataviz
-      </h2>
-      <p className="mx-auto mt-6 max-w-lg text-slate-600 sm:text-lg">
-        Skills shine in an AI agent. In a 2-hour live workshop, we install Claude Code together, step by step, and you
-        leave with an agent building your dataviz app.
-      </p>
-      <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-600">
-        <span>🗓️ {WORKSHOP.date}</span>
-        <span>💻 Online</span>
-        <span>🎁 Claude Code access included</span>
-      </div>
+        <Bubbles />
+        <p className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium">
+          🎟️ Only {WORKSHOP.seatsLeft} seats left
+        </p>
+        <h2
+          id="workshop"
+          className="mx-auto mt-5 max-w-md font-heading text-[32px] leading-tight font-bold tracking-[0.03em] sm:text-5xl"
+        >
+          Workshop: Claude Code for Dataviz
+        </h2>
+        <p className="mx-auto mt-6 max-w-lg text-slate-600 sm:text-lg">
+          Skills shine in an AI agent. In a 2-hour live workshop, we install Claude Code together, step by step, and you
+          leave with an agent building your dataviz app.
+        </p>
+        <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-600">
+          <span>🗓️ {WORKSHOP.date}</span>
+          <span>💻 Online</span>
+          <span>🎁 Claude Code access included</span>
+        </div>
 
-      {/* One dot per seat: grey when taken, outlined in green when still open. */}
-      <div
-        role="img"
-        aria-label={`${WORKSHOP.seatsLeft} seats left out of ${WORKSHOP.totalSeats}`}
-        className="mx-auto mt-8 flex max-w-xs flex-wrap justify-center gap-1.5"
-      >
-        {Array.from({ length: WORKSHOP.totalSeats }, (_, i) => (
-          <span
-            key={i}
-            className={`size-3 rounded-full ${i < taken ? "bg-slate-300" : "border-2 border-emerald-500 bg-white"}`}
-          />
-        ))}
-      </div>
+        {/* One dot per seat: grey when taken, outlined in green when still open. */}
+        <div
+          role="img"
+          aria-label={`${WORKSHOP.seatsLeft} seats left out of ${WORKSHOP.totalSeats}`}
+          className="mx-auto mt-8 flex max-w-xs flex-wrap justify-center gap-1.5"
+        >
+          {Array.from({ length: WORKSHOP.totalSeats }, (_, i) => (
+            <span
+              key={i}
+              className={`size-3 rounded-full ${i < taken ? "bg-slate-300" : "border-2 border-emerald-500 bg-white"}`}
+            />
+          ))}
+        </div>
 
-      <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-600">
-        <img src="/ai-skills/people/yan-holtz.webp" alt="" className="size-8 rounded-full" />
-        Taught by Yan Holtz
-      </div>
-      <a href={WORKSHOP.url} className={buttonClass("dark", "lg", "mt-6")}>
-        Save my seat
-      </a>
-    </section>
+        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-600">
+          <img src="/ai-skills/people/yan-holtz.webp" alt="" className="size-8 rounded-full" />
+          Taught by Yan Holtz
+        </div>
+        <a href={WORKSHOP.url} className={buttonClass("dark", "lg", "mt-6")}>
+          Save my seat
+        </a>
+      </section>
+    </div>
   );
 }
