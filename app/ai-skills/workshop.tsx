@@ -145,7 +145,7 @@ function BubbleStrip({ x, className }: { x: number; className: string }) {
     <svg
       aria-hidden
       viewBox={`${x} 0 300 520`}
-      className={`pointer-events-none absolute top-0 -z-10 hidden h-full w-auto opacity-35 sm:block lg:opacity-80 ${className}`}
+      className={`pointer-events-none absolute top-0 -z-10 hidden h-full w-auto opacity-20 sm:block lg:opacity-40 ${className}`}
     >
       {CLUSTERS.filter((c) => c.cx >= x && c.cx < x + 300).map((c) => (
         <g key={c.label}>
@@ -183,12 +183,12 @@ function BubbleStrip({ x, className }: { x: number; className: string }) {
 export function WorkshopAd({ className = "" }: { className?: string }) {
   const taken = WORKSHOP.totalSeats - WORKSHOP.seatsLeft;
   return (
-    <div className={className}>
+    <div className={`mx-auto max-w-4xl ${className}`}>
       {/* A short rule, to give the page some breath before the ad. */}
       <hr className="mx-auto mb-20 w-16 border-t-2 border-slate-200" />
       <section
         aria-labelledby="workshop"
-        className="relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-16 text-center sm:px-12"
+        className="relative isolate overflow-hidden rounded-2xl border border-slate-200 bg-white px-6 py-12 text-center sm:px-12"
       >
         <Bubbles />
         <p className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-sm font-medium">
@@ -196,15 +196,15 @@ export function WorkshopAd({ className = "" }: { className?: string }) {
         </p>
         <h2
           id="workshop"
-          className="mx-auto mt-5 max-w-md font-heading text-[32px] leading-tight font-bold tracking-[0.03em] sm:text-5xl"
+          className="mx-auto mt-5 max-w-md font-heading text-[28px] leading-tight font-bold tracking-[0.03em] sm:text-4xl"
         >
           Workshop: Claude Code for Dataviz
         </h2>
-        <p className="mx-auto mt-6 max-w-lg text-slate-600 sm:text-lg">
+        <p className="mx-auto mt-4 max-w-lg text-slate-600">
           Skills shine in an AI agent. In a 2-hour live workshop, we install Claude Code together, step by step, and you
           leave with an agent building your dataviz app.
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-600">
+        <div className="mt-4 flex flex-wrap justify-center gap-x-5 gap-y-1 text-sm text-slate-600">
           <span>🗓️ {WORKSHOP.date}</span>
           <span>💻 Online</span>
           <span>🎁 Claude Code access included</span>
@@ -214,21 +214,21 @@ export function WorkshopAd({ className = "" }: { className?: string }) {
         <div
           role="img"
           aria-label={`${WORKSHOP.seatsLeft} seats left out of ${WORKSHOP.totalSeats}`}
-          className="mx-auto mt-8 flex max-w-xs flex-wrap justify-center gap-1.5"
+          className="mx-auto mt-6 flex max-w-[16rem] flex-wrap justify-center gap-1"
         >
           {Array.from({ length: WORKSHOP.totalSeats }, (_, i) => (
             <span
               key={i}
-              className={`size-3 rounded-full ${i < taken ? "bg-slate-300" : "border-2 border-emerald-500 bg-white"}`}
+              className={`size-2.5 rounded-full ${i < taken ? "bg-slate-300" : "border-2 border-emerald-500 bg-white"}`}
             />
           ))}
         </div>
 
-        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-slate-600">
+        <div className="mt-6 flex items-center justify-center gap-2 text-sm text-slate-600">
           <img src="/ai-skills/people/yan-holtz.webp" alt="" className="size-8 rounded-full" />
           Taught by Yan Holtz
         </div>
-        <a href={WORKSHOP.url} className={buttonClass("dark", "lg", "mt-6")}>
+        <a href={WORKSHOP.url} className={buttonClass("dark", "md", "mt-5")}>
           Save my seat
         </a>
       </section>
