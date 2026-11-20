@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { NAV_CTA, NAV_LINKS } from "@/lib/site";
@@ -8,7 +9,21 @@ import { buttonClass } from "@/lib/button";
 import { cn } from "@/lib/utils";
 
 const linkClass =
-  "inline-flex h-9 items-center rounded-[4px] px-2.5 text-sm font-light tracking-wider text-slate-900 uppercase transition-colors hover:bg-slate-100";
+  "inline-flex h-9 items-center rounded-[4px] px-2.5 text-sm font-light tracking-wider whitespace-nowrap text-slate-900 uppercase transition-colors hover:bg-slate-100";
+
+/** Underline for the link of the current page. */
+const activeClass = "underline decoration-1 underline-offset-[6px]";
+
+/**
+ * Whether `href` points at the current page or one of its sub-pages: /ai-skills.html is
+ * active on /ai-skills/d3.html too. Links to a home page section (/#explore) never are.
+ */
+function isActive(href: string, pathname: string) {
+  if (href.includes("#")) return false;
+  const path = href.replace(/\.html$/, "");
+  const current = pathname.replace(/\.html$/, "");
+  return current === path || current.startsWith(`${path}/`);
+}
 
 /**
  * Top navigation, styled like the React Graph Gallery's: fixed, translucent, blurred,
@@ -17,6 +32,7 @@ const linkClass =
 export function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
@@ -40,7 +56,12 @@ export function SiteHeader() {
           </a>
           <div className="hidden items-center gap-1 md:flex">
             {NAV_LINKS.map((l) => (
-              <a key={l.href} href={l.href} className={linkClass}>
+              <a
+                key={l.href}
+                href={l.href}
+                aria-current={isActive(l.href, pathname) ? "page" : undefined}
+                className={cn(linkClass, isActive(l.href, pathname) && activeClass)}
+              >
                 {l.label}
               </a>
             ))}
@@ -57,7 +78,12 @@ export function SiteHeader() {
               <ul className="flex flex-col gap-1 p-4">
                 {[...NAV_LINKS, NAV_CTA].map((l) => (
                   <li key={l.href}>
-                    <a href={l.href} onClick={() => setMenuOpen(false)} className={cn(linkClass, "w-full")}>
+                    <a
+                      href={l.href}
+                      onClick={() => setMenuOpen(false)}
+                      aria-current={isActive(l.href, pathname) ? "page" : undefined}
+                      className={cn(linkClass, "w-full", isActive(l.href, pathname) && activeClass)}
+                    >
                       {l.label}
                     </a>
                   </li>

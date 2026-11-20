@@ -5,10 +5,9 @@ export const KIT_FORM_UID = "8010f15fd2";
 
 export const NAV_LINKS = [
   { href: "/#explore", label: "Explore" },
-  { href: "/#story", label: "Stories" },
   { href: "/#portfolio", label: "Charts" },
   { href: "/caveats.html", label: "Caveats" },
-  { href: "/about.html", label: "About" },
+  { href: "/ai-skills.html", label: "AI skills" },
 ] as const;
 
 /** Highlighted call to action at the end of the navbar. */

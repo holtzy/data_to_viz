@@ -27,6 +27,11 @@ export function SiteFooter() {
               </a>{" "}
               and Conor Healy.
             </p>
+            <p className="mt-2">
+              <a href="/about.html" className="link">
+                About the project
+              </a>
+            </p>
           </div>
           <nav aria-label="Graph galleries">
             <p className="font-heading text-base font-bold tracking-[0.03em] text-slate-900">Build it</p>

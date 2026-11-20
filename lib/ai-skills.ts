@@ -22,9 +22,9 @@ export const skillHref = (skill: Skill) =>
 export const getSkill = (slug: string) => SKILLS.find((s) => s.slug === slug)!;
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
-  { id: "code", title: "Code", description: "Clean, idiomatic plotting code in your favorite library." },
   { id: "roast", title: "Roast", description: "Review a finished chart and get a list of what to fix." },
   { id: "inspiration", title: "Inspiration", description: "Find published charts to borrow ideas from before drawing." },
+  { id: "code", title: "Code", description: "Clean, idiomatic plotting code in your favorite library." },
 ];
 
 export const SKILLS: Skill[] = [

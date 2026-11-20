@@ -1,11 +1,23 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { Check, Copy } from "lucide-react";
 import { SKILLS_REPO } from "@/lib/ai-skills";
+import { DownloadSkills } from "./download-skills";
 
-/** `typed`: the code is typed out letter by letter when the option is shown. */
-type Option = { id: string; label: string; intro: string; code: string; note?: string; typed?: boolean };
+/**
+ * `typed`: the code is typed out letter by letter when the option is shown.
+ * `form`: no code block; the intro links to the email form, in a modal.
+ */
+type Option = {
+  id: string;
+  label: string;
+  intro: ReactNode;
+  code?: string;
+  note?: string;
+  typed?: boolean;
+  form?: boolean;
+};
 
 /**
  * The ways to get the skills. With a `skill`, the commands install only that one and the
@@ -14,6 +26,17 @@ type Option = { id: string; label: string; intro: string; code: string; note?: s
 function optionsFor(skill?: string, task = "review the chart I attached"): Option[] {
   const example = skill ?? "roast-my-chart";
   return [
+    {
+      id: "download",
+      label: "Download all",
+      form: true,
+      intro: (
+        <>
+          <DownloadSkills>Get all the dataviz skills in a zip file</DownloadSkills>, sent to your inbox.
+        </>
+      ),
+      note: "Unzip it, then upload a skill folder to Claude, ChatGPT or your coding agent.",
+    },
     {
       id: "prompt",
       label: "Prompt",
@@ -75,6 +98,7 @@ export function InstallOptions({
   const option = options.find((o) => o.id === active)!;
 
   const copy = async () => {
+    if (!option.code) return;
     await navigator.clipboard.writeText(option.code);
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
@@ -123,7 +147,7 @@ export function InstallOptions({
                 <path d="M46 8 C 34 24, 18 24, 4 16" />
                 <path d="M11 11 L 4 16 L 12 21" />
               </svg>
-              <span className="-translate-y-2 -rotate-3">install with</span>
+              <span className="-translate-y-2 -rotate-3">how to use</span>
             </div>
           )}
         </div>
@@ -131,21 +155,23 @@ export function InstallOptions({
 
       <div role="tabpanel" className={compact ? "mt-4" : "mt-6"}>
         <p className={compact ? "text-sm text-slate-600" : "text-slate-600"}>{option.intro}</p>
-        <div className={`relative rounded-[6px] bg-slate-900 text-slate-100 ${compact ? "mt-3" : "mt-4"}`}>
-          <pre
-            className={`pr-14 font-mono whitespace-pre-wrap [overflow-wrap:anywhere] ${compact ? "py-3 pl-4 text-[13px] leading-[22px]" : "py-4 pl-5 text-sm leading-6"}`}
-          >
-            <code>{option.typed ? <TypedText key={option.id} text={option.code} /> : option.code}</code>
-          </pre>
-          <button
-            type="button"
-            onClick={copy}
-            aria-label="Copy to clipboard"
-            className="absolute top-2.5 right-2.5 rounded-[4px] p-2 text-slate-400 transition-colors hover:bg-slate-700 hover:text-white"
-          >
-            {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
-          </button>
-        </div>
+        {option.form ? null : (
+          <div className={`relative rounded-[6px] bg-slate-900 text-slate-100 ${compact ? "mt-3" : "mt-4"}`}>
+            <pre
+              className={`pr-14 font-mono whitespace-pre-wrap [overflow-wrap:anywhere] ${compact ? "py-3 pl-4 text-[13px] leading-[22px]" : "py-4 pl-5 text-sm leading-6"}`}
+            >
+              <code>{option.typed ? <TypedText key={option.id} text={option.code ?? ""} /> : option.code}</code>
+            </pre>
+            <button
+              type="button"
+              onClick={copy}
+              aria-label="Copy to clipboard"
+              className="absolute top-2.5 right-2.5 rounded-[4px] p-2 text-slate-400 transition-colors hover:bg-slate-700 hover:text-white"
+            >
+              {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+            </button>
+          </div>
+        )}
         {option.note && <p className={`mt-3 text-slate-500 ${compact ? "text-xs" : "text-sm"}`}>{option.note}</p>}
       </div>
     </div>

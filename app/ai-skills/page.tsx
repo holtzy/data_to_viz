@@ -1,5 +1,8 @@
+import { Fragment } from "react";
 import { Caveat } from "next/font/google";
 import { PageShell } from "@/components/layouts";
+import { DownloadSkillsCta } from "./download-skills";
+import { WorkshopAd } from "./workshop";
 import { TitleUnderline } from "@/components/title-underline";
 import { pageMetadata } from "@/lib/metadata";
 import { SKILLS, SKILL_CATEGORIES, skillHref, type Skill } from "@/lib/ai-skills";
@@ -108,26 +111,33 @@ export default async function Page() {
         className="mx-auto max-w-[1080px] scroll-mt-24 px-6 pt-24 pb-16 sm:px-10"
       >
         {SKILL_CATEGORIES.map((category, i) => (
-          <section
-            key={category.id}
-            aria-labelledby={category.id}
-            className="grid gap-8 border-t border-slate-100 py-14 md:grid-cols-[1fr_2fr] md:gap-10"
-          >
-            <div>
-              <p className="font-mono text-sm text-slate-400">{String(i + 1).padStart(2, "0")}</p>
-              <h2 id={category.id} className="mt-2 font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">
-                {category.title}
-              </h2>
-              <p className="mt-2 max-w-xs text-slate-500">{category.description}</p>
-            </div>
-            <ul className="grid gap-5 sm:grid-cols-2">
-              {SKILLS.filter((s) => s.category === category.id).map((skill) => (
-                <SkillCard key={skill.slug} skill={skill} />
-              ))}
-            </ul>
-          </section>
+          <Fragment key={category.id}>
+            {/* The download pitch sits right before the code skills. */}
+            {category.id === "code" && <DownloadSkillsCta />}
+            <section
+              aria-labelledby={category.id}
+              className="grid gap-8 border-t border-slate-100 py-14 md:grid-cols-[1fr_2fr] md:gap-10"
+            >
+              <div>
+                <p className="font-mono text-sm text-slate-400">{String(i + 1).padStart(2, "0")}</p>
+                <h2 id={category.id} className="mt-2 font-heading text-[28px] leading-9 font-bold tracking-[0.03em]">
+                  {category.title}
+                </h2>
+                <p className="mt-2 max-w-xs text-slate-500">{category.description}</p>
+              </div>
+              <ul className="grid gap-5 sm:grid-cols-2">
+                {SKILLS.filter((s) => s.category === category.id).map((skill) => (
+                  <SkillCard key={skill.slug} skill={skill} />
+                ))}
+              </ul>
+            </section>
+          </Fragment>
         ))}
       </section>
+
+      <div className="mx-auto max-w-[1080px] px-6 pb-24 sm:px-10">
+        <WorkshopAd />
+      </div>
     </PageShell>
   );
 }

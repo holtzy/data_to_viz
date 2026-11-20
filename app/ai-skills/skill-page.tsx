@@ -5,6 +5,7 @@ import { buttonClass } from "@/lib/button";
 import { getSkill, skillHref } from "@/lib/ai-skills";
 import { CopyText } from "./copy-text";
 import { InstallOptions } from "./install-options";
+import { WorkshopAd } from "./workshop";
 
 export function SkillHeading({ id, children }: { id?: string; children: ReactNode }) {
   return (
@@ -210,6 +211,8 @@ export function SkillPage({
         )}
 
         {example && <section className="mt-24">{example}</section>}
+
+        <WorkshopAd className="mt-24" />
       </div>
     </PageShell>
   );

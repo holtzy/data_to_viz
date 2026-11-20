@@ -36,7 +36,7 @@ function Side({ images, side }: { images: Img[]; side: "left" | "right" }) {
           <div key={c} className="min-w-0 flex-1 overflow-hidden">
             <div
               className="hero-col flex flex-col gap-1.5"
-              style={{ animation: `${c === 1 ? "hero-down" : "hero-up"} ${70 + c * 12}s linear infinite` }}
+              style={{ animation: `${c === 1 ? "hero-down" : "hero-up"} ${140 + c * 24}s linear infinite` }}
             >
               {/* Three times the same images, so the loop jumps back by exactly a third without a seam. */}
               {[...column, ...column, ...column].map((img, i) => (
